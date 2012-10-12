@@ -57,6 +57,7 @@ GEM
     mime-types (1.19)
     multi_json (1.3.6)
     pg (0.14.1)
+    pg_array_parser (0.0.8)
     polyglot (0.3.3)
     ptools (1.2.2)
     rack (1.4.1)
@@ -112,12 +113,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  rgeo-activerecord
   activerecord-postgis-adapter
   coffee-rails (~> 3.2.1)
   jquery-rails
   pg
+  pg_array_parser
+  ptools
   rails (= 3.2.8)
+  rgeo-activerecord
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)
-  ptools
