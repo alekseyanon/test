@@ -10,7 +10,10 @@ gem 'pg_array_parser' # postgres_ext doesn't work with activerecord-postgis-adap
 gem 'acts-as-taggable-on'
 
 group :test, :development do
-  gem "rspec-rails", "~> 2.0"
+  gem 'rspec-rails', '~> 2.0'
+  gem 'shoulda-matchers'
+  gem 'machinist'
+  gem 'faker'
 end
 # Gems used only for assets and not required
 # in production environments by default.

@@ -12,4 +12,6 @@ class Geo::Osm::Node < ActiveRecord::Base
   end
   attr_accessible :lat, :lon, :tags
   serialize :tags, Tags.new
+
+  validates :id, :lat, :lon, :presence => true
 end
