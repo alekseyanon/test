@@ -8,6 +8,7 @@ gem 'activerecord-postgis-adapter'
 gem 'pg_array_parser' # postgres_ext doesn't work with activerecord-postgis-adapter
 
 gem 'acts-as-taggable-on'
+gem 'awesome_nested_set'
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'
