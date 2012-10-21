@@ -1,3 +1,4 @@
+# fun coding: UTF-8
 require 'machinist/active_record'
 
 Geo::Osm::Node.blueprint do
@@ -6,7 +7,7 @@ Geo::Osm::Node.blueprint do
   lon { 20 }
   tags { { transport: 'subway', station: 'subway',
            railway: 'station', operator: 'Петербургский метрополитен',
-           :'name:ru' => 'Рыбацкое', :'name:fi' => Rybatškoje,
+           :'name:ru' => 'Рыбацкое', :'name:fi' => 'Rybatškoje',
            :'name:en' => 'Rybatskoye', :'name:de' => 'Rybazkoje',
            name: 'Рыбацкое',
            colour: 'green' } }
@@ -16,4 +17,9 @@ Geo::Landmark.blueprint do
   id { sn }
   name { Faker::Lorem.word }
   node { Geo::Osm::Node.make }
+end
+
+Category.blueprint do
+  name { Faker::Lorem.word }
+  description { Faker::Lorem.sentence 2 }
 end
