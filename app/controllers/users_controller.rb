@@ -7,6 +7,8 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    logger.debug "'''''''''''''''''''''''''''''''''''''''''"
+    logger.debug params[:type]
     @user.roles = [params[:type].to_sym]
     # logger.debug "****************roles*********************"
     # logger.debug params[:type]
@@ -22,6 +24,7 @@ class UsersController < ApplicationController
 	  # end
 	  logger.debug "++++++++++++++METHOD:"
     logger.debug "START NEW USER MATHOD"
+    logger.debug params[:type]
 	  @user = User.new_user(params[:type], params[:user])
 	  logger.debug "++++++++++++++METHOD:"
     logger.debug "START register METHOD"

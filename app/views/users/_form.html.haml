@@ -2,6 +2,7 @@
   - @user.errors.full_messages.each do |msg| 
     %p= msg
   %ol.formList
+    = hidden_field_tag :type, params[:type]
     %li= form.input :email
     %li= form.input :password 
     %li= form.input :password_confirmation

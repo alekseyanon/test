@@ -47,7 +47,6 @@ class User < ActiveRecord::Base
   def self.new_user(role, user_params)
     logger.debug "--------ROLE:"
     logger.debug role
-
     logger.debug "--------PARAMS:"
     logger.debug user_params
 
@@ -55,18 +54,21 @@ class User < ActiveRecord::Base
 
     #User.find_fake_or_initialize(user_params)
     User.intlz(user_params).tap do |user|
-      user.roles = [:contractor]
+      user.roles = [:traveler]
+      logger.debug "///////////////////////////////"
+      logger.debug user.roles
       user.email = user_params[:email]
 
     end
     
   end
 
-  def intlz(attributes)
+  def self.intlz(attributes)
     user = new(attributes)
     user.password = attributes["password"]
     user.password_confirmation = attributes["password_confirmation"]
     user.email = attributes["email"]
+    user.roles = [:traveler]
     user
   end
   # регистрирует пользователя в системе
@@ -77,7 +79,7 @@ class User < ActiveRecord::Base
 
     transaction do
       if save
-        # start_membership(:inviter_token => inviter_token) if (inviter_token = options[:inviter_token])
+                # start_membership(:inviter_token => inviter_token) if (inviter_token = options[:inviter_token])
         # set_plan_on_signup(plan_name, plan_duration, plan_in_debt) if contractor?
 
         # if options.delete(:activate)
@@ -85,7 +87,6 @@ class User < ActiveRecord::Base
         # else
         #   Notifier.user_pending_activation_just_signed_up(self).deliver
         # end
-
         registered = true
       end
     end
@@ -105,31 +106,18 @@ class User < ActiveRecord::Base
   # def active?
   #   self.state == 'active'
   # end
-
-  def register
-    registered = false
-
-    transaction do
-      if save
-        registered = true
-      end
-    end
-    registered
-  end
-
-
   def name_domain_from_email
     email.split("@")
   end
 
-  # Проверка на то, что старый пароль введен правильно
-  validate :check_old_password
-  def check_old_password
-    return true unless @need_to_check_old_password
-    return true if self.valid_password?(old_password)
-    errors.add(:old_password, I18n.t("authlogic.error_messages.old_password_wrong"))
-    false
-  end
+              # Проверка на то, что старый пароль введен правильно
+              # validate :check_old_password
+              # def check_old_password
+              #   return true unless @need_to_check_old_password
+              #   return true if self.valid_password?(old_password)
+              #   errors.add(:old_password, I18n.t("authlogic.error_messages.old_password_wrong"))
+              #   false
+              # end
 
 protected
 
@@ -154,14 +142,14 @@ private
     set_default_subscription
   end
 
-  # def _after_activate
-  #   Notifier.user_activated(self).deliver
+    # def _after_activate
+    #   Notifier.user_activated(self).deliver
 
-  #   # активируем продукт, который юзер создал будучи незалогиненным
-  #   if (project = projects.first) && project.unpublished?
-  #     project.publish!
-  #   end
-  # end
+    #   # активируем продукт, который юзер создал будучи незалогиненным
+    #   if (project = projects.first) && project.unpublished?
+    #     project.publish!
+    #   end
+    # end
 
 
 end

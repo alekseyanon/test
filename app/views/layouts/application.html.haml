@@ -11,12 +11,13 @@
 
   %body
     #user_nav
-      = link_to "Register", new_user_path(:type => 'traveler')
+      = link_to "Register", signup_path(:type => 'traveler')
       - if current_user
         = link_to "Log out", logout_path, :method => :delete 
         %p role: 
         -if current_user.role?(:traveler)
           %p role traveler
+        = current_user.roles  
       - else
         -# = link_to "Log in", login_path 
         = link_to "login ", login_path(:type => 'traveler')
