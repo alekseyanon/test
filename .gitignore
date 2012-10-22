@@ -16,3 +16,6 @@
 
 # Ignore RubyMine files
 .idea
+
+/db/*.sql
+/test/
