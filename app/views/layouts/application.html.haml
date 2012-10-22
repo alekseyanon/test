@@ -11,7 +11,7 @@
 
   %body
     #user_nav
-      = link_to "Register", new_user_path (:type => 'traveler')
+      = link_to "Register", new_user_path(:type => 'traveler')
       - if current_user
         = link_to "Log out", logout_path, :method => :delete 
         %p role: 
