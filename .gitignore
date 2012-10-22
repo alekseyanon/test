@@ -16,3 +16,10 @@
 
 # Ignore RubyMine files
 .idea
+
+#rvm file
+.rvmrc
+
+/test/
+
+/db/*.sql

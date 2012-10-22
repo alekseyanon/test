@@ -1,0 +1,6 @@
+%h1 Log in
+= simple_form_for @user_session do |form| 
+  %ol.formList
+    %li= form.input :email 
+    %li= form.input :password 
+    %li= form.submit :submit
