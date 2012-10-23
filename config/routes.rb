@@ -1,4 +1,6 @@
 Smorodina::Application.routes.draw do
+  namespace :geo do resources :landmarks end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
