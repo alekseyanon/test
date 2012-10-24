@@ -12,6 +12,7 @@ gem 'awesome_nested_set'
 
 gem 'simple_form'
 gem 'haml-rails'
+gem 'chosen-rails'
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'
@@ -48,4 +49,5 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
+# For rake tasks
 gem 'ptools'

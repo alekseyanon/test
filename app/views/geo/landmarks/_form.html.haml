@@ -8,6 +8,6 @@
   .inputs
     = f.input :name
     = f.input :node_id, :collection => @node_ids
-    = f.input :tag_list, :as => :check_boxes, :collection => @categories
+    = f.input :tag_list, :input_html => { :multiple => true }, :collection => @categories
   .actions
     = f.submit 'Save'
