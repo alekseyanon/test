@@ -34,9 +34,6 @@ class Geo::LandmarksController < ApplicationController
   # GET /geo/landmarks/new.json
   def new
     @geo_landmark = Geo::Landmark.new
-    #require 'pp'
-    #pp @categories
-    #pp @nod
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @geo_landmark }

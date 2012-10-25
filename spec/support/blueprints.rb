@@ -14,7 +14,6 @@ Geo::Osm::Node.blueprint do
 end
 
 Geo::Landmark.blueprint do
-  id { sn }
   name { Faker::Lorem.word }
   node { Geo::Osm::Node.make }
 end
