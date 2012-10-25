@@ -6,4 +6,12 @@ class Geo::Landmark < ActiveRecord::Base
   validates_associated :node
 
   acts_as_taggable #TODO cover in specs
+
+  def self.by_tags_count(tag_list)
+    if tag_list && !tag_list.empty?
+      Geo::Landmark.tagged_with(tag_list, any: true).sort_by!{|l| -(l.tag_list & tag_list).length}
+    else
+      Geo::Landmark.all
+    end
+  end
 end

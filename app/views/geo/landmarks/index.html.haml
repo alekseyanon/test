@@ -8,6 +8,9 @@
 
   - @geo_landmarks.each do |geo_landmark|
     %tr
+      %td
+        %strong= geo_landmark.name
+      %td= geo_landmark.tag_list
       %td= link_to 'Show', geo_landmark
       %td= link_to 'Edit', edit_geo_landmark_path(geo_landmark)
       %td= link_to 'Destroy', geo_landmark, method: :delete, data: { confirm: 'Are you sure?' }
