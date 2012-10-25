@@ -1,15 +1,22 @@
 class Geo::LandmarksController < ApplicationController
-  before_filter :get_categories, :get_nodes, :only => [:new, :edit, :create, :update]
+  before_filter :get_categories, :get_nodes, :only => [:new, :edit, :create, :update, :search]
 
   # GET /geo/landmarks
   # GET /geo/landmarks.json
   def index
-    @geo_landmarks = Geo::Landmark.all
+    @geo_landmarks = Geo::Landmark.by_tags_count params[:tag_list]
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @geo_landmarks }
     end
+  end
+
+  def search
+  end
+
+  def do_search
+    redirect_to geo_landmarks_path tag_list:params[:tag_list]
   end
 
   # GET /geo/landmarks/1

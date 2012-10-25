@@ -7,7 +7,7 @@
           %li= msg
   .inputs
     = f.input :name
-    = f.input :node_id, :collection => @node_ids
-    = f.input :tag_list, :input_html => { :multiple => true }, :collection => @categories
+    = f.input :node_id, collection: @node_ids
+    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories
   .actions
     = f.submit 'Save'
