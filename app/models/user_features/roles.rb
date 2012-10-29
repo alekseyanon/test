@@ -28,7 +28,7 @@ module UserFeatures
       end
 
       def bit_values_for(role)
-        (0..(2**ROLES.size)).select{|n| n&(2**ROLES.index(role)) != 0 }
+        (0..(2**ROLES.size)).select{|n| n&(2**ROLES.index(role)) != 0}
       end
 
     end

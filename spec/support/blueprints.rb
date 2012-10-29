@@ -23,3 +23,7 @@ Category.blueprint do
   name { Faker::Lorem.word }
   description { Faker::Lorem.sentence 2 }
 end
+
+Authentication.blueprint do
+  # Attributes here
+end

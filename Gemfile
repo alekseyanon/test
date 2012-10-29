@@ -16,16 +16,18 @@ gem 'therubyracer'
 
 ##################################################
 ########### gems for users models ################
-gem 'authlogic'
+gem 'authlogic' 
 gem 'cancan'
 
-# gem 'omniauth'
-# gem 'omniauth-oauth2', '1.0.3'
-# gem 'omniauth-facebook'
-# gem 'omniauth-twitter'
-# gem 'omniauth-vkontakte'
-# gem 'omniauth-mailru'
-# gem 'omniauth-google-oauth2'
+### we need authentification through VK, FB, Twitter
+    gem 'omniauth'
+    gem 'omniauth-oauth2', '1.0.3'
+    gem 'omniauth-facebook'
+    gem 'omniauth-twitter'
+    gem 'omniauth-vkontakte'
+    # gem 'omniauth-mailru'
+    # gem 'omniauth-google-oauth2'
+
 gem 'aasm', '3.0.4'
 gem 'magic_numbers', :git => 'git://github.com/gzigzigzeo/magic_numbers.git' # Sotakone improved
 ##################################################

@@ -1,19 +1,21 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :email, :password, :password_confirmation, :name, :external_picture_url, :authentication_ids
   include UserFeatures::Roles
+  has_many :authentications, :dependent => :destroy
+  
   acts_as_authentic do |c|
     c.ignore_blank_passwords = false
   end
 
-  # что за переменные?
+  attr_accessor :old_password
+  attr_accessor :need_to_check_old_password
+
+  
 	# MIN_PREFIX_LEN = 2
  	# ON_FRONT_PAGE = 6
 
   #include AASM
-
   
-  # has_many :authentications, :dependent => :destroy
-
   # AASM
   #aasm_column :state
 
@@ -45,20 +47,14 @@ class User < ActiveRecord::Base
   
   # инициализует нового пользователя из данных регистрации
   def self.new_user(role, user_params)
-    logger.debug "--------ROLE:"
-    logger.debug role
-    logger.debug "--------PARAMS:"
-    logger.debug user_params
-
     user_params = user_params.with_indifferent_access
 
     #User.find_fake_or_initialize(user_params)
+
+    # TODO: Maybe, all that situated in block we can delete
     User.intlz(user_params).tap do |user|
       user.roles = [:traveler]
-      logger.debug "///////////////////////////////"
-      logger.debug user.roles
       user.email = user_params[:email]
-
     end
     
   end
@@ -121,6 +117,7 @@ class User < ActiveRecord::Base
 
 protected
 
+  # while never used
   def merge_params(attrs)
     attrs["realm_ids"] = (attrs["realm_1"].nil? ? [] : attrs["realm_1"].to_a) + (attrs["realm_2"].nil? ? [] : attrs["realm_2"].to_a)
     attrs["branch_ids"] = (attrs["branches_1"].nil? ? [] : attrs["branches_1"]) + (attrs["branches_2"].nil? ? [] : attrs["branches_2"])
