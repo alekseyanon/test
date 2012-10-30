@@ -4,6 +4,8 @@ class CreateArticles < ActiveRecord::Migration
       t.string :title
       t.text :body
       t.references :user
+      t.references :landmark
+
       t.boolean :published
       t.datetime :published_at
 
