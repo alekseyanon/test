@@ -24,7 +24,7 @@ Category.blueprint do
 end
 
 Article.blueprint do
-  user { nil }
+  user { nil } #TODO complete Article blueprint
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10}
   published { [true, false].sample }
@@ -32,5 +32,11 @@ Article.blueprint do
 end
 
 LandmarkDescription.blueprint do
-  # Attributes here
+  user { nil } #TODO complete LandmarDescription blueprint
+  title { Faker::Lorem.sentence }
+  body { Faker::Lorem.sentences 10}
+  published { [true, false].sample }
+  published_at { Time.now }
+
+  landmark { Geo::Landmark.make }
 end

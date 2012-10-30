@@ -24,7 +24,11 @@ describe LandmarkDescriptionsController do
   # LandmarkDescription. As you add validations to LandmarkDescription, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    { title: Faker::Lorem.sentence,
+      body:  Faker::Lorem.sentences(10),
+      published: [true, false].sample,
+      published_at: Time.now
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -36,7 +40,7 @@ describe LandmarkDescriptionsController do
 
   describe "GET index" do
     it "assigns all landmark_descriptions as @landmark_descriptions" do
-      landmark_description = LandmarkDescription.create! valid_attributes
+      landmark_description = LandmarkDescription.make! valid_attributes
       get :index, {}, valid_session
       assigns(:landmark_descriptions).should eq([landmark_description])
     end
@@ -44,7 +48,7 @@ describe LandmarkDescriptionsController do
 
   describe "GET show" do
     it "assigns the requested landmark_description as @landmark_description" do
-      landmark_description = LandmarkDescription.create! valid_attributes
+      landmark_description = LandmarkDescription.make! valid_attributes
       get :show, {:id => landmark_description.to_param}, valid_session
       assigns(:landmark_description).should eq(landmark_description)
     end
@@ -59,7 +63,7 @@ describe LandmarkDescriptionsController do
 
   describe "GET edit" do
     it "assigns the requested landmark_description as @landmark_description" do
-      landmark_description = LandmarkDescription.create! valid_attributes
+      landmark_description = LandmarkDescription.make! valid_attributes
       get :edit, {:id => landmark_description.to_param}, valid_session
       assigns(:landmark_description).should eq(landmark_description)
     end
@@ -105,7 +109,7 @@ describe LandmarkDescriptionsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested landmark_description" do
-        landmark_description = LandmarkDescription.create! valid_attributes
+        landmark_description = LandmarkDescription.make! valid_attributes
         # Assuming there are no other landmark_descriptions in the database, this
         # specifies that the LandmarkDescription created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -115,13 +119,13 @@ describe LandmarkDescriptionsController do
       end
 
       it "assigns the requested landmark_description as @landmark_description" do
-        landmark_description = LandmarkDescription.create! valid_attributes
+        landmark_description = LandmarkDescription.make! valid_attributes
         put :update, {:id => landmark_description.to_param, :landmark_description => valid_attributes}, valid_session
         assigns(:landmark_description).should eq(landmark_description)
       end
 
       it "redirects to the landmark_description" do
-        landmark_description = LandmarkDescription.create! valid_attributes
+        landmark_description = LandmarkDescription.make! valid_attributes
         put :update, {:id => landmark_description.to_param, :landmark_description => valid_attributes}, valid_session
         response.should redirect_to(landmark_description)
       end
@@ -129,7 +133,7 @@ describe LandmarkDescriptionsController do
 
     describe "with invalid params" do
       it "assigns the landmark_description as @landmark_description" do
-        landmark_description = LandmarkDescription.create! valid_attributes
+        landmark_description = LandmarkDescription.make! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         LandmarkDescription.any_instance.stub(:save).and_return(false)
         put :update, {:id => landmark_description.to_param, :landmark_description => {}}, valid_session
@@ -137,7 +141,7 @@ describe LandmarkDescriptionsController do
       end
 
       it "re-renders the 'edit' template" do
-        landmark_description = LandmarkDescription.create! valid_attributes
+        landmark_description = LandmarkDescription.make! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         LandmarkDescription.any_instance.stub(:save).and_return(false)
         put :update, {:id => landmark_description.to_param, :landmark_description => {}}, valid_session
@@ -148,14 +152,14 @@ describe LandmarkDescriptionsController do
 
   describe "DELETE destroy" do
     it "destroys the requested landmark_description" do
-      landmark_description = LandmarkDescription.create! valid_attributes
+      landmark_description = LandmarkDescription.make! valid_attributes
       expect {
         delete :destroy, {:id => landmark_description.to_param}, valid_session
       }.to change(LandmarkDescription, :count).by(-1)
     end
 
     it "redirects to the landmark_descriptions list" do
-      landmark_description = LandmarkDescription.create! valid_attributes
+      landmark_description = LandmarkDescription.make! valid_attributes
       delete :destroy, {:id => landmark_description.to_param}, valid_session
       response.should redirect_to(landmark_descriptions_url)
     end
