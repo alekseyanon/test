@@ -1,2 +1,0 @@
-module Geo::LandmarksHelper
-end
