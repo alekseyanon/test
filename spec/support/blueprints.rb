@@ -24,5 +24,9 @@ Category.blueprint do
 end
 
 Article.blueprint do
-  # Attributes here
+  user { nil }
+  title { Faker::Lorem.sentence }
+  body { Faker::Lorem.sentences 10}
+  published { [true, false].sample }
+  published_at { Time.now }
 end

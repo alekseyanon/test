@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe Article do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { described_class.make! }
+  it { should be_valid }
+  it { should validate_presence_of :title }
+  it { should validate_presence_of :body }
 end
