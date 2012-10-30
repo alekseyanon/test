@@ -8,6 +8,8 @@ class CreateArticles < ActiveRecord::Migration
       t.datetime :published_at
 
       t.timestamps
+
+      t.string :type
     end
     add_index :articles, :user_id
   end

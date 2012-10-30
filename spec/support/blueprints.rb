@@ -30,3 +30,7 @@ Article.blueprint do
   published { [true, false].sample }
   published_at { Time.now }
 end
+
+LandmarkDescription.blueprint do
+  # Attributes here
+end
