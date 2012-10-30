@@ -147,6 +147,7 @@ GEM
       activerecord (>= 3.0.3)
       arel (>= 2.0.6)
       rgeo (>= 0.3.10)
+    rinku (1.7.2)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -213,6 +214,7 @@ DEPENDENCIES
   ptools
   rails (= 3.2.8)
   rgeo-activerecord
+  rinku
   rspec-rails (~> 2.0)
   sass-rails (~> 3.2.3)
   shoulda-matchers

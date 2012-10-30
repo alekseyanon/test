@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.ignore_blank_passwords = false
   end
-
+  ### TODO: add validations
   attr_accessor :old_password
   attr_accessor :need_to_check_old_password
 
@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
 	# MIN_PREFIX_LEN = 2
  	# ON_FRONT_PAGE = 6
 
-  #include AASM
+  # include AASM
   
-  # AASM
-  #aasm_column :state
+  # # AASM
+  # aasm_column :state
 
   # aasm_state :pending_activation, :initial => true
   # aasm_state :active, :enter => :activation
@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
         # if options.delete(:activate)
         #   activate
         # else
-        #   Notifier.user_pending_activation_just_signed_up(self).deliver
+        Notifier.signup_confirmation(self).deliver
         # end
         registered = true
       end

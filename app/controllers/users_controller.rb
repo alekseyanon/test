@@ -12,6 +12,11 @@ class UsersController < ApplicationController
     # logger.debug params[:type]
   end
 
+  def sendmail
+    Notifier.signup_confirmation(current_user).deliver
+    redirect_to root_url
+  end
+
   def create
 	  
 	  providers = %w(facebook twitter vkontakte)

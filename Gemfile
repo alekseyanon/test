@@ -36,6 +36,7 @@ gem 'haml'
 gem 'simple_form' #installation simple form
   #rails generate simple_form:install
 
+gem 'rinku'               # auto_link
 
 # Gems used only for assets and not required
 # in production environments by default.

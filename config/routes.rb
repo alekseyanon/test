@@ -9,6 +9,8 @@ Smorodina::Application.routes.draw do
   controller :users do
     get( "/signup/:type", :action => :new, :as => :signup,
          :constraints => {:type => /traveler/} )
+
+    get '/sendmail', :action => "sendmail"
     #get '/contractor_campaign', :action => 'contractor_campaign', :as => :contractor_campaign
     #get '/signup', :action => 'signup', :as => :signup_page
     #get 'activate/:token', :action => 'activate', :as => :activate_user
