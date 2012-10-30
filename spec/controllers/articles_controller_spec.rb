@@ -24,7 +24,11 @@ describe ArticlesController do
   # Article. As you add validations to Article, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    { title: Faker::Lorem.sentence,
+      body:  Faker::Lorem.sentences(10),
+      published: [true, false].sample,
+      published_at: Time.now
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -36,7 +40,7 @@ describe ArticlesController do
 
   describe "GET index" do
     it "assigns all articles as @articles" do
-      article = Article.create! valid_attributes
+      article = Article.make! valid_attributes
       get :index, {}, valid_session
       assigns(:articles).should eq([article])
     end
@@ -44,7 +48,7 @@ describe ArticlesController do
 
   describe "GET show" do
     it "assigns the requested article as @article" do
-      article = Article.create! valid_attributes
+      article = Article.make! valid_attributes
       get :show, {:id => article.to_param}, valid_session
       assigns(:article).should eq(article)
     end
@@ -59,7 +63,7 @@ describe ArticlesController do
 
   describe "GET edit" do
     it "assigns the requested article as @article" do
-      article = Article.create! valid_attributes
+      article = Article.make! valid_attributes
       get :edit, {:id => article.to_param}, valid_session
       assigns(:article).should eq(article)
     end
@@ -105,7 +109,7 @@ describe ArticlesController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested article" do
-        article = Article.create! valid_attributes
+        article = Article.make! valid_attributes
         # Assuming there are no other articles in the database, this
         # specifies that the Article created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -115,13 +119,13 @@ describe ArticlesController do
       end
 
       it "assigns the requested article as @article" do
-        article = Article.create! valid_attributes
+        article = Article.make! valid_attributes
         put :update, {:id => article.to_param, :article => valid_attributes}, valid_session
         assigns(:article).should eq(article)
       end
 
       it "redirects to the article" do
-        article = Article.create! valid_attributes
+        article = Article.make! valid_attributes
         put :update, {:id => article.to_param, :article => valid_attributes}, valid_session
         response.should redirect_to(article)
       end
@@ -129,7 +133,7 @@ describe ArticlesController do
 
     describe "with invalid params" do
       it "assigns the article as @article" do
-        article = Article.create! valid_attributes
+        article = Article.make! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Article.any_instance.stub(:save).and_return(false)
         put :update, {:id => article.to_param, :article => {}}, valid_session
@@ -137,7 +141,7 @@ describe ArticlesController do
       end
 
       it "re-renders the 'edit' template" do
-        article = Article.create! valid_attributes
+        article = Article.make! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Article.any_instance.stub(:save).and_return(false)
         put :update, {:id => article.to_param, :article => {}}, valid_session
@@ -148,14 +152,14 @@ describe ArticlesController do
 
   describe "DELETE destroy" do
     it "destroys the requested article" do
-      article = Article.create! valid_attributes
+      article = Article.make! valid_attributes
       expect {
         delete :destroy, {:id => article.to_param}, valid_session
       }.to change(Article, :count).by(-1)
     end
 
     it "redirects to the articles list" do
-      article = Article.create! valid_attributes
+      article = Article.make! valid_attributes
       delete :destroy, {:id => article.to_param}, valid_session
       response.should redirect_to(articles_url)
     end
