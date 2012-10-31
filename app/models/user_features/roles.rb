@@ -14,7 +14,7 @@ module UserFeatures
         bitfield_attribute :roles,
                            :values => ROLES
 
-        # validate            :check_roles
+        validate            :check_roles
 
         include InstanceMethods
       end
@@ -59,10 +59,9 @@ module UserFeatures
 
       private
 
-      # def check_roles
-      #   return true #if self.fake?
-      #   self.errors.add :roles, "User should be either :contractor or :employer or :admin" if (self.roles & [:traveler, :admin]).empty?
-      # end
+      def check_roles
+        self.errors.add :roles, "My exception: something with role is incorrect" if (self.roles & [:traveler, :admin]).empty?
+      end
 
     end
 
