@@ -40,3 +40,16 @@ LandmarkDescription.blueprint do
 
   landmark { Geo::Landmark.make }
 end
+
+Authentication.blueprint do
+  # Attributes here
+end
+
+User.blueprint do
+  tmp = Faker::Lorem.characters(5)
+  name { Faker::Lorem.word }
+  password { tmp }
+  password_confirmation { tmp }
+  email {Faker::Internet.email }
+  roles { ["traveler"] }
+end

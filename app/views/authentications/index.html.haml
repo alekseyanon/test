@@ -1,0 +1,13 @@
+У вас используются следующие аккаунты соц сетей
+- if @authentications.any?
+  .socialaccs-block-connected
+    %h1 Иcпользуются
+    - @authentications.each do |authentication|
+      = auth_disconnect_button(authentication)
+
+- if not @authentications or @authentications.size < ButtonsHelper::PROVIDERS.size
+  .socialaccs-block-unconnected
+    %h1 Подключить аккаунт
+    - ButtonsHelper::PROVIDERS.map(&:to_s).each do |provider|
+      = auth_connect_button(provider)
+    .clear
