@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :name, :external_picture_url, :authentication_ids
   include UserFeatures::Roles
@@ -14,35 +15,44 @@ class User < ActiveRecord::Base
 	# MIN_PREFIX_LEN = 2
  	# ON_FRONT_PAGE = 6
 
-  # include AASM
+  include AASM
   
-  # # AASM
-  # aasm_column :state
+  # AASM
+  aasm_column :state
 
-  # aasm_state :pending_activation, :initial => true
-  # aasm_state :active, :enter => :activation
-  # aasm_state :blocked
-  # aasm_state :deleted, :enter => :prepare_user_for_deletion
+  aasm_state :pending_activation, :initial => true
+  aasm_state :active, :enter => :activation
+  aasm_state :blocked
+  aasm_state :deleted, :enter => :prepare_user_for_deletion
 
-  # aasm_event :activate, :after => :_after_activate do
-  #   transitions :from => :pending_activation, :to => :active
-  # end
+  aasm_event :activate, :after => :_after_activate do
+    transitions :from => :pending_activation, :to => :active
+  end
 
-  # aasm_event :deactivate do
-  #   transitions :from => :active, :to => :pending_activation
-  # end
+  aasm_event :deactivate do
+    transitions :from => :active, :to => :pending_activation
+  end
 
-  # aasm_event :block do
-  #   transitions :from => :active, :to => :blocked
-  # end
+  aasm_event :block do
+    transitions :from => :active, :to => :blocked
+  end
 
-  # aasm_event :unblock do
-  #   transitions :from => :blocked, :to => :active
-  # end
+  aasm_event :unblock do
+    transitions :from => :blocked, :to => :active
+  end
 
-  # aasm_event :soft_destroy do
-  #   transitions :from => :active, :to => :deleted
-  # end
+  aasm_event :soft_destroy do
+    transitions :from => :active, :to => :deleted
+  end
+
+  # Scopes
+  scope :in_state, lambda { |state|
+    where(:state => state.to_s)
+  }
+
+  scope :in_states, lambda { |*states|
+    where(:state => states.map { |s| s.to_s } )
+  }
 
   
   # инициализует нового пользователя из данных регистрации
@@ -99,21 +109,26 @@ class User < ActiveRecord::Base
   # end
 
   # Authlogic method to check if user is allowed to log in
-  # def active?
-  #   self.state == 'active'
-  # end
+  def active?
+    self.state == 'active'
+  end
+
+  def to_s
+    deleted? ? "Аккаунт удален" : name
+  end
+
   def name_domain_from_email
     email.split("@")
   end
 
-              # Проверка на то, что старый пароль введен правильно
-              # validate :check_old_password
-              # def check_old_password
-              #   return true unless @need_to_check_old_password
-              #   return true if self.valid_password?(old_password)
-              #   errors.add(:old_password, I18n.t("authlogic.error_messages.old_password_wrong"))
-              #   false
-              # end
+  # Проверка на то, что старый пароль введен правильно
+  validate :check_old_password
+  def check_old_password
+    return true unless @need_to_check_old_password
+    return true if self.valid_password?(old_password)
+    errors.add(:old_password, I18n.t("authlogic.error_messages.old_password_wrong"))
+    false
+  end
 
 protected
 
@@ -139,14 +154,12 @@ private
     set_default_subscription
   end
 
-    # def _after_activate
-    #   Notifier.user_activated(self).deliver
+  def _after_activate
+    Notifier.user_activated(self).deliver
 
-    #   # активируем продукт, который юзер создал будучи незалогиненным
-    #   if (project = projects.first) && project.unpublished?
-    #     project.publish!
-    #   end
-    # end
+    ### maybe we can add something that user created before activation
+
+  end
 
 
 end
