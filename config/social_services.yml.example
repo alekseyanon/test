@@ -1,0 +1,32 @@
+development:
+  twitter:
+    key: 13miB5TnS4NNXTXn94DA
+    secret: zXmLg9CIivjOV6prxEGEuKGD29g7NpoK6aXM21ZQY
+  facebook:
+    id: 107070769454922
+    secret: 438f784a07c9772aaad60042c5bce988
+  vkontakte:
+    id: 3198428
+    secret: C3AC3UBI4YsCbEMYGTtg
+  
+production:
+  twitter:
+    key: JVouEkLT4V3hEti1U4TASQ
+    secret: omSnuzgW1b7yjtrrvqUGeEGZNK3lKlR5HxkYrR20nY
+  facebook:
+    id: 186522214784562
+    secret: 28317c6ee44460edbe108fdfb66eaaa5
+  vkontakte:
+    id: 2832461 
+    secret: Nb9tQf9dL6OR7RbWIvCH
+
+test:
+  twitter:
+    key: YmXUyodVOBNGLk5WQX1W3A
+    secret: 8nCLvnTNtTmPlDOLLj5N8SHtFXpGoACvWfZ13urpbug
+  facebook:
+    id: 122774057746150
+    secret: efd91f7ebb6486c85b29253458b8fd7c
+  vkontakte:
+    id: 1998160
+

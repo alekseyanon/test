@@ -8,6 +8,39 @@ Smorodina::Application.routes.draw do
     end
   end
 
+  # Авторизация через социальные сервисы
+  resources :authentications, :only => [:edit, :update, :destroy]
+  match "/user/social_accounts", :to => "authentications#index", :as => :auth_list
+  match "/auth/:provider", :to => "users#auth_callback", :as => :auth
+  match "/auth/:provider/callback", :to => "users#auth_callback", :as => :auth_callback
+
+  controller :users do
+    get( "/signup/:type", :action => :new, :as => :signup,
+         :constraints => {:type => /traveler/} )
+
+    get '/sendmail', :action => "sendmail"
+    #TODO cleanup
+    #get '/contractor_campaign', :action => 'contractor_campaign', :as => :contractor_campaign
+    #get '/signup', :action => 'signup', :as => :signup_page
+    #get 'activate/:token', :action => 'activate', :as => :activate_user
+    #post 'activate/:token', :action => 'do_activate'
+  end
+  resources :users, :except => :new, :constraints => { :id => /[^\/]*\d+/ } do
+
+    new do
+      get :new_via_oauth
+      post :create_via_oauth
+    end
+  end
+  # routing for manage user_session model with nice url
+  controller :user_sessions do
+    get '/login', :action => 'new', :as => :login
+    post '/login', :action => 'create'
+    delete '/logout', :action => 'destroy'
+  end
+
+  resources :user_sessions # TODO: check errors
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -57,7 +90,7 @@ Smorodina::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'welcome#home'
 
   # See how all your routes lay out with "rake routes"
 

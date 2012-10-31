@@ -1,0 +1,12 @@
+= simple_form_for @user, :html => { :class => 'form-horizontal' } do |form| 
+  - @user.errors.full_messages.each do |msg| 
+    %p= msg
+  .formList
+    %p.social-login.small
+      %strong Воспользуйтесь существующим аккаунтом:
+      = auth_buttons(:button)
+    = hidden_field_tag :type, params[:type]
+    = form.input :email
+    = form.input :password 
+    = form.input :password_confirmation
+    = form.button :submit
