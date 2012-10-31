@@ -1,18 +1,19 @@
+# fun coding: UTF-8
+
 require "spec_helper"
 
 describe Notifier do
   describe "signup_confirmation" do
-    let(:mail) { Notifier.signup_confirmation }
+    let(:user) { User.make! }
+    let(:mail) { Notifier.signup_confirmation user }
 
     it "renders the headers" do
-      mail.subject.should eq("Signup confirmation")
-      mail.to.should eq(["to@example.org"])
-      mail.from.should eq(["from@example.com"])
+      mail.subject.should eq("Подтверждение регистрации")
+      mail.to.should eq [user.email]
+      mail.from.should eq %w(noreply@travel.com)
     end
 
-    it "renders the body" do
-      mail.body.encoded.should match("Hi")
-    end
+    it "renders the body" #TODO consider using localization, maybe just /config/locales/ru.yml for now
   end
 
 end
