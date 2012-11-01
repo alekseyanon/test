@@ -22,3 +22,5 @@
 
 /db/*.sql
 /test/
+
+/config/database.yml
