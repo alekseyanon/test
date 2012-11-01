@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe LandmarkDescription do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { described_class.make! }
+  it_behaves_like "an article"
+  it { should belong_to :landmark }
 end
