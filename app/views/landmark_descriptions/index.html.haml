@@ -1,0 +1,17 @@
+%h1 Listing landmark_descriptions
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @landmark_descriptions.each do |landmark_description|
+    %tr
+      %td= link_to 'Show', landmark_description
+      %td= link_to 'Edit', edit_landmark_description_path(landmark_description)
+      %td= link_to 'Destroy', landmark_description, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Landmark description', new_landmark_description_path
