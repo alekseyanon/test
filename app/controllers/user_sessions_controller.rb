@@ -38,7 +38,8 @@ class UserSessionsController < ApplicationController
           if is_social_signup
             @service_name = connection[:provider].titleize
             @user_name = connection[:user_name]
-            render :partial => "authentications/question_popup"
+            #render :partial => "authentications/question_popup"
+            redirect_to root_url
           else
             render :action => :new, :layout => false
           end

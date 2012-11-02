@@ -77,8 +77,7 @@ class UsersController < ApplicationController
         user = User.find_by_email(authentication.email)
         if user.present?
           authentication.update_attribute(:user, user)
-          # TODO: uncomment for user states 
-          # user.activate! if user.state == 'pending_activation'
+          user.activate! if user.state == 'pending_activation'
           UserSession.create(user)
           redirect_to session[:return_to] || root_url
         else
@@ -121,7 +120,7 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
 
     if @user.register
-      user_signed_up(@user)
+      user_signed_up#(@user)
       # TODO: add my view
       render :template => 'users/registration_completed', :layout => 'registration'
     else
