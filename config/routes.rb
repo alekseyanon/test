@@ -22,8 +22,8 @@ Smorodina::Application.routes.draw do
     #TODO cleanup
     #get '/contractor_campaign', :action => 'contractor_campaign', :as => :contractor_campaign
     #get '/signup', :action => 'signup', :as => :signup_page
-    #get 'activate/:token', :action => 'activate', :as => :activate_user
-    #post 'activate/:token', :action => 'do_activate'
+    get 'activate/:token', :action => 'activate', :as => :activate_user
+    post 'activate/:token', :action => 'do_activate'
   end
   resources :users, :except => :new, :constraints => { :id => /[^\/]*\d+/ } do
 
@@ -32,6 +32,11 @@ Smorodina::Application.routes.draw do
       post :create_via_oauth
     end
   end
+
+  controller :welcome do
+    get '/activation', :action => "pend_act", :as => :pendtoact
+  end
+
   # routing for manage user_session model with nice url
   controller :user_sessions do
     get '/login', :action => 'new', :as => :login

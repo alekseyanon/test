@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
     state :pending_activation, :initial => true
     state :active, :enter => :activation
     state :blocked
-    state :deleted, :enter => :prepare_user_for_deletion
+    state :deleted#, :enter => :prepare_user_for_deletion
 
     event :activate, :after => :_after_activate do
       transitions :from => :pending_activation, :to => :active
@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   # регистрирует пользователя в системе
   # options[:activate] если true, то активирует юзера, иначе высылает активационное письмо
   # options[:inviter_token]
-  def register
+  def register(options = {})
     registered = false
 
     transaction do
@@ -91,11 +91,11 @@ class User < ActiveRecord::Base
                 # start_membership(:inviter_token => inviter_token) if (inviter_token = options[:inviter_token])
         # set_plan_on_signup(plan_name, plan_duration, plan_in_debt) if contractor?
 
-        # if options.delete(:activate)
-        #   activate
-        # else
-        Notifier.signup_confirmation(self).deliver
-        # end
+        if options.delete(:activate)
+          activate
+        else
+          Notifier.signup_confirmation(self).deliver
+        end
         registered = true
       end
     end
@@ -154,7 +154,7 @@ private
 
   def activation
     reset_perishable_token!
-    set_default_subscription
+    #set_default_subscription
   end
 
   def _after_activate
