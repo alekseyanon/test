@@ -20,4 +20,13 @@ describe User do
   end
 
   it {user.traveler?.should be_true}
+
+  it "should have pending_activation state after creation" do
+    user.state.should == "pending_activation"
+    user.should_not be_active
+  end
+  it {user.register.should be_true}
+end
+
+describe User, "registration" do
 end
