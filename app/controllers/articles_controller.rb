@@ -2,9 +2,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = params[:query] ?
-        PgSearch.multisearch(params[:query]).map(&:searchable) :
-        Article.all
+    @articles = Article.search params[:query]
 
     respond_to do |format|
       format.html # index.html.erb

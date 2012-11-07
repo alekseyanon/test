@@ -5,5 +5,9 @@ class Article < ActiveRecord::Base
   validates_associated :user
 
   include PgSearch
-  multisearchable :against => [:title, :body]
+  pg_search_scope :search_full_text, against:{title:'A',body:'B'}
+
+  def self.search(query)
+    query ? Article.search_full_text(query) : Article.all
+  end
 end
