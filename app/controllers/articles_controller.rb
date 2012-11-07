@@ -2,12 +2,21 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @articles = params[:query] ?
+        PgSearch.multisearch(params[:query]).map(&:searchable) :
+        Article.all
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @articles }
     end
+  end
+
+  def search
+  end
+
+  def do_search
+    redirect_to articles_path query:params[:query]
   end
 
   # GET /articles/1

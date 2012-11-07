@@ -1,0 +1,7 @@
+%h1 Input query
+
+= form_tag '/articles/do_search', :method => :post do
+  .inputs
+    = text_field_tag :query
+  .actions
+    = submit_tag 'Search'
