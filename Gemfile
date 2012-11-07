@@ -10,6 +10,8 @@ gem 'pg_array_parser' # postgres_ext doesn't work with activerecord-postgis-adap
 gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'
 
+gem 'pg_search'
+
 ################## views #########################
 gem 'simple_form'
 gem 'haml-rails'
