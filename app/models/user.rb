@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :name, :external_picture_url, :authentication_ids
   include UserFeatures::Roles
   has_many :authentications, :dependent => :destroy
+  has_many :articles
   
   acts_as_authentic do |c|
     c.ignore_blank_passwords = false
