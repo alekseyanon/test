@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
+  include AASM
   attr_accessible :email, :password, :password_confirmation, :name, :external_picture_url, :authentication_ids
   include UserFeatures::Roles
   has_many :authentications, :dependent => :destroy
@@ -13,38 +14,40 @@ class User < ActiveRecord::Base
   attr_accessor :need_to_check_old_password
 
   
-	# MIN_PREFIX_LEN = 2
- 	# ON_FRONT_PAGE = 6
+  # MIN_PREFIX_LEN = 2
+  # ON_FRONT_PAGE = 6
 
-  include AASM
   
   # AASM
-  aasm_column :state
+  aasm :column => 'state' do
+    state :pending_activation, :initial => true
+    state :active, :enter => :activation
+    state :blocked
+    state :deleted#, :enter => :prepare_user_for_deletion
 
-  aasm_state :pending_activation, :initial => true
-  aasm_state :active, :enter => :activation
-  aasm_state :blocked
-  aasm_state :deleted, :enter => :prepare_user_for_deletion
+    event :activate, :after => :_after_activate do
+      transitions :from => :pending_activation, :to => :active
+    end
 
-  aasm_event :activate, :after => :_after_activate do
-    transitions :from => :pending_activation, :to => :active
+    event :deactivate do
+      transitions :from => :active, :to => :pending_activation
+    end
+
+    event :block do
+      transitions :from => :active, :to => :blocked
+    end
+
+    event :unblock do
+      transitions :from => :blocked, :to => :active
+    end
+
+    event :soft_destroy do
+      transitions :from => :active, :to => :deleted
+    end
+
+    
   end
 
-  aasm_event :deactivate do
-    transitions :from => :active, :to => :pending_activation
-  end
-
-  aasm_event :block do
-    transitions :from => :active, :to => :blocked
-  end
-
-  aasm_event :unblock do
-    transitions :from => :blocked, :to => :active
-  end
-
-  aasm_event :soft_destroy do
-    transitions :from => :active, :to => :deleted
-  end
 
   # Scopes
   scope :in_state, lambda { |state|
@@ -81,7 +84,7 @@ class User < ActiveRecord::Base
   # регистрирует пользователя в системе
   # options[:activate] если true, то активирует юзера, иначе высылает активационное письмо
   # options[:inviter_token]
-  def register
+  def register(options = {})
     registered = false
 
     transaction do
@@ -89,11 +92,11 @@ class User < ActiveRecord::Base
                 # start_membership(:inviter_token => inviter_token) if (inviter_token = options[:inviter_token])
         # set_plan_on_signup(plan_name, plan_duration, plan_in_debt) if contractor?
 
-        # if options.delete(:activate)
-        #   activate
-        # else
-        Notifier.signup_confirmation(self).deliver
-        # end
+        if options.delete(:activate)
+          activate
+        else
+          Notifier.signup_confirmation(self).deliver
+        end
         registered = true
       end
     end
@@ -152,7 +155,7 @@ private
 
   def activation
     reset_perishable_token!
-    set_default_subscription
+    #set_default_subscription
   end
 
   def _after_activate

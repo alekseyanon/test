@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
 	
+  before_filter :find_by_perishable_token, :only => [:activate, :do_activate]
 	before_filter :get_authentication, :only => [:new_via_oauth, :create_via_oauth]
 	#authorize_resource
 	respond_to :html, :js
@@ -33,7 +34,7 @@ class UsersController < ApplicationController
 		  @user = User.new_user(params[:type], params[:user])
 		  if @user.register
          # TODO: redirect to correct page
-		  	redirect_to root_url
+		  	redirect_to pendtoact_path
 		  else
 		  	render :action => :new
 		  end
@@ -76,8 +77,7 @@ class UsersController < ApplicationController
         user = User.find_by_email(authentication.email)
         if user.present?
           authentication.update_attribute(:user, user)
-          # TODO: uncomment for user states 
-          # user.activate! if user.state == 'pending_activation'
+          user.activate! if user.state == 'pending_activation'
           UserSession.create(user)
           redirect_to session[:return_to] || root_url
         else
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
             # Это на случай если "Зарегистрироваться через" была нажата не на форме регистрации, а сверху
             redirect_to signup_path(:type => 'traveler')
           else
-            user.register
+            user.register(activate: true)
             user_signed_up(user)
             UserSession.create(user)
             
@@ -120,7 +120,7 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
 
     if @user.register
-      user_signed_up(@user)
+      user_signed_up#(@user)
       # TODO: add my view
       render :template => 'users/registration_completed', :layout => 'registration'
     else
@@ -157,12 +157,32 @@ class UsersController < ApplicationController
   def index
     @users=User.all
   end
+
+  def activate
+  end
+
+  def do_activate
+    if @user
+      unless @user.active?
+        @user.activate!
+      end
+
+      # Log user in
+      UserSession.create(@user)
+
+      user_signed_up#(@user)
+
+      ### activate something if user save it in depending_activation state
+      flash[:notice] = "аккаунт успешно активирован"
+      redirect_to root_url(@user)
+    end
+  end
 	private
 	  def get_authentication
 	    @authentication = Authentication.find(params[:authentication_id])
 	  end
 
-	  def user_signed_up(user)
+	  def user_signed_up#(user)
       ### TODO: if we need integration with google analitics
       ### we can use this methods for send data to this service
 	    # user_role = 'registration.' << (user.role?(:contractor) ? 'contractor' : 'employer')
@@ -170,4 +190,12 @@ class UsersController < ApplicationController
 	    session[:just_signed_up] = true # in original it was a method, which named:
                                       # set_just_signed_up
 	  end
+
+    def find_by_perishable_token
+      @user = User.find_using_perishable_token(params[:token], 3.years)
+      if @user.nil?
+        flash[:error] = "ссылка на пользователя не корректна"#I18n.t("users.errors.activate")
+        redirect_to root_url
+      end
+    end
 end

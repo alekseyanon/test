@@ -45,7 +45,7 @@ test:
   encoding: unicode
   database: smorodina_test
   pool: 5
-  username: smorodina
+  username: osmosis
   password:
 
 production:

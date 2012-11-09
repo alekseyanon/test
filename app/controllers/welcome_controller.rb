@@ -3,4 +3,8 @@
 class WelcomeController < ApplicationController
   def home
   end
+
+  def pend_act
+  	@user = current_user
+  end
 end

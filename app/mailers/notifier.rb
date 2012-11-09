@@ -9,8 +9,22 @@ class Notifier < ActionMailer::Base
   #   en.notifier.signup_confirmation.subject
   #
   def signup_confirmation(user)
-    @user = user
-
+    @recipient = user
+    @header_key = "user_pending_activation_just_signed_up"
     mail to: user.email, subject: "Подтверждение регистрации"
+  end
+
+  def user_pending_activation_after_email_update(user)
+    @recipient = user
+    @header_key = "user_pending_activation_after_email_update"
+
+    mail(:to => user.email, :subject => "Смена e-mail")
+  end
+
+  def user_activated(user)
+    @recipient = user
+    @header_key = "user_activated"
+
+    mail(:to => user.email, :subject => "Вы успешно зарегистрировались!")
   end
 end

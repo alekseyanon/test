@@ -1,0 +1,9 @@
+.wrap
+  %strong.header Здравствуйте!
+  %p.info Для завершения активации вашего аккаунта необходимо нажать на кнопку &laquo;Старт&raquo;
+
+  = form_tag activate_user_path, :method => :post do
+    = hidden_field_tag 'token', @user.perishable_token
+    = hidden_field_tag 'just_signed_up', true
+    %button.activate(type="submit" class="button gradient-green")
+      %strong Старт

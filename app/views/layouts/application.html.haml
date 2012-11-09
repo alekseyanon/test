@@ -11,9 +11,13 @@
 
   %body
     #user_nav
+
       =current_user.try(:name) 
       </br>
       =current_user.try(:email)
+      </br>
+      =current_user.try(:state)
+      </br>
       = link_to "Отправить почту", sendmail_path
       </br>
       - if current_user
