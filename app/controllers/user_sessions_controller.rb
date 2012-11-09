@@ -30,10 +30,14 @@ class UserSessionsController < ApplicationController
         redirect_back_or_default root_url
       end
     else
-      flash.now[:error] = "Че то хрень какая-то с созданием сессии"#I18n.t("user_sessions.error.login")
+      flash[:error] = "Че то хрень какая-то с созданием сессии"#I18n.t("user_sessions.error.login")
 
       respond_to do |format|
-        format.html { render :action => :new }
+        format.html do
+          @user = User.new
+          render :template => "users/profile" 
+          #redirect_to profile_url(:type => "traveler")
+        end
         format.js do
           if is_social_signup
             @service_name = connection[:provider].titleize

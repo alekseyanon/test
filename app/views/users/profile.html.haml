@@ -1,0 +1,26 @@
+.inline
+  .login
+    %h1 Вход
+    = simple_form_for @user_session, :html => { :class => 'form-horizontal' } do |form| 
+      - @user_session.errors.full_messages.each do |msg| 
+        .alert.alert-error
+          %p= msg
+      %strong Воспользуйтесь существующим аккаунтом:
+      = auth_buttons(:button)
+      = form.input :email 
+      = form.error :email, :id => "email_errror"
+      = form.input :password 
+      = form.submit :submit
+  .registration
+    %h1 Регистрация
+    = simple_form_for @user, :html => { :class => 'form-horizontal' } do |form| 
+      - @user.errors.full_messages.each do |msg| 
+        .alert.alert-error
+          %p= msg
+      %strong Воспользуйтесь существующим аккаунтом:
+      = auth_buttons(:button)
+      = hidden_field_tag :type, params[:type]
+      = form.input :email
+      = form.input :password 
+      = form.input :password_confirmation
+      = form.button :submit

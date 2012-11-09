@@ -10,26 +10,25 @@
     = csrf_meta_tags 
 
   %body
-    #user_nav
+    #user_nav.btn-group
+      
+      %br/
+      -# comment 1
+      -# = link_to "Отправить почту", sendmail_path
+      .btn= link_to "Личный кабинет", profile_path(:type => 'traveler') 
 
-      =current_user.try(:name) 
-      </br>
-      =current_user.try(:email)
-      </br>
-      =current_user.try(:state)
-      </br>
-      = link_to "Отправить почту", sendmail_path
-      </br>
       - if current_user
-        = link_to "Log out", logout_path, :method => :delete 
+        .btn= link_to "Log out", logout_path, :method => :delete 
+
+        = current_user.try(:email) 
+        = current_user.try(:state)
         %p role: 
         -if current_user.role?(:traveler)
           %p role traveler
         = current_user.roles  
       - else
         -# = link_to "Log in", login_path 
-        = link_to "Register", signup_path(:type => 'traveler')
-        = link_to "login ", login_path(:type => 'traveler')
+        -# .btn= link_to "Register", signup_path(:type => 'traveler')
 
-  
+        -# .btn= link_to "login ", login_path(:type => 'traveler')
     = yield 

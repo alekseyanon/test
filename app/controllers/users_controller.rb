@@ -9,8 +9,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @user.roles = [params[:type].to_sym]
-    # logger.debug "****************roles*********************"
-    # logger.debug params[:type]
   end
 
   def sendmail
@@ -36,7 +34,8 @@ class UsersController < ApplicationController
          # TODO: redirect to correct page
 		  	redirect_to pendtoact_path
 		  else
-		  	render :action => :new
+        @user_session = UserSession.new
+		  	render :action => :profile
 		  end
 
 		end
@@ -158,6 +157,10 @@ class UsersController < ApplicationController
     @users=User.all
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
   def activate
   end
 
@@ -175,6 +178,16 @@ class UsersController < ApplicationController
       ### activate something if user save it in depending_activation state
       flash[:notice] = "аккаунт успешно активирован"
       redirect_to root_url(@user)
+    end
+  end
+
+  def profile
+    if current_user
+      redirect_to current_user
+    else
+      @user = User.new
+      @user.roles = [params[:type].to_sym]
+      @user_session = UserSession.new
     end
   end
 	private

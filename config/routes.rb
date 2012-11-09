@@ -24,6 +24,7 @@ Smorodina::Application.routes.draw do
     #get '/signup', :action => 'signup', :as => :signup_page
     get 'activate/:token', :action => 'activate', :as => :activate_user
     post 'activate/:token', :action => 'do_activate'
+    get '/profile/:type', :action => 'profile', as: :profile, :constraints => {:type => /traveler/}
   end
   resources :users, :except => :new, :constraints => { :id => /[^\/]*\d+/ } do
 
