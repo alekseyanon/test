@@ -1,4 +1,8 @@
 Smorodina::Application.routes.draw do
+  resources :landmark_descriptions
+
+  resources :articles
+
   namespace :geo do
     resources :landmarks do
       collection do
