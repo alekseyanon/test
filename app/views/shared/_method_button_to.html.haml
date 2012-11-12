@@ -1,0 +1,4 @@
+= form_tag(url, :method => method, :class => "inline"+(form_remote ? " remote" : "") ) do
+  - unless confirmation.blank?
+    %input{ :type => "hidden", :class => "confirm-message", :value => "#{h(confirmation)}" }
+  = submit_button(label, :flavor => flavor, :disabled => disabled)

@@ -19,6 +19,7 @@
 
       - if current_user
         .btn= link_to "Log out", logout_path, :method => :delete 
+        .btn= link_to "Редактировать профиль", edit_user_path(current_user)
 
         = current_user.try(:email) 
         = current_user.try(:state)

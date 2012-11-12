@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     # аккаунт, редиректим на список аккаунтов
     if user_logged_in?
       authentication.update_attribute(:user, current_user)
-      redirect_to auth_list_url
+      redirect_to edit_user_path(current_user)
     elsif authentication.user.present?
     # Если ранее заходил на сайт под этим социальным аккаунтом - авторизуем его
       UserSession.create(authentication.user)
@@ -130,6 +130,8 @@ class UsersController < ApplicationController
 
   def edit
 	  @user = current_user
+    @authentications = @user.authentications.all
+    @connected_providers = @authentications.map { |auth| auth.provider }
 	end
 
 	def update
@@ -159,6 +161,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @authentications = @user.authentications
   end
 
   def activate

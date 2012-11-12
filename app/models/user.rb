@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
   include AASM
-  attr_accessible :email, :password, :password_confirmation, :name, :external_picture_url, :authentication_ids
   include UserFeatures::Roles
+
+  attr_accessible :email, :password, :password_confirmation, :avatar, :name, :external_picture_url, :authentication_ids
+  attr_accessor :old_password
+  attr_accessor :need_to_check_old_password
+
   has_many :authentications, :dependent => :destroy
-  has_many :articles
+  has_many :articles  
+  
+  mount_uploader :avatar, AvatarUploader
   
   acts_as_authentic do |c|
     c.ignore_blank_passwords = false
   end
   ### TODO: add validations
-  attr_accessor :old_password
-  attr_accessor :need_to_check_old_password
-
-  
-  # MIN_PREFIX_LEN = 2
-  # ON_FRONT_PAGE = 6
-
+  ### TODO: name field does not used
   
   # AASM
   aasm :column => 'state' do

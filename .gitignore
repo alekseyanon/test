@@ -26,3 +26,5 @@
 /config/database.yml
 
 Gemfile.lock
+
+/public/uploads/

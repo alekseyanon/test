@@ -12,7 +12,7 @@ class AuthenticationsController < ApplicationController
     service_name = @authentication.provider.titleize
     @authentication.destroy
     flash[:notice] = I18n.t("authentications.delete_success", :service => service_name)
-    redirect_to :action => :index
+    redirect_to edit_user_path(current_user)
   end
 
 end
