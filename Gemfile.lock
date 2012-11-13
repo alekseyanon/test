@@ -36,6 +36,10 @@ GEM
     activerecord-postgis-adapter (0.4.3)
       pg (>= 0.11.0)
       rgeo-activerecord (~> 0.4.5)
+    activerecord-postgres-hstore (0.4.1)
+      pg
+      rails
+      rake
     activeresource (3.2.8)
       activemodel (= 3.2.8)
       activesupport (= 3.2.8)
@@ -201,6 +205,7 @@ PLATFORMS
 DEPENDENCIES
   aasm (= 3.0.4)
   activerecord-postgis-adapter
+  activerecord-postgres-hstore
   acts-as-taggable-on
   authlogic
   awesome_nested_set
