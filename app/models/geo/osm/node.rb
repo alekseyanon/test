@@ -7,4 +7,9 @@ class Geo::Osm::Node < ActiveRecord::Base
   serialize :tags, ActiveRecord::Coders::Hstore
 
   validates :id, :geom, :presence => true
+
+  scope :in_poly, lambda {|poly_id|
+    #{:conditions => ['id in (?)', Geo::Osm::Poly.find(poly_id).nodes]}
+    {:conditions => ['id = any(select unnest(nodes) from ways where id = ?)', poly_id]}
+  }
 end
