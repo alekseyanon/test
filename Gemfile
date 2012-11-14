@@ -5,7 +5,7 @@ gem 'rails', '3.2.8'
 gem 'pg'
 gem 'rgeo-activerecord'
 gem 'activerecord-postgis-adapter'
-gem 'pg_array_parser' # postgres_ext doesn't work with activerecord-postgis-adapter
+gem 'activerecord-postgres-hstore'
 
 gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'

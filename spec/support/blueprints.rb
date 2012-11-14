@@ -2,15 +2,18 @@
 require 'machinist/active_record'
 
 Geo::Osm::Node.blueprint do
-  id { 2 * 10 ** 9 + 1000 + sn.to_i }
-  lat { 10 }
-  lon { 20 }
+  id { 2 * 10 ** 9 + 2000 + sn.to_i }
+  geom { RGeo::Geographic.spherical_factory(:srid => 4326).point(29.9918672, 60.0052767) }
   tags { { transport: 'subway', station: 'subway',
            railway: 'station', operator: 'Петербургский метрополитен',
            :'name:ru' => 'Рыбацкое', :'name:fi' => 'Rybatškoje',
            :'name:en' => 'Rybatskoye', :'name:de' => 'Rybazkoje',
            name: 'Рыбацкое',
            colour: 'green' } }
+  version { 0 }
+  user_id { 0 }
+  tstamp { Time.now }
+  changeset_id { 0 }
 end
 
 Geo::Landmark.blueprint do
