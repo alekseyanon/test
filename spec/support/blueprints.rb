@@ -16,6 +16,16 @@ Geo::Osm::Node.blueprint do
   changeset_id { 0 }
 end
 
+Geo::Osm::Poly.blueprint do
+  id { 2 * 10 ** 6 + sn.to_i }
+  tags { { name: "ТД \"Карел Камень\" причал \"Обухово\"", landuse: "industrial"} }
+  nodes { [2003736032,2003736029,2003736036,2003736028,2003736030,2003736034,2003736026,28975413,2003736033,2003736032] }
+  version { 0 }
+  user_id { 0 }
+  tstamp { Time.now }
+  changeset_id { 0 }
+end
+
 Geo::Landmark.blueprint do
   name { Faker::Lorem.word }
   node { Geo::Osm::Node.make }

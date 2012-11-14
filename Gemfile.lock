@@ -36,6 +36,8 @@ GEM
     activerecord-postgis-adapter (0.4.3)
       pg (>= 0.11.0)
       rgeo-activerecord (~> 0.4.5)
+    activerecord-postgres-array (0.0.8)
+      activerecord
     activerecord-postgres-hstore (0.4.1)
       pg
       rails
@@ -202,6 +204,7 @@ PLATFORMS
 DEPENDENCIES
   aasm (= 3.0.4)
   activerecord-postgis-adapter
+  activerecord-postgres-array
   activerecord-postgres-hstore
   acts-as-taggable-on
   authlogic
