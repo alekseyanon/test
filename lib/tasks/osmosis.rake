@@ -28,4 +28,5 @@ EOF`
   `psql #{database} --username=#{username} < /usr/share/java/osmosis/script/pgsnapshot_schema_0.6.sql`
   pwd_option = password && !password.empty? ? "password=#{password}" : ""
   `osmosis --read-xml #{args[:file]} --write-pgsql database=#{database} user=#{username} #{pwd_option}`
+  `psql #{database} --username=#{username} -c "alter table users rename to osm_users"`
 end
