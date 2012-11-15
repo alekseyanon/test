@@ -3,7 +3,7 @@ require 'machinist/active_record'
 
 Geo::Osm::Node.blueprint do
   id { 2 * 10 ** 9 + 2000 + sn.to_i }
-  geom { RGeo::Geographic.spherical_factory(:srid => 4326).point(29.9918672, 60.0052767) }
+  geom { Geo::factory.point(29.9918672, 60.0052767) }
   tags { { transport: 'subway', station: 'subway',
            railway: 'station', operator: 'Петербургский метрополитен',
            :'name:ru' => 'Рыбацкое', :'name:fi' => 'Rybatškoje',
