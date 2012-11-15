@@ -18,9 +18,10 @@
       .btn= link_to "Личный кабинет", profile_path(:type => 'traveler') 
 
       - if current_user
-        .btn= link_to "Log out", logout_path, :method => :delete 
         .btn= link_to "Редактировать профиль", edit_user_path(current_user)
+        .btn= link_to "Настройки", settings_user_path(current_user)
 
+        .btn= link_to "Log out", logout_path, :method => :delete 
         = current_user.try(:email) 
         = current_user.try(:state)
         %p role: 

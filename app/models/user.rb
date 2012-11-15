@@ -3,15 +3,22 @@ class User < ActiveRecord::Base
   include AASM
   include UserFeatures::Roles
 
-  attr_accessible :email, :password, :password_confirmation, :avatar, :name, :external_picture_url, :authentication_ids
+  mount_uploader :avatar, AvatarUploader
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  
+  attr_accessible :email, :password, :password_confirmation, :avatar, :name, 
+                  :external_picture_url, :authentication_ids,
+                  :crop_x, :crop_y, :crop_w, :crop_h
+
+  after_update :crop_avatar 
   attr_accessor :old_password
   attr_accessor :need_to_check_old_password
+
 
   has_many :authentications, :dependent => :destroy
   has_many :articles  
   
-  mount_uploader :avatar, AvatarUploader
-  
+
   acts_as_authentic do |c|
     c.ignore_blank_passwords = false
   end
@@ -57,6 +64,10 @@ class User < ActiveRecord::Base
   scope :in_states, lambda { |*states|
     where(:state => states.map { |s| s.to_s } )
   }
+  
+  def crop_avatar
+    avatar.recreate_versions! if crop_x.present?
+  end
 
   
   # инициализует нового пользователя из данных регистрации
@@ -130,7 +141,7 @@ class User < ActiveRecord::Base
   def check_old_password
     return true unless @need_to_check_old_password
     return true if self.valid_password?(old_password)
-    errors.add(:old_password, I18n.t("authlogic.error_messages.old_password_wrong"))
+    errors.add(:old_password, "Старый пароль введен не верно.")
     false
   end
 
@@ -154,7 +165,9 @@ private
   end
 
   def activation
-    reset_perishable_token!
+    #reset_perishable_token!
+
+    logger.debug "-------------activation--------------------"
     #set_default_subscription
   end
 

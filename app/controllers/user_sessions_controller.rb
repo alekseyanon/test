@@ -21,7 +21,7 @@ class UserSessionsController < ApplicationController
     connection = session[:social_connection] if is_social_signup
 
     if @user_session.save
-      flash[:notice] = "И да пребудет с вами сессия"#I18n.t("user_sessions.successfull.login")
+      flash[:notice] = I18n.t("user_sessions.successfull.login")
       if connection
         @user_session.user.authentications.create(:provider => connection[:provider], :uid => connection[:uid])
         session[:social_connection] = nil
@@ -30,7 +30,7 @@ class UserSessionsController < ApplicationController
         redirect_back_or_default root_url
       end
     else
-      flash[:error] = "Че то хрень какая-то с созданием сессии"#I18n.t("user_sessions.error.login")
+      flash[:error] = I18n.t("user_sessions.errors.login")
 
       respond_to do |format|
         format.html do
@@ -60,8 +60,6 @@ class UserSessionsController < ApplicationController
   	@user_session = UserSession.find
 	  session[:return_to] = nil
 	  @user_session.destroy
-	  # TODO: new sintax for flash and redirect
-	  flash[:notice] = "сессия ушла в мир иной."
 	  redirect_to root_url
   end
 

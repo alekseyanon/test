@@ -1,0 +1,24 @@
+%h1	Редактирование профиля
+= simple_form_for @user, url: update_settings_user_path(@user), :html => { :class => 'form-horizontal', method: :put } do |form| 
+  - @user.errors.full_messages.each do |msg| 
+    %p.alert.alert-error= msg
+  - if @authentications.any?
+    .socialaccs-block-connected
+      %h3 Иcпользуются
+      - @authentications.each do |authentication|
+        = auth_disconnect_button(authentication)
+  - if not @authentications or @authentications.size < ButtonsHelper::PROVIDERS.size
+    .socialaccs-block-unconnected
+      %h3 Подключить аккаунт
+      - ButtonsHelper::PROVIDERS.map(&:to_s).each do |provider|
+        = auth_connect_button(provider)
+  -# = hidden_field_tag :type, params[:type]
+  = form.input :email
+  = form.input :old_password
+  = form.input :password
+  %h4 Рассылки:
+  = form.input :news_subscribed
+  = form.input :comments_subscribed
+  = form.input :answer_subscribed
+
+  = form.button :submit

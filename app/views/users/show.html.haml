@@ -5,7 +5,7 @@
 = @user.created_at.to_date
 .avatar
   - if (@user.avatar)
-    = image_tag @user.avatar.url
+    = image_tag @user.avatar.url(:thumb)
   - else
     А здесь могла бы быть ваша реклама.
 -# @user.authentications.each do |a|

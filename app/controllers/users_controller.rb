@@ -134,11 +134,65 @@ class UsersController < ApplicationController
     @connected_providers = @authentications.map { |auth| auth.provider }
 	end
 
+  def settings
+    @user = current_user
+    @authentications = current_user.authentications.all
+    @connected_providers = @authentications.map { |auth| auth.provider }
+
+  end
+
+  def update_settings
+    @user = current_user
+
+    if params[:user][:old_password].present?
+      @user.old_password = params[:user][:old_password]
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password]
+      @user.need_to_check_old_password = true
+    end
+
+    @user.news_subscribed = params[:user][:news_subscribed]
+    @user.comments_subscribed = params[:user][:comments_subscribed]
+    @user.answer_subscribed = params[:user][:answer_subscribed]
+    @user.email = params[:user][:email] if params[:user][:email].present?
+    
+    if @user.save
+      flash[:notice] = I18n.t("users.actions.update_password.flash")
+      redirect_to current_user
+    else
+      @authentications = current_user.authentications.all
+      @connected_providers = @authentications.map { |auth| auth.provider }
+      render :settings
+    end
+  end
+
+  ### TODO: delete this method
+  # def update_email
+  #   if @user.change_email(params[:user])
+  #     current_user_session.destroy
+  #     flash[:notice] = I18n.t("users.actions.email_updated")
+  #     redirect_to '/'
+  #   else
+  #     render :action => 'change_password_or_email'
+  #   end
+  # end
+
 	def update
 	  @user = current_user
+    if params[:user][:crop_x].present?
+      session[:x] = params[:user][:crop_x]
+      session[:y] = params[:user][:crop_y]
+      session[:w] = params[:user][:crop_w]
+      session[:h] = params[:user][:crop_h]
+    end
 	  if @user.update_attributes(params[:user])
-	    flash[:notice] = "Вот теперь все прекрасно)"
-	    redirect_to root_url
+      if params[:user][:avatar].present?
+        
+        render :crop
+      else
+  	    flash[:notice] = I18n.t("users.actions.update.flash")
+  	    redirect_to current_user
+      end
 	  else
 	    render :action => 'edit'
 	  end
@@ -179,8 +233,8 @@ class UsersController < ApplicationController
       user_signed_up#(@user)
 
       ### activate something if user save it in depending_activation state
-      flash[:notice] = "аккаунт успешно активирован"
-      redirect_to root_url(@user)
+      flash[:notice] = I18n.t("users.actions.do_activate.flash")
+      redirect_to root_url
     end
   end
 
@@ -210,7 +264,7 @@ class UsersController < ApplicationController
     def find_by_perishable_token
       @user = User.find_using_perishable_token(params[:token], 3.years)
       if @user.nil?
-        flash[:error] = "ссылка на пользователя не корректна"#I18n.t("users.errors.activate")
+        flash[:error] = I18n.t("users.errors.find_by_perishable_token")
         redirect_to root_url
       end
     end
