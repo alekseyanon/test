@@ -25,7 +25,8 @@ task :osmosis, [:file] => :environment do |t, args|
       create extension postgis;
 EOF`
   puts "----------------------------------------------"
-  `psql #{database} --username=#{username} < /usr/share/java/osmosis/script/pgsnapshot_schema_0.6.sql`
+  #`psql #{database} --username=#{username} < /usr/share/java/osmosis/script/pgsnapshot_schema_0.6.sql` #OpenSuse Osmosis package
+  `psql #{database} --username=#{username} < /usr/share/doc/osmosis/examples/pgsimple_schema_0.6.sql` #Ubuntu
   pwd_option = password && !password.empty? ? "password=#{password}" : ""
   `osmosis --read-xml #{args[:file]} --write-pgsql database=#{database} user=#{username} #{pwd_option}`
   `psql #{database} --username=#{username} -c "alter table users rename to osm_users"`
