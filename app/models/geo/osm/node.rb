@@ -1,17 +1,10 @@
 class Geo::Osm::Node < ActiveRecord::Base
-  set_table_name "planet_osm_nodes"
-  class Tags
-    include PgArrayParser
-    def load(text)
-      return unless text
-      Hash[*parse_pg_array(text)]
-    end
-    def dump(hash)
-      "{#{hash.to_a.join ","}}"
-    end
-  end
-  attr_accessible :lat, :lon, :tags
-  serialize :tags, Tags.new
+  # http://wiki.openstreetmap.org/wiki/Osmosis/PostGIS_Setup
+  # for details see osmosis/script/pgsnapshot_schema_0.6.sql
+  set_table_name "nodes"
+  set_rgeo_factory_for_column(:geom, RGeo::Geographic.spherical_factory(:srid => 4326))
+  attr_accessible :geom, :tags
+  serialize :tags, ActiveRecord::Coders::Hstore
 
-  validates :id, :lat, :lon, :presence => true
+  validates :id, :geom, :presence => true
 end
