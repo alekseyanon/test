@@ -5,7 +5,7 @@ class Geo::Osm::Poly < ActiveRecord::Base
 
   validates :id, :tags, :nodes, :presence => true
 
-  def poly
+  def geom
     ordered_points = Array.new nodes.size
     Geo::Osm::Node.find(nodes).each do |n|
       #TODO get postgre bigint[] as array of integers
@@ -15,14 +15,14 @@ class Geo::Osm::Poly < ActiveRecord::Base
   end
 
   def contains?(node)
-    poly.contains? node.geom
+    geom.contains? node.geom
   end
 
   def touches?(node)
-    poly.touches? node.geom
+    geom.touches? node.geom
   end
 
   def intersects?(other_poly)
-    poly.intersects? other_poly.poly
+    geom.intersects? other_poly.geom
   end
 end

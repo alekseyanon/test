@@ -7,21 +7,25 @@ describe Geo::Osm::Poly do
   it { should validate_presence_of :tags }
   it { should validate_presence_of :nodes }
 
-  def to_points(crd)
+  def to_nodes(crd)
     crd.map{|x,y| Geo::Osm::Node.make!(geom: Geo::factory.point(x, y))}
   end
 
-  let(:triangle){           to_points [[10,10], [20,20], [30,10]] }
-  let(:inner_triangle){     to_points [[16,15], [20,19], [24,15]] }
-  let(:rightmost_triangle){ to_points [[40,10], [50,20], [60,10]] }
+  def to_poly(nodes)
+    Geo::Osm::Poly.make! nodes: nodes.map(&:id)
+  end
 
-  let(:triangle_poly){ Geo::Osm::Poly.make! nodes: triangle.map(&:id) }
-  let(:inner_triangle_poly){ Geo::Osm::Poly.make! nodes: inner_triangle.map(&:id) }
-  let(:rightmost_triangle_poly){ Geo::Osm::Poly.make! nodes: rightmost_triangle.map(&:id) }
+  let(:triangle){           to_nodes [[10,10], [20,20], [30,10]] }
+  let(:inner_triangle){     to_nodes [[16,15], [20,19], [24,15]] }
+  let(:rightmost_triangle){ to_nodes [[40,10], [50,20], [60,10]] }
+
+  let(:triangle_poly){ to_poly triangle }
+  let(:inner_triangle_poly){ to_poly inner_triangle }
+  let(:rightmost_triangle_poly){ to_poly rightmost_triangle }
 
   describe '#poly' do
     it 'instantiates RGeo polygon' do
-      triangle_poly.poly.exterior_ring.points.should include *triangle.map(&:geom)
+      triangle_poly.geom.exterior_ring.points.should include *triangle.map(&:geom)
     end
   end
 
@@ -36,6 +40,10 @@ describe Geo::Osm::Poly do
       inner_triangle.each do |node|
         triangle_poly.contains?(node).should be_true
       end
+    end
+    it 'determines if the polygon contains another polygon' do
+      triangle_poly.contains?(inner_triangle_poly).should be_true
+      inner_triangle_poly.contains?(triangle_poly).should be_false
     end
   end
 
