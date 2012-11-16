@@ -13,4 +13,16 @@ class Geo::Osm::Poly < ActiveRecord::Base
     end
     Geo::factory.polygon Geo::factory.linear_ring ordered_points
   end
+
+  def contains?(node)
+    poly.contains? node.geom
+  end
+
+  def touches?(node)
+    poly.touches? node.geom
+  end
+
+  def intersects?(other_poly)
+    poly.intersects? other_poly.poly
+  end
 end

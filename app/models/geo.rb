@@ -4,6 +4,6 @@ module Geo
   end
 
   def self.factory
-    RGeo::Geographic.spherical_factory(:srid => 4326)
+    RGeo::Geos.factory(:srid => 4326)
   end
 end
