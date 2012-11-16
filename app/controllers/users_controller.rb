@@ -121,9 +121,11 @@ class UsersController < ApplicationController
     if @user.register
       user_signed_up#(@user)
       # TODO: add my view
-      render :template => 'users/registration_completed', :layout => 'registration'
+      render :template => 'users/registration_completed'
+      #, :layout => 'registration'
     else
-      render :action => :new_via_oauth#, :layout => 'registration'
+      render :action => :new_via_oauth
+      #, :layout => 'registration'
     end
   end
 

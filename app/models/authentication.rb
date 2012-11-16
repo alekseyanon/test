@@ -30,9 +30,10 @@ class Authentication < ActiveRecord::Base
     # Получает на вход хеш omniauth.
     # Возвращает объект Authentication с заполненными параметрами.
     def find_or_create_from_provider(auth, params)
-      logger.debug "===================================================="
-      logger.debug "auth :" + auth.to_s
-      logger.debug "params :" + params.to_s
+      # logger.debug "===================================================="
+      # logger.debug "auth :" + auth.to_s
+      # logger.debug "params :" + params.to_s
+
 
       params.stringify_keys!
 
@@ -42,6 +43,7 @@ class Authentication < ActiveRecord::Base
 
       user_name = user_info['name'] || uid
       www       = user_info['urls'].values.first if user_info['urls'].present?
+      www       = user_info['urls']['Twitter'] if user_info['urls'].present? && provider.to_s == "twitter"
       picture   = user_info['image']
 
       role_name = params['type']
