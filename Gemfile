@@ -6,6 +6,7 @@ gem 'pg'
 gem 'rgeo-activerecord'
 gem 'activerecord-postgis-adapter'
 gem 'activerecord-postgres-hstore'
+gem 'activerecord-postgres-array'
 
 gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'
