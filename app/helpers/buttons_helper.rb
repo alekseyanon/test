@@ -4,7 +4,7 @@ module ButtonsHelper
     html = PROVIDERS.map do |provider|
       cls = PROVIDER_CLS[provider] || provider
       if mode == :link
-        link_to raw('<span class="provider">&nbsp;</span>'), auth_path(provider), :class => cls, :rel => provider
+        link_to raw('<span class="provider">&nbsp;</span>'), auth_path(provider), :class => "social-icon " + cls.to_s, :rel => provider
       else
         %{<button type="submit" name="#{provider}" class="#{cls}"><span>#{provider}</span></button>}.html_safe
       end

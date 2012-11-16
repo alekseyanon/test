@@ -13,5 +13,5 @@
   .socialaccs-block-connected
     %h3 Аккаунты, которые иcпользуются на данный момент
     - @authentications.each do |authentication|
-      = authentication.provider
+      = link_to authentication.provider, authentication.url
   

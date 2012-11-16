@@ -14,8 +14,8 @@ ru:
       find_by_perishable_token: "Не нашел такого пользователя"
   user_sessions:
     successfull:
-      login: "И да пребудет с вами сессия"
+      login: "сессия успешно создана"
     errors:
-      login: "Че то хрень какая-то с созданием сессии"
+      login: "Ошибка создания сессии"
   authentications:
     delete_success: "Аккаунт удален"
