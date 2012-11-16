@@ -84,4 +84,5 @@ group :test, :development do
   gem 'shoulda-matchers'
   gem 'machinist'
   gem 'faker'
+  gem 'diff-lcs'
 end
