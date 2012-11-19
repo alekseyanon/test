@@ -17,7 +17,6 @@ class UsersController < ApplicationController
   end
 
   def create
-	  
 	  providers = %w(facebook twitter vkontakte)
 
     # Нажата кнопка "Зарегистрироваться через..."
@@ -181,12 +180,12 @@ class UsersController < ApplicationController
 
 	def update
 	  @user = current_user
-    if params[:user][:crop_x].present?
-      session[:x] = params[:user][:crop_x]
-      session[:y] = params[:user][:crop_y]
-      session[:w] = params[:user][:crop_w]
-      session[:h] = params[:user][:crop_h]
-    end
+    # if params[:user][:crop_x].present?
+    #   session[:x] = params[:user][:crop_x]
+    #   session[:y] = params[:user][:crop_y]
+    #   session[:w] = params[:user][:crop_w]
+    #   session[:h] = params[:user][:crop_h]
+    # end
 	  if @user.update_attributes(params[:user])
       if params[:user][:avatar].present?
         
@@ -238,7 +237,7 @@ class UsersController < ApplicationController
       flash[:notice] = I18n.t("users.actions.do_activate.flash")
       redirect_to root_url
     end
-  end
+  end  
 
   def profile
     if current_user

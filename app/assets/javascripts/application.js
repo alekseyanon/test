@@ -42,3 +42,16 @@ function updatePreview(coords) {
     marginTop: '-' + Math.round(100 / coords.h * coords.y) + 'px'
   });
 }
+
+function toggleType(link, field) {
+    var obj = document.getElementById(field);
+    var obj2 = document.getElementById(link);
+
+    if (obj.type == 'text') {
+        obj.type = 'password';
+        obj2.innerHTML = "показать пароль";
+    } else {
+        obj.type = 'text';
+        obj2.innerHTML = "скрыть пароль";
+    }
+}

@@ -16,6 +16,7 @@
       -# comment 1
       -# = link_to "Отправить почту", sendmail_path
       .btn= link_to "Личный кабинет", profile_path(:type => 'traveler') 
+      .btn= link_to "Забыли пароль", forget_password_path 
 
       - if current_user
         .btn= link_to "Редактировать профиль", edit_user_path(current_user)

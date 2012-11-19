@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
   def self.intlz(attributes)
     user = new(attributes)
     user.password = attributes["password"]
-    user.password_confirmation = attributes["password_confirmation"]
+    user.password_confirmation = attributes["password"]
     user.email = attributes["email"]
     user.roles = [:traveler]
     user

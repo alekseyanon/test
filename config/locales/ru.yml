@@ -10,6 +10,8 @@ ru:
         flash: "Вот теперь все норм"
       do_activate:
         flash: "Аккаунт успешно активирован"
+      update_password: 
+        error: "Смена пароля завершилась не удачно, пожалуйста повторите попытку."
     errors:
       find_by_perishable_token: "Не нашел такого пользователя"
   user_sessions:
@@ -19,3 +21,6 @@ ru:
       login: "Ошибка создания сессии"
   authentications:
     delete_success: "Аккаунт удален"
+  reset_password:
+    errors:
+      send_instruction: "Пользователь с таким email не был найден"

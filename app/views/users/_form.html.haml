@@ -7,6 +7,6 @@
       = auth_buttons(:button)
     = hidden_field_tag :type, params[:type]
     = form.input :email
+    %div.pass{:onclick => "passwordManipulation()"} показать пароль
     = form.input :password 
-    = form.input :password_confirmation
     = form.button :submit
