@@ -1,0 +1,335 @@
+---
+- :name: Что посмотреть
+  :children:
+  - :name: Природа
+    :children:
+    - :name: Водопады
+      :children: []
+    - :name: Водохранилища
+      :children: []
+    - :name: Вулканы и кратеры
+      :children: []
+    - :name: Гейзеры
+      :children: []
+    - :name: Горы
+      :children: []
+    - :name: Грязевые источники
+      :children: []
+    - :name: Заповедники
+      :children: []
+    - :name: Зоопарки
+      :children: []
+    - :name: Катакомбы
+      :children: []
+    - :name: Ключи
+      :children: []
+    - :name: Впадины
+      :children: []
+    - :name: Ледники
+      :children: []
+    - :name: Моря
+      :children: []
+    - :name: Озера
+      :children: []
+    - :name: Парки
+      :children: []
+    - :name: Пещеры
+      :children: []
+    - :name: Пороги
+      :children: []
+    - :name: Реки
+      :children: []
+    - :name: Ручьи
+      :children: []
+  - :name: Культура
+    :children:
+    - :name: Архитектурные ансамбли
+      :children: []
+    - :name: Архитектурные сооружения
+      :children: []
+    - :name: Библиотеки
+      :children: []
+    - :name: Выставки
+      :children: []
+    - :name: Музеи
+      :children: []
+    - :name: Памятники
+      :children: []
+  - :name: Религия
+    :children:
+    - :name: Буддистские храмы
+      :children: []
+    - :name: Костелы
+      :children: []
+    - :name: Места паломничества
+      :children: []
+    - :name: Мечети
+      :children: []
+    - :name: Монастыри
+      :children: []
+    - :name: Православные храмы
+      :children: []
+    - :name: Синагоги
+      :children: []
+- :name: Чем заняться
+  :children:
+  - :name: Развлечения
+    :children:
+    - :name: Дельфинарии
+      :children: []
+    - :name: Кинотеатры
+      :children: []
+    - :name: Концертные площадки
+      :children: []
+    - :name: Музыкальные клубы
+      :children: []
+    - :name: Ночные клубы
+      :children: []
+    - :name: Океанариумы
+      :children: []
+    - :name: Планетарии
+      :children: []
+    - :name: Стадионы
+      :children: []
+    - :name: Театры
+      :children: []
+    - :name: Цирк
+      :children: []
+  - :name: Активный отдых
+    :children:
+    - :name: На земле
+      :children:
+      - :name: Агротуризм
+        :children: []
+      - :name: Аэродинамические трубы
+        :children: []
+      - :name: Бильярдные клубы
+        :children: []
+      - :name: Боулинги
+        :children: []
+      - :name: Велосипеды
+        :children: []
+      - :name: Гольф
+        :children: []
+      - :name: Картинг
+        :children: []
+      - :name: Катание на лошадях
+        :children: []
+      - :name: Квадроциклы
+        :children: []
+      - :name: Мотоциклы
+        :children: []
+      - :name: Охота
+        :children: []
+      - :name: Парки аттракционов
+        :children: []
+      - :name: Пейнтбол
+        :children: []
+      - :name: Пешие походы
+        :children: []
+      - :name: Роллердромы
+        :children: []
+      - :name: Теннисные корты
+        :children: []
+    - :name: На воде
+      :children:
+      - :name: Аквапарки
+        :children: []
+      - :name: Байдарки и каноэ
+        :children: []
+      - :name: Виндсерфинг
+        :children: []
+      - :name: Вэйксерфинг
+        :children: []
+      - :name: Гидроциклы
+        :children: []
+      - :name: Дайвинг
+        :children: []
+      - :name: Кайтинг
+        :children: []
+      - :name: Катера
+        :children: []
+      - :name: Морские теплоходные туры
+        :children: []
+      - :name: Рафтинг
+        :children: []
+      - :name: Речные теплоходные туры
+        :children: []
+      - :name: Рыбалка
+        :children: []
+      - :name: Серфинг
+        :children: []
+      - :name: Снорклинг
+        :children: []
+      - :name: Яхты
+        :children: []
+    - :name: В горах
+      :children:
+      - :name: Альпинизм
+        :children: []
+      - :name: Горные лыжи/Сноуборд
+        :children:
+        - :name: Склон с подъемником
+          :children: []
+        - :name: Склон без подъемника
+          :children: []
+      - :name: Горные походы
+        :children: []
+    - :name: В небесах
+      :children:
+      - :name: Вертолет
+        :children: []
+      - :name: Дельтаплан
+        :children: []
+      - :name: Мотодельтаплан
+        :children: []
+      - :name: Парашют
+        :children: []
+      - :name: Самолет
+        :children: []
+    - :name: На снегу
+      :children:
+      - :name: Катки
+        :children: []
+      - :name: Равнинные лыжи
+        :children: []
+      - :name: Снегоходы
+        :children: []
+- :name: Где заночевать
+  :children:
+  - :name: Апартаменты
+    :children: []
+  - :name: Гостиницы
+    :children: []
+  - :name: Кемпинги
+    :children: []
+  - :name: Клубные отели
+    :children: []
+  - :name: Коттеджи
+    :children: []
+  - :name: Мотели
+    :children: []
+  - :name: Необорудованные места стоянок
+    :children: []
+  - :name: Охотничьи дома
+    :children: []
+- :name: Где поесть
+  :children:
+  - :name: Бар
+    :children: []
+  - :name: Кафе
+    :children: []
+  - :name: Ресторан
+    :children: []
+  - :name: Столовая
+    :children: []
+  - :name: Фастфуд
+    :children: []
+- :name: Социально бытовая инфраструктура
+  :children:
+  - :name: Здоровье
+    :children:
+    - :name: Бани
+      :children:
+      - :name: Комплексные бани
+        :children: []
+      - :name: Русские бани
+        :children: []
+      - :name: Сауны
+        :children: []
+      - :name: Хаммамы
+        :children: []
+    - :name: Салоны красоты
+      :children: []
+    - :name: Санатории
+      :children: []
+    - :name: Спа
+      :children: []
+    - :name: Фитнес клубы
+      :children: []
+  - :name: Медицина
+    :children:
+    - :name: Аптеки
+      :children: []
+    - :name: Больницы
+      :children: []
+    - :name: Поликлиники
+      :children: []
+    - :name: Роддома
+      :children: []
+    - :name: Стоматологи
+      :children: []
+  - :name: Бытсервис
+    :children:
+    - :name: Дома быта
+      :children: []
+    - :name: Парикмахерские
+      :children: []
+    - :name: Прачечные
+      :children: []
+    - :name: Химчистки
+      :children: []
+  - :name: Транспорт
+    :children:
+    - :name: Автовокзалы
+      :children: []
+    - :name: Автомойки
+      :children: []
+    - :name: Автосалоны/центры
+      :children: []
+    - :name: Автосервисы
+      :children: []
+    - :name: Аренда авто
+      :children: []
+    - :name: Аренда яхт/лодок
+      :children: []
+    - :name: Аэропорты
+      :children: []
+    - :name: Билетные кассы
+      :children: []
+    - :name: Ж/д вокзалы
+      :children: []
+    - :name: Морские вокзалы
+      :children: []
+    - :name: Речные вокзалы
+      :children: []
+    - :name: Такси
+      :children: []
+  - :name: Банки
+    :children: []
+  - :name: Банкоматы
+    :children: []
+  - :name: Магазины
+    :children:
+    - :name: Автозапчасти
+      :children: []
+    - :name: Алкоголь
+      :children: []
+    - :name: Бутики
+      :children: []
+    - :name: Все для дома
+      :children: []
+    - :name: Книжные
+      :children: []
+    - :name: Минимаркеты
+      :children: []
+    - :name: Спорттовары
+      :children: []
+    - :name: Супермаркеты
+      :children: []
+    - :name: Торговые центры
+      :children: []
+    - :name: Электроника
+      :children: []
+  - :name: Рынки
+    :children:
+    - :name: Вещевые
+      :children: []
+    - :name: Продовольственные
+      :children: []
+    - :name: Стройматериалы
+      :children: []
+    - :name: Электроника
+      :children: []
+  - :name: Полиция
+    :children: []
