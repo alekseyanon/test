@@ -20,8 +20,8 @@ describe Geo::Landmark do
       landmark2.save
       landmark3.tag_list = 'a'
       landmark3.save
-      Geo::Landmark.by_tags_count(%w(a)).should  =~ [subject, landmark2, landmark3]
-      Geo::Landmark.by_tags_count(%w(b c)).should  =~ [subject, landmark2]
+      described_class.by_tags_count(%w(a)).should  =~ [subject, landmark2, landmark3]
+      described_class.by_tags_count(%w(b c)).should  =~ [subject, landmark2]
     end
 
     it 'sorts tagged landmarks by tag count' do
@@ -36,13 +36,25 @@ describe Geo::Landmark do
       landmark5.tag_list = 'ff, gg'
       landmark5.save
 
-      by_4_tags = Geo::Landmark.by_tags_count(%w(aa bb dd ee))
+      by_4_tags = described_class.by_tags_count(%w(aa bb dd ee))
       by_4_tags.should =~ [subject, landmark2, landmark3, landmark4]
       by_4_tags.first(2).should  == [subject, landmark2]
 
-      by_3_tags = Geo::Landmark.by_tags_count(%w(ee ff gg))
+      by_3_tags = described_class.by_tags_count(%w(ee ff gg))
       by_3_tags.should  =~ [subject, landmark2, landmark3, landmark4, landmark5]
       by_3_tags.first.should == landmark5
+    end
+  end
+
+  describe ".within_radius" do
+    let(:triangle){ to_points [[10,10], [20,20], [30,10]] }
+    let(:landmarks){ to_landmarks triangle }
+
+    it 'returns nodes within a specified radius of another node' do
+      described_class.within_radius(triangle[0], 10).should =~ landmarks[0..0]
+      described_class.within_radius(triangle[0], 15).should =~ landmarks[0..1]
+      described_class.within_radius(triangle[0], 20).should =~ landmarks
+      described_class.within_radius(triangle[2], 15).should =~ landmarks[1..2]
     end
   end
 end
