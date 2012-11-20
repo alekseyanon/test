@@ -12,4 +12,8 @@ class Geo::Osm::Node < ActiveRecord::Base
     #{:conditions => ['id in (?)', Geo::Osm::Poly.find(poly_id).nodes]}
     {:conditions => ['id = any(select unnest(nodes) from ways where id = ?)', poly_id]}
   }
+
+  scope :within_radius, lambda{|other,r|
+    {:conditions => ["ST_DWithin(geom, ST_GeomFromText('#{other.geom}', #{Geo::SRID}), #{r})"]}
+  }
 end
