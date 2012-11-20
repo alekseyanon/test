@@ -16,4 +16,15 @@ describe Geo::Osm::Node do
       Geo::Osm::Node.in_poly(poly).should =~ nodes
     end
   end
+
+  describe ".within_radius" do
+    let(:triangle){ to_nodes [[10,10], [20,20], [30,10]] }
+
+    it 'returns nodes within a specified radius of another node' do
+      Geo::Osm::Node.within_radius(triangle[0], 10).should =~ triangle[0..0]
+      Geo::Osm::Node.within_radius(triangle[0], 15).should =~ triangle[0..1]
+      Geo::Osm::Node.within_radius(triangle[0], 20).should =~ triangle
+      Geo::Osm::Node.within_radius(triangle[2], 15).should =~ triangle[1..2]
+    end
+  end
 end
