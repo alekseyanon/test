@@ -1,0 +1,10 @@
+- link_name = capture do
+  %span.link-button-l
+    - if block.present?
+      = block
+    - else
+      = name
+  %span.link-button-r
+
+.link-button{:class => css_class}
+  = link_to_if options, link_name, options, html_options

@@ -1,0 +1,12 @@
+.soc-acc{ class: [provider_class(name), (auth && "active")] }
+  .icon-button
+    - params = { class: "action" }
+    - if auth
+      - params[:confirm] = "Вы уверены?" 
+      -#I18n.t("authentications.delete_confirm", service: name)
+      - params[:method]  = :delete
+    = link_to url, params do
+      %span.social-icon{ class: provider_class(name) }
+  - if auth
+    .delete-link
+      = link_to "Отключить", url, params

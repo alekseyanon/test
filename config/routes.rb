@@ -31,16 +31,26 @@ Smorodina::Application.routes.draw do
     #TODO cleanup
     #get '/contractor_campaign', :action => 'contractor_campaign', :as => :contractor_campaign
     #get '/signup', :action => 'signup', :as => :signup_page
-    #get 'activate/:token', :action => 'activate', :as => :activate_user
-    #post 'activate/:token', :action => 'do_activate'
+    get 'activate/:token', :action => 'activate', :as => :activate_user
+    post 'activate/:token', :action => 'do_activate'
+    get '/profile/:type', :action => 'profile', as: :profile, :constraints => {:type => /traveler/}
   end
   resources :users, :except => :new, :constraints => { :id => /[^\/]*\d+/ } do
-
     new do
       get :new_via_oauth
       post :create_via_oauth
     end
+
+    member do
+      get :settings
+      put :update_settings, :reset_password
+    end
   end
+
+  controller :welcome do
+    get '/activation', :action => "pend_act", :as => :pendtoact
+  end
+
   # routing for manage user_session model with nice url
   controller :user_sessions do
     get '/login', :action => 'new', :as => :login

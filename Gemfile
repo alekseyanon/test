@@ -5,7 +5,8 @@ gem 'rails', '3.2.8'
 gem 'pg'
 gem 'rgeo-activerecord'
 gem 'activerecord-postgis-adapter'
-gem 'pg_array_parser' # postgres_ext doesn't work with activerecord-postgis-adapter
+gem 'activerecord-postgres-hstore'
+gem 'activerecord-postgres-array'
 
 gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'
@@ -36,6 +37,11 @@ gem 'cancan'
 
 gem 'aasm', '3.0.4'
 gem 'magic_numbers', :git => 'git://github.com/gzigzigzeo/magic_numbers.git' # Sotakone improved
+
+# for user avatar 
+gem 'carrierwave'
+gem 'mime-types', :require => 'mime/types'
+gem 'rmagick'
 ##################################################
 
 gem 'haml'
@@ -81,4 +87,5 @@ group :test, :development do
   gem 'shoulda-matchers'
   gem 'machinist'
   gem 'faker'
+  gem 'diff-lcs'
 end

@@ -22,3 +22,9 @@
 
 /db/*.sql
 /test/
+
+/config/database.yml
+
+Gemfile.lock
+
+/public/uploads/

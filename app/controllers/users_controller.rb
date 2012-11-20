@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
 	
+  before_filter :find_by_perishable_token, :only => [:activate, :do_activate]
 	before_filter :get_authentication, :only => [:new_via_oauth, :create_via_oauth]
 	#authorize_resource
 	respond_to :html, :js
@@ -8,8 +9,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @user.roles = [params[:type].to_sym]
-    # logger.debug "****************roles*********************"
-    # logger.debug params[:type]
   end
 
   def sendmail
@@ -33,9 +32,10 @@ class UsersController < ApplicationController
 		  @user = User.new_user(params[:type], params[:user])
 		  if @user.register
          # TODO: redirect to correct page
-		  	redirect_to root_url
+		  	redirect_to pendtoact_path
 		  else
-		  	render :action => :new
+        @user_session = UserSession.new
+		  	render :action => :profile
 		  end
 
 		end
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     # аккаунт, редиректим на список аккаунтов
     if user_logged_in?
       authentication.update_attribute(:user, current_user)
-      redirect_to auth_list_url
+      redirect_to edit_user_path(current_user)
     elsif authentication.user.present?
     # Если ранее заходил на сайт под этим социальным аккаунтом - авторизуем его
       UserSession.create(authentication.user)
@@ -76,8 +76,7 @@ class UsersController < ApplicationController
         user = User.find_by_email(authentication.email)
         if user.present?
           authentication.update_attribute(:user, user)
-          # TODO: uncomment for user states 
-          # user.activate! if user.state == 'pending_activation'
+          user.activate! if user.state == 'pending_activation'
           UserSession.create(user)
           redirect_to session[:return_to] || root_url
         else
@@ -88,7 +87,7 @@ class UsersController < ApplicationController
             # Это на случай если "Зарегистрироваться через" была нажата не на форме регистрации, а сверху
             redirect_to signup_path(:type => 'traveler')
           else
-            user.register
+            user.register(activate: true)
             user_signed_up(user)
             UserSession.create(user)
             
@@ -120,24 +119,82 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
 
     if @user.register
-      user_signed_up(@user)
+      user_signed_up#(@user)
       # TODO: add my view
-      render :template => 'users/registration_completed', :layout => 'registration'
+      render :template => 'users/registration_completed'
+      #, :layout => 'registration'
     else
-      render :action => :new_via_oauth#, :layout => 'registration'
+      render :action => :new_via_oauth
+      #, :layout => 'registration'
     end
   end
 
 
   def edit
 	  @user = current_user
+    @authentications = @user.authentications.all
+    @connected_providers = @authentications.map { |auth| auth.provider }
 	end
+
+  def settings
+    @user = current_user
+    @authentications = current_user.authentications.all
+    @connected_providers = @authentications.map { |auth| auth.provider }
+
+  end
+
+  def update_settings
+    @user = current_user
+
+    if params[:user][:old_password].present?
+      @user.old_password = params[:user][:old_password]
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password]
+      @user.need_to_check_old_password = true
+    end
+
+    @user.news_subscribed = params[:user][:news_subscribed]
+    @user.comments_subscribed = params[:user][:comments_subscribed]
+    @user.answer_subscribed = params[:user][:answer_subscribed]
+    @user.email = params[:user][:email] if params[:user][:email].present?
+    
+    if @user.save
+      flash[:notice] = I18n.t("users.actions.update_password.flash")
+      redirect_to current_user
+    else
+      @authentications = current_user.authentications.all
+      @connected_providers = @authentications.map { |auth| auth.provider }
+      render :settings
+    end
+  end
+
+  ### TODO: delete this method
+  # def update_email
+  #   if @user.change_email(params[:user])
+  #     current_user_session.destroy
+  #     flash[:notice] = I18n.t("users.actions.email_updated")
+  #     redirect_to '/'
+  #   else
+  #     render :action => 'change_password_or_email'
+  #   end
+  # end
 
 	def update
 	  @user = current_user
+    if params[:user][:crop_x].present?
+      session[:x] = params[:user][:crop_x]
+      session[:y] = params[:user][:crop_y]
+      session[:w] = params[:user][:crop_w]
+      session[:h] = params[:user][:crop_h]
+    end
 	  if @user.update_attributes(params[:user])
-	    flash[:notice] = "Вот теперь все прекрасно)"
-	    redirect_to root_url
+      if params[:user][:avatar].present?
+        
+        render :crop
+      else
+  	    flash[:notice] = I18n.t("users.actions.update.flash")
+  	    redirect_to current_user
+      end
 	  else
 	    render :action => 'edit'
 	  end
@@ -157,12 +214,47 @@ class UsersController < ApplicationController
   def index
     @users=User.all
   end
+
+  def show
+    @user = User.find(params[:id])
+    @authentications = @user.authentications
+  end
+
+  def activate
+  end
+
+  def do_activate
+    if @user
+      unless @user.active?
+        @user.activate!
+      end
+
+      # Log user in
+      UserSession.create(@user)
+
+      user_signed_up#(@user)
+
+      ### activate something if user save it in depending_activation state
+      flash[:notice] = I18n.t("users.actions.do_activate.flash")
+      redirect_to root_url
+    end
+  end
+
+  def profile
+    if current_user
+      redirect_to current_user
+    else
+      @user = User.new
+      @user.roles = [params[:type].to_sym]
+      @user_session = UserSession.new
+    end
+  end
 	private
 	  def get_authentication
 	    @authentication = Authentication.find(params[:authentication_id])
 	  end
 
-	  def user_signed_up(user)
+	  def user_signed_up#(user)
       ### TODO: if we need integration with google analitics
       ### we can use this methods for send data to this service
 	    # user_role = 'registration.' << (user.role?(:contractor) ? 'contractor' : 'employer')
@@ -170,4 +262,12 @@ class UsersController < ApplicationController
 	    session[:just_signed_up] = true # in original it was a method, which named:
                                       # set_just_signed_up
 	  end
+
+    def find_by_perishable_token
+      @user = User.find_using_perishable_token(params[:token], 3.years)
+      if @user.nil?
+        flash[:error] = I18n.t("users.errors.find_by_perishable_token")
+        redirect_to root_url
+      end
+    end
 end

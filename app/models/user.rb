@@ -1,50 +1,60 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :name, :external_picture_url, :authentication_ids
+  include AASM
   include UserFeatures::Roles
-  has_many :authentications, :dependent => :destroy
-  has_many :articles
+
+  mount_uploader :avatar, AvatarUploader
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   
+  attr_accessible :email, :password, :password_confirmation, :avatar, :name, 
+                  :external_picture_url, :authentication_ids,
+                  :crop_x, :crop_y, :crop_w, :crop_h
+
+  after_update :crop_avatar 
+  attr_accessor :old_password
+  attr_accessor :need_to_check_old_password
+
+
+  has_many :authentications, :dependent => :destroy
+  has_many :articles  
+  
+
   acts_as_authentic do |c|
     c.ignore_blank_passwords = false
   end
   ### TODO: add validations
-  attr_accessor :old_password
-  attr_accessor :need_to_check_old_password
-
-  
-	# MIN_PREFIX_LEN = 2
- 	# ON_FRONT_PAGE = 6
-
-  include AASM
+  ### TODO: name field does not used
   
   # AASM
-  aasm_column :state
+  aasm :column => 'state' do
+    state :pending_activation, :initial => true
+    state :active, :enter => :activation
+    state :blocked
+    state :deleted#, :enter => :prepare_user_for_deletion
 
-  aasm_state :pending_activation, :initial => true
-  aasm_state :active, :enter => :activation
-  aasm_state :blocked
-  aasm_state :deleted, :enter => :prepare_user_for_deletion
+    event :activate, :after => :_after_activate do
+      transitions :from => :pending_activation, :to => :active
+    end
 
-  aasm_event :activate, :after => :_after_activate do
-    transitions :from => :pending_activation, :to => :active
+    event :deactivate do
+      transitions :from => :active, :to => :pending_activation
+    end
+
+    event :block do
+      transitions :from => :active, :to => :blocked
+    end
+
+    event :unblock do
+      transitions :from => :blocked, :to => :active
+    end
+
+    event :soft_destroy do
+      transitions :from => :active, :to => :deleted
+    end
+
+    
   end
 
-  aasm_event :deactivate do
-    transitions :from => :active, :to => :pending_activation
-  end
-
-  aasm_event :block do
-    transitions :from => :active, :to => :blocked
-  end
-
-  aasm_event :unblock do
-    transitions :from => :blocked, :to => :active
-  end
-
-  aasm_event :soft_destroy do
-    transitions :from => :active, :to => :deleted
-  end
 
   # Scopes
   scope :in_state, lambda { |state|
@@ -54,6 +64,10 @@ class User < ActiveRecord::Base
   scope :in_states, lambda { |*states|
     where(:state => states.map { |s| s.to_s } )
   }
+  
+  def crop_avatar
+    avatar.recreate_versions! if crop_x.present?
+  end
 
   
   # инициализует нового пользователя из данных регистрации
@@ -81,7 +95,7 @@ class User < ActiveRecord::Base
   # регистрирует пользователя в системе
   # options[:activate] если true, то активирует юзера, иначе высылает активационное письмо
   # options[:inviter_token]
-  def register
+  def register(options = {})
     registered = false
 
     transaction do
@@ -89,11 +103,11 @@ class User < ActiveRecord::Base
                 # start_membership(:inviter_token => inviter_token) if (inviter_token = options[:inviter_token])
         # set_plan_on_signup(plan_name, plan_duration, plan_in_debt) if contractor?
 
-        # if options.delete(:activate)
-        #   activate
-        # else
-        Notifier.signup_confirmation(self).deliver
-        # end
+        if options.delete(:activate)
+          activate
+        else
+          Notifier.signup_confirmation(self).deliver
+        end
         registered = true
       end
     end
@@ -127,7 +141,7 @@ class User < ActiveRecord::Base
   def check_old_password
     return true unless @need_to_check_old_password
     return true if self.valid_password?(old_password)
-    errors.add(:old_password, I18n.t("authlogic.error_messages.old_password_wrong"))
+    errors.add(:old_password, "Старый пароль введен не верно.")
     false
   end
 
@@ -151,8 +165,10 @@ private
   end
 
   def activation
-    reset_perishable_token!
-    set_default_subscription
+    #reset_perishable_token!
+
+    logger.debug "-------------activation--------------------"
+    #set_default_subscription
   end
 
   def _after_activate
