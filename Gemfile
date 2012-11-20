@@ -86,4 +86,5 @@ group :test, :development do
   gem 'faker'
   gem 'diff-lcs'
   gem 'capybara'
+  gem 'launchy'
 end

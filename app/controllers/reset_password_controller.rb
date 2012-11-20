@@ -13,6 +13,7 @@ class ResetPasswordController < ApplicationController
 			redirect_to root_url
 		else
       flash[:error] = I18n.t("reset_password.errors.send_instruction")
+      @error = I18n.t("reset_password.errors.send_instruction")
       render :action => 'forget_password'
     end
 	end

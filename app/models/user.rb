@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   end
   ### TODO: add validations
   ### TODO: name field does not used
+  ### TODO: refactor
+  ### TODO: add anonimous
   
   # AASM
   aasm :column => 'state' do
@@ -89,7 +91,7 @@ class User < ActiveRecord::Base
     user.password = attributes["password"]
     user.password_confirmation = attributes["password"]
     user.email = attributes["email"]
-    user.roles = [:traveler]
+    #user.roles = [:traveler]
     user
   end
   # регистрирует пользователя в системе
@@ -147,13 +149,13 @@ class User < ActiveRecord::Base
 
 protected
 
-  # while never used
-  def merge_params(attrs)
-    attrs["realm_ids"] = (attrs["realm_1"].nil? ? [] : attrs["realm_1"].to_a) + (attrs["realm_2"].nil? ? [] : attrs["realm_2"].to_a)
-    attrs["branch_ids"] = (attrs["branches_1"].nil? ? [] : attrs["branches_1"]) + (attrs["branches_2"].nil? ? [] : attrs["branches_2"])
-    attrs
-    #raise attrs.inspect
-  end
+  # # while never used
+  # def merge_params(attrs)
+  #   attrs["realm_ids"] = (attrs["realm_1"].nil? ? [] : attrs["realm_1"].to_a) + (attrs["realm_2"].nil? ? [] : attrs["realm_2"].to_a)
+  #   attrs["branch_ids"] = (attrs["branches_1"].nil? ? [] : attrs["branches_1"]) + (attrs["branches_2"].nil? ? [] : attrs["branches_2"])
+  #   attrs
+  #   #raise attrs.inspect
+  # end
 
 private
 

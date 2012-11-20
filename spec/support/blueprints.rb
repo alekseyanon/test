@@ -53,6 +53,6 @@ User.blueprint do
   name { Faker::Lorem.word }
   password { tmp }
   password_confirmation { tmp }
-  email {Faker::Internet.email }
+  email { "test@email.ru" } #Faker::Internet.email }
   roles { ["traveler"] }
 end
