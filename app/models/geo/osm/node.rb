@@ -8,12 +8,12 @@ class Geo::Osm::Node < ActiveRecord::Base
 
   validates :id, :geom, :presence => true
 
-  scope :in_poly, lambda {|poly_id|
+  scope :in_poly, ->(poly_id) do
     #{:conditions => ['id in (?)', Geo::Osm::Poly.find(poly_id).nodes]}
-    {:conditions => ['id = any(select unnest(nodes) from ways where id = ?)', poly_id]}
-  }
+    where 'id = any(select unnest(nodes) from ways where id = ?)', poly_id
+  end
 
-  scope :within_radius, lambda{|other,r|
-    {:conditions => ["ST_DWithin(geom, ST_GeomFromText('#{other.geom}', #{Geo::SRID}), #{r})"]}
-  }
+  scope :within_radius, ->(other,r) do
+    where "ST_DWithin(geom, ST_GeomFromText('#{other.geom}', #{Geo::SRID}), #{r})"
+  end
 end

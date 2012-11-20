@@ -14,4 +14,8 @@ class Geo::Landmark < ActiveRecord::Base
       Geo::Landmark.all
     end
   end
+
+  scope :within_radius, ->(geom,r) do
+    joins(:node).where "ST_DWithin(nodes.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
+  end
 end
