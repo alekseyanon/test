@@ -7,14 +7,6 @@ describe Geo::Osm::Poly do
   it { should validate_presence_of :tags }
   it { should validate_presence_of :nodes }
 
-  def to_nodes(crd)
-    crd.map{|x,y| Geo::Osm::Node.make!(geom: Geo::factory.point(x, y))}
-  end
-
-  def to_poly(nodes)
-    Geo::Osm::Poly.make! nodes: nodes.map(&:id)
-  end
-
   let(:triangle){           to_nodes [[10,10], [20,20], [30,10]] }
   let(:inner_triangle){     to_nodes [[16,15], [20,19], [24,15]] }
   let(:rightmost_triangle){ to_nodes [[40,10], [50,20], [60,10]] }

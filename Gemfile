@@ -11,6 +11,8 @@ gem 'activerecord-postgres-array'
 gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'
 
+gem 'pg_search'
+
 ################## views #########################
 gem 'simple_form'
 gem 'haml-rails'
