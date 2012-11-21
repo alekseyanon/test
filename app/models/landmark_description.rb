@@ -6,6 +6,10 @@ class LandmarkDescription < Article
   validates_associated :landmark
   accessible_attributes :landmark_id
 
+  scope :within_radius, ->(geom,r) do
+    joins(:node).where "ST_DWithin(nodes.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
+  end
+
   pg_search_scope :text_search,
                   :against => {
                       title: 'A',

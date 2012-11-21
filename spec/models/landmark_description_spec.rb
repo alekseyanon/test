@@ -5,6 +5,19 @@ describe LandmarkDescription do
   it_behaves_like "an article"
   it { should belong_to :landmark }
 
+  describe ".within_radius" do #TODO move to shared example group with landmarks and nodes altogether
+    let(:triangle){ to_points [[10,10], [20,20], [30,10]] }
+    let(:landmarks){ to_landmarks triangle }
+    let(:descriptions){ landmarks_to_descriptions landmarks }
+
+    it 'returns nodes within a specified radius of another node' do
+      described_class.within_radius(triangle[0], 10).should =~ descriptions[0..0]
+      described_class.within_radius(triangle[0], 15).should =~ descriptions[0..1]
+      described_class.within_radius(triangle[0], 20).should =~ descriptions
+      described_class.within_radius(triangle[2], 15).should =~ descriptions[1..2]
+    end
+  end
+
   describe '.search' do
     context 'for plain text queries' do
       let!(:d1){ described_class.make! title: 'Recreational fishing',
