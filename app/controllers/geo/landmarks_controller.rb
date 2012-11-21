@@ -13,6 +13,7 @@ class Geo::LandmarksController < ApplicationController
   end
 
   def search
+    render "geo/landmarks/search/tags"
   end
 
   def do_search
