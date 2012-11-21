@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
+    #TODO update or remove fulltext search from Article, it's here just for demo purpose, not covered in specs
     @articles = Article.search params[:query]
 
     respond_to do |format|
