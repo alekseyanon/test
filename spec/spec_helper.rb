@@ -39,4 +39,8 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include Capybara::DSL
+
+  Capybara.add_selector(:type) do
+    xpath { |type| XPath.descendant[XPath.attr(:type) == type.to_s] }
+  end
 end

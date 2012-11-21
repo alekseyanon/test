@@ -2,6 +2,13 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 ru:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "Пользователь с таким email уже зарегистрирован."
   users: 
     actions:
       update_password:
@@ -18,9 +25,11 @@ ru:
     successfull:
       login: "сессия успешно создана"
     errors:
-      login: "Ошибка создания сессии"
+      login: "Ошибка, проверьте email и пароль и повторите попытку снова."
   authentications:
     delete_success: "Аккаунт удален"
   reset_password:
     errors:
       send_instruction: "Пользователь с таким email не был найден"
+    notice:
+      notification_by_email: "Письмо с дальнейшими инструкциями было отправлено по следующему адресу электронной почты: "

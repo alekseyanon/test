@@ -10,7 +10,7 @@ class ResetPasswordController < ApplicationController
 			@user.reset_perishable_token!
 			@user.reload
 			Notifier.reset_pass(@user).deliver
-			redirect_to root_url
+			redirect_to root_url, :notice => I18n.t("reset_password.notice.notification_by_email") + email
 		else
       flash[:error] = I18n.t("reset_password.errors.send_instruction")
       @error = I18n.t("reset_password.errors.send_instruction")
@@ -28,6 +28,7 @@ class ResetPasswordController < ApplicationController
       if @user.save
         redirect_to @user
       else
+        @error = I18n.t("users.actions.update_password.error")
         redirect_to root_url, :error => I18n.t("users.actions.update_password.error")
       end
 
