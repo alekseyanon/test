@@ -14,3 +14,7 @@ end
 def to_landmarks(crd)
   to_nodes(crd).map{|n| Geo::Landmark.make!(node: n)}
 end
+
+def landmarks_to_descriptions(landmarks)
+  landmarks.map{|lm| LandmarkDescription.make! landmark: lm}
+end
