@@ -1,14 +1,16 @@
 require 'spec_helper'
 
+#TODO cover weighting
+#TODO cover multi-word search
 describe LandmarkDescription do
   subject { described_class.make! }
   it_behaves_like "an article"
   it { should belong_to :landmark }
 
   describe ".within_radius" do #TODO move to shared example group with landmarks and nodes altogether
-    let(:triangle){ to_points [[10,10], [20,20], [30,10]] }
-    let(:landmarks){ to_landmarks triangle }
-    let(:descriptions){ landmarks_to_descriptions landmarks }
+    let(:triangle) { to_points [[10, 10], [20, 20], [30, 10]] }
+    let(:landmarks) { to_landmarks triangle }
+    let(:descriptions) { landmarks_to_descriptions landmarks }
 
     it 'returns nodes within a specified radius of another node' do
       described_class.within_radius(triangle[0], 10).should =~ descriptions[0..0]
@@ -19,60 +21,75 @@ describe LandmarkDescription do
   end
 
   describe '.search' do
-    let!(:d1){ described_class.make! title: 'Recreational fishing',
-                                     body: """
-                                          Recreational fishing, also called sport fishing,
+    let!(:d1) { described_class.make! title: 'Recreational fishing',
+                                      body:
+                                          "Recreational fishing, also called sport fishing,
                                           is fishing for pleasure or competition. It can be contrasted
                                           with commercial fishing, which is fishing for profit,
-                                          or subsistence fishing, which is fishing for survival. """ }
-    let!(:d2){ described_class.make! title: 'On the Nature of Animals',
-                                     body: """
-                                          a Macedonian way of catching fish... They fasten red (crimson red)
+                                          or subsistence fishing, which is fishing for survival." }
+    let!(:d2) { described_class.make! title: 'On the Nature of Animals',
+                                      body:
+                                          "a Macedonian way of catching fish... They fasten red (crimson red)
                                           wool round a hook, and fix on to the wool two feathers which grow
                                           under a cock's wattles, and which in colour are like wax. Their rod
                                           is six feet long, and their line is the same length. Then they
                                           throw their snare, and the fish, attracted and maddened
-                                          by the colour, comes straight at it...""" }
-    let!(:d3){ described_class.make! title: 'Sport fishing',
-                                     body: """
-                                          Sport fishing methods vary according to the area fished,
+                                          by the colour, comes straight at it..." }
+    let!(:d3) { described_class.make! title: 'Sport fishing',
+                                      body:
+                                          "Sport fishing methods vary according to the area fished,
                                           the species targeted, the personal strategies of the angler,
                                           and the resources available. It ranges from the aristocratic art
                                           of fly fishing elaborated in Great Britain, to the high-tech
                                           methods used to chase marlin and tuna. Sport fishing is usually done
-                                          with hook, line, rod and reel rather than with nets or other aids. """ }
-    let!(:d4){ described_class.make! title: 'Fishing tackle',
-                                     body: """
-                                          Fishing tackle is a general term that refers to the equipment used
+                                          with hook, line, rod and reel rather than with nets or other aids." }
+    let!(:d4) { described_class.make! title: 'Fishing tackle',
+                                      body:
+                                          "Fishing tackle is a general term that refers to the equipment used
                                           by fishers. Almost any equipment or gear used for fishing can be called
                                           fishing tackle. Some examples are hooks, lines, sinkers, floats, rods,
-                                          reels, baits, lures, spears, nets, traps, waders and tackle boxes. """ }
-    let!(:d5){ described_class.make! title: 'Fish logs',
-                                     body: """
-                                          In addition to capturing fish for food, recreational anglers might also
+                                          reels, baits, lures, spears, nets, traps, waders and tackle boxes." }
+    let!(:d5) { described_class.make! title: 'Fish logs',
+                                      body:
+                                          "In addition to capturing fish for food, recreational anglers might also
                                           keep a log of fish caught and submit trophy-sized fish to independent
                                           record keeping bodies. In the Republic of Ireland, the Irish Specimen Fish
                                           Committee verifies and publicizes the capture of trophy fish caught with
-                                          rod and line by anglers in Ireland, both in freshwater and at sea. """ }
-    context 'for plain text queries' do #TODO cover weighting
+                                          rod and line by anglers in Ireland, both in freshwater and at sea." }
+    def add_tags
+      [[[d2, d3, d4, d5], %w(line, tools)],
+       [[d3, d4], %w(net)],
+       [[d2], %w(gear)]].each do |descriptions, tags|
+        descriptions.each do |d|
+          d.landmark.tag_list += tags
+          d.landmark.save
+        end
+      end
+    end
+
+    context 'for plain text queries' do
       it 'performs full text search against title and body' do
         described_class.search('Fishing').should =~ [d1, d3, d4]
         described_class.search('line').should =~ [d2, d3, d5] #TODO add fuzzy / dictionary-based search
         described_class.search('fish').should =~ [d2, d5]
       end
       it 'performs full text search against title, body and tags' do
-        [[[d2, d3, d4, d5], %w(line, tools)],
-         [[d3, d4], %w(net)],
-         [[d2], %w(gear)]].each do |descriptions, tags|
-            descriptions.each do |d|
-              d.landmark.tag_list += tags
-              d.landmark.save
-            end
-        end
+        add_tags
         described_class.search('net').should =~ [d3, d4]
         described_class.search('gear').should =~ [d2, d4]
         described_class.search('line').should =~ [d2, d3, d4, d5]
         described_class.search('tools').should =~ [d2, d3, d4, d5]
+      end
+    end
+
+    context 'for combined geospatial and text queries' do
+      it 'performs full text search for landmarks in around coordinates provided' do
+        add_tags
+        point = Geo::factory.point(10, 10)
+        d1.landmark.node = Geo::Osm::Node.make! geom: point
+        d1.landmark.save
+        described_class.search(text: "fishing", geom: point, radius: 1).should == [d1]
+        described_class.search(text: "fishing", geom: point, radius: 100).should == [d1, d3, d4]
       end
     end
   end

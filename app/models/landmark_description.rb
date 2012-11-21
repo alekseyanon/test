@@ -18,7 +18,7 @@ class LandmarkDescription < Article
     query ?
         query.is_a?(Hash) ?
             query.has_key?(:geom) ?
-                text_search(query[:text]).within_radius(query[:geom]) :
+                text_search(query[:text]).within_radius(query[:geom], query[:radius]) :
                 text_search(query[:text]) :
             text_search(query) :
         all
