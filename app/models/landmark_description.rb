@@ -15,12 +15,18 @@ class LandmarkDescription < Article
                   associated_against: {tags: [:name]}
 
   def self.search(query)
-    query ?
-        query.is_a?(Hash) ?
-            query.has_key?(:geom) ?
-                text_search(query[:text]).within_radius(query[:geom], query[:radius]) :
-                text_search(query[:text]) :
-            text_search(query) :
-        all
+    return all unless query && !query.empty?
+    if query.is_a? String
+      text = query
+    else
+      query = query.delete_if { |k, v| v.nil? || v.empty? }
+      text = query[:text]
+      geom = query[:geom] || ((x = query[:x]) && (y = query[:y]) && Geo::factory.point(x.to_i, y.to_i))
+      r = query[:r] || 0
+    end
+    chain = LandmarkDescription
+    chain = chain.text_search(text) if text
+    chain = chain.within_radius(geom, r) if geom
+    chain.order('created_at DESC')
   end
 end

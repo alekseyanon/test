@@ -2,12 +2,19 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions
   # GET /landmark_descriptions.json
   def index
-    @landmark_descriptions = LandmarkDescription.all
+    @landmark_descriptions = LandmarkDescription.search params[:query].slice(:text, :x, :y, :r)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @landmark_descriptions }
     end
+  end
+
+  def search
+  end
+
+  def do_search
+    redirect_to landmark_descriptions_path query:params.slice(:text, :x, :y, :r)
   end
 
   # GET /landmark_descriptions/1
