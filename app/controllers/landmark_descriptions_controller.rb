@@ -1,8 +1,12 @@
 class LandmarkDescriptionsController < ApplicationController
+  def sanitize_search_params(params)
+    params && params.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
+  end
+
   # GET /landmark_descriptions
   # GET /landmark_descriptions.json
   def index
-    @landmark_descriptions = LandmarkDescription.search params[:query].slice(:text, :x, :y, :r)
+    @landmark_descriptions = LandmarkDescription.search sanitize_search_params(params[:query])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +18,7 @@ class LandmarkDescriptionsController < ApplicationController
   end
 
   def do_search
-    redirect_to landmark_descriptions_path query:params.slice(:text, :x, :y, :r)
+    redirect_to landmark_descriptions_path query:sanitize_search_params(params)
   end
 
   # GET /landmark_descriptions/1
