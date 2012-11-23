@@ -29,4 +29,8 @@ class LandmarkDescription < Article
     chain = chain.within_radius(geom, r) if geom
     chain.order('created_at DESC')
   end
+
+  def tag_list
+    landmark.tag_list
+  end
 end
