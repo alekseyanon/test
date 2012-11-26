@@ -34,6 +34,9 @@ ru:
       send_instruction: "Пользователь с таким email не был найден"
     notice:
       notification_by_email: "Письмо с дальнейшими инструкциями было отправлено по следующему адресу электронной почты: "
+  authlogic:
+    error_messages:
+      email_invalid: " содержит некорректные символы."
   date:
     abbr_day_names:
     - Вс

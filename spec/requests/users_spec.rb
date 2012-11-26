@@ -56,7 +56,7 @@ describe "Users" do
   	fill_in 'user[email]', with: @user.email
     fill_in 'user[password]', with: @user.password
     click_on 'Зарегистрироваться'
-    page.should have_content('Пользователь с таким email уже зарегистрирован.')
+    page.should have_content('Email уже существует')
   end
 
   it "user settings" do 
