@@ -14,6 +14,12 @@ class LandmarkDescription < Article
                   against: {title: 'A', body: 'B'},
                   associated_against: {tags: [:name]}
 
+  # Searches landmark descriptions against title, body, tags.
+  # For queries with geospatial part, search is done within a radius of some point.
+  #
+  # @param [String, Hash] query 'query string' or {text: 'query string', geom: RGeo::Feature::Point, r: radius}
+  #     or {text: 'query string', x: latitude, y: longitude, r: radius}
+  # @return ActiveRecord::Relation all matching descriptions
   def self.search(query)
     return all unless query && !query.empty?
     if query.is_a? String
