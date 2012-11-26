@@ -1,7 +1,12 @@
 Smorodina::Application.routes.draw do
   resources :landmark_descriptions
 
-  resources :articles
+  resources :articles do
+    collection do
+      get 'search'
+      post 'do_search'
+    end
+  end
 
   namespace :geo do
     resources :landmarks do

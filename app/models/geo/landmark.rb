@@ -1,5 +1,6 @@
 class Geo::Landmark < ActiveRecord::Base
   belongs_to :node, :class_name => Geo::Osm::Node
+  has_one :landmark_description
   attr_accessible :name, :node_id, :tag_list #TODO remove hack: accessible node id
 
   validates :name, :node, :presence => true
@@ -13,5 +14,9 @@ class Geo::Landmark < ActiveRecord::Base
     else
       Geo::Landmark.all
     end
+  end
+
+  scope :within_radius, ->(geom,r) do
+    joins(:node).where "ST_DWithin(nodes.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
   end
 end

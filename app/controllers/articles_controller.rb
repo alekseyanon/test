@@ -2,12 +2,20 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    #TODO update or remove fulltext search from Article, it's here just for demo purpose, not covered in specs
+    @articles = Article.search params[:query]
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @articles }
     end
+  end
+
+  def search
+  end
+
+  def do_search
+    redirect_to articles_path query:params[:query]
   end
 
   # GET /articles/1
