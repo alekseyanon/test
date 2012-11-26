@@ -1,0 +1,17 @@
+%h1 Куда отправиться
+
+= form_tag '/landmark_descriptions/do_search', :method => :post do
+  .inputs
+    %strong Что
+    = text_field_tag :text
+    %br
+    %strong Где
+    %br
+    %strong X
+    = number_field_tag :x
+    %strong Y
+    = number_field_tag :y
+    %strong Радиус
+    = number_field_tag :r
+  .actions
+    = submit_tag 'Search'

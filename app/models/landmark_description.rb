@@ -14,13 +14,29 @@ class LandmarkDescription < Article
                   against: {title: 'A', body: 'B'},
                   associated_against: {tags: [:name]}
 
+  # Searches landmark descriptions against title, body, tags.
+  # For queries with geospatial part, search is done within a radius of some point.
+  #
+  # @param [String, Hash] query 'query string' or {text: 'query string', geom: RGeo::Feature::Point, r: radius}
+  #     or {text: 'query string', x: latitude, y: longitude, r: radius}
+  # @return ActiveRecord::Relation all matching descriptions
   def self.search(query)
-    query ?
-        query.is_a?(Hash) ?
-            query.has_key?(:geom) ?
-                text_search(query[:text]).within_radius(query[:geom], query[:radius]) :
-                text_search(query[:text]) :
-            text_search(query) :
-        all
+    return all unless query && !query.empty?
+    if query.is_a? String
+      text = query
+    else
+      query = query.delete_if { |k, v| v.nil? || (v.is_a?(String) && v.empty?) }
+      text = query[:text]
+      geom = query[:geom] || ((x = query[:x]) && (y = query[:y]) && Geo::factory.point(x.to_i, y.to_i))
+      r = query[:r] || 0
+    end
+    chain = LandmarkDescription
+    chain = chain.text_search(text) if text
+    chain = chain.within_radius(geom, r) if geom
+    chain.order('created_at DESC')
+  end
+
+  def tag_list
+    landmark.tag_list
   end
 end
