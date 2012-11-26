@@ -7,11 +7,11 @@
       .alert.alert-error
         =flash[:error]
     = simple_form_for @user_session, :html => { :class => 'form-horizontal' } do |form| 
-      / - @user_session.errors.full_messages.each do |msg| 
-      /   .alert.alert-error
-      /     %p= msg
+      -# - @user_session.errors.full_messages.each do |msg| 
+      -#  .alert.alert-error
+      -#    %p= msg
       = form.input :email 
-      / = form.error :email, :id => "email_errror"
+      -# = form.error :email, :id => "email_errror"
       %div#pass1.changepass{:onclick => "toggleType('pass1', 'user_session_password')"} показать пароль
       = form.input :password, :input_html => {:autocomplete => :off}
       = form.submit "Войти"
