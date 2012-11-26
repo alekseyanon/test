@@ -63,6 +63,7 @@ User.blueprint do
   name { Faker::Lorem.word }
   password { tmp }
   password_confirmation { tmp }
-  email {Faker::Internet.email }
+  email { Faker::Internet.email }
   roles { ["traveler"] }
+  perishable_token { "perishabletoken" }
 end

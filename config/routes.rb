@@ -33,6 +33,7 @@ Smorodina::Application.routes.draw do
     #get '/signup', :action => 'signup', :as => :signup_page
     get 'activate/:token', :action => 'activate', :as => :activate_user
     post 'activate/:token', :action => 'do_activate'
+    
     get '/profile/:type', :action => 'profile', as: :profile, :constraints => {:type => /traveler/}
   end
   resources :users, :except => :new, :constraints => { :id => /[^\/]*\d+/ } do
@@ -59,7 +60,14 @@ Smorodina::Application.routes.draw do
   end
 
   resources :user_sessions # TODO: check errors
-  
+  controller :reset_password do 
+    get "/forget_password", :action => 'forget_password'
+    post "/forget_password", :action => 'send_instruction' 
+    get 'password_reset/:token', :action => 'password_form', :as => :reset_password
+    post 'password_reset/:token', :action => 'update_password'
+  end
+  #resources :reset_password, :only => [ :new, :create, :edit, :update ]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

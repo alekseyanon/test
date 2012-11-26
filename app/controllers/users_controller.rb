@@ -17,7 +17,6 @@ class UsersController < ApplicationController
   end
 
   def create
-	  
 	  providers = %w(facebook twitter vkontakte)
 
     # Нажата кнопка "Зарегистрироваться через..."
@@ -108,7 +107,6 @@ class UsersController < ApplicationController
     end
   end
 
-  #TODO: add view for this action
   def new_via_oauth
     @user = @authentication.new_user(params[:user])
     render :layout => false
@@ -120,12 +118,9 @@ class UsersController < ApplicationController
 
     if @user.register
       user_signed_up#(@user)
-      # TODO: add my view
       render :template => 'users/registration_completed'
-      #, :layout => 'registration'
     else
       render :action => :new_via_oauth
-      #, :layout => 'registration'
     end
   end
 
@@ -168,25 +163,8 @@ class UsersController < ApplicationController
     end
   end
 
-  ### TODO: delete this method
-  # def update_email
-  #   if @user.change_email(params[:user])
-  #     current_user_session.destroy
-  #     flash[:notice] = I18n.t("users.actions.email_updated")
-  #     redirect_to '/'
-  #   else
-  #     render :action => 'change_password_or_email'
-  #   end
-  # end
-
 	def update
 	  @user = current_user
-    if params[:user][:crop_x].present?
-      session[:x] = params[:user][:crop_x]
-      session[:y] = params[:user][:crop_y]
-      session[:w] = params[:user][:crop_w]
-      session[:h] = params[:user][:crop_h]
-    end
 	  if @user.update_attributes(params[:user])
       if params[:user][:avatar].present?
         
@@ -238,7 +216,7 @@ class UsersController < ApplicationController
       flash[:notice] = I18n.t("users.actions.do_activate.flash")
       redirect_to root_url
     end
-  end
+  end  
 
   def profile
     if current_user

@@ -2,6 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 ru:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "Пользователь с таким email уже зарегистрирован."
+              invalid: " содержит некорректные символы."
   users: 
     actions:
       update_password:
@@ -10,16 +18,22 @@ ru:
         flash: "Вот теперь все норм"
       do_activate:
         flash: "Аккаунт успешно активирован"
+      update_password: 
+        error: "Смена пароля завершилась не удачно, пожалуйста повторите попытку."
     errors:
       find_by_perishable_token: "Не нашел такого пользователя"
   user_sessions:
     successfull:
       login: "сессия успешно создана"
     errors:
-      login: "Ошибка создания сессии"
+      login: "Ошибка, проверьте email и пароль и повторите попытку снова."
   authentications:
     delete_success: "Аккаунт удален"
-
+  reset_password:
+    errors:
+      send_instruction: "Пользователь с таким email не был найден"
+    notice:
+      notification_by_email: "Письмо с дальнейшими инструкциями было отправлено по следующему адресу электронной почты: "
   date:
     abbr_day_names:
     - Вс
@@ -276,3 +290,4 @@ ru:
   activerecord:
     errors:
       <<: *errors
+
