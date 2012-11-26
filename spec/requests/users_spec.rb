@@ -48,7 +48,7 @@ describe "Users" do
   	fill_in 'user[email]', with: "tester"
     fill_in 'user[password]', with: "tester"
     click_on 'Зарегистрироваться'
-    page.should have_content('Email should look like an email address.')
+    page.should have_content('содержит некорректные символы')
   end
 
   it "user register with data of already exists user" do 

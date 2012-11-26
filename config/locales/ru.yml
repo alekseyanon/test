@@ -9,6 +9,7 @@ ru:
           attributes:
             email:
               taken: "Пользователь с таким email уже зарегистрирован."
+              invalid: " содержит некорректные символы."
   users: 
     actions:
       update_password:
