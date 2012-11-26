@@ -14,16 +14,13 @@ class User < ActiveRecord::Base
   attr_accessor :old_password
   attr_accessor :need_to_check_old_password
 
-
   has_many :authentications, :dependent => :destroy
   has_many :articles  
   
-
   acts_as_authentic do |c|
     c.ignore_blank_passwords = false
   end
   ### TODO: add validations
-  ### TODO: name field does not used
   ### TODO: refactor
   ### TODO: add anonimous
   
@@ -52,11 +49,8 @@ class User < ActiveRecord::Base
 
     event :soft_destroy do
       transitions :from => :active, :to => :deleted
-    end
-
-    
+    end 
   end
-
 
   # Scopes
   scope :in_state, lambda { |state|
@@ -70,30 +64,23 @@ class User < ActiveRecord::Base
   def crop_avatar
     avatar.recreate_versions! if crop_x.present?
   end
-
   
   # инициализует нового пользователя из данных регистрации
   def self.new_user(role, user_params)
     user_params = user_params.with_indifferent_access
 
-    #User.find_fake_or_initialize(user_params)
-
-    # TODO: Maybe, all that situated in block we can delete
     User.intlz(user_params).tap do |user|
       user.roles = [:traveler]
-      user.email = user_params[:email]
     end
-    
   end
 
   def self.intlz(attributes)
     user = new(attributes)
     user.password = attributes["password"]
     user.password_confirmation = attributes["password"]
-    user.email = attributes["email"]
-    #user.roles = [:traveler]
     user
   end
+
   # регистрирует пользователя в системе
   # options[:activate] если true, то активирует юзера, иначе высылает активационное письмо
   # options[:inviter_token]
@@ -102,9 +89,6 @@ class User < ActiveRecord::Base
 
     transaction do
       if save
-                # start_membership(:inviter_token => inviter_token) if (inviter_token = options[:inviter_token])
-        # set_plan_on_signup(plan_name, plan_duration, plan_in_debt) if contractor?
-
         if options.delete(:activate)
           activate
         else
@@ -147,18 +131,7 @@ class User < ActiveRecord::Base
     false
   end
 
-protected
-
-  # # while never used
-  # def merge_params(attrs)
-  #   attrs["realm_ids"] = (attrs["realm_1"].nil? ? [] : attrs["realm_1"].to_a) + (attrs["realm_2"].nil? ? [] : attrs["realm_2"].to_a)
-  #   attrs["branch_ids"] = (attrs["branches_1"].nil? ? [] : attrs["branches_1"]) + (attrs["branches_2"].nil? ? [] : attrs["branches_2"])
-  #   attrs
-  #   #raise attrs.inspect
-  # end
-
 private
-
 
   # Копирует в имя часть емейла до '@'
   def set_default_name_from_email
@@ -175,10 +148,6 @@ private
 
   def _after_activate
     Notifier.user_activated(self).deliver
-
     ### maybe we can add something that user created before activation
-
   end
-
-
 end

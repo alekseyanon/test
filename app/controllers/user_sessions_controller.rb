@@ -4,15 +4,6 @@ class UserSessionsController < ApplicationController
 	  @user_session = UserSession.new
   end
 
-  # def create 
-  # 	@user_session = UserSession.new(params[:user_session])
-	 #  if @user_session.save
-	 #    flash[:notice] = "Successfully logged in."
-	 #    redirect_to root_url
-	 #  else
-	 #    redirect_to login_url
-	 #  end
-  # end
 
   ### Handle of creating session for social networks and through the email
   def create
