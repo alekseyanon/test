@@ -40,6 +40,7 @@ describe Geo::Osm::Poly do
   end
 
   describe '#touches?' do
+    #TODO cover two polygons touching case
     it 'determines if the polygon touches a node' do
       triangle.each do |node|
         triangle_poly.touches?(node).should be_true

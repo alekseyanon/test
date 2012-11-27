@@ -1,16 +1,20 @@
 %h1 Listing landmark_descriptions
 
-%table
-  %tr
-    %th
-    %th
-    %th
-
-  - @landmark_descriptions.each do |landmark_description|
+- @landmark_descriptions.each do |landmark_description|
+  %strong= landmark_description.title
+  %br
+  = landmark_description.body
+  %br
+  %strong Tags:
+  = landmark_description.tag_list
+  %br
+  = landmark_description.landmark.node.geom
+  %table
     %tr
       %td= link_to 'Show', landmark_description
       %td= link_to 'Edit', edit_landmark_description_path(landmark_description)
       %td= link_to 'Destroy', landmark_description, method: :delete, data: { confirm: 'Are you sure?' }
+  %br
 
 %br
 

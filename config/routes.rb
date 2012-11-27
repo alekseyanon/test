@@ -1,5 +1,10 @@
 Smorodina::Application.routes.draw do
-  resources :landmark_descriptions
+  resources :landmark_descriptions do
+    collection do
+      get 'search'
+      post 'do_search'
+    end
+  end
 
   resources :articles do
     collection do

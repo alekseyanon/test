@@ -3,8 +3,8 @@ require 'spec_helper'
 describe "landmark_descriptions/index" do
   before(:each) do
     assign(:landmark_descriptions, [
-      stub_model(LandmarkDescription),
-      stub_model(LandmarkDescription)
+      LandmarkDescription.make!,
+      LandmarkDescription.make!
     ])
   end
 
