@@ -18,86 +18,86 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe Geo::LandmarksController do
+describe LandmarksController do
   render_views
 
   # This should return the minimal set of attributes required to create a valid
-  # Geo::Landmark. As you add validations to Geo::Landmark, be sure to
+  # Landmark. As you add validations to Landmark, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {name:'name', node_id: Geo::Osm::Node.make!.id}
+    {name:'name', node_id: Osm::Node.make!.id}
   end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # Geo::LandmarksController. Be sure to keep this updated too.
+  # LandmarksController. Be sure to keep this updated too.
   def valid_session
     {}
   end
 
   describe "GET index" do
-    it "assigns all geo_landmarks as @geo_landmarks" do
-      landmark = Geo::Landmark.create! valid_attributes
+    it "assigns all landmarks as @landmarks" do
+      landmark = Landmark.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:geo_landmarks).should eq([landmark])
+      assigns(:landmarks).should eq([landmark])
     end
   end
 
   describe "GET show" do
     it "assigns the requested landmark as @landmark" do
-      landmark = Geo::Landmark.create! valid_attributes
+      landmark = Landmark.create! valid_attributes
       get :show, {:id => landmark.to_param}, valid_session
-      assigns(:geo_landmark).should eq(landmark)
+      assigns(:landmark).should eq(landmark)
     end
   end
 
   describe "GET new" do
     it "assigns a new landmark as @landmark" do
       get :new, {}, valid_session
-      assigns(:geo_landmark).should be_a_new(Geo::Landmark)
+      assigns(:landmark).should be_a_new(Landmark)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested landmark as @landmark" do
-      landmark = Geo::Landmark.create! valid_attributes
+      landmark = Landmark.create! valid_attributes
       get :edit, {:id => landmark.to_param}, valid_session
-      assigns(:geo_landmark).should eq(landmark)
+      assigns(:landmark).should eq(landmark)
     end
   end
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Geo::Landmark" do
+      it "creates a new Landmark" do
         expect {
-          post :create, {:geo_landmark => valid_attributes}, valid_session
-        }.to change(Geo::Landmark, :count).by(1)
+          post :create, {:landmark => valid_attributes}, valid_session
+        }.to change(Landmark, :count).by(1)
       end
 
       it "assigns a newly created landmark as @landmark" do
-        post :create, {:geo_landmark => valid_attributes}, valid_session
-        assigns(:geo_landmark).should be_a(Geo::Landmark)
-        assigns(:geo_landmark).should be_persisted
+        post :create, {:landmark => valid_attributes}, valid_session
+        assigns(:landmark).should be_a(Landmark)
+        assigns(:landmark).should be_persisted
       end
 
       it "redirects to the created landmark" do
-        post :create, {:geo_landmark => valid_attributes}, valid_session
-        response.should redirect_to(Geo::Landmark.last)
+        post :create, {:landmark => valid_attributes}, valid_session
+        response.should redirect_to(Landmark.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved landmark as @landmark" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Geo::Landmark.any_instance.stub(:save).and_return(false)
-        post :create, {:geo_landmark => {}}, valid_session
-        assigns(:geo_landmark).should be_a_new(Geo::Landmark)
+        Landmark.any_instance.stub(:save).and_return(false)
+        post :create, {:landmark => {}}, valid_session
+        assigns(:landmark).should be_a_new(Landmark)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Geo::Landmark.any_instance.stub(:save).and_return(false)
-        post :create, {:geo_landmark => {}}, valid_session
+        Landmark.any_instance.stub(:save).and_return(false)
+        post :create, {:landmark => {}}, valid_session
         response.should render_template("new")
       end
     end
@@ -106,42 +106,42 @@ describe Geo::LandmarksController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested landmark" do
-        landmark = Geo::Landmark.create! valid_attributes
-        # Assuming there are no other geo_landmarks in the database, this
-        # specifies that the Geo::Landmark created on the previous line
+        landmark = Landmark.create! valid_attributes
+        # Assuming there are no other landmarks in the database, this
+        # specifies that the Landmark created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Geo::Landmark.any_instance.should_receive(:update_attributes).with({'name' => 'other_name'})
-        put :update, {id: landmark.to_param, geo_landmark: {:name => 'other_name'}}, valid_session
+        Landmark.any_instance.should_receive(:update_attributes).with({'name' => 'other_name'})
+        put :update, {id: landmark.to_param, landmark: {:name => 'other_name'}}, valid_session
       end
 
       it "assigns the requested landmark as @landmark" do
-        landmark = Geo::Landmark.create! valid_attributes
-        put :update, {:id => landmark.to_param, :geo_landmark => valid_attributes}, valid_session
-        assigns(:geo_landmark).should eq(landmark)
+        landmark = Landmark.create! valid_attributes
+        put :update, {:id => landmark.to_param, :landmark => valid_attributes}, valid_session
+        assigns(:landmark).should eq(landmark)
       end
 
       it "redirects to the landmark" do
-        landmark = Geo::Landmark.create! valid_attributes
-        put :update, {:id => landmark.to_param, :geo_landmark => valid_attributes}, valid_session
+        landmark = Landmark.create! valid_attributes
+        put :update, {:id => landmark.to_param, :landmark => valid_attributes}, valid_session
         response.should redirect_to(landmark)
       end
     end
 
     describe "with invalid params" do
       it "assigns the landmark as @landmark" do
-        landmark = Geo::Landmark.create! valid_attributes
+        landmark = Landmark.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Geo::Landmark.any_instance.stub(:save).and_return(false)
-        put :update, {:id => landmark.to_param, :geo_landmark => {}}, valid_session
-        assigns(:geo_landmark).should eq(landmark)
+        Landmark.any_instance.stub(:save).and_return(false)
+        put :update, {:id => landmark.to_param, :landmark => {}}, valid_session
+        assigns(:landmark).should eq(landmark)
       end
 
       it "re-renders the 'edit' template" do
-        landmark = Geo::Landmark.create! valid_attributes
+        landmark = Landmark.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Geo::Landmark.any_instance.stub(:save).and_return(false)
-        put :update, {:id => landmark.to_param, :geo_landmark => {}}, valid_session
+        Landmark.any_instance.stub(:save).and_return(false)
+        put :update, {:id => landmark.to_param, :landmark => {}}, valid_session
         response.should render_template("edit")
       end
     end
@@ -149,16 +149,16 @@ describe Geo::LandmarksController do
 
   describe "DELETE destroy" do
     it "destroys the requested landmark" do
-      landmark = Geo::Landmark.create! valid_attributes
+      landmark = Landmark.create! valid_attributes
       expect {
         delete :destroy, {:id => landmark.to_param}, valid_session
-      }.to change(Geo::Landmark, :count).by(-1)
+      }.to change(Landmark, :count).by(-1)
     end
 
-    it "redirects to the geo_landmarks list" do
-      landmark = Geo::Landmark.create! valid_attributes
+    it "redirects to the landmarks list" do
+      landmark = Landmark.create! valid_attributes
       delete :destroy, {:id => landmark.to_param}, valid_session
-      response.should redirect_to(geo_landmarks_url)
+      response.should redirect_to(landmarks_url)
     end
   end
 

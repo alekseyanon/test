@@ -1,7 +1,7 @@
 # fun coding: UTF-8
 require 'machinist/active_record'
 
-Geo::Osm::Node.blueprint do
+Osm::Node.blueprint do
   id { 2 * 10 ** 9 + 2000 + sn.to_i }
   geom { Geo::factory.point(29.9918672, 60.0052767) }
   tags { { transport: 'subway', station: 'subway',
@@ -16,7 +16,7 @@ Geo::Osm::Node.blueprint do
   changeset_id { 0 }
 end
 
-Geo::Osm::Poly.blueprint do
+Osm::Poly.blueprint do
   id { 2 * 10 ** 6 + sn.to_i }
   tags { { name: "ТД \"Карел Камень\" причал \"Обухово\"", landuse: "industrial"} }
   nodes { [2003736032,2003736029,2003736036,2003736028,2003736030,2003736034,2003736026,28975413,2003736033,2003736032] }
@@ -26,13 +26,14 @@ Geo::Osm::Poly.blueprint do
   changeset_id { 0 }
 end
 
-Geo::Landmark.blueprint do
+Landmark.blueprint do
   name { Faker::Lorem.word }
-  node { Geo::Osm::Node.make }
+  node { Osm::Node.make }
 end
 
 Category.blueprint do
   name { Faker::Lorem.word }
+  name_ru { Faker::Lorem.word }
   description { Faker::Lorem.sentence 2 }
 end
 
@@ -51,7 +52,7 @@ LandmarkDescription.blueprint do
   published { [true, false].sample }
   published_at { Time.now }
 
-  landmark { Geo::Landmark.make }
+  landmark { Landmark.make }
 end
 
 Authentication.blueprint do

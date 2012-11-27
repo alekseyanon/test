@@ -13,12 +13,10 @@ Smorodina::Application.routes.draw do
     end
   end
 
-  namespace :geo do
-    resources :landmarks do
-      collection do
-        get 'search'
-        post 'do_search'
-      end
+  resources :landmarks do
+    collection do
+      get 'search'
+      post 'do_search'
     end
   end
 

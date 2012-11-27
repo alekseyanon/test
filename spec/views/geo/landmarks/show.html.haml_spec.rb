@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "geo/landmarks/show" do
+describe "landmarks/show" do
   before(:each) do
-    @landmark = assign(:geo_landmark, stub_model(Geo::Landmark))
+    @landmark = assign :landmark, Landmark.make!
   end
 
   it "renders attributes in <p>" do

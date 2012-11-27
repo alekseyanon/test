@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Geo::Landmark do
+describe Landmark do
   subject { described_class.make }
   it { should be_valid }
   it { should validate_presence_of :name }

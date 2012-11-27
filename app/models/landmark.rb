@@ -1,5 +1,5 @@
-class Geo::Landmark < ActiveRecord::Base
-  belongs_to :node, :class_name => Geo::Osm::Node
+class Landmark < ActiveRecord::Base
+  belongs_to :node, :class_name => Osm::Node
   has_one :landmark_description
   attr_accessible :name, :node_id, :tag_list #TODO remove hack: accessible node id
 
@@ -10,9 +10,9 @@ class Geo::Landmark < ActiveRecord::Base
 
   def self.by_tags_count(tag_list)
     if tag_list && !tag_list.empty?
-      Geo::Landmark.tagged_with(tag_list, any: true).sort_by!{|l| -(l.tag_list & tag_list).length}
+      Landmark.tagged_with(tag_list, any: true).sort_by!{|l| -(l.tag_list & tag_list).length}
     else
-      Geo::Landmark.all
+      Landmark.all
     end
   end
 

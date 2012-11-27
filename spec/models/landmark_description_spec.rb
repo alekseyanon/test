@@ -47,7 +47,7 @@ describe LandmarkDescription do
     context 'for combined geospatial and text queries' do
       it 'performs full text search for landmarks in around coordinates provided' do
         point = Geo::factory.point(10, 10)
-        d[0].landmark.node = Geo::Osm::Node.make! geom: point
+        d[0].landmark.node = Osm::Node.make! geom: point
         d[0].landmark.save
         described_class.search(text: "fishing", geom: point, r: 1).should == [d[0]]
         described_class.search(text: "fishing", geom: point, r: 100).should == [d[0], d[2], d[3]]

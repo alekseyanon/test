@@ -1,9 +1,9 @@
-= simple_form_for @geo_landmark do |f|
-  - if @geo_landmark.errors.any?
+= simple_form_for @landmark do |f|
+  - if @landmark.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@geo_landmark.errors.count, "error")} prohibited this geo_landmark from being saved:"
+      %h2= "#{pluralize(@landmark.errors.count, "error")} prohibited this landmark from being saved:"
       %ul
-        - @geo_landmark.errors.full_messages.each do |msg|
+        - @landmark.errors.full_messages.each do |msg|
           %li= msg
   .inputs
     = f.input :name

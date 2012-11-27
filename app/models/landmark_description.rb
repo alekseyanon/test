@@ -1,5 +1,5 @@
 class LandmarkDescription < Article
-  belongs_to :landmark, :class_name => Geo::Landmark
+  belongs_to :landmark, :class_name => Landmark
   has_many :tags, through: :landmark
   has_one :node, through: :landmark
 
