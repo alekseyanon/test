@@ -1,10 +1,10 @@
 class LandmarksController < ApplicationController
-  before_filter :get_categories, :get_nodes, :only => [:new, :edit, :create, :update, :search]
+  before_filter :get_nodes, :only => [:new, :edit, :create, :update, :search]
 
   # GET /landmarks
   # GET /landmarks.json
   def index
-    @landmarks = Landmark.by_tags_count params[:tag_list]
+    @landmarks = Landmark.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -93,10 +93,6 @@ class LandmarksController < ApplicationController
   end
 
   protected
-
-  def get_categories
-    @categories = Category.select(:name).map(&:name) #TODO move to model?
-  end
 
   def get_nodes
     @node_ids = Osm::Node.select(:id).limit(10).map(&:id) #TODO move to model?

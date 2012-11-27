@@ -1,13 +1,13 @@
 class LandmarkDescription < AbstractDescription
-  belongs_to :landmark, :class_name => Landmark
-  has_many :tags, through: :landmark
-  has_one :node, through: :landmark
+  has_one :osm, through: :describable
 
-  validates_associated :landmark
-  accessible_attributes :landmark_id
+  validates_associated :describable
+  accessible_attributes :geo_unit_id #TODO remove hack: accessible geo_unit_id
 
   scope :within_radius, ->(geom, r) do
-    joins(:node).where "ST_DWithin(nodes.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
+    joins("INNER JOIN geo_units ON abstract_descriptions.describable_id = geo_units.id
+           INNER JOIN nodes ON geo_units.osm_id = nodes.id").
+        where "ST_DWithin(nodes.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
   end
 
   pg_search_scope :text_search,
@@ -34,9 +34,5 @@ class LandmarkDescription < AbstractDescription
     chain = chain.text_search(text) if text
     chain = chain.within_radius(geom, r) if geom
     chain.order('created_at DESC')
-  end
-
-  def tag_list
-    landmark.tag_list
   end
 end

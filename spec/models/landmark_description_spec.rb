@@ -5,7 +5,7 @@ require 'spec_helper'
 describe LandmarkDescription do
   subject { described_class.make! }
   it_behaves_like "an abstract description"
-  it { should belong_to :landmark }
+  it { should belong_to :describable }
 
   describe ".within_radius" do #TODO move to shared example group with landmarks and nodes altogether
     let(:triangle) { to_points [[10, 10], [20, 20], [30, 10]] }
@@ -24,8 +24,8 @@ describe LandmarkDescription do
     let!(:d){
       File.open("#{Rails.root}/db/seeds/landmark_descriptions.yml"){|f| YAML.load f.read}.map{|yld|
         ld = described_class.make! yld.slice(:title, :body)
-        ld.landmark.tag_list += yld[:tags] if yld[:tags] #TODO move to blueprints
-        ld.landmark.save
+        ld.tag_list += yld[:tags] if yld[:tags] #TODO move to blueprints
+        ld.save
         ld
       }
     }
@@ -47,8 +47,8 @@ describe LandmarkDescription do
     context 'for combined geospatial and text queries' do
       it 'performs full text search for landmarks in around coordinates provided' do
         point = Geo::factory.point(10, 10)
-        d[0].landmark.node = Osm::Node.make! geom: point
-        d[0].landmark.save
+        d[0].describable.osm = Osm::Node.make! geom: point
+        d[0].describable.save
         described_class.search(text: "fishing", geom: point, r: 1).should == [d[0]]
         described_class.search(text: "fishing", geom: point, r: 100).should == [d[0], d[2], d[3]]
       end

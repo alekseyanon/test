@@ -6,8 +6,6 @@
         - @landmark.errors.full_messages.each do |msg|
           %li= msg
   .inputs
-    = f.input :name
-    = f.input :node_id, collection: @node_ids
-    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories
+    = f.input :osm_id, collection: @node_ids
   .actions
     = f.submit 'Save'

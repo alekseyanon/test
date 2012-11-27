@@ -25,7 +25,7 @@ describe LandmarksController do
   # Landmark. As you add validations to Landmark, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {name:'name', node_id: Osm::Node.make!.id}
+    {osm_id: Osm::Node.make!.id, osm_type: 'Osm::Node'}
   end
 
   # This should return the minimal set of values that should be in the session

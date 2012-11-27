@@ -27,8 +27,7 @@ Osm::Poly.blueprint do
 end
 
 Landmark.blueprint do
-  name { Faker::Lorem.word }
-  node { Osm::Node.make }
+  osm { Osm::Node.make }
 end
 
 Category.blueprint do
@@ -52,7 +51,7 @@ LandmarkDescription.blueprint do
   published { [true, false].sample }
   published_at { Time.now }
 
-  landmark { Landmark.make }
+  describable { Landmark.make }
 end
 
 Authentication.blueprint do

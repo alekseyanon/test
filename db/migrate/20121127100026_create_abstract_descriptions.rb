@@ -4,7 +4,7 @@ class CreateAbstractDescriptions < ActiveRecord::Migration
       t.string :title
       t.text :body
       t.references :user
-      t.references :landmark #TODO change reference to GeoUnit once it's here
+      t.references :describable
 
       t.boolean :published
       t.datetime :published_at

@@ -2,6 +2,7 @@ class Osm::Node < ActiveRecord::Base
   # http://wiki.openstreetmap.org/wiki/Osmosis/PostGIS_Setup
   # for details see osmosis/script/pgsnapshot_schema_0.6.sql
   self.table_name = 'nodes'
+  has_one :geo_unit, as: :osm
   set_rgeo_factory_for_column(:geom, Geo::factory)
   attr_accessible :geom, :tags
   serialize :tags, ActiveRecord::Coders::Hstore

@@ -1,4 +1,6 @@
 class LandmarkDescriptionsController < ApplicationController
+  before_filter :get_categories, :only => [:new, :edit, :create, :update, :search]
+
   def sanitize_search_params(params)
     params && params.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
   end
@@ -90,5 +92,11 @@ class LandmarkDescriptionsController < ApplicationController
       format.html { redirect_to landmark_descriptions_url }
       format.json { head :no_content }
     end
+  end
+
+  protected
+
+  def get_categories
+    @categories = Category.select(:name).map(&:name) #TODO move to model?
   end
 end

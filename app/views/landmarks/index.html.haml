@@ -9,8 +9,7 @@
   - @landmarks.each do |landmark|
     %tr
       %td
-        %strong= landmark.name
-      %td= landmark.tag_list
+        %strong= landmark.id
       %td= link_to 'Show', landmark
       %td= link_to 'Edit', edit_landmark_path(landmark)
       %td= link_to 'Destroy', landmark, method: :delete, data: { confirm: 'Are you sure?' }

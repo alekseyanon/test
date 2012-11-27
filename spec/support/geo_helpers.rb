@@ -12,9 +12,9 @@ def to_poly(nodes)
 end
 
 def to_landmarks(crd)
-  to_nodes(crd).map{|n| Landmark.make!(node: n)}
+  to_nodes(crd).map{|n| Landmark.make!(osm: n)}
 end
 
 def landmarks_to_descriptions(landmarks)
-  landmarks.map{|lm| LandmarkDescription.make! landmark: lm}
+  landmarks.map{|lm| LandmarkDescription.make! describable: lm}
 end
