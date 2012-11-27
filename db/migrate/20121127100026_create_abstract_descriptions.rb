@@ -5,6 +5,7 @@ class CreateAbstractDescriptions < ActiveRecord::Migration
       t.text :body
       t.references :user
       t.references :describable
+      t.string :describable_type
 
       t.boolean :published
       t.datetime :published_at
