@@ -6,13 +6,6 @@ Smorodina::Application.routes.draw do
     end
   end
 
-  resources :articles do
-    collection do
-      get 'search'
-      post 'do_search'
-    end
-  end
-
   resources :landmarks do
     collection do
       get 'search'

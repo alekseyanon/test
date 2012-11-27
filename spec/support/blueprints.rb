@@ -37,7 +37,7 @@ Category.blueprint do
   description { Faker::Lorem.sentence 2 }
 end
 
-Article.blueprint do
+AbstractDescription.blueprint do
   user { User.make }
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }

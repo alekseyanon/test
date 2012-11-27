@@ -4,7 +4,7 @@ require 'spec_helper'
 #TODO cover multi-word search
 describe LandmarkDescription do
   subject { described_class.make! }
-  it_behaves_like "an article"
+  it_behaves_like "an abstract description"
   it { should belong_to :landmark }
 
   describe ".within_radius" do #TODO move to shared example group with landmarks and nodes altogether

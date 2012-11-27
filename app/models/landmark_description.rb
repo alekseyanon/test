@@ -1,4 +1,4 @@
-class LandmarkDescription < Article
+class LandmarkDescription < AbstractDescription
   belongs_to :landmark, :class_name => Landmark
   has_many :tags, through: :landmark
   has_one :node, through: :landmark
