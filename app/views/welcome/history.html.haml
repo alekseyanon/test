@@ -1,0 +1,22 @@
+
+=link_to "Создать объект", edit_path
+%br
+-# ###TODO: Move to partial
+=link_to "описание объекта", show_path
+|
+=link_to "редактировать описание", edit_path
+|
+=link_to "История изменений", history_path
+
+%h4 Текущая версия
+
+= simple_form_for "", :html => { :class => 'form-horizontal' } do |f|
+  = f.input :versions, collection: ["версия 5", "версия 4", "версия 3", "версия 2", "версия 1"], as: :radio_buttons, label: ""
+  = button_to "Вернуть статью к выбранной версии", ""
+  = button_to "Сравнить", "#"
+
+%br
+%br
+%h3 Далее идет SEO-текст.
+%br
+%br

@@ -37,8 +37,8 @@ describe "Users" do
 
   it "user register" do 
   	visit profile_path(:type => 'traveler')
-  	fill_in 'user[email]', with: "tester@test.ru"
-    fill_in 'user[password]', with: "tester"
+  	fill_in 'user[email]', with: Faker::Internet.email
+    fill_in 'user[password]', with: "tes123ter"
     click_on 'Зарегистрироваться'
     current_path.should == pendtoact_path
   end

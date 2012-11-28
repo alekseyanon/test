@@ -55,6 +55,10 @@ Smorodina::Application.routes.draw do
 
   controller :welcome do
     get '/activation', :action => "pend_act", :as => :pendtoact
+    get '/new', :action => "new"
+    get '/edit', :action => "edit"
+    get '/show', :action => "show"
+    get '/history', :action => "history"
   end
 
   # routing for manage user_session model with nice url
