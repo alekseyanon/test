@@ -1,10 +1,11 @@
-class CreateArticles < ActiveRecord::Migration
+class CreateAbstractDescriptions < ActiveRecord::Migration
   def change
-    create_table :articles do |t|
+    create_table :abstract_descriptions do |t|
       t.string :title
       t.text :body
       t.references :user
-      t.references :landmark
+      t.references :describable
+      t.string :describable_type
 
       t.boolean :published
       t.datetime :published_at
@@ -13,6 +14,5 @@ class CreateArticles < ActiveRecord::Migration
 
       t.string :type
     end
-    add_index :articles, :user_id
   end
 end

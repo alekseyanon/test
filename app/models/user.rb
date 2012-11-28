@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   attr_accessor :need_to_check_old_password
 
   has_many :authentications, :dependent => :destroy
-  has_many :articles  
+  has_many :abstract_descriptions
   
   acts_as_authentic do |c|
     c.ignore_blank_passwords = false
