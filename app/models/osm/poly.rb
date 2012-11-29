@@ -1,5 +1,5 @@
-class Geo::Osm::Poly < ActiveRecord::Base
-  set_table_name "ways"
+class Osm::Poly < ActiveRecord::Base
+  self.table_name = 'ways'
   attr_accessible :nodes, :tags
   serialize :tags, ActiveRecord::Coders::Hstore
 
@@ -7,7 +7,7 @@ class Geo::Osm::Poly < ActiveRecord::Base
 
   def geom
     ordered_points = Array.new nodes.size
-    Geo::Osm::Node.find(nodes).each do |n|
+    Osm::Node.find(nodes).each do |n|
       #TODO get postgre bigint[] as array of integers
       ordered_points[ nodes.index n.id.to_s ] = n.geom
     end

@@ -1,4 +1,4 @@
-shared_examples_for "an article" do
+shared_examples_for "an abstract description" do
   it { should be_valid }
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Geo::Osm::Node do
+describe Osm::Node do
   subject { described_class.make }
   it { should be_valid }
   it { should validate_presence_of :id }
@@ -12,7 +12,7 @@ describe Geo::Osm::Node do
         described_class.make!(geom: Geo::factory.point(x, y))
       end
 
-      poly = Geo::Osm::Poly.make! nodes: nodes.map(&:id)
+      poly = Osm::Poly.make! nodes: nodes.map(&:id)
       described_class.in_poly(poly).should =~ nodes
     end
   end

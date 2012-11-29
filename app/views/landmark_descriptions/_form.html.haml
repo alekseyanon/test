@@ -1,10 +1,12 @@
-= form_for @landmark_description do |f|
+= simple_form_for @landmark_description do |f|
   - if @landmark_description.errors.any?
     #error_explanation
       %h2= "#{pluralize(@landmark_description.errors.count, "error")} prohibited this landmark_description from being saved:"
       %ul
         - @landmark_description.errors.full_messages.each do |msg|
           %li= msg
+  .inputs
+    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories
 
   .actions
     = f.submit 'Save'
