@@ -5,25 +5,47 @@ sightseeing:
     nature:
       ru: Природа
       sub:
-        reservoir: Водохранилище
-        waterflow: Водопад
-        volcano: Вулкан или кратер
+        reservoir:
+          ru: Водохранилище
+          osm: waterway.dam
+        waterflow:
+          ru: Водопад
+          osm: waterway.waterfall
+        volcano:
+          ru: Вулкан или кратер
+          osm: natural.volcano
         geyser: Гейзер
         mountains: Горы
         mud_well: Грязевой источник
-        reserve: Заповедник
-        zoo: Зоопарк
+        reserve:
+          ru: Заповедник
+          osm: leisure.nature_reserve
+        zoo:
+          ru: Зоопарк
+          osm: tourism.zoo
         catacombs: Катакомбы
         spring_well: Ключ
         canyon: Впадина
-        glacier: Ледник
-        sea: Море
-        lake: Озеро
+        glacier:
+          ru: Ледник
+          osm: natural.glacier
+        sea:
+          ru: Море
+          osm: place.sea
+        lake:
+          ru: Озеро
+          osm: natural.water
         park: Парк
-        cave: Пещера
+        cave_entrance:
+          ru: Пещера
+          osm: natural.cave_entrance
         cataracts: Пороги
-        river: Река
-        stream: Ручей
+        river:
+          ru: Река
+          osm: waterway.river
+        spring:
+          ru: Ручей
+          osm: natural.spring
     culture:
       ru: Культура
       sub:
@@ -48,14 +70,22 @@ activities:
     ru: Развлечения
     sub:
       dolphinarium: Дельфинарий
-      cinema: Кинотеатр
+      cinema:
+        ru: Кинотеатр
+        osm: amenity.cinema
       music_venue: Концертная площадка
       musical_club: Музыкальный клуб
-      night_club: Ночной клуб
+      nightclub:
+        ru: Ночной клуб
+        osm: amenity.nightclub
       seaquarium: Океанариум
       planetarium: Планетарий
-      stadium: Стадион
-      theatre: Театр
+      stadium:
+        ru: Стадион
+        osm: leisure.stadium
+      theatre:
+        ru: Театр
+        osm: amenity.theatre
       circus: Цирк
   active_recreation:
     ru: Активный отдых
@@ -68,7 +98,9 @@ activities:
           poolhalls: Бильярдный клуб
           bowling: Боулинг
           bycicle: Велосипед
-          golf: Гольф
+          golf:
+            ru: Гольф
+            osm: leisure.golf_course
           carting: Картинг
           horse-riding: Катание на лошадях
           quad_bike: Квадроцикл
@@ -82,7 +114,9 @@ activities:
       on_water:
         ru: На воде
         sub:
-          aquapark: Аквапарк
+          aquapark:
+            ru: Аквапарк
+            osm: leisure.water_park
           canoes: Байдарки и каноэ
           windserfing: Виндсерфинг
           wakeboarding: Bейкбординг
@@ -125,21 +159,35 @@ lodging:
   ru: Где заночевать
   sub:
     apartment: Апартаменты
-    hotel: Гостиница
-    camping: Кемпинг
+    hotel:
+      ru: Гостиница
+      osm: tourism.hotel
+    camping:
+      ru: Кемпинг
+      osm: tourism.camp_site
     club_hotel: Клубный отель
     cottage: Коттедж
-    motel: Мотель
+    motel:
+      ru: Мотель
+      osm: tourism.motel
     parking: Необорудованные места стоянок
     hunting_seat: Охотничий дом
 food:
   ru: Где поесть
   sub:
-    bar: Бар
-    cafe: Кафе
-    restaurant: Ресторан
+    bar:
+      ru: Бар
+      osm: amenity.bar
+    cafe:
+      ru: Кафе
+      osm: amenity.cafe
+    restaurant:
+      ru: Ресторан
+      osm: amenity.restaurant
     canteen: Столовая
-    fastfood: Фастфуд
+    fastfood:
+      ru: Фастфуд
+      osm: amenity.fast_food
 infrastructure:
   ru: Социально-бытовая инфраструктура
   sub:
@@ -151,54 +199,105 @@ infrastructure:
           sub:
             complex_baths: Комплексные бани
             russian_steam_bath: Русская баня
-            sauna: Сауна
+            sauna:
+              ru: Сауна
+              osm: leisure.sauna
             hammam: Хаммам
-        beauty_parlor: Салон красоты
+        beauty_parlor:
+          ru: Салон красоты
+          osm: shop.beauty
         holiday_center: Санаторий
         spa: Спа
-        fitness: Фитнес клуб
+        fitness:
+          ru: Фитнес клуб
+          osm: leisure.sports_centre
     medical_care:
       ru: Медицина
       sub:
-        drugstore: Аптека
-        hospital: Больница
-        health_center: Поликлиника
+        pharmacy:
+          ru: Аптека
+          osm: amenity.pharmacy
+        hospital:
+          ru: Больница
+          osm: amenity.hospital
+        clinic:
+          ru: Поликлиника
+          osm: amenity.clinic
         maternity_clinic: Роддом
-        dentist: Стоматолог
+        dentist:
+          ru: Стоматолог
+          osm: amenity.dentist
     everyday_services:
       ru: Бытсервис
       sub:
         public_amenities: Дом быта
-        hairdressing: Парикмахерская
-        laundry: Прачечная
-        dry-cleaning: Химчистка
+        hairdresser:
+          ru: Парикмахерская
+          osm: shop.hairdresser
+        laundry:
+          ru: Прачечная
+          osm: shop.laundry
+        dry_cleaning:
+          ru: Химчистка
+          osm: shop.dry_cleaning
     transportation:
       ru: Транспорт
       sub:
         depot: Автовокзал
-        car_wash: Автомойка
-        car_show: Автосалоны/центры
-        car_service: Автосервис
-        car_rental: Аренда авто
+        car_wash:
+          ru: Автомойка
+          osm: amenity.car_wash
+        car_show:
+          ru: Автосалоны/центры
+          osm: shop.car
+        car_repair:
+          ru: Автосервис
+          osm: shop.car_repair
+        car_rental:
+          ru: Аренда авто
+          osm: amenity.car_rental
         boat_rental: Аренда яхт/лодок
-        airport: Аэропорт
+        aerodrome:
+          ru: Аэропорт
+          osm: aeroway.aerodrome
         ticket_office: Билетная касса
-        railroad_station: Ж/д вокзал
+        railway_station:
+          ru: Ж/д вокзал
+          osm: railway.station
         harbour_station: Морской вокзал
         river_boat_station: Речной вокзал
-        taxi: Такси
-        bank: Банк
-        atm: Банкомат
+        taxi:
+          ru: Такси
+          osm: amenity.taxi
+        bank:
+          ru: Банк
+          osm: amenity.bank
+        atm:
+          ru: Банкомат
+          osm: amenity.atm
     shops:
       ru: Магазины
-        auto_parts : Автозапчасти
-        alcohol: Алкоголь
+      sub:
+        car_parts:
+          ru: Автозапчасти
+          osm: shop.car_parts
+        alcohol:
+          ru: Алкоголь
+          osm: shop.alcohol
         boutique: Бутик
-        homeware: Все для дома
-        bookstore: Книжный
+        homeware:
+          ru: Все для дома
+          osm: shop.hardware
+        books:
+          ru: Книжный
+          osm: shop.books
         deli: Минимаркет
-        sports_goods: Спорттовары
-        supermarket: Супермаркет
+        sports_goods:
+          ru: Спорттовары
+          osm: shop.sports
+        supermarket:
+          ru: Супермаркет
+          osm: shop.supermarket
         shopping_mall: Торговый центр
         electronics_store: Электроника
     marketplaces:
@@ -206,7 +305,9 @@ infrastructure:
       sub:
         consumer_goods: Вещевой
         food: Продовольственный
-  	    building_materials: Стройматериалы
+        building_materials: Стройматериалы
         electronics: Электроника
-    police: Полиция
+    police:
+      ru: Полиция
+      osm: amenity.police
 

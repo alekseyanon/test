@@ -1,11 +1,10 @@
 # fun coding: UTF-8
 
 def create_category(parent, category)
-  c = Category.create! name_ru: category[:name]
+  name, content = category
+  c = Category.create! name: name, name_ru:(content.is_a?(String) ? content : content['ru'])
   c.move_to_child_of parent
-  category[:children].each do |sub_cat|
-    create_category c, sub_cat
-  end
+  content['sub'].each{ |sub| create_category c, sub } if content.is_a?(Hash) && content['sub']
 end
 
 categories_file_name = File.join(Rails.root, 'db', 'seeds', 'categories.yml')
