@@ -5,6 +5,10 @@ class LandmarkDescriptionsController < ApplicationController
     params && params.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
   end
 
+  def history
+    @landmark_description = LandmarkDescription.find(params[:id])
+  end
+
   # GET /landmark_descriptions
   # GET /landmark_descriptions.json
   def index

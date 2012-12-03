@@ -1,13 +1,12 @@
 
-=link_to "Создать объект", edit_path
+=link_to "Создать объект", new_landmark_description_path
 %br
 -# ###TODO: Move to partial
-=link_to "описание объекта", show_path
+=link_to "описание объекта", @landmark_description
 |
-=link_to "редактировать описание", edit_path
+=link_to "редактировать описание", edit_landmark_description_path(@landmark_description)
 |
-=link_to "История изменений", history_path
-
+=link_to "История изменений", history_landmark_description_path(@landmark_description)
 %h4 Текущая версия
 
 = simple_form_for "", :html => { :class => 'form-horizontal' } do |f|
