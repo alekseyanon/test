@@ -53,6 +53,7 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/1/edit
   def edit
     @landmark_description = LandmarkDescription.find(params[:id])
+    @categories = Category.all
   end
 
   # POST /landmark_descriptions
@@ -79,6 +80,7 @@ class LandmarkDescriptionsController < ApplicationController
   # PUT /landmark_descriptions/1
   # PUT /landmark_descriptions/1.json
   def update
+    params[:landmark_description][:tag_list].delete("")
     @landmark_description = LandmarkDescription.find(params[:id])
 
     respond_to do |format|

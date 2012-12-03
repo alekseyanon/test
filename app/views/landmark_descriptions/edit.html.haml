@@ -23,8 +23,11 @@
 
     %a{:name => "category"}
     %h3 Категория
-    список добавленых категорий с возможностью их удалить
-    = @landmark_description.tag_list
+    %b
+      список добавленых категорий с возможностью их удалить
+    %br
+    .blue
+      = @landmark_description.tag_list.join(" | ")
     = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите в ручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name_ru, :include_blank => false 
     %h3{:onclick => "$('.categories').toggle();"} 
       =link_to "Или выбери из списка", "#"
@@ -37,6 +40,9 @@
       список чекбоксов для категории где заночевать
       %h4 Где поесть
       список чекбоксов для категории  где поесть
+
+      = f.input :tag_list, collection: @categories, :label => "Укажите в ручную (например, монастырь, выставка, памятник)", as: :check_boxes, :label_method => :name_ru
+
     =link_to "Что посмотреть", "#"
     |
     =link_to "Чем заняться", "#"
