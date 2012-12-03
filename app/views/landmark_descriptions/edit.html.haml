@@ -1,7 +1,68 @@
-%h1 Editing landmark_description
+-# ###TODO: Move to partial
+=link_to "описание объекта", show_path
+|
+=link_to "редактировать описание", edit_path
+|
+=link_to "История изменений", history_path
+%h1 Редактирование объекта
 
-= render 'form'
+= simple_form_for @landmark_description do |f|
+  - if @landmark_description.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@landmark_description.errors.count, "error")} prohibited this landmark_description from being saved:"
+      %ul
+        - @landmark_description.errors.full_messages.each do |msg|
+          %li= msg
+  .inputs
+    %a{:name => "name"}
+    = f.input :title
+    
+    %a{:name => "place"}
+    %h3 Укажите местоположения
+    место для карты!
 
+    %a{:name => "category"}
+    %h3 Категория
+    список добавленых категорий с возможностью их удалить
+    = @landmark_description.tag_list
+    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите в ручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name_ru, :include_blank => false 
+    %h3{:onclick => "$('.categories').toggle();"} 
+      =link_to "Или выбери из списка", "#"
+    .categories  
+      %h4 Что посмотреть
+      список чекбоксов для категории что посмотреть
+      %h4 Чем заняться
+      список чекбоксов для категории чем заняться
+      %h4 Где заночевать
+      список чекбоксов для категории где заночевать
+      %h4 Где поесть
+      список чекбоксов для категории  где поесть
+    =link_to "Что посмотреть", "#"
+    |
+    =link_to "Чем заняться", "#"
+    |
+    =link_to "Где заночевать", "#"
+    |
+    =link_to "Где поесть", "#"
+    .type-form
+      %br
+      %br
+      %p здесь будут формы для соответствующих форм
+      %br
+      %br
+    %h3 Фото
+    %p 3 фотографии объекта
+    %p и под каждой ссылка "пожаловаться"
+    = button_to "Все фото(кол-во)", "#"
+    = button_to "Фото", "#"
+
+    %h3 Видео
+    %p 3 видео объекта
+    %p и под каждым ссылка "пожаловаться"
+    = button_to "Все видео(кол-во)", "#"
+    = button_to "видео", "#"
+
+    = f.submit "Применить изменения"
 = link_to 'Show', @landmark_description
 \|
 = link_to 'Back', landmark_descriptions_path

@@ -27,7 +27,12 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/1.json
   def show
     @landmark_description = LandmarkDescription.find(params[:id])
-
+    @categories = Category.where(:name_ru => @landmark_description.tag_list )
+    @branches = []
+    @categories.each do |c|
+    ## TODO add branch @branches << c.ancestors + 
+      @branches << (c.ancestors << c)
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @landmark_description }
@@ -38,7 +43,7 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/new.json
   def new
     @landmark_description = LandmarkDescription.new
-
+    @categories = Category.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @landmark_description }
@@ -53,8 +58,13 @@ class LandmarkDescriptionsController < ApplicationController
   # POST /landmark_descriptions
   # POST /landmark_descriptions.json
   def create
+    # logger.debug "=============params================="
+    # logger.debug params[:landmark_description]
+    # logger.debug params[:landmark_description][:tag_list]
+    params[:landmark_description][:tag_list].delete("")
+    # logger.debug params[:landmark_description][:tag_list]
     @landmark_description = LandmarkDescription.new(params[:landmark_description])
-
+    @landmark_description.user = current_user
     respond_to do |format|
       if @landmark_description.save
         format.html { redirect_to @landmark_description, notice: 'Landmark description was successfully created.' }
