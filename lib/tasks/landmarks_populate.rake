@@ -13,9 +13,11 @@ def create_landmarks(category_name, osm_tag)
     landmark = Landmark.new
     landmark.osm = n
     landmark.save
-    description = LandmarkDescription.make! describable: landmark, title:(n.tags['name'] || "NoName")
-    description.tag_list += category.self_and_ancestors.map(&:name_ru)
-    description.save
+    ld = LandmarkDescription.new
+    ld.describable =  landmark
+    ld.title = n.tags['name'] || "NoName"
+    ld.tag_list = category.self_and_ancestors.map(&:name_ru)
+    ld.save
     i += 1
   end
   puts i
