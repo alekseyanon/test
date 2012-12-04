@@ -1,26 +1,30 @@
 def browse_category(name, content)
-  create_landmarks name, content['osm']
+  create_landmarks name, content
   content['sub'].each{ |next_name, sub| browse_category next_name, sub } if content['sub']
 end
 
-def create_landmarks(category_name, osm_tag)
-  return 0 if osm_tag.blank?
-  print "#{osm_tag} -> #{category_name} : "
+def create_landmarks(category_name, content)
+  return 0 if content['osm'].blank?
+  print "#{content['osm']} -> #{category_name} : "
   i = 0
   category = Category.where(name: category_name).first
-  tag_name, tag_value = osm_tag.split '.'
+  tag_name, tag_value = content['osm'].split '.'
   tag_condition = "tags->'#{tag_name}' = '#{tag_value}'"
   Osm::Node.where(tag_condition).each do |node|
     create_landmark node, node.tags['name'], category
     i += 1
   end
-  Osm::Poly.where(tag_condition).each do |poly|
-    begin
-      create_landmark Osm::Node.find(poly.nodes.first), poly.tags['title'], category
-    rescue
-      next
+  puts i
+  if content['from_poly']
+    puts "Import from poly"
+    Osm::Poly.where(tag_condition).each do |poly|
+      begin
+        create_landmark Osm::Node.find(poly.nodes.first), poly.tags['title'], category
+      rescue
+        next
+      end
+      i+=1
     end
-    i+=1
   end
   puts i
   @total += i
