@@ -11,9 +11,11 @@ sightseeing:
         waterflow:
           ru: Водопад
           osm: waterway.waterfall
+          from_poly: true # Импортировать ли из полигонов
         volcano:
           ru: Вулкан или кратер
           osm: natural.volcano
+          from_poly: true
         geyser: Гейзер
         mountains: Горы
         mud_well: Грязевой источник
@@ -23,6 +25,7 @@ sightseeing:
         zoo:
           ru: Зоопарк
           osm: tourism.zoo
+          from_poly: true
         catacombs: Катакомбы
         spring_well: Ключ
         canyon: Впадина
@@ -39,6 +42,7 @@ sightseeing:
         cave_entrance:
           ru: Пещера
           osm: natural.cave_entrance
+          from_poly: true
         cataracts: Пороги
         river:
           ru: Река
@@ -46,6 +50,7 @@ sightseeing:
         spring:
           ru: Ручей
           osm: natural.spring
+          from_poly: true
     culture:
       ru: Культура
       sub:
@@ -73,19 +78,23 @@ activities:
       cinema:
         ru: Кинотеатр
         osm: amenity.cinema
+        from_poly: true
       music_venue: Концертная площадка
       musical_club: Музыкальный клуб
       nightclub:
         ru: Ночной клуб
         osm: amenity.nightclub
+        from_poly: true
       seaquarium: Океанариум
       planetarium: Планетарий
       stadium:
         ru: Стадион
         osm: leisure.stadium
+        from_poly: true
       theatre:
         ru: Театр
         osm: amenity.theatre
+        from_poly: true
       circus: Цирк
   active_recreation:
     ru: Активный отдых
@@ -101,6 +110,7 @@ activities:
           golf:
             ru: Гольф
             osm: leisure.golf_course
+            from_poly: true
           carting: Картинг
           horse-riding: Катание на лошадях
           quad_bike: Квадроцикл
@@ -117,6 +127,7 @@ activities:
           aquapark:
             ru: Аквапарк
             osm: leisure.water_park
+            from_poly: true
           canoes: Байдарки и каноэ
           windserfing: Виндсерфинг
           wakeboarding: Bейкбординг
@@ -162,14 +173,17 @@ lodging:
     hotel:
       ru: Гостиница
       osm: tourism.hotel
+      from_poly: true
     camping:
       ru: Кемпинг
       osm: tourism.camp_site
+      from_poly: true
     club_hotel: Клубный отель
     cottage: Коттедж
     motel:
       ru: Мотель
       osm: tourism.motel
+      from_poly: true
     parking: Необорудованные места стоянок
     hunting_seat: Охотничий дом
 food:
@@ -178,16 +192,20 @@ food:
     bar:
       ru: Бар
       osm: amenity.bar
+      from_poly: true
     cafe:
       ru: Кафе
       osm: amenity.cafe
+      from_poly: true
     restaurant:
       ru: Ресторан
       osm: amenity.restaurant
+      from_poly: true
     canteen: Столовая
     fastfood:
       ru: Фастфуд
       osm: amenity.fast_food
+      from_poly: true
 infrastructure:
   ru: Социально-бытовая инфраструктура
   sub:
@@ -202,31 +220,38 @@ infrastructure:
             sauna:
               ru: Сауна
               osm: leisure.sauna
+              from_poly: true
             hammam: Хаммам
         beauty_parlor:
           ru: Салон красоты
           osm: shop.beauty
+          from_poly: true
         holiday_center: Санаторий
         spa: Спа
         fitness:
           ru: Фитнес клуб
           osm: leisure.sports_centre
+          from_poly: true
     medical_care:
       ru: Медицина
       sub:
         pharmacy:
           ru: Аптека
           osm: amenity.pharmacy
+          from_poly: true
         hospital:
           ru: Больница
           osm: amenity.hospital
+          from_poly: true
         clinic:
           ru: Поликлиника
           osm: amenity.clinic
+          from_poly: true
         maternity_clinic: Роддом
         dentist:
           ru: Стоматолог
           osm: amenity.dentist
+          from_poly: true
     everyday_services:
       ru: Бытсервис
       sub:
@@ -234,12 +259,15 @@ infrastructure:
         hairdresser:
           ru: Парикмахерская
           osm: shop.hairdresser
+          from_poly: true
         laundry:
           ru: Прачечная
           osm: shop.laundry
+          from_poly: true
         dry_cleaning:
           ru: Химчистка
           osm: shop.dry_cleaning
+          from_poly: true
     transportation:
       ru: Транспорт
       sub:
@@ -247,57 +275,72 @@ infrastructure:
         car_wash:
           ru: Автомойка
           osm: amenity.car_wash
+          from_poly: true
         car_show:
           ru: Автосалоны/центры
           osm: shop.car
+          from_poly: true
         car_repair:
           ru: Автосервис
           osm: shop.car_repair
+          from_poly: true
         car_rental:
           ru: Аренда авто
           osm: amenity.car_rental
+          from_poly: true
         boat_rental: Аренда яхт/лодок
         aerodrome:
           ru: Аэропорт
           osm: aeroway.aerodrome
+          from_poly: true
         ticket_office: Билетная касса
         railway_station:
           ru: Ж/д вокзал
           osm: railway.station
+          from_poly: true
         harbour_station: Морской вокзал
         river_boat_station: Речной вокзал
         taxi:
           ru: Такси
           osm: amenity.taxi
+          from_poly: true
         bank:
           ru: Банк
           osm: amenity.bank
+          from_poly: true
         atm:
           ru: Банкомат
           osm: amenity.atm
+          from_poly: true
     shops:
       ru: Магазины
       sub:
         car_parts:
           ru: Автозапчасти
           osm: shop.car_parts
+          from_poly: true
         alcohol:
           ru: Алкоголь
           osm: shop.alcohol
+          from_poly: true
         boutique: Бутик
         homeware:
           ru: Все для дома
           osm: shop.hardware
+          from_poly: true
         books:
           ru: Книжный
           osm: shop.books
+          from_poly: true
         deli: Минимаркет
         sports_goods:
           ru: Спорттовары
           osm: shop.sports
+          from_poly: true
         supermarket:
           ru: Супермаркет
           osm: shop.supermarket
+          from_poly: true
         shopping_mall: Торговый центр
         electronics_store: Электроника
     marketplaces:

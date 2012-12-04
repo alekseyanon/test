@@ -24,6 +24,7 @@
 /test/
 
 /config/database.yml
+*.orig
 
 
 /public/uploads/

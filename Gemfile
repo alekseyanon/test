@@ -23,7 +23,7 @@ gem 'therubyracer'
 
 ##################################################
 ########### gems for users models ################
-gem 'authlogic' 
+gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
 gem 'cancan'
 
 ### we need authentification through VK, FB, Twitter
@@ -38,7 +38,7 @@ gem 'omniauth-vkontakte'
 gem 'aasm', '3.0.4'
 gem 'magic_numbers', :git => 'git://github.com/gzigzigzeo/magic_numbers.git' # Sotakone improved
 
-# for user avatar 
+# for user avatar
 gem 'carrierwave'
 gem 'mime-types', :require => 'mime/types'
 gem 'rmagick'
