@@ -47,6 +47,7 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/new.json
   def new
     @landmark_description = LandmarkDescription.new
+    #@landmark_description.describable.osm.geom.x
     @categories = Category.all
     respond_to do |format|
       format.html # new.html.erb

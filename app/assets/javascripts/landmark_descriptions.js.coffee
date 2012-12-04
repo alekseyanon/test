@@ -7,8 +7,10 @@ apiKey='cda4cc8498bd4da19e72af2b606f5c6e'
 tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
 
 $j ->
-  map = L.map('map').setView([51.505, -0.09], 13)
+  tmpx = $('.leaflet-edit-object').data("x")
+  tmpy = $('.leaflet-edit-object').data("y")
+  map = L.map('map').setView([tmpy, tmpx], 13)
   L.tileLayer(tileUrlTemplate,
     maxZoom: 18
   ).addTo map
-  marker = L.marker([51.5, -0.09]).addTo(map)
+  marker = L.marker([tmpy, tmpx]).addTo(map)
