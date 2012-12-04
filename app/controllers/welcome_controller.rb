@@ -7,4 +7,13 @@ class WelcomeController < ApplicationController
   def pend_act
   	@user = current_user
   end
+
+  def new
+  end
+  def edit
+  end
+  def show
+  end
+  def history
+  end
 end

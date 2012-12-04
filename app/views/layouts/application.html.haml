@@ -21,17 +21,11 @@
       - if current_user
         .btn= link_to "Редактировать профиль", edit_user_path(current_user)
         .btn= link_to "Настройки", settings_user_path(current_user)
-
         .btn= link_to "Log out", logout_path, :method => :delete 
-        = current_user.try(:email) 
-        = current_user.try(:state)
-        %p role: 
-        -if current_user.role?(:traveler)
-          %p role traveler
-        = current_user.roles  
       - else
         -# = link_to "Log in", login_path 
         -# .btn= link_to "Register", signup_path(:type => 'traveler')
 
         -# .btn= link_to "login ", login_path(:type => 'traveler')
+      .btn=link_to "список объектов", landmark_descriptions_path
     = yield 
