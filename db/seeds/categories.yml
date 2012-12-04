@@ -1,335 +1,313 @@
 ---
-- :name: Что посмотреть
-  :children:
-  - :name: Природа
-    :children:
-    - :name: Водопады
-      :children: []
-    - :name: Водохранилища
-      :children: []
-    - :name: Вулканы и кратеры
-      :children: []
-    - :name: Гейзеры
-      :children: []
-    - :name: Горы
-      :children: []
-    - :name: Грязевые источники
-      :children: []
-    - :name: Заповедники
-      :children: []
-    - :name: Зоопарки
-      :children: []
-    - :name: Катакомбы
-      :children: []
-    - :name: Ключи
-      :children: []
-    - :name: Впадины
-      :children: []
-    - :name: Ледники
-      :children: []
-    - :name: Моря
-      :children: []
-    - :name: Озера
-      :children: []
-    - :name: Парки
-      :children: []
-    - :name: Пещеры
-      :children: []
-    - :name: Пороги
-      :children: []
-    - :name: Реки
-      :children: []
-    - :name: Ручьи
-      :children: []
-  - :name: Культура
-    :children:
-    - :name: Архитектурные ансамбли
-      :children: []
-    - :name: Архитектурные сооружения
-      :children: []
-    - :name: Библиотеки
-      :children: []
-    - :name: Выставки
-      :children: []
-    - :name: Музеи
-      :children: []
-    - :name: Памятники
-      :children: []
-  - :name: Религия
-    :children:
-    - :name: Буддистские храмы
-      :children: []
-    - :name: Костелы
-      :children: []
-    - :name: Места паломничества
-      :children: []
-    - :name: Мечети
-      :children: []
-    - :name: Монастыри
-      :children: []
-    - :name: Православные храмы
-      :children: []
-    - :name: Синагоги
-      :children: []
-- :name: Чем заняться
-  :children:
-  - :name: Развлечения
-    :children:
-    - :name: Дельфинарии
-      :children: []
-    - :name: Кинотеатры
-      :children: []
-    - :name: Концертные площадки
-      :children: []
-    - :name: Музыкальные клубы
-      :children: []
-    - :name: Ночные клубы
-      :children: []
-    - :name: Океанариумы
-      :children: []
-    - :name: Планетарии
-      :children: []
-    - :name: Стадионы
-      :children: []
-    - :name: Театры
-      :children: []
-    - :name: Цирк
-      :children: []
-  - :name: Активный отдых
-    :children:
-    - :name: На земле
-      :children:
-      - :name: Агротуризм
-        :children: []
-      - :name: Аэродинамические трубы
-        :children: []
-      - :name: Бильярдные клубы
-        :children: []
-      - :name: Боулинги
-        :children: []
-      - :name: Велосипеды
-        :children: []
-      - :name: Гольф
-        :children: []
-      - :name: Картинг
-        :children: []
-      - :name: Катание на лошадях
-        :children: []
-      - :name: Квадроциклы
-        :children: []
-      - :name: Мотоциклы
-        :children: []
-      - :name: Охота
-        :children: []
-      - :name: Парки аттракционов
-        :children: []
-      - :name: Пейнтбол
-        :children: []
-      - :name: Пешие походы
-        :children: []
-      - :name: Роллердромы
-        :children: []
-      - :name: Теннисные корты
-        :children: []
-    - :name: На воде
-      :children:
-      - :name: Аквапарки
-        :children: []
-      - :name: Байдарки и каноэ
-        :children: []
-      - :name: Виндсерфинг
-        :children: []
-      - :name: Вэйксерфинг
-        :children: []
-      - :name: Гидроциклы
-        :children: []
-      - :name: Дайвинг
-        :children: []
-      - :name: Кайтинг
-        :children: []
-      - :name: Катера
-        :children: []
-      - :name: Морские теплоходные туры
-        :children: []
-      - :name: Рафтинг
-        :children: []
-      - :name: Речные теплоходные туры
-        :children: []
-      - :name: Рыбалка
-        :children: []
-      - :name: Серфинг
-        :children: []
-      - :name: Снорклинг
-        :children: []
-      - :name: Яхты
-        :children: []
-    - :name: В горах
-      :children:
-      - :name: Альпинизм
-        :children: []
-      - :name: Горные лыжи/Сноуборд
-        :children:
-        - :name: Склон с подъемником
-          :children: []
-        - :name: Склон без подъемника
-          :children: []
-      - :name: Горные походы
-        :children: []
-    - :name: В небесах
-      :children:
-      - :name: Вертолет
-        :children: []
-      - :name: Дельтаплан
-        :children: []
-      - :name: Мотодельтаплан
-        :children: []
-      - :name: Парашют
-        :children: []
-      - :name: Самолет
-        :children: []
-    - :name: На снегу
-      :children:
-      - :name: Катки
-        :children: []
-      - :name: Равнинные лыжи
-        :children: []
-      - :name: Снегоходы
-        :children: []
-- :name: Где заночевать
-  :children:
-  - :name: Апартаменты
-    :children: []
-  - :name: Гостиницы
-    :children: []
-  - :name: Кемпинги
-    :children: []
-  - :name: Клубные отели
-    :children: []
-  - :name: Коттеджи
-    :children: []
-  - :name: Мотели
-    :children: []
-  - :name: Необорудованные места стоянок
-    :children: []
-  - :name: Охотничьи дома
-    :children: []
-- :name: Где поесть
-  :children:
-  - :name: Бар
-    :children: []
-  - :name: Кафе
-    :children: []
-  - :name: Ресторан
-    :children: []
-  - :name: Столовая
-    :children: []
-  - :name: Фастфуд
-    :children: []
-- :name: Социально бытовая инфраструктура
-  :children:
-  - :name: Здоровье
-    :children:
-    - :name: Бани
-      :children:
-      - :name: Комплексные бани
-        :children: []
-      - :name: Русские бани
-        :children: []
-      - :name: Сауны
-        :children: []
-      - :name: Хаммамы
-        :children: []
-    - :name: Салоны красоты
-      :children: []
-    - :name: Санатории
-      :children: []
-    - :name: Спа
-      :children: []
-    - :name: Фитнес клубы
-      :children: []
-  - :name: Медицина
-    :children:
-    - :name: Аптеки
-      :children: []
-    - :name: Больницы
-      :children: []
-    - :name: Поликлиники
-      :children: []
-    - :name: Роддома
-      :children: []
-    - :name: Стоматологи
-      :children: []
-  - :name: Бытсервис
-    :children:
-    - :name: Дома быта
-      :children: []
-    - :name: Парикмахерские
-      :children: []
-    - :name: Прачечные
-      :children: []
-    - :name: Химчистки
-      :children: []
-  - :name: Транспорт
-    :children:
-    - :name: Автовокзалы
-      :children: []
-    - :name: Автомойки
-      :children: []
-    - :name: Автосалоны/центры
-      :children: []
-    - :name: Автосервисы
-      :children: []
-    - :name: Аренда авто
-      :children: []
-    - :name: Аренда яхт/лодок
-      :children: []
-    - :name: Аэропорты
-      :children: []
-    - :name: Билетные кассы
-      :children: []
-    - :name: Ж/д вокзалы
-      :children: []
-    - :name: Морские вокзалы
-      :children: []
-    - :name: Речные вокзалы
-      :children: []
-    - :name: Такси
-      :children: []
-  - :name: Банки
-    :children: []
-  - :name: Банкоматы
-    :children: []
-  - :name: Магазины
-    :children:
-    - :name: Автозапчасти
-      :children: []
-    - :name: Алкоголь
-      :children: []
-    - :name: Бутики
-      :children: []
-    - :name: Все для дома
-      :children: []
-    - :name: Книжные
-      :children: []
-    - :name: Минимаркеты
-      :children: []
-    - :name: Спорттовары
-      :children: []
-    - :name: Супермаркеты
-      :children: []
-    - :name: Торговые центры
-      :children: []
-    - :name: Электроника
-      :children: []
-  - :name: Рынки
-    :children:
-    - :name: Вещевые
-      :children: []
-    - :name: Продовольственные
-      :children: []
-    - :name: Стройматериалы
-      :children: []
-    - :name: Электроника
-      :children: []
-  - :name: Полиция
-    :children: []
+sightseeing:
+  ru: Что посмотреть?
+  sub:
+    nature:
+      ru: Природа
+      sub:
+        reservoir:
+          ru: Водохранилище
+          osm: waterway.dam
+        waterflow:
+          ru: Водопад
+          osm: waterway.waterfall
+        volcano:
+          ru: Вулкан или кратер
+          osm: natural.volcano
+        geyser: Гейзер
+        mountains: Горы
+        mud_well: Грязевой источник
+        reserve:
+          ru: Заповедник
+          osm: leisure.nature_reserve
+        zoo:
+          ru: Зоопарк
+          osm: tourism.zoo
+        catacombs: Катакомбы
+        spring_well: Ключ
+        canyon: Впадина
+        glacier:
+          ru: Ледник
+          osm: natural.glacier
+        sea:
+          ru: Море
+          osm: place.sea
+        lake:
+          ru: Озеро
+          osm: natural.water
+        park: Парк
+        cave_entrance:
+          ru: Пещера
+          osm: natural.cave_entrance
+        cataracts: Пороги
+        river:
+          ru: Река
+          osm: waterway.river
+        spring:
+          ru: Ручей
+          osm: natural.spring
+    culture:
+      ru: Культура
+      sub:
+        museum: Музей
+        architectural_ensemble: Архитектурный ансамбль
+        library: Библиотека
+        excibition: Выставка
+        monument: Памятник
+    religion:
+      ru: Религия
+      sub:
+        buddhist_temple: Буддистский храм
+        polish_roman_catholic_church: Костёл
+        pilgrimage: Место паломничества
+        mosque: Мечеть
+        monastery: Монастырь
+        orthodox_churche: Православный храм
+        synagogue: Синагога
+activities:
+  ru: Чем заняться?
+  entertainment:
+    ru: Развлечения
+    sub:
+      dolphinarium: Дельфинарий
+      cinema:
+        ru: Кинотеатр
+        osm: amenity.cinema
+      music_venue: Концертная площадка
+      musical_club: Музыкальный клуб
+      nightclub:
+        ru: Ночной клуб
+        osm: amenity.nightclub
+      seaquarium: Океанариум
+      planetarium: Планетарий
+      stadium:
+        ru: Стадион
+        osm: leisure.stadium
+      theatre:
+        ru: Театр
+        osm: amenity.theatre
+      circus: Цирк
+  active_recreation:
+    ru: Активный отдых
+    sub:
+      on ground:
+        ru: На земле
+        sub:
+          agritourism: Агротуризм
+          aerodynamic_tunnel: Аэродинамическая труба
+          poolhalls: Бильярдный клуб
+          bowling: Боулинг
+          bycicle: Велосипед
+          golf:
+            ru: Гольф
+            osm: leisure.golf_course
+          carting: Картинг
+          horse-riding: Катание на лошадях
+          quad_bike: Квадроцикл
+          motorcycle: Мотоцикл
+          hunt: Охота
+          amusement_park: Парк аттракционов
+          paitball: Пейнтбол
+          treking: Пешие походы
+          rollerdrome: Роллердром
+          tennis_court: Теннисный корт
+      on_water:
+        ru: На воде
+        sub:
+          aquapark:
+            ru: Аквапарк
+            osm: leisure.water_park
+          canoes: Байдарки и каноэ
+          windserfing: Виндсерфинг
+          wakeboarding: Bейкбординг
+          jetski: Гидроцикл
+          diving: Дайвинг
+          kite_surfing: Кайтинг
+          cutter: Катер
+          sea_motorboat_holiday_deals: Морские теплоходные туры
+          rafting: Рафтинг
+          river_motorboat_holiday_deals: Речные теплоходные туры
+          fishing: Рыбалка
+          serfing: Серфинг
+          snorkling: Снорклинг
+          yachting: Яхты
+      in_the_mountains:
+        ru: В горах
+        sub:
+          alpinism: Альпинизм
+          downhill_skiing_boarding:
+            ru: Горные лыжи/Сноуборд
+            sub:
+              downhill_with_ski-lift: Склон с подъемником
+              downhill_without_ski-lift: Склон без подъемника
+          mountain_treking: Горные походы
+      in_the_sky:
+        ru: В небесах
+        sub:
+          copter: Вертолет
+          delta: Дельтаплан
+          powered_hang-glider: Мотодельтаплан
+          chute: Парашют
+          plane: Самолет
+      on_a_snow:
+        ru: На снегу
+        sub:
+          rinks: Катки
+          ski: Равнинные лыжи
+          snowmobile: Снегоход
+lodging:
+  ru: Где заночевать
+  sub:
+    apartment: Апартаменты
+    hotel:
+      ru: Гостиница
+      osm: tourism.hotel
+    camping:
+      ru: Кемпинг
+      osm: tourism.camp_site
+    club_hotel: Клубный отель
+    cottage: Коттедж
+    motel:
+      ru: Мотель
+      osm: tourism.motel
+    parking: Необорудованные места стоянок
+    hunting_seat: Охотничий дом
+food:
+  ru: Где поесть
+  sub:
+    bar:
+      ru: Бар
+      osm: amenity.bar
+    cafe:
+      ru: Кафе
+      osm: amenity.cafe
+    restaurant:
+      ru: Ресторан
+      osm: amenity.restaurant
+    canteen: Столовая
+    fastfood:
+      ru: Фастфуд
+      osm: amenity.fast_food
+infrastructure:
+  ru: Социально-бытовая инфраструктура
+  sub:
+    healthcare:
+      ru: Здоровье
+      sub:
+        bath:
+          ru: Баня
+          sub:
+            complex_baths: Комплексные бани
+            russian_steam_bath: Русская баня
+            sauna:
+              ru: Сауна
+              osm: leisure.sauna
+            hammam: Хаммам
+        beauty_parlor:
+          ru: Салон красоты
+          osm: shop.beauty
+        holiday_center: Санаторий
+        spa: Спа
+        fitness:
+          ru: Фитнес клуб
+          osm: leisure.sports_centre
+    medical_care:
+      ru: Медицина
+      sub:
+        pharmacy:
+          ru: Аптека
+          osm: amenity.pharmacy
+        hospital:
+          ru: Больница
+          osm: amenity.hospital
+        clinic:
+          ru: Поликлиника
+          osm: amenity.clinic
+        maternity_clinic: Роддом
+        dentist:
+          ru: Стоматолог
+          osm: amenity.dentist
+    everyday_services:
+      ru: Бытсервис
+      sub:
+        public_amenities: Дом быта
+        hairdresser:
+          ru: Парикмахерская
+          osm: shop.hairdresser
+        laundry:
+          ru: Прачечная
+          osm: shop.laundry
+        dry_cleaning:
+          ru: Химчистка
+          osm: shop.dry_cleaning
+    transportation:
+      ru: Транспорт
+      sub:
+        depot: Автовокзал
+        car_wash:
+          ru: Автомойка
+          osm: amenity.car_wash
+        car_show:
+          ru: Автосалоны/центры
+          osm: shop.car
+        car_repair:
+          ru: Автосервис
+          osm: shop.car_repair
+        car_rental:
+          ru: Аренда авто
+          osm: amenity.car_rental
+        boat_rental: Аренда яхт/лодок
+        aerodrome:
+          ru: Аэропорт
+          osm: aeroway.aerodrome
+        ticket_office: Билетная касса
+        railway_station:
+          ru: Ж/д вокзал
+          osm: railway.station
+        harbour_station: Морской вокзал
+        river_boat_station: Речной вокзал
+        taxi:
+          ru: Такси
+          osm: amenity.taxi
+        bank:
+          ru: Банк
+          osm: amenity.bank
+        atm:
+          ru: Банкомат
+          osm: amenity.atm
+    shops:
+      ru: Магазины
+      sub:
+        car_parts:
+          ru: Автозапчасти
+          osm: shop.car_parts
+        alcohol:
+          ru: Алкоголь
+          osm: shop.alcohol
+        boutique: Бутик
+        homeware:
+          ru: Все для дома
+          osm: shop.hardware
+        books:
+          ru: Книжный
+          osm: shop.books
+        deli: Минимаркет
+        sports_goods:
+          ru: Спорттовары
+          osm: shop.sports
+        supermarket:
+          ru: Супермаркет
+          osm: shop.supermarket
+        shopping_mall: Торговый центр
+        electronics_store: Электроника
+    marketplaces:
+      ru: Рынки
+      sub:
+        consumer_goods: Вещевой
+        food: Продовольственный
+        building_materials: Стройматериалы
+        electronics: Электроника
+    police:
+      ru: Полиция
+      osm: amenity.police
+
