@@ -8,20 +8,33 @@ def create_landmarks(category_name, osm_tag)
   print "#{osm_tag} -> #{category_name} : "
   i = 0
   category = Category.where(name: category_name).first
-  osm_tag['.'] = "'='"
-  Osm::Node.where("tags->'#{osm_tag}'").each do |n|
-    landmark = Landmark.new
-    landmark.osm = n
-    landmark.save
-    ld = LandmarkDescription.new
-    ld.describable =  landmark
-    ld.title = n.tags['name'] || "NoName"
-    ld.tag_list = category.self_and_ancestors.map(&:name_ru)
-    ld.save
+  tag_name, tag_value = osm_tag.split '.'
+  tag_condition = "tags->'#{tag_name}' = '#{tag_value}'"
+  Osm::Node.where(tag_condition).each do |node|
+    create_landmark node, node.tags['name'], category
     i += 1
+  end
+  Osm::Poly.where(tag_condition).each do |poly|
+    begin
+      create_landmark Osm::Node.find(poly.nodes.first), poly.tags['title'], category
+    rescue
+      next
+    end
+    i+=1
   end
   puts i
   @total += i
+end
+
+def create_landmark node, title, category
+  landmark = Landmark.new
+  landmark.osm = node
+  landmark.save
+  ld = LandmarkDescription.new
+  ld.describable =  landmark
+  ld.title = title || "NoName"
+  ld.tag_list = category.self_and_ancestors.map(&:name_ru)
+  ld.save
 end
 
 namespace :landmarks do
