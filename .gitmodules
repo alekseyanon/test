@@ -1,0 +1,3 @@
+[submodule "vendor/assets/Leaflet"]
+	path = vendor/assets/Leaflet
+	url = git://github.com/CloudMade/Leaflet.git
