@@ -20,10 +20,10 @@ def create_landmarks(category_name, content)
     Osm::Poly.where(tag_condition).each do |poly|
       begin
         create_landmark Osm::Node.find(poly.nodes.first), poly.tags['title'], category
-      rescue
-        next
+        i+=1
+      rescue => e
+        puts "#{e.class}: #{e.message}"
       end
-      i+=1
     end
   end
   puts i
