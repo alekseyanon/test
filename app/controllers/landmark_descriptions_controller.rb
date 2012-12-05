@@ -16,7 +16,10 @@ class LandmarkDescriptionsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @landmark_descriptions }
+      format.json { render json: @landmark_descriptions.to_json(
+          only: [:id, :title, :body],
+          methods: :tag_list
+      ) }
     end
   end
 
