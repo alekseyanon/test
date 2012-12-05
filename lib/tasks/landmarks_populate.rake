@@ -38,7 +38,8 @@ def create_landmark node, title, category
   ld.describable =  landmark
   ld.title = title || "NoName"
   ld.tag_list = category.self_and_ancestors.map(&:name_ru)
-  ld.save
+  ld.user = User.make!
+  ld.save!
 end
 
 namespace :landmarks do

@@ -16,3 +16,26 @@
     = number_field_tag :r
   .actions
     = submit_tag 'Search'
+
+%br
+=link_to "Все варианты", "#"
+|
+=link_to "Что посмотреть", "#"
+|
+=link_to "Чем заняться", "#"
+|
+=link_to "Где заночевать", "#"
+|
+=link_to "Где поесть", "#"
+%br
+
+%h3 Лучшие варианты
+%div#search-results
+
+%div#landmark-template.landmark-search-result{hidden: true}
+  .picture
+  %h4.landmark-title template title
+  %br
+  %div.landmark-tags
+  %br
+  .clear-lf

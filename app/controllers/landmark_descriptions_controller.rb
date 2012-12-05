@@ -2,7 +2,7 @@ class LandmarkDescriptionsController < ApplicationController
   before_filter :get_categories, :only => [:new, :edit, :create, :update, :search]
 
   def sanitize_search_params(params)
-    params && params.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
+    params && params.symbolize_keys.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
   end
 
   def history
@@ -12,11 +12,20 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions
   # GET /landmark_descriptions.json
   def index
-    @landmark_descriptions = LandmarkDescription.search sanitize_search_params(params[:query])
+    @landmark_descriptions = LandmarkDescription.search sanitize_search_params(params.symbolize_keys[:query])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @landmark_descriptions }
+      format.json { render json: @landmark_descriptions.to_json(
+          only: [:id, :title, :body],
+          methods: :tag_list,
+          include: {
+              describable: {
+                  only: [],
+                  include: {
+                      osm: {
+                         only: [],
+                         methods: :latlon }}}} ) }
     end
   end
 
@@ -27,10 +36,18 @@ class LandmarkDescriptionsController < ApplicationController
     redirect_to landmark_descriptions_path query:sanitize_search_params(params)
   end
 
+  def coordinates
+    @points = Osm::Node.with_landmarks.limit(10).pluck(:geom).map{|p| [p.y, p.x]}
+    respond_to do |format|
+      format.json { render :json => @points }
+    end
+  end
+
   # GET /landmark_descriptions/1
   # GET /landmark_descriptions/1.json
   def show
     @landmark_description = LandmarkDescription.find(params[:id])
+    #TODO move logic to model
     @categories = Category.where(:name_ru => @landmark_description.tag_list )
     @branches = []
     @categories.each do |c|
@@ -48,6 +65,7 @@ class LandmarkDescriptionsController < ApplicationController
   def new
     @landmark_description = LandmarkDescription.new
     #@landmark_description.describable.osm.geom.x
+    #TODO use get_categories helper, already defined
     @categories = Category.all
     respond_to do |format|
       format.html # new.html.erb
@@ -64,6 +82,7 @@ class LandmarkDescriptionsController < ApplicationController
   # POST /landmark_descriptions
   # POST /landmark_descriptions.json
   def create
+    #TODO cleanup
     # logger.debug "=============params================="
     # logger.debug params[:landmark_description]
     # logger.debug params[:landmark_description][:tag_list]
@@ -85,6 +104,7 @@ class LandmarkDescriptionsController < ApplicationController
   # PUT /landmark_descriptions/1
   # PUT /landmark_descriptions/1.json
   def update
+    #TODO use sanitize_search_params, update if required
     params[:landmark_description][:tag_list].delete("")
     @landmark_description = LandmarkDescription.find(params[:id])
 

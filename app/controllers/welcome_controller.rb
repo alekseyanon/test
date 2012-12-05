@@ -1,5 +1,6 @@
 # Тестовый контроллер для рутовой странички. 
 # В последствии необходимо будет удалить.
+#TODO mind the test controller
 class WelcomeController < ApplicationController
   def home
   end

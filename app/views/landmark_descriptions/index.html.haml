@@ -3,8 +3,12 @@
 - @landmark_descriptions.each do |landmark_description|
   %strong= landmark_description.title
   %br
+  = landmark_description.body
+  %br
   %strong Tags:
   = landmark_description.tag_list
+  %br
+  = landmark_description.describable && landmark_description.describable.osm.geom #TODO remove hack
   %table
     %tr
       %td= link_to 'Show', landmark_description

@@ -6,6 +6,7 @@ Smorodina::Application.routes.draw do
     collection do
       get 'search'
       post 'do_search'
+      get 'coordinates'
     end
   end
 
