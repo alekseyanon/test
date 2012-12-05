@@ -39,8 +39,8 @@ $j ->
     block.attr "id", description.id
 #    console.log block
 #    console.log $j(block).find('.landmark-title').text()
-    $j(block).find('.landmark-title').text(description.title)
-#    $j(block).find('.landmark-tags').val description['tags']
+    $j(block).find('.landmark-title').text description.title
+    $j(block).find('.landmark-tags').text description.tag_list
     $j('#search-results').append block
     $j(block).show()
 #    console.log getCurrentlyVisibleIDs()
