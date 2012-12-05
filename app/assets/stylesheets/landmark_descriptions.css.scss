@@ -4,3 +4,27 @@
 .leaflet-wide {
   height: 180px
 }
+
+.leaflet-create-object {
+  height: 400px
+}
+.leaflet-edit-object {
+  height: 150px
+}
+
+.ld {
+  border-bottom: 1px dotted gray
+}
+.landmark-search-result {
+  border-bottom: 1px dotted gray
+}
+.picture {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background: gray;
+  margin: 10px
+}
+.clear-lf {
+  clear: left
+}
