@@ -66,7 +66,7 @@ $j ->
 #    console.log lastBounds
     lastBounds = bounds
     center = map.getCenter()
-    radius = (Math.abs(center.lat - bounds.getNorthEast().lat))*10 #TODO calculate real radius based on view
+    radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
     text = $j("#text").val()
     setFields center.lng, center.lat, radius
     $j.getJSON '/landmark_descriptions.json',
