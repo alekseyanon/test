@@ -17,6 +17,7 @@ gem 'pg_search'
 gem 'simple_form'
 gem 'haml-rails'
 gem 'chosen-rails'
+gem 'underscore-rails'
 
 gem 'execjs'
 gem 'therubyracer'

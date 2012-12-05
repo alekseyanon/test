@@ -28,15 +28,42 @@ $j ->
     $j("#y").val(y)
     $j("#r").val(r)
 
+  getCurrentlyVisibleIDs = ->
+    parseInt($j(e).attr 'id') for e in $j('#search-results').children('.landmark-search-result')
+
+  addResultBlock = (description) ->
+#    console.log "addResultBlock : #{description.id}"
+#    console.log "addResultBlock : ", description
+#    console.log description.title
+    block = $j('#landmark-template').clone()
+    block.attr "id", description.id
+#    console.log block
+#    console.log $j(block).find('.landmark-title').text()
+    $j(block).find('.landmark-title').text(description.title)
+#    $j(block).find('.landmark-tags').val description['tags']
+    $j('#search-results').append block
+    $j(block).show()
+#    console.log getCurrentlyVisibleIDs()
+
   applySearch = (data) ->
-    console.log "applySearch"
-    console.log data
+#    console.log "applySearch"
+#    console.log data
+    currentIDs = getCurrentlyVisibleIDs()
+#    console.log "current ids: ", currentIDs
+    newIDs = (desc.id for desc in data)
+#    console.log "new ids: ", newIDs
+    IDsToRemove = _.without(currentIDs, newIDs...)
+#    console.log "to remove : : ", IDsToRemove
+    IDsToAdd = _.without(newIDs, currentIDs...)
+#    console.log "to add : : ", IDsToAdd
+    addResultBlock(desc) for desc in data when _.contains(IDsToAdd, desc.id) #TODO refactor
+    $j("##{id}").remove() for id in IDsToRemove
 
   updateQuery = ->
     bounds = map.getBounds()
     return if bounds.equals lastBounds
-    console.log bounds
-    console.log lastBounds
+#    console.log bounds
+#    console.log lastBounds
     lastBounds = bounds
     center = map.getCenter()
     radius = (Math.abs(center.lat - bounds.getNorthEast().lat))*10 #TODO calculate real radius based on view
