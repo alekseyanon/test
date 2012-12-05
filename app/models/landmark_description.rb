@@ -27,7 +27,7 @@ class LandmarkDescription < AbstractDescription
     else
       query = query.delete_if { |k, v| v.nil? || (v.is_a?(String) && v.empty?) }
       text = query[:text]
-      geom = query[:geom] || ((x = query[:x]) && (y = query[:y]) && Geo::factory.point(x.to_i, y.to_i))
+      geom = query[:geom] || ((x = query[:x]) && (y = query[:y]) && Geo::factory.point(x.to_f, y.to_f))
       r = query[:r] || 0
     end
     chain = LandmarkDescription

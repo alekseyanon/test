@@ -7,8 +7,46 @@ apiKey='cda4cc8498bd4da19e72af2b606f5c6e'
 tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
 
 $j ->
-  map = L.map('map').setView([51.505, -0.09], 13)
+  map = L.map('map')
+  lastBounds = null
+
+  setFields = (x,y,r) ->
+    $j("#x").val(x)
+    $j("#y").val(y)
+    $j("#r").val(r)
+
+  applySearch = (data) ->
+    console.log "applySearch"
+    console.log data
+
+  updateQuery = ->
+    bounds = map.getBounds()
+    return if bounds.equals lastBounds
+    console.log bounds
+    console.log lastBounds
+    lastBounds = bounds
+    center = map.getCenter()
+    radius = (Math.abs(center.lat - bounds.getNorthEast().lat))*10 #TODO calculate real radius based on view
+    text = $j("#text").val()
+    setFields center.lng, center.lat, radius
+    $j.getJSON '/landmark_descriptions.json',
+      query:
+        x: center.lat
+        y: center.lng
+        r: radius
+        text: text
+      (data) -> applySearch data
+
   L.tileLayer(tileUrlTemplate,
     maxZoom: 18
   ).addTo map
-  marker = L.marker([51.5, -0.09]).addTo(map)
+  $j.getJSON 'coordinates.json', (data) ->
+    L.marker(p).addTo(map) for p in data
+    map.setView data[0], 13
+  map.on 'load', ->
+    map.on 'zoomend', (e) ->
+#      console.log e
+      updateQuery()
+    map.on 'moveend', (e) ->
+#      console.log e
+      updateQuery()

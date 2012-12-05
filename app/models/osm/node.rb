@@ -17,4 +17,6 @@ class Osm::Node < ActiveRecord::Base
   scope :within_radius, ->(other,r) do
     where "ST_DWithin(geom, ST_GeomFromText('#{other.geom}', #{Geo::SRID}), #{r})"
   end
+
+  scope :with_landmarks, joins('inner join geo_units on geo_units.osm_id = nodes.id')
 end

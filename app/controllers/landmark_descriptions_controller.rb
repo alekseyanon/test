@@ -2,13 +2,13 @@ class LandmarkDescriptionsController < ApplicationController
   before_filter :get_categories, :only => [:new, :edit, :create, :update, :search]
 
   def sanitize_search_params(params)
-    params && params.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
+    params && params.symbolize_keys.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
   end
 
   # GET /landmark_descriptions
   # GET /landmark_descriptions.json
   def index
-    @landmark_descriptions = LandmarkDescription.search sanitize_search_params(params[:query])
+    @landmark_descriptions = LandmarkDescription.search sanitize_search_params(params.symbolize_keys[:query])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,6 +21,13 @@ class LandmarkDescriptionsController < ApplicationController
 
   def do_search
     redirect_to landmark_descriptions_path query:sanitize_search_params(params)
+  end
+
+  def coordinates
+    @points = Osm::Node.with_landmarks.limit(10).pluck(:geom).map{|p| [p.y, p.x]}
+    respond_to do |format|
+      format.json { render :json => @points }
+    end
   end
 
   # GET /landmark_descriptions/1
