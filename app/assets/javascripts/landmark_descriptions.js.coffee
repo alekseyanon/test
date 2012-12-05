@@ -8,6 +8,19 @@ tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.p
 
 $j ->
   map = L.map('map')
+  L.tileLayer(tileUrlTemplate,
+    maxZoom: 18
+  ).addTo map
+
+  leafletData = $j '.leaflet-edit-object'
+  if leafletData.length > 0 #TODO define current view in a more reliable way
+    console.log 'single marker mode'
+    x = leafletData.data('x') || 30
+    y = leafletData.data('y') || 56
+    map.setView [y, x], 13
+    L.marker([y, x]).addTo map
+    return
+    
   lastBounds = null
 
   setFields = (x,y,r) ->
@@ -37,9 +50,6 @@ $j ->
         text: text
       (data) -> applySearch data
 
-  L.tileLayer(tileUrlTemplate,
-    maxZoom: 18
-  ).addTo map
   $j.getJSON 'coordinates.json', (data) ->
     L.marker(p).addTo(map) for p in data
     map.setView data[0], 13

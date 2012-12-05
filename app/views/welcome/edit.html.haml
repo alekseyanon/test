@@ -1,0 +1,67 @@
+-# ###TODO: Move to partial
+=link_to "описание объекта", show_path
+|
+=link_to "редактировать описание", edit_path
+|
+=link_to "История изменений", history_path
+
+%h1 Редактирование объекта
+
+=simple_form_for "", :html => { :class => 'form-horizontal' } do |f|
+  %a{:name => "name"}
+  = f.input :name
+  %a{:name => "place"}
+  %h3 Где находится
+  место для гео-цепочки
+  место для карты!
+  %a{:name => "category"}
+  %h3 Категория
+  список добавленых категорий с возможностью их удалить
+  = f.input :category, :label => "Укажите в ручную (например, монастырь, выставка, памятник)"
+  %h3{:onclick => "$('.categories').toggle();"} 
+    =link_to "Или выбери из списка", "#"
+  .categories  
+    %h4 Что посмотреть
+    = f.input :see, :collection => ["test1", "test2", "test3"], :as => :check_boxes
+    %h4 Чем заняться
+    = f.input :do, :collection => ["test1", "test2", "test3"], :as => :check_boxes
+    %h4 Где заночевать
+    = f.input :sleep, :collection => ["test1", "test2", "test3"], :as => :check_boxes
+    %h4 Где поесть
+    = f.input :eat, :collection => ["test1", "test2", "test3"], :as => :check_boxes
+  
+  =link_to "Что посмотреть", "#"
+  |
+  =link_to "Чем заняться", "#"
+  |
+  =link_to "Где заночевать", "#"
+  |
+  =link_to "Где поесть", "#"
+  .type-form
+    %br
+    %br
+    %p здесь будут формы для соответствующих форм
+    %br
+    %br
+
+  %h3 Фото
+  %p 3 фотографии объекта
+  %p и под каждой ссылка "пожаловаться"
+  = button_to "Все фото(кол-во)", "#"
+  = f.input :photo, label: "", :as => "file"
+
+  %h3 Видео
+  %p 3 видео объекта
+  %p и под каждым ссылка "пожаловаться"
+  = button_to "Все видео(кол-во)", "#"
+  = f.input "видео", :as => "file"
+
+
+  %br
+  = f.submit "Применить изменения"
+ 
+%br
+%br
+%h3 Далее идет SEO-текст.
+%br
+%br

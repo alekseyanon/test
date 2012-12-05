@@ -1,22 +1,17 @@
 
-=link_to "Создать объект", new_landmark_description_path
+=link_to "Создать объект", edit_path
 %br
 -# ###TODO: Move to partial
-=link_to "описание объекта", @landmark_description
+=link_to "описание объекта", show_path
 |
-=link_to "редактировать описание", edit_landmark_description_path(@landmark_description)
+=link_to "редактировать описание", edit_path
 |
-=link_to "История изменений", history_landmark_description_path(@landmark_description)
+=link_to "История изменений", history_path
 
-%h1= @landmark_description.title
+%h1 Название искомого объекта
 
 %p здесь будут наши цепочки
-- @branches.each do |b|
-  - b.each do |category|
-    %span.blue
-      = category.name_ru
-    = ' / '
-  %br
+
 .technical
   %h3 Рейтинг
   = button_to "Добавить в планировщик", "#"
@@ -49,7 +44,7 @@
   %br
 %br
 .map
-  .leaflet-edit-object{id: "map", :data => {:x => 30.3, :y => 60}}
+  %p здесь будет свернутая карта
 %br
 =link_to "Отзывы", "#"
 |
@@ -70,7 +65,3 @@
 %h3 Далее идет SEO-текст.
 %br
 %br
-
-= link_to 'Edit', edit_landmark_description_path(@landmark_description)
-\|
-= link_to 'Back', landmark_descriptions_path

@@ -1,0 +1,48 @@
+-# ###TODO: Move to partial
+=link_to "описание объекта", show_path
+|
+=link_to "редактировать описание", edit_path
+|
+=link_to "История изменений", history_path
+
+%h1 Добавление нового объекта
+
+=simple_form_for "", :html => { :class => 'form-horizontal' } do |f|
+  %a{:name => "name"}
+  = f.input :name
+  %a{:name => "place"}
+  %h3 Укажите местоположения
+  место для карты!
+  %a{:name => "category"}
+  %h3 Категория
+  = f.input :category, :label => "Укажите в ручную (например, монастырь, выставка, памятник)"
+  %h3{:onclick => "$('.categories').toggle();"} 
+    =link_to "Или выбери из списка", "#"
+  .categories  
+    %h4 Что посмотреть
+    = f.input :see, :collection => ["test1", "test2", "test3"], :as => :check_boxes
+    %h4 Чем заняться
+    = f.input :do, :collection => ["test1", "test2", "test3"], :as => :check_boxes
+    %h4 Где заночевать
+    = f.input :sleep, :collection => ["test1", "test2", "test3"], :as => :check_boxes
+    %h4 Где поесть
+    = f.input :eat, :collection => ["test1", "test2", "test3"], :as => :check_boxes
+  = f.input "фото", :as => "file"
+  = f.input "видео", :as => "file"
+
+  Здесь будет партиал для формы создания комментария
+  -# ###TODO: add rendering of comment partial
+  %br
+  = f.submit "Создать объект"
+  Чтобы создать объект: 
+  =link_to "дайте название", "#name"
+  ,
+  =link_to "укажите местоположение", "#place"
+  ,
+  =link_to "укажите категорию", "#category"
+  
+%br
+%br
+%h3 Далее идет SEO-текст.
+%br
+%br
