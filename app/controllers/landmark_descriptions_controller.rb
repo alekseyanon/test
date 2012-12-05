@@ -18,8 +18,14 @@ class LandmarkDescriptionsController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @landmark_descriptions.to_json(
           only: [:id, :title, :body],
-          methods: :tag_list
-      ) }
+          methods: :tag_list,
+          include: {
+              describable: {
+                  only: [],
+                  include: {
+                      osm: {
+                         only: [],
+                         methods: :latlon }}}} ) }
     end
   end
 

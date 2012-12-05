@@ -27,12 +27,12 @@ class LandmarkDescription < AbstractDescription
     else
       query = query.delete_if { |k, v| v.nil? || (v.is_a?(String) && v.empty?) }
       text = query[:text]
-      geom = query[:geom] || ((x = query[:x]) && (y = query[:y]) && Geo::factory.point(x.to_f, y.to_f))
+      geom = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
       r = query[:r] || 0
     end
     chain = LandmarkDescription
     chain = chain.text_search(text) if text
     chain = chain.within_radius(geom, r) if geom
-    chain.order('created_at DESC')
+    chain.where("abstract_descriptions.title != 'NoName'").limit 20
   end
 end

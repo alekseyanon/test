@@ -9,6 +9,10 @@ class Osm::Node < ActiveRecord::Base
 
   validates :id, :geom, :presence => true
 
+  def latlon
+    [geom.y, geom.x] #TODO figure out what's really latitude and what is longitude
+  end
+
   scope :in_poly, ->(poly_id) do
     #{:conditions => ['id in (?)', Geo::Osm::Poly.find(poly_id).nodes]}
     where 'id = any(select unnest(nodes) from ways where id = ?)', poly_id

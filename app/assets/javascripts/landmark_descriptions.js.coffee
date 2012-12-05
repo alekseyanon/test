@@ -8,6 +8,7 @@ tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.p
 
 $j ->
   map = L.map('map')
+  lg = L.layerGroup([]).addTo map
   L.tileLayer(tileUrlTemplate,
     maxZoom: 18
   ).addTo map
@@ -45,7 +46,7 @@ $j ->
     $j(block).show()
 #    console.log getCurrentlyVisibleIDs()
 
-  applySearch = (data) ->
+  applySearch = (data) -> #TODO refactor
 #    console.log "applySearch"
 #    console.log data
     currentIDs = getCurrentlyVisibleIDs()
@@ -56,8 +57,10 @@ $j ->
 #    console.log "to remove : : ", IDsToRemove
     IDsToAdd = _.without(newIDs, currentIDs...)
 #    console.log "to add : : ", IDsToAdd
-    addResultBlock(desc) for desc in data when _.contains(IDsToAdd, desc.id) #TODO refactor
+    addResultBlock(desc) for desc in data when _.contains(IDsToAdd, desc.id)
     $j("##{id}").remove() for id in IDsToRemove
+    lg.clearLayers()
+    L.marker(desc.describable.osm.latlon).addTo(lg) for desc in data
 
   updateQuery = ->
     bounds = map.getBounds()
@@ -66,7 +69,8 @@ $j ->
 #    console.log lastBounds
     lastBounds = bounds
     center = map.getCenter()
-    radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
+#    radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
+    radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 #SRID 4326
     text = $j("#text").val()
     setFields center.lng, center.lat, radius
     $j.getJSON '/landmark_descriptions.json',
@@ -77,9 +81,6 @@ $j ->
         text: text
       (data) -> applySearch data
 
-  $j.getJSON 'coordinates.json', (data) ->
-    L.marker(p).addTo(map) for p in data
-    map.setView data[0], 13
   map.on 'load', ->
     map.on 'zoomend', (e) ->
 #      console.log e
@@ -87,3 +88,4 @@ $j ->
     map.on 'moveend', (e) ->
 #      console.log e
       updateQuery()
+  map.setView [59.939,30.341], 13
