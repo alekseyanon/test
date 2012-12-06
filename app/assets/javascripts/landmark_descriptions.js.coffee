@@ -25,9 +25,9 @@ $j ->
   lastBounds = null
 
   setFields = (x,y,r) ->
-    $j("#x").val(x)
-    $j("#y").val(y)
-    $j("#r").val(r)
+    $j("#x").val x
+    $j("#y").val y
+    $j("#r").val r
 
   getCurrentlyVisibleIDs = ->
     parseInt($j(e).attr 'id') for e in $j('#search-results').children('.landmark-search-result')
@@ -70,7 +70,7 @@ $j ->
     lastBounds = bounds
     center = map.getCenter()
 #    radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
-    radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 #SRID 4326
+    radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 / 60.0 #SRID 4326
     text = $j("#text").val()
     setFields center.lng, center.lat, radius
     $j.getJSON '/landmark_descriptions.json',
@@ -83,9 +83,8 @@ $j ->
 
   map.on 'load', ->
     map.on 'zoomend', (e) ->
-#      console.log e
       updateQuery()
     map.on 'moveend', (e) ->
-#      console.log e
       updateQuery()
+    updateQuery()
   map.setView [59.939,30.341], 13

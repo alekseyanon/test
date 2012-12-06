@@ -5,17 +5,14 @@
   .inputs
     %strong Что
     = text_field_tag :text
-    %br
-    %strong Где
-    %br
     %strong X
-    = number_field_tag :x
+    = text_field_tag :x, nil, :disabled => true
     %strong Y
-    = number_field_tag :y
+    = text_field_tag :y, nil, :disabled => true
     %strong Радиус
-    = number_field_tag :r
-  .actions
-    = submit_tag 'Search'
+    = text_field_tag :r, nil, :disabled => true
+  -#.actions
+  -#  = submit_tag 'Search'
 
 %br
 =link_to "Все варианты", "#"
