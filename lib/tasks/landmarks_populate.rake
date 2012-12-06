@@ -16,17 +16,17 @@ def create_landmarks(category_name, content)
   end
   puts i
   if content['from_poly']
-    puts "Import from poly"
+    puts "===> Import from poly <==="
     Osm::Poly.where(tag_condition).each do |poly|
       begin
         create_landmark Osm::Node.find(poly.nodes.first), poly.tags['title'], category
         i+=1
       rescue => e
-        puts "#{e.class}: #{e.message}"
+        puts "!!! #{e.class}: #{e.message} !!!"
       end
     end
   end
-  puts i
+  puts "*** All in Category #{i} ***"
   @total += i
 end
 
@@ -38,7 +38,7 @@ def create_landmark node, title, category
   ld.describable =  landmark
   ld.title = title || "NoName"
   ld.tag_list = category.self_and_ancestors.map(&:name_ru)
-  ld.user = User.make!
+  ld.user = @user
   ld.save!
 end
 
@@ -47,8 +47,9 @@ namespace :landmarks do
   task populate: :environment do
     categories_file_name = File.join(Rails.root, 'db', 'seeds', 'categories.yml')
     categories = YAML.load File.open(categories_file_name).read
-    @total = 0
     load "#{Rails.root}/spec/support/blueprints.rb"
+    @user = User.make!
+    @total = 0
     categories.each{ |name, content| browse_category name, content }
     puts "Total of #@total landmarks created."
   end
