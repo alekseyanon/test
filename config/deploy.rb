@@ -37,16 +37,10 @@ set :user,        "deployer"
 
 default_run_options[:pty] = true
 
-#san_juan.role :app, %w(gdeslon_sphinx)
-
-after  "deploy:symlink", "smorodina:symlink"
-#after  "deploy:symlink", "smorodina:assets:build"
 after  "smorodina:symlink",  "smorodina:daemons:start"
 before "deploy:update_code", "smorodina:daemons:stop"
 
-#after "deploy:symlink", 'deploy:reload_god_config'
-
-after 'deploy:rollback', 'deploy:update_crontab'
+after "deploy:update_code", "smorodina:symlink"
 
 def run_rake(task)
   run "cd #{current_path} && rake RAILS_ENV=#{rails_env} #{task}"
@@ -59,13 +53,6 @@ namespace :smorodina do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/uploads #{release_path}/public/uploads"
   end
-
-  # namespace :assets do
-  #   desc "Build assets with asset_packager"
-  #   task :build, :roles => :app do
-  #     run "cd #{current_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
-  #   end
-  # end
 
   namespace :daemons do
     desc "Stop all application daemons"
@@ -90,15 +77,3 @@ namespace :deploy do
     task t, :roles => :app do ; end
   end
 end
-
-#desc "Hot-reload God configuration for the Resque worker"
-
-#deploy.task :reload_god_config do
-
-#  sudo "god stop resque"
-
-#  sudo "god load " << File.join(deploy_to, 'current', 'config', 'god', "init.#{rails_env}.god")
-
-#  sudo "god start resque"
-
-#end
