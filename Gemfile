@@ -83,7 +83,10 @@ gem 'jquery-rails'
 # For rake tasks
 gem 'ptools'
 
-group :test, :development do
+gem "capistrano"
+gem 'unicorn'
+
+#group :test, :development do
   gem 'rspec-rails', '~> 2.0'
   gem 'shoulda-matchers'
   gem 'machinist'
@@ -91,4 +94,4 @@ group :test, :development do
   gem 'diff-lcs'
   gem 'capybara'
   gem 'launchy'
-end
+#end
