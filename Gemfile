@@ -84,6 +84,7 @@ gem 'jquery-rails'
 gem 'ptools'
 
 gem "capistrano"
+gem 'rvm-capistrano'
 gem 'unicorn'
 
 #group :test, :development do

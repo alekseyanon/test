@@ -1,6 +1,6 @@
 set :application, "smorodina"
 set :repository,  "git@github.com:ikarmazin/smorodina.git"
-
+default_environment['PATH'] = "/usr/local/bin:/usr/bin:/bin:/opt/bin:$PATH"
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
@@ -26,7 +26,7 @@ role :db,  "5.9.120.46", :primary => true        # This is where Rails migration
 
 
 set :scm,         :git
-set :branch,      :master
+set :branch,      :deploy
 set :deploy_to,   "/home/deployer/apps/#{application}"
 set :deploy_via,  :remote_cache
 set :git_enable_submodules, 1
@@ -40,7 +40,7 @@ default_run_options[:pty] = true
 #san_juan.role :app, %w(gdeslon_sphinx)
 
 after  "deploy:symlink", "smorodina:symlink"
-after  "deploy:symlink", "smorodina:assets:build"
+#after  "deploy:symlink", "smorodina:assets:build"
 after  "smorodina:symlink",  "smorodina:daemons:start"
 before "deploy:update_code", "smorodina:daemons:stop"
 
@@ -60,12 +60,12 @@ namespace :smorodina do
     run "ln -nfs #{shared_path}/uploads #{release_path}/public/uploads"
   end
 
-  namespace :assets do
-    desc "Build assets with asset_packager"
-    task :build, :roles => :app do
-      run "cd #{current_path}; RAILS_ENV=#{rails_env} rake asset:packager:build_all"
-    end
-  end
+  # namespace :assets do
+  #   desc "Build assets with asset_packager"
+  #   task :build, :roles => :app do
+  #     run "cd #{current_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
+  #   end
+  # end
 
   namespace :daemons do
     desc "Stop all application daemons"
@@ -79,6 +79,7 @@ namespace :smorodina do
 end
 
 namespace :deploy do
+
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => { :no_release => true } do
 	#TODO
@@ -89,7 +90,6 @@ namespace :deploy do
     task t, :roles => :app do ; end
   end
 end
-
 
 #desc "Hot-reload God configuration for the Resque worker"
 
