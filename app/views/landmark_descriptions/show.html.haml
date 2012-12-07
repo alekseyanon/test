@@ -11,7 +11,7 @@
 %h1= @landmark_description.title
 
 %p здесь будут наши цепочки
-- @branches.each do |b|
+- @landmark_description.branches.each do |b|
   - b.each do |category|
     %span.blue
       = category.name_ru
@@ -49,7 +49,7 @@
   %br
 %br
 .map
-  .leaflet-edit-object{id: "map", :data => {:x => 30.3, :y => 60}}
+  .leaflet-edit-object{id: "map", data: {x: "#@x", y: "#@y"}}
 %br
 =link_to "Отзывы", "#"
 |

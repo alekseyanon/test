@@ -35,4 +35,9 @@ class LandmarkDescription < AbstractDescription
     chain = chain.within_radius(geom, r) if geom
     chain.where("abstract_descriptions.title != 'NoName'").limit 20
   end
+
+  def branches
+    categories = Category.where(name_ru: self.tag_list).select([ :id, :name, :name_ru, :lft, :rgt, :parent_id])
+    categories.map{|c| c.self_and_ancestors}
+  end
 end
