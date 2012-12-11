@@ -5,14 +5,7 @@ class Osm::Poly < ActiveRecord::Base
 
   validates :id, :tags, :nodes, :presence => true
 
-  def geom
-    ordered_points = Array.new nodes.size
-    Osm::Node.find(nodes).each do |n|
-      #TODO get postgre bigint[] as array of integers
-      ordered_points[ nodes.index n.id.to_s ] = n.geom
-    end
-    Geo::factory.polygon Geo::factory.linear_ring ordered_points
-  end
+  set_rgeo_factory_for_column(:geom, Geo::factory)
 
   def contains?(node)
     geom.contains? node.geom
