@@ -83,12 +83,7 @@ class LandmarkDescriptionsController < ApplicationController
   # POST /landmark_descriptions.json
   def create
     #TODO cleanup
-    # logger.debug "=============params================="
-    # logger.debug params[:landmark_description]
-    # logger.debug params[:landmark_description][:tag_list]
-    params[:landmark_description][:tag_list].delete("")
-    # logger.debug params[:landmark_description][:tag_list]
-    @landmark_description = LandmarkDescription.new(params[:landmark_description])
+    @landmark_description = LandmarkDescription.new params[:landmark_description]
     @landmark_description.user = current_user
     respond_to do |format|
       if @landmark_description.save
