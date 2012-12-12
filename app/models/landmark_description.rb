@@ -1,6 +1,9 @@
 class LandmarkDescription < AbstractDescription
   has_one :osm, through: :describable
 
+  attr_accessor :xld, :yld
+  attr_accessible :xld, :yld
+
   validates_associated :describable
   accessible_attributes :geo_unit_id #TODO remove hack: accessible geo_unit_id
 

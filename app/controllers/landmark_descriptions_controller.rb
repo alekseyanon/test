@@ -67,14 +67,18 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/1/edit
   def edit
     @landmark_description = LandmarkDescription.find(params[:id])
+    @y, @x = @landmark_description.describable.osm.latlon
   end
 
   # POST /landmark_descriptions
   # POST /landmark_descriptions.json
   def create
+    x = params[:landmark_description][:xld] || 30.255188941955566
+    y = params[:landmark_description][:yld] || 59.94736006104373
     params[:landmark_description][:tag_list].delete("")
     @landmark_description = LandmarkDescription.new(params[:landmark_description])
     @landmark_description.user = current_user
+    @landmark_description.describable = Landmark.closest_point(x, y).first
     respond_to do |format|
       if @landmark_description.save
         format.html { redirect_to @landmark_description, notice: 'Landmark description was successfully created.' }
@@ -90,9 +94,11 @@ class LandmarkDescriptionsController < ApplicationController
   # PUT /landmark_descriptions/1.json
   def update
     #TODO use sanitize_search_params, update if required
+    x = params[:landmark_description][:xld] 
+    y = params[:landmark_description][:yld] 
     params[:landmark_description][:tag_list].delete("")
     @landmark_description = LandmarkDescription.find(params[:id])
-
+    @landmark_description.describable = Landmark.closest_point(x, y).first unless (x.empty? && y.empty?)
     respond_to do |format|
       if @landmark_description.update_attributes(params[:landmark_description])
         format.html { redirect_to @landmark_description, notice: 'Landmark description was successfully updated.' }

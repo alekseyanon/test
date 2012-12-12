@@ -16,6 +16,7 @@
 //= require underscore
 //= require_tree .
 //= require leaflet
+var test = function(){alert("function teset");}
 
 $(function() {
 
@@ -27,6 +28,11 @@ $(function() {
     });
 
 });
+
+function newld(){
+  alert("test");
+}
+
 
 function update(coords) {
   $('#user_crop_x').val(coords.x);

@@ -72,5 +72,7 @@
 %br
 
 = link_to 'Edit', edit_landmark_description_path(@landmark_description)
-\|
+|
 = link_to 'Back', landmark_descriptions_path
+%script
+  $(window).load(function(){ landmark_description_show();})
