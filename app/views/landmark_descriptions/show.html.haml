@@ -11,12 +11,8 @@
 %h1= @landmark_description.title
 
 %p здесь будут наши цепочки
-- @branches.each do |b|
-  - b.each do |category|
-    %span.blue
-      = category.name_ru
-    = ' / '
-  %br
+= render_category_tree @categories
+%br
 .technical
   %h3 Рейтинг
   = button_to "Добавить в планировщик", "#"

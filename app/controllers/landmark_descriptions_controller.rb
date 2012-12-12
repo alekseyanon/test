@@ -48,12 +48,7 @@ class LandmarkDescriptionsController < ApplicationController
   def show
     @landmark_description = LandmarkDescription.find(params[:id])
     #TODO move logic to model
-    @categories = Category.where(:name_ru => @landmark_description.tag_list )
-    @branches = []
-    @categories.each do |c|
-    ## TODO add branch @branches << c.ancestors + 
-      @branches << (c.ancestors << c)
-    end
+    @categories = @landmark_description.categories_tree
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @landmark_description }
