@@ -8,7 +8,7 @@ def to_nodes(crd)
 end
 
 def to_poly(nodes)
-  Osm::Poly.make! nodes: nodes.map(&:id)
+  Osm::Poly.make! geom: Geo.factory.polygon(Geo.factory.line_string(nodes.map(&:geom)))
 end
 
 def to_landmarks(crd)

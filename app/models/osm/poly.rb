@@ -3,7 +3,7 @@ class Osm::Poly < ActiveRecord::Base
   attr_accessible :nodes, :tags
   serialize :tags, ActiveRecord::Coders::Hstore
 
-  validates :id, :tags, :nodes, :presence => true
+  validates :id, presence: true
 
   set_rgeo_factory_for_column(:geom, Geo::factory)
 
