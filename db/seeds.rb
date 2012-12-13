@@ -7,10 +7,12 @@ def create_category(parent, category)
   content['sub'].each{ |sub| create_category c, sub } if content.is_a?(Hash) && content['sub']
 end
 
-categories_file_name = File.join(Rails.root, 'db', 'seeds', 'categories.yml')
-categories = YAML.load File.open(categories_file_name).read
-root_category = Category.create! name_ru: 'Категории географических объектов'
-
-categories.each do |c|
-  create_category root_category, c
+def seed_categories
+  categories_file_name = File.join Rails.root, 'db', 'seeds', 'categories.yml'
+  categories = YAML.load File.open(categories_file_name).read
+  root_category = Category.create! name_ru: 'Категории географических объектов'
+  categories.each{ |c| create_category root_category, c }
 end
+
+# Called from landmark_description_spec.rb, mind this fact when changing
+seed_categories
