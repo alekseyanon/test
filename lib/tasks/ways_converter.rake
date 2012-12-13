@@ -10,7 +10,7 @@ task ways_converter: :environment do
       begin
         if way.nodes.count > 3
           coords_string = way.nodes.map{ |node_id|
-            p = Osm::Node.where(id: node_id).pluck :geom
+            p = Osm::Node.where(id: node_id).pluck(:geom).first
             "#{p.x} #{p.y}"}.join(', ')
           create_polygon_for_way way.id, coords_string
         else
