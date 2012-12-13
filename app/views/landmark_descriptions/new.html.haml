@@ -19,7 +19,7 @@
 
     %a{:name => "category"}
     %h3 Категория
-    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите в ручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name, :include_blank => false
+    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите вручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name, :include_blank => false
     %h3{:onclick => "$('.categories').toggle();"} 
       =link_to "Или выбери из списка", "#"
     .categories  
