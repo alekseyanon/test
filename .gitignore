@@ -25,6 +25,8 @@
 
 /config/database.yml
 *.orig
-
+*.swp
+*~
 
 /public/uploads/
+

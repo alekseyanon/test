@@ -1,17 +1,13 @@
 require 'spec_helper'
 
-#TODO cover weighting
-#TODO cover multi-word search
 describe LandmarkDescription do
   subject { described_class.make! }
   it_behaves_like "an abstract description"
-  it { should belong_to :describable }
 
   describe ".within_radius" do #TODO move to shared example group with landmarks and nodes altogether
-    let(:triangle) { to_points [[10, 10], [20, 20], [30, 10]] }
-    let(:landmarks) { to_landmarks triangle }
+    let(:triangle)     { to_points [[10, 10], [20, 20], [30, 10]] }
+    let(:landmarks)    { to_landmarks triangle }
     let(:descriptions) { landmarks_to_descriptions landmarks }
-
     it 'returns nodes within a specified radius of another node' do
       described_class.within_radius(triangle[0], 10).should =~ descriptions[0..0]
       described_class.within_radius(triangle[0], 15).should =~ descriptions[0..1]
@@ -21,31 +17,10 @@ describe LandmarkDescription do
   end
 
   describe '.search' do
-    def search(args)
-      described_class.search args
-    end
-
-    let!(:d){
-      load "#{Rails.root}/db/seeds.rb"
-      File.open("#{Rails.root}/db/seeds/landmark_descriptions.yml"){|f| YAML.load f.read}.map{|yld|
-        ld = described_class.make! yld.slice(:title, :body)
-        ld.tag_list += yld[:tags] if yld[:tags] #TODO move to blueprints
-        ld.save
-        ld
-      }
-    }
+    let!(:d){ load_landmark_descriptions }
 
     context 'for plain text queries' do
-      it 'performs full text search against title and body' do
-        #TODO add fuzzy / dictionary-based search
-        search('Fishing').should =~ [d[0], d[2], d[3]]
-        search('fish').should =~ [d[1], d[4]]
-      end
-      it 'performs full text search against title, body and tags' do
-        search('nature').should =~ [d[1], d[2], d[4]]
-        search('sports_goods').should =~ [d[2], d[3]]
-        search('lake').should == [d[1]]
-      end
+      it_behaves_like 'text search'
     end
 
     context 'for combined geospatial and text queries' do
@@ -53,8 +28,8 @@ describe LandmarkDescription do
         point = Geo::factory.point(10, 10)
         d[0].describable.osm = Osm::Node.make! geom: point
         d[0].describable.save
-        search(text: "fishing", geom: point, r: 1).should == [d[0]]
-        search(text: "fishing", geom: point, r: 100).should == [d[0], d[2], d[3]]
+        described_class.search(text: "fishing", geom: point, r: 1).should == [d[0]]
+        described_class.search(text: "fishing", geom: point, r: 100).should == [d[0], d[2], d[3]]
       end
     end
   end

@@ -4,12 +4,10 @@ describe Osm::Poly do
   subject { described_class.make }
   it { should be_valid }
   it { should validate_presence_of :id }
-  it { should validate_presence_of :tags }
-  it { should validate_presence_of :nodes }
 
-  let(:triangle){           to_nodes [[10,10], [20,20], [30,10]] }
-  let(:inner_triangle){     to_nodes [[16,15], [20,19], [24,15]] }
-  let(:rightmost_triangle){ to_nodes [[40,10], [50,20], [60,10]] }
+  let(:triangle){           to_nodes [[10,10], [20,20], [30,10], [10,10]] }
+  let(:inner_triangle){     to_nodes [[16,15], [20,19], [24,15], [16,15]] }
+  let(:rightmost_triangle){ to_nodes [[40,10], [50,20], [60,10], [40,10]] }
 
   let(:triangle_poly){ to_poly triangle }
   let(:inner_triangle_poly){ to_poly inner_triangle }
