@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe AreaDescription do
   subject { described_class.make! }
-  it_behaves_like "an abstract description"
-  it { should belong_to :describable }
+  it_behaves_like "an abstract description"  
 
   describe ".within_radius" do #TODO move to shared example group with landmarks and nodes altogether
     let(:polygons){ get_foursquares([[10, 10], [30, 10], [10, 30], [30, 30], [100, 100]]) }

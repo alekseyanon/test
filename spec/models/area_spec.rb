@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'rake'
 
 describe Area do
   subject { described_class.make }

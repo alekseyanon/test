@@ -3,7 +3,6 @@ require 'spec_helper'
 describe LandmarkDescription do
   subject { described_class.make! }
   it_behaves_like "an abstract description"
-  it { should belong_to :describable }
 
   describe ".within_radius" do #TODO move to shared example group with landmarks and nodes altogether
     let(:triangle)     { to_points [[10, 10], [20, 20], [30, 10]] }
