@@ -89,12 +89,10 @@ class LandmarkDescriptionsController < ApplicationController
   # PUT /landmark_descriptions/1
   # PUT /landmark_descriptions/1.json
   def update
-    #TODO use sanitize_search_params, update if required
-    params[:landmark_description][:tag_list].delete("")
-    @landmark_description = LandmarkDescription.find(params[:id])
+    @landmark_description = LandmarkDescription.find params[:id]
 
     respond_to do |format|
-      if @landmark_description.update_attributes(params[:landmark_description])
+      if @landmark_description.update_attributes params[:landmark_description]
         format.html { redirect_to @landmark_description, notice: 'Landmark description was successfully updated.' }
         format.json { head :no_content }
       else
