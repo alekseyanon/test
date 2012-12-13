@@ -1,12 +1,7 @@
 desc "Add field to ways whith coords of nodes in waypoint"
 task ways_converter: :environment do
   at_once = 1000
-  sql_drop_column = "ALTER TABLE ways DROP COLUMN IF EXISTS geom"
-  sql_alter       = "ALTER TABLE ways ADD  COLUMN geom GEOMETRY(POLYGON, #{Geo::SRID})"
   polygon_and_not_building = "nodes[array_upper(nodes,1)] = nodes[1] and not tags ? 'building'"
-  conn = ActiveRecord::Base.connection
-  conn.execute sql_drop_column
-  conn.execute sql_alter
   i = 0
   while ways = Osm::Poly.where(polygon_and_not_building).limit(at_once).offset(i*at_once) and ways.count > 0 do
     puts "*** #{i} ***"

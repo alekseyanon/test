@@ -1,10 +1,8 @@
 task create_test_nodes_ways: :environment do
   load "#{Rails.root}/spec/support/blueprints.rb"
-  Osm::Poly.make! nodes: get_nodes_for_foursquare(-10,-10).map(&:id), tags: { name: 'Poly Test #1'}, id: 1
-  Osm::Poly.make! nodes: get_nodes_for_foursquare(-30,-10).map(&:id), tags: { name: 'Poly Test #2'}, id: 2
-  Osm::Poly.make! nodes: get_nodes_for_foursquare(-10,-30).map(&:id), tags: { name: 'Poly Test #3'}, id: 3
-  Osm::Poly.make! nodes: get_nodes_for_foursquare(-30,-30).map(&:id), tags: { name: 'Poly Test #4'}, id: 4
-  Osm::Poly.make! nodes: get_nodes_for_foursquare(-100,-100).map(&:id), tags: { name: 'Poly Test #5'}, id: 5
+  [[-10,-10], [-30, -10], [-10,-30], [-30,-30], [-100,-100]].each_with_index do |x,y,i|
+    Osm::Poly.make! nodes: get_nodes_for_foursquare(x,y).map(&:id), tags: { name: "Poly Test #{i+1}"}, id: i+1
+  end
 end
 
 def get_nodes_for_foursquare start_x, start_y
