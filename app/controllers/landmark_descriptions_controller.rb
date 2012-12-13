@@ -47,8 +47,7 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/1.json
   def show
     @landmark_description = LandmarkDescription.find(params[:id])
-    #TODO move logic to model
-    @categories = @landmark_description.categories_tree
+    @categories_tree = @landmark_description.categories_tree
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @landmark_description }
@@ -59,9 +58,6 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/new.json
   def new
     @landmark_description = LandmarkDescription.new
-    #@landmark_description.describable.osm.geom.x
-    #TODO use get_categories helper, already defined
-    @categories = Category.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @landmark_description }
@@ -71,7 +67,6 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/1/edit
   def edit
     @landmark_description = LandmarkDescription.find(params[:id])
-    @categories = Category.all
   end
 
   # POST /landmark_descriptions
@@ -124,6 +119,6 @@ class LandmarkDescriptionsController < ApplicationController
   protected
 
   def get_categories
-    @categories = Category.select(:name).map(&:name) #TODO move to model?
+    @categories = Category.select [:name, :name_ru] #TODO move to model?
   end
 end

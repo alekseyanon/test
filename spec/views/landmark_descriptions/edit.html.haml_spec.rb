@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe "landmark_descriptions/edit" do
   before(:each) do
-    @landmark_description = assign(:landmark_description, stub_model(LandmarkDescription))
+    assign :landmark_description, LandmarkDescription.make!
+    assign :categories, [Category.make!]
   end
 
   it "renders the edit landmark_description form" do
