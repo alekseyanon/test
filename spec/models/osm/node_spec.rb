@@ -6,17 +6,6 @@ describe Osm::Node do
   it { should validate_presence_of :id }
   it { should validate_presence_of :geom }
 
-  describe ".in_poly" do
-    it 'returns nodes of a particular polygon' do
-      nodes = [[10,10], [20,20], [30,30]].map do |x,y|
-        described_class.make!(geom: Geo::factory.point(x, y))
-      end
-
-      poly = Osm::Poly.make! nodes: nodes.map(&:id)
-      described_class.in_poly(poly).should =~ nodes
-    end
-  end
-
   describe ".within_radius" do
     let(:triangle){ to_nodes [[10,10], [20,20], [30,10]] }
 

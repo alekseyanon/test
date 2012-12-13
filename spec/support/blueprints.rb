@@ -30,6 +30,10 @@ Landmark.blueprint do
   osm { Osm::Node.make }
 end
 
+Area.blueprint do
+  osm { Osm::Poly.make }
+end
+
 Category.blueprint do
   name { Faker::Lorem.word }
   name_ru { Faker::Lorem.word }
