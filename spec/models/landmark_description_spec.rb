@@ -17,17 +17,10 @@ describe LandmarkDescription do
   end
 
   describe '.search' do
-    let!(:d){
-      File.open("#{Rails.root}/db/seeds/landmark_descriptions.yml"){|f| YAML.load f.read}.map{|yld|
-        ld = described_class.make! yld.slice(:title, :body)
-        ld.tag_list += yld[:tags] if yld[:tags] #TODO move to blueprints
-        ld.save
-        ld
-      }
-    }
+    let!(:d){ load_landmark_descriptions }
 
     context 'for plain text queries' do
-      it_behaves_like "text search"
+      it_behaves_like 'text search'
     end
 
     context 'for combined geospatial and text queries' do
@@ -40,5 +33,4 @@ describe LandmarkDescription do
       end
     end
   end
-
 end

@@ -1,3 +1,5 @@
+require 'set'
+
 class AbstractDescription < ActiveRecord::Base
   include PgSearch
   belongs_to :user
@@ -42,5 +44,20 @@ class AbstractDescription < ActiveRecord::Base
     chain = chain.text_search(text) if text
     chain = chain.within_radius(geom, r) if geom
     chain.where("abstract_descriptions.title != 'NoName'").limit 20
+  end
+
+  before_validation :normalize_categories
+
+  def categories_tree(parent = Category.root, filter = Category.where(name: tag_list).to_set)
+    tree = parent.children.reduce({}) do |memo,c|
+      memo[c.name_ru] = categories_tree(c,filter) if filter.include? c
+      memo
+    end
+    tree.empty? ? nil : tree
+  end
+
+  protected
+  def normalize_categories
+    self.tag_list = Category.where(name: tag_list).map(&:self_and_ancestors).flatten.map(&:name).compact.uniq
   end
 end
