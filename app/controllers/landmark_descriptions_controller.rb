@@ -43,6 +43,13 @@ class LandmarkDescriptionsController < ApplicationController
     end
   end
 
+  def nearest_node
+    node = Osm::Node.closest_node(params["x"], params["y"]).first
+    respond_to do |format|
+      format.json { render :json => node.latlon }
+    end
+  end
+
   # GET /landmark_descriptions/1
   # GET /landmark_descriptions/1.json
   def show
@@ -78,7 +85,10 @@ class LandmarkDescriptionsController < ApplicationController
     params[:landmark_description][:tag_list].delete("")
     @landmark_description = LandmarkDescription.new(params[:landmark_description])
     @landmark_description.user = current_user
-    @landmark_description.describable = Landmark.closest_point(x, y).first
+    nl = Landmark.new
+    nl.osm = Osm::Node.closest_node(x,y).first
+    nl.save
+    @landmark_description.describable = nl
     respond_to do |format|
       if @landmark_description.save
         format.html { redirect_to @landmark_description, notice: 'Landmark description was successfully created.' }
@@ -94,13 +104,23 @@ class LandmarkDescriptionsController < ApplicationController
   # PUT /landmark_descriptions/1.json
   def update
     #TODO use sanitize_search_params, update if required
+
+    # nl = Landmark.new
+    # nl.osm = Osm::Node.closest_node(x,y).first
+    # nl.save
+    # @landmark_description.describable = nl
+
     x = params[:landmark_description][:xld] 
     y = params[:landmark_description][:yld] 
     params[:landmark_description][:tag_list].delete("")
     @landmark_description = LandmarkDescription.find(params[:id])
-    @landmark_description.describable = Landmark.closest_point(x, y).first unless (x.empty? && y.empty?)
+    lm = @landmark_description.describable
+    lm.osm = Osm::Node.closest_node(x,y).first
+    lm.save
+    #@landmark_description.describable = Landmark.closest_point(x, y).first unless (x.empty? && y.empty?)
     respond_to do |format|
       if @landmark_description.update_attributes(params[:landmark_description])
+
         format.html { redirect_to @landmark_description, notice: 'Landmark description was successfully updated.' }
         format.json { head :no_content }
       else

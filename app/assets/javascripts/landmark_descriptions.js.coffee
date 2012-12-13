@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-apiKey='cda4cc8498bd4da19e72af2b606f5c6e'
+apiKey = 'cda4cc8498bd4da19e72af2b606f5c6e'
 tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
 
 window.landmark_description_new = ->
@@ -19,10 +19,14 @@ window.landmark_description_new = ->
   map.on 'click', (e) ->
     xfield.val e.latlng.lng
     yfield.val e.latlng.lat
-    popup
-      .setLatLng(e.latlng)
-      .setContent("Place for object marker")
-      .openOn(map)
+    $.getJSON '/landmark_descriptions/nearest_node.json',
+      x: e.latlng.lng
+      y: e.latlng.lat
+      (data) -> 
+        popup
+          .setLatLng(data)
+          .setContent("Place for object marker")
+          .openOn(map)
 
 window.landmark_description_edit = ->
   map = L.map('map')

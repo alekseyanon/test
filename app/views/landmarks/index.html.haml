@@ -1,19 +1,14 @@
+.landmark 
+  .leaflet-wide{id: "map"}
+
 %h1 Listing landmarks
 
 %table
-  %tr
-    %th
-    %th
-    %th
-
   - @landmarks.each do |landmark|
     %tr
       %td
-        %strong= landmark.id
-      %td= link_to 'Show', landmark
-      %td= link_to 'Edit', edit_landmark_path(landmark)
-      %td= link_to 'Destroy', landmark, method: :delete, data: { confirm: 'Are you sure?' }
-
+        %strong= landmark
 %br
 
-= link_to 'New Landmark', new_landmark_path
+%script
+  $(window).load(function(){ landmark();})

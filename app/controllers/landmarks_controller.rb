@@ -4,11 +4,11 @@ class LandmarksController < ApplicationController
   # GET /landmarks
   # GET /landmarks.json
   def index
-    @landmarks = Landmark.all
+    @landmarks = Osm::Node.search.map{|l| l.latlon}
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @landmarks }
+      format.json { render json: @landmarks}
     end
   end
 

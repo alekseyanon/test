@@ -7,6 +7,7 @@ Smorodina::Application.routes.draw do
       get 'search'
       post 'do_search'
       get 'coordinates'
+      get 'nearest_node'
     end
   end
 
