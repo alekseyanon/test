@@ -17,19 +17,15 @@ describe LandmarkDescription do
   end
 
   describe '.search' do
-    let!(:d){ load_landmark_descriptions }
+    let!(:d){ load_descriptions }
 
     context 'for plain text queries' do
       it_behaves_like 'text search'
     end
 
     context 'for combined geospatial and text queries' do
-      it 'performs full text search for landmarks in around coordinates provided' do
-        point = Geo::factory.point(10, 10)
-        d[0].describable.osm = Osm::Node.make! geom: point
-        d[0].describable.save
-        described_class.search(text: "fishing", geom: point, r: 1).should == [d[0]]
-        described_class.search(text: "fishing", geom: point, r: 100).should == [d[0], d[2], d[3]]
+      it_behaves_like "combined search" do
+        let(:osm){ Osm::Node.make! geom: Geo::factory.point(10, 10) }
       end
     end
   end

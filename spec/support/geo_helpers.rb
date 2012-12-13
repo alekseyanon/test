@@ -37,7 +37,7 @@ def get_foursquares(start_from)
   polygons
 end
 
-def load_landmark_descriptions
+def load_descriptions
   load "#{Rails.root}/db/seeds.rb"
   File.open("#{Rails.root}/db/seeds/landmark_descriptions.yml"){|f| YAML.load f.read}.map do |yld|
     ld = described_class.make! yld.slice(:title, :body)
