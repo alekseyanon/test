@@ -23,6 +23,10 @@ Osm::Poly.blueprint do
   version { 0 }
   user_id { 0 }
   tstamp { Time.now }
+  geom {Geo.factory.polygon(Geo.factory.line_string(
+    [ 
+      Geo.factory.point(0,0), Geo.factory.point(1,0), Geo.factory.point(0,1), Geo.factory.point(0,0)
+    ]))}
   changeset_id { 0 }
 end
 
@@ -56,6 +60,16 @@ LandmarkDescription.blueprint do
   published_at { Time.now }
 
   describable { Landmark.make }
+end
+
+AreaDescription.blueprint do
+  user { User.make }
+  title { Faker::Lorem.sentence }
+  body { Faker::Lorem.sentences 10 }
+  published { [true, false].sample }
+  published_at { Time.now }
+
+  describable { Area.make }
 end
 
 Authentication.blueprint do
