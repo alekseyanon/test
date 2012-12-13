@@ -4,7 +4,7 @@ class AbstractDescription < ActiveRecord::Base
   include PgSearch
   belongs_to :user
   belongs_to :describable, polymorphic: true
-  attr_accessible :body, :published, :published_at, :title, :tag_list
+  attr_accessible :body, :describable, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at
   validates :title, :user, presence: true
   validates_associated :user
 
