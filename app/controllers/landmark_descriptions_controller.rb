@@ -1,6 +1,6 @@
 class LandmarkDescriptionsController < ApplicationController
   before_filter :get_categories, :only => [:new, :edit, :create, :update, :search]
-  before_filter :make_landmark, :only => [:edit, :show]
+  before_filter :get_landmark, :only => [:edit, :show]
 
   def sanitize_search_params(params)
     params && params.symbolize_keys.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
@@ -137,7 +137,7 @@ class LandmarkDescriptionsController < ApplicationController
     @categories = Category.select [:name, :name_ru] #TODO move to model?
   end
 
-  def make_landmark
+  def get_landmark
     @landmark_description = LandmarkDescription.find(params[:id])
     @y, @x = @landmark_description.describable.osm.latlon
   end
