@@ -17,4 +17,15 @@ describe Landmark do
       described_class.within_radius(triangle[2], 15).should =~ landmarks[1..2]
     end
   end
+
+  describe ".within_geom" do
+    let(:triangle) { to_points [[11,11], [19,19], [30,10]] }
+    let(:landmarks){ to_landmarks triangle }
+    let(:polygon)  { get_foursquares([[10,10]])[0]}
+
+    it 'returns landmarks within a specified geom' do      
+      described_class.within_geom(polygon.geom).should =~ landmarks[0..1]      
+    end
+  end
+
 end
