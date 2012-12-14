@@ -27,13 +27,4 @@ class Osm::Node < ActiveRecord::Base
   scope :closest_node, ->(x,y) do
     order("geom <-> ST_Geomfromtext('POINT (#{x} #{y})', #{Geo::SRID})").limit(2)
   end
-
-  scope :within_r, ->(g,r) do
-    where "ST_DWithin(geom, ST_GeomFromText('#{g}', #{Geo::SRID}), #{r})"
-  end
-  def self.search
-    geom = Geo::factory.point(("30.339").to_f, ("59.935").to_f) #TODO mind x y
-    r = ("0.002").to_f
-    Osm::Node.within_r(geom, r)
-  end
 end

@@ -85,6 +85,7 @@ class LandmarkDescriptionsController < ApplicationController
     params[:landmark_description][:tag_list].delete("")
     @landmark_description = LandmarkDescription.new(params[:landmark_description])
     @landmark_description.user = current_user
+    # Maybe Landmark is useless. Maybe we can use Osm:Node only
     nl = Landmark.new
     nl.osm = Osm::Node.closest_node(x,y).first
     nl.save
@@ -105,11 +106,6 @@ class LandmarkDescriptionsController < ApplicationController
   def update
     #TODO use sanitize_search_params, update if required
 
-    # nl = Landmark.new
-    # nl.osm = Osm::Node.closest_node(x,y).first
-    # nl.save
-    # @landmark_description.describable = nl
-
     x = params[:landmark_description][:xld] 
     y = params[:landmark_description][:yld] 
     params[:landmark_description][:tag_list].delete("")
@@ -117,10 +113,8 @@ class LandmarkDescriptionsController < ApplicationController
     lm = @landmark_description.describable
     lm.osm = Osm::Node.closest_node(x,y).first
     lm.save
-    #@landmark_description.describable = Landmark.closest_point(x, y).first unless (x.empty? && y.empty?)
     respond_to do |format|
       if @landmark_description.update_attributes(params[:landmark_description])
-
         format.html { redirect_to @landmark_description, notice: 'Landmark description was successfully updated.' }
         format.json { head :no_content }
       else
@@ -135,7 +129,6 @@ class LandmarkDescriptionsController < ApplicationController
   def destroy
     @landmark_description = LandmarkDescription.find(params[:id])
     @landmark_description.destroy
-
     respond_to do |format|
       format.html { redirect_to landmark_descriptions_url }
       format.json { head :no_content }

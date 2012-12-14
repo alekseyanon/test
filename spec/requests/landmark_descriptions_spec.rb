@@ -2,9 +2,6 @@
 require 'spec_helper'
 
 describe "LandmarkDescriptions" do
-  # before do 
-  #   @user = LandmarkDescription.make!
-  # end
   before do 
     @user = User.make!
     visit profile_path(:type => 'traveler')
