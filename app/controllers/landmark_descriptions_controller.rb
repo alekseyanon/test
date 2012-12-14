@@ -85,7 +85,8 @@ class LandmarkDescriptionsController < ApplicationController
     @landmark_description = LandmarkDescription.new params[:landmark_description]
     @landmark_description.user = current_user
     ### TODO: Make decision. Maybe Landmark is useless. Maybe we can use Osm:Node only
-    nl = Landmark.create osm: Osm::Node.closest_node(x,y).first
+    node = Osm::Node.closest_node(x,y).first
+    nl = node.geo_unit ? node.geo_unit : (Landmark.create osm: Osm::Node.closest_node(x,y).first)
     @landmark_description.describable = nl
     respond_to do |format|
       if @landmark_description.save
