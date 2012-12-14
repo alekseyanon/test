@@ -55,6 +55,7 @@ class LandmarkDescriptionsController < ApplicationController
   def show
     @landmark_description = LandmarkDescription.find(params[:id])
     @y, @x = @landmark_description.describable.osm.latlon
+    @categories_tree = @landmark_description.categories_tree
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @landmark_description }
@@ -83,9 +84,11 @@ class LandmarkDescriptionsController < ApplicationController
     x = params[:landmark_description][:xld] || 30.255188941955566
     y = params[:landmark_description][:yld] || 59.94736006104373
     params[:landmark_description][:tag_list].delete("")
-    @landmark_description = LandmarkDescription.new(params[:landmark_description])
+
+    #TODO cleanup
+    @landmark_description = LandmarkDescription.new params[:landmark_description]
     @landmark_description.user = current_user
-    # Maybe Landmark is useless. Maybe we can use Osm:Node only
+    ### TODO: Make decision. Maybe Landmark is useless. Maybe we can use Osm:Node only
     nl = Landmark.new
     nl.osm = Osm::Node.closest_node(x,y).first
     nl.save
@@ -104,8 +107,6 @@ class LandmarkDescriptionsController < ApplicationController
   # PUT /landmark_descriptions/1
   # PUT /landmark_descriptions/1.json
   def update
-    #TODO use sanitize_search_params, update if required
-
     x = params[:landmark_description][:xld] 
     y = params[:landmark_description][:yld] 
     params[:landmark_description][:tag_list].delete("")
@@ -114,7 +115,7 @@ class LandmarkDescriptionsController < ApplicationController
     lm.osm = Osm::Node.closest_node(x,y).first
     lm.save
     respond_to do |format|
-      if @landmark_description.update_attributes(params[:landmark_description])
+      if @landmark_description.update_attributes params[:landmark_description]
         format.html { redirect_to @landmark_description, notice: 'Landmark description was successfully updated.' }
         format.json { head :no_content }
       else
@@ -138,6 +139,6 @@ class LandmarkDescriptionsController < ApplicationController
   protected
 
   def get_categories
-    @categories = Category.select([:name, :name_ru]) #TODO move to model?
+    @categories = Category.select [:name, :name_ru] #TODO move to model?
   end
 end

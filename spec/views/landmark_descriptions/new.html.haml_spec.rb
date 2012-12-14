@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "landmark_descriptions/new" do
   before(:each) do
-    assign(:landmark_description, stub_model(LandmarkDescription).as_new_record)
+    assign :landmark_description, LandmarkDescription.make!
   end
 
   it "renders new landmark_description form" do

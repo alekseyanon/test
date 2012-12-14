@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "landmark_descriptions/show" do
   before(:each) do
-    @landmark_description = assign(:landmark_description, stub_model(LandmarkDescription))
+    assign :landmark_description, LandmarkDescription.make!
   end
 
   it "renders attributes in <p>" do

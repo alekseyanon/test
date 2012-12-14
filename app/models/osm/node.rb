@@ -13,11 +13,6 @@ class Osm::Node < ActiveRecord::Base
     [geom.y, geom.x] #TODO figure out what's really latitude and what is longitude
   end
 
-  scope :in_poly, ->(poly_id) do
-    #{:conditions => ['id in (?)', Geo::Osm::Poly.find(poly_id).nodes]}
-    where 'id = any(select unnest(nodes) from ways where id = ?)', poly_id
-  end
-
   scope :within_radius, ->(other,r) do
     where "ST_DWithin(geom, ST_GeomFromText('#{other.geom}', #{Geo::SRID}), #{r})"
   end
