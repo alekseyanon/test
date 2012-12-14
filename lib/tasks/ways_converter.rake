@@ -8,11 +8,10 @@ task ways_converter: :environment do
     i += 1
     ways.each do |way|
       begin
-        point_coords = []
         if way.nodes.count > 3
           coords_string = way.nodes.map{ |node_id|
-              p = Osm::Node.find(node_id).geom
-              "#{p.x} #{p.y}"}.join(', ')
+            p = Osm::Node.where(id: node_id).pluck(:geom).first
+            "#{p.x} #{p.y}"}.join(', ')
           create_polygon_for_way way.id, coords_string
         else
           puts "Skip way #{way.id}"

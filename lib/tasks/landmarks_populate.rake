@@ -31,13 +31,10 @@ def create_landmarks(category_name, content)
 end
 
 def create_landmark node, title, category
-  landmark = Landmark.new
-  landmark.osm = node
-  landmark.save
-  ld = LandmarkDescription.new
-  ld.describable =  landmark
-  ld.title = title || "NoName"
-  ld.tag_list = category.self_and_ancestors.map(&:name_ru)
+  landmark = Landmark.create osm: node
+  ld = LandmarkDescription.new describable: landmark,
+                             title: (title || "NoName"),
+                             tag_list: category.self_and_ancestors.map(&:name_ru)
   ld.user = @user
   ld.save!
 end
