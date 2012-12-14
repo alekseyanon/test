@@ -35,6 +35,7 @@ def create_landmark node, title, category
   ld.save!
 rescue => ex
   puts "!!! Can't create landmark: node.id #{node.id}; title '#{title}' !!!"
+  #puts "#{ex.class} => #{ex.message}"
 end
 
 

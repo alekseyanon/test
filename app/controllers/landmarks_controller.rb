@@ -1,14 +1,17 @@
+### TODO: Maybe, this controller is useless
+
 class LandmarksController < ApplicationController
   before_filter :get_nodes, :only => [:new, :edit, :create, :update, :search]
 
   # GET /landmarks
   # GET /landmarks.json
   def index
-    @landmarks = Landmark.all
+    ###TODO: This line is used only for testing
+    @landmarks = Osm::Node.search.map{|l| l.latlon}
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @landmarks }
+      format.json { render json: @landmarks}
     end
   end
 

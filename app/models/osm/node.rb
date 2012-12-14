@@ -18,4 +18,8 @@ class Osm::Node < ActiveRecord::Base
   end
 
   scope :with_landmarks, joins('inner join geo_units on geo_units.osm_id = nodes.id')
+
+  scope :closest_node, ->(x,y) do
+    order("geom <-> ST_Geomfromtext('POINT (#{x} #{y})', #{Geo::SRID})").limit(1)
+  end
 end

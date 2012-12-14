@@ -69,7 +69,8 @@ describe "Users" do
     find(:type, "submit").click
 		current_path.should == user_path(@user)
     click_on "Настройки"
-    page.should have_content('tester@test.er')
+    find_field('user_email').value.should eq 'tester@test.er'
+    page.should have_content('Редактирование профиля')
   end
 
   it "edit user" do 
