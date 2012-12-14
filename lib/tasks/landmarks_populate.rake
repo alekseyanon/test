@@ -18,12 +18,8 @@ def create_landmarks(category_name, content)
   if content['from_poly']
     puts "===> Import from poly <==="
     Osm::Poly.where(tag_condition).each do |poly|
-      begin
-        create_landmark Osm::Node.find(poly.nodes.first), poly.tags['title'], category
-        i+=1
-      rescue => e
-        puts "!!! #{e.class}: #{e.message} !!!"
-      end
+      create_landmark Osm::Node.find(poly.nodes.first), poly.tags['title'], category
+      i+=1
     end
   end
   puts "*** All in Category #{i} ***"
@@ -37,7 +33,10 @@ def create_landmark node, title, category
                              tag_list: category.self_and_ancestors.map(&:name_ru)
   ld.user = @user
   ld.save!
+rescue => ex
+  puts "!!! Can't create landmark: node.id #{node.id}; title '#{title}' !!!"
 end
+
 
 namespace :landmarks do
   desc "creating landmarks from osm nodes by categories"
