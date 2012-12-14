@@ -37,6 +37,8 @@ def create_landmark node, title, category
                              tag_list: category.self_and_ancestors.map(&:name_ru)
   ld.user = @user
   ld.save!
+rescue => ex
+  puts "!!! Can't create landmark: node.id #{node.id}; title '#{title}' !!!"
 end
 
 namespace :landmarks do
