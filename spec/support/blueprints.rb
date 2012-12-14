@@ -70,3 +70,11 @@ User.blueprint do
   roles { ["traveler"] }
   perishable_token { "perishabletoken" }
 end
+
+Event.blueprint do
+  # Attributes here
+end
+
+EventOccasion.blueprint do
+  # Attributes here
+end
