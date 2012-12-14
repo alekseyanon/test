@@ -1,5 +1,6 @@
 class LandmarkDescriptionsController < ApplicationController
   before_filter :get_categories, :only => [:new, :edit, :create, :update, :search]
+  before_filter :make_landmark, :only => [:edit, :show]
 
   def sanitize_search_params(params)
     params && params.symbolize_keys.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
@@ -53,8 +54,6 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/1
   # GET /landmark_descriptions/1.json
   def show
-    @landmark_description = LandmarkDescription.find(params[:id])
-    @y, @x = @landmark_description.describable.osm.latlon
     @categories_tree = @landmark_description.categories_tree
     respond_to do |format|
       format.html # show.html.erb
@@ -73,9 +72,7 @@ class LandmarkDescriptionsController < ApplicationController
   end
 
   # GET /landmark_descriptions/1/edit
-  def edit
-    @landmark_description = LandmarkDescription.find(params[:id])
-    @y, @x = @landmark_description.describable.osm.latlon
+  def edit  
   end
 
   # POST /landmark_descriptions
@@ -83,15 +80,12 @@ class LandmarkDescriptionsController < ApplicationController
   def create
     x = params[:landmark_description][:xld] || 30.255188941955566
     y = params[:landmark_description][:yld] || 59.94736006104373
-    params[:landmark_description][:tag_list].delete("")
 
     #TODO cleanup
     @landmark_description = LandmarkDescription.new params[:landmark_description]
     @landmark_description.user = current_user
     ### TODO: Make decision. Maybe Landmark is useless. Maybe we can use Osm:Node only
-    nl = Landmark.new
-    nl.osm = Osm::Node.closest_node(x,y).first
-    nl.save
+    nl = Landmark.create osm: Osm::Node.closest_node(x,y).first
     @landmark_description.describable = nl
     respond_to do |format|
       if @landmark_description.save
@@ -109,7 +103,7 @@ class LandmarkDescriptionsController < ApplicationController
   def update
     x = params[:landmark_description][:xld] 
     y = params[:landmark_description][:yld] 
-    params[:landmark_description][:tag_list].delete("")
+
     @landmark_description = LandmarkDescription.find(params[:id])
     lm = @landmark_description.describable
     lm.osm = Osm::Node.closest_node(x,y).first
@@ -140,5 +134,10 @@ class LandmarkDescriptionsController < ApplicationController
 
   def get_categories
     @categories = Category.select [:name, :name_ru] #TODO move to model?
+  end
+
+  def make_landmark
+    @landmark_description = LandmarkDescription.find(params[:id])
+    @y, @x = @landmark_description.describable.osm.latlon
   end
 end
