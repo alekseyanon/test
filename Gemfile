@@ -91,5 +91,7 @@ group :test, :development do
   gem 'diff-lcs'
   gem 'capybara'
   gem 'launchy'
-  gem 'pry'
+  group :tddium_ignore do
+    gem 'pry'
+  end
 end
