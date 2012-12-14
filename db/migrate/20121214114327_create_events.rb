@@ -4,6 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :title
       t.text :body
       t.string :scheldule
+      t.integer :duration
       t.references :user
       t.references :landmark
 
