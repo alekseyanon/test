@@ -276,6 +276,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   database_cleaner
   diff-lcs
+  execjs
   faker
   haml
   haml-rails
