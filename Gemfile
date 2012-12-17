@@ -93,4 +93,5 @@ group :test, :development do
   gem 'launchy'
   gem 'pry'
   gem 'poltergeist'
+  gem 'database_cleaner'
 end

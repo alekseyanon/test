@@ -17,6 +17,8 @@ describe LandmarkDescription do
   end
 
   describe '.search' do
+    before(:all){ load_categories }
+
     let!(:d){ load_descriptions }
 
     context 'for plain text queries' do

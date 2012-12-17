@@ -11,7 +11,6 @@ window.landmark_description_new = ->
   L.tileLayer(tileUrlTemplate,
     maxZoom: 18
   ).addTo map
-  console.log 'single marker mode'
   map.setView [59.947, 30.255], 13
   xfield = $("#landmark_description_xld")
   yfield = $("#landmark_description_yld")
@@ -35,7 +34,6 @@ window.landmark_description_edit = ->
     maxZoom: 18
   ).addTo map
   leafletData = $ '.leaflet-edit-object'
-  console.log 'single marker mode'
   x = leafletData.data('x') || 30
   y = leafletData.data('y') || 56
   map.setView [y, x], 13
@@ -62,7 +60,6 @@ window.landmark_description_show = ->
     maxZoom: 18
   ).addTo map
   leafletData = $ '.leaflet-edit-object'
-  console.log 'single marker mode'
   x = leafletData.data('x') || 30.233
   y = leafletData.data('y') || 59.947
   map.setView [y, x], 13
