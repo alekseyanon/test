@@ -13,6 +13,8 @@ gem 'awesome_nested_set'
 
 gem 'pg_search'
 
+gem 'ice_cube'
+
 ################## views #########################
 gem 'simple_form'
 gem 'haml-rails'
@@ -92,4 +94,5 @@ group :test, :development do
   gem 'capybara'
   gem 'launchy'
   gem 'pry'
+  gem 'railroady'
 end

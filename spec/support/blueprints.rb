@@ -73,10 +73,9 @@ end
 
 Event.blueprint do
   title { Faker::Lorem.sentence }
-  scheldule { 'weekly' }
   duration {3}
 end
 
-EventOccasion.blueprint do
+EventOccurrence.blueprint do
   # Attributes here
 end

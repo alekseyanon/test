@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EventOccasion do
+describe EventOccurrence do
   subject { described_class.make! }
   it { should be_valid }
   it { should validate_presence_of :start }
