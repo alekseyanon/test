@@ -71,101 +71,102 @@ sightseeing:
         synagogue: Синагога
 activities:
   ru: Чем заняться?
-  entertainment:
-    ru: Развлечения
-    sub:
-      dolphinarium: Дельфинарий
-      cinema:
-        ru: Кинотеатр
-        osm: amenity.cinema
-        from_poly: true
-      music_venue: Концертная площадка
-      musical_club: Музыкальный клуб
-      nightclub:
-        ru: Ночной клуб
-        osm: amenity.nightclub
-        from_poly: true
-      seaquarium: Океанариум
-      planetarium: Планетарий
-      stadium:
-        ru: Стадион
-        osm: leisure.stadium
-        from_poly: true
-      theatre:
-        ru: Театр
-        osm: amenity.theatre
-        from_poly: true
-      circus: Цирк
-  active_recreation:
-    ru: Активный отдых
-    sub:
-      on ground:
-        ru: На земле
-        sub:
-          agritourism: Агротуризм
-          aerodynamic_tunnel: Аэродинамическая труба
-          poolhalls: Бильярдный клуб
-          bowling: Боулинг
-          bycicle: Велосипед
-          golf:
-            ru: Гольф
-            osm: leisure.golf_course
-            from_poly: true
-          carting: Картинг
-          horse-riding: Катание на лошадях
-          quad_bike: Квадроцикл
-          motorcycle: Мотоцикл
-          hunt: Охота
-          amusement_park: Парк аттракционов
-          paitball: Пейнтбол
-          treking: Пешие походы
-          rollerdrome: Роллердром
-          tennis_court: Теннисный корт
-      on_water:
-        ru: На воде
-        sub:
-          aquapark:
-            ru: Аквапарк
-            osm: leisure.water_park
-            from_poly: true
-          canoes: Байдарки и каноэ
-          windserfing: Виндсерфинг
-          wakeboarding: Bейкбординг
-          jetski: Гидроцикл
-          diving: Дайвинг
-          kite_surfing: Кайтинг
-          cutter: Катер
-          sea_motorboat_holiday_deals: Морские теплоходные туры
-          rafting: Рафтинг
-          river_motorboat_holiday_deals: Речные теплоходные туры
-          fishing: Рыбалка
-          serfing: Серфинг
-          snorkling: Снорклинг
-          yachting: Яхты
-      in_the_mountains:
-        ru: В горах
-        sub:
-          alpinism: Альпинизм
-          downhill_skiing_boarding:
-            ru: Горные лыжи/Сноуборд
-            sub:
-              downhill_with_ski-lift: Склон с подъемником
-              downhill_without_ski-lift: Склон без подъемника
-          mountain_treking: Горные походы
-      in_the_sky:
-        ru: В небесах
-        sub:
-          copter: Вертолет
-          delta: Дельтаплан
-          powered_hang-glider: Мотодельтаплан
-          chute: Парашют
-          plane: Самолет
-      on_a_snow:
-        ru: На снегу
-        sub:
-          rinks: Катки
-          ski: Равнинные лыжи
-          snowmobile: Снегоход
+  sub:
+    entertainment:
+      ru: Развлечения
+      sub:
+        dolphinarium: Дельфинарий
+        cinema:
+          ru: Кинотеатр
+          osm: amenity.cinema
+          from_poly: true
+        music_venue: Концертная площадка
+        musical_club: Музыкальный клуб
+        nightclub:
+          ru: Ночной клуб
+          osm: amenity.nightclub
+          from_poly: true
+        seaquarium: Океанариум
+        planetarium: Планетарий
+        stadium:
+          ru: Стадион
+          osm: leisure.stadium
+          from_poly: true
+        theatre:
+          ru: Театр
+          osm: amenity.theatre
+          from_poly: true
+        circus: Цирк
+    active_recreation:
+      ru: Активный отдых
+      sub:
+        on ground:
+          ru: На земле
+          sub:
+            agritourism: Агротуризм
+            aerodynamic_tunnel: Аэродинамическая труба
+            poolhalls: Бильярдный клуб
+            bowling: Боулинг
+            bycicle: Велосипед
+            golf:
+              ru: Гольф
+              osm: leisure.golf_course
+              from_poly: true
+            carting: Картинг
+            horse-riding: Катание на лошадях
+            quad_bike: Квадроцикл
+            motorcycle: Мотоцикл
+            hunt: Охота
+            amusement_park: Парк аттракционов
+            paitball: Пейнтбол
+            treking: Пешие походы
+            rollerdrome: Роллердром
+            tennis_court: Теннисный корт
+        on_water:
+          ru: На воде
+          sub:
+            aquapark:
+              ru: Аквапарк
+              osm: leisure.water_park
+              from_poly: true
+            canoes: Байдарки и каноэ
+            windserfing: Виндсерфинг
+            wakeboarding: Bейкбординг
+            jetski: Гидроцикл
+            diving: Дайвинг
+            kite_surfing: Кайтинг
+            cutter: Катер
+            sea_motorboat_holiday_deals: Морские теплоходные туры
+            rafting: Рафтинг
+            river_motorboat_holiday_deals: Речные теплоходные туры
+            fishing: Рыбалка
+            serfing: Серфинг
+            snorkling: Снорклинг
+            yachting: Яхты
+        in_the_mountains:
+          ru: В горах
+          sub:
+            alpinism: Альпинизм
+            downhill_skiing_boarding:
+              ru: Горные лыжи/Сноуборд
+              sub:
+                downhill_with_ski-lift: Склон с подъемником
+                downhill_without_ski-lift: Склон без подъемника
+            mountain_treking: Горные походы
+        in_the_sky:
+          ru: В небесах
+          sub:
+            copter: Вертолет
+            delta: Дельтаплан
+            powered_hang-glider: Мотодельтаплан
+            chute: Парашют
+            plane: Самолет
+        on_a_snow:
+          ru: На снегу
+          sub:
+            rinks: Катки
+            ski: Равнинные лыжи
+            snowmobile: Снегоход
 lodging:
   ru: Где заночевать
   sub:

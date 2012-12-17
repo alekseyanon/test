@@ -22,7 +22,7 @@ gem 'chosen-rails'
 gem 'underscore-rails'
 
 gem 'execjs'
-gem 'therubyracer'
+gem 'therubyracer', '0.10.2'
 
 ##################################################
 ########### gems for users models ################
@@ -95,4 +95,6 @@ group :test, :development do
   gem 'launchy'
   gem 'pry'
   gem 'railroady'
+  gem 'poltergeist'
+  gem 'database_cleaner'
 end
