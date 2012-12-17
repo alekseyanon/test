@@ -7,7 +7,7 @@ class LandmarksController < ApplicationController
   # GET /landmarks.json
   def index
     ###TODO: This line is used only for testing
-    @landmarks = Osm::Node.search.map{|l| l.latlon}
+    @landmarks = Landmark.all
 
     respond_to do |format|
       format.html # index.html.erb
