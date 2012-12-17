@@ -11,8 +11,10 @@
 %h1= @landmark_description.title
 
 %p здесь будут наши цепочки
+
 = render_category_tree @categories_tree
 %br
+
 .technical
   %h3 Рейтинг
   = button_to "Добавить в планировщик", "#"
@@ -45,7 +47,7 @@
   %br
 %br
 .map
-  .leaflet-edit-object{id: "map", :data => {:x => 30.3, :y => 60}}
+  .leaflet-edit-object{id: "map", data: {x: "#@x", y: "#@y"}}
 %br
 =link_to "Отзывы", "#"
 |
@@ -68,5 +70,7 @@
 %br
 
 = link_to 'Edit', edit_landmark_description_path(@landmark_description)
-\|
+|
 = link_to 'Back', landmark_descriptions_path
+%script
+  $(window).load(function(){ landmark_description_show();})

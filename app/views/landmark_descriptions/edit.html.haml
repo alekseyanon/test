@@ -22,7 +22,9 @@
     
     %a{:name => "place"}
     %h3 Где находится
-    .leaflet-edit-object{id: "map", :data => {:x => 30.3, :y => 60}}
+    .leaflet-edit-object{id: "map", :data => {:x => "#@x", :y => "#@y"}}
+    = f.input :xld
+    = f.input :yld
 
     %a{:name => "category"}
     %h3 Категория
@@ -73,5 +75,8 @@
 
     = f.submit "Применить изменения"
 = link_to 'Show', @landmark_description
-\|
+|
 = link_to 'Back', landmark_descriptions_path
+
+%script
+  $(window).load(function(){ landmark_description_edit();})

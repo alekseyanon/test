@@ -11,10 +11,8 @@
 
   %body
     #user_nav.btn-group
-      
-      %br/
-      -# comment 1
-      -# = link_to "Отправить почту", sendmail_path
+
+      %br
       .btn=link_to "домой", root_path
       .btn= link_to "Личный кабинет", profile_path(:type => 'traveler') 
       .btn= link_to "Забыли пароль", forget_password_path 
@@ -23,11 +21,6 @@
         .btn= link_to "Редактировать профиль", edit_user_path(current_user)
         .btn= link_to "Настройки", settings_user_path(current_user)
         .btn= link_to "Log out", logout_path, :method => :delete 
-      - else
-        -# = link_to "Log in", login_path 
-        -# .btn= link_to "Register", signup_path(:type => 'traveler')
-
-        -# .btn= link_to "login ", login_path(:type => 'traveler')
       .btn=link_to "список объектов", landmark_descriptions_path
       .btn=link_to "поиск объектов", search_landmark_descriptions_path
     = yield 

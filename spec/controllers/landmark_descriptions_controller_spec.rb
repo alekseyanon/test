@@ -37,7 +37,7 @@ describe LandmarkDescriptionsController do
     { title: Faker::Lorem.sentence,
       body:  Faker::Lorem.sentences(10),
       published: [true, false].sample,
-      published_at: Time.now
+      published_at: Time.now.to_s
     }
   end
 
@@ -51,8 +51,9 @@ describe LandmarkDescriptionsController do
   describe "GET index" do
     it "assigns all landmark_descriptions as @landmark_descriptions" do
       landmark_description = LandmarkDescription.make! valid_attributes
+      all = LandmarkDescription.all.to_a
       get :index, {}, valid_session
-      assigns(:landmark_descriptions).should eq([landmark_description])
+      assigns(:landmark_descriptions).should eq(all)
     end
   end
 
@@ -119,14 +120,20 @@ describe LandmarkDescriptionsController do
 
   describe "PUT update" do
     describe "with valid params" do
+      before do
+        
+      end
+
       it "updates the requested landmark_description" do
-        landmark_description = LandmarkDescription.make! valid_attributes
+        va = valid_attributes.update({ xld: "30.456", yld: "56.345" }).with_indifferent_access
+        landmark_description = LandmarkDescription.make! va
         # Assuming there are no other landmark_descriptions in the database, this
         # specifies that the LandmarkDescription created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        LandmarkDescription.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => landmark_description.to_param, :landmark_description => {'these' => 'params'}}, valid_session
+
+        LandmarkDescription.any_instance.should_receive(:update_attributes).with(va)
+        put :update, {:id => landmark_description.to_param, :landmark_description => va}, valid_session
       end
 
       it "assigns the requested landmark_description as @landmark_description" do

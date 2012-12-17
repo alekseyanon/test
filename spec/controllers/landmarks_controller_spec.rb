@@ -38,8 +38,9 @@ describe LandmarksController do
   describe "GET index" do
     it "assigns all landmarks as @landmarks" do
       landmark = Landmark.create! valid_attributes
+      landmarkall = Landmark.all.to_a
       get :index, {}, valid_session
-      assigns(:landmarks).should eq([landmark])
+      assigns(:landmarks).should eq(landmarkall)
     end
   end
 
