@@ -92,4 +92,5 @@ group :test, :development do
   gem 'capybara'
   gem 'launchy'
   gem 'pry'
+  gem 'poltergeist'
 end
