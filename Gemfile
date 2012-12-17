@@ -19,9 +19,6 @@ gem 'haml-rails'
 gem 'chosen-rails'
 gem 'underscore-rails'
 
-gem 'execjs'
-gem 'therubyracer'
-
 ##################################################
 ########### gems for users models ################
 gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
