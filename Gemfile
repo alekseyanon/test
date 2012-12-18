@@ -22,7 +22,6 @@ gem 'chosen-rails'
 gem 'underscore-rails'
 
 gem 'execjs'
-gem 'therubyracer', '0.10.2'
 
 ##################################################
 ########### gems for users models ################
@@ -66,6 +65,7 @@ group :assets do
 end
 
 gem 'inherited_resources'
+gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -77,7 +77,8 @@ gem 'inherited_resources'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem "capistrano"
+gem 'rvm-capistrano'
 
 # To use debugger
 # gem 'debugger'

@@ -1,0 +1,6 @@
+---
+:tddium:
+  :test_pattern:
+    - spec/**_spec.rb
+  :postgresql:
+    :version: '9.1'

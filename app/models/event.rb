@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
   validates :title, presence: true
   validates_associated :user, :landmark
 
-  after_create :generate_occurrences
+#  after_create :generate_occurrences
 
   def create_schedule start_date, repeat_rule
     schedule = Schedule.new start_date
@@ -41,6 +41,10 @@ class Event < ActiveRecord::Base
   end
 
   def generate_occurrences
-    #TODO
+    self.schedule.first(10).each do |datetime|
+      eo = EventOccurrence.new start: datetime
+      eo.event = self
+      eo.save!
+    end
   end
 end

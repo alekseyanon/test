@@ -7,14 +7,6 @@ describe Event do
   it { should belong_to :user }
   it { should belong_to :landmark }
 
-  let(:event_notvalid){ Event.make! duration: 7}
-  let(:event_valid){ Event.make! duration: 4}
-
-  it "scheldule must be less than repeat period" do
-    event_valid.should be_valid
-    event_notvalid.should_not be_valid
-  end
-
   it "после создания должен генерироваться первый оккажион"
 
   describe 'Scheldule' do
@@ -41,9 +33,10 @@ describe Event do
     end
   end
 
-  describe '.generate_occagions' do
+  describe '.generate_occurrences ' do
     let(:event){Event.make!}
     it "должен генерировать окажены на n месяцев вперед согласну правилу scheldule" do
+      pending
       event.generate_occurrences 3
       event.occurrences.count.should == 12
     end

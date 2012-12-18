@@ -25,6 +25,9 @@ describe LandmarkDescriptionsController do
 
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
+  before :all do
+    Category.make!
+  end
   before :each do
     activate_authlogic
     UserSession.create user
