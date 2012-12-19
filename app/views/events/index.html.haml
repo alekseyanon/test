@@ -1,0 +1,7 @@
+%h1 События
+
+%p= link_to 'Новое событие', new_event_path
+
+- @event_occurrences.each do |eo|
+  %p= eo.event.title
+

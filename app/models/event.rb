@@ -2,16 +2,21 @@ class Event < ActiveRecord::Base
   include IceCube
   serialize :schedule, Hash
 
-  attr_accessible :body, :title, :duration
+  attr_accessible :body, :title, :duration, :start_date, :repeat_rule, :landmark_id
 
   belongs_to :user
   belongs_to :landmark
   has_many   :event_occurrences
 
-  validates :title, presence: true
+  validates :title, :start_date, presence: true
   validates_associated :user, :landmark
 
-#  after_create :generate_occurrences
+  after_create :event_after_create
+
+  def event_after_create
+    self.create_schedule self.start_date, self.repeat_rule
+    self.create_occurrences
+  end
 
   def create_schedule start_date, repeat_rule
     schedule = Schedule.new start_date
@@ -40,7 +45,7 @@ class Event < ActiveRecord::Base
     Schedule.from_hash(read_attribute(:schedule))
   end
 
-  def generate_occurrences
+  def create_occurrences
     self.schedule.first(10).each do |datetime|
       eo = EventOccurrence.new start: datetime
       eo.event = self

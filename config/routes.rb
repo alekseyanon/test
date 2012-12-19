@@ -18,6 +18,7 @@ Smorodina::Application.routes.draw do
     end
   end
 
+  resources :events
   # Авторизация через социальные сервисы
   resources :authentications, :only => [:edit, :update, :destroy]
   match "/user/social_accounts", :to => "authentications#index", :as => :auth_list

@@ -73,7 +73,9 @@ end
 
 Event.blueprint do
   title { Faker::Lorem.sentence }
+  start_date { Time.now }
   duration {3}
+  repeat_rule { 'weekly' }
 end
 
 EventOccurrence.blueprint do

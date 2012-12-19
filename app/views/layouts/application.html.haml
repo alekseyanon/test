@@ -29,7 +29,6 @@
                 %li= link_to "Log out", logout_path, :method => :delete 
               %li=link_to "список объектов", landmark_descriptions_path
               %li=link_to "поиск объектов", search_landmark_descriptions_path
-              %li
-                %a{href: '#'} События
+              %li= link_to 'События', events_path                
     .container
       = yield 

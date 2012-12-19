@@ -11,6 +11,9 @@ gem 'activerecord-postgres-array'
 gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'
 
+gem 'inherited_resources'
+gem 'chronic'
+
 gem 'pg_search'
 
 gem 'ice_cube'
