@@ -2,6 +2,13 @@
 
 %p= link_to 'Новое событие', new_event_path
 
+// TODO helper
+= link_to '<--', '#'
+События на неделю: даты
+= link_to '-->', '#'
+
 - @event_occurrences.each do |eo|
-  %p= eo.event.title
+  %h3= link_to eo.event.title, eo.event
+  %p= eo.start
+  %br
 
