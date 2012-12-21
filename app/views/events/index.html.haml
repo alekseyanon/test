@@ -12,5 +12,6 @@
   %h2= Russian::strftime(eos.first.start, "%A, %d %B %Y г.").mb_chars.capitalize
   - eos.each do |eo|
     %h3= link_to eo.event.title, eo.event
-    %img{width: 86, heght: 73, src: eo.event.image_url}
+    %p= eo.start
+    %img{width: 86, height: 73, src: eo.event.image_url}
     %p= eo.event.body

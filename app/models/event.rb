@@ -16,8 +16,12 @@ class Event < ActiveRecord::Base
   after_create :event_after_create
 
   def event_after_create
-    self.create_schedule self.start_date, self.repeat_rule
-    self.create_occurrences
+    if !self.repeat_rule.blank?
+      self.create_schedule self.start_date, self.repeat_rule
+      self.create_occurrences
+    else
+      self.create_occurrence self.start_date
+    end
   end
 
   def create_schedule start_date, repeat_rule
@@ -49,9 +53,14 @@ class Event < ActiveRecord::Base
 
   def create_occurrences
     self.schedule.first(10).each do |datetime|
-      eo = EventOccurrence.new start: datetime
-      eo.event = self
-      eo.save!
+      create_occurrence datetime
     end
   end
+
+  def create_occurrence start_date
+    eo = EventOccurrence.new start: start_date
+    eo.event = self
+    eo.save!
+  end
+
 end

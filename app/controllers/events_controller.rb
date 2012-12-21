@@ -1,8 +1,10 @@
 class EventsController < InheritedResources::Base
+
   def new
     @landmarks = Landmark.limit(10)
     new!
   end
+
   def index
     @event_occurrences = EventOccurrence.for_week
     @days = {}
@@ -14,7 +16,7 @@ class EventsController < InheritedResources::Base
       end
       @days[day] << eo
     end
-#    binding.pry
     index!
   end
+
 end
