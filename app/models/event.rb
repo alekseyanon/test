@@ -2,7 +2,9 @@ class Event < ActiveRecord::Base
   include IceCube
   serialize :schedule, Hash
 
-  attr_accessible :body, :title, :duration, :start_date, :repeat_rule, :landmark_id
+  attr_accessible :body, :title, :duration, :start_date, :repeat_rule, :landmark_id, :image
+
+  mount_uploader :image, ImageUploader
 
   belongs_to :user
   belongs_to :landmark

@@ -1,4 +1,4 @@
-= simple_form_for @event do |f|
+= simple_form_for @event, :html => {:multipart => true} do |f|
   - if @event.errors.any?
     #error_explanation
       %h2= "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
@@ -10,7 +10,8 @@
     = f.input :body
     = f.input :start_date
     = f.input :duration
-    = f.input :repeat_rule, collection: ['daily', 'weekly']
+    = f.input :repeat_rule, collection: ['daily', 'weekly', 'yearly']
     = f.input :landmark_id, collection: @landmarks
+    = f.input :image
   .actions
     = f.submit 'Save'
