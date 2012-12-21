@@ -11,9 +11,8 @@ class EventsController < InheritedResources::Base
       if eo.start.strftime("%F") != day
         day = eo.start.strftime("%F")
         @days[day] = []
-        in_day = @days[day]
       end
-      in_day << eo
+      @days[day] << eo
     end
 #    binding.pry
     index!
