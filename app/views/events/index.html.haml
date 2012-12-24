@@ -2,10 +2,10 @@
 
 %p= link_to 'Новое событие', new_event_path
 
-// TODO helper
-= link_to '<--', '#'
-События на неделю: даты
-= link_to '-->', '#'
+= link_to 'Раньше', week_path('last week monday', @date)
+События на неделю:
+= @date
+= link_to 'Позже', week_path('next week monday', @date)
 
 - @event_occurrences.each do |eo|
   %h3= link_to eo.event.title, eo.event
