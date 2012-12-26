@@ -23,7 +23,7 @@
 /db/*.sql
 /test/
 
-/config/database.yml
+/config/*.yml
 *.orig
 *.swp
 *~
