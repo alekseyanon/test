@@ -35,6 +35,8 @@ class Event < ActiveRecord::Base
       rule = Rule.monthly
     when 'yearly'
       rule = Rule.yearly
+    when 'half-year'
+      rule = Rule.monthly(6)
     else
       raise "Unknown repeat rule: #{repeat_rule}"
     end

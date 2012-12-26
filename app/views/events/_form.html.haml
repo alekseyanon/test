@@ -10,7 +10,7 @@
     = f.input :body
     = f.input :start_date
     = f.input :duration
-    = f.input :repeat_rule, collection: ['daily', 'weekly', 'yearly']
+    = f.input :repeat_rule, collection: ['daily', 'weekly', 'monthly', 'half-year', 'yearly']
     = f.input :landmark_id, collection: @landmarks
     = f.input :image
   .actions
