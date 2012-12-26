@@ -13,6 +13,7 @@ gem 'awesome_nested_set'
 
 gem 'inherited_resources'
 gem 'chronic'
+gem 'russian'
 
 gem 'pg_search'
 

@@ -1,5 +1,5 @@
 class EventsController < InheritedResources::Base
-  
+
   def new
     @landmarks = Landmark.limit(10)
     new!
@@ -12,7 +12,16 @@ class EventsController < InheritedResources::Base
       @date = Time.now
     end
     @event_occurrences = EventOccurrence.for_week 
+    @days = {}
+    day = nil
+    @event_occurrences.each do |eo|
+      if eo.start.strftime("%F") != day
+        day = eo.start.strftime("%F")
+        @days[day] = []
+      end
+      @days[day] << eo
+    end
     index!
   end
-  
+
 end

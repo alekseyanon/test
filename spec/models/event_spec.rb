@@ -7,7 +7,12 @@ describe Event do
   it { should belong_to :user }
   it { should belong_to :landmark }
 
-  it "после создания должен генерироваться первый оккажион"
+  let(:event) {Event.make! }
+  let(:event_weekly){Event.make! repeat_rule: 'weekly'}
+
+  it "после создания должен генерироваться первый оккажион" do
+    event.event_occurrences.count.should == 1
+  end
 
   describe 'Scheldule' do
     let(:e){ Event.new }
@@ -20,7 +25,9 @@ describe Event do
     it 'creates monthly scheldule' do
       e.create_schedule(Time.now, 'monthly').to_s.should == 'Monthly'
     end
-    it 'creates half-year scheldule' #TODO
+    it 'creates half-year scheldule' do
+      e.create_schedule(Time.now, 'half-year').to_s.should == 'Every 6 months'
+    end
     it 'creates yearly scheldule' do
       e.create_schedule(Time.now, 'yearly').to_s.should == 'Yearly'
     end
@@ -33,12 +40,10 @@ describe Event do
     end
   end
 
-  describe '.generate_occurrences ' do
-    let(:event){Event.make!}
+  describe '.create_occurrences ' do    
     it "должен генерировать окажены на n месяцев вперед согласну правилу scheldule" do
-      pending
-      event.generate_occurrences 3
-      event.occurrences.count.should == 12
+      event_weekly.create_occurrences
+      event_weekly.event_occurrences.count.should == 10
     end
   end
 end
