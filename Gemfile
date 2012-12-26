@@ -17,9 +17,6 @@ gem 'pg_search'
 gem 'simple_form'
 gem 'haml-rails'
 gem 'chosen-rails'
-gem 'underscore-rails'
-
-gem 'execjs'
 
 
 ##################################################
@@ -61,6 +58,10 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  gem 'backbone-on-rails'
+  gem 'haml_coffee_assets'
+  gem 'execjs'
 end
 
 gem 'jquery-rails'

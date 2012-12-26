@@ -82,13 +82,8 @@ window.landmark_description_search = ->
   getCurrentlyVisibleIDs = ->
     parseInt($(e).attr 'id') for e in $('#search-results').children('.landmark-search-result')
 
-  addResultBlock = (description) ->
-    block = $('#landmark-template').clone()
-    block.attr "id", description.id
-    $(block).find('.landmark-title').text description.title
-    $(block).find('.landmark-tags').text description.tag_list
-    $('#search-results').append block
-    $(block).show()
+  addResultBlock = (landmark) ->
+    $('#search-results').append JST['landmark']({landmark:landmark})
 
   applySearch = (data) -> #TODO refactor
     currentIDs = getCurrentlyVisibleIDs()
