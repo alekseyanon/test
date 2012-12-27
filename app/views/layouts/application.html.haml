@@ -10,17 +10,25 @@
     = csrf_meta_tags 
 
   %body
-    #user_nav.btn-group
+    %div{class: 'navbar navbar-inverse navbar-fixed-top'}
+      .navbar-inner
+        .container
+          %a{class: "btn btn-navbar", 'data-toggle' => "collapse", 'data-target' => ".nav-collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar          
+          %a{class: "brand", href: "/"} Smorodina
+          .nav-collapse.collapse
+            %ul.nav
+              %li= link_to "Личный кабинет", profile_path(:type => 'traveler') 
+              %li= link_to "Забыли пароль", forget_password_path 
 
-      %br
-      .btn=link_to "домой", root_path
-      .btn= link_to "Личный кабинет", profile_path(:type => 'traveler') 
-      .btn= link_to "Забыли пароль", forget_password_path 
-
-      - if current_user
-        .btn= link_to "Редактировать профиль", edit_user_path(current_user)
-        .btn= link_to "Настройки", settings_user_path(current_user)
-        .btn= link_to "Log out", logout_path, :method => :delete 
-      .btn=link_to "список объектов", landmark_descriptions_path
-      .btn=link_to "поиск объектов", search_landmark_descriptions_path
-    = yield 
+              - if current_user
+                %li= link_to "Редактировать профиль", edit_user_path(current_user)
+                %li= link_to "Настройки", settings_user_path(current_user)
+                %li= link_to "Log out", logout_path, :method => :delete 
+              %li=link_to "список объектов", landmark_descriptions_path
+              %li=link_to "поиск объектов", search_landmark_descriptions_path
+              %li= link_to 'События', events_path                
+    .container
+      = yield 
