@@ -66,7 +66,9 @@ window.landmark_description_search = ->
     parseInt($(e).attr 'id') for e in $('#search-results').children('.landmark-search-result')
 
   addResultBlock = (landmark) ->
-    $('#search-results').append JST['landmark']({landmark:landmark})
+    m = new Smorodina.Models.Landmark landmark
+    view = new Smorodina.Views.Landmark(model: m)
+    $('#search-results').append view.render()
 
   applySearch = (data) -> #TODO refactor
     currentIDs = getCurrentlyVisibleIDs()

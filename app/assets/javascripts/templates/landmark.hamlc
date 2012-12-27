@@ -1,7 +1,6 @@
-%div.landmark-search-result{id: @landmark.id}
-  .picture
-  %h4.landmark-title= @landmark.title
-  %br
-  %div.landmark-tags= @landmark.tag_list
-  %br
-  .clear-lf
+.picture
+%h4.landmark-title= @title
+%br
+%div.landmark-tags= @tag_list
+%br
+.clear-lf
