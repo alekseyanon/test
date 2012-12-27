@@ -12,12 +12,11 @@ gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'
 
 gem 'inherited_resources'
-gem 'chronic'
 gem 'russian'
+gem 'chronic'
+gem 'ice_cube'
 
 gem 'pg_search'
-
-gem 'ice_cube'
 
 ################## views #########################
 gem 'simple_form'

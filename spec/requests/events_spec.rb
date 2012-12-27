@@ -33,13 +33,25 @@ describe "Events", js: true, type: :request do
     click_on 'Save'
   end
 
-  let(:title) { Faker::Lorem.word }  
+  let(:title) { Faker::Lorem.sentence }  
   let(:body)  { Faker::Lorem.sentence 2}
+  let(:event) { Event.make! repeat_rule: 'weekly', title: title, start_date: Time.now}
 
   it 'creates a new event' do
     create_new title, body
     page.should have_content title
     page.should have_content body
+  end
+
+  it 'must repeats in future' do
+    event
+    visit events_path
+    page.should have_content title
+    click_on "Позже"
+    page.should have_content title
+    click_on "Раньше"
+    click_on "Раньше"
+    page.should have_no_content title
   end
   
 end

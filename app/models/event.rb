@@ -16,27 +16,27 @@ class Event < ActiveRecord::Base
   after_create :event_after_create
 
   def event_after_create
-    if !self.repeat_rule.blank?
+    if self.repeat_rule.blank?
+      self.create_occurrence self.start_date
+    else
       self.create_schedule self.start_date, self.repeat_rule
       self.create_occurrences
-    else
-      self.create_occurrence self.start_date
     end
   end
 
   def create_schedule start_date, repeat_rule
     schedule = Schedule.new start_date
-    case repeat_rule
+    rule = case repeat_rule
     when 'daily'
-      rule = Rule.daily
+      Rule.daily
     when 'weekly'
-      rule = Rule.weekly
+      Rule.weekly
     when 'monthly'
-      rule = Rule.monthly
+      Rule.monthly
     when 'yearly'
-      rule = Rule.yearly
+      Rule.yearly
     when 'half-year'
-      rule = Rule.monthly(6)
+      Rule.monthly(6)
     else
       raise "Unknown repeat rule: #{repeat_rule}"
     end
@@ -60,9 +60,7 @@ class Event < ActiveRecord::Base
   end
 
   def create_occurrence start_date
-    eo = EventOccurrence.new start: start_date
-    eo.event = self
-    eo.save!
+    self.event_occurrences.create! start: start_date
   end
 
 end
