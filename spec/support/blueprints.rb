@@ -70,3 +70,13 @@ User.blueprint do
   roles { ["traveler"] }
   perishable_token { "perishabletoken" }
 end
+
+Event.blueprint do
+  title { Faker::Lorem.sentence }
+  start_date { (1..14).to_a.sample.days.ago }
+  duration {3}
+end
+
+EventOccurrence.blueprint do
+  start { Time.now }
+end

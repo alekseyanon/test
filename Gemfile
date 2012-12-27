@@ -11,6 +11,11 @@ gem 'activerecord-postgres-array'
 gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'
 
+gem 'inherited_resources'
+gem 'russian'
+gem 'chronic'
+gem 'ice_cube'
+
 gem 'pg_search'
 
 ################## views #########################
@@ -20,7 +25,6 @@ gem 'chosen-rails'
 gem 'underscore-rails'
 
 gem 'execjs'
-
 
 ##################################################
 ########### gems for users models ################
