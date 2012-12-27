@@ -52,8 +52,6 @@ def current_user(stubs = {})
 end
 
 def user_session(stubs = {}, user_stubs = {})
-  #@current_user ||= mock_model(UserSession, {:user => current_user(user_stubs)}.merge(stubs))
-  #@current_user ||= mock_model(UserSession, {:user => current_user(user_stubs), :record => true, :anonymous? => false}.merge(stubs))
   @user_session ||= stub_model(UserSession, {:user => current_user(user_stubs), :record => true, :anonymous? => false}.merge(stubs))
 end
 

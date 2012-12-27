@@ -29,8 +29,6 @@ describe LandmarkDescriptionsController do
     Category.make!
   end
   before :each do
-    #activate_authlogic
-    #UserSession.create user
     login
   end
 
