@@ -11,7 +11,7 @@ class EventsController < InheritedResources::Base
     else
       @date = Time.now
     end
-    @event_occurrences = EventOccurrence.for_week 
+    @event_occurrences = EventOccurrence.for_week @date
     @days = {}
     day = nil
     @event_occurrences.each do |eo|

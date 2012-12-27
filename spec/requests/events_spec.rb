@@ -26,17 +26,20 @@ describe "Events", js: true, type: :request do
     DatabaseCleaner.clean
   end
 
-  def create_new(title)
+  def create_new(title, body)
     visit new_event_path
     fill_in 'event_title', with: title
+    fill_in 'event_body', with: body
     click_on 'Save'
   end
 
   let(:title) { Faker::Lorem.word }  
+  let(:body)  { Faker::Lorem.sentence 2}
 
   it 'creates a new event' do
-    create_new title
+    create_new title, body
     page.should have_content title
+    page.should have_content body
   end
   
 end
