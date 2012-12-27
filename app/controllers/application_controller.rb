@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user_session, :current_user, :user_logged_in?
+  helper_method :current_user_session, :current_user, :user_logged_in?, :require_logged_in_user
 
 
 
@@ -12,12 +12,12 @@ protected
   end
 
   def current_user
-    @current_user ||= (current_user_session && current_user_session.record) || nil #AnonymousUser.new
+    @current_user ||= (current_user_session && current_user_session.user) || AnonymousUser.new
   end
 
   # my method - without integrating Anonimous model
   def user_logged_in?
-    !!current_user
+    !current_user.anonymous?
   end
 
   def require_logged_in_user
@@ -66,5 +66,21 @@ protected
     ### TODO: add handling of errors!!
     ### TODO: add handling of errors!!!
     ### TODO: add handling of errors!!!!
+
+  def deny_access(message = I18n.t(:"flash.access_denied"), path = nil)
+    path ||= (profile_path(:type => 'traveler'))
+    # remember_authorized_action
+    respond_to do |format|
+      format.html do
+        redirect_to path, alert: message
+      end
+      format.xml do
+        headers["Status"] = "Unauthorized"
+        headers["WWW-Authenticate"] = %(Basic realm="Web Password")
+        render text: %(<?xml version="1.0" encoding="utf-8"><error>Could't authenticate you</error>), status: 401
+      end
+    end
+    false
+  end
 
 end

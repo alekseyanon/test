@@ -219,7 +219,7 @@ class UsersController < ApplicationController
   end  
 
   def profile
-    if current_user
+    if !current_user.anonymous?
       redirect_to current_user
     else
       @user = User.new

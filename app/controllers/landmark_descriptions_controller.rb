@@ -1,6 +1,7 @@
 class LandmarkDescriptionsController < ApplicationController
   before_filter :get_categories, :only => [:new, :edit, :create, :update, :search]
   before_filter :get_landmark, :only => [:edit, :show]
+  before_filter :require_logged_in_user, :only => [:new, :edit, :create, :update]
 
   def sanitize_search_params(params)
     params && params.symbolize_keys.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this

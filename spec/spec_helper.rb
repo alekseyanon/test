@@ -47,3 +47,20 @@ RSpec.configure do |config|
     xpath { |type| XPath.descendant[XPath.attr(:type) == type.to_s] }
   end
 end
+def current_user(stubs = {})
+  @current_user ||= stub_model(User, stubs)
+end
+
+def user_session(stubs = {}, user_stubs = {})
+  #@current_user ||= mock_model(UserSession, {:user => current_user(user_stubs)}.merge(stubs))
+  #@current_user ||= mock_model(UserSession, {:user => current_user(user_stubs), :record => true, :anonymous? => false}.merge(stubs))
+  @user_session ||= stub_model(UserSession, {:user => current_user(user_stubs), :record => true, :anonymous? => false}.merge(stubs))
+end
+
+def login(session_stubs = {}, user_stubs = {})
+  UserSession.stub!(:find).and_return(user_session(session_stubs, user_stubs))
+end
+
+def logout
+  @user_session = nil
+end
