@@ -5,19 +5,26 @@
 apiKey = 'cda4cc8498bd4da19e72af2b606f5c6e'
 tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
 
-window.landmark_description_new = ->
+initMap = ->
   map = L.map('map')
   lg = L.layerGroup([]).addTo map
-  L.tileLayer(tileUrlTemplate,
-    maxZoom: 18
-  ).addTo map
+  L.tileLayer(tileUrlTemplate,{maxZoom: 18}).addTo map
+  [map, lg]
+
+showLatLng = (latlng) ->
+  $("#landmark_description_xld").val latlng.lng
+  $("#landmark_description_yld").val latlng.lat
+
+getLatLng = ->
+  d = $ '.leaflet-edit-object'
+  new L.LatLng(d.data('y') || 59.947, d.data('x') || 30.233)
+
+window.landmark_description_new = ->
+  [map, _] = initMap()
   map.setView [59.947, 30.255], 13
-  xfield = $("#landmark_description_xld")
-  yfield = $("#landmark_description_yld")
   popup = L.popup()
   map.on 'click', (e) ->
-    xfield.val e.latlng.lng
-    yfield.val e.latlng.lat
+    showLatLng e.latlng
     $.getJSON '/landmark_descriptions/nearest_node.json',
       x: e.latlng.lng
       y: e.latlng.lat
@@ -28,50 +35,26 @@ window.landmark_description_new = ->
           .openOn(map)
 
 window.landmark_description_edit = ->
-  map = L.map('map')
-  lg = L.layerGroup([]).addTo map
-  L.tileLayer(tileUrlTemplate,
-    maxZoom: 18
-  ).addTo map
-  leafletData = $ '.leaflet-edit-object'
-  x = leafletData.data('x') || 30
-  y = leafletData.data('y') || 56
-  map.setView [y, x], 13
-  L.marker([y, x]).addTo map
-  xfield = $("#landmark_description_xld")
-  yfield = $("#landmark_description_yld")
-  tmpx = 0
-  tmpy = 0
+  [map, _] = initMap()
+  latlng = getLatLng()
+  map.setView latlng, 13
+  L.marker(latlng).addTo map
   popup = L.popup()
   map.on 'click', (e) ->
-    tmpx = e.latlng.lng
-    tmpy = e.latlng.lat
-    xfield.val tmpx
-    yfield.val tmpy
+    showLatLng e.latlng
     popup
       .setLatLng(e.latlng)
       .setContent("New place of object")
       .openOn(map)
 
 window.landmark_description_show = ->
-  map = L.map('map')
-  lg = L.layerGroup([]).addTo map
-  L.tileLayer(tileUrlTemplate,
-    maxZoom: 18
-  ).addTo map
-  leafletData = $ '.leaflet-edit-object'
-  x = leafletData.data('x') || 30.233
-  y = leafletData.data('y') || 59.947
-  map.setView [y, x], 13
-  L.marker([y, x]).addTo map
+  [map, _] = initMap()
+  latlng = getLatLng()
+  map.setView latlng, 13
+  L.marker(latlng).addTo map
 
-window.landmark_description_search = ->    
-  map = L.map('map')
-  lg = L.layerGroup([]).addTo map
-  L.tileLayer(tileUrlTemplate,
-    maxZoom: 18
-  ).addTo map
-
+window.landmark_description_search = ->
+  [map, lg] = initMap()
   lastBounds = null
 
   setFields = (x,y,r) ->
