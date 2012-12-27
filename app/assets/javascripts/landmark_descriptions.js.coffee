@@ -56,6 +56,10 @@ window.landmark_description_show = ->
 window.landmark_description_search = ->
   [map, lg] = initMap()
   lastBounds = null
+  window.landmarks = new Smorodina.Collections.Landmarks
+  window.landmarksView = new Smorodina.Views.LandmarkList
+    collection: landmarks
+  $('#search-results').html landmarksView.render().el
 
   setFields = (x,y,r) ->
     $("#x").val x
@@ -71,12 +75,7 @@ window.landmark_description_search = ->
     $('#search-results').append view.render()
 
   applySearch = (data) -> #TODO refactor
-    currentIDs = getCurrentlyVisibleIDs()
-    newIDs = (desc.id for desc in data)
-    IDsToRemove = _.without(currentIDs, newIDs...)
-    IDsToAdd = _.without(newIDs, currentIDs...)
-    addResultBlock(desc) for desc in data when _.contains(IDsToAdd, desc.id)
-    $("##{id}").remove() for id in IDsToRemove
+    window.landmarks.update data
     lg.clearLayers()
     L.marker(desc.describable.osm.latlon).addTo(lg) for desc in data
 
