@@ -68,7 +68,7 @@ protected
     ### TODO: add handling of errors!!!!
 
   def deny_access(message = I18n.t(:"flash.access_denied"), path = nil)
-    path ||= (profile_path(:type => 'traveler'))
+    path ||= (profile_path(type: 'traveler'))
     # remember_authorized_action
     respond_to do |format|
       format.html do

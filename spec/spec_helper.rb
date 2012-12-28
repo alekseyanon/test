@@ -52,7 +52,8 @@ def current_user(stubs = {})
 end
 
 def user_session(stubs = {}, user_stubs = {})
-  @user_session ||= stub_model(UserSession, {:user => current_user(user_stubs), :record => true, :anonymous? => false}.merge(stubs))
+  default_stub = {user: current_user(user_stubs), record: true, anonymous?: false}
+  @user_session ||= stub_model(UserSession, default_stub.merge(stubs))
 end
 
 def login(session_stubs = {}, user_stubs = {})

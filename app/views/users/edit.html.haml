@@ -1,14 +1,7 @@
-
-= link_to "Личный кабинет", profile_path(:type => 'traveler')
-|
-= link_to "Редактировать профиль", edit_user_path(current_user)
-|
-= link_to "Настройки", settings_user_path(current_user)
-|
-= link_to "Log out", logout_path, :method => :delete 
+= render 'navigation' 
 
 %h1	Редактирование профиля
-= simple_form_for @user, :html => { :class => 'form-horizontal' } do |form| 
+= simple_form_for @user, html: { class: 'form-horizontal' } do |form| 
   - @user.errors.full_messages.each do |msg| 
     %p= msg
   - if @authentications.any?

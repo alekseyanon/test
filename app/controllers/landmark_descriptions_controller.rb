@@ -1,7 +1,7 @@
 class LandmarkDescriptionsController < ApplicationController
-  before_filter :get_categories, :only => [:new, :edit, :create, :update, :search]
-  before_filter :get_landmark, :only => [:edit, :show]
-  before_filter :require_logged_in_user, :only => [:new, :edit, :create, :update]
+  before_filter :get_categories, only: [:new, :edit, :create, :update, :search]
+  before_filter :get_landmark, only: [:edit, :show]
+  before_filter :require_logged_in_user, only: [:new, :edit, :create, :update]
 
   def sanitize_search_params(params)
     params && params.symbolize_keys.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
@@ -41,14 +41,14 @@ class LandmarkDescriptionsController < ApplicationController
   def coordinates
     @points = Osm::Node.with_landmarks.limit(10).pluck(:geom).map{|p| [p.y, p.x]}
     respond_to do |format|
-      format.json { render :json => @points }
+      format.json { render json: @points }
     end
   end
 
   def nearest_node
     node = Osm::Node.closest_node(params["x"], params["y"]).first
     respond_to do |format|
-      format.json { render :json => node.latlon }
+      format.json { render json: node.latlon }
     end
   end
 
