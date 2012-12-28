@@ -1,16 +1,16 @@
 class Event < ActiveRecord::Base
   include IceCube
-  serialize :schedule, Hash
+  attr_accessible :body, :title, :duration, :start_date, :repeat_rule, :landmark_id, :image, :geom
 
-  attr_accessible :body, :title, :duration, :start_date, :repeat_rule, :landmark_id, :image
-
-  mount_uploader :image, ImageUploader
+  serialize                   :schedule, Hash
+  mount_uploader              :image,    ImageUploader
+  set_rgeo_factory_for_column :geom,     Geo::factory
 
   belongs_to :user
   belongs_to :landmark
   has_many   :event_occurrences
 
-  validates :title, :start_date, presence: true
+  validates :title, :start_date, :geom, presence: true
   validates_associated :user, :landmark
 
   after_create :event_after_create

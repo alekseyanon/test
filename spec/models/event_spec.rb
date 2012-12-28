@@ -5,6 +5,8 @@ describe Event do
   subject { described_class.make! }
   it { should be_valid }
   it { should validate_presence_of :title }
+  it { should validate_presence_of :geom }
+  it { should validate_presence_of :start_date }
   it { should belong_to :user }
   it { should belong_to :landmark }
 
@@ -14,6 +16,11 @@ describe Event do
   it "после создания должен генерироваться первое повторение" do
     event.event_occurrences.count.should == 1
   end
+
+  it 'must have RGeo Point Factory' do 
+    event.geom.class.to_s.should == 'RGeo::Geos::CAPIPointImpl'
+  end
+
 
   describe 'Schedule' do
     let(:e){ Event.new }
