@@ -74,11 +74,6 @@ protected
       format.html do
         redirect_to path, alert: message
       end
-      format.xml do
-        headers["Status"] = "Unauthorized"
-        headers["WWW-Authenticate"] = %(Basic realm="Web Password")
-        render text: %(<?xml version="1.0" encoding="utf-8"><error>Could't authenticate you</error>), status: 401
-      end
     end
     false
   end
