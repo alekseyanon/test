@@ -21,6 +21,32 @@ describe Event do
     event.geom.class.to_s.should == 'RGeo::Geos::CAPIPointImpl'
   end
 
+  describe ".within_radius" do
+    let(:triangle){ to_events [[10,10], [20,20], [30,10]] }
+
+    it 'returns nodes within a specified radius of another node' do
+      described_class.within_radius(triangle[0], 10).should =~ triangle[0..0]
+      described_class.within_radius(triangle[0], 15).should =~ triangle[0..1]
+      described_class.within_radius(triangle[0], 20).should =~ triangle
+      described_class.within_radius(triangle[2], 15).should =~ triangle[1..2]
+    end
+  end
+
+  describe '.search' do
+    before(:all){ load_categories }
+
+    let!(:d){ load_descriptions }
+
+    context 'for plain text queries' do
+      it_behaves_like 'text search'
+    end
+
+    # context 'for combined geospatial and text queries' do
+    #   it_behaves_like "combined search" do
+    #     let(:osm){ Osm::Node.make! geom: Geo::factory.point(10, 10) }
+    #   end
+    # end
+  end
 
   describe 'Schedule' do
     let(:e){ Event.new }

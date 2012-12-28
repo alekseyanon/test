@@ -7,6 +7,11 @@ def to_nodes(crd)
   crd.map{|p| Osm::Node.make! geom: p }
 end
 
+def to_events(crd)
+  crd = to_points crd if crd[0].is_a? Array
+  crd.map{|p| Event.make! geom: p }
+end
+
 def to_poly(nodes)
   Osm::Poly.make! geom: Geo.factory.polygon(Geo.factory.line_string nodes.map(&:geom))
 end
@@ -43,9 +48,11 @@ end
 
 def load_descriptions
   File.open("#{Rails.root}/db/seeds/landmark_descriptions.yml"){|f| YAML.load f.read}.map do |yld|
-    ld = described_class.make! yld.slice(:title, :body)
-    ld.tag_list += yld[:tags] if yld[:tags] #TODO move to blueprints
-    ld.save
-    ld
+    dc = described_class.make! yld.slice(:title, :body)
+    if defined? dc.tag_list    
+      dc.tag_list += yld[:tags] if yld[:tags] #TODO move to blueprints
+    end
+    dc.save
+    dc
   end
 end
