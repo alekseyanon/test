@@ -124,3 +124,34 @@ describe "Users reset password" do
 	end
 
 end
+### to use your account
+describe "Users reset password", js: true, type: :request do
+  self.use_transactional_fixtures = false
+
+  it "facebook login" do
+    pending("facebook register does not work yet")
+    # visit profile_path(:type => 'traveler')
+    # page.find('a.facebook').click
+    # #click_on(".social-icon.twitter")
+    # print page.html
+    # #print page.find('title').html
+    # #page.find('title').should have_content('Твиттер / Авторизовать приложение') 
+  end
+  it "twitter login" do
+    visit profile_path(:type => 'traveler')
+    page.find('.social-icon.twitter').click
+    page.find('title').should have_content('Твиттер / Авторизовать приложение') 
+  end
+  it "facebook register" do
+    pending("facebook register does not work yet")
+    # visit profile_path(:type => 'traveler')
+    # print page.html
+    # page.find('button.facebook').click
+    # print page.html
+  end
+  it "twitter register" do
+    visit profile_path(:type => 'traveler')
+    page.find('button.twitter').click
+    page.find('title').should have_content('Твиттер / Авторизовать приложение') 
+  end
+end

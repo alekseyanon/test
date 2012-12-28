@@ -46,7 +46,8 @@ class Authentication < ActiveRecord::Base
       www       = user_info['urls']['Twitter'] if user_info['urls'].present? && provider.to_s == "twitter"
       picture   = user_info['image']
 
-      role_name = params['type']
+      ### TODO: refactor roles will be more then traveler and admin
+      role_name = params['type'].blank? ? "traveler" : params['type']
 
       # Через #tap, а не через блок: если регистрация была прервана - нужно перезанести данные.
       self.find_or_create_by_provider_and_uid(provider, uid).tap do |a|
