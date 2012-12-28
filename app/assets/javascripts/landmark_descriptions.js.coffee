@@ -56,28 +56,21 @@ window.landmark_description_show = ->
 window.landmark_description_search = ->
   [map, lg] = initMap()
   lastBounds = null
-  window.landmarks = new Smorodina.Collections.Landmarks
-  window.landmarksView = new Smorodina.Views.LandmarkList
+  landmarks = new Smorodina.Collections.Landmarks
+  landmarksView = new Smorodina.Views.LandmarkList
     collection: landmarks
+
+  putMarkers = ->
+    lg.clearLayers()
+    landmarks.forEach (l) ->
+      L.marker(l.get('describable').osm.latlon).addTo lg
+
   $('#search-results').html landmarksView.render().el
 
   setFields = (x,y,r) ->
     $("#x").val x
     $("#y").val y
     $("#r").val r
-
-  getCurrentlyVisibleIDs = ->
-    parseInt($(e).attr 'id') for e in $('#search-results').children('.landmark-search-result')
-
-  addResultBlock = (landmark) ->
-    m = new Smorodina.Models.Landmark landmark
-    view = new Smorodina.Views.Landmark(model: m)
-    $('#search-results').append view.render()
-
-  applySearch = (data) -> #TODO refactor
-    window.landmarks.update data
-    lg.clearLayers()
-    L.marker(desc.describable.osm.latlon).addTo(lg) for desc in data
 
   updateQuery = ->
     bounds = map.getBounds()
@@ -88,21 +81,20 @@ window.landmark_description_search = ->
     radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 / 60.0 #SRID 4326
     text = $('#text').val()
     setFields center.lng, center.lat, radius
-    $.getJSON '/landmark_descriptions.json',
-      query:
-        x: center.lat
-        y: center.lng
-        r: radius
-        text: text
-      (data) -> applySearch data
-
+    landmarks.fetch
+      update: true
+      data: $.param
+        query:
+          x: center.lat
+          y: center.lng
+          r: radius
+          text: text
+      success: putMarkers
   map.on 'load', ->
-    map.on 'zoomend', (e) ->
-      updateQuery()
-    map.on 'moveend', (e) ->
-      updateQuery()
+    map.on 'zoomend', updateQuery
+    map.on 'moveend', updateQuery
     updateQuery()
   $('#text').change ->
     lastBounds = null
     updateQuery()
-  map.setView [59.939,30.341], 13
+  map.setView [59.939,30.341], 13 #SPB
