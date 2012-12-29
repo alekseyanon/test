@@ -30,5 +30,11 @@ describe LandmarkDescription do
         let(:osm){ Osm::Node.make! geom: Geo::factory.point(10, 10) }
       end
     end
+
+    context 'for faceted combined geospatial and text queries' do
+      it_behaves_like "combined faceted search" do
+        let(:osm){ Osm::Node.make! geom: Geo::factory.point(10, 10) }
+      end
+    end
   end
 end
