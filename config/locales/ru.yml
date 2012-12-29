@@ -293,4 +293,9 @@ ru:
   activerecord:
     errors:
       <<: *errors
+  flash:
+    access_denied: &flash_access_denied "Доступ запрещён!"
+    access_denied_for_logged_in: Доступ запрещён!
+    project_will_be_published_after_activation: Проект создан и Вы сможете опубликовать его после активации аккаунта!
+    must_fill_out_profile: Заполните обязательные поля в %{link}
 

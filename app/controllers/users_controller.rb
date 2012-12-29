@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
 	
-  before_filter :find_by_perishable_token, :only => [:activate, :do_activate]
-	before_filter :get_authentication, :only => [:new_via_oauth, :create_via_oauth]
+  before_filter :find_by_perishable_token, only: [:activate, :do_activate]
+	before_filter :get_authentication, only: [:new_via_oauth, :create_via_oauth]
 	#authorize_resource
 	respond_to :html, :js
   
@@ -84,7 +84,7 @@ class UsersController < ApplicationController
           if user.roles.empty?
             # TODO: Dima: Отрефакторить, я думаю что эта ветка IF'а нам не понадобится
             # Это на случай если "Зарегистрироваться через" была нажата не на форме регистрации, а сверху
-            redirect_to signup_path(:type => 'traveler')
+            redirect_to signup_path(type: 'traveler')
           else
             user.register(activate: true)
             user_signed_up(user)
@@ -98,10 +98,10 @@ class UsersController < ApplicationController
       else
         # Не слишком красиво: кроме роли может быть какой-то еще обязательный параметр
         if authentication.role.blank?
-          redirect_to signup_path(:type => 'traveler')
+          redirect_to signup_path(type: 'traveler')
         else
           # Просим пользователя ввести e-mail
-          redirect_to new_via_oauth_new_user_path(:authentication_id => authentication)
+          redirect_to new_via_oauth_new_user_path(authentication_id: authentication)
         end
       end
     end
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
 
   def new_via_oauth
     @user = @authentication.new_user(params[:user])
-    render :layout => false
+    render layout: false
   end
 
   def create_via_oauth
@@ -118,9 +118,9 @@ class UsersController < ApplicationController
 
     if @user.register
       user_signed_up#(@user)
-      render :template => 'users/registration_completed'
+      render template: 'users/registration_completed'
     else
-      render :action => :new_via_oauth
+      render action: :new_via_oauth
     end
   end
 
@@ -174,7 +174,7 @@ class UsersController < ApplicationController
   	    redirect_to current_user
       end
 	  else
-	    render :action => 'edit'
+	    render action: 'edit'
 	  end
 	end
 
@@ -219,12 +219,12 @@ class UsersController < ApplicationController
   end  
 
   def profile
-    if current_user
-      redirect_to current_user
-    else
+    if current_user.anonymous?
       @user = User.new
       @user.roles = [params[:type].to_sym]
       @user_session = UserSession.new
+    else
+      redirect_to current_user
     end
   end
 	private
