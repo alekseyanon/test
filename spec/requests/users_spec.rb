@@ -130,10 +130,11 @@ describe "Users social networks", js: true, type: :request do
 
   it "facebook login" do
     Capybara.app_host = 'http://localhost:3000'
-    visit profile_path(:type => 'traveler')
+    visit profile_path(type: 'traveler')
     page.find('a.facebook').click
-    sleep(5)
-    page.find('title').should have_content('Войти | Facebook') 
+    wait_until(5) do
+        page.find('title').should have_content('Войти | Facebook') 
+    end
   end
 
   it "twitter login" do
@@ -145,12 +146,10 @@ describe "Users social networks", js: true, type: :request do
   it "facebook register" do
     Capybara.app_host = 'http://localhost:3000'
     visit profile_path(type: 'traveler')
-    # print current_url
     page.find('button.facebook').click
-    # print current_url
-    # print page.html
-    sleep(5)
-    page.find('title').should have_content('Войти | Facebook') 
+    wait_until(5) do
+        page.find('title').should have_content('Войти | Facebook') 
+    end
   end
 
   it "twitter register" do
