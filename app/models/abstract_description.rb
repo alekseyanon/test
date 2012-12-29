@@ -32,17 +32,18 @@ class AbstractDescription < ActiveRecord::Base
   # @return ActiveRecord::Relation all matching descriptions
   def self.search(query)
     return all unless query && !query.empty?
+    chain = self
     if query.is_a? String
       text = query
     else
-      query = query.delete_if { |k, v| v.nil? || (v.is_a?(String) && v.empty?) }
-      text = query[:text]
+      query = query.delete_if { |k, v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
+      chain = chain.tagged_with query[:facets], any: true  if query[:facets]
       geom = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
       r = query[:r] || 0
+      chain = chain.within_radius(geom, r) if geom
+      text = query[:text]
     end
-    chain = self
-    chain = chain.text_search(text) if text
-    chain = chain.within_radius(geom, r) if geom
+    chain = chain.text_search text if text && !text.empty?
     chain.where("abstract_descriptions.title != 'NoName'").limit 20
   end
 

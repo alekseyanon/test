@@ -54,6 +54,7 @@ window.landmark_description_show = ->
   L.marker(latlng).addTo map
 
 window.landmark_description_search = ->
+  facetBoxIds = '#sightseeing, #activities, #lodging, #food'
   [map, lg] = initMap()
   lastBounds = null
   landmarks = new Smorodina.Collections.Landmarks
@@ -81,20 +82,24 @@ window.landmark_description_search = ->
     radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 / 60.0 #SRID 4326
     text = $('#text').val()
     setFields center.lng, center.lat, radius
+    query =
+      x: center.lat
+      y: center.lng
+      r: radius
+      text: text
+
+    facets = (box.id for box in $(facetBoxIds) when $(box).is ':checked')
+    query.facets = facets if facets.length
     landmarks.fetch
       update: true
       data: $.param
-        query:
-          x: center.lat
-          y: center.lng
-          r: radius
-          text: text
+        query: query
       success: putMarkers
   map.on 'load', ->
     map.on 'zoomend', updateQuery
     map.on 'moveend', updateQuery
     updateQuery()
-  $('#text').change ->
+  $("#text, #{facetBoxIds}").change ->
     lastBounds = null
     updateQuery()
   map.setView [59.939,30.341], 13 #SPB

@@ -3,7 +3,7 @@ class LandmarkDescriptionsController < ApplicationController
   before_filter :get_landmark, :only => [:edit, :show]
 
   def sanitize_search_params(params)
-    params && params.symbolize_keys.slice(:text, :x, :y, :r) #TODO consider using ActiveRecord for this
+    params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets) #TODO consider using ActiveRecord for this
   end
 
   def history
