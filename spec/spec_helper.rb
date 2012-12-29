@@ -43,6 +43,7 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
 
+  Capybara.server_port = 3000
   Capybara.add_selector(:type) do
     xpath { |type| XPath.descendant[XPath.attr(:type) == type.to_s] }
   end
