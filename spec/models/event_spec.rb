@@ -45,12 +45,12 @@ describe Event do
     it 'performs full text search in specified radius' do
       described_class.search(text: "one", geom: one.geom, r: 5).should == [one, two]
       described_class.search(text: "one", geom: one.geom, r: 101).should == [four, one, two]
-    end
+    end    
 
     it 'performs full text search in specified radius and date' do
       described_class.search(text: "one", geom: one.geom, r: 5, date: "start > '#{1.day.ago}' AND start < '#{14.day.from_now}'").should == [one]
     end
-
+    
   end
 
   describe 'Schedule' do

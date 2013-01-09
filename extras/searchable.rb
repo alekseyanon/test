@@ -16,9 +16,8 @@ module Searchable
       return all unless query && !query.empty?
       if query.is_a? String
         text = query
-      else
-        # Удаление пустых ключей.. ээ.. а разве blank? не тоже самое делает?
-        query = query.delete_if { |k, v| v.nil? || (v.is_a?(String) && v.empty?) }
+      else        
+        query = query.delete_if { |k, v| v.blank? }
         text  = query[:text]
         geom  = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
         r     = query[:r] || 0
