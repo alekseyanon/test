@@ -22,8 +22,9 @@ describe AreaDescription do
     let!(:d){ load_descriptions }
 
     context 'for plain text queries' do
-      it_behaves_like "text search"
-    end
+      it_behaves_like "text search against title and body"
+      it_behaves_like 'text search against title and body and tags'
+    end    
 
     context 'for combined geospatial and text queries' do
       it_behaves_like "combined search" do

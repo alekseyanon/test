@@ -17,11 +17,10 @@ class Event < ActiveRecord::Base
   after_create :event_after_create
 
   pg_search_scope :text_search,
-                  against: {title: 'A', body: 'B'},
-                  associated_against: {tags: [:name]}
+                  against: {title: 'A', body: 'B'}                  
 
-  scope :within_radius, ->(other,r) do
-    where "ST_DWithin(geom, ST_GeomFromText('#{other.geom}', #{Geo::SRID}), #{r})"
+  scope :within_radius, ->(geom, r) do
+    where "ST_DWithin(geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
   end
 
   def self.search(query)
@@ -29,12 +28,18 @@ class Event < ActiveRecord::Base
     if query.is_a? String
       text = query
     else
+      # Удаление пустых ключей.. ээ.. а разве blank? не тоже самое делает?
       query = query.delete_if { |k, v| v.nil? || (v.is_a?(String) && v.empty?) }
-      text = query[:text]
-      geom = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
-      r = query[:r] || 0
+      text  = query[:text]
+      geom  = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
+      r     = query[:r] || 0
+      date  = query[:date]
     end
     chain = self
+    if date
+      chain = chain.joins('JOIN event_occurrences ON event_occurrences.event_id = events.id')
+      chain = chain.where date
+    end    
     chain = chain.text_search(text) if text
     chain = chain.within_radius(geom, r) if geom
     chain.limit 20
