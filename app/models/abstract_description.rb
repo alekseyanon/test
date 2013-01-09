@@ -2,6 +2,7 @@ require 'set'
 
 class AbstractDescription < ActiveRecord::Base
   include PgSearch
+  include Searchable
   belongs_to :user
   belongs_to :describable, polymorphic: true
   attr_accessible :body, :describable, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at
@@ -23,28 +24,6 @@ class AbstractDescription < ActiveRecord::Base
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'},
                   associated_against: {tags: [:name]}
-
-  # Searches descriptions against title, body, tags.
-  # For queries with geospatial part, search is done within a radius of some point.
-  #
-  # @param [String, Hash] query 'query string' or {text: 'query string', geom: RGeo::Feature::Point, r: radius}
-  #     or {text: 'query string', x: latitude, y: longitude, r: radius}
-  # @return ActiveRecord::Relation all matching descriptions
-  def self.search(query)
-    return all unless query && !query.empty?
-    if query.is_a? String
-      text = query
-    else
-      query = query.delete_if { |k, v| v.nil? || (v.is_a?(String) && v.empty?) }
-      text = query[:text]
-      geom = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
-      r = query[:r] || 0
-    end
-    chain = self
-    chain = chain.text_search(text) if text
-    chain = chain.within_radius(geom, r) if geom
-    chain.where("abstract_descriptions.title != 'NoName'").limit 20
-  end
 
   before_validation :normalize_categories
 
