@@ -2,6 +2,7 @@ class CreateCategories < ActiveRecord::Migration
   def change
     create_table :categories do |t|
       t.string :name
+      t.string :name_ru
       t.string :description
 
       # awesome_nested_set

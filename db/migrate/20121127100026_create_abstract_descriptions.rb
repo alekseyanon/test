@@ -3,6 +3,7 @@ class CreateAbstractDescriptions < ActiveRecord::Migration
     create_table :abstract_descriptions do |t|
       t.string :title
       t.text :body
+      t.string :see_address
       t.references :user
       t.references :describable
       t.string :describable_type

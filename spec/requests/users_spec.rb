@@ -20,7 +20,7 @@ describe "Users" do
   end
 
   it "user login" do 
-  	visit profile_path(:type => 'traveler')
+  	visit profile_path(type: 'traveler')
   	fill_in 'user_session[email]', with: @user.email
     fill_in 'user_session[password]', with: @user.password
     click_on 'Войти'
@@ -28,7 +28,7 @@ describe "Users" do
   end
 
   it "user incorrect login" do 
-  	visit profile_path(:type => 'traveler')
+  	visit profile_path(type: 'traveler')
   	fill_in 'user_session[email]', with: "tests"
     fill_in 'user_session[password]', with: "tests"
     click_on 'Войти'
@@ -36,7 +36,7 @@ describe "Users" do
   end
 
   it "user register" do 
-  	visit profile_path(:type => 'traveler')
+  	visit profile_path(type: 'traveler')
   	fill_in 'user[email]', with: Faker::Internet.email
     fill_in 'user[password]', with: "tes123ter"
     click_on 'Зарегистрироваться'
@@ -44,7 +44,7 @@ describe "Users" do
   end
 
   it "user incorrect register" do 
-  	visit profile_path(:type => 'traveler')
+  	visit profile_path(type: 'traveler')
   	fill_in 'user[email]', with: "tester"
     fill_in 'user[password]', with: "tester"
     click_on 'Зарегистрироваться'
@@ -52,7 +52,7 @@ describe "Users" do
   end
 
   it "user register with data of already exists user" do 
-  	visit profile_path(:type => 'traveler')
+  	visit profile_path(type: 'traveler')
   	fill_in 'user[email]', with: @user.email
     fill_in 'user[password]', with: @user.password
     click_on 'Зарегистрироваться'
@@ -60,10 +60,11 @@ describe "Users" do
   end
 
   it "user settings" do 
-  	visit profile_path(:type => 'traveler')
+  	visit profile_path(type: 'traveler')
   	fill_in 'user_session[email]', with: @user.email
     fill_in 'user_session[password]', with: @user.password
     click_on 'Войти'
+    click_on 'Личный кабинет'
     click_on 'Настройки'
     fill_in 'user_email', with: "tester@test.er"
     find(:type, "submit").click
@@ -74,10 +75,11 @@ describe "Users" do
   end
 
   it "edit user" do 
-  	visit profile_path(:type => 'traveler')
+  	visit profile_path(type: 'traveler')
   	fill_in 'user_session[email]', with: @user.email
     fill_in 'user_session[password]', with: @user.password
     click_on 'Войти'
+    click_on 'Личный кабинет'
     click_on 'Редактировать профиль'
     fill_in 'user_name', with: "tester"
     find(:type, "submit").click
@@ -101,7 +103,7 @@ describe "Users reset password" do
 
 	it "fill email for reset password" do 
 		visit forget_password_path
-		fill_in 'email', :with => @user.email
+		fill_in 'email', with: @user.email
 		find(:type, "submit").click
 		
 		#click_on 'Сбросить пароль'
@@ -111,14 +113,48 @@ describe "Users reset password" do
 	end
 
 	it "add new password after reset password" do 
-		visit reset_password_url(:token => @user.perishable_token)
+		visit reset_password_url(token: @user.perishable_token)
 		page.should have_selector('input#password')
 
-		fill_in 'password', :with => 'tester'
+		fill_in 'password', with: 'tester'
 		find(:type, "submit").click
 		#click_on 'Сохранить'
 		page.should have_content('Профиль') 
 		current_path.should == user_path(@user)
 	end
 
+end
+### to use your account
+describe "Users social networks", js: true, type: :request do
+  self.use_transactional_fixtures = false
+
+  it "facebook login" do
+    Capybara.app_host = 'http://localhost:3000'
+    visit profile_path(type: 'traveler')
+    page.find('a.facebook').click
+    wait_until(5) do
+        page.find('title').should have_content('Войти | Facebook') 
+    end
+  end
+
+  it "twitter login" do
+    visit profile_path(type: 'traveler')
+    page.find('.social-icon.twitter').click
+    page.find('title').should have_content('Твиттер / Авторизовать приложение') 
+  end
+
+  it "facebook register" do
+    Capybara.app_host = 'http://localhost:3000'
+    visit profile_path(type: 'traveler')
+    page.find('button.facebook').click
+    wait_until(5) do
+        page.find('title').should have_content('Войти | Facebook') 
+    end
+  end
+
+  it "twitter register" do
+    visit profile_path(type: 'traveler')
+    page.find('button.twitter').click
+    page.find('title').should have_content('Твиттер / Авторизовать приложение') 
+  end
 end
