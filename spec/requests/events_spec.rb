@@ -30,6 +30,7 @@ describe "Events", js: true, type: :request do
     visit new_event_path
     fill_in 'event_title', with: title
     fill_in 'event_body', with: body
+    fill_in 'event_geom', with: 'POINT(10 10)'
     click_on 'Save'
   end
 

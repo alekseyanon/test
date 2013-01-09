@@ -5,13 +5,17 @@ shared_examples_for "an abstract description" do
   it { should belong_to :describable }
 end
 
-shared_examples_for "text search" do
+shared_examples_for "text search against title and body" do
   def search(args) described_class.search args end
   it 'performs full text search against title and body' do
     #TODO add fuzzy / dictionary-based search
     search('Fishing').should =~ [d[0], d[2], d[3]]
     search('fish').should =~ [d[1], d[4]]
   end
+end
+
+shared_examples_for "text search against title and body and tags" do
+  def search(args) described_class.search args end
   it 'performs full text search against title, body and tags' do
     search('nature').should =~ [d[1], d[2], d[4]]
     search('sports_goods').should =~ [d[2], d[3]]
