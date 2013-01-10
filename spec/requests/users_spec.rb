@@ -128,19 +128,25 @@ end
 describe "Users social networks", js: true, type: :request do
   self.use_transactional_fixtures = false
 
+  before :each do
+    page.driver.headers = {'Accept-Language' => 'q=0.8,en-US'}
+  end
+  
   it "facebook login" do
     Capybara.app_host = 'http://localhost:3000'
     visit profile_path(type: 'traveler')
     page.find('a.facebook').click
     wait_until(5) do
-        page.find('title').should have_content('Войти | Facebook') 
+      page.find('title').should have_content('Log In | Facebook') 
     end
   end
 
   it "twitter login" do
     visit profile_path(type: 'traveler')
     page.find('.social-icon.twitter').click
-    page.find('title').should have_content('Твиттер / Авторизовать приложение') 
+    wait_until(5) do
+      page.find('title').should have_content('Twitter / Authorize an application') 
+    end
   end
 
   it "facebook register" do
@@ -148,13 +154,15 @@ describe "Users social networks", js: true, type: :request do
     visit profile_path(type: 'traveler')
     page.find('button.facebook').click
     wait_until(5) do
-        page.find('title').should have_content('Войти | Facebook') 
+      page.find('title').should have_content('Log In | Facebook') 
     end
   end
 
   it "twitter register" do
     visit profile_path(type: 'traveler')
     page.find('button.twitter').click
-    page.find('title').should have_content('Твиттер / Авторизовать приложение') 
+    wait_until(5) do
+      page.find('title').should have_content('Twitter / Authorize an application') 
+    end
   end
 end
