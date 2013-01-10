@@ -11,14 +11,14 @@ development:
   
 production:
   twitter:
-    key: JVouEkLT4V3hEti1U4TASQ
-    secret: omSnuzgW1b7yjtrrvqUGeEGZNK3lKlR5HxkYrR20nY
+    key: ubuzKuFS6eJDz8sc1HL1A
+    secret: nDomupv1b3T2xqeweVQ4oZMYSn8KHSpwDzor8IKK4c
   facebook:
-    id: 186522214784562
-    secret: 28317c6ee44460edbe108fdfb66eaaa5
+    id: 398859606860610
+    secret: dc29365c3fed22ec9d6986053279ffba
   vkontakte:
-    id: 2832461 
-    secret: Nb9tQf9dL6OR7RbWIvCH
+    id: 3317583 
+    secret: mOM87q2QWQc5TvkjBPJL
 
 test:
   twitter:

@@ -22,15 +22,14 @@ include Authlogic::TestCase
 # that an instance is receiving a specific message.
 
 describe LandmarkDescriptionsController do
-
+  setup :activate_authlogic
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
   before :all do
     Category.make!
   end
   before :each do
-    activate_authlogic
-    UserSession.create user
+    login
   end
 
 
@@ -68,7 +67,6 @@ describe LandmarkDescriptionsController do
       assigns(:landmark_description).should eq(landmark_description)
     end
   end
-
   describe "GET new" do
     it "assigns a new landmark_description as @landmark_description" do
       get :new, {}, valid_session

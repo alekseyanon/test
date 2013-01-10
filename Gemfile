@@ -11,13 +11,17 @@ gem 'activerecord-postgres-array'
 gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'
 
+gem 'inherited_resources'
+gem 'russian'
+gem 'chronic'
+gem 'ice_cube'
+
 gem 'pg_search'
 
 ################## views #########################
 gem 'simple_form'
 gem 'haml-rails'
 gem 'chosen-rails'
-
 
 ##################################################
 ########### gems for users models ################
