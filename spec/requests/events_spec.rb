@@ -54,5 +54,18 @@ describe "Events", js: true, type: :request do
     click_on "Раньше"
     page.should have_no_content title
   end
+
+  it 'searchable' do
+    event
+    visit search_events_path
+    fill_in 'text', with: title
+    click_on 'Search'
+    page.should have_content title
+    fill_in 'text', with: title
+    fill_in 'date', with: 1.day.from_now.strftime('%F')
+    click_on 'Search'
+    page.should have_no_content title
+  end
+  
 end
 
