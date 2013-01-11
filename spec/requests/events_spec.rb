@@ -30,6 +30,7 @@ describe "Events", js: true, type: :request do
     visit new_event_path
     fill_in 'event_title', with: title
     fill_in 'event_body', with: body
+    fill_in 'event_geom', with: 'POINT(10 10)'
     click_on 'Save'
   end
 
@@ -43,7 +44,7 @@ describe "Events", js: true, type: :request do
     page.should have_content body
   end
 
-  it 'must repeats in future' do
+  it 'has repeats in future' do
     event
     visit events_path
     page.should have_content title
@@ -53,6 +54,5 @@ describe "Events", js: true, type: :request do
     click_on "Раньше"
     page.should have_no_content title
   end
-  
 end
 

@@ -1,17 +1,21 @@
-shared_examples_for "an abstract description" do
+shared_examples_for 'an abstract description' do
   it { should be_valid }
   it { should validate_presence_of :title }
   it { should belong_to :user }
   it { should belong_to :describable }
 end
 
-shared_examples_for "text search" do
+shared_examples_for 'text search against title and body' do
   def search(args) described_class.search args end
   it 'performs full text search against title and body' do
     #TODO add fuzzy / dictionary-based search
     search('Fishing').should =~ [d[0], d[2], d[3]]
     search('fish').should =~ [d[1], d[4]]
   end
+end
+
+shared_examples_for 'text search against title and body and tags' do
+  def search(args) described_class.search args end
   it 'performs full text search against title, body and tags' do
     search('nature').should =~ [d[1], d[2], d[4]]
     search('sports_goods').should =~ [d[2], d[3]]
@@ -19,7 +23,7 @@ shared_examples_for "text search" do
   end
 end
 
-shared_examples_for "combined search" do
+shared_examples_for 'combined search' do
   it 'performs full text search for geo units around coordinates provided' do
     d[0].describable.osm = osm
     d[0].describable.save
@@ -28,7 +32,7 @@ shared_examples_for "combined search" do
   end
 end
 
-shared_examples_for "combined faceted search" do
+shared_examples_for 'combined faceted search' do
   it 'performs faceted combined text + geo search' do
     d[0].describable.osm = osm
     d[0].describable.save

@@ -74,6 +74,7 @@ end
 Event.blueprint do
   title { Faker::Lorem.sentence }
   start_date { (1..14).to_a.sample.days.ago }
+  geom { Geo::factory.point(10, 10) }
   duration {3}
 end
 

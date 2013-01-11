@@ -5,6 +5,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
   self.use_transactional_fixtures = false
 
   def login
+    User.delete_all
     @user = User.make!
     visit profile_path type: 'traveler'
     fill_in 'user_session[email]', with: @user.email
