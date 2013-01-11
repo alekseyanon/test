@@ -55,6 +55,7 @@ gem 'simple_form' #installation simple form
 
 gem 'rinku'               # auto_link
 
+gem "friendly_id"         # slug
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
