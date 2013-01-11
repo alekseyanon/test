@@ -24,6 +24,11 @@ class Event < ActiveRecord::Base
     where "ST_DWithin(geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
   end
 
+  scope :within_date_range, ->(from, to) do
+    joins('JOIN event_occurrences ON event_occurrences.event_id = events.id').
+        where "start >= '#{from}' AND start <= '#{to}'"
+  end
+
   def event_after_create
     if self.repeat_rule.blank?
       self.create_occurrence self.start_date

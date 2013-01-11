@@ -23,10 +23,7 @@ module Searchable
         r = query[:r] || 0
         chain = chain.within_radius(geom, r) if geom
         text = query[:text]
-        if query[:date]
-          chain = chain.joins('JOIN event_occurrences ON event_occurrences.event_id = events.id')
-          chain = chain.where query[:date]
-        end
+        chain = chain.within_date_range *query[:date] if query[:date]
       end
       chain = chain.text_search(text) unless text.blank?
       chain.where("abstract_descriptions.title != 'NoName'") if self.kind_of? AbstractDescription #TODO remove hack
