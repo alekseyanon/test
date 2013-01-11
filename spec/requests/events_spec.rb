@@ -44,7 +44,7 @@ describe "Events", js: true, type: :request do
     page.should have_content body
   end
 
-  it 'must repeats in future' do
+  it 'has repeats in future' do
     event
     visit events_path
     page.should have_content title

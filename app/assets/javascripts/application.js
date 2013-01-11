@@ -12,9 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require chosen-jquery
 //= require underscore
-//= require jquery.ui.all
+//= require backbone
+//= require smorodina
+//= require hamlcoffee
 //= require_tree .
 //= require leaflet
 

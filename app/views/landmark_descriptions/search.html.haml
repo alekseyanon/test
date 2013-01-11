@@ -6,13 +6,23 @@
     %strong Что
     = text_field_tag :text
     %strong X
-    = text_field_tag :x, nil, :disabled => true
+    = text_field_tag :x, nil, disabled: true
     %strong Y
-    = text_field_tag :y, nil, :disabled => true
+    = text_field_tag :y, nil, disabled: true
     %strong Радиус
-    = text_field_tag :r, nil, :disabled => true
-  -#.actions
-  -#  = submit_tag 'Search'
+    = text_field_tag :r, nil, disabled: true
+    <br>
+    %strong Что посмотреть
+    = check_box_tag :sightseeing
+    <br>
+    %strong Чем заняться
+    = check_box_tag :activities
+    <br>
+    %strong Где заночевать
+    = check_box_tag :lodging
+    <br>
+    %strong Где поесть
+    = check_box_tag :food
 
 %br
 =link_to "Все варианты", "#"
@@ -28,14 +38,6 @@
 
 %h3 Лучшие варианты
 %div#search-results
-
-%div#landmark-template.landmark-search-result{hidden: true}
-  .picture
-  %h4.landmark-title template title
-  %br
-  %div.landmark-tags
-  %br
-  .clear-lf
 
 %script
   $(window).load(function(){ landmark_description_search();})
