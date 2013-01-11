@@ -90,6 +90,7 @@ gem 'rvm-capistrano'
 gem 'ptools'
 
 group :test, :development do
+  gem 'rspec'
   gem 'rspec-rails', '~> 2.0'
   gem 'shoulda-matchers'
   gem 'machinist'
