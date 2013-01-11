@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery-datetimepicker
 //= require chosen-jquery
 //= require underscore
 //= require backbone
