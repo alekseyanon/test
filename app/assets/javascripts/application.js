@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require chosen-jquery
 //= require underscore
+//= require jquery.ui.all
 //= require_tree .
 //= require leaflet
 

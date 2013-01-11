@@ -1,6 +1,7 @@
-%h1 События
-
-%p= link_to 'Новое событие', new_event_path
+%ul{class: "nav nav-tabs"}
+  %li.active= link_to 'События', '#'
+  %li= link_to 'Новое событие', new_event_path
+  %li= link_to 'Поиск', search_events_path
 
 = link_to 'Раньше', week_path('last week monday', @date)
 События на неделю:

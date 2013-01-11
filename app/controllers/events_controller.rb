@@ -24,4 +24,18 @@ class EventsController < InheritedResources::Base
     index!
   end
 
+  def create 
+    params[:event][:start_date] = Time.parse params[:event][:start_date]
+    create!
+  end
+
+  def search
+    query = {}
+    query[:text] = params[:text] if params[:text]
+    if !params[:date].blank?
+      query[:date] = "start > '#{params[:date]} 00:00:00' AND start < '#{params[:date]} 23:59:59'"
+    end
+    @events = Event.search query if !query.blank?
+  end
+
 end
