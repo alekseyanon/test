@@ -123,38 +123,47 @@ describe "Users reset password" do
 		current_path.should == user_path(@user)
 	end
 
-end
-### to use your account
-describe "Users social networks", js: true, type: :request do
-  self.use_transactional_fixtures = false
+  ### to use your account
+  context "Users social networks", js: true, type: :request do
+    self.use_transactional_fixtures = false
 
-  it "facebook login" do
-    Capybara.app_host = 'http://localhost:3000'
-    visit profile_path(type: 'traveler')
-    page.find('a.facebook').click
-    wait_until(5) do
-        page.find('title').should have_content('Войти | Facebook') 
+    before :each do
+      page.driver.headers = {'Accept-Language' => 'q=0.8,en-US'}
     end
-  end
 
-  it "twitter login" do
-    visit profile_path(type: 'traveler')
-    page.find('.social-icon.twitter').click
-    page.find('title').should have_content('Твиттер / Авторизовать приложение') 
-  end
-
-  it "facebook register" do
-    Capybara.app_host = 'http://localhost:3000'
-    visit profile_path(type: 'traveler')
-    page.find('button.facebook').click
-    wait_until(5) do
-        page.find('title').should have_content('Войти | Facebook') 
+    it "facebook login" do
+      Capybara.app_host = 'http://localhost:3000'
+      visit profile_path(type: 'traveler')
+      page.find('a.facebook').click
+      wait_until(5) do
+        page.find('title').should have_content('Log In | Facebook')
+      end
     end
-  end
 
-  it "twitter register" do
-    visit profile_path(type: 'traveler')
-    page.find('button.twitter').click
-    page.find('title').should have_content('Твиттер / Авторизовать приложение') 
+    it "twitter login" do
+      visit profile_path(type: 'traveler')
+      page.find('.social-icon.twitter').click
+      wait_until(5) do
+        page.find('title').should have_content('Twitter / Authorize an application')
+      end
+    end
+
+    it "facebook register" do
+      Capybara.app_host = 'http://localhost:3000'
+      visit profile_path(type: 'traveler')
+      page.find('button.facebook').click
+      wait_until(5) do
+        print page.html
+        page.find('title').should have_content('Log In | Facebook')
+      end
+    end
+
+    it "twitter register" do
+      visit profile_path(type: 'traveler')
+      page.find('button.twitter').click
+      wait_until(5) do
+        page.find('title').should have_content('Twitter / Authorize an application')
+      end
+    end
   end
 end
