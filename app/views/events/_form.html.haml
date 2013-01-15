@@ -1,4 +1,4 @@
-= simple_form_for @event, :html => {:multipart => true} do |f|
+= simple_form_for @event, html: {multipart: true, class: "form-horizontal"} do |f|
   - if @event.errors.any?
     #error_explanation
       %h2= "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
@@ -7,12 +7,20 @@
           %li= msg
   .inputs
     = f.input :title
-    = f.input :body
-    = f.input :start_date
-    = f.input :geom
+    = f.input :body, input_html: { cols: 50, rows: 3 }
+    .control-group.text.required
+      %label.text.required.control-label{for: 'event_start_date'} 
+        %abbr{title: "required"} *
+        Start date
+      .controls
+        = text_field_tag 'event[start_date]', Time.now.strftime('%F')
+    = f.input :geom, input_html: { value: 'point(1 1)'}
     = f.input :duration
     = f.input :repeat_rule, collection: ['daily', 'weekly', 'monthly', 'half-year', 'yearly']
-    = f.input :landmark_id, collection: @landmarks
+    /= f.input :landmark_id, collection: @landmarks
     = f.input :image
   .actions
     = f.submit 'Save'
+
+:javascript
+  $('#event_start_date').datetimepicker({ dateFormat: "yy-mm-dd" });

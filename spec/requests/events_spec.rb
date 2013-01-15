@@ -44,7 +44,7 @@ describe "Events", js: true, type: :request do
     page.should have_content body
   end
 
-  it 'must repeats in future' do
+  it 'has repeats in future' do
     event
     visit events_path
     page.should have_content title
@@ -52,6 +52,18 @@ describe "Events", js: true, type: :request do
     page.should have_content title
     click_on "Раньше"
     click_on "Раньше"
+    page.should have_no_content title
+  end
+
+  it 'searchable' do
+    event
+    visit search_events_path
+    fill_in 'text', with: title
+    click_on 'Search'
+    page.should have_content title
+    fill_in 'text', with: title
+    fill_in 'date', with: 1.day.from_now.strftime('%F')
+    click_on 'Search'
     page.should have_no_content title
   end
   

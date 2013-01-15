@@ -2,7 +2,7 @@
 require 'machinist/active_record'
 
 Osm::Node.blueprint do
-  id { 2 * 10 ** 9 + 2000 + sn.to_i }
+  id { 2 * 10 ** 9 + 9000 + sn.to_i }
   geom { Geo::factory.point(29.9918672, 60.0052767) }
   tags { { transport: 'subway', station: 'subway',
            railway: 'station', operator: 'Петербургский метрополитен',

@@ -12,8 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
+//= require jquery-datetimepicker
 //= require chosen-jquery
 //= require underscore
+//= require backbone
+//= require smorodina
+//= require hamlcoffee
 //= require_tree .
 //= require leaflet
 

@@ -5,6 +5,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
   self.use_transactional_fixtures = false
 
   def login
+    User.delete_all
     @user = User.make!
     visit profile_path type: 'traveler'
     fill_in 'user_session[email]', with: @user.email
@@ -41,7 +42,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
   end
 
   let(:title) { Faker::Lorem.word }
-  let(:category) {Category.where(name: 'reservoir').first.name_ru}
+  let(:category) { Category.where(name: 'reservoir').first.name_ru }
 
   it 'creates a new landmark description' do
     create_new title, category
@@ -53,7 +54,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
   end
 
   let(:new_title){ Faker::Lorem.word }
-  let(:new_category) {Category.where(name: 'dolphinarium').first.name_ru}
+  let(:new_category) { Category.where(name: 'dolphinarium').first.name_ru }
 
   it 'edits existing landmark descriptions' do
     create_new title, category
@@ -71,6 +72,52 @@ describe "LandmarkDescriptions", js: true, type: :request do
     page.should have_content 'Чем заняться?'
     page.should have_content 'Развлечения'
     page.should have_content 'Дельфинарий'
+  end
+
+
+  context 'search page' do
+
+    def ld(tag_list, latlon)
+      LandmarkDescription.make! tag_list: tag_list, describable: to_landmark(latlon)
+    end
+
+    let!(:bar){ ld 'bar', [30.34, 59.93] }
+    let!(:cafe){ ld 'cafe', [30.341, 59.931] }
+    let!(:fishhouse){ ld 'dolphinarium', [30.342, 59.932] }
+    let!(:hata){ ld 'apartment', [30.343, 59.933] }
+
+    before :each do
+      visit search_landmark_descriptions_path
+    end
+
+    it 'searches for landmarks' do
+      page.should have_content 'bar,food'
+      page.should have_content 'cafe,food'
+      page.should have_content 'dolphinarium,entertainment,activities'
+      page.should have_content 'apartment,lodging'
+    end
+
+    it 'refines search results on query change' do
+      page.check 'food'
+      page.should have_content 'bar,food'
+      page.should have_content 'cafe,food'
+      page.should_not have_content 'dolphinarium,entertainment,activities'
+      page.should_not have_content 'apartment,lodging'
+
+      page.check 'lodging'
+      page.check 'activities'
+      page.uncheck 'food'
+      page.should_not have_content 'bar,food'
+      page.should_not have_content 'cafe,food'
+      page.should have_content 'dolphinarium,entertainment,activities'
+      page.should have_content 'apartment,lodging'
+
+      page.fill_in 'text', with: 'apartment'
+      page.should_not have_content 'bar,food'
+      page.should_not have_content 'cafe,food'
+      page.should_not have_content 'dolphinarium,entertainment,activities'
+      page.should have_content 'apartment,lodging'
+    end
   end
 end
 

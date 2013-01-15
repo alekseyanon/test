@@ -1,0 +1,6 @@
+.picture
+%h4.landmark-title= @title
+%br
+%div.landmark-tags= @tag_list
+%br
+.clear-lf

@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :email, :password, :password_confirmation, :avatar, :name, 
                   :external_picture_url, :authentication_ids,
-                  :crop_x, :crop_y, :crop_w, :crop_h, :slug
+                  :crop_x, :crop_y, :crop_w, :crop_h
 
   after_update :crop_avatar 
   attr_accessor :old_password
@@ -162,7 +162,6 @@ private
   def make_slug
     tmp_name = self.name ? self.name : self.email.split("@").first
     tmp_id = (tmp = User.last) ? (tmp.id + 1) : 1
-    #self.slug = "#{name ? name : 'user'} #{id}".parameterize
     "#{tmp_name ? tmp_name : 'user'} #{id ? id : tmp_id}"
   end
 end

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 
 gem 'pg'
 gem 'rgeo-activerecord'
@@ -22,9 +22,6 @@ gem 'pg_search'
 gem 'simple_form'
 gem 'haml-rails'
 gem 'chosen-rails'
-gem 'underscore-rails'
-
-gem 'execjs'
 
 ##################################################
 ########### gems for users models ################
@@ -66,9 +63,15 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  gem 'backbone-on-rails'
+  gem 'haml_coffee_assets'
+  gem 'execjs'
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'rails_jquery_ui_datepicker'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -90,6 +93,7 @@ gem 'rvm-capistrano'
 gem 'ptools'
 
 group :test, :development do
+  gem 'rspec'
   gem 'rspec-rails', '~> 2.0'
   gem 'shoulda-matchers'
   gem 'machinist'
