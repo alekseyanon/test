@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   include AASM
   include UserFeatures::Roles
 
+  serialize :settings, ActiveRecord::Coders::Hstore
+
   mount_uploader :avatar, AvatarUploader
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   

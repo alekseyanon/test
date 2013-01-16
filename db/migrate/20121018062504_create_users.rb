@@ -13,11 +13,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :perishable_token
       t.string :avatar
 
-      t.boolean :news_subscribed
-      t.boolean :comments_subscribed
-      t.boolean :answer_subscribed
-
-
       t.timestamps
     end
   end

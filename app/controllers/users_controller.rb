@@ -133,13 +133,14 @@ class UsersController < ApplicationController
 
   def settings
     @user = current_user
+    @user.settings = {} if @user.settings.nil?
     @authentications = current_user.authentications.all
     @connected_providers = @authentications.map { |auth| auth.provider }
 
   end
 
   def update_settings
-    @user = current_user
+    @user = current_user    
 
     if params[:user][:old_password].present?
       @user.old_password = params[:user][:old_password]
@@ -148,10 +149,8 @@ class UsersController < ApplicationController
       @user.need_to_check_old_password = true
     end
 
-    @user.news_subscribed = params[:user][:news_subscribed]
-    @user.comments_subscribed = params[:user][:comments_subscribed]
-    @user.answer_subscribed = params[:user][:answer_subscribed]
     @user.email = params[:user][:email] if params[:user][:email].present?
+    @user.settings = params[:user][:settings]
     
     if @user.save
       flash[:notice] = I18n.t("users.actions.update_password.flash")
