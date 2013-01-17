@@ -2,8 +2,12 @@ Smorodina::Application.routes.draw do
 
   resources :images
 
+  resources :reviews do
+    resources :comments
+  end
+
   resources :landmark_descriptions do
-    resources :reviews
+    resources :reviews, only: [:new, :create]
     member do
       get 'history'
     end

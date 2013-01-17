@@ -60,7 +60,7 @@
   %br
   - @landmark_description.reviews.each do |r|
     .review
-      %h4= r.title    
+      %h4= link_to r.title, r
       = r.body
   %br
   %br

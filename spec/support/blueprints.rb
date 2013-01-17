@@ -89,3 +89,7 @@ end
 Image.blueprint do
   # Attributes here
 end
+
+Comment.blueprint do
+  # Attributes here
+end
