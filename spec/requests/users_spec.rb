@@ -64,7 +64,7 @@ describe "Users" do
   	fill_in 'user_session[email]', with: @user.email
     fill_in 'user_session[password]', with: @user.password
     click_on 'Войти'
-    click_on 'Личный кабинет'
+    click_on 'Профиль'
     click_on 'Настройки'
     fill_in 'user_email', with: "tester@test.er"
     find(:type, "submit").click
@@ -79,7 +79,7 @@ describe "Users" do
   	fill_in 'user_session[email]', with: @user.email
     fill_in 'user_session[password]', with: @user.password
     click_on 'Войти'
-    click_on 'Личный кабинет'
+    click_on 'Профиль'
     click_on 'Редактировать профиль'
     fill_in 'user_name', with: "tester"
     find(:type, "submit").click
@@ -96,7 +96,7 @@ describe "Users reset password" do
 
 	it "reset password form is opened" do 
 		visit root_path
-		click_on 'Личный кабинет'
+		click_on 'Профиль'
 		click_on 'Забыли пароль'
 		page.should have_selector('input#email')
 	end
