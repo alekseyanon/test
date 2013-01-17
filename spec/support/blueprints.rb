@@ -81,3 +81,11 @@ end
 EventOccurrence.blueprint do
   start { Time.now }
 end
+
+Review.blueprint do
+  # Attributes here
+end
+
+Image.blueprint do
+  # Attributes here
+end

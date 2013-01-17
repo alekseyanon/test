@@ -1,4 +1,8 @@
 Smorodina::Application.routes.draw do
+  resources :images
+
+  resources :reviews
+
   resources :landmark_descriptions do
     member do
       get 'history'

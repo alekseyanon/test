@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Image:
+  = @image.image
+%p
+  %b State:
+  = @image.state
+%p
+  %b Imageable:
+  = @image.imageable
+
+= link_to 'Edit', edit_image_path(@image)
+\|
+= link_to 'Back', images_path
