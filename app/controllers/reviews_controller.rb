@@ -7,7 +7,9 @@ class ReviewsController < InheritedResources::Base
 
   def create
     @landmark_description = LandmarkDescription.find params[:landmark_description_id]
-    @review = @landmark_description.reviews.create params[:review]
+    @review = @landmark_description.reviews.build params[:review]
+    @review.user = current_user
+    @review.save!
     redirect_to @landmark_description
   end
 end
