@@ -8,7 +8,9 @@ class CommentsController < InheritedResources::Base
 
   def create
     r = Review.find params[:review_id]
-    c = r.comments.create! params[:comment]
+    c = r.comments.build params[:comment]
+    c.user = current_user
+    c.save!
     if !params[:parent_id].blank?
       parent = Comment.find params[:parent_id]
       c.move_to_child_of parent

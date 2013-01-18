@@ -4,6 +4,15 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true
   belongs_to :user
 
+  after_create :send_notifications
+
   validates :body, :user, :commentable, presence: true
   validates_associated :user, :commentable
+
+  def send_notifications    
+    if self.level == 0 and self.user.id != self.commentable.user.id
+      Notifier.send_new_comment_on_review_notification(self.commentable).deliver
+    end
+  end
+
 end

@@ -32,4 +32,9 @@ class Notifier < ActionMailer::Base
     @recipient = user
     mail(:to => user.email, :subject => "Сброс пароля")
   end
+
+  def send_new_comment_on_review_notification commentable    
+    mail to: commentable.user.email, subject: "Новый комментарий к вашему отзыву #{commentable.title}"
+  end
+
 end
