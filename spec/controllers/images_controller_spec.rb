@@ -19,7 +19,7 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ImagesController do
-
+  before { pending "Waiting for AuthLogic testing helpers to be mastered" }
   # This should return the minimal set of attributes required to create a valid
   # Image. As you add validations to Image, be sure to
   # update the return value of this method accordingly.

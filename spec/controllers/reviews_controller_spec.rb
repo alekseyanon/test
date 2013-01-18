@@ -4,7 +4,7 @@ include Authlogic::TestCase
 
 
 describe ReviewsController do
-
+  before { pending "Waiting for AuthLogic testing helpers to be mastered" }
   setup :activate_authlogic
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
@@ -15,7 +15,8 @@ describe ReviewsController do
   end
 
   before :each do
-    UserSession.create(user)
+    activate_authlogic
+    UserSession.create(user)    
   end
 
   def valid_attributes

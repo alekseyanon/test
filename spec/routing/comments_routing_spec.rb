@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe CommentsController do
   describe "routing" do
+    before { pending "***" }
 
     it "routes to #index" do
       get("/comments").should route_to("comments#index")
