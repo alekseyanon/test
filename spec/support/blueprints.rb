@@ -83,7 +83,9 @@ EventOccurrence.blueprint do
 end
 
 Review.blueprint do
-  # Attributes here
+  title { Faker::Lorem.sentence }
+  body { Faker::Lorem.sentences 10 }
+  user { User.make! }
 end
 
 Image.blueprint do
@@ -91,5 +93,7 @@ Image.blueprint do
 end
 
 Comment.blueprint do
-  # Attributes here
+  body { Faker::Lorem.sentences 10 }
+  user { User.make! }
+  commentable { Review.make! }
 end

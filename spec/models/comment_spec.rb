@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Comment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { described_class.make! }
+  it { should be_valid }  
+  it { should validate_presence_of :body }
+  it { should validate_presence_of :user }
+  it { should validate_presence_of :commentable }
+  it { should belong_to :commentable }
+  it { should belong_to :user }
 end
