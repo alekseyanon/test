@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe Comment do
@@ -8,4 +9,6 @@ describe Comment do
   it { should validate_presence_of :commentable }
   it { should belong_to :commentable }
   it { should belong_to :user }
+
+  it 'шлет уведомления автору комментируемого материала'
 end
