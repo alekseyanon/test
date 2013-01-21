@@ -46,7 +46,7 @@ class AbstractDescription < ActiveRecord::Base
   private
 
   def make_slug
-    "#{title ? title : 'place-travel'} #{id ? id : ((tmp = LandmarkDescription.last) ? (tmp.id + 1) : 1)}"
+    "#{title ? title : 'place-travel'}"
   end
 
   protected

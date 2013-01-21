@@ -161,7 +161,6 @@ private
 
   def make_slug
     tmp_name = self.name ? self.name : self.email.split("@").first
-    tmp_id = (tmp = User.last) ? (tmp.id + 1) : 1
-    "#{tmp_name ? tmp_name : 'user'} #{id ? id : tmp_id}"
+    "#{tmp_name ? tmp_name : 'user'}"
   end
 end
