@@ -18,9 +18,25 @@
   = form.input :email
   = form.input :old_password
   = form.input :password
+  
   %h4 Рассылки:
-  = form.input :news_subscribed
-  = form.input :comments_subscribed
-  = form.input :answer_subscribed
+
+  .control-group
+    .controls
+      %label.checkbox
+        = check_box_tag 'user[settings[news_mailer]]', 1, @user.settings['news_mailer']
+        Присылайте мне свежую информацию о проекте
+      %label.checkbox
+        = check_box_tag 'user[settings[record_comment_mailer]]', 1, @user.settings['record_comment_mailer']
+        Сообщайте о новых комментариях моих записей
+      %label.checkbox
+        = check_box_tag 'user[settings[mark_me_mailer]]', 1, @user.settings['mark_me_mailer']
+        Сообщайте если кто-то оценил мой отзыв или комментарий
+      %label.checkbox
+        = check_box_tag 'user[settings[comment_comment_mailer]]', 1, @user.settings['comment_comment_mailer']
+        Сообщайте об ответах на мои комментарии
+      %label.checkbox
+        = check_box_tag 'user[settings[social_allow]]', 1, @user.settings['social_allow']
+        Разрешаю писать в указанных соцсетях от моего имени
 
   = form.submit "Сохранить изменения"
