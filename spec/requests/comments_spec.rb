@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe "Reviews" do
-  include RspecHelper
+
   self.use_transactional_fixtures = false
 
   before :all do   
