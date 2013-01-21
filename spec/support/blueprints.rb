@@ -86,6 +86,7 @@ Review.blueprint do
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
   user { User.make! }
+  reviewable { LandmarkDescription.make! }
 end
 
 Image.blueprint do

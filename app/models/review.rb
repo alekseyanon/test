@@ -5,6 +5,6 @@ class Review < ActiveRecord::Base
   has_many :images,   as: :imageable
   has_many :comments, as: :commentable
 
-  validates :title, :body, :user, presence: true
-  validates_associated :user
+  validates :title, :body, :user, :reviewable, presence: true
+  validates_associated :user, :reviewable
 end

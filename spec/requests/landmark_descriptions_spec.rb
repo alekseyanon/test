@@ -2,22 +2,11 @@
 require 'spec_helper'
 
 describe "LandmarkDescriptions", js: true, type: :request do
+  include RspecHelper
   self.use_transactional_fixtures = false
 
-  def login
-    User.delete_all
-    @user = User.make!
-    visit profile_path type: 'traveler'
-    fill_in 'user_session[email]', with: @user.email
-    fill_in 'user_session[password]', with: @user.password
-    click_on 'Войти'
-  end
-
   before :all do
-    #http://stackoverflow.com/questions/5433690/capybaraselemium-how-to-initialize-database-in-an-integration-test-code-and-ma
-    #DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.clean_with :truncation
+    setup_db_cleaner
 
     Osm::Node.make!
     load_categories
