@@ -6,6 +6,13 @@ describe "Users" do
 		@user = User.make!
 	end
 
+  def login
+    visit profile_path type: 'traveler'
+    fill_in 'user_session[email]', with: @user.email
+    fill_in 'user_session[password]', with: @user.password
+    click_on 'Войти'
+  end
+
 	describe "GET /users" do
     it "works! (now write some real specs)" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
@@ -19,11 +26,14 @@ describe "Users" do
     page.should have_content('Welcome')
   end
 
+  it 'check url' do
+    login
+    visit "/users/#{@user.slug}"
+    page.should have_content('Профиль')
+  end
+
   it "user login" do 
-  	visit profile_path(type: 'traveler')
-  	fill_in 'user_session[email]', with: @user.email
-    fill_in 'user_session[password]', with: @user.password
-    click_on 'Войти'
+    login
     current_path.should == root_path
   end
 
@@ -60,10 +70,7 @@ describe "Users" do
   end
 
   it "user settings" do 
-  	visit profile_path(type: 'traveler')
-  	fill_in 'user_session[email]', with: @user.email
-    fill_in 'user_session[password]', with: @user.password
-    click_on 'Войти'
+    login
     click_on 'Личный кабинет'
     click_on 'Настройки'
     fill_in 'user_email', with: "tester@test.er"
@@ -75,10 +82,7 @@ describe "Users" do
   end
 
   it "edit user" do 
-  	visit profile_path(type: 'traveler')
-  	fill_in 'user_session[email]', with: @user.email
-    fill_in 'user_session[password]', with: @user.password
-    click_on 'Войти'
+    login
     click_on 'Личный кабинет'
     click_on 'Редактировать профиль'
     fill_in 'user_name', with: "tester"
@@ -123,13 +127,15 @@ describe "Users reset password" do
 		current_path.should == user_path(@user)
 	end
 
+
   ### to use your account
   context "Users social networks", js: true, type: :request do
-    self.use_transactional_fixtures = false
+    #self.use_transactional_fixtures = false
 
     before :each do
       page.driver.headers = {'Accept-Language' => 'q=0.8,en-US'}
     end
+
 
     it "facebook login" do
       Capybara.app_host = 'http://localhost:3000'
@@ -153,7 +159,6 @@ describe "Users reset password" do
       visit profile_path(type: 'traveler')
       page.find('button.facebook').click
       wait_until(5) do
-        print page.html
         page.find('title').should have_content('Log In | Facebook')
       end
     end

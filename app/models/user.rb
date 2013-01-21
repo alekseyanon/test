@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
+
+  extend FriendlyId
+  friendly_id :make_slug, use: :slugged
+
   include AASM
   include UserFeatures::Roles
 
@@ -133,6 +137,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def should_generate_new_friendly_id?
+    new_record?
+  end
+
 private
 
   # Копирует в имя часть емейла до '@'
@@ -151,5 +159,10 @@ private
   def _after_activate
     Notifier.user_activated(self).deliver
     ### maybe we can add something that user created before activation
+  end
+
+  def make_slug
+    tmp_name = self.name ? self.name : self.email.split("@").first
+    "#{tmp_name ? tmp_name : 'user'}"
   end
 end

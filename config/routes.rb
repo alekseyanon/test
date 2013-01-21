@@ -44,7 +44,7 @@ Smorodina::Application.routes.draw do
     
     get '/profile/:type', :action => 'profile', as: :profile, :constraints => {:type => /traveler/}
   end
-  resources :users, :except => :new, :constraints => { :id => /[^\/]*\d+/ } do
+  resources :users, :except => :new do
     new do
       get :new_via_oauth
       post :create_via_oauth

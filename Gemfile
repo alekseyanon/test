@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 
 gem 'pg'
 gem 'rgeo-activerecord'
@@ -52,6 +52,7 @@ gem 'simple_form' #installation simple form
 
 gem 'rinku'               # auto_link
 
+gem "friendly_id"         # slug
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

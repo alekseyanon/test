@@ -1,6 +1,10 @@
 require 'set'
 
 class AbstractDescription < ActiveRecord::Base
+
+  extend FriendlyId
+  friendly_id :make_slug, use: :slugged
+
   include PgSearch
   include Searchable
   belongs_to :user
@@ -33,6 +37,16 @@ class AbstractDescription < ActiveRecord::Base
       memo
     end
     tree.empty? ? nil : tree
+  end
+
+  def should_generate_new_friendly_id?
+    new_record?
+  end
+
+  private
+
+  def make_slug
+    "#{title ? title : 'place-travel'}"
   end
 
   protected
