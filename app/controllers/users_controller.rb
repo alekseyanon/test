@@ -133,10 +133,8 @@ class UsersController < ApplicationController
 
   def settings
     @user = current_user
-    @user.settings = {} if @user.settings.nil?
     @authentications = current_user.authentications.all
     @connected_providers = @authentications.map { |auth| auth.provider }
-
   end
 
   def update_settings
