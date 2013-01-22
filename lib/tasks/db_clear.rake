@@ -23,5 +23,7 @@ namespace :db do
         conn.execute "DROP TABLE #{table_name}"
       end
     end
+    puts "Drop column geom from WAYS table"
+    conn.execute "ALTER TABLE ways DROP COLUMN geom"
   end
 end
