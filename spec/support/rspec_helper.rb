@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module RspecHelper
   def login
     @user = User.make!
