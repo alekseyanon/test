@@ -8,10 +8,11 @@
 }
 
 .leaflet-create-object {
-  height: 400px
+  height: 400px;
 }
+
 .leaflet-edit-object {
-  height: 150px
+  height: 150px;
 }
 
 /* ----------------------------------------------- MAIN SEARCH FIELD START ------------------------------------------ */
@@ -110,14 +111,14 @@
 .landmark-search-result:first-child {
   border-top: none;
   margin-top: 0;
-};
+}
 
 .landmark-search-result-img {
   float: left;
   width: 100px;
   height: 100px;
   border: 1px solid #000;
-  margin-right: 10px
+  margin-right: 10px;
 }
 
 .landmark-search-result-content {

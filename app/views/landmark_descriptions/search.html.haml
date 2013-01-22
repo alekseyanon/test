@@ -2,14 +2,14 @@
 
 %h1.page-title.page-title__centered Куда отправиться
 
-= form_tag '/landmark_descriptions/do_search', :method => :post do
+= form_tag '/landmark_descriptions/do_search', method: :post do
   %div.main-search
     %div.main-search-description
       Найди места куда поехать, что посмотреть, чем заняться, где заночевать, где поесть
     %div.clearfix
-      = submit_tag "Найти", :class => 'btn main-search-button'
+      = submit_tag "Найти", class: 'btn main-search-button'
       %div.main-search-field-container
-        = text_field_tag 'query', nil, :class => 'input-block-level main-search-field-input', :placeholder => 'Рыбалка'
+        = text_field_tag 'query', nil, class: 'input-block-level main-search-field-input', placeholder: 'Рыбалка'
     %span.main-search-examples
       %small
         Например,

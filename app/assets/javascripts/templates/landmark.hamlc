@@ -3,4 +3,4 @@
   %h3.landmark-search-result-title
     %a{href: "#"}= @title
   %div.landmark-tags= @tag_list
-%span.landmark-search-result-reviews= "Отзывов: #{@hi || = ( console.log '@hi undefined, rendering 3'; 3)}"
+%span.landmark-search-result-reviews= "Отзывов: #{@reviews || = ( console.log '@reviews undefined, rendering 3'; 3)}"
