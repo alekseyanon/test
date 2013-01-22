@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
   ### TODO: refactor
   ### TODO: add anonimous
   
+  def settings
+    read_attribute(:settings).nil? ? {} : read_attribute(:settings)
+  end
+
   # AASM
   aasm :column => 'state' do
     state :pending_activation, :initial => true

@@ -54,11 +54,14 @@
 =link_to "Что поблизости", "#"
 .type-form
   %h2 Лучшие отзывы
-  = button_to "+ Добавить отзыв", "#"
+  = link_to "+ Добавить отзыв", new_landmark_description_review_path(@landmark_description)
   %br
   %br
   %br
-  Далее будет список отзывов
+  - @landmark_description.reviews.each do |r|
+    .review
+      %h4= link_to r.title, r
+      = r.body
   %br
   %br
   %br

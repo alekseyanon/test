@@ -1,0 +1,28 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @review.title
+%p
+  %b Body:
+  = @review.body
+
+%h4 Comments:
+
+- @review.comments.roots.each do |root|
+  - root.self_and_descendants.each do |c|
+    .comment
+      %p= c.body
+      %p= link_to 'Ответить', new_review_comment_path(@review, parent_id: c.id)
+
+%h4 Add a comment:
+
+= form_for([@review, @review.comments.build]) do |f| 
+  %p
+    = f.label :body 
+    %br
+    = f.text_area :body, rows: '3'
+  %p= f.submit
+= link_to 'Edit', edit_review_path(@review)
+\|
+= link_to 'Back', reviews_path

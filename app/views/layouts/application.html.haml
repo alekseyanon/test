@@ -19,10 +19,8 @@
           %a{class: "brand", href: "/"} Smorodina
           .nav-collapse.collapse
             %ul.nav
-              %li= link_to "Личный кабинет", profile_path(type: 'traveler')
-              %li= link_to "Забыли пароль", forget_password_path 
-              %li=link_to "список объектов", landmark_descriptions_path
-              %li=link_to "поиск объектов", search_landmark_descriptions_path
+              %li= link_to 'Профиль', profile_path(type: 'traveler')
+              %li= link_to 'Объекты', landmark_descriptions_path
               %li= link_to 'События', events_path                
     .container
       = yield 

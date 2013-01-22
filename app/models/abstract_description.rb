@@ -7,6 +7,7 @@ class AbstractDescription < ActiveRecord::Base
 
   include PgSearch
   include Searchable
+  has_many :reviews, as: :reviewable
   belongs_to :user
   belongs_to :describable, polymorphic: true
   attr_accessible :body, :describable, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at

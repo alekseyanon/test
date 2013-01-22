@@ -81,3 +81,20 @@ end
 EventOccurrence.blueprint do
   start { Time.now }
 end
+
+Review.blueprint do
+  title { Faker::Lorem.sentence }
+  body { Faker::Lorem.sentences 10 }
+  user { User.make! }
+  reviewable { LandmarkDescription.make! }
+end
+
+Image.blueprint do
+  # Attributes here
+end
+
+Comment.blueprint do
+  body { Faker::Lorem.sentences 10 }
+  user { User.make! }
+  commentable { Review.make! }
+end
