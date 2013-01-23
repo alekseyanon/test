@@ -78,25 +78,59 @@
 /* ----------------------------------------------- MAIN SEARCH FIELD END -------------------------------------------- */
 
 .search-filter-tabs {
-  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
   margin-bottom: 40px;
+  position: relative;
 }
 
 .search-filter-tab {
-  padding: 8px 15px;
-  display: inline-block;
+  float: left;
+  line-height: 2;
+  border: 1px solid white;
+  border-bottom: 0;  
+  position: relative;
 }
 
-.search-filter-tab__selected {
-  background-color: #f2f2f2;
-  border: 1px solid #cccccc;
-  border-bottom: none;
+.search-filter-tab > label {
+  padding: 0 1em;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.search-filter-tab > input {
+  position: absolute;
+}
+
+.search-filter-tab.selected {
+  border-color: #B0D0E9;
+  background: #F2F2F2;
+  z-index: 3;
+}
+
+.search-filter-tab.selected > label {
+  cursor: default;
 }
 
 .search-filter-tab-content {
-  background-color: #f2f2f2;
-  border: 1px solid #cccccc;
-  padding: 8px 15px;
+  background: #F2F2F2;
+  float: right;
+  width: 100%;
+  margin: 30px 0 0 -100%;
+  position: relative;
+  z-index: 2;
+  display: none;
+}
+
+.search-filter-tab-content.selected {
+  display: block;
+}
+
+.search-filter-tab-inner {
+  border: 1px solid #B0D0E9;
+  padding: 20px;
 }
 
 /* ----------------------------------------------- SEARCH RESULT START ---------------------------------------------- */

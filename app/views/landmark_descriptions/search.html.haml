@@ -2,42 +2,58 @@
 
 %h1.page-title.page-title__centered Куда отправиться
 
-= form_tag '/landmark_descriptions/do_search', method: :post do
-  %div.main-search
-    %div.main-search-description
-      Найди места куда поехать, что посмотреть, чем заняться, где заночевать, где поесть
-    %div.clearfix
-      = submit_tag "Найти", class: 'btn main-search-button'
-      %div.main-search-field-container
-        = text_field_tag 'query', nil, class: 'input-block-level main-search-field-input', placeholder: 'Рыбалка'
-    %span.main-search-examples
-      %small
-        Например,
-      = link_to "водопад Девичьи слёзы", "#"
-      (
-      %span.action-link
-        все примеры поиска
-      )
-    %span.main-search-history
-      %span.main-search-history-icon
-      %span.action-link История поиска
+%div.main-search
+  %div.main-search-description
+    Найди места куда поехать, что посмотреть, чем заняться, где заночевать, где поесть
+  %div.clearfix
+    = button_tag "Найти", id: 'search', class: 'btn main-search-button'
+    %div.main-search-field-container
+      = text_field_tag 'query', nil, class: 'input-block-level main-search-field-input', placeholder: 'Рыбалка'
+  %span.main-search-examples
+    %small
+      Например,
+    = link_to "водопад Девичьи слёзы", "#"
+    (
+    %span.action-link
+      все примеры поиска
+    )
+  %span.main-search-history
+    %span.main-search-history-icon
+    %span.action-link История поиска
 
 
-%div.search-filter-tabs
-  %span.search-filter-tab.search-filter-tab__selected
-    = link_to "Все варианты (48)", "#"
-  %span.search-filter-tab
-    = link_to "Что посмотреть (2)", "#"
-  %span.search-filter-tab
-    = link_to "Чем заняться (2)", "#"
-  %span.search-filter-tab
-    = link_to "Где заночевать (4)", "#"
-  %span.search-filter-tab
-    = link_to "Где поесть (3)", "#"
-  %span.search-filter-tab
-    = link_to "Места (1)", "#"
-  %div.search-filter-tab-content
-    &nbsp;
+%dl.search-filter-tabs
+  %dt.search-filter-tab.selected
+    = label_tag "all", "Все варианты"
+    = radio_button_tag "search-filter", "all", true, id: "all"
+  %dd.search-filter-tab-content.selected
+    %div.search-filter-tab-inner
+      all content
+  %dt.search-filter-tab
+    = label_tag "sightseeing", "Что посмотреть"
+    = radio_button_tag "search-filter", "sightseeing", false, id: "sightseeing"
+  %dd.search-filter-tab-content
+    %div.search-filter-tab-inner
+      sightseeing content
+  %dt.search-filter-tab
+    = label_tag "activities", "Чем заняться"
+    = radio_button_tag "search-filter", "activities", false, id: "activities"
+  %dd.search-filter-tab-content
+    %div.search-filter-tab-inner
+      activities content
+  %dt.search-filter-tab
+    = label_tag "lodging", "Где заночевать"
+    = radio_button_tag "search-filter", "lodging", false, id: "lodging"
+  %dd.search-filter-tab-content
+    %div.search-filter-tab-inner
+      lodging content
+  %dt.search-filter-tab
+    = label_tag "food", "Где поесть"
+    = radio_button_tag "search-filter", "food", false, id: "food"
+  %dd.search-filter-tab-content
+    %div.search-filter-tab-inner
+      food content                  
+   
 
 
 %h2.section-title Лучшие варианты
