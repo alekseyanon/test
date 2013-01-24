@@ -15,7 +15,7 @@
   height: 150px;
 }
 
-/* ----------------------------------------------- MAIN SEARCH FIELD START ------------------------------------------ */
+/* ---------------------------------- MAIN SEARCH FIELD START --------------------------------- */
 
 .main-search {
   width: 85%;
@@ -75,7 +75,7 @@
   font-size: 10px;
 }
 
-/* ----------------------------------------------- MAIN SEARCH FIELD END -------------------------------------------- */
+/* ---------------------------------- MAIN SEARCH FIELD END ----------------------------------- */
 
 .search-filter-tabs {
   width: 100%;
@@ -86,22 +86,15 @@
 
 .search-filter-tab {
   float: left;
-  line-height: 2;
   border: 1px solid white;
-  border-bottom: 0;  
-  position: relative;
-}
-
-.search-filter-tab > label {
+  border-bottom: none;
   padding: 0 1em;
   height: 30px;
   line-height: 30px;
   margin-bottom: 0;
   cursor: pointer;
-}
-
-.search-filter-tab > input {
-  position: absolute;
+  font-weight: normal;
+  position: relative;
 }
 
 .search-filter-tab.selected {
@@ -110,7 +103,7 @@
   z-index: 3;
 }
 
-.search-filter-tab.selected > label {
+.search-filter-tab.selected {
   cursor: default;
 }
 
@@ -133,7 +126,7 @@
   padding: 20px;
 }
 
-/* ----------------------------------------------- SEARCH RESULT START ---------------------------------------------- */
+/* ---------------------------------- SEARCH RESULT START --------------------------------- */
 
 .landmark-search-result {
   border-top: 1px dashed gray;
@@ -173,4 +166,4 @@
   font-size: 11px;
 }
 
-/* ----------------------------------------------- SEARCH RESULT END ------------------------------------------------ */
+/* ---------------------------------- SEARCH RESULT END ----------------------------------- */

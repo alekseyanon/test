@@ -6,9 +6,9 @@
   %div.main-search-description
     Найди места куда поехать, что посмотреть, чем заняться, где заночевать, где поесть
   %div.clearfix
-    = button_tag "Найти", id: 'search', class: 'btn main-search-button'
+    = button_tag "Найти", id: 'searchButton', class: 'btn main-search-button'
     %div.main-search-field-container
-      = text_field_tag 'query', nil, class: 'input-block-level main-search-field-input', placeholder: 'Рыбалка'
+      = text_field_tag 'searchField', nil, class: 'input-block-level main-search-field-input', placeholder: 'Рыбалка'
   %span.main-search-examples
     %small
       Например,
@@ -24,32 +24,27 @@
 
 %dl.search-filter-tabs
   %dt.search-filter-tab.selected
-    = label_tag "all", "Все варианты"
-    = radio_button_tag "search-filter", "all", true, id: "all"
+    Все варианты
   %dd.search-filter-tab-content.selected
     %div.search-filter-tab-inner
       all content
-  %dt.search-filter-tab
-    = label_tag "sightseeing", "Что посмотреть"
-    = radio_button_tag "search-filter", "sightseeing", false, id: "sightseeing"
+  %dt.search-filter-tab{ data: { facet: "sightseeing" } }
+    Что посмотреть
   %dd.search-filter-tab-content
     %div.search-filter-tab-inner
       sightseeing content
-  %dt.search-filter-tab
-    = label_tag "activities", "Чем заняться"
-    = radio_button_tag "search-filter", "activities", false, id: "activities"
+  %dt.search-filter-tab{ data: { facet: "activities" } }
+    Чем заняться
   %dd.search-filter-tab-content
     %div.search-filter-tab-inner
       activities content
-  %dt.search-filter-tab
-    = label_tag "lodging", "Где заночевать"
-    = radio_button_tag "search-filter", "lodging", false, id: "lodging"
+  %dt.search-filter-tab{ data: { facet: "lodging" } }
+    Где заночевать
   %dd.search-filter-tab-content
     %div.search-filter-tab-inner
       lodging content
-  %dt.search-filter-tab
-    = label_tag "food", "Где поесть"
-    = radio_button_tag "search-filter", "food", false, id: "food"
+  %dt.search-filter-tab{ data: { facet: "food" } }
+    Где поесть
   %dd.search-filter-tab-content
     %div.search-filter-tab-inner
       food content                  
