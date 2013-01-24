@@ -1,0 +1,33 @@
+body {
+  font-family: Georgia;
+  color: #333333;
+  font-size: 14px;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.4;
+  margin-top: 0;
+}
+
+.action-link {
+  border-bottom: 1px dotted;
+  cursor: pointer;
+}
+
+.page-title {
+  font-size: 44px;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.page-title__centered {
+  text-align: center;
+}

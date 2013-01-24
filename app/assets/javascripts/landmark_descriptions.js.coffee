@@ -54,9 +54,10 @@ window.landmark_description_show = ->
   L.marker(latlng).addTo map
 
 window.landmark_description_search = ->
-  facetBoxIds = '#sightseeing, #activities, #lodging, #food'
   [map, lg] = initMap()
   lastBounds = null
+  facets = []
+  $searchField = $('#searchField')
   landmarks = new Smorodina.Collections.Landmarks
   landmarksView = new Smorodina.Views.LandmarkList
     collection: landmarks
@@ -68,38 +69,55 @@ window.landmark_description_search = ->
 
   $('#search-results').html landmarksView.render().el
 
-  setFields = (x,y,r) ->
-    $("#x").val x
-    $("#y").val y
-    $("#r").val r
 
   updateQuery = ->
     bounds = map.getBounds()
     return if bounds.equals lastBounds
     lastBounds = bounds
     center = map.getCenter()
-  #  radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
+    #  radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
     radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 / 60.0 #SRID 4326
-    text = $('#text').val()
-    setFields center.lng, center.lat, radius
+    text = $searchField.val()
+
     query =
       x: center.lat
       y: center.lng
       r: radius
       text: text
 
-    facets = (box.id for box in $(facetBoxIds) when $(box).is ':checked')
-    query.facets = facets if facets.length
+    query.facets = facets
+
     landmarks.fetch
       update: true
       data: $.param
         query: query
       success: putMarkers
+
+  resetBoundsAndSearch = ->
+    lastBounds = null
+    updateQuery()
+
   map.on 'load', ->
     map.on 'zoomend', updateQuery
     map.on 'moveend', updateQuery
     updateQuery()
-  $("#text, #{facetBoxIds}").change ->
-    lastBounds = null
-    updateQuery()
+
   map.setView [59.939,30.341], 13 #SPB
+
+  $('.search-filter-tabs').on 'click', '.search-filter-tab', ->
+    $tab = $(this)
+    facet = $tab.data('facet')
+    facets = if facet then [facet] else []
+
+    $tab
+      .siblings().removeClass('selected').end()
+      .next('dd').andSelf().addClass('selected')
+
+    resetBoundsAndSearch()
+   
+    
+  $("#searchButton").on 'click', resetBoundsAndSearch
+
+  $searchField.on 'keydown', (e) ->
+    if e.which is 13
+      resetBoundsAndSearch()

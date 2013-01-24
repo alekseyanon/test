@@ -1,6 +1,8 @@
-.picture
-%h4.landmark-title= @title
-%br
-%div.landmark-tags= @tag_list
-%br
-.clear-lf
+- @reviews_num || = ( console.log '@reviews_num undefined, rendering 3'; 3)
+
+%div.landmark-search-result-img
+%div.landmark-search-result-content
+  %h3.landmark-search-result-title
+    %a{href: "#"}= @title
+  %div.landmark-tags= @tag_list
+%span.landmark-search-result-reviews= "Отзывов: #{@reviews_num}"
