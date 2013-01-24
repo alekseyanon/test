@@ -120,5 +120,4 @@ window.landmark_description_search = ->
 
   $searchField.on 'keydown', (e) ->
     if e.which is 13
-      resetBoundsAndSearch()  
-      
+      resetBoundsAndSearch()
