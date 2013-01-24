@@ -109,7 +109,7 @@ window.landmark_description_search = ->
     facet = $tab.data('facet')
     facets = if facet then [facet] else []
 
-    $(this)
+    $tab
       .siblings().removeClass('selected').end()
       .next('dd').andSelf().addClass('selected')
 
