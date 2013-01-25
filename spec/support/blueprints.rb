@@ -94,7 +94,7 @@ Image.blueprint do
 end
 
 Comment.blueprint do
-  body { Faker::Lorem.sentences 10 }
+  body { Faker::Lorem.sentences 3 }
   user { User.make! }
   commentable { Review.make! }
 end
