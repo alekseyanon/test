@@ -87,11 +87,9 @@ class UsersController < ApplicationController
             redirect_to signup_path(type: 'traveler')
           else
             user.register(activate: true)
-            user_signed_up(user)
+            user_signed_up #(user)
             UserSession.create(user)
-            
             #flash[:notice] = I18n.t("users.actions.activate")
-
             redirect_to root_url #invite_by_import_path
           end
         end

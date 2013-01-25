@@ -23,6 +23,11 @@
 //= require leaflet
 
 $(function() {
+    $(".landmark-descrition-rating").jRating({
+      step:true,
+      rateMax : 5,
+      length : 5
+    });
 
     $('#cropbox').Jcrop({
       aspectRatio: 1,
