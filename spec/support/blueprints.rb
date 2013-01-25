@@ -42,7 +42,7 @@ Category.blueprint do
 end
 
 AbstractDescription.blueprint do
-  user { User.make }
+  user { User.make! }
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
   published { [true, false].sample }
@@ -63,12 +63,13 @@ end
 
 User.blueprint do
   tmp = Faker::Lorem.characters(5)
-  name { Faker::Lorem.word }
+  n = Faker::Lorem.word
+  name { n }
   password { tmp }
   password_confirmation { tmp }
   email { Faker::Internet.email }
   roles { ["traveler"] }
-  perishable_token { "perishabletoken" }
+  perishable_token { Faker::Lorem.word }
 end
 
 Event.blueprint do
@@ -97,4 +98,10 @@ Comment.blueprint do
   body { Faker::Lorem.sentences 10 }
   user { User.make! }
   commentable { Review.make! }
+end
+
+LmRating.blueprint do
+  user { User.make! }
+  value { 5 }
+  landmark_description { LandmarkDescription.make! }
 end

@@ -1,11 +1,19 @@
 require 'spec_helper'
 
 describe "LmRatings" do
-  describe "GET /lm_ratings" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get lm_ratings_path
-      response.status.should be(200)
+  context "check rating for new object" do
+  	before :each do
+  		@ld = LandmarkDescription.make!
+  	end
+
+    it "rating is present" do
+    	visit landmark_description_path(@ld)
+    	str = "\#0_#{@ld.id}_1"
+    	page.should have_selector('.user-rating')
+    	page.should have_selector(str)
     end
+
+    ### TODO: Not working JS => TRUE with visit landmark_description_path(@ld)
+    it "rating is changed" 
   end
 end
