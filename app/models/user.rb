@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
 
+  has_many :lm_ratings
   extend FriendlyId
   friendly_id :make_slug, use: :slugged
 
@@ -29,7 +30,7 @@ class User < ActiveRecord::Base
   ### TODO: add validations
   ### TODO: refactor
   ### TODO: add anonimous
-  
+
   def settings
     read_attribute(:settings).nil? ? {} : read_attribute(:settings)
   end
@@ -143,6 +144,10 @@ class User < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     new_record?
+  end
+
+  def ld_rating(ld_id)
+    self.lm_ratings.where(landmark_description_id: ld_id).first
   end
 
 private
