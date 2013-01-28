@@ -63,64 +63,107 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.should have_content 'Развлечения'
       page.should have_content 'Дельфинарий'
     end
+    
+    it 'check rating' do
+      create_new title, category
+      @ld = LandmarkDescription.last
+      str = "\#0_#{@ld.id}_1"
+      visit landmark_description_path @ld
+      page.should have_selector('.user-rating')
+      page.should have_selector(str)
+    end
+
+    it "rating is changed" do
+      create_new title, category
+      @ld = LandmarkDescription.last
+      str = "\#0_#{@ld.id}_1"
+      visit landmark_description_path @ld
+      page.find('.jStar').click
+      visit landmark_description_path @ld
+      page.should_not have_selector(str)
+      page.should have_content 'Ваша оценка'
+    end
   end
 
-  
-  def ld(tag_list, latlon)
-    LandmarkDescription.make! tag_list: tag_list, describable: to_landmark(latlon)
+  context "test" do
+    before :all do
+      setup_db_cleaner
+
+      Osm::Node.make!
+      load_categories
+    end
+
+    before :each do
+      login
+      current_path.should == root_path
+      visit search_landmark_descriptions_path
+    end
+
+    after :all do
+      DatabaseCleaner.clean
+    end
+
+    def ld(tag_list, latlon)
+      LandmarkDescription.make! tag_list: tag_list, describable: to_landmark(latlon)
+    end
+
+    let!(:bar){ ld 'bar', [30.34, 59.93] }
+    let!(:cafe){ ld 'cafe', [30.341, 59.931] }
+    let!(:fishhouse){ ld 'dolphinarium', [30.342, 59.932] }
+    let!(:hata){ ld 'apartment', [30.343, 59.933] }
+
+    it 'searches for landmarks' do
+      ### Это хак пока не придумал как его исправить
+      ### Без него у меня почему то не работает (((
+      page.find('.search-filter-tabs dt:nth-child(9)').click
+      page.find('.search-filter-tabs dt:nth-child(1)').click
+
+      page.find("#search-results").should have_content 'bar'
+      page.find("#search-results").should have_content 'food'
+      page.find("#search-results").should have_content 'food'
+      page.find("#search-results").should have_content 'cafe'
+      page.find("#search-results").should have_content 'activities'
+      page.find("#search-results").should have_content 'dolphinarium'
+      page.find("#search-results").should have_content 'entertainment'
+      page.find("#search-results").should have_content 'apartment'
+      page.find("#search-results").should have_content 'lodging'
+    end
+
+    it 'refines search results on query change' do
+      ### Click on food tab
+      page.find('.search-filter-tabs dt:nth-child(9)').click
+      page.find("#search-results").should have_content 'bar'
+      page.find("#search-results").should have_content 'food'
+      page.find("#search-results").should have_content 'cafe'
+      page.find("#search-results").should_not have_content 'dolphinarium'
+      page.find("#search-results").should_not have_content 'entertainment'
+      page.find("#search-results").should_not have_content 'activities'
+      page.find("#search-results").should_not have_content 'apartment'
+      page.find("#search-results").should_not have_content 'lodging'
+      page.find("#search-results").should_not have_content 'apartment'
+
+      ### Click on 'lodging'
+      page.find('.search-filter-tabs dt:nth-child(7)').click
+      #sleep 10
+      page.find("#search-results").should_not have_content 'bar'
+      page.find("#search-results").should_not have_content 'cafe'
+      page.find("#search-results").should_not have_content 'food'
+
+      page.find("#search-results").should have_content 'apartment'
+      page.find("#search-results").should have_content 'lodging'
+      page.find("#search-results").should have_content 'apartment'
+
+      page.fill_in 'searchField', with: 'apartment'
+      click_on "Найти"
+      page.find("#search-results").should_not have_content 'bar'
+      page.find("#search-results").should_not have_content 'cafe'
+      page.find("#search-results").should_not have_content 'food'
+      page.find("#search-results").should_not have_content 'entertainment'
+      page.find("#search-results").should_not have_content 'activities'
+
+      page.find("#search-results").should have_content 'lodging'
+      page.find("#search-results").should have_content 'apartment'
+    end
   end
-
-  let!(:bar){ ld 'bar', [30.34, 59.93] }
-  let!(:cafe){ ld 'cafe', [30.341, 59.931] }
-  let!(:fishhouse){ ld 'dolphinarium', [30.342, 59.932] }
-  let!(:hata){ ld 'apartment', [30.343, 59.933] }
-
-  before :each do
-    visit search_landmark_descriptions_path
-  end
-
-  it 'searches for landmarks' do
-    # page.should have_content 'bar,food'
-    # page.should have_content 'cafe,food'
-    # page.should have_content 'dolphinarium,entertainment,activities'
-    # page.should have_content 'apartment,lodging'
-  end
-
-  it 'refines search results on query change' do
-    #page.check 'food'
-    # page.should have_content 'bar'
-    # page.should have_content 'food'
-    # page.should have_content 'cafe'
-    # page.should_not have_content 'dolphinarium'
-    # page.should_not have_content 'entertainment'
-    # page.should_not have_content 'activities'
-    # page.should_not have_content 'apartment'
-    # page.should_not have_content 'lodging'
-    # page.should_not have_content 'apartment'
-
-    # #page.check 'lodging'
-    # #page.check 'activities'
-    # #page.uncheck 'food'
-    # page.should_not have_content 'bar'
-    # page.should_not have_content 'cafe'
-    # page.should_not have_content 'food'
-    # page.should have_content 'dolphinarium'
-    # page.should have_content 'entertainment'
-    # page.should have_content 'activities'
-    # page.should have_content 'apartment'
-    # page.should have_content 'lodging'
-    # page.should have_content 'apartment'
-
-    # page.fill_in 'text', with: 'apartment'
-    # page.should_not have_content 'bar'
-    # page.should_not have_content 'cafe'
-    # page.should_not have_content 'food'
-    # page.should_not have_content 'entertainment'
-    # page.should_not have_content 'activities'
-    # page.should_not have_content 'apartment'
-    # page.should have_content 'lodging'
-    # page.should have_content 'apartment'
-  end
-
 end
 
