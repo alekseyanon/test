@@ -1,29 +1,8 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user_session, :current_user, :user_logged_in?, :require_logged_in_user
-
-
 
 protected
-
-  def current_user_session
-    @current_user_session ||= UserSession.find
-  end
-
-  def current_user
-    @current_user ||= (current_user_session && current_user_session.user) || AnonymousUser.new
-  end
-
-  # my method - without integrating Anonimous model
-  def user_logged_in?
-    !current_user.anonymous?
-  end
-
-  def require_logged_in_user
-    ActiveSupport::Deprecation.warn("#require_logged_in_user method should be replaced with CanCan") unless Rails.env == 'test'
-    deny_access unless user_logged_in?
-  end
 
   def require_anonymous_user
     ActiveSupport::Deprecation.warn("#require_anonymous_user method should be replaced with CanCan") unless Rails.env == 'test'

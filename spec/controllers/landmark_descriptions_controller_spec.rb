@@ -25,7 +25,7 @@ describe LandmarkDescriptionsController do
     Category.make!
   end
   before :each do
-    login
+    sign_in
   end
 
 
@@ -80,7 +80,6 @@ describe LandmarkDescriptionsController do
 
   describe "POST create" do
     describe "with valid params" do
-      before { pending "Waiting for AuthLogic testing helpers to be mastered" }
       it "creates a new LandmarkDescription" do
         expect {
           post :create, {:landmark_description => valid_attributes}, valid_session

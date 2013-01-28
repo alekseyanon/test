@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   friendly_id :make_slug, use: :slugged
 
   include AASM
-  include UserFeatures::Roles
+  #include UserFeatures::Roles
 
   serialize :settings, ActiveRecord::Coders::Hstore
 

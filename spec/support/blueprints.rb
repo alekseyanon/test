@@ -62,12 +62,12 @@ Authentication.blueprint do
 end
 
 User.blueprint do
-  tmp = Faker::Lorem.characters(5)
+  tmp = Faker::Lorem.characters(9)
   name { Faker::Lorem.word }
   password { tmp }
   password_confirmation { tmp }
   email { Faker::Internet.email }
-  roles { ["traveler"] }
+  #roles { ["traveler"] }
   perishable_token { "perishabletoken" }
 end
 
