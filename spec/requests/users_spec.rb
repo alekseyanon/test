@@ -71,13 +71,14 @@ describe "Users" do
   end
 
   it "edit user" do 
+    # TODO move to profile spec
     login
     click_on 'Профиль'
-    click_on 'Редактировать профиль'
-    fill_in 'user_name', with: "tester"
+    click_on 'Edit'
+    fill_in 'profile_name', with: "tester"
     find(:type, "submit").click
     page.should have_content('tester') 
-		current_path.should == user_path(@user)
+		#current_path.should == profile_path(@user)
   end
 
 end
@@ -89,9 +90,9 @@ describe "Users reset password" do
 
 	it "reset password form is opened" do 
 		visit root_path
-		click_on 'Профиль'
+		click_on 'Войти'
 		click_on 'Forgot your password?'
-		page.should have_selector('input#email')
+		page.should have_selector('input#user_email')
 	end
 
 	it "fill email for reset password" do 

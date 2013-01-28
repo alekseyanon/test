@@ -16,6 +16,7 @@ namespace :db do
       ways
     )
     r = conn.execute "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"
+    r = conn.execute "ALTER TABLE ways DROP COLUMN geom"
     r.each do |row|
       table_name = row['table_name']
       if !exceptions.include? table_name

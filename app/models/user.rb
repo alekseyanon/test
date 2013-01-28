@@ -36,6 +36,11 @@ class User < ActiveRecord::Base
   
   #TODO hack
   before_validation :set_role
+  after_create :create_profile
+
+  def create_profile
+    self.create_profile!
+  end
 
   ### TODO: add validations
   ### TODO: refactor
