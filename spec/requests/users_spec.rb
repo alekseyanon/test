@@ -6,19 +6,11 @@ describe "Users" do
 		@user = User.make!
 	end
 
-  def login
-    visit profile_path type: 'traveler'
-    fill_in 'user_session[email]', with: @user.email
-    fill_in 'user_session[password]', with: @user.password
-    click_on 'Войти'
-  end
-
-	describe "GET /users" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get users_path
-      response.status.should be(200)
-    end
+  def login email = @user.email, password=@user.password
+    visit new_user_session_path
+    fill_in 'user_email', with: email
+    fill_in 'user_password', with: password
+    click_on 'Sign in'
   end
 
 	it 'welcomes the user' do
@@ -28,7 +20,7 @@ describe "Users" do
 
   it 'check url' do
     login
-    visit "/users/#{@user.slug}"
+    visit "/profiles/#{@user.profile.id}"
     page.should have_content('Профиль')
   end
 
@@ -38,33 +30,30 @@ describe "Users" do
   end
 
   it "user incorrect login" do 
-  	visit profile_path(type: 'traveler')
-  	fill_in 'user_session[email]', with: "tests"
-    fill_in 'user_session[password]', with: "tests"
-    click_on 'Войти'
+  	login 'test' 'test'
     page.should have_content('Ошибка, проверьте email и пароль и повторите попытку снова.')
   end
 
   it "user register" do 
-  	visit profile_path(type: 'traveler')
-  	fill_in 'user[email]', with: Faker::Internet.email
-    fill_in 'user[password]', with: "tes123ter"
-    click_on 'Зарегистрироваться'
+  	visit new_user_registration_path
+  	fill_in 'user_email', with: Faker::Internet.email
+    fill_in 'user_password', with: "tes123ter"
+    click_on 'Sign up'
     current_path.should == pendtoact_path
   end
 
   it "user incorrect register" do 
-  	visit profile_path(type: 'traveler')
-  	fill_in 'user[email]', with: "tester"
-    fill_in 'user[password]', with: "tester"
-    click_on 'Зарегистрироваться'
-    page.should have_content('содержит некорректные символы')
+  	visit new_user_registration_path
+  	fill_in 'user_email', with: "tester"
+    fill_in 'user_password', with: "tester"
+    click_on 'Sign up'
+    page.should have_content('Email имеет неверное значениеPassword не совпадает с подтверждениемPassword недостаточной длины')
   end
 
   it "user register with data of already exists user" do 
   	visit profile_path(type: 'traveler')
-  	fill_in 'user[email]', with: @user.email
-    fill_in 'user[password]', with: @user.password
+  	fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: @user.password
     click_on 'Зарегистрироваться'
     page.should have_content('Email уже существует')
   end
@@ -101,7 +90,7 @@ describe "Users reset password" do
 	it "reset password form is opened" do 
 		visit root_path
 		click_on 'Профиль'
-		click_on 'Забыли пароль'
+		click_on 'Forgot your password?'
 		page.should have_selector('input#email')
 	end
 

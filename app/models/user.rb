@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
+  # :token_authenticatable
+  # :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable     
+
+  has_one :profile    
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :provider, :uid
 
   extend FriendlyId
   friendly_id :make_slug, use: :slugged
 
   include AASM
-  #include UserFeatures::Roles
+  include UserFeatures::Roles
 
   serialize :settings, ActiveRecord::Coders::Hstore
 
@@ -31,9 +34,9 @@ class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   has_many :abstract_descriptions
   
-  # acts_as_authentic do |c|
-  #   c.ignore_blank_passwords = false
-  # end
+  #TODO hack
+  before_validation :set_role
+
   ### TODO: add validations
   ### TODO: refactor
   ### TODO: add anonimous
@@ -83,51 +86,11 @@ class User < ActiveRecord::Base
     avatar.recreate_versions! if crop_x.present?
   end
   
-  # инициализует нового пользователя из данных регистрации
-  def self.new_user(role, user_params)
-    user_params = user_params.with_indifferent_access
-
-    User.intlz(user_params).tap do |user|
-      user.roles = [:traveler]
-    end
+  
+  def set_role
+    self.roles = [:traveler]
   end
 
-  def self.intlz(attributes)
-    user = new(attributes)
-    user.password = attributes["password"]
-    user.password_confirmation = attributes["password"]
-    user
-  end
-
-  # регистрирует пользователя в системе
-  # options[:activate] если true, то активирует юзера, иначе высылает активационное письмо
-  # options[:inviter_token]
-  def register(options = {})
-    registered = false
-
-    transaction do
-      if save
-        if options.delete(:activate)
-          activate
-        else
-          Notifier.signup_confirmation(self).deliver
-        end
-        registered = true
-      end
-    end
-
-    registered
-  end
-
-  # def subscribed_to_notifications?
-  #   subscription.notifications
-  # end
-
-  # def subscribed_to?(subscription_name, subscription_period = :daily)
-  #   subscription.subscribed_to?(subscription_name, subscription_period)
-  # end
-
-  # Authlogic method to check if user is allowed to log in
   def active?
     self.state == 'active'
   end
@@ -138,15 +101,6 @@ class User < ActiveRecord::Base
 
   def name_domain_from_email
     email.split("@")
-  end
-
-  # Проверка на то, что старый пароль введен правильно
-  validate :check_old_password
-  def check_old_password
-    return true unless @need_to_check_old_password
-    return true if self.valid_password?(old_password)
-    errors.add(:old_password, "Старый пароль введен не верно.")
-    false
   end
 
   def should_generate_new_friendly_id?

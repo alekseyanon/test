@@ -69,6 +69,7 @@ User.blueprint do
   email { Faker::Internet.email }
   #roles { ["traveler"] }
   perishable_token { "perishabletoken" }
+  profile { Profile.make! }
 end
 
 Event.blueprint do
@@ -97,4 +98,8 @@ Comment.blueprint do
   body { Faker::Lorem.sentences 3 }
   user { User.make! }
   commentable { Review.make! }
+end
+
+Profile.blueprint do
+  name { Faker::Lorem.word }
 end
