@@ -116,7 +116,6 @@ describe "LandmarkDescriptions", js: true, type: :request do
       ### TODO: Придумать корректное решение
       ### Это хак пока не придумал как его исправить
       ### Без него у меня почему то не работает (((
-      # page.find('.search-filter-tabs dt:nth-child(9)').click
       page.find('.search-filter-tabs dt:nth-child(1)').click
 
       page.find("#search-results").should have_content 'bar'
