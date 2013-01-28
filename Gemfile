@@ -25,7 +25,8 @@ gem 'chosen-rails'
 
 ##################################################
 ########### gems for users models ################
-gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
+#gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
+gem 'devise'
 gem 'cancan'
 
 ### we need authentification through VK, FB, Twitter

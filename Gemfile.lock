@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/binarylogic/authlogic.git
-  revision: e6000bd197bd7f93bf5ffb30db1df2dec8ab686d
-  specs:
-    authlogic (3.2.0)
-      activerecord (>= 3.0.0)
-      activesupport (>= 3.0.0)
-
-GIT
   remote: git://github.com/gzigzigzeo/magic_numbers.git
   revision: 223c27bd16c8ca39a5ee2129e58e9406c91211c7
   specs:
@@ -65,6 +57,7 @@ GEM
       ejs
       jquery-rails
       rails (>= 3.1)
+    bcrypt-ruby (3.0.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
@@ -101,6 +94,11 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     database_cleaner (0.9.1)
+    devise (2.2.1)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
     diff-lcs (1.1.3)
     eco (1.0.0)
       coffee-script
@@ -201,6 +199,7 @@ GEM
       multi_json
       omniauth (~> 1.1.0)
       omniauth-oauth2 (~> 1.0)
+    orm_adapter (0.4.0)
     pg (0.14.1)
     pg_search (0.5.7)
       activerecord (>= 3)
@@ -303,6 +302,8 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    warden (1.2.1)
+      rack (>= 1.0)
     websocket (1.0.6)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -316,7 +317,6 @@ DEPENDENCIES
   activerecord-postgres-array
   activerecord-postgres-hstore
   acts-as-taggable-on
-  authlogic!
   awesome_nested_set
   backbone-on-rails
   cancan
@@ -327,6 +327,7 @@ DEPENDENCIES
   chronic
   coffee-rails (~> 3.2.1)
   database_cleaner
+  devise
   diff-lcs
   execjs
   faker

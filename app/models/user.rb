@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
 
   extend FriendlyId
   friendly_id :make_slug, use: :slugged
@@ -23,9 +31,9 @@ class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   has_many :abstract_descriptions
   
-  acts_as_authentic do |c|
-    c.ignore_blank_passwords = false
-  end
+  # acts_as_authentic do |c|
+  #   c.ignore_blank_passwords = false
+  # end
   ### TODO: add validations
   ### TODO: refactor
   ### TODO: add anonimous
