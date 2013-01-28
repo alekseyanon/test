@@ -85,7 +85,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
     end
   end
 
-  context "test" do
+  context "landmark description search" do
     before :all do
       setup_db_cleaner
 
