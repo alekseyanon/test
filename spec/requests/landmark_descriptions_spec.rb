@@ -144,7 +144,6 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
       ### Click on 'lodging'
       page.find('.search-filter-tabs dt:nth-child(7)').click
-      #sleep 10
       page.find("#search-results").should_not have_content 'bar'
       page.find("#search-results").should_not have_content 'cafe'
       page.find("#search-results").should_not have_content 'food'
