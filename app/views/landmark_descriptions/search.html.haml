@@ -22,33 +22,38 @@
     %span.action-link История поиска
 
 
-%dl.search-filter-tabs
-  %dt.search-filter-tab.selected
-    Все варианты
-  %dd.search-filter-tab-content.selected
-    %div.search-filter-tab-inner
-      all content
-  %dt.search-filter-tab{ data: { facet: "sightseeing" } }
-    Что посмотреть
-  %dd.search-filter-tab-content
-    %div.search-filter-tab-inner
-      sightseeing content
-  %dt.search-filter-tab{ data: { facet: "activities" } }
-    Чем заняться
-  %dd.search-filter-tab-content
-    %div.search-filter-tab-inner
-      activities content
-  %dt.search-filter-tab{ data: { facet: "lodging" } }
-    Где заночевать
-  %dd.search-filter-tab-content
-    %div.search-filter-tab-inner
-      lodging content
-  %dt.search-filter-tab{ data: { facet: "food" } }
+/ Tabs should be printed in reversed order. 
+/ It is essential for tabs can overlap each other
+/ according to design. The right order is implemented 
+/ through css. 
+
+%div.tabs.search-filter-tabs 
+  %span.tab.search-filter-tab{ data: { facet: "food" } }
+    %span.search-filter-tab-icon.icons-food
     Где поесть
-  %dd.search-filter-tab-content
-    %div.search-filter-tab-inner
-      food content                  
-   
+  %div.tab-content.search-filter-tab-content
+    %div.tab-content-inner.search-filter-tab-inner
+      
+        
+  %span.tab.tab.search-filter-tab{ data: { facet: "lodging" } }
+    %span.search-filter-tab-icon.icons-lodging
+    Где заночевать
+  %div.tab-content.search-filter-tab-content
+    %div.tab-content-inner.search-filter-tab-inner
+      
+
+  %span.tab.search-filter-tab{ data: { facet: "activities" } }
+    %span.search-filter-tab-icon.icons-activities
+    Чем заняться
+  %div.tab-content.search-filter-tab-content
+    %div.tab-content-inner.search-filter-tab-inner
+      
+
+  %span.tab.search-filter-tab{ data: { facet: "sightseeing" } }
+    %span.search-filter-tab-icon.icons-sightseeing
+    Что посмотреть
+  %div.tab-content.search-filter-tab-content
+    %div.tab-content-inner.search-filter-tab-inner     
 
 
 %h2.section-title Лучшие варианты

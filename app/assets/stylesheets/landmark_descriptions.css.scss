@@ -1,3 +1,5 @@
+@import "_base";
+
 // Place all the styles related to the LandmarkDescriptions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
@@ -77,52 +79,81 @@
 
 /* ---------------------------------- MAIN SEARCH FIELD END ----------------------------------- */
 
-.search-filter-tabs {
+.tabs {
   width: 100%;
   overflow: hidden;
+  position: relative;
+  font-size: 0;
+}
+
+.tab {
+  display: inline-block;
+  cursor: pointer;  
+  position: relative;
+  direction: ltr;
+  font-size: 14px;
+  vertical-align: top;
+}
+
+.tab.selected { 
+  cursor: default;  
+}
+
+.tab-content {
+  float: right;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  direction: ltr;
+  display: none;
+  font-size: 14px;
+}
+
+.tab-content.selected {
+  display: block;
+}
+
+.search-filter-tabs {
   margin-bottom: 40px;
-  position: relative;
+  text-align: center;
+  direction: rtl;
 }
 
-.search-filter-tab {
-  float: left;
-  border: 1px solid white;
-  border-bottom: none;
-  padding: 0 1em;
-  height: 30px;
-  line-height: 30px;
-  margin-bottom: 0;
-  cursor: pointer;
-  font-weight: normal;
-  position: relative;
+.search-filter-tab {  
+  font-size: 14px;
+  font-weight: bold;
+  color: $lightblue;
+  @include text-shadow(1px 1px 0 #fff);
+
+  min-width: 220px;
+  height: 85px;
+  padding-top: 15px;
+  border: solid 1px #e4e5f1;
+  @include border-top-radius(15px);
+  @include box-shadow(#9d9fac 3px 5px, rgba(245,245,245,.75) 0 0 0 1px inset);
+  @include background(linear-gradient(bottom, #ebebeb, #fff));
+}
+
+.search-filter-tab-icon {
+  width: 54px;
+  height: 45px;
+  margin: 0 auto 5px auto;
+  display: block;
 }
 
 .search-filter-tab.selected {
-  border-color: #B0D0E9;
   background: #F2F2F2;
-  z-index: 3;
-}
-
-.search-filter-tab.selected {
-  cursor: default;
+  box-shadow: none;
+  margin-right: 3px;
 }
 
 .search-filter-tab-content {
   background: #F2F2F2;
-  float: right;
-  width: 100%;
-  margin: 30px 0 0 -100%;
-  position: relative;
-  z-index: 2;
-  display: none;
-}
-
-.search-filter-tab-content.selected {
-  display: block;
+  font-size: 14px;
+  margin: 99px 0 0 -100%;
 }
 
 .search-filter-tab-inner {
-  border: 1px solid #B0D0E9;
   padding: 20px;
 }
 
