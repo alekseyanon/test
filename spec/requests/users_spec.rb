@@ -107,6 +107,7 @@ describe "Users reset password" do
 	end
 
 	it "add new password after reset password" do 
+    pending
 		visit reset_password_url(token: @user.perishable_token)
 		page.should have_selector('input#password')
 

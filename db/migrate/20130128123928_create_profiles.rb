@@ -3,6 +3,7 @@ class CreateProfiles < ActiveRecord::Migration
     create_table :profiles do |t|
       t.string :name
       t.string :avatar
+      t.hstore :settings
       t.references :user
 
       t.timestamps

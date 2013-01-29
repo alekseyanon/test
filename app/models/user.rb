@@ -18,20 +18,20 @@ class User < ActiveRecord::Base
   include AASM
   include UserFeatures::Roles
 
-  serialize :settings, ActiveRecord::Coders::Hstore
+  #serialize :settings, ActiveRecord::Coders::Hstore
 
-  mount_uploader :avatar, AvatarUploader
+  #mount_uploader :avatar, AvatarUploader
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   
   attr_accessible :email, :password, :password_confirmation, :avatar, :name, 
                   :external_picture_url, :authentication_ids,
                   :crop_x, :crop_y, :crop_w, :crop_h
 
-  after_update :crop_avatar 
+  #after_update :crop_avatar 
   attr_accessor :old_password
   attr_accessor :need_to_check_old_password
 
-  has_many :authentications, :dependent => :destroy
+  has_many :authentications, dependent: :destroy
   has_many :abstract_descriptions
   
   #TODO hack
@@ -51,30 +51,30 @@ class User < ActiveRecord::Base
   end
 
   # AASM
-  aasm :column => 'state' do
-    state :pending_activation, :initial => true
-    state :active, :enter => :activation
+  aasm column: 'state' do
+    state :pending_activation, initial: true
+    state :active, enter: :activation
     state :blocked
     state :deleted#, :enter => :prepare_user_for_deletion
 
-    event :activate, :after => :_after_activate do
-      transitions :from => :pending_activation, :to => :active
+    event :activate, after: :_after_activate do
+      transitions from: :pending_activation, to: :active
     end
 
     event :deactivate do
-      transitions :from => :active, :to => :pending_activation
+      transitions from: :active, to: :pending_activation
     end
 
     event :block do
-      transitions :from => :active, :to => :blocked
+      transitions from: :active, to: :blocked
     end
 
     event :unblock do
-      transitions :from => :blocked, :to => :active
+      transitions from: :blocked, to: :active
     end
 
     event :soft_destroy do
-      transitions :from => :active, :to => :deleted
+      transitions from: :active, to: :deleted
     end 
   end
 
@@ -89,8 +89,7 @@ class User < ActiveRecord::Base
   
   def crop_avatar
     avatar.recreate_versions! if crop_x.present?
-  end
-  
+  end  
   
   def set_role
     self.roles = [:traveler]
@@ -128,12 +127,12 @@ private
   end
 
   def _after_activate
-    Notifier.user_activated(self).deliver
+    # Notifier.user_activated(self).deliver
     ### maybe we can add something that user created before activation
   end
 
   def make_slug
-    tmp_name = self.name ? self.name : self.email.split("@").first
+    tmp_name = self.profile.name ? self.profile.name : self.email.split("@").first
     "#{tmp_name ? tmp_name : 'user'}"
   end
 end

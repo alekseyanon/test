@@ -63,12 +63,10 @@ end
 
 User.blueprint do
   tmp = Faker::Lorem.characters(9)
-  name { Faker::Lorem.word }
   password { tmp }
   password_confirmation { tmp }
   email { Faker::Internet.email }
   #roles { ["traveler"] }
-  perishable_token { "perishabletoken" }
   profile { Profile.make! }
 end
 
