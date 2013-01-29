@@ -14,7 +14,7 @@
 			/** String vars **/
 			bigStarsPath : '/assets/icons/stars.png', // path of the icon stars.png
 			smallStarsPath : '/assets/icons/small.png', // path of the icon small.png
-			phpPath : '/lm_ratings', // path of the php file jRating.php
+			phpPath : '/ratings', // path of the php file jRating.php
 			type : 'big', // can be set to 'small' or 'big'
 
 			/** Boolean vars **/
@@ -52,8 +52,6 @@
 
 			var average = parseFloat($(this).attr('id').split('_')[0]),
 			idBox = parseInt($(this).attr('id').split('_')[1]), // get the id of the box
-			typeBox = parseInt($(this).attr('id').split('_')[2]), // get the type of the box 
-																														//(1 - LandmarkDescription / 2 - review)
 			widthRatingContainer = starWidth*opts.length, // Width of the Container
 			widthColor = average/opts.rateMax*widthRatingContainer, // Width of the color Container
 
@@ -146,8 +144,7 @@
 					$.post(opts.phpPath,{
 							idBox : idBox,
 							rate : rate,
-							action : 'rating',
-							typeBox : typeBox
+							action : 'rating'
 						},
 						function(data) {
 							

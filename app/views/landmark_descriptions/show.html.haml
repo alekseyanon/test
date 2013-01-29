@@ -19,7 +19,7 @@
   %h3 Рейтинг
   .landmark-descrition-rating{id: "#{@landmark_description.css_id}", style: "padding-top: 70px;"}
   .user-rating{style: "color: green;"}
-    -if (!current_user.anonymous? &&  (tmp = current_user.ld_rating(@landmark_description)))
+    -if (!current_user.anonymous? && (tmp = current_user.landmark_description_rating(@landmark_description)))
       Ваша оценка: 
       = tmp.value
   = button_to "Добавить в планировщик", "#"

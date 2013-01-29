@@ -21,6 +21,8 @@
 //= require hamlcoffee
 //= require_tree .
 //= require leaflet
+//= require jRating.jquery
+//= require jquery.Jcrop
 
 $(function() {
     $(".landmark-descrition-rating").jRating({

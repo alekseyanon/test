@@ -99,7 +99,7 @@ Comment.blueprint do
   commentable { Review.make! }
 end
 
-LmRating.blueprint do
+Rating.blueprint do
   user { User.make! }
   value { 5 }
   landmark_description { LandmarkDescription.make! }

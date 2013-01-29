@@ -1,6 +1,6 @@
 Smorodina::Application.routes.draw do
 
-  resources :lm_ratings
+  resources :ratings
 
 
   resources :images

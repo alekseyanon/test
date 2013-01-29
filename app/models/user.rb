@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
 
-  has_many :lm_ratings
+  has_many :ratings
   extend FriendlyId
   friendly_id :make_slug, use: :slugged
 
@@ -146,8 +146,8 @@ class User < ActiveRecord::Base
     new_record?
   end
 
-  def ld_rating(ld_id)
-    self.lm_ratings.where(landmark_description_id: ld_id).first
+  def landmark_description_rating(ld_id)
+    self.ratings.where(landmark_description_id: ld_id).first
   end
 
 private
