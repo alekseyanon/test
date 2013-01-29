@@ -5,14 +5,16 @@ $legacy-support-for-ie: false;
 @import "compass/css3/box-shadow";
 @import "compass/css3/border-radius";
 @import "compass/css3/text-shadow";
+@import "compass/css3/background-size";
 
 @import "icons/*.png";
 
 $lightblue: #37b8e8;
+$violet:    #9194b2;
 
 $large-screen:  979px;
 $medium-screen: 767px;
-$small-screen: 480px;
+$small-screen:  480px;
 
 @mixin respond-to($media) {
   @if $media == large-screen {
@@ -25,3 +27,4 @@ $small-screen: 480px;
 	@media (max-width: $small-screen) { @content; }
   }
 }
+
