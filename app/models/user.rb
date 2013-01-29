@@ -1,38 +1,22 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable
-  # :lockable, :timeoutable
+  # :token_authenticatable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable     
+         :recoverable, :rememberable, :trackable, 
+         :validatable, :omniauthable, :confirmable     
 
-  has_one :profile    
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :provider, :uid
-
-  extend FriendlyId
-  friendly_id :make_slug, use: :slugged
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+                  :provider, :uid, :authentication_ids  
 
   include AASM
   include UserFeatures::Roles
-
-  #serialize :settings, ActiveRecord::Coders::Hstore
-
-  #mount_uploader :avatar, AvatarUploader
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   
-  attr_accessible :email, :password, :password_confirmation, :avatar, :name, 
-                  :external_picture_url, :authentication_ids,
-                  :crop_x, :crop_y, :crop_w, :crop_h
-
-  #after_update :crop_avatar 
   attr_accessor :old_password
   attr_accessor :need_to_check_old_password
 
   has_many :authentications, dependent: :destroy
   has_many :abstract_descriptions
+  has_one :profile
   
   #TODO hack
   before_validation :set_role
@@ -46,10 +30,6 @@ class User < ActiveRecord::Base
   ### TODO: refactor
   ### TODO: add anonimous
   
-  def settings
-    read_attribute(:settings).nil? ? {} : read_attribute(:settings)
-  end
-
   # AASM
   aasm column: 'state' do
     state :pending_activation, initial: true
@@ -85,12 +65,8 @@ class User < ActiveRecord::Base
 
   scope :in_states, lambda { |*states|
     where(:state => states.map { |s| s.to_s } )
-  }
-  
-  def crop_avatar
-    avatar.recreate_versions! if crop_x.present?
-  end  
-  
+  }  
+ 
   def set_role
     self.roles = [:traveler]
   end
@@ -99,9 +75,9 @@ class User < ActiveRecord::Base
     self.state == 'active'
   end
 
-  def to_s
-    deleted? ? "Аккаунт удален" : name
-  end
+  # def to_s
+  #   deleted? ? "Аккаунт удален" : name
+  # end
 
   def name_domain_from_email
     email.split("@")
@@ -131,8 +107,4 @@ private
     ### maybe we can add something that user created before activation
   end
 
-  def make_slug
-    tmp_name = self.profile.name ? self.profile.name : self.email.split("@").first
-    "#{tmp_name ? tmp_name : 'user'}"
-  end
 end

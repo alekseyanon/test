@@ -5,10 +5,7 @@ describe User do
   let (:user) { subject}
   
   it { should be_valid }
-  # it { should validate_presence_of :name }
-  # it { should validate_presence_of :description }
   it { should have_many(:authentications) }
-
 
   it "should not allow to save user without any role" do
     pending
@@ -56,10 +53,5 @@ describe User, "registration" do
     user.activate!
     user.should be_active
   end
-
-  it "check name" do
-    user.to_s.should be == user.name
-  end
-
-  
+ 
 end

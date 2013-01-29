@@ -6,7 +6,7 @@ describe "Users" do
 		@user = User.make!
 	end
 
-  def login email = @user.email, password=@user.password
+  def login email=@user.email, password=@user.password
     visit new_user_session_path
     fill_in 'user_email', with: email
     fill_in 'user_password', with: password

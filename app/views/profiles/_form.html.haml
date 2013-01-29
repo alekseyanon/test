@@ -1,4 +1,4 @@
-= form_for @profile do |f|
+= simple_form_for @profile do |f|
   - if @profile.errors.any?
     #error_explanation
       %h2= "#{pluralize(@profile.errors.count, "error")} prohibited this profile from being saved:"
@@ -6,11 +6,28 @@
         - @profile.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :avatar
-    = f.text_field :avatar
+  .fields
+    = f.input :name
+    = f.input :avatar
+
+  %h4 Рассылки:
+
+  .control-group
+    .controls
+      %label.checkbox
+        = check_box_tag 'profile[settings[news_mailer]]', 1, @profile.settings['news_mailer']
+        Присылайте мне свежую информацию о проекте
+      %label.checkbox
+        = check_box_tag 'profile[settings[record_comment_mailer]]', 1, @profile.settings['record_comment_mailer']
+        Сообщайте о новых комментариях моих записей
+      %label.checkbox
+        = check_box_tag 'profile[settings[mark_me_mailer]]', 1, @profile.settings['mark_me_mailer']
+        Сообщайте если кто-то оценил мой отзыв или комментарий
+      %label.checkbox
+        = check_box_tag 'profile[settings[comment_comment_mailer]]', 1, @profile.settings['comment_comment_mailer']
+        Сообщайте об ответах на мои комментарии
+      %label.checkbox
+        = check_box_tag 'profile[settings[social_allow]]', 1, @profile.settings['social_allow']
+        Разрешаю писать в указанных соцсетях от моего имени
   .actions
-    = f.submit 'Save'
+    = f.button :submit
