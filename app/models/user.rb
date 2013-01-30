@@ -146,10 +146,6 @@ class User < ActiveRecord::Base
     new_record?
   end
 
-  def landmark_description_rating(ld_id)
-    self.ratings.where(landmark_description_id: ld_id).first
-  end
-
 private
 
   # Копирует в имя часть емейла до '@'
