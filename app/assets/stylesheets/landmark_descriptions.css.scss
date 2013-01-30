@@ -125,6 +125,16 @@
   width: 80%;
 }
 
+.search-type-tabs-triangle {
+  width: 104px;
+  height: 26px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -52px;
+  margin-top: -1px;
+}
+
 .search-type-tab {  
   font-weight: bold;
   color: $lightblue;
@@ -151,6 +161,7 @@
   border-color: #e0dfd9;
   border-right-color: #9d9fac;
   @include box-shadow(rgba(0, 0, 0, 0.1) 3px 0 2px -2px);
+  color: #000000;
   z-index: 3;
 }
 
@@ -165,6 +176,7 @@
   background: image-url('creampaper.png');
   margin: 100px 0 0 -100%;
   @include box-shadow(rgba(0,0,0,.06) 0 0 10px 0);
+  margin-bottom: 10px;
 }
 
 .search-type-tab-content-inner {
@@ -201,7 +213,26 @@
 }
 
 .search-tags-tab-content-inner {
-  padding: 35px 20px;
+  padding: 30px 20px 10px;
+  @include column-count(5);
+  @include column-width(200px);
+  @include column-gap(10px);
+}
+
+.search-tags-list {
+  margin: 0;
+  padding: 0
+}
+
+.search-tags-list > li {
+  margin-bottom: 5px;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.no-csscolumns .search-tags-list > li {
+  display: inline-block;
+  width: 150px;
 }
 
 /* ---------------------------------- SEARCH RESULT START --------------------------------- */
