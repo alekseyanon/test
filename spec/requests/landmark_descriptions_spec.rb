@@ -68,8 +68,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       create_new title, category
       @ld = LandmarkDescription.last
       visit landmark_description_path @ld
-      str = './/div[@id="0.0_'+ @ld.id.to_s + '"]'
-      page.should have_selector(:xpath, str)
+      page.should have_selector(".landmark-descrition-rating", :'data-average' => '0.0')
       page.should have_selector('.user-rating')
       page.should have_selector('.jStar')
     end
@@ -77,13 +76,11 @@ describe "LandmarkDescriptions", js: true, type: :request do
     it "rating is changed" do
       create_new title, category
       @ld = LandmarkDescription.last
-      str = "0\.0_#{@ld.id}"
       visit landmark_description_path @ld
-      page.should have_selector(".landmark-descrition-rating", id: str)
+      page.should have_selector(".landmark-descrition-rating", :'data-average' => '0.0')
       page.find('.jStar').click
       visit landmark_description_path @ld
-      str = './/div[@id="0.0_'+ @ld.id.to_s + '"]'
-      page.should_not have_selector(:xpath, str)
+      page.should have_selector(".landmark-descrition-rating", :'data-id' => @ld.id)
       page.should have_content 'Ваша оценка'
     end
   end
