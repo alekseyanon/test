@@ -26,6 +26,32 @@ class User < ActiveRecord::Base
     self.create_profile!
   end
 
+  def self.from_omniauth(auth)
+    where(auth.slice(:provider, :uid)).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+    end
+  #   user.create_profile
+  #   user.profile.name = auth.info.nickname
+  #   user.profile.save
+  end
+  
+  def self.new_with_session(params, session)
+    # binding.pry
+    if session["devise.user_attributes"]
+      new(session["devise.user_attributes"].except('roles'), without_protection: true) do |user|
+        user.attributes = params
+        user.valid?
+      end
+    else
+      super
+    end
+  end
+
+  def password_required?
+    super && provider.blank?
+  end
+
   ### TODO: add validations
   ### TODO: refactor
   ### TODO: add anonimous

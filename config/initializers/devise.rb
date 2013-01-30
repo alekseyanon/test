@@ -6,9 +6,6 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
   config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
-  require "omniauth-facebook"
-  require "omniauth-twitter"
-  require "omniauth-vkontakte"
   social_cfg = YAML.load_file("#{Rails.root}/config/social_services.yml")
   social_cfg = social_cfg[Rails.env]
 

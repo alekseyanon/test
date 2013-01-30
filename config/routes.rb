@@ -2,8 +2,7 @@ Smorodina::Application.routes.draw do
 
   resources :profiles
 
-
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
   resources :images
 
