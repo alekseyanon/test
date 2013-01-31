@@ -355,8 +355,8 @@ DEPENDENCIES
   rgeo-activerecord
   rinku
   rmagick
-  rspec
-  rspec-rails (~> 2.12)
+  rspec (~> 2.12)
+  rspec-rails
   russian
   rvm-capistrano
   sass-rails (~> 3.2.3)

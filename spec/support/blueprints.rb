@@ -62,9 +62,9 @@ Authentication.blueprint do
 end
 
 User.blueprint do
-  tmp = Faker::Lorem.characters(9)
-  password { tmp }
-  password_confirmation { tmp }
+  pwd = Faker::Lorem.characters(9)
+  password { pwd }
+  password_confirmation { pwd }
   email { Faker::Internet.email }
   #roles { ["traveler"] }
   profile { Profile.make! }

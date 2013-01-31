@@ -52,7 +52,7 @@ describe 'Users' do
     page.should have_content('Emailимеет неверное значение')
   end
 
-  it 'user register with data of already exists user' do
+  it 'should not be registered with excisting email' do
   	visit new_user_registration_path
   	fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: @user.password
@@ -60,7 +60,7 @@ describe 'Users' do
     page.should have_content('Emailуже существует')
   end
 
-  it 'user settings' do
+  it 'not change email without confirmation' do
     login
     click_on 'Профиль'
     click_on 'Настройки'

@@ -39,11 +39,11 @@ gem 'omniauth-vkontakte'
 # gem 'omniauth-google-oauth2'
 
 gem 'aasm', '3.0.4'
-gem 'magic_numbers', :git => 'git://github.com/gzigzigzeo/magic_numbers.git' # Sotakone improved
+gem 'magic_numbers', git: 'git://github.com/gzigzigzeo/magic_numbers.git' # Sotakone improved
 
 # for user avatar
 gem 'carrierwave'
-gem 'mime-types', :require => 'mime/types'
+gem 'mime-types', require: 'mime/types'
 gem 'rmagick'
 ##################################################
 
@@ -70,7 +70,7 @@ gem 'ptools'
 
 group :test, :development do
   gem 'rspec'
-  gem 'rspec-rails', '~> 2.12'
+  gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'machinist'
   gem 'faker'

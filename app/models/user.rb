@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
+  # TODO avatar crop!
   # :token_authenticatable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
@@ -7,20 +8,17 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :provider, :uid, :authentication_ids
-                  
+
   has_many :ratings
 
   include AASM
   include UserFeatures::Roles
 
-  attr_accessor :old_password
-  attr_accessor :need_to_check_old_password
-
   has_many :authentications, dependent: :destroy
   has_many :abstract_descriptions
   has_one :profile
 
-  #TODO hack
+  #TODO remove hack
   before_validation :set_role
   after_create :create_profile
 
@@ -33,15 +31,12 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
     end
-  #   user.create_profile
-  #   user.profile.name = auth.info.nickname
-  #   user.profile.save
   end
 
   def self.new_with_session(params, session)
-    # binding.pry
-    if session["devise.user_attributes"]
-      new(session["devise.user_attributes"].except('roles'), without_protection: true) do |user|
+
+    if userattr = session["devise.user_attributes"]
+      new(userattr.except('roles'), without_protection: true) do |user|
         user.attributes = params
         user.valid?
       end
@@ -95,6 +90,7 @@ class User < ActiveRecord::Base
     where(:state => states.map { |s| s.to_s } )
   }
 
+  #TODO remove hack
   def set_role
     self.roles = [:traveler]
   end
