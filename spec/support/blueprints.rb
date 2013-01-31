@@ -101,6 +101,6 @@ end
 
 Rating.blueprint do
   user { User.make! }
-  value { 5 }
+  value { rand(1..5) }
   landmark_description { LandmarkDescription.make! }
 end
