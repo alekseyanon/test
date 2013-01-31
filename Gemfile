@@ -70,7 +70,7 @@ gem 'ptools'
 
 group :test, :development do
   gem 'rspec'
-  gem 'rspec-rails', '~> 2.0'
+  gem 'rspec-rails', '~> 2.12'
   gem 'shoulda-matchers'
   gem 'machinist'
   gem 'faker'
