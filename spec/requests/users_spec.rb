@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "Users" do
-	before do 
+describe 'Users' do
+	before do
 		@user = User.make!
 	end
 
@@ -24,103 +24,108 @@ describe "Users" do
     page.should have_content('Профиль')
   end
 
-  it "user login" do 
+  it 'user login' do
     login
     current_path.should == root_path
   end
 
-  it "user incorrect login" do 
+  it 'user incorrect login' do
   	login 'test' 'test'
-    page.should have_content('Ошибка, проверьте email и пароль и повторите попытку снова.')
+    page.should have_content('Неправильный логин или пароль')
   end
 
-  it "user register" do 
+  it 'user register' do
   	visit new_user_registration_path
   	fill_in 'user_email', with: Faker::Internet.email
-    fill_in 'user_password', with: "tes123ter"
+    fill_in 'user_password', with: 'tes123ter'
     click_on 'Sign up'
-    current_path.should == pendtoact_path
+    current_path.should == '/users'
   end
 
-  it "user incorrect register" do 
+  it 'not registers invalid attributes' do
   	visit new_user_registration_path
-  	fill_in 'user_email', with: "tester"
-    fill_in 'user_password', with: "tester"
+  	fill_in 'user_email', with: 'tester'
+    fill_in 'user_password', with: 'tester'
     click_on 'Sign up'
-    page.should have_content('Email имеет неверное значениеPassword не совпадает с подтверждениемPassword недостаточной длины')
+    page.should have_content('Please review the problems below')
+    page.should have_content('Passwordне совпадает с подтверждением')
+    page.should have_content('Emailимеет неверное значение')
   end
 
-  it "user register with data of already exists user" do 
-  	visit profile_path(type: 'traveler')
+  it 'user register with data of already exists user' do
+  	visit new_user_registration_path
   	fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: @user.password
-    click_on 'Зарегистрироваться'
-    page.should have_content('Email уже существует')
+    click_on 'Sign up'
+    page.should have_content('Emailуже существует')
   end
 
-  it "user settings" do 
+  it 'user settings' do
     login
     click_on 'Профиль'
     click_on 'Настройки'
-    fill_in 'user_email', with: "tester@test.er"
-    find(:type, "submit").click
-		current_path.should == user_path(@user)
-    click_on "Настройки"
-    find_field('user_email').value.should eq 'tester@test.er'
-    page.should have_content('Редактирование профиля')
+    fill_in 'user_email', with: 'tester@test.er'
+    fill_in 'user_current_password', with: @user.password
+    find(:type, 'submit').click
+		current_path.should == root_path
+    page.should have_content('Ваша учетная запись изменена, вам выслано письмо подтверждения нового email')
+    click_on 'Профиль'
+    click_on 'Настройки'
+    find_field('user_email').value.should eq @user.email
+    page.should have_content('Edit User')
   end
 
-  it "edit user" do 
+  it 'edit user' do
     # TODO move to profile spec
     login
     click_on 'Профиль'
     click_on 'Edit'
-    fill_in 'profile_name', with: "tester"
-    find(:type, "submit").click
-    page.should have_content('tester') 
+    fill_in 'profile_name', with: 'tester'
+    find(:type, 'submit').click
+    page.should have_content('tester')
 		#current_path.should == profile_path(@user)
   end
 
 end
 
-describe "Users reset password" do
-	before do 
+describe 'Users reset password' do
+	before do
 		@user = User.make!
-	end  
+	end
 
-	it "reset password form is opened" do 
+	it 'reset password form is opened' do
 		visit root_path
 		click_on 'Войти'
 		click_on 'Forgot your password?'
 		page.should have_selector('input#user_email')
 	end
 
-	it "fill email for reset password" do 
-		visit forget_password_path
-		fill_in 'email', with: @user.email
-		find(:type, "submit").click
-		
+	it 'fill email for reset password' do
+		visit new_user_password_path
+		fill_in 'user_email', with: @user.email
+		find(:type, 'submit').click
+
 		#click_on 'Сбросить пароль'
 		#print page.html
-		page.should have_content(@user.email) 
-		current_path.should == root_path
+		page.should have_content('В течение нескольких минут вы получите письмо с инструкциями по восстановлению вашего пароля')
+		current_path.should == '/users/sign_in'
 	end
 
-	it "add new password after reset password" do 
+	it 'add new password after reset password' do
     pending
 		visit reset_password_url(token: @user.perishable_token)
 		page.should have_selector('input#password')
 
 		fill_in 'password', with: 'tester'
-		find(:type, "submit").click
+		find(:type, 'submit').click
 		#click_on 'Сохранить'
-		page.should have_content('Профиль') 
+		page.should have_content('Профиль')
 		current_path.should == user_path(@user)
 	end
 
 
   ### to use your account
-  context "Users social networks", js: true, type: :request do
+  context 'Users social networks', js: true, type: :request do
     #self.use_transactional_fixtures = false
 
     before :each do
@@ -128,35 +133,35 @@ describe "Users reset password" do
     end
 
 
-    it "facebook login" do
+    it 'facebook login' do
       Capybara.app_host = 'http://localhost:3000'
-      visit profile_path(type: 'traveler')
-      page.find('a.facebook').click
+      visit new_user_session_path
+      click_on 'Sign in with Facebook'
       wait_until(5) do
         page.find('title').should have_content('Log In | Facebook')
       end
     end
 
-    it "twitter login" do
-      visit profile_path(type: 'traveler')
-      page.find('.social-icon.twitter').click
+    it 'twitter login' do
+      visit new_user_session_path
+      click_on 'Sign in with Twitter'
       wait_until(5) do
         page.find('title').should have_content('Twitter / Authorize an application')
       end
     end
 
-    it "facebook register" do
+    it 'facebook register' do
       Capybara.app_host = 'http://localhost:3000'
-      visit profile_path(type: 'traveler')
-      page.find('button.facebook').click
+      visit new_user_session_path
+      click_on 'Sign in with Facebook'
       wait_until(5) do
         page.find('title').should have_content('Log In | Facebook')
       end
     end
 
-    it "twitter register" do
-      visit profile_path(type: 'traveler')
-      page.find('button.twitter').click
+    it 'twitter register' do
+      visit new_user_session_path
+      click_on 'Sign in with Twitter'
       wait_until(5) do
         page.find('title').should have_content('Twitter / Authorize an application')
       end

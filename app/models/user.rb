@@ -2,22 +2,22 @@
 class User < ActiveRecord::Base
   # :token_authenticatable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, 
-         :validatable, :omniauthable, :confirmable     
+         :recoverable, :rememberable, :trackable,
+         :validatable, :omniauthable, :confirmable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :provider, :uid, :authentication_ids  
+                  :provider, :uid, :authentication_ids
 
   include AASM
   include UserFeatures::Roles
-  
+
   attr_accessor :old_password
   attr_accessor :need_to_check_old_password
 
   has_many :authentications, dependent: :destroy
   has_many :abstract_descriptions
   has_one :profile
-  
+
   #TODO hack
   before_validation :set_role
   after_create :create_profile
@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   #   user.profile.name = auth.info.nickname
   #   user.profile.save
   end
-  
+
   def self.new_with_session(params, session)
     # binding.pry
     if session["devise.user_attributes"]
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   ### TODO: add validations
   ### TODO: refactor
   ### TODO: add anonimous
-  
+
   # AASM
   aasm column: 'state' do
     state :pending_activation, initial: true
@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
 
     event :soft_destroy do
       transitions from: :active, to: :deleted
-    end 
+    end
   end
 
   # Scopes
@@ -91,8 +91,8 @@ class User < ActiveRecord::Base
 
   scope :in_states, lambda { |*states|
     where(:state => states.map { |s| s.to_s } )
-  }  
- 
+  }
+
   def set_role
     self.roles = [:traveler]
   end

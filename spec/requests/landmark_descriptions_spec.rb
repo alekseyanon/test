@@ -7,13 +7,14 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
   before :all do
     setup_db_cleaner
+    @user = User.make!
 
     Osm::Node.make!
     load_categories
   end
 
   before :each do
-    login
+    login @user
     current_path.should == root_path
   end
 
