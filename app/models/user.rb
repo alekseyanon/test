@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
 
+  has_many :ratings
   extend FriendlyId
   friendly_id :make_slug, use: :slugged
 
@@ -29,7 +30,7 @@ class User < ActiveRecord::Base
   ### TODO: add validations
   ### TODO: refactor
   ### TODO: add anonimous
-  
+
   def settings
     read_attribute(:settings).nil? ? {} : read_attribute(:settings)
   end

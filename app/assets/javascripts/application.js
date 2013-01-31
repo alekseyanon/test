@@ -22,8 +22,24 @@
 //= require hamlcoffee
 //= require_tree .
 //= require leaflet
+//= require jquery/jRating.jquery
+//= require jquery.Jcrop
 
 $(function() {
+    $(".landmark-descrition-rating").jRating({
+      step:true,
+      rateMax : 5,
+      length : 5,
+      bigStarsPath : '/assets/jquery/icons/stars.png',
+      smallStarsPath : '/assets/jquery/icons/small.png',
+      phpPath : '/ratings',
+      onSuccess :function(data, test){
+          $(".user-rating").html("");
+        },
+      onError :function(data, test){
+          $(".user-rating").html("<b style='color:red'>Произошла не предвиденная ошибка. Повторите попытку позже.</b>");
+        }
+    });      
 
     $('#cropbox').Jcrop({
       aspectRatio: 1,
