@@ -13,6 +13,6 @@ class LandmarkDescription < AbstractDescription
   end
 
   def user_vote_present?(userid)
-  	self.ratings.where(user_id: userid).include?(userid)
+  	!self.ratings.where(user_id: userid).empty?
   end
 end
