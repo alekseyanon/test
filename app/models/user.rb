@@ -5,6 +5,14 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :make_slug, use: :slugged
 
+  acts_as_voter
+  ### TODO: may be useful for calculation user rating
+  # The following line is optional, and tracks karma (up votes) for questions this user has submitted.
+  # Each question has a submitter_id column that tracks the user who submitted it.
+  # The option :weight value will be multiplied to any karma from that voteable model (defaults to 1).
+  # You can track any voteable model.
+  # has_karma(:questions, :as => :submitter, :weight => 0.5)
+
   include AASM
   include UserFeatures::Roles
 

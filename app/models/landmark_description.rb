@@ -8,11 +8,11 @@ class LandmarkDescription < AbstractDescription
     LandmarkDescription.within_radius_scope geom, r, 'nodes'
   end
 
-  def css_average
+  def average_rating
   	self.ratings.average(:value).to_f
   end
 
   def user_vote_present?(userid)
-  	self.ratings.pluck(:user_id).include?(userid)
+  	self.ratings.where(user_id: userid).include?(userid)
   end
 end
