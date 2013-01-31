@@ -48,6 +48,20 @@ $(function() {
     });
 
 });
+function to_vote(review_id, sign) {
+  $.ajax({
+    type: "POST",
+    url: "/reviews/"+review_id+"/make_vote",
+    data: ({sign: sign}),
+    success: function(data){
+      $(".up-vote").html(data.positive);
+      $(".down-vote").html(data.negative);
+    }, 
+    error: function(data){
+      alert("something wrong")
+    },
+    datatype: "json"});
+}
 
 function update(coords) {
   $('#user_crop_x').val(coords.x);

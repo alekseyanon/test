@@ -7,6 +7,9 @@ Smorodina::Application.routes.draw do
 
   resources :reviews do
     resources :comments
+    member do
+      post 'make_vote'
+    end
   end
 
   resources :landmark_descriptions do
