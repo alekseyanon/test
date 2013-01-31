@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :provider, :uid, :authentication_ids
+                  
+  has_many :ratings
 
   include AASM
   include UserFeatures::Roles

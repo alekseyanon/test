@@ -1,5 +1,7 @@
 Smorodina::Application.routes.draw do
 
+  resources :ratings, :only => [:create]
+
   resources :profiles
 
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }

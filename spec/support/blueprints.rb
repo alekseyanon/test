@@ -42,7 +42,7 @@ Category.blueprint do
 end
 
 AbstractDescription.blueprint do
-  user { User.make }
+  user { User.make! }
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
   published { [true, false].sample }
@@ -101,3 +101,10 @@ end
 Profile.blueprint do
   name { Faker::Lorem.word }
 end
+
+Rating.blueprint do
+  user { User.make! }
+  value { rand(1..5) }
+  landmark_description { LandmarkDescription.make! }
+end
+
