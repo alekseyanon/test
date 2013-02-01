@@ -21,7 +21,7 @@ class ReviewsController < InheritedResources::Base
     if (current_user.voted_on?(review))
       render json: { positive: "#{review.votes_for}", negative: "#{review.votes_against}" }
     else
-      render json: {error: "something wrong, please, try again"}  
+      render json: {error: "something wrong, please, try again"}
     end
   end
 end

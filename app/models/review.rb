@@ -6,7 +6,7 @@ class Review < ActiveRecord::Base
   has_many :comments, as: :commentable
 
   acts_as_voteable
-
+  
   validates :title, :body, :user, :reviewable, presence: true
   validates_associated :user, :reviewable
 end
