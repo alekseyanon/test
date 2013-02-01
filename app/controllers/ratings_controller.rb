@@ -1,7 +1,7 @@
 class RatingsController < InheritedResources::Base
 
 	def create
-		if current_user.anonymous?
+		if current_user.nil?
 			render json: { error: "login please" }
 		else
 			create_landmark_description_rating(params)
@@ -17,7 +17,7 @@ class RatingsController < InheritedResources::Base
 				render json: { rating: params[:rate]}
 			else
 				render json: { error: "error"}
-			end		  
+			end
 		else
 			rating = ld.ratings.build(value: params[:rate])
 		  rating.user = current_user

@@ -1,11 +1,8 @@
 require 'spec_helper'
-require 'authlogic/test_case'
-include Authlogic::TestCase
-
 
 describe ReviewsController do
   before { pending "Waiting for AuthLogic testing helpers to be mastered" }
-  setup :activate_authlogic
+  
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
   let!(:ld){LandmarkDescription.make!}
@@ -15,7 +12,6 @@ describe ReviewsController do
   end
 
   before :each do
-    activate_authlogic
     UserSession.create(user)    
   end
 

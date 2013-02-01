@@ -62,13 +62,12 @@ Authentication.blueprint do
 end
 
 User.blueprint do
-  tmp = Faker::Lorem.characters(5)
-  name { Faker::Lorem.word }
-  password { tmp }
-  password_confirmation { tmp }
+  pwd = Faker::Lorem.characters(9)
+  password { pwd }
+  password_confirmation { pwd }
   email { Faker::Internet.email }
-  roles { ["traveler"] }
-  perishable_token { Faker::Lorem.word }
+  #roles { ["traveler"] }
+  profile { Profile.make! }
 end
 
 Event.blueprint do
@@ -97,6 +96,10 @@ Comment.blueprint do
   body { Faker::Lorem.sentences 3 }
   user { User.make! }
   commentable { Review.make! }
+end
+
+Profile.blueprint do
+  name { Faker::Lorem.word }
 end
 
 Rating.blueprint do

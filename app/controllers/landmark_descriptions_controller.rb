@@ -1,7 +1,7 @@
 class LandmarkDescriptionsController < ApplicationController
   before_filter :get_categories, only: [:new, :edit, :create, :update, :search]
   before_filter :get_landmark, only: [:edit, :show]
-  before_filter :require_logged_in_user, only: [:new, :edit, :create, :update]
+  before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
 
   def sanitize_search_params(params)
     params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets) #TODO consider using ActiveRecord for this
@@ -57,7 +57,7 @@ class LandmarkDescriptionsController < ApplicationController
   def show
     @categories_tree = @landmark_description.categories_tree
     @class = 'jDisabled'
-    if (!current_user.anonymous? )
+    unless (current_user.nil? )
       @class = 'active'
       @rate = current_user.ratings.with_landmark_id(@landmark_description)
     end

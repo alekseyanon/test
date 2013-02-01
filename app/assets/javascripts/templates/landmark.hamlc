@@ -1,4 +1,5 @@
-- @reviews_num || = ( console.log '@reviews_num undefined, rendering 3'; 3)
+# TODO remove stub
+- @reviews_num || = 3
 
 %div.landmark-search-result-img
 %div.landmark-search-result-content

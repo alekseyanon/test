@@ -1,0 +1,19 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @profile.name
+%p
+  %b Avatar:
+  = @profile.avatar
+%p
+  %b User:
+  = @profile.user
+
+= link_to 'Edit', edit_profile_path(@profile)
+\|
+= link_to 'Back', profiles_path
+\|
+= link_to "Настройки", edit_user_registration_path
+\|
+= link_to "Log out", destroy_user_session_path, method: :delete 

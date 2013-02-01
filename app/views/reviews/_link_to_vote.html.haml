@@ -1,4 +1,4 @@
-- if current_user.anonymous?
+- if current_user.nil?
   = "#{text}"
 - else
   =link_to "#{text}", "#", id: "vote-#{text}", onclick: "to_vote(#{resource.id}, \'#{text}\');"
