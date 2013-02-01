@@ -20,11 +20,11 @@
   .landmark-descrition-rating{data:                                                       |
       {average: "#{@landmark_description.average_rating}",                  |
       id: "#{@landmark_description.id}"},                                                 |
-      class: "#{'jDisabled' if current_user.anonymous? }", style: "padding-top: 70px;" }  |
+      class: "#{'jDisabled' if current_user.nil? }", style: "padding-top: 70px;" }  |
   .user-rating{style: "color: green;"}
-    -if (!current_user.anonymous? &&                                        |
+    -if (!current_user.nil? &&                                        |
     (tmp = current_user.ratings.with_landmark_id(@landmark_description)))   |
-      Ваша оценка: 
+      Ваша оценка:
       = tmp.value
   = button_to "Добавить в планировщик", "#"
   .vk.soc
@@ -35,8 +35,8 @@
     tweet
   .cl-left
   .links
-    = link_to "Голосовать", "#" 
-    | 
+    = link_to "Голосовать", "#"
+    |
     = link_to "Кто голосовал", "#"
     (кол-во)
 %br
