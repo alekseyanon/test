@@ -8,12 +8,18 @@
   = @review.body
 
 .votes
-  =link_to "+", "#", id: "vote-up", onclick: "to_vote(#{@review.id}, 'up');"
+  - if current_user.anonymous?
+    +
+  - else
+    =link_to "+", "#", id: "vote-up", onclick: "to_vote(#{@review.id}, 'up');"
   (
   %span.up-vote= "#{@review.votes_for}"
   )
   |
-  =link_to "-", "#", id: "vote-down", onclick: "to_vote(#{@review.id}, 'down');"
+  -if current_user.anonymous?
+    \-
+  -else
+    =link_to "-", "#", id: "vote-down", onclick: "to_vote(#{@review.id}, 'down');"
   (
   %span.down-vote= "#{@review.votes_against}"
   )
