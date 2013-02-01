@@ -37,6 +37,7 @@ describe "Reviews" do
 
   it 'voting system exsist' do
     create_new title, body
+    visit review_path Review.last
     page.should have_selector(".votes")
     page.find('.up-vote').should have_content '0'
     page.find('.down-vote').should have_content '0'
