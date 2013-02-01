@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Reviews" do
+describe "Reviews", js: true, type: :request do
 
   self.use_transactional_fixtures = false
 
@@ -40,6 +40,14 @@ describe "Reviews" do
     visit review_path Review.last
     page.should have_selector(".votes")
     page.find('.up-vote').should have_content '0'
+    page.find('.down-vote').should have_content '0'
+  end
+
+  it 'make vote for the review' do
+    create_new title, body
+    visit review_path Review.last
+    page.find('#vote-up').click
+    page.find('.up-vote').should have_content '1'
     page.find('.down-vote').should have_content '0'
   end
 

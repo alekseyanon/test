@@ -1,4 +1,5 @@
 class RatingsController < InheritedResources::Base
+	before_filter :authenticate_user!, only: [:create, :create_landmark_description_rating]
 
 	def create
 		if current_user.nil?
