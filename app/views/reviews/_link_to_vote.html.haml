@@ -1,0 +1,4 @@
+- if current_user.anonymous?
+  = "#{text}"
+- else
+  =link_to "#{text}", "#", id: "vote-#{text}", onclick: "to_vote(#{resource.id}, \'#{text}\');"

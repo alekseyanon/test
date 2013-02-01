@@ -8,18 +8,12 @@
   = @review.body
 
 .votes
-  - if current_user.anonymous?
-    +
-  - else
-    =link_to "+", "#", id: "vote-up", onclick: "to_vote(#{@review.id}, 'up');"
+  =render "link_to_vote",text: "up", locals: { resource: @review}
   (
   %span.up-vote= "#{@review.votes_for}"
   )
   |
-  -if current_user.anonymous?
-    \-
-  -else
-    =link_to "-", "#", id: "vote-down", onclick: "to_vote(#{@review.id}, 'down');"
+  =render "link_to_vote",text: "down", locals: { resource: @review}
   (
   %span.down-vote= "#{@review.votes_against}"
   )
