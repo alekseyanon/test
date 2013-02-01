@@ -35,4 +35,11 @@ describe "Reviews" do
     page.should have_content body
   end
 
+  it 'voting system exsist' do
+    create_new title, body
+    page.should have_selector(".votes")
+    page.find('.up-vote').should have_content '0'
+    page.find('.down-vote').should have_content '0'
+  end
+
 end
