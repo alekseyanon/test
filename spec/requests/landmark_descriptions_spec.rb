@@ -5,21 +5,38 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
   self.use_transactional_fixtures = false
 
-  context "LandmarkDescriptions with login" do
-    before :all do
-      setup_db_cleaner
+  before :all do
+    setup_db_cleaner
+    @user = User.make!
 
-      Osm::Node.make!
-      load_categories
+    Osm::Node.make!
+    load_categories
+  end
+
+  after :all do
+    DatabaseCleaner.clean
+  end
+
+  context 'anonymous' do
+    let!(:landmark_description){LandmarkDescription.make!(user: @user)}
+
+    it 'renders index' do
+      visit landmark_descriptions_path
+      page.should have_content landmark_description.title
     end
+
+    it 'renders show' do
+      visit landmark_description_path landmark_description
+      page.should have_content landmark_description.title
+    end
+
+  end
+
+  context "LandmarkDescriptions with login" do
 
     before :each do
-      login
+      login @user
       current_path.should == root_path
-    end
-
-    after :all do
-      DatabaseCleaner.clean
     end
 
     def create_new(title, tag = nil)
@@ -37,7 +54,6 @@ describe "LandmarkDescriptions", js: true, type: :request do
     it 'creates a new landmark description' do
       create_new title, category
       page.should have_content title
-      # see db/seeds/categories.yml
       page.should have_content 'Что посмотреть?'
       page.should have_content 'Природа'
       page.should have_content 'Водохранилище'
@@ -63,7 +79,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.should have_content 'Развлечения'
       page.should have_content 'Дельфинарий'
     end
-    
+
     it 'check rating' do
       create_new title, category
       @ld = LandmarkDescription.last
@@ -86,21 +102,9 @@ describe "LandmarkDescriptions", js: true, type: :request do
   end
 
   context "landmark description search" do
-    before :all do
-      setup_db_cleaner
-
-      Osm::Node.make!
-      load_categories
-    end
 
     before :each do
-      login
-      current_path.should == root_path
       visit search_landmark_descriptions_path
-    end
-
-    after :all do
-      DatabaseCleaner.clean
     end
 
     def ld(tag_list, latlon)

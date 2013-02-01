@@ -8,6 +8,7 @@ describe Notifier do
     let(:mail) { Notifier.signup_confirmation user }
 
     it "renders the headers" do
+      pending
       mail.subject.should eq("Подтверждение регистрации")
       mail.to.should eq [user.email]
       mail.from.should eq %w(noreply@travel.com)

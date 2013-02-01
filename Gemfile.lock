@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/binarylogic/authlogic.git
-  revision: e6000bd197bd7f93bf5ffb30db1df2dec8ab686d
-  specs:
-    authlogic (3.2.0)
-      activerecord (>= 3.0.0)
-      activesupport (>= 3.0.0)
-
-GIT
   remote: git://github.com/gzigzigzeo/magic_numbers.git
   revision: 223c27bd16c8ca39a5ee2129e58e9406c91211c7
   specs:
@@ -45,7 +37,7 @@ GEM
       rgeo-activerecord (~> 0.4.6)
     activerecord-postgres-array (0.0.8)
       activerecord
-    activerecord-postgres-hstore (0.5.2)
+    activerecord-postgres-hstore (0.5.3)
       rails
       rake
     activeresource (3.2.11)
@@ -60,11 +52,12 @@ GEM
     arel (3.0.2)
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
-    backbone-on-rails (0.9.9.0)
+    backbone-on-rails (0.9.10.0)
       eco
       ejs
       jquery-rails
       rails (>= 3.1)
+    bcrypt-ruby (3.0.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
@@ -85,9 +78,9 @@ GEM
     carrierwave (0.8.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
-    childprocess (0.3.6)
+    childprocess (0.3.7)
       ffi (~> 1.0, >= 1.0.6)
-    chosen-rails (0.9.11.1)
+    chosen-rails (0.9.11.2)
       coffee-rails (>= 3.2)
       railties (>= 3.0)
       sass-rails (>= 3.2)
@@ -108,6 +101,11 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     database_cleaner (0.9.1)
+    devise (2.2.3)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
     diff-lcs (1.1.3)
     eco (1.0.0)
       coffee-script
@@ -134,7 +132,7 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (~> 3.1)
       railties (>= 3.1, < 4.1)
-    haml_coffee_assets (1.9.1)
+    haml_coffee_assets (1.11.1)
       coffee-script (>= 1.0.0)
       sprockets (>= 2.0.3)
       tilt (>= 1.3.3)
@@ -150,7 +148,7 @@ GEM
       has_scope (~> 0.5.0)
       responders (~> 0.6)
     journey (1.0.4)
-    jquery-rails (2.1.4)
+    jquery-rails (2.2.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (3.0.1)
@@ -161,9 +159,6 @@ GEM
       multi_json (>= 1.0)
     launchy (2.1.2)
       addressable (~> 2.3)
-    libwebsocket (0.1.7.1)
-      addressable
-      websocket
     machinist (2.0)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -210,6 +205,7 @@ GEM
       multi_json
       omniauth (~> 1.1.0)
       omniauth-oauth2 (~> 1.0)
+    orm_adapter (0.4.0)
     pg (0.14.1)
     pg_search (0.5.7)
       activerecord (>= 3)
@@ -221,15 +217,15 @@ GEM
       http_parser.rb (~> 0.5.3)
       multi_json (~> 1.0)
     polyglot (0.3.3)
-    pry (0.9.10)
+    pry (0.9.11.4)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
-      slop (~> 3.3.1)
+      slop (~> 3.4)
     ptools (1.2.2)
     rack (1.4.4)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-ssl (1.3.2)
+    rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -268,8 +264,8 @@ GEM
     rspec-core (2.12.2)
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
-    rspec-mocks (2.12.1)
-    rspec-rails (2.12.1)
+    rspec-mocks (2.12.2)
+    rspec-rails (2.12.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -282,28 +278,28 @@ GEM
     rvm-capistrano (1.2.7)
       capistrano (>= 2.0.0)
     sass (3.2.5)
-    sass-rails (3.2.5)
+    sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.27.2)
+    selenium-webdriver (2.29.0)
       childprocess (>= 0.2.5)
-      libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+      websocket (~> 1.0.4)
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
     simple_form (2.0.4)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    slop (3.3.3)
+    slop (3.4.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    thor (0.16.0)
+    thor (0.17.0)
     tilt (1.3.3)
     treetop (1.4.12)
       polyglot
@@ -312,7 +308,9 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    websocket (1.0.6)
+    warden (1.2.1)
+      rack (>= 1.0)
+    websocket (1.0.7)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -325,7 +323,6 @@ DEPENDENCIES
   activerecord-postgres-array
   activerecord-postgres-hstore
   acts-as-taggable-on
-  authlogic!
   awesome_nested_set
   backbone-on-rails
   cancan
@@ -337,6 +334,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   compass-rails
   database_cleaner
+  devise
   diff-lcs
   execjs
   faker
@@ -369,7 +367,7 @@ DEPENDENCIES
   rinku
   rmagick
   rspec
-  rspec-rails (~> 2.0)
+  rspec-rails
   russian
   rvm-capistrano
   sass-rails (~> 3.2.3)
