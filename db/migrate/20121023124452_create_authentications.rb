@@ -10,9 +10,9 @@ class CreateAuthentications < ActiveRecord::Migration
     	t.string :url
     	t.string :picture
 
-      t.integer :user_id
-
+      t.references :user
       t.timestamps
     end
+    add_index :authentications, :user_id
   end
 end
