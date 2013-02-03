@@ -10,7 +10,8 @@
 %h4 Comments:
 
 - @review.comments.roots.each do |root|
-  - root.self_and_descendants.each do |c|
+  /-binding.pry
+  - root.subtree.each do |c|
     .comment
       %p= c.body
       %p= link_to 'Ответить', new_review_comment_path(@review, parent_id: c.id)

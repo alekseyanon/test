@@ -1,4 +1,5 @@
 class CommentsController < InheritedResources::Base
+  before_filter :authenticate_user!, except: [:index, :show]
   
   def new
     @review = Review.find params[:review_id]
@@ -13,7 +14,7 @@ class CommentsController < InheritedResources::Base
     c.save!
     if !params[:parent_id].blank?
       parent = Comment.find params[:parent_id]
-      c.move_to_child_of parent
+      c.update_attribute :parent, parent if parent
     end
     redirect_to r
   end  
