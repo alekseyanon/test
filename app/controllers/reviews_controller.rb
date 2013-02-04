@@ -7,7 +7,7 @@ class ReviewsController < InheritedResources::Base
 
   def show
     @review = Review.find params[:id]
-    @roots  = @review.comments.roots.order "created_at asc"
+    @comment_roots  = @review.comments.roots.order "created_at asc"
   end
 
   def create

@@ -11,11 +11,8 @@ class CommentsController < InheritedResources::Base
     r = Review.find params[:review_id]
     c = r.comments.build params[:comment]
     c.user = current_user
+    c.parent_id = params[:parent_id]
     c.save!
-    if !params[:parent_id].blank?
-      parent = Comment.find params[:parent_id]
-      c.update_attribute :parent, parent if parent
-    end
     redirect_to r
   end  
 
