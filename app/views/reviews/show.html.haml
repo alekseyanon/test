@@ -7,7 +7,7 @@
   %b Body:
   = @review.body
 
-%h4 Comments
+%h4 Comments:
 
 - @comment_roots.each do |root|
   = nested_comments root.subtree.arrange(order: :created_at)
