@@ -1,5 +1,3 @@
-.leaflet-wide{id: "map"}
-
 %h1.page-title.page-title__centered Куда отправиться
 
 %div.main-search
@@ -22,34 +20,126 @@
     %span.action-link История поиска
 
 
-%dl.search-filter-tabs
-  %dt.search-filter-tab.selected
-    Все варианты
-  %dd.search-filter-tab-content.selected
-    %div.search-filter-tab-inner
-      all content
-  %dt.search-filter-tab{ data: { facet: "sightseeing" } }
-    Что посмотреть
-  %dd.search-filter-tab-content
-    %div.search-filter-tab-inner
-      sightseeing content
-  %dt.search-filter-tab{ data: { facet: "activities" } }
-    Чем заняться
-  %dd.search-filter-tab-content
-    %div.search-filter-tab-inner
-      activities content
-  %dt.search-filter-tab{ data: { facet: "lodging" } }
-    Где заночевать
-  %dd.search-filter-tab-content
-    %div.search-filter-tab-inner
-      lodging content
-  %dt.search-filter-tab{ data: { facet: "food" } }
-    Где поесть
-  %dd.search-filter-tab-content
-    %div.search-filter-tab-inner
-      food content                  
-   
 
+%div.tabs.search-type-tabs 
+  %span.tab.search-type-tab{ data: { facet: "sightseeing" } }
+    %span.search-type-tab-icon.icons-sightseeing<
+    Что посмотреть
+  %div.tab-content.search-type-tab-content
+    %div.search-type-tab-content-inner
+      %div.tabs.search-tags-tabs
+        %span.tab.search-tags-tab.selected
+          %span.tab.search-tags-tab-text<
+            Природа
+        %div.tab-content.search-tags-tab-content.selected
+          %div.search-tags-tab-content-inner
+            %ul.search-tags-list
+              %li
+                = check_box_tag 'seas', 'seas'
+                = label_tag 'seas', "Моря"
+              %li
+                = check_box_tag 'rivers', 'rivers'
+                = label_tag 'rivers', "Реки"
+              %li
+                = check_box_tag 'lakes', 'lakes'       
+                = label_tag 'lakes', "Озера"
+              %li
+                = check_box_tag 'reservoirs', 'reservoirs'     
+                = label_tag 'reservoirs', "Водохранилища"
+              %li
+                = check_box_tag 'waterfalls', 'waterfalls'                                                     
+                = label_tag 'waterfalls', "Водопады"
+              %li
+                = check_box_tag 'seas', 'seas'
+                = label_tag 'seas', "Моря"
+              %li
+                = check_box_tag 'rivers', 'rivers'
+                = label_tag 'rivers', "Реки"
+              %li
+                = check_box_tag 'lakes', 'lakes'       
+                = label_tag 'lakes', "Озера"
+              %li
+                = check_box_tag 'reservoirs', 'reservoirs'     
+                = label_tag 'reservoirs', "Водохранилища"
+              %li
+                = check_box_tag 'waterfalls', 'waterfalls'                                                     
+                = label_tag 'waterfalls', "Водопады"                
+
+        %span.tab.search-tags-tab
+          %span.tab.search-tags-tab-text<
+            Культура
+        %div.tab-content.search-tags-tab-content
+          %div.search-tags-tab-content-inner
+            222222   
+        %span.tab.search-tags-tab
+          %span.tab.search-tags-tab-text<
+            Религия
+        %div.tab-content.search-tags-tab-content
+          %div.search-tags-tab-content-inner
+            222222            
+    %div.icons-search-filter-triangle.search-type-tabs-triangle
+
+  %span.tab.search-type-tab{ data: { facet: "activities" } }
+    %span.search-type-tab-icon.icons-activities<
+    Чем заняться
+  %div.tab-content.search-type-tab-content
+    %div.search-type-tab-content-inner
+      %div.tabs.search-tags-tabs
+        %span.tab.search-tags-tab.selected
+          %span.tab.search-tags-tab-text<
+            555555
+        %div.tab-content.search-tags-tab-content.selected
+          %div.search-tags-tab-content-inner
+            555555  
+        %span.tab.search-tags-tab
+          %span.tab.search-tags-tab-text<
+            666666
+        %div.tab-content.search-tags-tab-content
+          %div.search-tags-tab-content-inner
+            666666                
+    %div.icons-search-filter-triangle.search-type-tabs-triangle
+
+  %span.tab.tab.search-type-tab{ data: { facet: "lodging" } }
+    %span.search-type-tab-icon.icons-lodging<
+    Где заночевать
+  %div.tab-content.search-type-tab-content
+    %div.search-type-tab-content-inner
+      %div.tabs.search-tags-tabs
+        %span.tab.search-tags-tab.selected
+          %span.tab.search-tags-tab-text<
+            333333
+        %div.tab-content.search-tags-tab-content.selected
+          %div.search-tags-tab-content-inner
+            333333  
+        %span.tab.search-tags-tab
+          %span.tab.search-tags-tab-text<
+            444444
+        %div.tab-content.search-tags-tab-content
+          %div.search-tags-tab-content-inner
+            444444                
+    %div.icons-search-filter-triangle.search-type-tabs-triangle
+
+  %span.tab.search-type-tab{ data: { facet: "food" } }
+    %span.search-type-tab-icon.icons-food<
+    Где поесть
+  %div.tab-content.search-type-tab-content
+    %div.search-type-tab-content-inner
+      %div.tabs.search-tags-tabs
+        %span.tab.search-tags-tab.selected
+          %span.tab.search-tags-tab-text<
+            777777
+        %div.tab-content.search-tags-tab-content.selected
+          %div.search-tags-tab-content-inner
+            777777  
+        %span.tab.search-tags-tab
+          %span.tab.search-tags-tab-text<
+            888888
+        %div.tab-content.search-tags-tab-content
+          %div.search-tags-tab-content-inner
+            888888    
+    %div.icons-search-filter-triangle.search-type-tabs-triangle
+
+%div.leaflet-wide{id: "map"}
 
 %h2.section-title Лучшие варианты
 %div#search-results

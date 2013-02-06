@@ -77,53 +77,162 @@
 
 /* ---------------------------------- MAIN SEARCH FIELD END ----------------------------------- */
 
-.search-filter-tabs {
+.tabs {
   width: 100%;
-  overflow: hidden;
-  margin-bottom: 40px;
   position: relative;
+  font-size: 0;
 }
 
-.search-filter-tab {
-  float: left;
-  border: 1px solid white;
-  border-bottom: none;
-  padding: 0 1em;
-  height: 30px;
-  line-height: 30px;
-  margin-bottom: 0;
-  cursor: pointer;
-  font-weight: normal;
+.tabs:before,
+.tabs:after {
+    content: " ";
+    display: table;
+}
+
+.tabs:after {
+    clear: both;
+}
+
+.tab {
+  display: inline-block;
+  cursor: pointer;  
   position: relative;
+  font-size: 14px;
+  vertical-align: top;
 }
 
-.search-filter-tab.selected {
-  border-color: #B0D0E9;
-  background: #F2F2F2;
-  z-index: 3;
+.tab.selected { 
+  cursor: default;  
 }
 
-.search-filter-tab.selected {
-  cursor: default;
-}
-
-.search-filter-tab-content {
-  background: #F2F2F2;
+.tab-content {
   float: right;
   width: 100%;
-  margin: 30px 0 0 -100%;
   position: relative;
-  z-index: 2;
   display: none;
+  font-size: 14px;
+  text-align: left;
+  z-index: 2;
 }
 
-.search-filter-tab-content.selected {
+.tab-content.selected {
   display: block;
 }
 
-.search-filter-tab-inner {
-  border: 1px solid #B0D0E9;
-  padding: 20px;
+.search-type-tabs {
+  margin: auto;
+  text-align: center;
+  width: 80%;
+}
+
+.search-type-tabs-triangle {
+  width: 104px;
+  height: 26px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -52px;
+  margin-top: -1px;
+}
+
+.search-type-tab {  
+  font-weight: bold;
+  color: $lightblue;
+  @include text-shadow(1px 1px 0 #fff);
+
+  min-width: 220px;
+  height: 85px;
+  padding-top: 15px;
+  border: solid 1px #e4e5f1;
+  border-right: 2px solid #9d9fac;
+  border-bottom: none;  
+  margin-left: 3px;
+  @include border-top-radius(15px);
+  @include box-shadow(rgba(245,245,245,.75) 0 0 0 1px inset);
+  @include background(linear-gradient(bottom, #ebebeb, #fff));
+}
+
+.search-type-tab:first-child {
+  margin-left: 0;
+};
+
+.search-type-tab.selected {
+  background: image-url('creampaper.png');
+  border-color: #e0dfd9;
+  border-right-color: #9d9fac;
+  @include box-shadow(rgba(0, 0, 0, 0.1) 3px 0 2px -2px);
+  color: #000000;
+  z-index: 3;
+}
+
+.search-type-tab-icon {
+  width: 54px;
+  height: 45px;
+  margin: 0 auto 5px auto;
+  display: block;
+}
+
+.search-type-tab-content {
+  background: image-url('creampaper.png');
+  margin: 100px 0 0 -100%;
+  @include box-shadow(rgba(0,0,0,.06) 0 0 10px 0);
+  margin-bottom: 10px;
+}
+
+.search-type-tab-content-inner {
+  padding: 20px 10px;
+  @include border-radius(2px);
+  border: 1px solid #e0dfd9;
+}
+
+.search-tags-tab {  
+  color: $violet;  
+  padding: 12px 15px 0 15px;
+  height: 28px;  
+  left: 35px;
+  @include border-top-radius(6px);  
+}
+
+.search-tags-tab-text {
+  border-bottom: 1px dotted;
+  line-height: 1.2;
+}
+
+.search-tags-tab.selected {
+  background-color: #fff;
+}
+
+.search-tags-tab.selected > .search-tags-tab-text {
+  border-bottom-color: #fff;
+  color: #000;
+}
+
+.search-tags-tab-content {
+  background: #fff;
+  margin: 40px 0 0 -100%;
+}
+
+.search-tags-tab-content-inner {
+  padding: 30px 20px 10px;
+  @include column-count(5);
+  @include column-width(200px);
+  @include column-gap(10px);
+}
+
+.search-tags-list {
+  margin: 0;
+  padding: 0
+}
+
+.search-tags-list > li {
+  margin-bottom: 5px;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.no-csscolumns .search-tags-list > li {
+  display: inline-block;
+  width: 150px;
 }
 
 /* ---------------------------------- SEARCH RESULT START --------------------------------- */
