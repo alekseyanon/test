@@ -19,7 +19,10 @@
           %a{class: "brand", href: "/"} Smorodina
           .nav-collapse.collapse
             %ul.nav
-              %li= link_to 'Профиль', profile_path(type: 'traveler')
+              if current_user.nil?
+              %li= link_to 'Войти', new_user_session_path
+              else
+              %li= link_to "Профиль", profile_path(current_user.profile)
               %li= link_to 'Объекты', landmark_descriptions_path
               %li= link_to 'События', events_path                
     .container
