@@ -104,14 +104,14 @@ window.landmark_description_search = ->
 
   map.setView [59.939,30.341], 13 #SPB
 
-  $('.search-filter-tabs').on 'click', '.search-filter-tab', ->
+  $('.tabs').on 'click', '.tab', ->
     $tab = $(this)
     facet = $tab.data('facet')
     facets = if facet then [facet] else []
 
     $tab
       .siblings().removeClass('selected').end()
-      .next('dd').andSelf().addClass('selected')
+      .next().andSelf().addClass('selected')
 
     resetBoundsAndSearch()
    

@@ -120,7 +120,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       ### TODO: Придумать корректное решение
       ### Это хак пока не придумал как его исправить
       ### Без него у меня почему то не работает (((
-      page.find('.search-filter-tabs dt:nth-child(1)').click
+      # page.find('.icons-sightseeing').click
 
       page.find("#search-results").should have_content 'bar'
       page.find("#search-results").should have_content 'food'
@@ -129,13 +129,13 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#search-results").should have_content 'activities'
       page.find("#search-results").should have_content 'dolphinarium'
       page.find("#search-results").should have_content 'entertainment'
-      page.find("#search-results").should have_content 'apartment'
+      page.find("#search-results").should have_content 'apartment'  
       page.find("#search-results").should have_content 'lodging'
     end
 
     it 'refines search results on query change' do
       ### Click on food tab
-      page.find('.search-filter-tabs dt:nth-child(9)').click
+      page.find('.icons-food').click
       page.find("#search-results").should have_content 'bar'
       page.find("#search-results").should have_content 'food'
       page.find("#search-results").should have_content 'cafe'
@@ -147,7 +147,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#search-results").should_not have_content 'apartment'
 
       ### Click on 'lodging'
-      page.find('.search-filter-tabs dt:nth-child(7)').click
+      page.find('.icons-lodging').click
       page.find("#search-results").should_not have_content 'bar'
       page.find("#search-results").should_not have_content 'cafe'
       page.find("#search-results").should_not have_content 'food'
