@@ -3,7 +3,7 @@ connection: &connection
   postgis_extension: true
   encoding: unicode
   pool: 5
-  username: postgres
+  username: smorodina
   password:
 
 development:
