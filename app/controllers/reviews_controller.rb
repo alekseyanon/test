@@ -13,16 +13,4 @@ class ReviewsController < InheritedResources::Base
     @review.save!
     redirect_to @landmark_description
   end
-
-  def make_vote
-    review = Review.find(params[:id])
-    (params[:sign] == "up") ? 
-        current_user.vote_exclusively_for(review) : 
-        current_user.vote_exclusively_against(review)
-    if (current_user.voted_on?(review))
-      render json: { positive: "#{review.votes_for}", negative: "#{review.votes_against}" }
-    else
-      render json: {error: "something wrong, please, try again"}
-    end
-  end
 end

@@ -9,9 +9,9 @@ Smorodina::Application.routes.draw do
   resources :images
 
   resources :reviews do
-    resources :comments
-    member do
-      post 'make_vote'
+    resources :votes, :only => [:create, :destroy]
+    resources :comments do
+      resources :votes, :only => [:create, :destroy]
     end
   end
 

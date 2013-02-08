@@ -48,15 +48,38 @@ $(function() {
     });
 
 });
-function to_vote(review_id, sign) {
+
+/*TODO сделать корректно.
+Пока работает следующим образом: родительского класса для голосавлки
+должно совпадать с названием контроллера объекта за который голосуем*/
+function to_vote(voteable_controller, voteable_id, sign) {
+  var id = voteable_controller.split("/").pop()+voteable_id;
+  var up = "#" + id + " .up-vote";
+  var down = "#" + id + " .down-vote"
   $.ajax({
     type: "POST",
-    url: "/reviews/"+review_id+"/make_vote",
-    data: ({sign: sign}),
+    /*url: "/reviews/"+review_id+"/make_vote",*/
+    url: "/"+voteable_controller+"/"+voteable_id+"/votes",
+    data: ({sign: sign}), /*, id: review_id*/
+    success: function(data){  
+      $(up).html(data.positive);
+      $(down).html(data.negative);
+    },
+    error: function(data){
+      alert("something wrong")
+    },
+    datatype: "json"});
+}
+function to_unvote(voteable_controller, voteable_id) {
+  var id = voteable_controller.split("/").pop()+voteable_id;
+  $.ajax({
+    type: "POST",
+    url: "/"+voteable_controller+"/"+voteable_id+"/votes/500", /*"/votes/1",*/
+    data: ({"_method": "delete"}),
     success: function(data){
-      $(".up-vote").html(data.positive);
-      $(".down-vote").html(data.negative);
-    }, 
+      $("#" + id + " .up-vote").html(data.positive);
+      $("#" + id + " .down-vote").html(data.negative);
+    },
     error: function(data){
       alert("something wrong")
     },
