@@ -10,6 +10,7 @@ gem 'activerecord-postgres-array'
 
 gem 'acts-as-taggable-on'
 gem 'awesome_nested_set'
+gem 'ancestry'
 
 gem 'inherited_resources'
 gem 'russian'

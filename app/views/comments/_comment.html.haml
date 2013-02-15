@@ -1,0 +1,3 @@
+.comment
+  .comment_body= comment.body
+  %p= link_to 'Ответить', new_review_comment_path(@review, parent_id: comment.id)
