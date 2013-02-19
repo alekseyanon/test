@@ -8,11 +8,13 @@
 @import "jquery/jRating.jquery";
 @import "jquery.Jcrop";
 
-
 @include all-icons-sprites;
 @import "main";
 @import "landmark_descriptions";
 
+.nested_comments {
+  margin-left: 30px;
+}
 
 /* body
   padding-top: 65px
@@ -39,7 +41,7 @@
   text-decoration: underline
 
 .technical
-  background-color: #eee 
+  background-color: #eee
   border: 1px solid gray
   form
     width: 200px
@@ -65,6 +67,6 @@
 .blue
   color: green
 
-.landmark 
-  .leaflet-wide 
+.landmark
+  .leaflet-wide
     height: 450px */

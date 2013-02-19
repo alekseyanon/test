@@ -1,5 +1,4 @@
-<!-- TODO remove stub -->
-- @comments_num || = 3
+- @comments_num || = 3 # TODO remove stub
 
 %div.landmark-search-result-img
   %div.landmark-search-result-img-inner

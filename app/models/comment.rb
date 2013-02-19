@@ -1,10 +1,11 @@
 class Comment < ActiveRecord::Base
-  acts_as_nested_set
+  has_ancestry
   attr_accessible :body
   belongs_to :commentable, polymorphic: true
   belongs_to :user
 
-  after_create :send_notifications
+  # TODO disable for migration on Ancestry
+  # after_create :send_notifications 
 
   validates :body, :user, :commentable, presence: true
   validates_associated :user, :commentable

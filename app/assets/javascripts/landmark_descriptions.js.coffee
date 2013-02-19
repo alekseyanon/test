@@ -106,12 +106,12 @@ window.landmark_description_search = ->
 
   $('.tabs').on 'click', '.tab', ->
     $tab = $(this)
+    $tabs = $('.tabs').find('.tab')
     facet = $tab.data('facet')
     facets = if facet then [facet] else []
 
-    $tab
-      .siblings().removeClass('selected').end()
-      .next().andSelf().addClass('selected')
+    $tabs.removeClass('selected')
+    $tab.addClass('selected')
 
     resetBoundsAndSearch()
    
