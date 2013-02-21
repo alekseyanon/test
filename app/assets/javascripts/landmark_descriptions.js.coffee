@@ -57,7 +57,7 @@ window.landmark_description_search = ->
   [map, lg] = initMap()
   lastBounds = null
   facets = []
-  $searchField = $('#searchField')
+  $searchField = $('#mainSearchFieldInput')
   landmarks = new Smorodina.Collections.Landmarks
   landmarksView = new Smorodina.Views.LandmarkList
     collection: landmarks
@@ -116,7 +116,7 @@ window.landmark_description_search = ->
     resetBoundsAndSearch()
    
     
-  $("#searchButton").on 'click', resetBoundsAndSearch
+  $("#mainSearchButton").on 'click', resetBoundsAndSearch
 
   $searchField.on 'keydown', (e) ->
     if e.which is 13
