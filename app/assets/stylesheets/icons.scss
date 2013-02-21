@@ -1,4 +1,4 @@
-@import "base";
+@import "_base";
 
 .icon {
   display: inline-block;
@@ -28,4 +28,9 @@
 .icon-door {
   @include background-image-svg("icons/door");
   width: 16px; height: 13px;
+}
+
+.icon-user {
+  @include background-image-svg("icons/user");
+  width: 13px; height: 14px;
 }

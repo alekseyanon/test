@@ -16,7 +16,6 @@
 @import "main";
 @import "landmark_descriptions";
 
-
 .promo-panel {
   text-align: center;
   font-size: 24px;
@@ -57,21 +56,44 @@
 
 .user-panel {
   @include opposite;
-  color: #660099;
   font-size: 14px;
 }
 
-.user-panel__login {
+.user-panel__login,
+.user-panel__account {
   position: relative;
   display: inline-block;
+  margin-left: 30px;
+}
+
+.user-panel__login {
+  color: #660099;
+}
+
+.user-panel__account:after {
+  content: "";
+  width: 0; height: 0;
+  position: absolute;
+  top: 50%; left: 100%;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid;
+  margin: -1px 0 0 4px;
+}
+
+.user-panel__login__icon,
+.user-panel__user__icon {
+  position: absolute;
+  left: -20px; top: 50%;
 }
 
 .user-panel__login__icon {
-  position: absolute;
-  left: -20px; top: 50%;
   margin-top: -6px;
 }
 
+.user-panel__user__icon {
+  margin-top: -7px;
+}
 
 .control-panel {
   @include border-radius(13px);
@@ -89,7 +111,7 @@
   display: inline-block;
   position: relative; top: -3px;
   vertical-align: top;
-  margin-right: 15px;
+  margin-right: 10px;
   @include background-image-svg("logo");
 }
 
@@ -175,7 +197,6 @@
   width: 90%;
   margin: auto;
   clear: both;
-  margin-bottom: 50px;
 }
 
 .main-search__field {
@@ -239,7 +260,7 @@
   top: 50%; left: 100%;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 4px solid #8d8d8d;
+  border-top: 4px solid;
   margin: -1px 0 0 4px;
 }
 

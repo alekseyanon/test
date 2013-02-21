@@ -28,12 +28,15 @@
         %div.slogan-user-panel-container
           %div.user-panel
             - if current_user.nil?
-              %a.user-panel__login{ href: new_user_session_path }
-                Вход и регистрация
-                %span.icon.icon-door.user-panel__login__icon
+              %span.user-panel__login
+                %a{ href: new_user_session_path }
+                  Вход и регистрация
+                  %span.icon.icon-door.user-panel__login__icon
             - else
-              %a{ href: profile_path(current_user.profile) }
-                Профиль
+              %span.user-panel__account
+                %a{ href: profile_path(current_user.profile) }
+                  Профиль
+                  %span.icon.icon-user.user-panel__user__icon
 
           %div.slogan
             Путешествуй по России
