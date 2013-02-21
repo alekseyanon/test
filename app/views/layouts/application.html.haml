@@ -7,24 +7,76 @@
     %title(Smorodina)
     %link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
     = stylesheet_link_tag    "application"
-    = javascript_include_tag "application" 
+    = javascript_include_tag "application"
+    /[if lte IE 8]
+      = stylesheet_link_tag  "ie"
     = csrf_meta_tags
   %body
-    %div{class: 'navbar navbar-inverse navbar-fixed-top'}
-      .navbar-inner
-        .container
-          %a{class: "btn btn-navbar", 'data-toggle' => "collapse", 'data-target' => ".nav-collapse"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar          
-          %a{class: "brand", href: "/"} Smorodina
-          .nav-collapse.collapse
-            %ul.nav
-              - if current_user.nil?
-                %li= link_to 'Войти', new_user_session_path
-              - else
-                %li= link_to "Профиль", profile_path(current_user.profile)
-              %li= link_to 'Объекты', landmark_descriptions_path
-              %li= link_to 'События', events_path                
-    .container
-      = yield 
+
+    %div.promo-panel
+      %div.promo-panel__inner
+        %span.promo-panel__text
+          Всего в Смородине
+          %b 450926
+          объектов
+        %button.button.button_3d.button_orange.promo-panel__button
+          %span.button__inner.button_3d__inner
+            %span.button__text.button_3d__text{ data: { text: "Добавить объект" }}
+
+    %div.main
+      %div.main__inner
+        %div.slogan-user-panel-container
+          %div.user-panel
+            - if current_user.nil?
+              %a.user-panel__login{ href: new_user_session_path }
+                Вход и регистрация
+                %span.icon.icon-door.user-panel__login__icon
+            - else
+              %a{ href: profile_path(current_user.profile) }
+                Профиль
+
+          %div.slogan
+            Путешествуй по России
+
+        %div.control-panel
+          %a{ href: "/" }
+            =image_tag "logo-fake.png", class: "control-panel__logo", alt: "Смородина"
+          %nav.control-panel__menu
+            %a.selected{ href: landmark_descriptions_path }
+              Куда отправиться
+              %span.control-panel__menu__triangle
+            %a{ href: events_path }
+              События
+              %span.control-panel__menu__triangle
+            %a{ href: "#blogs" }
+              Рейтинги
+              %span.control-panel__menu__triangle
+          %div.control-panel__info-section
+            %a.control-panel__info-section__link{ href: "#about" }<
+              О проекте
+            %span.control-panel__social-block
+              %span.icon.icon-vk.control-panel__social-block__link
+              %span.icon.icon-fb.control-panel__social-block__link
+              %span.icon.icon-tw.control-panel__social-block__link
+
+            %a.control-panel__info-section__link{ href: "#english" }
+              In English
+
+        %div.main-search.clearfix
+          %button#mainSearchButton.button.button_3d.button_violet.main-search__button
+            %span.button__inner.button_3d__inner
+              %span.button__text.button_3d__text{ data: { text: "Найти" }}
+
+          %div.main-search__field
+            %input#mainSearchFieldInput.main-search__field__input{ type: "text", placeholder: "Куда поехать, что посмотреть, чем заняться, где заночевать, где поесть" }
+            %div.main-search__field__panel
+              %span.main-search__field__panel__example
+                Например,
+                %span.main-search__field__panel__example__text
+                  водопад Девичьи слёзы
+              %span.main-search__field__panel__history
+                %span.main-search__field__panel__history__text
+                  История поиска
+                %span.icon.icon-clock.main-search__field__panel__history_icon
+
+        = yield

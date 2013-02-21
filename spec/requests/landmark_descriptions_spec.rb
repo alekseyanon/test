@@ -151,8 +151,8 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#search-results").should_not have_content 'activities'
       page.find("#search-results").should_not have_content 'dolphinarium'
 
-      page.fill_in 'searchField', with: 'apartment'
-      click_on "searchButton"
+      page.fill_in 'mainSearchFieldInput', with: 'apartment'
+      click_on "mainSearchButton"
 
       page.find("#search-results").should_not have_content 'food'
       page.find("#search-results").should_not have_content 'bar'

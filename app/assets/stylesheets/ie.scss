@@ -1,0 +1,22 @@
+@import "base";
+
+.button_orange {
+  @include filter-gradient(#e17604, #ffae01);
+}
+
+.button_violet {
+  @include filter-gradient(#9428b6, #b667ce);
+}
+
+.greetings-panel {
+  @include filter-gradient(#232323, #474747);
+}
+
+.control-panel {
+  @include filter-gradient(#fff, #ebebeb);
+}
+
+.control-panel__menu > a.selected {
+  @include filter-gradient(#232323, #474747);
+}
+

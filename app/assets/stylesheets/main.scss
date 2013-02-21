@@ -1,0 +1,19 @@
+@import "base";
+
+body {
+  color: #1a1a1a;
+  min-width: 768px;
+}
+
+a:link {
+  color: inherit;
+}
+
+a:active, a:visited:active {
+  color: #dd4b39;
+}
+
+a:visited {
+  color: #609;
+}
+

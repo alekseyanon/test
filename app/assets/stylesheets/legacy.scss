@@ -1,0 +1,18 @@
+.no-boxshadow .button_orange {
+  border-bottom: 4px solid #a65b02;
+}
+
+.no-boxshadow .button_violet {
+  border-bottom: 4px solid #4f3067;
+}
+
+.no-textshadow .button_3d__text:after {
+  content: attr(data-text);
+  color: #000000;
+  position: absolute;
+  top: -1px; left: -1px;
+}
+
+.no-boxshadow .main-search__field__input {
+  line-height: 20px;
+}
