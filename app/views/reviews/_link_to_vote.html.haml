@@ -1,4 +1,4 @@
 - if current_user.nil?
-  = "#{text}"
+  = "#{text.split('-')[0]}"
 - else
-  =link_to "#{text}", "#", id: "vote-#{text}", onclick: "to_vote(\'#{controller}\', #{resource.id}, \'#{text}\');"
+  =link_to "#{text.split('-')[0]}", "#", id: "vote-#{text.split('-')[0]}", onclick: "to_vote(\'#{controller}\', #{text.split('-')[1]}, \'#{text.split('-')[0]}\');"

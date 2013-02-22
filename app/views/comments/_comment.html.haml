@@ -1,3 +1,14 @@
-.comment
+.comment{id: "comments#{comment.id}"}
+  =render "link_to_vote",text: "up-#{comment.id}", controller: "reviews/#{@review.id}/comments"
+  (
+  %span.up-vote= "#{comment.votes_for}"
+  )
+  |
+  =render "link_to_vote",text: "down-#{comment.id}", controller: "reviews/#{@review.id}/comments"
+  (
+  %span.down-vote= "#{comment.votes_against}"
+  )
+  - unless current_user.nil?
+    =link_to "unvote", "#", id: "vote-delete", onclick: "to_unvote(\'reviews/#{@review.id}/comments\', #{comment.id});"
   .comment_body= comment.body
   %p= link_to 'Ответить', new_review_comment_path(@review, parent_id: comment.id)
