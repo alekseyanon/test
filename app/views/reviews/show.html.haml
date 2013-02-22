@@ -8,12 +8,12 @@
   = @review.body
 
 .votes{id: "reviews#{@review.id}"}
-  =render "link_to_vote",text: "up", controller: 'reviews', locals: { resource: @review }
+  =render "link_to_vote",text: "up-#{@review.id}", controller: 'reviews'
   (
   %span.up-vote= "#{@review.votes_for}"
   )
   |
-  =render "link_to_vote",text: "down", controller: 'reviews', locals: { resource: @review }
+  =render "link_to_vote",text: "down-#{@review.id}", controller: 'reviews'
   (
   %span.down-vote= "#{@review.votes_against}"
   )
