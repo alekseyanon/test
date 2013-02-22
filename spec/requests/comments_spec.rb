@@ -5,7 +5,7 @@ describe "Reviews" do
 
   self.use_transactional_fixtures = false
 
-  before :all do   
+  before :all do
     setup_db_cleaner
     load_categories
   end
@@ -20,8 +20,8 @@ describe "Reviews" do
   end
 
   let(:review){ Review.make! }
-  let(:body)  { Faker::Lorem.sentence 5}  
-  let(:comment)  { Comment.make! }  
+  let(:body)  { Faker::Lorem.sentence 5}
+  let(:comment)  { Comment.make! }
 
   it 'creates a new comment' do
     visit review_path(review)
@@ -34,6 +34,7 @@ describe "Reviews" do
     visit new_review_comment_path(comment.commentable, parent_id: comment.id)
     fill_in 'comment_body', with: body
     click_on 'Save'
+    page.should have_selector('.nested_comments .nested_comments')
     page.should have_content body
   end
 

@@ -4,3 +4,8 @@
     - spec/**_spec.rb
   :postgresql:
     :version: '9.1'
+    :adapter: 'postgis'
+    :config:
+      postgis_extension: true
+      encoding: unicode
+      pool: 5

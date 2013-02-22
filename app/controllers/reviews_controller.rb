@@ -6,6 +6,11 @@ class ReviewsController < InheritedResources::Base
     new!
   end
 
+  def show
+    @review = Review.find params[:id]
+    @comment_roots  = @review.comments.roots.order "created_at asc"
+  end
+
   def create
     @landmark_description = LandmarkDescription.find params[:landmark_description_id]
     @review = @landmark_description.reviews.build params[:review]

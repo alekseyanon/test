@@ -19,31 +19,18 @@
   )
   - unless current_user.nil?
     =link_to "unvote", "#", id: "vote-delete", onclick: "to_unvote('reviews', #{@review.id});"
-     
+
 %h4 Comments:
 
-- @review.comments.roots.each do |root|
-  - root.self_and_descendants.each do |c|
-    .comment{id: "comments#{c.id}"}
-      =render "link_to_vote",text: "up", controller: "reviews/#{@review.id}/comments", locals: { resource: c }
-      (
-      %span.up-vote= "#{c.votes_for}"
-      )
-      |
-      =render "link_to_vote",text: "down", controller: "reviews/#{@review.id}/comments", locals: { resource: c }
-      (
-      %span.down-vote= "#{c.votes_against}"
-      )
-      - unless current_user.nil?
-        =link_to "unvote", "#", id: "vote-delete", onclick: "to_unvote(\'reviews/#{@review.id}/comments\', #{c.id});"
-      %p= c.body
-      %p= link_to 'Ответить', new_review_comment_path(@review, parent_id: c.id)
+- @comment_roots.each do |root|
+  = nested_comments root.subtree.arrange(order: :created_at)
+
 
 %h4 Add a comment:
 
-= form_for([@review, @review.comments.build]) do |f| 
+= form_for([@review, @review.comments.build]) do |f|
   %p
-    = f.label :body 
+    = f.label :body
     %br
     = f.text_area :body, rows: '3'
   %p= f.submit

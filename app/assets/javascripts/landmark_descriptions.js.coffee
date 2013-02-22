@@ -62,10 +62,19 @@ window.landmark_description_search = ->
   landmarksView = new Smorodina.Views.LandmarkList
     collection: landmarks
 
+  coffeeIcon = L.icon(
+    iconUrl:    '/assets/coffee.png'
+    iconSize:   [40, 40]
+    iconAnchor: [20, 35])
+
   putMarkers = ->
     lg.clearLayers()
     landmarks.forEach (l) ->
-      L.marker(l.get('describable').osm.latlon).addTo lg
+      latlon = l.get('describable').osm.latlon
+      if 'food' in l.get('tag_list')
+        L.marker(latlon, {icon: coffeeIcon}).addTo lg
+      else
+        L.marker(latlon).addTo lg
 
   $('#search-results').html landmarksView.render().el
 
@@ -106,12 +115,12 @@ window.landmark_description_search = ->
 
   $('.tabs').on 'click', '.tab', ->
     $tab = $(this)
+    $tabs = $('.tabs').find('.tab')
     facet = $tab.data('facet')
     facets = if facet then [facet] else []
 
-    $tab
-      .siblings().removeClass('selected').end()
-      .next().andSelf().addClass('selected')
+    $tabs.removeClass('selected')
+    $tab.addClass('selected')
 
     resetBoundsAndSearch()
    
