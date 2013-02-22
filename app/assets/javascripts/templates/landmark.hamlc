@@ -1,9 +1,14 @@
-# TODO remove stub
-- @reviews_num || = 3
+- @comments_num || = 3 # TODO remove stub
 
 %div.landmark-search-result-img
+  %div.landmark-search-result-img-inner
+    %img{src: 'http://placehold.it/130x90'}
 %div.landmark-search-result-content
   %h3.landmark-search-result-title
     %a{href: "#"}= @title
-  %div.landmark-tags= @tag_list
-%span.landmark-search-result-reviews= "Отзывов: #{@reviews_num}"
+  %div.landmark-search-result-tags
+    %span.landmark-search-result-tags-icon.icons-tags
+    %span.landmark-search-result-tags-text= @tag_list
+  %div.landmark-search-result-comments
+    %span.landmark-search-result-comments-icon.icons-comments
+    %span.landmark-search-result-comments-number= @comments_num
