@@ -4,7 +4,7 @@ describe "Reviews", js: true, type: :request do
 
   self.use_transactional_fixtures = false
 
-  before :all do   
+  before :all do
     setup_db_cleaner
     load_categories
   end
@@ -26,8 +26,8 @@ describe "Reviews", js: true, type: :request do
   end
 
   let!(:landmark_description){ LandmarkDescription.make! }
-  let(:title) { Faker::Lorem.sentence }  
-  let(:body)  { Faker::Lorem.sentence 2}  
+  let(:title) { Faker::Lorem.sentence }
+  let(:body)  { Faker::Lorem.sentence 2}
 
   it 'creates a new review' do
     create_new title, body
