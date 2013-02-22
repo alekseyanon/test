@@ -158,7 +158,6 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#search-results").should_not have_content 'bar'
       page.find("#search-results").should_not have_content 'cafe'
 
-      puts page.html
       page.find("#search-results").should have_content 'lodging'
       page.find("#search-results").should have_content 'apartment'
     end
