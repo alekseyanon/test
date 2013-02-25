@@ -56,7 +56,7 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/1.json
   def show
     @categories_tree = @landmark_description.categories_tree
-    @rate = current_user.ratings.with_landmark_id(@landmark_description) if current_user?
+    @rate = current_user.ratings.with_landmark_id(@landmark_description) if current_user
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @landmark_description }
