@@ -69,6 +69,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       fill_in 'landmark_description_title', with: new_title
       select new_category, from: 'landmark_description_tag_list'
       click_on 'Применить изменения'
+      sleep 5
       page.should_not have_content title
       page.should have_content new_title
       # see db/seeds/categories.yml
