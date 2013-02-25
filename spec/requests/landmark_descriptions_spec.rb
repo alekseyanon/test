@@ -5,7 +5,8 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
   self.use_transactional_fixtures = false
 
-  before :all do
+  # TODO: заменили all на each чтоб не возникало ошибок с пользователями с одинаковым email
+  before :each do
     setup_db_cleaner
     @user = User.make!
 
@@ -151,6 +152,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#search-results").should_not have_content 'activities'
       page.find("#search-results").should_not have_content 'dolphinarium'
 
+      page.find('.search-type-tab-cell:first-child .search-type-tab').click
       page.fill_in 'searchField', with: 'apartment'
       click_on "searchButton"
 
