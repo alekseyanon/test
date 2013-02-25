@@ -1,6 +1,6 @@
 Smorodina::Application.routes.draw do
 
-  resources :ratings, :only => [:create]
+  resources :ratings, only: [:create]
 
   resources :profiles
 
@@ -9,9 +9,9 @@ Smorodina::Application.routes.draw do
   resources :images
 
   resources :reviews do
-    resources :votes, :only => [:create, :destroy]
+    resources :votes, only: [:create, :destroy]
     resources :comments do
-      resources :votes, :only => [:create, :destroy]
+      resources :votes, only: [:create, :destroy]
     end
   end
 
@@ -58,7 +58,7 @@ Smorodina::Application.routes.draw do
   #   #get '/signup', :action => 'signup', :as => :signup_page
   #   get 'activate/:token', :action => 'activate', :as => :activate_user
   #   post 'activate/:token', :action => 'do_activate'
-    
+
   #   get '/profile/:type', :action => 'profile', as: :profile, :constraints => {:type => /traveler/}
   # end
   # resources :users, :except => :new do
@@ -89,13 +89,13 @@ Smorodina::Application.routes.draw do
   # end
 
   # resources :user_sessions # TODO: check errors
-  controller :reset_password do 
+  controller :reset_password do
     get "/forget_password", :action => 'forget_password'
-    post "/forget_password", :action => 'send_instruction' 
+    post "/forget_password", :action => 'send_instruction'
     get 'password_reset/:token', :action => 'password_form', :as => :reset_password
     post 'password_reset/:token', :action => 'update_password'
   end
- 
+
   root :to => 'welcome#home'
 
 end

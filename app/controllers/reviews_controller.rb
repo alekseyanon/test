@@ -1,5 +1,5 @@
 class ReviewsController < InheritedResources::Base
-  before_filter :authenticate_user!, only: [:new, :edit, :create, :update, :make_vote]
+  before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
   def new
     @landmark_description = LandmarkDescription.find params[:landmark_description_id]
     @review = @landmark_description.reviews.build

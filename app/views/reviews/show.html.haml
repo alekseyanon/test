@@ -7,18 +7,18 @@
   %b Body:
   = @review.body
 
-.votes{id: "reviews#{@review.id}"}
-  =render "link_to_vote",text: "up-#{@review.id}", controller: 'reviews'
+.votes{id: dom_id(@review)}
+  =render "link_to_vote",text: "up-#{@review.id}", controller: 'review'
   (
   %span.up-vote= "#{@review.votes_for}"
   )
   |
-  =render "link_to_vote",text: "down-#{@review.id}", controller: 'reviews'
+  =render "link_to_vote",text: "down-#{@review.id}", controller: 'review'
   (
   %span.down-vote= "#{@review.votes_against}"
   )
   - unless current_user.nil?
-    =link_to "unvote", "#", id: "vote-delete", onclick: "to_unvote('reviews', #{@review.id});"
+    =link_to "unvote", "#", id: "vote-delete", onclick: "to_unvote('review', #{@review.id});"
 
 %h4 Комментарии:
 
