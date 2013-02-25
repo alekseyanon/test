@@ -9,20 +9,14 @@ class VotesController < InheritedResources::Base
     if (current_user.voted_on?(@voteable))
       render json: { positive: "#{@voteable.votes_for}", negative: "#{@voteable.votes_against}" }
     else
-      logger.debug "============ create method votes_controller ============="
-      logger.debug "Vote did not created! (Check controller name. Should be in the singular)"
-      logger.debug params
-      logger.debug "============ create method votes_controller ============="
+      logg "create controller vote, check controller name", params
     end
   end
 
   def destroy
     current_user.unvote_for(@voteable)
     if (current_user.voted_on?(@voteable))
-      logger.debug "============ desctroy method votes_controller ==========="
-      logger.debug "Vote did not deleted! (Check controller name. Should be in the singular)"
-      logger.debug params
-      logger.debug "============ desctroy method votes_controller ==========="
+      logg "destroy controller vote, check controller name", params
     else
       render json: { positive: "#{@voteable.votes_for}", negative: "#{@voteable.votes_against}" }
     end
