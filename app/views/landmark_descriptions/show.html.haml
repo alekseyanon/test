@@ -20,7 +20,7 @@
   .landmark-descrition-rating{data:                                                       |
       {average: "#{@landmark_description.average_rating}",                                |
       id: "#{@landmark_description.id}"},                                                 |
-      class: "#{@class}", style: "padding-top: 70px;" }                                   |
+      class: "#{'jDisabled' if current_user.nil? }", style: "padding-top: 70px;"}         |
   .user-rating{style: "color: green;"}
     -if (@rate)
       Ваша оценка:

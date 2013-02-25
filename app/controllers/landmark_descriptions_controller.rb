@@ -56,9 +56,7 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions/1.json
   def show
     @categories_tree = @landmark_description.categories_tree
-    @class = 'jDisabled'
-    unless (current_user.nil? )
-      @class = 'active'
+    unless current_user.nil?
       @rate = current_user.ratings.with_landmark_id(@landmark_description)
     end
     respond_to do |format|
@@ -78,7 +76,7 @@ class LandmarkDescriptionsController < ApplicationController
   end
 
   # GET /landmark_descriptions/1/edit
-  def edit  
+  def edit
   end
 
   # POST /landmark_descriptions
@@ -109,11 +107,11 @@ class LandmarkDescriptionsController < ApplicationController
   # PUT /landmark_descriptions/1.json
   def update
 
-    x = params[:landmark_description][:xld] 
-    y = params[:landmark_description][:yld] 
+    x = params[:landmark_description][:xld]
+    y = params[:landmark_description][:yld]
 
     @landmark_description = LandmarkDescription.find(params[:id])
-    unless x.blank? && y.blank?  
+    unless x.blank? && y.blank?
       lm = @landmark_description.describable
       lm.osm = Osm::Node.closest_node(x,y).first
       lm.save
