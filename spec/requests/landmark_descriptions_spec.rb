@@ -5,8 +5,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
   self.use_transactional_fixtures = false
 
-  # TODO: заменили all на each чтоб не возникало ошибок с пользователями с одинаковым email
-  before :each do
+  before :all do
     setup_db_cleaner
     @user = User.make!
 
