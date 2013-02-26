@@ -1,3 +1,9 @@
 %h1= @event.title
 
 %p= @event.body
+
+%ul
+  - @event.images.each do |i|
+    %li= image_tag i.image_url(:thumb)
+    .votes{id: dom_id(i)}
+      =render partial: "shared/votes", locals: { object_to_vote: i, nested_path: "" }
