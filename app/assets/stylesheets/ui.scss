@@ -11,6 +11,10 @@
   padding: 0;
 }
 
+.button:hover {
+  text-decoration: none;
+}
+
 .button__inner {
   display: block;
 }
@@ -33,7 +37,7 @@
 .button_3d {
   @include border-radius(5px);
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 700;
   border: none;
   margin-bottom: 4px; /* to compensate bottom box-shadow */
 }

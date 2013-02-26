@@ -1,6 +1,4 @@
-// Place all the styles related to the LandmarkDescriptions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "base";
 
 .leaflet-wide {
   height: 250px;
@@ -15,68 +13,6 @@
   height: 150px;
 }
 
-/* ---------------------------------- MAIN SEARCH FIELD START --------------------------------- */
-
-.main-search {
-  width: 85%;
-  margin: 0 auto 25px auto;
-  text-align: center;
-}
-
-.main-search-description {
-  font-size: 16px;
-  margin-bottom: 15px;
-}
-
-.main-search-field-container {
-  overflow: hidden;
-}
-
-.main-search-button {
-  float: right;
-  margin-left: 10px;
-}
-
-.main-search-history {
-  position: relative;
-  padding-left: 18px;
-  margin-left: 6px;
-}
-
-.main-search-history-icon {
-  border-radius: 50%;
-  display: inline-block;
-  height: 12px; width: 12px;
-  background: #f1f1f1;
-  position: absolute; top: 50%; left: 0;
-  margin-top: -7px;
-  border: 1px solid #999999;
-}
-
-.main-search-history-icon:after,
-.main-search-history-icon:before {
-  content: ' ';
-  font-size: 0;
-  position: absolute;
-  background: #3c3c3c;
-}
-
-.main-search-history-icon:after {
-  width: 1px; height: 6px;
-  left: 50%; top: 2px;
-}
-
-.main-search-history-icon:before {
-  width: 6px; height: 1px;
-  top: 50%; right: 1px;
-}
-
-.main-search-examples small {
-  font-size: 10px;
-}
-
-/* ---------------------------------- MAIN SEARCH FIELD END ----------------------------------- */
-
 .search-type-tabs {
   margin: auto;
   text-align: center;
@@ -90,7 +26,7 @@
 
 .search-type-tab {  
   font-weight: bold;
-  color: $lightblue;
+  color: $linkcolor;
   background-color: #eeeeee;
   padding: 15px 0;
   text-shadow: 1px 1px 0 #fff;

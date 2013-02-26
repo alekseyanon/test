@@ -15,6 +15,8 @@
 
     %div.promo-panel
       %div.promo-panel__inner
+        %div.promo-panel__text.promo-panel__greeting
+          Добро пожаловать в Смородину — путеводитель по родной стране, созданный ее жителями!
         %span.promo-panel__text
           Всего в Смородине
           %b 450926
@@ -33,7 +35,7 @@
                   Вход и регистрация
                   %span.icon.icon-door.user-panel__login__icon
             - else
-              %span.user-panel__account
+              %span.action-link.user-panel__account
                 %a{ href: profile_path(current_user.profile) }
                   Профиль
                   %span.icon.icon-user.user-panel__user__icon
@@ -65,22 +67,55 @@
             %a.control-panel__info-section__link{ href: "#english" }
               In English
 
-        %div.main-search.clearfix
-          %button#mainSearchButton.button.button_3d.button_violet.main-search__button
-            %span.button__inner.button_3d__inner
-              %span.button__text.button_3d__text{ data: { text: "Найти" }}
+        %div.promo-description
+          %div.promo-description__inner
+            %div.promo-description__container.promo-description__container_3
+              %div.promo-description__container.promo-description__container_2
+                %div.promo-description__container.promo-description__container_1
+                  %div.promo-description__column
+                    %div.promo-description__column__inner
+                      %div.promo-description__title
+                        Узнавай
+                      %small.promo-description__text
+                        Найди на Смородине места, которых нет в путеводителях, о которых знают
+                        только местные жители. Искать легко через поисковую строку или сразу на карте.
+                  %div.promo-description__column
+                    %div.promo-description__column__inner
+                      %div.promo-description__title
+                        Рассказывай
+                      %small.promo-description__text
+                        Поделись знаниями о стране, о родном крае. Твоя родина очень большая и все,
+                        кто ищет информацию на Смородине, будут тебе благодарны за помощь —
+                        выкладывай фотографии и описывай интересные объекты.
+                  %div.promo-description__column
+                    %div.promo-description__column__inner
+                      %div.promo-description__title
+                        Путешествуй
+                      %small.promo-description__text
+                        Узнавать страну можно не только на Смородине. Отправляйся в путешествие и
+                        посмотри своими глазами нам мир вокруг. Система планирования путешествий
+                        поможет разработать подробную программу поездки.
 
-          %div.main-search__field
-            %input#mainSearchFieldInput.main-search__field__input{ type: "text",
-              placeholder: "Куда поехать, что посмотреть, чем заняться, где заночевать, где поесть" }
-            %div.main-search__field__panel
-              %span.main-search__field__panel__example
-                Например,
-                %span.main-search__field__panel__example__text
-                  водопад Девичьи слёзы
-              %span.main-search__field__panel__history
-                %span.main-search__field__panel__history__text
-                  История поиска
-                %span.icon.icon-clock.main-search__field__panel__history_icon
+        %div.main-search
+          %div.main-search__inner.clearfix
+            %div.how-to-search.how-to-search
+            %button#mainSearchButton.button.button_3d.button_violet.main-search__button
+              %span.button__inner.button_3d__inner
+                %span.button__text.button_3d__text{ data: { text: "Найти" }}
+            %div.main-search__field
+              %input#mainSearchFieldInput.main-search__field__input{ type: "text",
+                placeholder: "Куда поехать, что посмотреть, чем заняться, где заночевать, где поесть" }
+              %div.main-search__field__panel
+                %small.main-search__field__panel__example
+                  Например,
+                  %span.action-link.main-search__field__panel__example__text
+                    водопад Девичьи слёзы
+                %small.main-search__field__panel__history
+                  %span.action-link.main-search__field__panel__history__text
+                    История поиска
+                  %span.icon.icon-clock.main-search__field__panel__history_icon
+
+        %div.search-filter
+          %div.search-filter__inner
 
         = yield

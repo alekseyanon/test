@@ -8,7 +8,7 @@
   @include filter-gradient(#9428b6, #b667ce);
 }
 
-.greetings-panel {
+.promo-panel {
   @include filter-gradient(#232323, #474747);
 }
 
@@ -19,4 +19,3 @@
 .control-panel__menu > a.selected {
   @include filter-gradient(#232323, #474747);
 }
-
