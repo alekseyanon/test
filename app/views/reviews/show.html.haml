@@ -8,7 +8,7 @@
   = @review.body
 
 .votes{id: dom_id(@review)}
-  =render partial: "votes", locals: { object_to_vote: @review, nested_path: '' }
+  =render partial: "shared/votes", locals: { object_to_vote: @review, nested_path: '' }
 
 %h4 Комментарии:
 
