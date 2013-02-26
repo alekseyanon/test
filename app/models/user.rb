@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
 
   has_many :ratings
 
+  has_many :comments
+  has_many :reviews
+
   acts_as_voter
   ### TODO: may be useful for calculation user rating
   # The following line is optional, and tracks karma (up votes) for questions this user has submitted.

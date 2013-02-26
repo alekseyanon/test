@@ -14,5 +14,6 @@
   - eos.each do |eo|
     %h3= link_to eo.event.title, eo.event
     %p= eo.start
-    %img{width: 86, height: 73, src: eo.event.image_url}
+    - unless eo.event.images.empty?
+      %img{width: 86, height: 73, src: eo.event.images.first.image_url(:thumb)}
     %p= eo.event.body
