@@ -23,10 +23,6 @@ a:link {
   color: inherit;
 }
 
-a:active, a:visited:active {
-  color: #dd4b39;
-}
-
 a:visited {
   color: #609;
 }
@@ -44,6 +40,10 @@ a:hover {
   display: inline-block;
   position: relative;
   cursor: pointer;
+}
+
+.ui-link:visited {
+  color: inherit;
 }
 
 /* ---------------------------------------- LINKS END ------------------------------------------- */

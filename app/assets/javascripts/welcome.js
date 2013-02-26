@@ -18,7 +18,14 @@
 			.bindPopup('A pretty CSS3 popup. <br> Easily customizable.')
 			.openPopup();
 
+
+		var $searchInput = $('#mainSearchFieldInput');
+		$searchInput.on('focus', function(){
+			$('.how-to-search').addClass('how-to-search_hidden');
+		})
+
 	});
+
 
 
 }());

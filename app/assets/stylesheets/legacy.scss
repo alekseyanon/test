@@ -17,22 +17,6 @@
   border: 5px solid #ccc;
 }
 
-.no-flexbox.no-flexboxlegacy .how-to-search {
-  float: left;
-}
-
-.no-flexbox.no-flexboxlegacy .main-search__field {
-  overflow: hidden;
-}
-
-.no-flexbox.no-flexboxlegacy .main-search__button {
-  float: right;
-}
-
-.no-flexbox.no-flexboxlegacy .main-search__field__input:focus {
-  @include box-shadow(inset 2px 2px 3px rgb(213, 213, 213));
-}
-
 .no-cssgradients .promo-description__container > .promo-description__container:after {
   background-color: #86D9F7;
 }
