@@ -9,14 +9,14 @@ class VotesController < InheritedResources::Base
     if (current_user.voted_on?(@voteable))
       render json: { positive: "#{@voteable.votes_for}", negative: "#{@voteable.votes_against}" }
     else
-      logg params, "Message: Check controller name, controller method for find voteable model"
+      request_logger params, "Message: Check controller name, controller method for find voteable model"
     end
   end
 
   def destroy
     current_user.unvote_for(@voteable)
     if (current_user.voted_on?(@voteable))
-      logg params,  "Message: Check controller name, controller method for find voteable model"
+      request_logger params,  "Message: Check controller name, controller method for find voteable model"
     else
       render json: { positive: "#{@voteable.votes_for}", negative: "#{@voteable.votes_against}" }
     end
