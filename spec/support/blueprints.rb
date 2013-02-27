@@ -65,7 +65,7 @@ User.blueprint do
   pwd = Faker::Lorem.characters(9)
   password { pwd }
   password_confirmation { pwd }
-  email { Faker::Internet.email }
+  email { "test#{sn}" + Faker::Internet.email }
   #roles { ["traveler"] }
   profile { Profile.make! }
 end
@@ -107,4 +107,3 @@ Rating.blueprint do
   value { rand(1..5) }
   landmark_description { LandmarkDescription.make! }
 end
-

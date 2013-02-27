@@ -7,12 +7,15 @@
   %b Body:
   = @review.body
 
-%h4 Comments:
+.votes{id: dom_id(@review)}
+  =render partial: "shared/votes", locals: { object_to_vote: @review, nested_path: '' }
+
+%h4 Комментарии:
 
 - @comment_roots.each do |root|
   = nested_comments root.subtree.arrange(order: :created_at)
 
-%h4 Add a comment:
+%h4 Добавить комментарий:
 
 = form_for([@review, @review.comments.build]) do |f|
   %p

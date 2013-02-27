@@ -1,0 +1,11 @@
+=render "shared/link_to_vote",css_id: dom_id(object_to_vote, :up), controller: nested_path
+(
+%span.up-vote= "#{object_to_vote.votes_for}"
+)
+|
+=render "shared/link_to_vote",css_id: dom_id(object_to_vote, :down), controller: nested_path
+(
+%span.down-vote= "#{object_to_vote.votes_against}"
+)
+- unless current_user.nil?
+  =link_to "unvote", "#", id: "vote-delete", onclick: "to_unvote(\'#{nested_path}#{dom_id(object_to_vote).split('_')[0]}\', #{object_to_vote.id});"

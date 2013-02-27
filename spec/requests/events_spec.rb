@@ -26,7 +26,7 @@ describe "Events", js: true, type: :request do
     click_on 'Save'
   end
 
-  let(:title) { Faker::Lorem.sentence }  
+  let(:title) { Faker::Lorem.sentence }
   let(:body)  { Faker::Lorem.sentence 2}
   let(:event) { Event.make! repeat_rule: 'weekly', title: title, start_date: Time.now}
 
@@ -55,9 +55,13 @@ describe "Events", js: true, type: :request do
     page.should have_content title
     fill_in 'text', with: title
     fill_in 'date', with: 1.day.from_now.strftime('%F')
+
+    # TODO: Хак, как обойти не знаю, без него у меня не отработало
+    page.execute_script("$('#ui-datepicker-div').css('display', 'none');")
+
     click_on 'Search'
     page.should have_no_content title
   end
-  
+
 end
 
