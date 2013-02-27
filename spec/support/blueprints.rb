@@ -89,7 +89,7 @@ Review.blueprint do
 end
 
 Image.blueprint do
-  # Attributes here
+  image { File.open("#{Rails.root}/spec/fixtures/images/fishing/toon376.gif") }
 end
 
 Comment.blueprint do
