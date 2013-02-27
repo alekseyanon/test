@@ -49,3 +49,8 @@
   @include background-image-svg("icons/circle-arrows");
   width: 29px; height: 34px;
 }
+
+.icon-dropdown {
+  @include background-image-svg("icons/dropdown");
+  width: 20px; height: 16px;
+}
