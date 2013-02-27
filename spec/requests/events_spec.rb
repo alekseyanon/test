@@ -63,6 +63,14 @@ describe "Events", js: true, type: :request do
     page.should have_no_content title
   end
 
+  it 'add field for load image' do
+    visit new_event_path
+    page.should have_selector('a.add_fields')
+    page.should_not have_selector("input[type='file']")
+    click_on 'add image'
+    page.should have_selector("input[type='file']")
+  end
+
   let(:event_with_image) { Event.make! images: [Image.make!]}
   it 'event with image' do
     visit event_path event_with_image

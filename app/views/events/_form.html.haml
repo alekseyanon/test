@@ -17,8 +17,6 @@
     = f.input :geom, input_html: { value: 'point(1 1)'}
     = f.input :duration
     = f.input :repeat_rule, collection: ['daily', 'weekly', 'monthly', 'half-year', 'yearly']
-    /= f.input :landmark_id, collection: @landmarks
-    /= f.input :image
     = f.fields_for :images do |builder|
       = render "image_fields", f: builder
     = link_to_add_fields "add image", f, :images
