@@ -3,8 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 
-
-###
 apiKey = 'cda4cc8498bd4da19e72af2b606f5c6e'
 tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
 
@@ -124,4 +122,4 @@ window.landmark_description_search = ->
   $searchField.on 'keydown', (e) ->
     if e.which is 13
       resetBoundsAndSearch()
-###
+
