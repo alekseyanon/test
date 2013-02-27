@@ -27,8 +27,8 @@ class VotesController < InheritedResources::Base
     def find_voteable_model
       [[:comment_id, Comment],
        [:review_id, Review],
-       [:image_id, Image] ].each do |(key, klass)|
-        return @voteable = klass.find(params[key]) if params.has_key? key
+       [:image_id, Image] ].each do |(key, voteable_class)|
+        return @voteable = voteable_class.find(params[key]) if params.has_key? key
       end
     end
 end
