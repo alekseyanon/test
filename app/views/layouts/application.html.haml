@@ -7,7 +7,7 @@
     %meta(name="viewport" content="width=device-width, initial-scale=1")
     %meta(http-equiv="cleartype" content="on")
     %title(Smorodina)
-    %link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
+    /%link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     /[if lte IE 8]
@@ -37,10 +37,11 @@
                   Вход и регистрация
                   %span.icon.icon-door.user-panel__login__icon
             - else
-              %span.action-link.user-panel__account
+              %span.user-link.user-panel__account
                 %a{ href: profile_path(current_user.profile) }
-                  Профиль
-                  %span.icon.icon-user.user-panel__user__icon
+                  %span.action-link
+                    Профиль
+                  %span.icon.icon-user.user-link__icon
 
           %div.slogan
             Путешествуй по России
@@ -62,9 +63,18 @@
             %a.ui-link.control-panel__info-section__link{ href: "#about" }<
               О проекте
             %span.control-panel__social-block
-              %span.icon.icon-vk.control-panel__social-block__link
-              %span.icon.icon-fb.control-panel__social-block__link
-              %span.icon.icon-tw.control-panel__social-block__link
+              %a.control-panel__social-block__link{ href: "#" }
+                %span.icon.icon-vk.control-panel__social-block__link__icon
+                %span.control-panel__social-block__link__text
+                  Смородина в Facebook
+              %a.control-panel__social-block__link{ href: "#" }
+                %span.icon.icon-fb.control-panel__social-block__link__icon
+                %span.control-panel__social-block__link__text
+                  Группа ВКонтакте
+              %a.control-panel__social-block__link{ href: "#" }
+                %span.icon.icon-tw.control-panel__social-block__link__icon
+                %span.control-panel__social-block__link__text
+                  Наш Twitter
 
         %div.promo-description
           %div.promo-description__inner

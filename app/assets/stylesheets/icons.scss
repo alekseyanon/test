@@ -34,3 +34,18 @@
   @include background-image-svg("icons/user");
   width: 13px; height: 14px;
 }
+
+.icon-tags {
+  @include background-image-svg("icons/tags");
+  width: 19px; height: 15px;
+}
+
+.icon-marker {
+  @include background-image-svg("icons/marker");
+  width: 14px; height: 21px;
+}
+
+.icon-circle-arrows {
+  @include background-image-svg("icons/circle-arrows");
+  width: 29px; height: 34px;
+}

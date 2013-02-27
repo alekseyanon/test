@@ -22,7 +22,17 @@
 		var $searchInput = $('#mainSearchFieldInput');
 		$searchInput.on('focus', function(){
 			$('.how-to-search').addClass('how-to-search_hidden');
-		})
+		});
+
+		$('.control-panel__logo').popover({
+			html: true,
+			placement: 'bottom',
+			/*selector: '#searchHistoryIcon',*/
+			trigger: 'hover',
+			content: function(){
+				return $('.control-panel__info-section').html();
+			}
+		});
 
 	});
 
