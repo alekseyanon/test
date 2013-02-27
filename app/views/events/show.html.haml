@@ -3,7 +3,7 @@
 %p= @event.body
 
 %ul
-  - @event.images.each do |i|
-    %li.event_image= image_tag i.image_url(:thumb)
-    .votes{id: dom_id(i)}
-      =render partial: "shared/votes", locals: { object_to_vote: i, nested_path: "" }
+  - @event.images.each do |image|
+    %li.event_image= image_tag image.image_url(:thumb)
+    .votes{id: dom_id(image)}
+      =render partial: "shared/votes", locals: { object_to_vote: image, nested_path: "" }
