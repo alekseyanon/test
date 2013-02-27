@@ -4,7 +4,7 @@ Smorodina::Application.routes.draw do
 
   resources :profiles
 
-  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   resources :images
 
@@ -43,10 +43,10 @@ Smorodina::Application.routes.draw do
   end
 
   # Авторизация через социальные сервисы
-  resources :authentications, :only => [:edit, :update, :destroy]
+  resources :authentications, only: [:edit, :update, :destroy]
   #match "/user/social_accounts", :to => "authentications#index", :as => :auth_list
-  match "/auth/:provider", :to => "users#auth_callback", :as => :auth
-  match "/auth/:provider/callback", :to => "users#auth_callback", :as => :auth_callback
+  match "/auth/:provider", to: 'users#auth_callback', as: :auth
+  match "/auth/:provider/callback", to: 'users#auth_callback', as: :auth_callback
 
   # controller :users do
   #   get( "/signup/:type", :action => :new, :as => :signup,
@@ -74,11 +74,11 @@ Smorodina::Application.routes.draw do
   # end
 
   controller :welcome do
-    get '/activation', :action => "pend_act", :as => :pendtoact
-    get '/new', :action => "new"
-    get '/edit', :action => "edit"
-    get '/show', :action => "show"
-    get '/history', :action => "history"
+    get '/activation', action: 'pend_act', as: :pendtoact
+    get '/new', action: 'new'
+    get '/edit', action: 'edit'
+    get '/show', action: 'show'
+    get '/history', action: 'history'
   end
 
   # routing for manage user_session model with nice url
@@ -90,12 +90,12 @@ Smorodina::Application.routes.draw do
 
   # resources :user_sessions # TODO: check errors
   controller :reset_password do
-    get "/forget_password", :action => 'forget_password'
-    post "/forget_password", :action => 'send_instruction'
-    get 'password_reset/:token', :action => 'password_form', :as => :reset_password
-    post 'password_reset/:token', :action => 'update_password'
+    get '/forget_password', action: 'forget_password'
+    post '/forget_password', action: 'send_instruction'
+    get 'password_reset/:token', action: 'password_form', as: :reset_password
+    post 'password_reset/:token', action: 'update_password'
   end
 
-  root :to => 'welcome#home'
+  root to: 'welcome#home'
 
 end
