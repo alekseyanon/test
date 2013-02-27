@@ -1,9 +1,9 @@
-=render "shared/link_to_vote",text: dom_id(object_to_vote, :up), controller: nested_path
+=render "shared/link_to_vote",css_id: dom_id(object_to_vote, :up), controller: nested_path
 (
 %span.up-vote= "#{object_to_vote.votes_for}"
 )
 |
-=render "shared/link_to_vote",text: dom_id(object_to_vote, :down), controller: nested_path
+=render "shared/link_to_vote",css_id: dom_id(object_to_vote, :down), controller: nested_path
 (
 %span.down-vote= "#{object_to_vote.votes_against}"
 )

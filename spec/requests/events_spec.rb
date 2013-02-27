@@ -26,53 +26,57 @@ describe "Events", js: true, type: :request do
     click_on 'Save'
   end
 
-  context "event without js" do
-    let(:title) { Faker::Lorem.sentence }
-    let(:body)  { Faker::Lorem.sentence 2}
-    let(:event) { Event.make! repeat_rule: 'weekly', title: title, start_date: Time.now}
+  let(:title) { Faker::Lorem.sentence }
+  let(:body)  { Faker::Lorem.sentence 2}
+  let(:event) { Event.make! repeat_rule: 'weekly', title: title, start_date: Time.now}
 
-    it 'creates a new event' do
-      create_new title, body
-      page.should have_content title
-      page.should have_content body
-    end
-
-    it 'has repeats in future' do
-      event
-      visit events_path
-      page.should have_content title
-      click_on "Позже"
-      page.should have_content title
-      click_on "Раньше"
-      click_on "Раньше"
-      page.should have_no_content title
-    end
-
-    it 'searchable' do
-      event
-      visit search_events_path
-      fill_in 'text', with: title
-      click_on 'Search'
-      page.should have_content title
-      fill_in 'text', with: title
-      fill_in 'date', with: 1.day.from_now.strftime('%F')
-
-      # TODO: Хак, как обойти не знаю, без него у меня не отработало
-      page.execute_script("$('#ui-datepicker-div').css('display', 'none');")
-
-      click_on 'Search'
-      page.should have_no_content title
-    end
-
-    let(:event_with_image) { Event.make! images: [Image.make!]}
-    it "event with image" do
-      visit event_path event_with_image
-      page.should have_selector(".event_image")
-    end
+  it 'creates a new event' do
+    create_new title, body
+    page.should have_content title
+    page.should have_content body
   end
 
-  context "testing events with js" do
+  it 'has repeats in future' do
+    event
+    visit events_path
+    page.should have_content title
+    click_on "Позже"
+    page.should have_content title
+    click_on "Раньше"
+    click_on "Раньше"
+    page.should have_no_content title
+  end
 
+  it 'searchable' do
+    event
+    visit search_events_path
+    fill_in 'text', with: title
+    click_on 'Search'
+    page.should have_content title
+    fill_in 'text', with: title
+    fill_in 'date', with: 1.day.from_now.strftime('%F')
+
+    # TODO: Хак, как обойти не знаю, без него у меня не отработало
+    page.execute_script("$('#ui-datepicker-div').css('display', 'none');")
+
+    click_on 'Search'
+    page.should have_no_content title
+  end
+
+  let(:event_with_image) { Event.make! images: [Image.make!]}
+  it 'event with image' do
+    visit event_path event_with_image
+    page.should have_selector(".event_image")
+    page.should have_selector(".votes")
+    page.find('.up-vote').should have_content '0'
+    page.find('.down-vote').should have_content '0'
+  end
+
+  it 'vote for image' do
+    visit event_path event_with_image
+    page.find('#vote-up').click
+    page.find('.up-vote').should have_content '1'
+    page.find('.down-vote').should have_content '0'
   end
 end
 
