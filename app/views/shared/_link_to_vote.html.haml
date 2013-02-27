@@ -1,4 +1,4 @@
 - if current_user.nil?
-  = "#{text.split('_')[0]}"
+  = "#{css_id.split('_')[0]}"
 - else
-  =link_to_vote text, controller
+  =link_to_vote css_id, controller
