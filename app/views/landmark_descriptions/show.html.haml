@@ -18,14 +18,13 @@
 .technical
   %h3 Рейтинг
   .landmark-descrition-rating{data:                                                       |
-      {average: "#{@landmark_description.average_rating}",                  |
+      {average: "#{@landmark_description.average_rating}",                                |
       id: "#{@landmark_description.id}"},                                                 |
-      class: "#{'jDisabled' if current_user.nil? }", style: "padding-top: 70px;" }  |
+      class: "#{'jDisabled' if current_user.nil? }", style: "padding-top: 70px;"}         |
   .user-rating{style: "color: green;"}
-    -if (!current_user.nil? &&                                        |
-    (tmp = current_user.ratings.with_landmark_id(@landmark_description)))   |
+    -if (@rate)
       Ваша оценка:
-      = tmp.value
+      =@rate.value
   = button_to "Добавить в планировщик", "#"
   .vk.soc
     Мне нравится VK

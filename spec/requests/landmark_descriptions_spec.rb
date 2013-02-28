@@ -69,6 +69,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       fill_in 'landmark_description_title', with: new_title
       select new_category, from: 'landmark_description_tag_list'
       click_on 'Применить изменения'
+      sleep 5
       page.should_not have_content title
       page.should have_content new_title
       # see db/seeds/categories.yml
@@ -151,14 +152,14 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#search-results").should_not have_content 'activities'
       page.find("#search-results").should_not have_content 'dolphinarium'
 
+      page.find('.search-type-tab-cell:first-child .search-type-tab').click
       page.fill_in 'mainSearchFieldInput', with: 'apartment'
       click_on "mainSearchButton"
-
+      sleep 5
       page.find("#search-results").should_not have_content 'food'
       page.find("#search-results").should_not have_content 'bar'
       page.find("#search-results").should_not have_content 'cafe'
 
-      puts page.html
       page.find("#search-results").should have_content 'lodging'
       page.find("#search-results").should have_content 'apartment'
     end

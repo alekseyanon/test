@@ -50,7 +50,10 @@ gem 'rmagick'
 
 gem 'rinku'               # auto_link
 gem 'friendly_id'         # slug
+gem 'thumbs_up'           # voting system
 
+# Gems used only for assets and not required
+# in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -72,7 +75,7 @@ gem 'rvm-capistrano'
 gem 'ptools'
 
 group :test, :development do
-  gem 'rspec'
+  gem 'rspec',   '~> 2.12'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'machinist'
