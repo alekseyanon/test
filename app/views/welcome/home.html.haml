@@ -2,7 +2,7 @@
   %div.search-filter__inner
 %div.map__outer
   %div.map__inner
-    %div#leaflet.map
+    %div#map.map
 %div.footer
   %div.footer__inner
     %div.row-fluid
@@ -268,3 +268,6 @@
         %span.button__inner.button_3d__inner
           %span.button__text.button_3d__text{ data: { text: "Еще результаты" }}
 
+
+%script
+  $(function(){ landmark_description_search();})

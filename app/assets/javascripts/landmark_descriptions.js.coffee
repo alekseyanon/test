@@ -7,7 +7,7 @@ apiKey = 'cda4cc8498bd4da19e72af2b606f5c6e'
 tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
 
 initMap = ->
-  map = L.map('map')
+  map = L.map('map', { scrollWheelZoom: false })
   lg = L.layerGroup([]).addTo map
   L.tileLayer(tileUrlTemplate,{maxZoom: 18}).addTo map
   [map, lg]
@@ -77,7 +77,7 @@ window.landmark_description_search = ->
       else
         L.marker(latlon).addTo lg
 
-  $('#search-results').html landmarksView.render().el
+  $('#search-results').html landmarksView.render().el if $('#search-results').length
 
 
   updateQuery = ->

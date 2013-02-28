@@ -54,8 +54,9 @@
   %br
   %br
 %br
-.map
-  .leaflet-edit-object{id: "map", data: {x: "#@x", y: "#@y"}}
+%div.map__outer
+  %div.map__inner
+    %div.map.leaflet-edit-object{id: "map", data: {x: "#@x", y: "#@y"}}
 %br
 =link_to "Отзывы", "#"
 |
