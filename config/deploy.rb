@@ -28,7 +28,7 @@ role :db,  "5.9.120.46", :primary => true        # This is where Rails migration
 set :scm,         :git
 set :branch,      :deploy
 set :deploy_to,   "/home/deployer/apps/#{application}"
-set :deploy_via,  :remote_cache
+#set :deploy_via,  :remote_cache
 set :git_enable_submodules, 1
 set :rails_env,   'production'
 
@@ -38,7 +38,6 @@ set :user,        'deployer'
 default_run_options[:pty] = true
 
 before 'deploy:update_code', 'smorodina:daemons:stop'
-after  'deploy:update_code', 'smorodina:symlink'
 after  'deploy:update_code', 'smorodina:symlink'
 after  'smorodina:symlink',  'smorodina:db'
 after  'smorodina:db',       'smorodina:daemons:start'
@@ -51,6 +50,7 @@ end
 namespace :smorodina do
   desc "Make symlink for additional smorodina files"
   task :symlink do
+    run "rm -f #{current_path} && ln -s #{release_path} #{current_path}" #TODO remove hack, capistrano should do this
     run "ln -nfs #{shared_path}/config/database.yml        #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/config/social_services.yml #{release_path}/config/social_services.yml"
     run "ln -nfs #{shared_path}/uploads                    #{release_path}/public/uploads"
