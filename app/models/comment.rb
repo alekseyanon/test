@@ -4,6 +4,8 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true
   belongs_to :user
 
+  acts_as_voteable
+
   # TODO disable for migration on Ancestry
   # after_create :send_notifications
 

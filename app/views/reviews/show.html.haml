@@ -7,26 +7,15 @@
   %b Body:
   = @review.body
 
-.votes{id: "reviews#{@review.id}"}
-  =render "link_to_vote",text: "up", controller: 'reviews', locals: { resource: @review }
-  (
-  %span.up-vote= "#{@review.votes_for}"
-  )
-  |
-  =render "link_to_vote",text: "down", controller: 'reviews', locals: { resource: @review }
-  (
-  %span.down-vote= "#{@review.votes_against}"
-  )
-  - unless current_user.nil?
-    =link_to "unvote", "#", id: "vote-delete", onclick: "to_unvote('reviews', #{@review.id});"
+.votes{id: dom_id(@review)}
+  =render partial: "shared/votes", locals: { object_to_vote: @review, nested_path: '' }
 
-%h4 Comments:
+%h4 Комментарии:
 
 - @comment_roots.each do |root|
   = nested_comments root.subtree.arrange(order: :created_at)
 
-
-%h4 Add a comment:
+%h4 Добавить комментарий:
 
 = form_for([@review, @review.comments.build]) do |f|
   %p
