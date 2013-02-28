@@ -58,5 +58,16 @@ EOF`
     Rake::Task['db:osmosis'].invoke 'RU-LEN.osm.bz2'
   end
 
-  task nuke: [:drop, :create, :osm_schema, :fill_with_test_data, :osm_drop_users, :migrate, :seed, 'landmarks:populate']
+  task :nuke do
+    ['db:drop',
+     'db:create',
+     'db:osm_schema',
+     'db:fill_with_test_data',
+     'db:osm_drop_users',
+     'db:migrate',
+     'db:seed',
+     'landmarks:populate'].each do |t|
+      Rake::Task[t].invoke
+    end
+  end
 end
