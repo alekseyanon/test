@@ -173,7 +173,7 @@ a:hover, .tdn-link:hover {
 
 .control-panel {
   @include border-radius(13px);
-  @include box-shadow(inset 0 -1px rgba(255,255,255,.75), 0 15px 20px 0px rgba(43,41,7,0.3));
+  @include box-shadow(inset 0 -1px rgba(255,255,255,0.75),0 10px 13px 0px rgba(43,41,7,0.2));
   @include background-image(linear-gradient(top, rgba(255,255,255,1) 20%,rgba(240,240,240,1) 100%));
   border: solid 1px #e4e5f1;
   border-bottom: solid 4px #9d9fac;
@@ -590,6 +590,9 @@ a:hover, .tdn-link:hover {
 
 /* ---------------------------------------- CHRONICLE START ------------------------------------- */
 
+.chronicle {
+  padding: 0 30px;
+}
 
 .chronicle__search {
   text-align: center;
