@@ -2,77 +2,131 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-apiKey='cda4cc8498bd4da19e72af2b606f5c6e'
+apiKey = 'cda4cc8498bd4da19e72af2b606f5c6e'
 tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
 
-$ ->
+initMap = ->
   map = L.map('map')
   lg = L.layerGroup([]).addTo map
-  L.tileLayer(tileUrlTemplate,
-    maxZoom: 18
-  ).addTo map
+  L.tileLayer(tileUrlTemplate,{maxZoom: 18}).addTo map
+  [map, lg]
 
-  leafletData = $ '.leaflet-edit-object'
-  if leafletData.length > 0 #TODO define current view in a more reliable way
-    console.log 'single marker mode'
-    x = leafletData.data('x') || 30
-    y = leafletData.data('y') || 56
-    map.setView [y, x], 13
-    L.marker([y, x]).addTo map
-    return
-    
+showLatLng = (latlng) ->
+  $("#landmark_description_xld").val latlng.lng
+  $("#landmark_description_yld").val latlng.lat
+
+getLatLng = ->
+  d = $ '.leaflet-edit-object'
+  new L.LatLng(d.data('y') || 59.947, d.data('x') || 30.233)
+
+window.landmark_description_new = ->
+  [map, _] = initMap()
+  map.setView [59.947, 30.255], 13
+  popup = L.popup()
+  map.on 'click', (e) ->
+    showLatLng e.latlng
+    $.getJSON '/landmark_descriptions/nearest_node.json',
+      x: e.latlng.lng
+      y: e.latlng.lat
+      (data) -> 
+        popup
+          .setLatLng(data)
+          .setContent("Place for object marker")
+          .openOn(map)
+
+window.landmark_description_edit = ->
+  [map, _] = initMap()
+  latlng = getLatLng()
+  map.setView latlng, 13
+  L.marker(latlng).addTo map
+  popup = L.popup()
+  map.on 'click', (e) ->
+    showLatLng e.latlng
+    popup
+      .setLatLng(e.latlng)
+      .setContent("New place of object")
+      .openOn(map)
+
+window.landmark_description_show = ->
+  [map, _] = initMap()
+  latlng = getLatLng()
+  map.setView latlng, 13
+  L.marker(latlng).addTo map
+
+window.landmark_description_search = ->
+  [map, lg] = initMap()
   lastBounds = null
+  facets = []
+  $searchField = $('#searchField')
+  landmarks = new Smorodina.Collections.Landmarks
+  landmarksView = new Smorodina.Views.LandmarkList
+    collection: landmarks
 
-  setFields = (x,y,r) ->
-    $("#x").val x
-    $("#y").val y
-    $("#r").val r
+  coffeeIcon = L.icon(
+    iconUrl:    '/assets/coffee.png'
+    iconSize:   [40, 40]
+    iconAnchor: [20, 35])
 
-  getCurrentlyVisibleIDs = ->
-    parseInt($(e).attr 'id') for e in $('#search-results').children('.landmark-search-result')
-
-  addResultBlock = (description) ->
-    block = $('#landmark-template').clone()
-    block.attr "id", description.id
-    $(block).find('.landmark-title').text description.title
-    $(block).find('.landmark-tags').text description.tag_list
-    $('#search-results').append block
-    $(block).show()
-
-  applySearch = (data) -> #TODO refactor
-    currentIDs = getCurrentlyVisibleIDs()
-    newIDs = (desc.id for desc in data)
-    IDsToRemove = _.without(currentIDs, newIDs...)
-    IDsToAdd = _.without(newIDs, currentIDs...)
-    addResultBlock(desc) for desc in data when _.contains(IDsToAdd, desc.id)
-    $("##{id}").remove() for id in IDsToRemove
+  putMarkers = ->
     lg.clearLayers()
-    L.marker(desc.describable.osm.latlon).addTo(lg) for desc in data
+    landmarks.forEach (l) ->
+      latlon = l.get('describable').osm.latlon
+      if 'food' in l.get('tag_list')
+        L.marker(latlon, {icon: coffeeIcon}).addTo lg
+      else
+        L.marker(latlon).addTo lg
+
+  $('#search-results').html landmarksView.render().el
+
 
   updateQuery = ->
     bounds = map.getBounds()
     return if bounds.equals lastBounds
     lastBounds = bounds
     center = map.getCenter()
-#    radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
+    #  radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
     radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 / 60.0 #SRID 4326
-    text = $('#text').val()
-    setFields center.lng, center.lat, radius
-    $.getJSON '/landmark_descriptions.json',
-      query:
-        x: center.lat
-        y: center.lng
-        r: radius
-        text: text
-      (data) -> applySearch data
+    text = $searchField.val()
 
-  map.on 'load', ->
-    map.on 'zoomend', (e) ->
-      updateQuery()
-    map.on 'moveend', (e) ->
-      updateQuery()
-    updateQuery()
-  $('#text').change ->
+    query =
+      x: center.lat
+      y: center.lng
+      r: radius
+      text: text
+
+    query.facets = facets
+
+    landmarks.fetch
+      update: true
+      data: $.param
+        query: query
+      success: putMarkers
+
+  resetBoundsAndSearch = ->
     lastBounds = null
     updateQuery()
-  map.setView [59.939,30.341], 13
+
+  map.on 'load', ->
+    map.on 'zoomend', updateQuery
+    map.on 'moveend', updateQuery
+    updateQuery()
+
+  map.setView [59.939,30.341], 13 #SPB
+
+  $('.tabs').on 'click', '.tab', ->
+    $tab = $(this)
+    $tabs = $('.tabs').find('.tab')
+    facet = $tab.data('facet')
+    facets = if facet then [facet] else []
+
+    $tabs.removeClass('selected')
+    $tab.addClass('selected')
+
+    resetBoundsAndSearch()
+   
+    
+  $("#searchButton").on 'click', resetBoundsAndSearch
+
+  $searchField.on 'keydown', (e) ->
+    if e.which is 13
+      resetBoundsAndSearch()

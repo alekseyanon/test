@@ -1,30 +1,249 @@
 // Place all the styles related to the LandmarkDescriptions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 .leaflet-wide {
-  height: 250px
+  height: 250px;
+  margin-bottom: 20px;
 }
 
 .leaflet-create-object {
-  height: 400px
-}
-.leaflet-edit-object {
-  height: 150px
+  height: 400px;
 }
 
-.ld {
-  border-bottom: 1px dotted gray
+.leaflet-edit-object {
+  height: 150px;
 }
+
+/* ---------------------------------- MAIN SEARCH FIELD START --------------------------------- */
+
+.main-search {
+  width: 85%;
+  margin: 0 auto 25px auto;
+  text-align: center;
+}
+
+.main-search-description {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.main-search-field-container {
+  overflow: hidden;
+}
+
+.main-search-button {
+  float: right;
+  margin-left: 10px;
+}
+
+.main-search-history {
+  position: relative;
+  padding-left: 18px;
+  margin-left: 6px;
+}
+
+.main-search-history-icon {
+  border-radius: 50%;
+  display: inline-block;
+  height: 12px; width: 12px;
+  background: #f1f1f1;
+  position: absolute; top: 50%; left: 0;
+  margin-top: -7px;
+  border: 1px solid #999999;
+}
+
+.main-search-history-icon:after,
+.main-search-history-icon:before {
+  content: ' ';
+  font-size: 0;
+  position: absolute;
+  background: #3c3c3c;
+}
+
+.main-search-history-icon:after {
+  width: 1px; height: 6px;
+  left: 50%; top: 2px;
+}
+
+.main-search-history-icon:before {
+  width: 6px; height: 1px;
+  top: 50%; right: 1px;
+}
+
+.main-search-examples small {
+  font-size: 10px;
+}
+
+/* ---------------------------------- MAIN SEARCH FIELD END ----------------------------------- */
+
+.search-type-tabs {
+  margin: auto;
+  text-align: center;
+  width: 80%;
+  display: table;
+}
+
+.search-type-tab-cell {
+  display: table-cell;
+}
+
+.search-type-tab {  
+  font-weight: bold;
+  color: $lightblue;
+  background-color: #eeeeee;
+  padding: 15px 0;
+  text-shadow: 1px 1px 0 #fff;
+  @include border-top-radius(15px);
+  cursor: pointer;
+}
+
+.search-type-tab.selected {
+  background-color: #393939;
+  color: #fff;
+  text-shadow: none;
+  cursor: default;
+}
+
+.search-type-tab-content {
+
+}
+
+/* ---------------------------------- SEARCH RESULT START --------------------------------- */
+
+.search-results-section-header {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  font-size:  30px;
+  line-height: 1.1;
+  color: #787a83;
+  font-family: 'Open Sans';
+  font-weight: 300;
+  margin: 0 0 30px 0;
+}
+
+.search-results-section-header:before,
+.search-results-section-header:after {
+  content: "";
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  height: 1px;
+  vertical-align: middle;
+  background: #787a83;
+}
+
+.search-results-section-header:before {
+  left: -20px;
+  margin: 0 0 0 -50%;
+}
+
+.search-results-section-header:after {
+  left: 20px;
+  margin: 0 -50% 0 0;
+}
+
+.search-results-section {
+  padding: 0 20px;
+}
+
 .landmark-search-result {
-  border-bottom: 1px dotted gray
+  border-top: 1px dotted #cacce0;
+  padding: 30px 0;
 }
-.picture {
-  float: left;
-  width: 100px;
-  height: 100px;
-  background: gray;
-  margin: 10px
+
+.landmark-search-result:before,
+.landmark-search-result:after {
+  content: " ";
+  display: table;
 }
-.clear-lf {
-  clear: left
+
+.landmark-search-result:after {
+  clear: both;
 }
+
+.landmark-search-result:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.landmark-search-result-img {
+  margin-right: 20px;
+  position:relative;
+  float:left;
+  @include box-shadow(rgba(0, 0, 0, 0.1) 0 2px 6px 0);
+}
+
+.landmark-search-result-img:before,
+.landmark-search-result-img:after {
+  content:"";
+  position:absolute;
+  bottom:15px;
+  left:3px;
+  width:50%;
+  height:20%;
+  max-width:300px;
+  max-height:100px;
+  @include box-shadow(rgba(0, 0, 0, 0.4) 0 15px 10px 0);
+  @include rotate(-5deg);
+}
+
+.landmark-search-result-img:after {
+  right:3px;
+  left:auto;
+  @include rotate(5deg);
+}
+
+.landmark-search-result-img-inner {
+  padding: 5px;
+  background:#fff;
+  position: relative;
+  z-index: 1;
+}
+
+.landmark-search-result-img-inner img {
+  display: block;
+}
+
+.landmark-search-result-content {
+  padding-top: 5px;
+  overflow: hidden;
+}
+
+.landmark-search-result-title {
+  font-size: 18px;
+  font-family: 'Open Sans';
+  font-weight: 800;
+  margin: 0 0 10px 0;
+}
+
+.landmark-search-result-title a {
+  color: #000;
+}
+
+.landmark-search-result-tags-text,
+.landmark-search-result-comments-number {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.landmark-search-result-tags-icon,
+.landmark-search-result-comments-icon {
+  display: inline-block;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+
+.landmark-search-result-tags-icon {
+  width: 13px; height: 10px;
+}
+
+.landmark-search-result-comments-icon {
+  width: 19px; height: 15px;
+}
+
+/* ---------------------------------- SEARCH RESULT END ----------------------------------- */

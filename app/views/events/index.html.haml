@@ -1,0 +1,18 @@
+%ul{class: "nav nav-tabs"}
+  %li.active= link_to 'События', '#'
+  %li= link_to 'Новое событие', new_event_path
+  %li= link_to 'Поиск', search_events_path
+
+= link_to 'Раньше', week_path('last week monday', @date)
+События на неделю:
+= @date
+= link_to 'Позже', week_path('next week monday', @date)
+
+
+- @days.each do |date, eos|
+  %h2= Russian::strftime(eos.first.start, "%A, %d %B %Y г.").mb_chars.capitalize
+  - eos.each do |eo|
+    %h3= link_to eo.event.title, eo.event
+    %p= eo.start
+    %img{width: 86, height: 73, src: eo.event.image_url}
+    %p= eo.event.body

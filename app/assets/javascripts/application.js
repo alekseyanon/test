@@ -10,14 +10,36 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//= require modernizr
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
+//= require jquery-datetimepicker
 //= require chosen-jquery
 //= require underscore
+//= require backbone
+//= require smorodina
+//= require hamlcoffee
 //= require_tree .
 //= require leaflet
+//= require jquery/jRating.jquery
+//= require jquery.Jcrop
 
 $(function() {
+    $(".landmark-descrition-rating").jRating({
+      step:true,
+      rateMax : 5,
+      length : 5,
+      bigStarsPath : '/assets/jquery/icons/stars.png',
+      smallStarsPath : '/assets/jquery/icons/small.png',
+      phpPath : '/ratings',
+      onSuccess :function(data, test){
+          $(".user-rating").html("");
+        },
+      onError :function(data, test){
+          $(".user-rating").html("<b style='color:red'>Произошла не предвиденная ошибка. Повторите попытку позже.</b>");
+        }
+    });
 
     $('#cropbox').Jcrop({
       aspectRatio: 1,
@@ -27,6 +49,43 @@ $(function() {
     });
 
 });
+
+/*TODO сделать корректно.
+Пока работает следующим образом: родительского класса для голосавлки
+должно совпадать с названием контроллера объекта за который голосуем*/
+function to_vote(voteable_controller, voteable_id, sign) {
+  var id = voteable_controller.split("/").pop() + "_" + voteable_id;
+  var up = "#" + id + " .up-vote";
+  var down = "#" + id + " .down-vote"
+  $.ajax({
+    type: "POST",
+    /*url: "/reviews/"+review_id+"/make_vote",*/
+    url: "/"+voteable_controller+"s/"+voteable_id+"/votes",
+    data: ({sign: sign}), /*, id: review_id*/
+    success: function(data){
+      $(up).html(data.positive);
+      $(down).html(data.negative);
+    },
+    error: function(data){
+      alert("something wrong")
+    },
+    datatype: "json"});
+}
+function to_unvote(voteable_controller, voteable_id) {
+  var id = voteable_controller.split("/").pop() + "_" + voteable_id;
+  $.ajax({
+    type: "POST",
+    url: "/"+voteable_controller+"s/"+voteable_id+"/votes/500", /*"/votes/1",*/
+    data: ({"_method": "delete"}),
+    success: function(data){
+      $("#" + id + " .up-vote").html(data.positive);
+      $("#" + id + " .down-vote").html(data.negative);
+    },
+    error: function(data){
+      alert("something wrong")
+    },
+    datatype: "json"});
+}
 
 function update(coords) {
   $('#user_crop_x').val(coords.x);

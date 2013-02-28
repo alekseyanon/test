@@ -5,27 +5,26 @@
     %meta(charset="utf-8")
     %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
     %title(Smorodina)
-    = stylesheet_link_tag    "application", :media => "all" 
-    = javascript_include_tag "application" 
-    = csrf_meta_tags 
-
+    %link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
   %body
-    #user_nav.btn-group
-      
-      %br/
-      -# comment 1
-      -# = link_to "Отправить почту", sendmail_path
-      .btn= link_to "Личный кабинет", profile_path(:type => 'traveler') 
-      .btn= link_to "Забыли пароль", forget_password_path 
-
-      - if current_user
-        .btn= link_to "Редактировать профиль", edit_user_path(current_user)
-        .btn= link_to "Настройки", settings_user_path(current_user)
-        .btn= link_to "Log out", logout_path, :method => :delete 
-      - else
-        -# = link_to "Log in", login_path 
-        -# .btn= link_to "Register", signup_path(:type => 'traveler')
-
-        -# .btn= link_to "login ", login_path(:type => 'traveler')
-      .btn=link_to "список объектов", landmark_descriptions_path
-    = yield 
+    %div{class: 'navbar navbar-inverse navbar-fixed-top'}
+      .navbar-inner
+        .container
+          %a{class: "btn btn-navbar", 'data-toggle' => "collapse", 'data-target' => ".nav-collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a{class: "brand", href: "/"} Smorodina
+          .nav-collapse.collapse
+            %ul.nav
+              - if current_user.nil?
+                %li= link_to 'Войти', new_user_session_path
+              - else
+                %li= link_to "Профиль", profile_path(current_user.profile)
+              %li= link_to 'Объекты', landmark_descriptions_path
+              %li= link_to 'События', events_path
+    .container
+      = yield

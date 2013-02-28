@@ -2,7 +2,7 @@
 require 'machinist/active_record'
 
 Osm::Node.blueprint do
-  id { 2 * 10 ** 9 + 2000 + sn.to_i }
+  id { 2 * 10 ** 9 + 9000 + sn.to_i }
   geom { Geo::factory.point(29.9918672, 60.0052767) }
   tags { { transport: 'subway', station: 'subway',
            railway: 'station', operator: 'Петербургский метрополитен',
@@ -23,11 +23,16 @@ Osm::Poly.blueprint do
   version { 0 }
   user_id { 0 }
   tstamp { Time.now }
+  geom { Geo.factory.polygon Geo.factory.line_string [[0,0], [1,0], [0,1], [0,0]].map{|(x,y)| Geo.factory.point x,y } }
   changeset_id { 0 }
 end
 
 Landmark.blueprint do
   osm { Osm::Node.make }
+end
+
+Area.blueprint do
+  osm { Osm::Poly.make }
 end
 
 Category.blueprint do
@@ -37,7 +42,7 @@ Category.blueprint do
 end
 
 AbstractDescription.blueprint do
-  user { User.make }
+  user { User.make! }
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
   published { [true, false].sample }
@@ -45,13 +50,11 @@ AbstractDescription.blueprint do
 end
 
 LandmarkDescription.blueprint do
-  user { User.make }
-  title { Faker::Lorem.sentence }
-  body { Faker::Lorem.sentences 10 }
-  published { [true, false].sample }
-  published_at { Time.now }
-
   describable { Landmark.make }
+end
+
+AreaDescription.blueprint do
+  describable { Area.make }
 end
 
 Authentication.blueprint do
@@ -59,11 +62,48 @@ Authentication.blueprint do
 end
 
 User.blueprint do
-  tmp = Faker::Lorem.characters(5)
+  pwd = Faker::Lorem.characters(9)
+  password { pwd }
+  password_confirmation { pwd }
+  email { "test#{sn}" + Faker::Internet.email }
+  #roles { ["traveler"] }
+  profile { Profile.make! }
+end
+
+Event.blueprint do
+  title { Faker::Lorem.sentence }
+  start_date { (1..14).to_a.sample.days.ago }
+  geom { Geo::factory.point(10, 10) }
+  duration {3}
+end
+
+EventOccurrence.blueprint do
+  start { Time.now }
+end
+
+Review.blueprint do
+  title { Faker::Lorem.sentence }
+  body { Faker::Lorem.sentences 10 }
+  user { User.make! }
+  reviewable { LandmarkDescription.make! }
+end
+
+Image.blueprint do
+  # Attributes here
+end
+
+Comment.blueprint do
+  body { Faker::Lorem.sentences 3 }
+  user { User.make! }
+  commentable { Review.make! }
+end
+
+Profile.blueprint do
   name { Faker::Lorem.word }
-  password { tmp }
-  password_confirmation { tmp }
-  email { Faker::Internet.email }
-  roles { ["traveler"] }
-  perishable_token { "perishabletoken" }
+end
+
+Rating.blueprint do
+  user { User.make! }
+  value { rand(1..5) }
+  landmark_description { LandmarkDescription.make! }
 end

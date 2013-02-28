@@ -1,3 +1,4 @@
+
 =link_to "список объектов", landmark_descriptions_path
 
 %h1 Добавление нового объекта
@@ -16,10 +17,12 @@
     %a{:name => "place"}
     %h3 Укажите местоположения
     .leaflet-create-object{id: "map", :data => {:x => 30.3, :y => 60}}
+    = f.input :xld
+    = f.input :yld
 
     %a{:name => "category"}
     %h3 Категория
-    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите в ручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name_ru, :include_blank => false 
+    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите вручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name, :include_blank => false
     %h3{:onclick => "$('.categories').toggle();"} 
       =link_to "Или выбери из списка", "#"
     .categories  
@@ -48,3 +51,6 @@
 %h3 Далее идет SEO-текст.
 %br
 %br
+
+%script
+  $(window).load(function(){ landmark_description_new();})

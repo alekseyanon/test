@@ -15,6 +15,7 @@ namespace :db do
       way_nodes
       ways
     )
+    conn.execute "ALTER TABLE ways DROP COLUMN geom"
     r = conn.execute "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"
     r.each do |row|
       table_name = row['table_name']

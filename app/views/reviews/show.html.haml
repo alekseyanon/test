@@ -1,0 +1,28 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @review.title
+%p
+  %b Body:
+  = @review.body
+
+.votes{id: dom_id(@review)}
+  =render partial: "shared/votes", locals: { object_to_vote: @review, nested_path: '' }
+
+%h4 Комментарии:
+
+- @comment_roots.each do |root|
+  = nested_comments root.subtree.arrange(order: :created_at)
+
+%h4 Добавить комментарий:
+
+= form_for([@review, @review.comments.build]) do |f|
+  %p
+    = f.label :body
+    %br
+    = f.text_area :body, rows: '3'
+  %p= f.submit
+= link_to 'Edit', edit_review_path(@review)
+\|
+= link_to 'Back', reviews_path

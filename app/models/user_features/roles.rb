@@ -12,7 +12,7 @@ module UserFeatures
     module ClassMethods
       def roles_support
         bitfield_attribute :roles,
-                           :values => ROLES
+                           values: ROLES
 
         validate            :check_roles
 

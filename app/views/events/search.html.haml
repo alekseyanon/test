@@ -1,0 +1,20 @@
+%ul{class: "nav nav-tabs"}
+  %li= link_to 'События', events_path
+  %li= link_to 'Новое событие', new_event_path
+  %li.active= link_to 'Поиск', '#'
+
+.span6.offset6
+  = form_tag '/events/search', method: :post, class: 'form-search' do
+    = text_field_tag 'date', '', class: 'input-medium search-query', placeholder: 'Date...'
+    .input-append
+      = text_field_tag 'text', '', class: 'span2 search-query', placeholder: 'Search term...'
+      %button{type: "submit", class: "btn btn-primary"} Search
+
+- if @events
+  %h2= "Результатов поиска: #{@events.count}"
+  - @events.each do |e|
+    %p= link_to e.title, e
+
+:javascript
+  $( "#date" ).datepicker({ dateFormat: "yy-mm-dd" });
+  

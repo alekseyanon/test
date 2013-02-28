@@ -1,38 +1,46 @@
-.leaflet-wide{id: "map"}
-%h1 Куда отправиться
+%h1.page-title.page-title__centered Куда отправиться
 
-= form_tag '/landmark_descriptions/do_search', :method => :post do
-  .inputs
-    %strong Что
-    = text_field_tag :text
-    %strong X
-    = text_field_tag :x, nil, :disabled => true
-    %strong Y
-    = text_field_tag :y, nil, :disabled => true
-    %strong Радиус
-    = text_field_tag :r, nil, :disabled => true
-  -#.actions
-  -#  = submit_tag 'Search'
+%div.main-search
+  %div.main-search-description
+    Найди места куда поехать, что посмотреть, чем заняться, где заночевать, где поесть
+  %div.clearfix
+    = button_tag "Найти", id: 'searchButton', class: 'btn main-search-button'
+    %div.main-search-field-container
+      = text_field_tag 'searchField', nil, class: 'input-block-level main-search-field-input', placeholder: 'Рыбалка'
+  %span.main-search-examples
+    %small
+      Например,
+    = link_to "водопад Девичьи слёзы", "#"
+    (
+    %span.action-link
+      все примеры поиска
+    )
+  %span.main-search-history
+    %span.main-search-history-icon
+    %span.action-link История поиска
 
-%br
-=link_to "Все варианты", "#"
-|
-=link_to "Что посмотреть", "#"
-|
-=link_to "Чем заняться", "#"
-|
-=link_to "Где заночевать", "#"
-|
-=link_to "Где поесть", "#"
-%br
 
-%h3 Лучшие варианты
-%div#search-results
+%div.tabs.search-type-tabs
+  %div.search-type-tab-cell
+    %div.tab.search-type-tab{ data: { facet: "" } }
+      Все варианты
+  %div.search-type-tab-cell
+    %div.tab.search-type-tab{ data: { facet: "sightseeing" } }
+      Что посмотреть
+  %div.search-type-tab-cell
+    %div.tab.search-type-tab{ data: { facet: "activities" } }
+      Чем заняться
+  %div.search-type-tab-cell
+    %div.tab.search-type-tab{ data: { facet: "lodging" } }
+      Где заночевать
+  %div.search-type-tab-cell
+    %div.tab.search-type-tab{ data: { facet: "food" } }
+      Где поесть
 
-%div#landmark-template.landmark-search-result{hidden: true}
-  .picture
-  %h4.landmark-title template title
-  %br
-  %div.landmark-tags
-  %br
-  .clear-lf
+%div.leaflet-wide{id: "map"}
+
+%h2.search-results-section-header Лучшие варианты
+%div#search-results.search-results-section
+
+%script
+  $(window).load(function(){ landmark_description_search();})

@@ -24,8 +24,11 @@
 /test/
 
 /config/database.yml
+/config/social_services.yml
 *.orig
 *.swp
-
+*~
 
 /public/uploads/
+
+.tddium*

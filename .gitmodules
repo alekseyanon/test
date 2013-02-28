@@ -1,0 +1,3 @@
+[submodule "vendor/assets/jRating"]
+	path = vendor/assets/jRating
+	url = git://github.com/alpixel/jRating.git

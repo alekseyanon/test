@@ -26,7 +26,7 @@ role :db,  "5.9.120.46", :primary => true        # This is where Rails migration
 
 
 set :scm,         :git
-set :branch,      :deploy
+set :branch,      :dev
 set :deploy_to,   "/home/deployer/apps/#{application}"
 set :deploy_via,  :remote_cache
 set :git_enable_submodules, 1
@@ -37,10 +37,9 @@ set :user,        "deployer"
 
 default_run_options[:pty] = true
 
-after  "smorodina:symlink",  "smorodina:daemons:start"
 before "deploy:update_code", "smorodina:daemons:stop"
-
-after "deploy:update_code", "smorodina:symlink"
+after  "deploy:update_code", "smorodina:symlink"
+after  "smorodina:symlink",  "smorodina:daemons:start"
 
 def run_rake(task)
   run "cd #{current_path} && rake RAILS_ENV=#{rails_env} #{task}"
@@ -57,23 +56,35 @@ namespace :smorodina do
   namespace :daemons do
     desc "Stop all application daemons"
     task :stop, :roles => :app do
+      unicorn.graceful_stop
     end
 
     desc "Start all application daemons"
     task :start, :roles => :app do
+      unicorn.start
+    end
+  end
+
+  set :rails_env, :production
+  set :unicorn_config, "#{current_path}/config/unicorn.rb"
+  set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
+
+  namespace :unicorn do
+    roles = {roles: :app, except: { no_release: true }}
+    task :start, roles  do
+      run "cd #{current_path} && unicorn_rails -c #{unicorn_config} -E #{rails_env} -D"
+    end
+
+    {stop: 'KILL', graceful_stop: 'TERM', reload: 'USR2'}.each_pair do |t, signal|
+      task t, roles do
+        run "if [ -f #{unicorn_pid} ] && [ -e /proc/$(cat #{unicorn_pid}) ]; then #{try_sudo} kill -#{signal} `cat #{unicorn_pid}`; fi"
+      end
+    end
+
+    task :restart, roles do
+      stop
+      start
     end
   end
 end
 
-namespace :deploy do
-
-  desc "Restarting mod_rails with restart.txt"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-	#TODO
-  end
-
-  [:start, :stop].each do |t|
-    desc "#{t} task is a no-op with mod_rails"
-    task t, :roles => :app do ; end
-  end
-end

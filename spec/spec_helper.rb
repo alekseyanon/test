@@ -5,12 +5,18 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'capybara/poltergeist'
+
+Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.include RspecHelper, type: :request
+  config.include Devise::TestHelpers, type: :controller
+  config.include ControllerHelpers, type: :controller
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -40,7 +46,24 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
 
+  Capybara.server_port = 3000
   Capybara.add_selector(:type) do
     xpath { |type| XPath.descendant[XPath.attr(:type) == type.to_s] }
   end
+end
+def current_user(stubs = {})
+  @current_user ||= stub_model(User, stubs)
+end
+
+def user_session(stubs = {}, user_stubs = {})
+  default_stub = {user: current_user(user_stubs), record: true, anonymous?: false}
+  @user_session ||= stub_model(UserSession, default_stub.merge(stubs))
+end
+
+def login(session_stubs = {}, user_stubs = {})
+  UserSession.stub!(:find).and_return(user_session(session_stubs, user_stubs))
+end
+
+def logout
+  @user_session = nil
 end
