@@ -6,7 +6,9 @@ Smorodina::Application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
-  resources :images
+  resources :images do
+    resources :votes, only: [:create, :destroy]
+  end
 
   resources :reviews do
     resources :votes, only: [:create, :destroy]

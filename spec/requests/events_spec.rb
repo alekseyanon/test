@@ -63,5 +63,28 @@ describe "Events", js: true, type: :request do
     page.should have_no_content title
   end
 
+  it 'add field for load image' do
+    visit new_event_path
+    page.should have_selector('a.add_fields')
+    page.should_not have_selector("input[type='file']")
+    click_on 'add image'
+    page.should have_selector("input[type='file']")
+  end
+
+  let(:event_with_image) { Event.make! images: [Image.make!]}
+  it 'event with image' do
+    visit event_path event_with_image
+    page.should have_selector(".event_image")
+    page.should have_selector(".votes")
+    page.find('.up-vote').should have_content '0'
+    page.find('.down-vote').should have_content '0'
+  end
+
+  it 'vote for image' do
+    visit event_path event_with_image
+    page.find('#vote-up').click
+    page.find('.up-vote').should have_content '1'
+    page.find('.down-vote').should have_content '0'
+  end
 end
 
