@@ -73,7 +73,7 @@ describe ReviewsController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved review as @review" do
         Review.any_instance.stub(:save).and_return(false)
-        post :create, {landmark_description_id: ld.id, :review => { title: 'invalid value', body: 'test'  }}
+        post :create, {landmark_description_id: ld.id, :review => { title: 'invalid value' }}
         assigns(:review).should be_a_new(Review)
       end
 
