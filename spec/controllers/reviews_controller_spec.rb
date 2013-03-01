@@ -20,7 +20,6 @@ describe ReviewsController do
 
   describe "GET index" do
     it "assigns all reviews as @reviews" do
-      #sign_in user
       review = Review.make! valid_attributes
       get :index, {}
       assigns(:reviews).should eq([review])

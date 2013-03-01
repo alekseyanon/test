@@ -53,7 +53,7 @@ RSpec.configure do |config|
   end
 end
 
-### TODO: change to devise helpers
+### TODO: change with devise helpers
 def current_user(stubs = {})
   @current_user ||= stub_model(User, stubs)
 end
