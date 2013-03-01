@@ -26,7 +26,7 @@ role :db,  "5.9.120.46", :primary => true        # This is where Rails migration
 
 
 set :scm,         :git
-set :branch,      :deploy
+set :branch,      :dev
 set :deploy_to,   "/home/deployer/apps/#{application}"
 #set :deploy_via,  :remote_cache
 set :git_enable_submodules, 1
@@ -75,7 +75,7 @@ namespace :smorodina do
 
   set :rails_env, :production
   set :unicorn_config, "#{current_path}/config/unicorn.rb"
-  set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
+  set :unicorn_pid, "#{shared_path}/pids/unicorn.pid"
 
   namespace :unicorn do
     roles = {roles: :app, except: { no_release: true }}
