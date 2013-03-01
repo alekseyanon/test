@@ -16,7 +16,7 @@ Smorodina::Application.routes.draw do
   end
 
   resources :landmark_descriptions do
-    resources :reviews, only: [:new, :create]
+    resources :reviews, only: [:new, :create, :edit, :update]
     member do
       get 'history'
     end
