@@ -2,15 +2,18 @@ class Event < ActiveRecord::Base
   include IceCube
   include PgSearch
   include Searchable
-  attr_accessible :body, :title, :duration, :start_date, :repeat_rule, :landmark_id, :image, :geom
+  attr_accessible :body, :title, :duration, :start_date, :repeat_rule, :landmark_id, :geom,
+                  :images_attributes
 
   serialize                   :schedule, Hash
-  mount_uploader              :image,    ImageUploader
   set_rgeo_factory_for_column :geom,     Geo::factory
 
   belongs_to :user
   belongs_to :landmark
   has_many   :event_occurrences
+
+  has_many :images,   as: :imageable
+  accepts_nested_attributes_for :images
 
   validates :title, :start_date, :geom, presence: true
   validates_associated :user, :landmark
@@ -18,7 +21,7 @@ class Event < ActiveRecord::Base
   after_create :event_after_create
 
   pg_search_scope :text_search,
-                  against: {title: 'A', body: 'B'}                  
+                  against: {title: 'A', body: 'B'}
 
   scope :within_radius, ->(geom, r) do
     where "ST_DWithin(geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
