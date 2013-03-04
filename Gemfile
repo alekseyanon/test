@@ -74,12 +74,13 @@ gem 'rvm-capistrano'
 
 gem 'ptools'
 
+gem 'machinist' #TODO should be in test group, but required during deploy for landmarks:populate
+gem 'faker'
+
 group :test, :development do
   gem 'rspec',   '~> 2.12'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'machinist'
-  gem 'faker'
   gem 'diff-lcs'
   gem 'capybara'
   gem 'launchy'

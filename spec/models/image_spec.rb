@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Image do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { described_class.make! }
+  it { should be_valid }
+  it { should belong_to :imageable }
 end

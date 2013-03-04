@@ -53,4 +53,29 @@ EOF`
     Rake::Task['db:osmosis'].invoke args[:file] if args[:file]
     Rake::Task['db:osm_drop_users'].invoke
   end
+
+  task :fill_with_sample_data do
+    Rake::Task['db:osmosis'].invoke 'RU-LEN.osm.bz2'
+  end
+
+  task :nuke do
+    sequence = Rails.env == "test" ?
+        ['db:drop',
+         'db:create',
+         'db:osm_schema',
+         'db:osm_drop_users',
+         'db:migrate'] :
+        ['db:drop',
+         'db:create',
+         'db:osm_schema',
+         'db:fill_with_sample_data',
+         'db:osm_drop_users',
+         'db:migrate',
+         'db:seed',
+         'landmarks:populate']
+    sequence.each do |t|
+        puts "executing #{t}", '--------------------------------------------------------------------------------'
+      Rake::Task[t].invoke
+    end
+  end
 end
