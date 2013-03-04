@@ -32,17 +32,17 @@
 
 .icon-user {
   @include background-image-svg("icons/user");
-  width: 13px; height: 14px;
+  width: 11px; height: 12px;
 }
 
 .icon-tags {
   @include background-image-svg("icons/tags");
-  width: 19px; height: 15px;
+  width: 14px; height: 11px;
 }
 
 .icon-marker {
   @include background-image-svg("icons/marker");
-  width: 14px; height: 21px;
+  width: 10px; height: 15px;
 }
 
 .icon-circle-arrows {

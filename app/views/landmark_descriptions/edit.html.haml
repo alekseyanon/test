@@ -24,7 +24,7 @@
     %h3 Где находится
     %div.map__outer
       %div.map__inner
-        %div.map.leaflet-edit-object{id: "map", :data => {:x => "#@x", :y => "#@y"}}
+        %div.map.leaflet-edit-object{id: "map", data: {x: @x, y: @y}}
     = f.input :xld
     = f.input :yld
 
