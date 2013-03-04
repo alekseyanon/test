@@ -305,14 +305,14 @@ infrastructure:
           ru: Такси
           osm: amenity.taxi
           from_poly: true
-        bank:
-          ru: Банк
-          osm: amenity.bank
-          from_poly: true
-        atm:
-          ru: Банкомат
-          osm: amenity.atm
-          from_poly: true
+    bank:
+      ru: Банк
+      osm: amenity.bank
+      from_poly: true
+    atm:
+      ru: Банкомат
+      osm: amenity.atm
+      from_poly: true
     shops:
       ru: Магазины
       sub:
