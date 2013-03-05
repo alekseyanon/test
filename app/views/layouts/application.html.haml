@@ -39,8 +39,7 @@
             - else
               %span.user-link.user-panel__account
                 %a{ href: profile_path(current_user.profile) }
-                  %span.action-link
-                    Профиль
+                  %span.action-link= current_user.email
                   %span.icon.icon-user.user-link__icon
 
           %div.slogan
