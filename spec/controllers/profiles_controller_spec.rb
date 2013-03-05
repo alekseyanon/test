@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe ProfilesController do
 
+  ### TODO: make with devse helper methods
   before :each do
     sign_in
   end
