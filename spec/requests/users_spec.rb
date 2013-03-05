@@ -137,7 +137,7 @@ describe 'Users reset password' do
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
-      wait_until(125) do
+      wait_until(5) do
         page.find('title').should have_content('Log In | Facebook')
       end
     end
@@ -145,7 +145,7 @@ describe 'Users reset password' do
     it 'twitter login' do
       visit new_user_session_path
       click_on 'Sign in with Twitter'
-      wait_until(125) do
+      wait_until(5) do
         page.find('title').should have_content('Twitter / Authorize an application')
       end
     end
@@ -154,7 +154,7 @@ describe 'Users reset password' do
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
-      wait_until(125) do
+      wait_until(5) do
         page.find('title').should have_content('Log In | Facebook')
       end
     end
@@ -162,7 +162,7 @@ describe 'Users reset password' do
     it 'twitter register' do
       visit new_user_session_path
       click_on 'Sign in with Twitter'
-      wait_until(125) do
+      wait_until(5) do
         page.find('title').should have_content('Twitter / Authorize an application')
       end
     end

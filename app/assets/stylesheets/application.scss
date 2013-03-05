@@ -1,10 +1,11 @@
 @import "base";
 @import "normalize";
-@import "grid";
 @import "icons";
 @import "ui";
 
-@import "bootstrap";
+@import "bootstrap/popovers";
+@import "bootstrap/grid";
+
 @import "chosen";
 @import "leaflet";
 @import "jquery.ui.all";

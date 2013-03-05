@@ -189,7 +189,7 @@ a:hover, .tdn-link:hover {
   position: relative; top: -3px;
   vertical-align: top;
   margin-right: 15px;
-  @include background-image-svg("logo2");
+  @include background-image-svg("logo");
 
   @include respond-to(large-screen){
     width: 212px;
@@ -261,6 +261,7 @@ a:hover, .tdn-link:hover {
   float: right;
   font-size: 14px;
   margin-bottom: 10px;
+  white-space: nowrap;
 
   @include respond-to(large-screen){
     display: none;
@@ -269,6 +270,7 @@ a:hover, .tdn-link:hover {
 
 .control-panel__info-section__link {
   margin-right: 6px;
+  font-size: 14px;
 }
 
 .control-panel__social-block {
@@ -277,6 +279,7 @@ a:hover, .tdn-link:hover {
 
 .control-panel__social-block__link {
   text-decoration: none;
+  white-space: nowrap;
 
   @include respond-to(large-screen){
     display: block;
@@ -292,6 +295,8 @@ a:hover, .tdn-link:hover {
 .control-panel__social-block__link__text {
   text-decoration: underline;
   display: none;
+  font-size: 14px;
+  vertical-align: middle;
 
   @include respond-to(large-screen){
     display: inline;
