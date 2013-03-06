@@ -16,7 +16,9 @@
     
     %a{:name => "place"}
     %h3 Укажите местоположения
-    .leaflet-create-object{id: "map", :data => {:x => 30.3, :y => 60}}
+    %div.map__inner
+      %div.map__outer
+        %div.map.leaflet-create-object{id: "map", data: {x: 30.3, y: 60}}
     = f.input :xld
     = f.input :yld
 

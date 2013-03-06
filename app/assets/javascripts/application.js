@@ -16,6 +16,8 @@
 //= require jquery.ui.all
 //= require jquery-datetimepicker
 //= require chosen-jquery
+//= require bootstrap-tooltip
+//= require bootstrap-popover
 //= require underscore
 //= require backbone
 //= require smorodina

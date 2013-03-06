@@ -1,5 +1,10 @@
 @import "base";
 @import "normalize";
+@import "icons";
+@import "ui";
+
+@import "bootstrap/popovers";
+@import "bootstrap/grid";
 
 @import "chosen";
 @import "leaflet";
@@ -8,65 +13,10 @@
 @import "jquery/jRating.jquery";
 @import "jquery.Jcrop";
 
-@include all-icons-sprites;
 @import "main";
 @import "landmark_descriptions";
+@import "legacy";
 
-.nested_comments {
-  margin-left: 30px;
-}
 
-/* body
-  padding-top: 65px
 
-.social-icon
-  background-image: image-url("login-social.png")
-  display: inline-block
-  background-repeat: no-repeat
-  width: 80px
-  height: 30px
-  &.twitter
-    background-position: -266px 0px
-  &.facebook
-    background-position: 1px 0px
-  &.google
-    background-position: -89px 0px
-  &.mailru
-    background-position: -178px 0px
-  &.vk
-    background-position: -357px 0px
 
-.changepass
-  cursor: pointer
-  text-decoration: underline
-
-.technical
-  background-color: #eee 
-  border: 1px solid gray
-  form
-    width: 200px
-  h3
-    float: left
-  button
-    float: left
-  .soc
-    background-color: #adffe3
-    float: left
-    border: 1px solid gray
-
-.cl-left
-  clear: left
-
-.categories
-  display: none
-
-.type-form
-  background-color: #eee
-  border: 1px solid black
-
-.blue
-  color: green
-
-.landmark 
-  .leaflet-wide 
-    height: 450px */
