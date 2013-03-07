@@ -58,7 +58,7 @@ namespace :smorodina do
   end
 
   task :db do
-    run_rake 'db:nuke'
+    run_rake 'db:rebuild_from_template'
   end
 
   namespace :daemons do
