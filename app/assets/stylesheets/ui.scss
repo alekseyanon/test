@@ -73,11 +73,14 @@
   @include border-radius(3px);
   display: inline-block;
   cursor: pointer;
+  position: relative;
+  margin-right: 5px;
+  border: solid 1px transparent;
 }
 
 .sort-control.selected {
   @include box-shadow(0 1px #fff, inset 0 1px 1px #fff);
-  border: solid 1px $lightgrey;
+  border-color: $lightgrey;
   @include background-image(linear-gradient(top, #feffff, #ebebeb));
 }
 
@@ -86,13 +89,52 @@
   color: $black;
 }
 
+.sort-control__arrow {
+  position: relative;
+  display: inline-block;
+}
+
 .sort-control.selected > .sort-control__arrow:after {
   content:"\2191";
   font-size: 18px;
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  margin-top: -0.75em;
 }
 
 .sort-control.selected.desc >.sort-control__arrow:after {
   content:"\2193";
+}
+
+.sort-control__triangle {
+  width: 100%;
+  position: absolute; top: 100%; left: 0;
+  display: none;
+}
+
+.sort-control__triangle:after,
+.sort-control__triangle:before {
+  content: "";
+  width: 0; height: 0;
+  position: absolute;
+  top: 100%; left: 50%;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  margin-left: -6px;
+}
+
+.sort-control__triangle:after {
+  border-top: 8px solid #ebebeb;
+  margin-top: -1px;
+}
+
+.sort-control__triangle:before {
+  border-top: 8px solid #e4e5f1;
+}
+
+.sort-control.selected > .sort-control__triangle {
+  display: block;
 }
 
 /* ---------------------------------------- BUTTONS END ----------------------------------------- */

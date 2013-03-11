@@ -38,8 +38,15 @@ input {
   }
 }
 
+select {
+  padding: 6px 5px;
+  border: 1px solid $lightgrey;
+  border-radius: 2px;
+  @include background-image(linear-gradient(top, #feffff, #ebebeb));
+}
+
 .page-header {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   padding-left: 20px;
 }
 
@@ -97,6 +104,10 @@ a:hover, .tdn-link:hover {
   left: 0;
   top: 50%;
   margin-top: -6px;
+}
+
+.user-link a {
+  text-decoration: none;
 }
 
 /* ---------------------------------------- LINKS END ------------------------------------------- */
@@ -661,6 +672,26 @@ a:hover, .tdn-link:hover {
   margin-top: 20px;
 }
 
+.chronicle__section__row .smorodina-item {
+  border-top: none;
+  padding: 0;
+
+  @include respond-to(large-screen){
+    float: none;
+    width: 100%;
+    margin-left: 0;
+    border-top: 1px dotted $lightgrey;
+    padding: 20px 0;
+  }
+}
+
+.chronicle__section__row .smorodina-item:first-child {
+  @include respond-to(large-screen){
+    border-top: none;
+    padding-top: 0;
+  }
+}
+
 .chronicle__section__row:first-child {
   padding-top: 0;
   margin-top: 0;
@@ -691,7 +722,7 @@ a:hover, .tdn-link:hover {
 .smorodina-item__img {
   position: relative;
   float: left;
-  margin-right: 20px;
+  margin: 0 20px 0 10px;
 }
 
 .smorodina-item__img_shadow {
@@ -833,6 +864,29 @@ a:hover, .tdn-link:hover {
     color: $darkgrey;
 }
 
+.smorodina-item__rating__daily {
+  word-spacing: -3px;
+}
+
+.smorodina-item__rating__daily_up {
+  color: #88bf41;
+}
+
+.smorodina-item__rating__daily_up:before {
+  font-size: 16px;
+  content: "\2191"
+}
+
+.smorodina-item__rating__daily_down {
+  color: #bf3f35;
+}
+
+.smorodina-item__rating__daily_down:before {
+  font-size: 16px;
+  content: "\2193"
+}
+
+
 /* ---------------------------------------- CHRONICLE END --------------------------------------- */
 
 /* ---------------------------------------- SEARCH CATEGORIES START ----------------------------- */
@@ -851,6 +905,10 @@ a:hover, .tdn-link:hover {
   padding: 20px 30px;
 }
 
+.search-categories__title {
+  margin-right: 10px;
+}
+
 .search-category {
   display: inline-block;
   padding: 5px 10px;
@@ -859,12 +917,7 @@ a:hover, .tdn-link:hover {
   background: none;
 }
 
-.search-category:hover, .search-category.selected {
-  color: #fff;
-}
-
-.search-category:active {
-  color: #803e36;
+.search-category:active, .search-category.selected {
   @include box-shadow(inset 1px 2px 3px rgba(0,0,0,.2));
 }
 
@@ -883,6 +936,20 @@ a:hover, .tdn-link:hover {
 .search-category_places:hover, .search-category_places.selected, search-category_places.pressed { background-color: $violet; }
 
 
+.search-category:hover > .search-category__text,
+.search-category.selected > .search-category__text {
+  color: #fff;
+  @include text-shadow(-1px -1px 0 rgba(0,0,0,0.2));
+}
+
+.search-category__text:before {
+  content: attr(data-text);
+  position: relative;
+}
+
+
+
+
 /* ---------------------------------------- SEARCH CATEGORIES END ------------------------------- */
 
 /* ---------------------------------------- SEARCH PANEL START ---------------------------------- */
@@ -894,10 +961,14 @@ a:hover, .tdn-link:hover {
 }
 
 .search-panel__inner {
-  padding: 20px 30px;
+  padding: 0 30px;
 }
 
 .search-pannel__sort-title {
+  margin-right: 10px;
+}
+
+.search-pannel__show-title {
   margin-right: 10px;
 }
 
@@ -906,7 +977,7 @@ a:hover, .tdn-link:hover {
 /* ---------------------------------------- SEARCH RESULTS START -------------------------------- */
 
 .search-results-section__title {
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   @include vignette(25px, 1px, bottom, center, $lightgrey);
 }
 
