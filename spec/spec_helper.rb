@@ -17,6 +17,7 @@ RSpec.configure do |config|
   config.include RspecHelper, type: :request
   config.include Devise::TestHelpers, type: :controller
   config.include ControllerHelpers, type: :controller
+  config.extend ControllerMacros, type: :controller
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -51,6 +52,8 @@ RSpec.configure do |config|
     xpath { |type| XPath.descendant[XPath.attr(:type) == type.to_s] }
   end
 end
+
+### TODO: change with devise helpers
 def current_user(stubs = {})
   @current_user ||= stub_model(User, stubs)
 end

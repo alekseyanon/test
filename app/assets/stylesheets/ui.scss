@@ -1,0 +1,67 @@
+@import "base";
+
+/* ---------------------------------------- BUTTONS START --------------------------------------- */
+
+/* common styles */
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+.button__inner {
+  display: block;
+}
+
+.button__text {
+  position: relative;
+}
+
+.button__text:before {
+  content: attr(data-text);
+  position: relative;
+}
+
+.button_full {
+  display: block;
+}
+
+/* 3d styles */
+
+.button_3d {
+  @include border-radius(5px);
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  margin-bottom: 4px; /* to compensate bottom box-shadow */
+}
+
+.button_3d__inner {
+  @include background-image-retina("smFineNoise", 64px, 64px);
+  padding: 10px 25px;
+}
+
+.button_3d__text {
+  color: #ffffff;
+  @include text-shadow(-1px -1px 0 rgba(0,0,0,0.5));
+}
+
+/* color themes */
+
+.button_orange {
+  @include background-image(linear-gradient(top, #e17604, #ffae01));
+  @include box-shadow(0 4px #a65b02, inset 0 -1px rgba(255,255,255,.25), 0 10px 15px rgba(0, 0, 0, 0.5));
+}
+
+.button_violet {
+  @include background-image(linear-gradient(top, #9428b6, #b667ce));
+  @include box-shadow(0 4px #4f3067, inset 0 -1px rgba(255,255,255,.25), 0 10px 15px rgba(0, 0, 0, 0.5));
+}
+
+/* ---------------------------------------- BUTTONS END ----------------------------------------- */

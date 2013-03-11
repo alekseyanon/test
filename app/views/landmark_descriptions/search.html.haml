@@ -1,25 +1,3 @@
-%h1.page-title.page-title__centered Куда отправиться
-
-%div.main-search
-  %div.main-search-description
-    Найди места куда поехать, что посмотреть, чем заняться, где заночевать, где поесть
-  %div.clearfix
-    = button_tag "Найти", id: 'searchButton', class: 'btn main-search-button'
-    %div.main-search-field-container
-      = text_field_tag 'searchField', nil, class: 'input-block-level main-search-field-input', placeholder: 'Рыбалка'
-  %span.main-search-examples
-    %small
-      Например,
-    = link_to "водопад Девичьи слёзы", "#"
-    (
-    %span.action-link
-      все примеры поиска
-    )
-  %span.main-search-history
-    %span.main-search-history-icon
-    %span.action-link История поиска
-
-
 %div.tabs.search-type-tabs
   %div.search-type-tab-cell
     %div.tab.search-type-tab{ data: { facet: "" } }
@@ -37,10 +15,12 @@
     %div.tab.search-type-tab{ data: { facet: "food" } }
       Где поесть
 
-%div.leaflet-wide{id: "map"}
+%div.map__outer
+  %div.map__inner
+    %div#map.map
 
 %h2.search-results-section-header Лучшие варианты
 %div#search-results.search-results-section
 
 %script
-  $(window).load(function(){ landmark_description_search();})
+  $(function(){ landmark_description_search();})

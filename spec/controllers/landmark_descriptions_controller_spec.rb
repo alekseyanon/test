@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe LandmarkDescriptionsController do
 
+  ### TODO: make with devse helper methods
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
 

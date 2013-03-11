@@ -15,13 +15,13 @@ describe 'Users' do
 
 	it 'welcomes the user' do
     visit '/'
-    page.should have_content('Welcome')
+    page.should have_content("Добро пожаловать в Смородину")
   end
 
   it 'check url' do
     login
     visit "/profiles/#{@user.profile.id}"
-    page.should have_content('Профиль')
+    page.should have_content(@user.email)
   end
 
   it 'user login' do
@@ -62,14 +62,14 @@ describe 'Users' do
 
   it 'not change email without confirmation' do
     login
-    click_on 'Профиль'
+    click_on @user.email
     click_on 'Настройки'
     fill_in 'user_email', with: 'tester@test.er'
     fill_in 'user_current_password', with: @user.password
     find(:type, 'submit').click
 		current_path.should == root_path
     page.should have_content('Ваша учетная запись изменена, вам выслано письмо подтверждения нового email')
-    click_on 'Профиль'
+    click_on @user.email
     click_on 'Настройки'
     find_field('user_email').value.should eq @user.email
     page.should have_content('Edit User')
@@ -78,7 +78,7 @@ describe 'Users' do
   it 'edit user' do
     # TODO move to profile spec
     login
-    click_on 'Профиль'
+    click_on @user.email
     click_on 'Edit'
     fill_in 'profile_name', with: 'tester'
     find(:type, 'submit').click
@@ -95,7 +95,7 @@ describe 'Users reset password' do
 
 	it 'reset password form is opened' do
 		visit root_path
-		click_on 'Войти'
+		click_on 'Вход и регистрация'
 		click_on 'Forgot your password?'
 		page.should have_selector('input#user_email')
 	end
@@ -137,7 +137,7 @@ describe 'Users reset password' do
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
-      wait_until(25) do
+      wait_until(5) do
         page.find('title').should have_content('Log In | Facebook')
       end
     end
@@ -145,7 +145,7 @@ describe 'Users reset password' do
     it 'twitter login' do
       visit new_user_session_path
       click_on 'Sign in with Twitter'
-      wait_until(25) do
+      wait_until(5) do
         page.find('title').should have_content('Twitter / Authorize an application')
       end
     end
@@ -154,7 +154,7 @@ describe 'Users reset password' do
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
-      wait_until(25) do
+      wait_until(5) do
         page.find('title').should have_content('Log In | Facebook')
       end
     end
@@ -162,7 +162,7 @@ describe 'Users reset password' do
     it 'twitter register' do
       visit new_user_session_path
       click_on 'Sign in with Twitter'
-      wait_until(25) do
+      wait_until(5) do
         page.find('title').should have_content('Twitter / Authorize an application')
       end
     end

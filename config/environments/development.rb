@@ -24,8 +24,8 @@ Smorodina::Application.configure do
     domain: "gmail.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "monax.spam@gmail.com",
-    password: "code4gmail"
+    user_name: 'monax.spam@gmail.com',
+    password: 'code4gmail'
   }
   config.action_mailer.default_url_options = {host: "localhost:3000"}
 

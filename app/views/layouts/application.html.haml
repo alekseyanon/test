@@ -4,27 +4,129 @@
     = csrf_meta_tag
     %meta(charset="utf-8")
     %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
+    %meta(http-equiv="cleartype" content="on")
     %title(Smorodina)
-    %link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
+    /%link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
+    /[if lte IE 8]
+      = stylesheet_link_tag  "ie"
     = csrf_meta_tags
   %body
-    %div{class: 'navbar navbar-inverse navbar-fixed-top'}
-      .navbar-inner
-        .container
-          %a{class: "btn btn-navbar", 'data-toggle' => "collapse", 'data-target' => ".nav-collapse"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a{class: "brand", href: "/"} Smorodina
-          .nav-collapse.collapse
-            %ul.nav
-              - if current_user.nil?
-                %li= link_to 'Войти', new_user_session_path
-              - else
-                %li= link_to "Профиль", profile_path(current_user.profile)
-              %li= link_to 'Объекты', landmark_descriptions_path
-              %li= link_to 'События', events_path
-    .container
-      = yield
+
+    %div.promo-panel
+      %div.promo-panel__inner
+        %div.promo-panel__text.promo-panel__greeting
+          Добро пожаловать в Смородину — путеводитель по родной стране, созданный ее жителями!
+        %span.promo-panel__text
+          Всего в Смородине
+          %b 450926
+          объектов
+        %a.button.button_3d.button_orange.promo-panel__button{ href: new_landmark_description_path }
+          %span.button__inner.button_3d__inner
+            %span.button__text.button_3d__text{ data: { text: "Добавить объект" }}
+
+    %div.main
+      %div.main__inner
+        %div.slogan-user-panel-container
+          %div.user-panel
+            - if current_user.nil?
+              %span.user-panel__login
+                %a.ui-link{ href: new_user_session_path }
+                  Вход и регистрация
+                  %span.icon.icon-door.user-panel__login__icon
+            - else
+              %span.user-link.user-panel__account
+                %a{ href: profile_path(current_user.profile) }
+                  %span.action-link= current_user.email
+                  %span.icon.icon-user.user-link__icon
+
+          %div.slogan
+            Путешествуй по России
+
+        %div.control-panel
+          %a{ href: "/" }
+            =image_tag "logo-fake.png", class: "control-panel__logo", alt: "Смородина"
+          %nav.control-panel__menu
+            %a.ui-link.selected{ href: landmark_descriptions_path }
+              Куда отправиться
+              %span.control-panel__menu__triangle
+            %a.ui-link{ href: events_path }
+              События
+              %span.control-panel__menu__triangle
+            %a.ui-link{ href: "#blogs" }
+              Рейтинги
+              %span.control-panel__menu__triangle
+          %div.control-panel__info-section
+            %a.ui-link.control-panel__info-section__link{ href: "#about" }<
+              О проекте
+            %span.control-panel__social-block
+              %a.control-panel__social-block__link{ href: "#" }
+                %span.icon.icon-vk.control-panel__social-block__link__icon
+                %span.control-panel__social-block__link__text
+                  Смородина в Facebook
+              %a.control-panel__social-block__link{ href: "#" }
+                %span.icon.icon-fb.control-panel__social-block__link__icon
+                %span.control-panel__social-block__link__text
+                  Группа ВКонтакте
+              %a.control-panel__social-block__link{ href: "#" }
+                %span.icon.icon-tw.control-panel__social-block__link__icon
+                %span.control-panel__social-block__link__text
+                  Наш Twitter
+          %div.control-panel__info-button
+            %div.icon.icon-dropdown.control-panel__info-button__icon
+
+        %div.promo-description
+          %div.promo-description__inner
+            %div.promo-description__container.promo-description__container_3
+              %div.promo-description__container.promo-description__container_2
+                %div.promo-description__container.promo-description__container_1
+                  %div.promo-description__column
+                    %div.promo-description__column__inner
+                      %div.promo-description__title
+                        Узнавай
+                      %small.promo-description__text
+                        Найди на Смородине места, которых нет в путеводителях, о которых знают
+                        только местные жители. Искать легко через поисковую строку или сразу на карте.
+                  %div.promo-description__column
+                    %div.promo-description__column__inner
+                      %div.promo-description__title
+                        Рассказывай
+                      %small.promo-description__text
+                        Поделись знаниями о стране, о родном крае. Твоя родина очень большая и все,
+                        кто ищет информацию на Смородине, будут тебе благодарны за помощь —
+                        выкладывай фотографии и описывай интересные объекты.
+                  %div.promo-description__column
+                    %div.promo-description__column__inner
+                      %div.promo-description__title
+                        Путешествуй
+                      %small.promo-description__text
+                        Узнавать страну можно не только на Смородине. Отправляйся в путешествие и
+                        посмотри своими глазами нам мир вокруг. Система планирования путешествий
+                        поможет разработать подробную программу поездки.
+
+        %div.main-search
+          %div.main-search__inner
+            %div.main-search__column
+              %div.how-to-search.how-to-search
+
+            %div.main-search__column.main-search__field
+              %input#mainSearchFieldInput.main-search__field__input{ type: "text",
+                placeholder: "Куда поехать, что посмотреть, чем заняться, где заночевать, где поесть" }
+              %div.main-search__field__panel
+                %small.main-search__field__panel__example
+                  Например,
+                  %span.action-link.main-search__field__panel__example__text
+                    водопад Девичьи слёзы
+                %small.main-search__field__panel__history
+                  %span.action-link.main-search__field__panel__history__text
+                    История поиска
+                  %span.icon.icon-clock.main-search__field__panel__history_icon
+
+            %div.main-search__column
+              %button#mainSearchButton.button.button_3d.button_violet.main-search__button
+                %span.button__inner.button_3d__inner
+                  %span.button__text.button_3d__text{ data: { text: "Найти" }}
+
+        = yield

@@ -1,0 +1,56 @@
+@import "_base";
+
+.icon {
+  display: inline-block;
+}
+
+.icon-fb, .icon-vk, .icon-tw {
+  width: 18px; height: 18px;
+}
+
+.icon-fb {
+  @include background-image-svg("icons/fb");
+}
+
+.icon-vk {
+  @include background-image-svg("icons/vk");
+}
+
+.icon-tw {
+  @include background-image-svg("icons/tw");
+}
+
+.icon-clock {
+  @include background-image-svg("icons/clock");
+  width: 12px; height: 12px;
+}
+
+.icon-door {
+  @include background-image-svg("icons/door");
+  width: 16px; height: 13px;
+}
+
+.icon-user {
+  @include background-image-svg("icons/user");
+  width: 11px; height: 12px;
+}
+
+.icon-tags {
+  @include background-image-svg("icons/tags");
+  width: 14px; height: 11px;
+}
+
+.icon-marker {
+  @include background-image-svg("icons/marker");
+  width: 10px; height: 15px;
+}
+
+.icon-circle-arrows {
+  @include background-image-svg("icons/circle-arrows");
+  width: 29px; height: 34px;
+}
+
+.icon-dropdown {
+  @include background-image-svg("icons/dropdown");
+  width: 20px; height: 16px;
+}

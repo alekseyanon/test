@@ -26,7 +26,7 @@ role :db,  "5.9.120.46", :primary => true        # This is where Rails migration
 
 
 set :scm,         :git
-set :branch,      :dev
+set :branch,      'dev'
 set :deploy_to,   "/home/deployer/apps/#{application}"
 #set :deploy_via,  :remote_cache
 set :git_enable_submodules, 1
@@ -58,7 +58,7 @@ namespace :smorodina do
   end
 
   task :db do
-    run_rake 'db:nuke'
+    run_rake 'db:rebuild_from_template'
   end
 
   namespace :daemons do
