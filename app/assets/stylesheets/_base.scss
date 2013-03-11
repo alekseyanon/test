@@ -1,4 +1,5 @@
 $experimental-support-for-svg: true;
+
 $legacy-support-for-ie: false;
 $legacy-support-for-ie8: true;
 
@@ -15,6 +16,7 @@ $legacy-support-for-ie8: true;
 @import "compass/css3/background-clip";
 @import "compass/css3/transition";
 @import "compass/css3/box-sizing";
+@import "compass/css3/user-interface";
 
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
@@ -23,8 +25,12 @@ $large-screen:  979px;
 $medium-screen: 767px;
 $small-screen:  479px;
 
-$linkcolor: #21b0e6;
-$lightgrey: #888888;
+$black: #1a1a1a;
+$lightblue: #21b0e6;
+$darkgrey: #787a83;
+$grey: #b2b3bc;
+$lightgrey: #e4e5f1;
+$violet: #9428b6;
 
 @mixin respond-to($media) {
   @if $media == large-screen {
@@ -56,6 +62,58 @@ $lightgrey: #888888;
   @if $base64 { background: rgba(0,0,0,0) inline-image(image-path($file + ".svg")); }
   @else { background: rgba(0,0,0,0) image-url($file + ".svg"); }
   background-size: 100% 100%;
+}
+
+@mixin vignette($offset, $size, $vAlign, $hAlign, $color: #000){
+  $width: 50%;
+  @if $hAlign == left { $width: 100% }
+
+  position: relative;
+  overflow: hidden;
+  text-align: $hAlign;
+
+  &:before,
+  &:after {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: $width;
+    height: $size;
+    background: $color;
+    vertical-align: $vAlign;
+    @if  $vAlign == bottom {
+      top: -0.4em;
+    }
+  }
+
+  &:before {
+    left: -$offset;
+    margin-left: -$width;
+    @if  $hAlign == left {
+      display: none;
+    }
+  }
+
+  &:after {
+    left: $offset;
+    margin-right: -$width;
+  }
+
+  > * {
+    vertical-align: $vAlign;
+  }
+}
+
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
 }
 
 @mixin opposite {
@@ -101,4 +159,36 @@ $lightgrey: #888888;
   -ms-flex-order: $val;
   -webkit-order: $val;
   order: $val;
+}
+
+/* TODO these mixins are from new compass beta. should be deleted in future */
+
+@mixin input-placeholder {
+  @if $experimental-support-for-webkit {
+    &::-webkit-input-placeholder {
+      @content;
+    }
+  }
+  @if $experimental-support-for-mozilla {
+    &:-moz-placeholder {
+      @content;
+    }
+  }
+  @if $experimental-support-for-microsoft {
+    &:-ms-input-placeholder {
+      @content;
+    }
+  }
+}
+
+@mixin border-radius($radius: $default-border-radius, $vertical-radius: false) {
+  @if $vertical-radius {
+  // Webkit doesn't understand the official shorthand syntax for specifying
+  // a vertical radius unless so in case there's several we only take the first.
+    @include experimental(border-radius, first-value-of($radius) first-value-of($vertical-radius), not -moz, -webkit, not -o, not -ms, not -khtml, not official);
+    @include experimental("border-radius", $radius unquote("/") $vertical-radius, -moz, not -webkit, not -o, not -ms, -khtml, official);
+  }
+  @else {
+    @include experimental(border-radius, $radius);
+  }
 }

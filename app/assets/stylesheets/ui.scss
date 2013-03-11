@@ -56,12 +56,43 @@
 
 .button_orange {
   @include background-image(linear-gradient(top, #e17604, #ffae01));
-  @include box-shadow(0 4px #a65b02, inset 0 -1px rgba(255,255,255,.25), 0 10px 15px rgba(0, 0, 0, 0.5));
+  @include box-shadow(0 4px #a65b02, inset 0 -1px rgba(255,255,255,0.25),0 12px 18px -6px rgb(43,41,7));
 }
 
 .button_violet {
   @include background-image(linear-gradient(top, #9428b6, #b667ce));
-  @include box-shadow(0 4px #4f3067, inset 0 -1px rgba(255,255,255,.25), 0 10px 15px rgba(0, 0, 0, 0.5));
+  @include box-shadow(0 4px #4f3067, inset 0 -1px rgba(255,255,255,0.25),0 12px 18px -6px rgb(43,41,7));
+}
+
+/* ---------------------------------------- BUTTONS END ----------------------------------------- */
+
+/* ---------------------------------------- SORT CONTROL START ------------------------------- */
+
+.sort-control {
+  padding: 5px 10px;
+  @include border-radius(3px);
+  display: inline-block;
+  cursor: pointer;
+}
+
+.sort-control.selected {
+  @include box-shadow(0 1px #fff, inset 0 1px 1px #fff);
+  border: solid 1px $lightgrey;
+  @include background-image(linear-gradient(top, #feffff, #ebebeb));
+}
+
+.sort-control.selected > .sort-control__text {
+  border-bottom-color: transparent;
+  color: $black;
+}
+
+.sort-control.selected > .sort-control__arrow:after {
+  content:"\2191";
+  font-size: 18px;
+}
+
+.sort-control.selected.desc >.sort-control__arrow:after {
+  content:"\2193";
 }
 
 /* ---------------------------------------- BUTTONS END ----------------------------------------- */

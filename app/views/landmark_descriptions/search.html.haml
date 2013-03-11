@@ -1,26 +1,75 @@
-%div.tabs.search-type-tabs
-  %div.search-type-tab-cell
-    %div.tab.search-type-tab{ data: { facet: "" } }
-      Все варианты
-  %div.search-type-tab-cell
-    %div.tab.search-type-tab{ data: { facet: "sightseeing" } }
-      Что посмотреть
-  %div.search-type-tab-cell
-    %div.tab.search-type-tab{ data: { facet: "activities" } }
-      Чем заняться
-  %div.search-type-tab-cell
-    %div.tab.search-type-tab{ data: { facet: "lodging" } }
-      Где заночевать
-  %div.search-type-tab-cell
-    %div.tab.search-type-tab{ data: { facet: "food" } }
-      Где поесть
-
 %div.map__outer
   %div.map__inner
     %div#map.map
 
-%h2.search-results-section-header Лучшие варианты
-%div#search-results.search-results-section
+%h1.page-header Рыбалка
+
+%div.search-categories
+  %div.search-categories__inner
+    %button.search-category.search-category_all{ data: { facet: "" } }
+      Все варианты
+    %button.search-category.search-category_sightseeing{ data: { facet: "sightseeing" } }
+      Что посмотреть
+    %button.search-category.search-category_activities{ data: { facet: "activities" } }
+      Чем заняться
+    %button.search-category.search-category_lodging{ data: { facet: "lodging" } }
+      Где заночевать
+    %button.search-category.search-category_food{ data: { facet: "food" } }
+      Где поесть
+    %button.search-category.search-category_places{ data: { facet: "" } }
+      Места
+
+%div.search-panel
+  %div.search-panel__inner
+    %span.search-pannel__sort-title
+      Сортировать по
+    %span.sort-control.selected.desc
+      %span.action-link.sort-control__text Рейтингу
+      %span.sort-control__arrow
+    %span.sort-control
+      %span.action-link.sort-control__text Имени
+      %span.sort-control__arrow
+
+%div.search-results-section
+  %h2.search-results-section__title
+    %span.search-results-section__title__text
+      Лучшие варианты
+
+  / TODO remove this block in future. It is here only for demonstration.
+
+  %div.smorodina-item{ style: "border-top: none; border-bottom: 1px dotted #E4E5F1; margin-bottom: 20px; padding-top: 0" }
+    %div.smorodina-item__content
+      %div.smorodina-item__top
+        %span.smorodina-item__label.smorodina-item__label_places
+          Места
+        %span.smorodina-item__show-more
+          %a{href: "#"}
+            показать еще
+            %b
+              4
+        %i.smorodina-item__total
+          из 122456
+      %div.row-fluid
+        %div.span8
+          %div.smorodina-item__title
+            %a{href: "#"}
+              %b Хорошая рыбалка (Поселок)
+          %div.smorodina-item__geo
+            %span.icon.icon-marker.smorodina-item__geo__icon
+            %small.smorodina-item__geo__list
+              %a.tdn-link{ href: "#" }
+                Полный
+              %a.tdn-link{ href: "#" }
+                Географический
+              %a.tdn-link{ href: "#" }
+                Идентификатор
+
+  / -------------------------------------------------------------------------------
+
+  %div#search-results
+
+= render 'layouts/fetch'
+= render 'layouts/footer'
 
 %script
   $(function(){ landmark_description_search();})
