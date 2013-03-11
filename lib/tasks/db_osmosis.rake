@@ -74,7 +74,19 @@ EOF`
          'db:seed',
          'landmarks:populate']
     sequence.each do |t|
-        puts "executing #{t}", '--------------------------------------------------------------------------------'
+      puts "executing #{t}", '--------------------------------------------------------------------------------'
+      Rake::Task[t].invoke
+    end
+  end
+
+  task :rebuild_from_template do
+    ['db:drop',
+     'db:create',
+     'db:osm_drop_users',
+     'db:migrate',
+     'db:seed',
+     'landmarks:populate'].each do |t|
+      puts "executing #{t}", '--------------------------------------------------------------------------------'
       Rake::Task[t].invoke
     end
   end

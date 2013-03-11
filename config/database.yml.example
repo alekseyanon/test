@@ -9,6 +9,7 @@ connection: &connection
 development:
   <<: *connection
   database: smorodina_dev
+  template: osm_len
 
 test:
   <<: *connection
@@ -17,4 +18,4 @@ test:
 production:
   <<: *connection
   database: smorodina
-
+  template: osm_len
