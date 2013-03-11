@@ -8,12 +8,15 @@ task import: :environment do
   objects = JSON.parse File.read(file_for_import), symbolize_names: true
 
   user = User.make!
-  next_id = Osm::Node.order("id DESC").pluck(:id).first
-  next_id = 0 if next_id.nil?
+  next_id = Osm::Node.order("id DESC").pluck(:id).first || 0
   objects.each do |obj|
     next_id += 1
     # TODO много категорий
     category = Category.find_by_name_ru obj[:categories].first
+    if category.nil?
+      puts "No category #{obj[:categories].first}"
+      next
+    end
     latlon = obj[:latlon].split ' '
     node = Osm::Node.make! geom: "POINT(#{latlon[1]} #{latlon[0]})", id: next_id
     landmark = Landmark.make! osm: node
