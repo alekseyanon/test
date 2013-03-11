@@ -19,7 +19,6 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ImagesController do
-  #before { pending "Waiting for AuthLogic testing helpers to be mastered" }
   # This should return the minimal set of attributes required to create a valid
   # Image. As you add validations to Image, be sure to
   # update the return value of this method accordingly.
@@ -55,7 +54,7 @@ describe ImagesController do
   describe "GET show" do
     it "assigns the requested image as @image" do
       image = Image.create! valid_attributes
-      get :show, {:id => image.to_param}
+      get :show, {id: image.to_param}
       assigns(:image).should eq(image)
     end
   end
@@ -70,7 +69,7 @@ describe ImagesController do
   describe "GET edit" do
     it "assigns the requested image as @image" do
       image = Image.create! valid_attributes
-      get :edit, {:id => image.to_param}
+      get :edit, {id: image.to_param}
       assigns(:image).should eq(image)
     end
   end
@@ -79,18 +78,18 @@ describe ImagesController do
     describe "with valid params" do
       it "creates a new Image" do
         expect {
-          post :create, {:image => valid_attributes}
+          post :create, {image: valid_attributes}
         }.to change(Image, :count).by(1)
       end
 
       it "assigns a newly created image as @image" do
-        post :create, {:image => valid_attributes}
+        post :create, {image: valid_attributes}
         assigns(:image).should be_a(Image)
         assigns(:image).should be_persisted
       end
 
       it "redirects to the created image" do
-        post :create, {:image => valid_attributes}
+        post :create, {image: valid_attributes}
         response.should redirect_to(Image.last)
       end
     end
@@ -99,7 +98,7 @@ describe ImagesController do
       it "assigns a newly created but unsaved image as @image" do
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
-        post :create, {:image => { "image" => "invalid value" }}
+        post :create, {image: { "image" => "invalid value" }}
         assigns(:image).should be_a_new(Image)
       end
 
@@ -107,7 +106,7 @@ describe ImagesController do
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
         Image.any_instance.stub(:errors).and_return(['error'])
-        post :create, {:image => { "image" => "invalid value" }}
+        post :create, {image: { "image" => "invalid value" }}
         response.should render_template("new")
       end
     end
@@ -122,18 +121,18 @@ describe ImagesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Image.any_instance.should_receive(:update_attributes).with({ "image" => "MyString" })
-        put :update, {:id => image.to_param, :image => { "image" => "MyString" }}
+        put :update, {id: image.to_param, image: { "image" => "MyString" }}
       end
 
       it "assigns the requested image as @image" do
         image = Image.create! valid_attributes
-        put :update, {:id => image.to_param, :image => valid_attributes}
+        put :update, {id: image.to_param, image: valid_attributes}
         assigns(:image).should eq(image)
       end
 
       it "redirects to the image" do
         image = Image.create! valid_attributes
-        put :update, {:id => image.to_param, :image => valid_attributes}
+        put :update, {id: image.to_param, image: valid_attributes}
         response.should redirect_to(image)
       end
     end
@@ -143,7 +142,7 @@ describe ImagesController do
         image = Image.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
-        put :update, {:id => image.to_param, :image => { "image" => "invalid value" }}
+        put :update, {id: image.to_param, image: { "image" => "invalid value" }}
         assigns(:image).should eq(image)
       end
 
@@ -152,7 +151,7 @@ describe ImagesController do
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
         Image.any_instance.stub(:errors).and_return(['error'])
-        put :update, {:id => image.to_param, :image => { "image" => "invalid value" }}
+        put :update, {id: image.to_param, image: { "image" => "invalid value" }}
         response.should render_template("edit")
       end
     end
@@ -162,13 +161,13 @@ describe ImagesController do
     it "destroys the requested image" do
       image = Image.create! valid_attributes
       expect {
-        delete :destroy, {:id => image.to_param}
+        delete :destroy, {id: image.to_param}
       }.to change(Image, :count).by(-1)
     end
 
     it "redirects to the images list" do
       image = Image.create! valid_attributes
-      delete :destroy, {:id => image.to_param}
+      delete :destroy, {id: image.to_param}
       response.should redirect_to(images_url)
     end
   end

@@ -30,7 +30,7 @@ describe CommentsController do
   describe "GET show" do
     it "assigns the requested comment as @comment" do
       comment = Comment.make! valid_attributes
-      get :show, {:id => comment.to_param, review_id: comment.commentable_id}
+      get :show, {id: comment.to_param, review_id: comment.commentable_id}
       assigns(:comment).should eq(comment)
     end
   end
@@ -45,7 +45,7 @@ describe CommentsController do
   describe "GET edit" do
     it "assigns the requested comment as @comment" do
       comment = Comment.make! valid_attributes
-      get :edit, {:id => comment.to_param, review_id: comment.commentable_id}
+      get :edit, {id: comment.to_param, review_id: comment.commentable_id}
       assigns(:comment).should eq(comment)
     end
   end
@@ -54,19 +54,19 @@ describe CommentsController do
     describe "with valid params" do
       it "creates a new Comment" do
         expect {
-          post :create, {:comment => valid_attributes, review_id: Review.last.id}
+          post :create, {comment: valid_attributes, review_id: Review.last.id}
         }.to change(Comment, :count).by(1)
       end
 
       it "assigns a newly created comment as @comment" do
         pending 'problem with inherited resources + nested resources '
-        post :create, {:comment => valid_attributes, review_id: review.id}
+        post :create, {comment: valid_attributes, review_id: review.id}
         assigns(:comment).should be_a(Comment)
         assigns(:comment).should be_persisted
       end
 
       it "redirects to the created comment" do
-        post :create, {:comment => valid_attributes, review_id: review}
+        post :create, {comment: valid_attributes, review_id: review}
         response.should redirect_to(Review.last)
       end
     end
@@ -77,7 +77,7 @@ describe CommentsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
         Comment.any_instance.stub(:errors).and_return(['error'])
-        post :create, {:comment => { "body" => "invalid value" }, review_id: Review.last.id}
+        post :create, {comment: { "body" => "invalid value" }, review_id: Review.last.id}
         assigns(:comment).should be_a_new(Comment)
       end
 
@@ -86,7 +86,7 @@ describe CommentsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
         Comment.any_instance.stub(:errors).and_return(['error'])
-        post :create, {:comment => { "body" => "invalid value" }, review_id: review.id}
+        post :create, {comment: { "body" => "invalid value" }, review_id: review.id}
         response.should render_template("new")
       end
     end
@@ -102,18 +102,18 @@ describe CommentsController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Comment.any_instance.should_receive(:update_attributes).with({ "body" => "MyText" })
-        put :update, review_id: comment.commentable_id, :id => comment.to_param, :comment => { "body" => "MyText" }
+        put :update, review_id: comment.commentable_id, id: comment.to_param, comment: { "body" => "MyText" }
       end
 
       it "assigns the requested comment as @comment" do
         comment = Comment.make! valid_attributes
-        put :update, {:id => comment.to_param, :comment => valid_attributes, review_id: comment.commentable_id}
+        put :update, {id: comment.to_param, comment: valid_attributes, review_id: comment.commentable_id}
         assigns(:comment).should eq(comment)
       end
 
       it "redirects to the comment" do
         comment = Comment.make! valid_attributes
-        put :update, {:id => comment.to_param, :comment => valid_attributes, review_id: comment.commentable_id}
+        put :update, {id: comment.to_param, comment: valid_attributes, review_id: comment.commentable_id}
         response.should redirect_to(root_url)
       end
     end
@@ -124,7 +124,7 @@ describe CommentsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
         Comment.any_instance.stub(:errors).and_return(['error'])
-        put :update, {:id => comment.to_param, :comment => { "body" => "invalid value" }, review_id: comment.commentable_id}
+        put :update, {id: comment.to_param, comment: { "body" => "invalid value" }, review_id: comment.commentable_id}
         assigns(:comment).should eq(comment)
       end
 
@@ -134,7 +134,7 @@ describe CommentsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
         #Comment.any_instance.stub(:errors).and_return(['error'])
-        put :update, {:id => comment.to_param, :comment => { "body" => "invalid value" }, review_id: comment.commentable_id}
+        put :update, {id: comment.to_param, comment: { "body" => "invalid value" }, review_id: comment.commentable_id}
         response.should render_template("edit")
       end
     end
@@ -144,13 +144,13 @@ describe CommentsController do
     it "destroys the requested comment" do
       comment = Comment.make! valid_attributes
       expect {
-        delete :destroy, {:id => comment.to_param, review_id: comment.commentable_id}
+        delete :destroy, {id: comment.to_param, review_id: comment.commentable_id}
       }.to change(Comment, :count).by(-1)
     end
 
     it "redirects to the comments list" do
       comment = Comment.make! valid_attributes
-      delete :destroy, {:id => comment.to_param, review_id: Review.last.id}
+      delete :destroy, {id: comment.to_param, review_id: Review.last.id}
       response.should redirect_to(root_url)
     end
   end
