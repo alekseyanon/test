@@ -6,29 +6,43 @@
 
 %div.search-categories
   %div.search-categories__inner
+    %b.search-categories__title
+      Найдено результатов
     %button.search-category.search-category_all{ data: { facet: "" } }
-      Все варианты
+      %span.search-category__text{ data: { text: "Все варианты" }}
     %button.search-category.search-category_sightseeing{ data: { facet: "sightseeing" } }
-      Что посмотреть
+      %span.search-category__text{ data: { text: "Что посмотреть" }}
     %button.search-category.search-category_activities{ data: { facet: "activities" } }
-      Чем заняться
+      %span.search-category__text{ data: { text: "Чем заняться" }}
     %button.search-category.search-category_lodging{ data: { facet: "lodging" } }
-      Где заночевать
+      %span.search-category__text{ data: { text: "Где заночевать" }}
     %button.search-category.search-category_food{ data: { facet: "food" } }
-      Где поесть
+      %span.search-category__text{ data: { text: "Где поесть" }}
     %button.search-category.search-category_places{ data: { facet: "" } }
-      Места
+      %span.search-category__text{ data: { text: "Места" }}
 
 %div.search-panel
   %div.search-panel__inner
     %span.search-pannel__sort-title
       Сортировать по
-    %span.sort-control.selected.desc
-      %span.action-link.sort-control__text Рейтингу
-      %span.sort-control__arrow
     %span.sort-control
-      %span.action-link.sort-control__text Имени
+      %span.action-link.sort-control__text
+        Рейтингу
       %span.sort-control__arrow
+        &nbsp;
+      %span.sort-control__triangle
+    %span.sort-control
+      %span.action-link.sort-control__text
+        Имени
+      %span.sort-control__arrow
+        &nbsp;
+      %span.sort-control__triangle
+    %span.search-pannel__show-title
+      Показывать
+      %select
+        %option
+          Все
+
 
 %div.search-results-section
   %h2.search-results-section__title

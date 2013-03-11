@@ -114,21 +114,26 @@ window.landmark_description_search = ->
 
   map.setView [59.939,30.341], 13 #SPB
 
-  $('.tabs').on 'click', '.tab', ->
-    $tab = $(this)
-    $tabs = $('.tabs').find('.tab')
-    facet = $tab.data('facet')
+  $labels = $('.search-categories').find('.search-category')
+
+  $('.search-categories').on 'click', '.search-category', ->
+    $label = $(this)
+    facet = $label.data('facet')
     facets = if facet then [facet] else []
 
-    $tabs.removeClass('selected')
-    $tab.addClass('selected')
+    $labels.removeClass('selected')
+    $label.addClass('selected')
 
     resetBoundsAndSearch()
-   
-    
+
   $("#mainSearchButton").on 'click', resetBoundsAndSearch
 
   $searchField.on 'keydown', (e) ->
     if e.which is 13
       resetBoundsAndSearch()
 
+  $(".sort-control").on 'click', ->
+    if $(this).is('.selected')
+      $(this).toggleClass('desc')
+    else
+      $(this).toggleClass('selected')

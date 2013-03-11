@@ -19,11 +19,6 @@
       %div.smorodina-item__title
         %a{href: "#"}
           %b= @title
-      %div.smorodina-item__tags
-        %span.icon.icon-tags.smorodina-item__tags__icon
-        %small.smorodina-item__tags__list
-          - for tag in @tag_list
-            %a.tdn-link{ href: "#" }= tag
       %div.smorodina-item__geo
         %span.icon.icon-marker.smorodina-item__geo__icon
         %small.smorodina-item__geo__list
@@ -33,9 +28,16 @@
             Географический
           %a.tdn-link{ href: "#" }
             Идентификатор
+      %div.smorodina-item__tags
+        %span.icon.icon-tags.smorodina-item__tags__icon
+        %small.smorodina-item__tags__list
+          - for tag in @tag_list
+            %a.tdn-link{ href: "#" }= tag
     %div.span4
       %div.smorodina-item__rating
         %span.smorodina-item__rating__text
           Рейтинг объекта
         %span.smorodina-item__rating__number
           59
+        %span.smorodina-item__rating__daily.smorodina-item__rating__daily_up
+          3
