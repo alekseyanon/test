@@ -19,10 +19,20 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ImagesController do
-  before { pending "Waiting for AuthLogic testing helpers to be mastered" }
+  #before { pending "Waiting for AuthLogic testing helpers to be mastered" }
   # This should return the minimal set of attributes required to create a valid
   # Image. As you add validations to Image, be sure to
   # update the return value of this method accordingly.
+  let(:user) { User.make! }
+  let!(:node) { Osm::Node.make! }
+  let!(:ld){LandmarkDescription.make!}
+  let!(:review){Review.make!}
+
+  before :all do
+    Category.make!
+  end
+  login_user
+
   def valid_attributes
     { "image" => "MyString" }
   end
@@ -37,7 +47,7 @@ describe ImagesController do
   describe "GET index" do
     it "assigns all images as @images" do
       image = Image.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {}
       assigns(:images).should eq([image])
     end
   end
@@ -45,14 +55,14 @@ describe ImagesController do
   describe "GET show" do
     it "assigns the requested image as @image" do
       image = Image.create! valid_attributes
-      get :show, {:id => image.to_param}, valid_session
+      get :show, {:id => image.to_param}
       assigns(:image).should eq(image)
     end
   end
 
   describe "GET new" do
     it "assigns a new image as @image" do
-      get :new, {}, valid_session
+      get :new, {}
       assigns(:image).should be_a_new(Image)
     end
   end
@@ -60,7 +70,7 @@ describe ImagesController do
   describe "GET edit" do
     it "assigns the requested image as @image" do
       image = Image.create! valid_attributes
-      get :edit, {:id => image.to_param}, valid_session
+      get :edit, {:id => image.to_param}
       assigns(:image).should eq(image)
     end
   end
@@ -69,18 +79,18 @@ describe ImagesController do
     describe "with valid params" do
       it "creates a new Image" do
         expect {
-          post :create, {:image => valid_attributes}, valid_session
+          post :create, {:image => valid_attributes}
         }.to change(Image, :count).by(1)
       end
 
       it "assigns a newly created image as @image" do
-        post :create, {:image => valid_attributes}, valid_session
+        post :create, {:image => valid_attributes}
         assigns(:image).should be_a(Image)
         assigns(:image).should be_persisted
       end
 
       it "redirects to the created image" do
-        post :create, {:image => valid_attributes}, valid_session
+        post :create, {:image => valid_attributes}
         response.should redirect_to(Image.last)
       end
     end
@@ -89,14 +99,15 @@ describe ImagesController do
       it "assigns a newly created but unsaved image as @image" do
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
-        post :create, {:image => { "image" => "invalid value" }}, valid_session
+        post :create, {:image => { "image" => "invalid value" }}
         assigns(:image).should be_a_new(Image)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
-        post :create, {:image => { "image" => "invalid value" }}, valid_session
+        Image.any_instance.stub(:errors).and_return(['error'])
+        post :create, {:image => { "image" => "invalid value" }}
         response.should render_template("new")
       end
     end
@@ -111,18 +122,18 @@ describe ImagesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Image.any_instance.should_receive(:update_attributes).with({ "image" => "MyString" })
-        put :update, {:id => image.to_param, :image => { "image" => "MyString" }}, valid_session
+        put :update, {:id => image.to_param, :image => { "image" => "MyString" }}
       end
 
       it "assigns the requested image as @image" do
         image = Image.create! valid_attributes
-        put :update, {:id => image.to_param, :image => valid_attributes}, valid_session
+        put :update, {:id => image.to_param, :image => valid_attributes}
         assigns(:image).should eq(image)
       end
 
       it "redirects to the image" do
         image = Image.create! valid_attributes
-        put :update, {:id => image.to_param, :image => valid_attributes}, valid_session
+        put :update, {:id => image.to_param, :image => valid_attributes}
         response.should redirect_to(image)
       end
     end
@@ -132,7 +143,7 @@ describe ImagesController do
         image = Image.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
-        put :update, {:id => image.to_param, :image => { "image" => "invalid value" }}, valid_session
+        put :update, {:id => image.to_param, :image => { "image" => "invalid value" }}
         assigns(:image).should eq(image)
       end
 
@@ -140,7 +151,8 @@ describe ImagesController do
         image = Image.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
-        put :update, {:id => image.to_param, :image => { "image" => "invalid value" }}, valid_session
+        Image.any_instance.stub(:errors).and_return(['error'])
+        put :update, {:id => image.to_param, :image => { "image" => "invalid value" }}
         response.should render_template("edit")
       end
     end
@@ -150,13 +162,13 @@ describe ImagesController do
     it "destroys the requested image" do
       image = Image.create! valid_attributes
       expect {
-        delete :destroy, {:id => image.to_param}, valid_session
+        delete :destroy, {:id => image.to_param}
       }.to change(Image, :count).by(-1)
     end
 
     it "redirects to the images list" do
       image = Image.create! valid_attributes
-      delete :destroy, {:id => image.to_param}, valid_session
+      delete :destroy, {:id => image.to_param}
       response.should redirect_to(images_url)
     end
   end
