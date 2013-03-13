@@ -1,5 +1,6 @@
-$experimental-support-for-svg: true;
+/* ---------------------------------------- COMPASS START --------------------------------------- */
 
+$experimental-support-for-svg: true;
 $legacy-support-for-ie: false;
 $legacy-support-for-ie8: true;
 
@@ -18,12 +19,32 @@ $legacy-support-for-ie8: true;
 @import "compass/css3/box-sizing";
 @import "compass/css3/user-interface";
 
+$base-font-size: 14px;
+$base-line-height: 24px;
+$relative-font-sizing: false;
+@import "compass/typography/vertical_rhythm";
+
+/* ---------------------------------------- COMPASS END ----------------------------------------- */
+
+/* ---------------------------------------- BOOTSTRAP START ------------------------------------- */
+
+$baseLineHeight: 24px;
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
+@import "bootstrap/forms";
+@import "bootstrap/grid";
+
+/* ---------------------------------------- BOOTSTRAP END --------------------------------------- */
+
+/* ---------------------------------------- PROJECT CONSTANTS START------------------------------ */
+
+// screen resolutions
 
 $large-screen:  979px;
 $medium-screen: 767px;
 $small-screen:  479px;
+
+// colors
 
 $black: #1a1a1a;
 $lightblue: #21b0e6;
@@ -32,17 +53,33 @@ $grey: #b2b3bc;
 $lightgrey: #e4e5f1;
 $violet: #9428b6;
 
-@mixin respond-to($media) {
-  @if $media == large-screen {
-    @media (max-width: $large-screen) { @content; }
-  }
-  @else if $media == medium-screen {
-    @media (max-width: $medium-screen) { @content; }
-  }
-  @else if $media == small-screen {
-    @media (max-width: $small-screen) { @content; }
-  }
+/* ---------------------------------------- PROJECT CONSTANTS END ------------------------------- */
+
+/* ---------------------------------------- MIXINS START ---------------------------------------- */
+
+// font mixins
+
+@mixin font-small {
+  font-size: 13px;
+  line-height: $base-line-height * 0.75;
 }
+
+@mixin font-regular {
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+
+@mixin font-large {
+  font-size: 16px;
+  line-height: $base-line-height;
+}
+
+@mixin font-xlarge {
+  font-size: 18px;
+  line-height: $base-line-height;
+}
+
+// images and decorations mixins
 
 @mixin background-image-retina($file, $width, $height, $type: "png") {
   background-image: image-url($file + '.' + $type);
@@ -104,6 +141,8 @@ $violet: #9428b6;
   }
 }
 
+// layout mixins
+
 @mixin clearfix {
   &:before,
   &:after {
@@ -122,6 +161,20 @@ $violet: #9428b6;
   width: 100%;
   text-align: right;
 }
+
+@mixin respond-to($media) {
+  @if $media == large-screen {
+    @media (max-width: $large-screen) { @content; }
+  }
+  @else if $media == medium-screen {
+    @media (max-width: $medium-screen) { @content; }
+  }
+  @else if $media == small-screen {
+    @media (max-width: $small-screen) { @content; }
+  }
+}
+
+// flex-box mixins
 
 @mixin flex-box {
   display: -webkit-box;
@@ -181,14 +234,4 @@ $violet: #9428b6;
   }
 }
 
-@mixin border-radius($radius: $default-border-radius, $vertical-radius: false) {
-  @if $vertical-radius {
-  // Webkit doesn't understand the official shorthand syntax for specifying
-  // a vertical radius unless so in case there's several we only take the first.
-    @include experimental(border-radius, first-value-of($radius) first-value-of($vertical-radius), not -moz, -webkit, not -o, not -ms, not -khtml, not official);
-    @include experimental("border-radius", $radius unquote("/") $vertical-radius, -moz, not -webkit, not -o, not -ms, -khtml, official);
-  }
-  @else {
-    @include experimental(border-radius, $radius);
-  }
-}
+/* ---------------------------------------- MIXINS END ------------------------------------------ */
