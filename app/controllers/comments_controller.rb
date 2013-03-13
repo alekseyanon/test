@@ -1,6 +1,6 @@
 class CommentsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
-  
+
   def new
     @review = Review.find params[:review_id]
     @comment = @review.comments.build
@@ -14,6 +14,5 @@ class CommentsController < InheritedResources::Base
     c.parent_id = params[:parent_id]
     c.save!
     redirect_to r
-  end  
-
+  end
 end
