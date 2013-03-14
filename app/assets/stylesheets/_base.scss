@@ -26,16 +26,6 @@ $relative-font-sizing: false;
 
 /* ---------------------------------------- COMPASS END ----------------------------------------- */
 
-/* ---------------------------------------- BOOTSTRAP START ------------------------------------- */
-
-$baseLineHeight: 24px;
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
-@import "bootstrap/forms";
-@import "bootstrap/grid";
-
-/* ---------------------------------------- BOOTSTRAP END --------------------------------------- */
-
 /* ---------------------------------------- PROJECT CONSTANTS START------------------------------ */
 
 // screen resolutions
@@ -51,9 +41,19 @@ $lightblue: #21b0e6;
 $darkgrey: #787a83;
 $grey: #b2b3bc;
 $lightgrey: #e4e5f1;
-$violet: #9428b6;
+$violet: #c266dc;
 
 /* ---------------------------------------- PROJECT CONSTANTS END ------------------------------- */
+
+/* ---------------------------------------- BOOTSTRAP START ------------------------------------- */
+
+$baseLineHeight: 24px;
+$inputBorder: $lightgrey;
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/grid";
+
+/* ---------------------------------------- BOOTSTRAP END --------------------------------------- */
 
 /* ---------------------------------------- MIXINS START ---------------------------------------- */
 

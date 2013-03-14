@@ -2,7 +2,7 @@
   %div.map__inner
     %div#map.map
 
-%h1.page-header Рыбалка
+%h1.page-title Рыбалка
 
 %div.search-categories
   %div.search-categories__inner
@@ -23,23 +23,25 @@
 
 %div.search-panel
   %div.search-panel__inner
-    %span.search-pannel__sort-title
-      Сортировать по
-    %span.sort-control
-      %span.action-link.sort-control__text
-        Рейтингу
-      %span.sort-control__arrow
-        &nbsp;
-      %span.sort-control__triangle
-    %span.sort-control
-      %span.action-link.sort-control__text
-        Имени
-      %span.sort-control__arrow
-        &nbsp;
-      %span.sort-control__triangle
+    %span.search-panel__sort
+      %span.search-pannel__sort-title
+        Сортировать по
+      %span.sort-control
+        %span.action-link.sort-control__text
+          Рейтингу
+        %span.sort-control__arrow
+          &nbsp;
+        %span.sort-control__triangle
+      %span.sort-control
+        %span.action-link.sort-control__text
+          Имени
+        %span.sort-control__arrow
+          &nbsp;
+        %span.sort-control__triangle
     %span.search-pannel__show-title
-      Показывать
-      %select
+      %label.label_horizontal
+        Показывать
+      %select.input-medium
         %option
           Все
 
@@ -70,13 +72,16 @@
               %b Хорошая рыбалка (Поселок)
           %div.smorodina-item__geo
             %span.icon.icon-marker.smorodina-item__geo__icon
-            %small.smorodina-item__geo__list
-              %a.tdn-link{ href: "#" }
-                Полный
-              %a.tdn-link{ href: "#" }
-                Географический
-              %a.tdn-link{ href: "#" }
-                Идентификатор
+            %ul.smorodina-item__geo__list
+              %li
+                %a.tdn-link{ href: "#" }
+                  Полный
+              %li
+                %a.tdn-link{ href: "#" }
+                  Географический
+              %li
+                %a.tdn-link{ href: "#" }
+                  Идентификатор
 
   / -------------------------------------------------------------------------------
 

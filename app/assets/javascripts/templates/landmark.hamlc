@@ -21,18 +21,22 @@
           %b= @title
       %div.smorodina-item__geo
         %span.icon.icon-marker.smorodina-item__geo__icon
-        %small.smorodina-item__geo__list
-          %a.tdn-link{ href: "#" }
-            Полный
-          %a.tdn-link{ href: "#" }
-            Географический
-          %a.tdn-link{ href: "#" }
-            Идентификатор
+        %ul.smorodina-item__geo__list
+          %li
+            %a.tdn-link{ href: "#" }
+              Полный
+          %li
+            %a.tdn-link{ href: "#" }
+              Географический
+          %li
+            %a.tdn-link{ href: "#" }
+              Идентификатор
       %div.smorodina-item__tags
         %span.icon.icon-tags.smorodina-item__tags__icon
-        %small.smorodina-item__tags__list
+        %ul.smorodina-item__tags__list
           - for tag in @tag_list
-            %a.tdn-link{ href: "#" }= tag
+            %li
+              %a.tdn-link{ href: "#" }= tag
     %div.span4
       %div.smorodina-item__rating
         %span.smorodina-item__rating__text

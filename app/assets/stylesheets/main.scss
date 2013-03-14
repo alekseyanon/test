@@ -55,47 +55,8 @@ h2 {
   font-weight: 400;
 }
 
-/* overriding bootstrap styles */
-input {
-  @include input-placeholder {
-    color: $grey;
-  }
-}
-
-/* overriding bootstrap styles */
-select {
-  @include background-image(linear-gradient(top, #feffff, #ebebeb));
-}
-
-/* overriding bootstrap styles */
-label {
-  @include trailer(0.25);
-}
-
-/* overriding bootstrap styles */
-select,
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"],
-.uneditable-input {
-  padding-top: 5px;    /*       border-top + padding-top = 1px + 5px = 6px = $base-line-height * 0.25 */
-  padding-bottom: 5px; /* border-bottom + padding-bottom = 1px + 5px = 6px = $base-line-height * 0.25 */
-}
-
 .page-title {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 
 .page-title__centered {
@@ -773,7 +734,9 @@ a:hover, .tdn-link:hover {
 
 .smorodina-item {
   border-top: 1px dotted $lightgrey;
-  padding: 20px 0;
+  margin-bottom: -1px;
+  @include padding-trailer;
+  @include padding-leader;
   @include clearfix;
 }
 
@@ -827,20 +790,19 @@ a:hover, .tdn-link:hover {
 }
 
 .smorodina-item__content {
-  /*margin-left: 150px;*/
   overflow: hidden;
 }
 
 .smorodina-item__top {
-  margin-bottom: 8px;
+  @include trailer(0.25);
 }
 
 .smorodina-item__label {
   display: inline-block;
-  padding: 1px 8px;
+  padding: 0 8px;
   color: #494949;
   margin-right: 8px;
-  @include font-small;
+  font-size: 13px;
   @include border-radius(10px);
 }
 
@@ -930,7 +892,7 @@ a:hover, .tdn-link:hover {
 }
 
 .smorodina-item__rating {
-  @include font-small;
+  font-size: 13px;
 }
 
 .smorodina-item__rating__text {
@@ -971,11 +933,14 @@ a:hover, .tdn-link:hover {
   background-color: #fff;
   border: solid 1px $lightgrey;
   @include border-radius(10px);
-  margin-bottom: 20px;
+  @include trailer;
 }
 
 .search-categories__inner {
-  padding: 20px 30px;
+  padding: 0 30px;
+  margin-bottom: -2px;
+  @include padding-leader;
+  @include padding-trailer;
 }
 
 .search-categories__title {
@@ -984,10 +949,13 @@ a:hover, .tdn-link:hover {
 
 .search-category {
   display: inline-block;
-  padding: 5px 10px;
-  @include border-radius(12px);
+  padding: 0 10px;
   border: none;
   background: none;
+  line-height: $base-line-height * 0.75;
+  @include padding-leader(0.25);
+  @include padding-trailer(0.25);
+  @include border-radius(12px);
 }
 
 .search-category:active, .search-category.selected {
@@ -1026,12 +994,15 @@ a:hover, .tdn-link:hover {
 
 
 .search-panel {
-  background-color: #fff;
-  margin-bottom: 20px;
+  @include trailer;
 }
 
 .search-panel__inner {
   padding: 0 30px;
+}
+
+.search-panel__sort {
+  margin-right: 30px;
 }
 
 .search-pannel__sort-title {
@@ -1046,8 +1017,12 @@ a:hover, .tdn-link:hover {
 
 /* ---------------------------------------- SEARCH RESULTS START -------------------------------- */
 
+.search-results-section {
+  padding: 0 30px;
+}
+
 .search-results-section__title {
-  margin-bottom: 10px;
+  @include trailer(0.5);
   @include vignette(25px, 1px, bottom, center, $lightgrey);
 }
 
@@ -1060,14 +1035,14 @@ a:hover, .tdn-link:hover {
 }
 
 .leaflet-wide {
-  height: 250px;
-  margin-bottom: 20px;
+  height: $base-line-height * 2;
+  @include trailer;
 }
 
 .leaflet-create-object {
-  height: 400px;
+  height: $base-line-height * 1.75;
 }
 
 .leaflet-edit-object {
-  height: 150px;
+  height: $base-line-height * 0.5;
 }
