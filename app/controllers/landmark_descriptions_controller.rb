@@ -14,8 +14,8 @@ class LandmarkDescriptionsController < ApplicationController
   # GET /landmark_descriptions
   # GET /landmark_descriptions.json
   def index
-    @landmark_descriptions = LandmarkDescription.search sanitize_search_params(params.symbolize_keys[:query])
-
+    landmark_descriptions = LandmarkDescription.search sanitize_search_params(params.symbolize_keys[:query])
+    @landmark_descriptions = Kaminari.paginate_array(landmark_descriptions).page(params[:page]).per(25)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @landmark_descriptions.to_json(
