@@ -2,6 +2,13 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 ru:
+  views:
+    pagination:
+      previous: "&lt;"
+      next: "&gt;"
+      truncate: "..."
+      last: "&gt;&gt;"
+      first: "&lt;&lt;"
   activerecord:
     errors:
       models:
@@ -10,7 +17,7 @@ ru:
             email:
               taken: "Пользователь с таким email уже зарегистрирован."
               invalid: " содержит некорректные символы."
-  users: 
+  users:
     actions:
       update_password:
         flash: "Пароль успешно обновлен"
@@ -18,7 +25,7 @@ ru:
         flash: "Вот теперь все норм"
       do_activate:
         flash: "Аккаунт успешно активирован"
-      update_password: 
+      update_password:
         error: "Смена пароля завершилась не удачно, пожалуйста повторите попытку."
     errors:
       find_by_perishable_token: "Не нашел такого пользователя"

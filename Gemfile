@@ -19,6 +19,8 @@ gem 'ice_cube'
 
 gem 'pg_search'
 
+gem 'kaminari'
+
 ################## views #########################
 gem 'simple_form'
 gem 'haml-rails'

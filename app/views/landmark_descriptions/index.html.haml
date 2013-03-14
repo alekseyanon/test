@@ -1,7 +1,8 @@
 %h1 Listing landmark_descriptions
 = link_to "поиск объектов", search_landmark_descriptions_path
+= paginate @landmark_descriptions
 - @landmark_descriptions.each do |landmark_description|
-  .ld  
+  .ld(style='border-top: 1px solid gray;')
     .picture
     %strong=link_to landmark_description.title, landmark_description
     %br
