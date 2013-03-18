@@ -2,9 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-
 apiKey = 'cda4cc8498bd4da19e72af2b606f5c6e'
 tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
+landmarks = new Smorodina.Collections.Landmarks
+
+$ ->
+  new Smorodina.Views.LandmarkList(collection:landmarks)
+  new Smorodina.Views.PageTitle(collection:landmarks)
+  new Smorodina.Views.LandmarkListEmpty(collection:landmarks)
+  new Smorodina.Views.SearchPanel(collection:landmarks)
+  new Smorodina.Views.SearchCategories(collection:landmarks)
 
 initMap = ->
   map = L.map('map', { scrollWheelZoom: false })
@@ -59,9 +66,6 @@ window.landmark_description_search = ->
   lastBounds = null
   facets = []
   $searchField = $('#mainSearchFieldInput')
-  landmarks = new Smorodina.Collections.Landmarks
-  landmarksView = new Smorodina.Views.LandmarkList
-    collection: landmarks
 
   coffeeIcon = L.icon(
     iconUrl:    '/assets/coffee.png'
@@ -76,9 +80,6 @@ window.landmark_description_search = ->
         L.marker(latlon, {icon: coffeeIcon}).addTo lg
       else
         L.marker(latlon).addTo lg
-
-  $('#search-results').html landmarksView.render().el if $('#search-results').length
-
 
   updateQuery = ->
     bounds = map.getBounds()
@@ -98,7 +99,7 @@ window.landmark_description_search = ->
     query.facets = facets
 
     landmarks.fetch
-      update: true
+      query: query
       data: $.param
         query: query
       success: putMarkers

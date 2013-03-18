@@ -41,17 +41,20 @@ $lightblue: #21b0e6;
 $darkgrey: #787a83;
 $grey: #b2b3bc;
 $lightgrey: #e4e5f1;
-$violet: #c266dc;
+$violet: #9428b6;
 
 /* ---------------------------------------- PROJECT CONSTANTS END ------------------------------- */
 
 /* ---------------------------------------- BOOTSTRAP START ------------------------------------- */
 
-$baseLineHeight: 24px;
-$inputBorder: $lightgrey;
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 @import "bootstrap/grid";
+
+
+$baseLineHeight: 24px;
+$inputBorder: $lightgrey;
+$inputHeight: $baseLineHeight + 12px; // base line-height + 10px vertical padding + 2px top/bottom border
 
 /* ---------------------------------------- BOOTSTRAP END --------------------------------------- */
 

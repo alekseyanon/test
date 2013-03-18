@@ -425,8 +425,7 @@ a:hover, .tdn-link:hover {
 }
 
 .main-search {
-  width: 90%;
-  margin: auto;
+  margin: 0 30px;
   clear: both;
   @include padding-trailer(2);
   position: relative;
@@ -611,6 +610,7 @@ a:hover, .tdn-link:hover {
   background-color: #fff;
   border: solid 1px $lightgrey;
   @include font-small;
+  @include leader(2);
   @include trailer(2);
   @include border-radius(10px);
 }
@@ -725,6 +725,7 @@ a:hover, .tdn-link:hover {
 .fetch-results {
   text-align: center;
   @include leader(2);
+  @include trailer(2);
 }
 
 .fetch-results__refresh-icon {
@@ -934,6 +935,7 @@ a:hover, .tdn-link:hover {
   border: solid 1px $lightgrey;
   @include border-radius(10px);
   @include trailer;
+  display: none;
 }
 
 .search-categories__inner {
@@ -969,17 +971,18 @@ a:hover, .tdn-link:hover {
 .search-category_food {}
 .search-category_places {}
 
-.search-category_all:hover, .search-category_all.selected, search-category_all.pressed { background-color: $violet; }
-.search-category_sightseeing:hover, .search-category_sightseeing.selected, search-category_sightseeing.pressed { background-color: #fe7b6c; }
-.search-category_activities:hover, .search-category_activities.selected, search-category_activities.pressed { background-color: #e98603; }
-.search-category_lodging:hover, .search-category_lodging.selected, search-category_lodging.pressed { background-color: #a9cd19; }
-.search-category_food:hover, .search-category_food.selected, search-category_food.pressed { background-color: #f8c101; }
-.search-category_places:hover, .search-category_places.selected, search-category_places.pressed { background-color: $violet; }
+.search-category_all.selected, search-category_all.pressed { background-color: $violet; }
+.search-category_sightseeing.selected, search-category_sightseeing.pressed { background-color: #fe7b6c; }
+.search-category_activities.selected, search-category_activities.pressed { background-color: #e98603; }
+.search-category_lodging.selected, search-category_lodging.pressed { background-color: #a9cd19; }
+.search-category_food.selected, search-category_food.pressed { background-color: #f8c101; }
+.search-category_places.selected, search-category_places.pressed { background-color: $violet; }
 
 
-.search-category:hover > .search-category__text,
 .search-category.selected > .search-category__text {
   color: #fff;
+  border-bottom-color: transparent;
+  @include transition(none);
   @include text-shadow(-1px -1px 0 rgba(0,0,0,0.2));
 }
 
@@ -988,12 +991,17 @@ a:hover, .tdn-link:hover {
   position: relative;
 }
 
+.search-category__total {
+  margin-left: 5px;
+}
+
 /* ---------------------------------------- SEARCH CATEGORIES END ------------------------------- */
 
 /* ---------------------------------------- SEARCH PANEL START ---------------------------------- */
 
 
 .search-panel {
+  display: none;
   @include trailer;
 }
 
@@ -1001,8 +1009,11 @@ a:hover, .tdn-link:hover {
   padding: 0 30px;
 }
 
-.search-panel__sort {
+.search-panel__sort,
+.search-panel__show {
   margin-right: 30px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .search-pannel__sort-title {
@@ -1017,13 +1028,83 @@ a:hover, .tdn-link:hover {
 
 /* ---------------------------------------- SEARCH RESULTS START -------------------------------- */
 
-.search-results-section {
+.search__results {
+  padding: 0 30px;
+  position: relative;
+  min-height: $base-line-height * 5;
+}
+
+.search__results__title {
+  @include trailer(0.5);
+  @include vignette(25px, 1px, bottom, center, $lightgrey);
+}
+
+.search__empty {
+  display: none;
+  margin-bottom: $base-line-height * 5;
+}
+
+.search__empty__request {
+  padding: 0 30px;
+  @include trailer(2);
+}
+
+.search__empty__info {
   padding: 0 30px;
 }
 
-.search-results-section__title {
-  @include trailer(0.5);
-  @include vignette(25px, 1px, bottom, center, $lightgrey);
+.search__empty__info__warning {
+  font-size: 16px;
+  padding-left: $base-line-height * 1.5;
+  @include padding-trailer(1.5);
+  @include padding-leader(1.5);
+}
+
+.search__empty__info__warning__link {
+  color: $lightblue;
+}
+
+.search__empty__info__advise {
+  padding: 0 $base-line-height * 1.5;
+  @include padding-trailer(1.5);
+  @include padding-leader(1.5);
+  position: relative;
+}
+
+.search__empty__info__advise__title {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: $base-line-height * 1.5;
+  @include trailer(0.25);
+}
+
+.search__empty__info__advise__subtitle {
+  font-size: 16px;
+  @include trailer;
+}
+
+.search__empty__info__advise__border {
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background-image: image-url("icons/figure-border.png");
+  background-size: 100% 100%;
+}
+
+.search__empty__info__or {
+  text-align: center;
+}
+
+.search__empty__info__or__arrow {
+  margin: 0 5px;
+}
+
+.search__empty__info__or__text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.search__results__spinner {
+  min-height: 150px;
 }
 
 /* ---------------------------------------- SEARCH RESULTS END ---------------------------------- */
