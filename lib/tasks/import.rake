@@ -1,11 +1,20 @@
 #encoding: utf-8
 
 task import: :environment do
-  raise "Wrong number of arguments" if ARGV.count != 2
+
   file_for_import = ARGV.last
+  extension = File.extname(file_for_import)
+
+  case extension
+  when '.yml'
+    objects = YAML.load_file(file_for_import)
+  when '.json'
+    objects = JSON.parse File.read(file_for_import), symbolize_names: true
+  else
+    raise "Need json or yaml file to process"
+  end
 
   load "#{Rails.root}/spec/support/blueprints.rb"
-  objects = JSON.parse File.read(file_for_import), symbolize_names: true
 
   user = User.make!
   next_id = Osm::Node.order("id DESC").pluck(:id).first || 0
@@ -17,8 +26,7 @@ task import: :environment do
       puts "No category #{obj[:categories].first}"
       next
     end
-    latlon = obj[:latlon].split ' '
-    node = Osm::Node.make! geom: "POINT(#{latlon[1]} #{latlon[0]})", id: next_id
+    node = Osm::Node.make! geom: "POINT(#{obj[:lon]} #{obj[:lat]})", id: next_id
     landmark = Landmark.make! osm: node
     ld = LandmarkDescription.make! describable: landmark,
       title: obj[:title],
