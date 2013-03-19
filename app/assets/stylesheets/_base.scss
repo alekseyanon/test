@@ -45,18 +45,9 @@ $violet: #9428b6;
 
 /* ---------------------------------------- PROJECT CONSTANTS END ------------------------------- */
 
-/* ---------------------------------------- BOOTSTRAP START ------------------------------------- */
-
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
-@import "bootstrap/grid";
-
-
 $baseLineHeight: 24px;
 $inputBorder: $lightgrey;
 $inputHeight: $baseLineHeight + 12px; // base line-height + 10px vertical padding + 2px top/bottom border
-
-/* ---------------------------------------- BOOTSTRAP END --------------------------------------- */
 
 /* ---------------------------------------- MIXINS START ---------------------------------------- */
 

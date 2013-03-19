@@ -183,6 +183,28 @@ a:hover, .tdn-link:hover {
   color: $violet;
 }
 
+.user-panel__account {
+  position: relative;
+  display: inline-block;
+}
+
+.user-panel__account__dropdown {
+  padding: 0 0 0 12px;
+  text-align: left;
+  width: 100%;
+}
+
+.user-panel__account__dropdown > li {
+  margin: 11px 0 11px 0;
+  padding: 0 11px 0 11px;
+}
+
+.user-panel__account__dropdown,
+.user-panel__account__dropdown .divider,
+.user-panel__account__dropdown > li {
+  margin-left: -12px;
+}
+
 .user-panel__account:after {
   content: "";
   width: 0; height: 0;
@@ -299,6 +321,10 @@ a:hover, .tdn-link:hover {
   @include respond-to(large-screen){
     display: none;
   }
+}
+
+.control-panel__info-section > li {
+  display: inline;
 }
 
 .control-panel__info-section__link {
@@ -524,6 +550,8 @@ a:hover, .tdn-link:hover {
 
 .main-search__field__panel__example {
   margin-right: 30px;
+  position: relative;
+  display: inline-block;
 }
 
 .main-search__field__panel__example__text:after,
@@ -549,6 +577,31 @@ a:hover, .tdn-link:hover {
   top: 50%;
   left: 0;
   margin-top: -6px;
+}
+
+.main-search__field__panel__dropdown {
+  text-align: left;
+  padding: 15px 15px 15px 35px;
+  list-style: decimal;
+  margin-top: 5px;
+}
+
+.main-search__field__panel__dropdown_history {
+  margin-left: -11px;
+  width: 370px;
+}
+
+.main-search__field__panel__dropdown_history {
+  margin-left: -11px;
+  width: 370px;
+}
+
+.main-search__field__panel__dropdown > li {
+  margin-bottom: 6px;
+}
+
+.main-search__field__panel__dropdown > li > a {
+  color: $lightblue;
 }
 
 .search-filter {
@@ -922,6 +975,17 @@ a:hover, .tdn-link:hover {
   content: "\2193"
 }
 
+.smorodina-item__comments {
+  position: relative;
+  padding-left: 25px;
+  font-size: 13px;
+  color: $lightblue;
+}
+
+.smorodina-item__comments__icon {
+  position: absolute; top: 50%; left: 0;
+  margin-top: -8px;
+}
 
 /* ---------------------------------------- CHRONICLE END --------------------------------------- */
 

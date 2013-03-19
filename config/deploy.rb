@@ -39,7 +39,7 @@ default_run_options[:pty] = true
 
 before 'deploy:update_code', 'smorodina:daemons:stop'
 after  'deploy:update_code', 'smorodina:symlink'
-after  'smorodina:symlink',  'smorodina:db'
+#after  'smorodina:symlink',  'smorodina:db'
 after  'smorodina:db',       'smorodina:daemons:start'
 
 def run_rake(task)

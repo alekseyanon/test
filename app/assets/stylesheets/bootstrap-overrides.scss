@@ -1,5 +1,10 @@
 @import "base";
 
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/grid";
+@import "bootstrap/dropdowns";
+
 // Form controls
 // -------------------------
 
@@ -151,4 +156,58 @@ button {
   @include padding-leader(0.25);
   @include trailer(0.25);
   margin-right: 10px;
+}
+
+.dropdown-menu:before {
+  position: absolute;
+  top: -7px;
+  left: 9px;
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-left: 7px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  content: '';
+}
+
+.dropdown-menu:after {
+  position: absolute;
+  top: -6px;
+  left: 10px;
+  display: inline-block;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #ffffff;
+  border-left: 6px solid transparent;
+  content: '';
+}
+
+.pull-right .dropdown-menu:before,
+.dropdown-menu.pull-right:before {
+  right: 12px;
+  left: auto;
+}
+
+.pull-right .dropdown-menu:after,
+.dropdown-menu.pull-right:after {
+  right: 13px;
+  left: auto;
+}
+
+.dropdown-menu {
+  color: $black;
+}
+
+.dropdown-menu > li > a {
+  display: inline;
+  padding: 0;
+  line-height: 18px;
+  white-space: normal;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+  text-decoration: underline;
+  color: $lightblue;
+  background-color: transparent;
+  background-image: none;
+  filter: none;
 }

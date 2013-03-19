@@ -45,3 +45,8 @@
           59
         %span.smorodina-item__rating__daily.smorodina-item__rating__daily_up
           3
+
+      %div.smorodina-item__comments
+        %a{href: '#123'}
+          3 отзыва
+        %span.icon.icon-comments.smorodina-item__comments__icon
