@@ -137,6 +137,10 @@ class LandmarkDescriptionsController < ApplicationController
     end
   end
 
+  def count
+    respond_to { |format| format.json { render json: LandmarkDescription.count } }
+  end
+
   protected
 
   def get_categories

@@ -59,7 +59,7 @@ $(function() {
           $(".user-rating").html("");
         },
       onError :function(data, test){
-          $(".user-rating").html("<b style='color:red'>Произошла не предвиденная ошибка. Повторите попытку позже.</b>");
+          $(".user-rating").html("<b style='color:red'>Произошла непредвиденная ошибка. Повторите попытку позже.</b>");
         }
     });
 
