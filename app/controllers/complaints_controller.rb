@@ -3,8 +3,7 @@ class ComplaintsController < InheritedResources::Base
 
   def new
     @complaintable = find_complaintable
-    @complaint_models = @complaintable
-    @complaint_models.insert(-1, Complaint.new)
+    @complaintable.insert(-1, Complaint.new)
     respond_to do |format|
       format.html{ render layout: false}
     end
@@ -29,7 +28,6 @@ class ComplaintsController < InheritedResources::Base
   private
 
     def find_complaintable
-      flag = false
       complaintable = []
       params.each do |name, value|
         if name =~ /(.+)_id$/
