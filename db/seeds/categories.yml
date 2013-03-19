@@ -187,6 +187,15 @@ lodging:
       from_poly: true
     parking: Необорудованные места стоянок
     hunting_seat: Охотничий дом
+    guesthouse: Гостевой дом
+    hostel:
+      ru: Хостел
+      osm: tourism.hostel
+    resthome: Дом отдыха
+    fishing_house: Дом рыбака
+    hotel_complex: Гостиничный комплекс
+    holiday_camp: Турбаза
+    inn: Отель
 food:
   ru: Где поесть
   sub:
