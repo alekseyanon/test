@@ -3,7 +3,7 @@
 %p
   %b Title:
   = @review.title
-=link_to 'Пожаловаться', '#complaint', onclick: "complaint('/reviews/#{@review.id}');"
+=link_to 'Пожаловаться', '#complaint', onclick: "complaint('/reviews/#{@review.id}');", id: 'review_complaint'
 %p
   %b Body:
   = @review.body
