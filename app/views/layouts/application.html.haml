@@ -21,7 +21,8 @@
           Добро пожаловать в Смородину — путеводитель по родной стране, созданный ее жителями!
         %span.promo-panel__text
           Всего в Смородине
-          %b 450926
+          %b
+            %span{id: 'objets_total'} >9000
           объектов
         %a.button.button_3d.button_orange.promo-panel__button{ href: new_landmark_description_path }
           %span.button__inner.button_3d__inner
@@ -130,3 +131,5 @@
                   %span.button__text.button_3d__text{ data: { text: "Найти" }}
 
         = yield
+%script
+  $(window).load(load_objects_count)
