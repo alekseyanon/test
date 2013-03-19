@@ -118,3 +118,9 @@ function toggleType(link, field) {
         obj2.innerHTML = "скрыть пароль";
     }
 }
+
+function complaint(path){
+  $('.complaint').html('').load(path+"/complaints/new", function(){
+  });
+}
+

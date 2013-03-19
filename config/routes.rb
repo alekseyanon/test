@@ -12,7 +12,9 @@ Smorodina::Application.routes.draw do
 
   resources :reviews do
     resources :votes, only: [:create, :destroy]
+    resources :complaints
     resources :comments do
+      resources :complaints
       resources :votes, only: [:create, :destroy]
     end
   end

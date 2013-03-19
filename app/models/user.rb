@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   has_many :comments
   has_many :reviews
+  has_many :complaints
 
   acts_as_voter
   ### TODO: may be useful for calculation user rating
