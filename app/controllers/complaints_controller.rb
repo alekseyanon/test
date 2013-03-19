@@ -20,11 +20,6 @@ class ComplaintsController < InheritedResources::Base
     end
   end
 
-  def index
-    @complaintable = find_complaintable
-    @complaints = @complaintable.last.complaints
-  end
-
   private
 
     def find_complaintable
