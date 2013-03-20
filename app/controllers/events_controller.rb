@@ -1,4 +1,6 @@
 class EventsController < InheritedResources::Base
+  respond_to :html#, except: :index
+  respond_to :json, only: :index
 
   def new
     @landmarks = Landmark.limit(10)
@@ -21,7 +23,7 @@ class EventsController < InheritedResources::Base
       end
       @days[day] << eo
     end
-    index!
+    respond_with(@event_occurrences, include: :event)
   end
 
   def create
