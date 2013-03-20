@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe "Reviews", js: true, type: :request do
@@ -51,4 +52,21 @@ describe "Reviews", js: true, type: :request do
     page.find('.down-vote').should have_content '0'
   end
 
+  it 'complaint system exsist' do
+    create_new title, body
+    visit review_path Review.last
+    page.should have_selector('.complaint')
+  end
+
+  it 'make complaint for the review' do
+    -> do
+      create_new title, body
+      visit review_path Review.last
+      page.find('#review_complaint').click
+      page.should have_selector('.complaint > form')
+      fill_in 'complaint_content', with: 'test'
+      click_on 'Отправить жалобу'
+      current_path.should == review_path(Review.last)
+    end.should change(Complaint, :count).by(1)
+  end
 end

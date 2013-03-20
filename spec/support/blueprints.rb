@@ -107,3 +107,9 @@ Rating.blueprint do
   value { rand(1..5) }
   landmark_description { LandmarkDescription.make! }
 end
+
+Complaint.blueprint do
+  content { Faker::Lorem.sentences 3 }
+  user { User.make! }
+  complaintable { Review.make! }
+end
