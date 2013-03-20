@@ -1,0 +1,80 @@
+@font-face {
+  font-family: 'smorodina-icons';
+  src: font-url('smorodina-icons.eot');
+  src: font-url('smorodina-icons.eot?#iefix') format('embedded-opentype'),
+       font-url('smorodina-icons.woff') format('woff'),
+       font-url('smorodina-icons.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-facebook, .icon-twitter, .icon-vk, .icon-flag, .icon-thumbs-up, .icon-thumbs-down, .icon-cross, .icon-search, .icon-arrow-left, .icon-arrow-right, .icon-arrow-down, .icon-login, .icon-logout, .icon-list, .icon-clock, .icon-cycle, .icon-bed, .icon-food-eat, .icon-star, .icon-binoculars {
+  font-family: 'smorodina-icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+.icon-facebook:before {
+  content: "\e001";
+}
+.icon-twitter:before {
+  content: "\e002";
+}
+.icon-vk:before {
+  content: "\e000";
+}
+.icon-flag:before {
+  content: "\66";
+}
+.icon-thumbs-up:before {
+  content: "\e004";
+}
+.icon-thumbs-down:before {
+  content: "\e005";
+}
+.icon-cross:before {
+  content: "\e006";
+}
+.icon-search:before {
+  content: "\e007";
+}
+.icon-arrow-left:before {
+  content: "\e008";
+}
+.icon-arrow-right:before {
+  content: "\e009";
+}
+.icon-arrow-down:before {
+  content: "\e00a";
+}
+.icon-login:before {
+  content: "\e00b";
+}
+.icon-logout:before {
+  content: "\e00c";
+}
+.icon-list:before {
+  content: "\e00d";
+}
+.icon-clock:before {
+  content: "\e00e";
+}
+.icon-cycle:before {
+  content: "\e00f";
+}
+.icon-bed:before {
+  content: "\21";
+}
+.icon-food-eat:before {
+  content: "\22";
+}
+.icon-star:before {
+  content: "\23";
+}
+.icon-binoculars:before {
+  content: "\24";
+}

@@ -653,8 +653,35 @@ a:hover, .tdn-link:hover {
   z-index: 1;
 }
 
+.map__content {
+  position: relative;
+  overflow: hidden;
+}
+
 .map {
   height: $base-line-height * 20;
+}
+
+.map__collapse {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  display: none;
+}
+
+.map__collapse__button {
+  background-color: #37b8e8;
+  height: 40px;
+  width: 230px;
+  line-height: 40px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.map__collapse__button__text {
+  color:  #fff;
 }
 
 /* ---------------------------------------- FOOTER START ---------------------------------------- */
@@ -1015,13 +1042,10 @@ a:hover, .tdn-link:hover {
 
 .search-category {
   display: inline-block;
-  padding: 0 10px;
+  padding: 4px 15px 5px 12px;
   border: none;
   background: none;
-  line-height: $base-line-height * 0.75;
-  @include padding-leader(0.25);
-  @include padding-trailer(0.25);
-  @include border-radius(12px);
+  border-radius: 20px;
 }
 
 .search-category:active, .search-category.selected {
@@ -1035,19 +1059,15 @@ a:hover, .tdn-link:hover {
 .search-category_food {}
 .search-category_places {}
 
-.search-category_all.selected, search-category_all.pressed { background-color: $violet; }
-.search-category_sightseeing.selected, search-category_sightseeing.pressed { background-color: #fe7b6c; }
-.search-category_activities.selected, search-category_activities.pressed { background-color: #e98603; }
-.search-category_lodging.selected, search-category_lodging.pressed { background-color: #a9cd19; }
-.search-category_food.selected, search-category_food.pressed { background-color: #f8c101; }
-.search-category_places.selected, search-category_places.pressed { background-color: $violet; }
+.search-category_all.selected, .search-category_all:active { background-color: #c266dc; }
+.search-category_sightseeing.selected, .search-category_sightseeing:active { background-color: #fe7b6c; }
+.search-category_activities.selected, .search-category_activities:active { background-color: #e98603; }
+.search-category_lodging.selected, .search-category_lodging:active { background-color: #a9cd19; }
+.search-category_food.selected, .search-category_food:active { background-color: #f8c101; }
+.search-category_places.selected, .search-category_places:active { background-color: #c266dc; }
 
-
-.search-category.selected > .search-category__text {
-  color: #fff;
-  border-bottom-color: transparent;
-  @include transition(none);
-  @include text-shadow(-1px -1px 0 rgba(0,0,0,0.2));
+.search-category__text {
+  vertical-align: middle;
 }
 
 .search-category__text:before {
@@ -1055,8 +1075,66 @@ a:hover, .tdn-link:hover {
   position: relative;
 }
 
+/* overriding .action-link styles */
+.search-category.selected > .search-category__text,
+.search-category:active > .search-category__text {
+  color: #fff;
+  border-bottom-color: transparent;
+  @include transition(none);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+
 .search-category__total {
   margin-left: 5px;
+}
+
+.search-category__icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+  font-size: 24px;
+}
+
+/*.search-category__icon_bed {
+  @include background-image(linear-gradient(top, #c1db59, #a7cc16));
+}
+
+.search-category__icon_food-eat {
+  @include background-image(linear-gradient(top, #f7e12a, #f8c100));
+}
+
+.search-category__icon_star {
+  @include background-image(linear-gradient(top, #ffae01, #e17604));
+}
+
+.search-category__icon_binoculars {
+  @include background-image(linear-gradient(top, #fe897c, #ff4735));
+}*/
+
+.search-category__icon_bed {
+  color: #a9cd19;
+  text-shadow: 0 1px 0 #778d20;
+}
+
+.search-category__icon_food-eat {
+  color: #f8c101;
+  text-shadow: 0 1px 0 #b4900f;
+}
+
+.search-category__icon_star {
+  color: #e98603;
+  text-shadow: 0 1px 0 #aa5b03;
+}
+
+.search-category__icon_binoculars {
+  color: #fe7b6c;
+  text-shadow: 0 1px 0 #bf4032;
+}
+
+.search-category.selected > .search-category__icon,
+.search-category:active > .search-category__icon {
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* ---------------------------------------- SEARCH CATEGORIES END ------------------------------- */
