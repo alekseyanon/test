@@ -16,7 +16,7 @@ describe ComplaintsController do
     end
 
     it "routes to #destroy" do
-      delete("/reviews/1/complaints/1").should route_to("complaints#destroy", review_id: "1", :id => "1")
+      delete("/reviews/1/complaints/1").should route_to("complaints#destroy", review_id: "1", id: "1")
     end
 
     it "routes to #index" do
@@ -32,7 +32,7 @@ describe ComplaintsController do
     end
 
     it "routes to #destroy" do
-      delete("/reviews/1/comments/1/complaints/1").should route_to("complaints#destroy", review_id: "1", :id => "1", comment_id: "1")
+      delete("/reviews/1/comments/1/complaints/1").should route_to("complaints#destroy", review_id: "1", id: "1", comment_id: "1")
     end
 
   end

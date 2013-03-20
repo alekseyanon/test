@@ -59,12 +59,14 @@ describe "Reviews", js: true, type: :request do
   end
 
   it 'make complaint for the review' do
-    create_new title, body
-    visit review_path Review.last
-    page.find('#review_complaint').click
-    page.should have_selector('.complaint > form')
-    fill_in 'complaint_content', with: 'test'
-    click_on 'Отправить жалобу'
-    current_path.should == review_path(Review.last)
+    -> do
+      create_new title, body
+      visit review_path Review.last
+      page.find('#review_complaint').click
+      page.should have_selector('.complaint > form')
+      fill_in 'complaint_content', with: 'test'
+      click_on 'Отправить жалобу'
+      current_path.should == review_path(Review.last)
+    end.should change(Complaint, :count).by(1)
   end
 end

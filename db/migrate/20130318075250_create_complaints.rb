@@ -3,8 +3,7 @@ class CreateComplaints < ActiveRecord::Migration
     create_table :complaints do |t|
       t.text :content
       t.references :user
-      t.integer :complaintable_id
-      t.string :complaintable_type
+      t.references :complaintable, polymorphic: true
 
       t.timestamps
     end
