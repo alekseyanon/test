@@ -1,3 +1,5 @@
+SELECT AddGeometryColumn('relations', 'geom', 4326, 'POLYGON', 2);
+
 select * from relations
   join (
          select relation_id from relation_members as M
@@ -20,11 +22,18 @@ AS $$
     res = plpy.execute(nodes_plan, [multipoly])
     sequences = [r["nodes"] for r in res]
     head, tail = sequences[0], sequences[1:]
-    while len(tail) > 0:
-        nxt = next(seq for seq in tail if (seq[0] == head[-1] or seq[-1] == head[-1]))
-        tail.remove(nxt)
-        if nxt[-1] == head[-1]:
-            nxt.reverse()
-        head += nxt[1:]
-    return [plpy.execute(geoms_plan, [id])[0]["geom"] for id in head]
+    try:
+        while len(tail) > 0 and head[0] != head[-1]: #TODO remove hack
+            nxt = next(seq for seq in tail if (seq[0] == head[-1] or seq[-1] == head[0] or seq[-1] == head[-1]))
+            tail.remove(nxt)
+            if nxt[-1] == head[0]:
+                head = nxt[:-1] + head
+            else:
+                if nxt[-1] == head[-1]:
+                    nxt.reverse()
+                head += nxt[1:]
+        head.append(head[0]) #TODO remove hack
+        return [plpy.execute(geoms_plan, [id])[0]["geom"] for id in head]
+    except:
+        return None
 $$ LANGUAGE plpythonu;
