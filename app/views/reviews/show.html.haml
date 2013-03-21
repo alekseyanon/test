@@ -3,10 +3,13 @@
 %p
   %b Title:
   = @review.title
+=link_to 'Пожаловаться', '#complaint', onclick: "complaint('/reviews/#{@review.id}');", id: 'review_complaint'
 %p
   %b Body:
   = @review.body
 
+%a{name: 'complaint'}
+.complaint
 .votes{id: dom_id(@review)}
   =render partial: "shared/votes", locals: { object_to_vote: @review, nested_path: '' }
 
