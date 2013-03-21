@@ -78,11 +78,15 @@ a:visited {
   color: #609;
 }
 
-a:hover, .action-link:hover {
+a:hover,
+.action-link:hover,
+.ui-link:visited:hover {
   color: $lightblue;
 }
 
-a:hover, .tdn-link:hover {
+a:hover,
+.tdn-link:hover
+.ui-link:hover {
   text-decoration: underline;
 }
 
@@ -179,7 +183,8 @@ a:hover, .tdn-link:hover {
 }
 
 .user-panel__login,
-.user-panel__login > a:hover {
+.user-panel__login > a:hover,
+.user-panel__login > a:visited:hover {
   color: $violet;
 }
 
@@ -269,8 +274,10 @@ a:hover, .tdn-link:hover {
   text-align: center;
 }
 
-.control-panel__menu > a.selected {
+.control-panel__menu > a.selected,
+.control-panel__menu > a.selected:visited {
   @include background-image(linear-gradient(bottom, #474747, #232323));
+  @include transition(none);
   color: #fff;
   text-shadow: none;
   text-decoration: none;
@@ -311,20 +318,53 @@ a:hover, .tdn-link:hover {
 }
 
 .control-panel__info-section {
-  height: 61px; /* = control-panel height */
-  line-height: 61px; /* = control-panel height */
-  float: right;
   font-size: 14px;
   white-space: nowrap;
-  @include trailer(0.5);
+  color: #494949;
+  margin-bottom: 12px;
+  padding: 15px;
 
-  @include respond-to(large-screen){
+  @media only screen and (min-width:980px){
+    height: 61px; /* = control-panel height */
+    line-height: 61px; /* = control-panel height */
+    float: right;
+    display: block;
+    position: relative;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    @include box-shadow(none);
+  }
+}
+
+.control-panel__info-section:after,
+.control-panel__info-section:before {
+  @media only screen and (min-width:980px){
     display: none;
   }
 }
 
+.control-panel__info-section.pull-right:after {
+  right: 19px;
+}
+
+.control-panel__info-section.pull-right:before {
+  right: 18px;
+}
+
 .control-panel__info-section > li {
   display: inline;
+
+  @include respond-to(large-screen){
+    margin-top: 10px;
+    display: block;
+  }
+}
+
+.control-panel__info-section > li:first-child {
+  margin-top: 0;
 }
 
 .control-panel__info-section__link {
@@ -332,23 +372,17 @@ a:hover, .tdn-link:hover {
   font-size: 14px;
 }
 
-.control-panel__social-block {
-
-}
-
-.control-panel__social-block__link {
+.control-panel__social-block__link,
+.control-panel__social-block__link:hover {
   text-decoration: none;
   white-space: nowrap;
-
-  @include respond-to(large-screen){
-    display: block;
-    @include trailer(0.5);
-  }
 }
 
 .control-panel__social-block__link__icon {
   margin-right: 6px;
   vertical-align: middle;
+  font-size: 24px;
+  text-decoration: none;
 }
 
 .control-panel__social-block__link__text {
@@ -369,6 +403,7 @@ a:hover, .tdn-link:hover {
   width: 55px;
   height: 61px; /* = control-panel height */
   border-left: 1px solid $lightgrey;
+  text-align: center;
   @include box-shadow(inset 1px 0 0 0 #fff);
   cursor: pointer;
   display: none;
@@ -379,11 +414,13 @@ a:hover, .tdn-link:hover {
 }
 
 .control-panel__info-button__icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -8px;
-  margin-left: -10px;
+  font-size: 32px;
+  line-height: 61px;
+  @include transition(color 0.25s linear);
+}
+
+.control-panel__info-button:hover > .control-panel__info-button__icon {
+  color: $lightblue;
 }
 
 .promo-description {
@@ -588,7 +625,7 @@ a:hover, .tdn-link:hover {
 
 .main-search__field__panel__dropdown_history {
   margin-left: -11px;
-  width: 370px;
+  width: 350px;
 }
 
 .main-search__field__panel__dropdown_history {
@@ -597,7 +634,11 @@ a:hover, .tdn-link:hover {
 }
 
 .main-search__field__panel__dropdown > li {
-  margin-bottom: 6px;
+  margin-top: 6px;
+}
+
+.main-search__field__panel__dropdown > li:first-child {
+  margin-top: 0;
 }
 
 .main-search__field__panel__dropdown > li > a {
