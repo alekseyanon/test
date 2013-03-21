@@ -621,8 +621,8 @@ a:hover, .tdn-link:hover {
 .map__outer {
   position: relative;
   z-index: 0;
+  margin-bottom: 24px;
   @include box-shadow(rgba(0, 0, 0, 0.1) 0 5px 20px 0);
-  @include trailer;
 }
 
 .map__outer:before,
@@ -646,8 +646,7 @@ a:hover, .tdn-link:hover {
 }
 
 .map__inner {
-  padding: 0 $base-line-height * 0.25;
-  @include rhythm(0, 0.25, 0.25, 0);
+  padding: 6px;
   background:#fff;
   position: relative;
   z-index: 1;
@@ -658,19 +657,23 @@ a:hover, .tdn-link:hover {
   overflow: hidden;
 }
 
-.map {
-  height: $base-line-height * 20;
+.map__container_collapsed {
+  position: absolute;
+  width: 100%;
 }
 
-.map__collapse {
+.map {
+  height: 480px;
+}
+
+.map__expand {
   position: relative;
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
-  display: none;
 }
 
-.map__collapse__button {
+.map__expand__button {
   background-color: #37b8e8;
   height: 40px;
   width: 230px;
@@ -680,7 +683,8 @@ a:hover, .tdn-link:hover {
   border-radius: 20px;
 }
 
-.map__collapse__button__text {
+.map__expand__button__text,
+.map__expand__button__text:hover {
   color:  #fff;
 }
 

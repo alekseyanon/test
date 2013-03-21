@@ -12,6 +12,8 @@ $ ->
   new Smorodina.Views.LandmarkListEmpty(collection:landmarks)
   new Smorodina.Views.SearchPanel(collection:landmarks)
   new Smorodina.Views.SearchCategories(collection:landmarks)
+  new Smorodina.Views.Map()
+  new Smorodina.Views.SearchForm()
 
 initMap = ->
   map = L.map('map', { scrollWheelZoom: false })
