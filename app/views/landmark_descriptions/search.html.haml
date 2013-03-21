@@ -1,6 +1,13 @@
-%div.map__outer
+%div#mapContainer.map__outer
   %div.map__inner
-    %div#map.map
+    %div.map__content
+      %div#mapContainer.map__container.map__container_collapsed
+        %div#map.map
+      %div#mapExpand.map__expand
+        %span.map__expand__button
+          %span#mapExpandButton.action-link.map__expand__button__text
+            Посмотреть на карте
+
 
 %h1#pageTitle.page-title{ data: { default: { title: 'Поиск' } } } Поиск
 
@@ -9,23 +16,27 @@
     %b.search-categories__title
       Найдено результатов
     %button.search-category.search-category_all{ data: { facet: '' } }
-      %span.action-link.search-category__text{ data: { text: 'Все варианты' }}
+      %span.action-link.search-category__text{ data: { text: 'Все' }}
         %b.search-category__total
           48
     %button.search-category.search-category_sightseeing{ data: { facet: 'sightseeing' } }
+      %span.icon-binoculars.search-category__icon.search-category__icon_binoculars
       %span.action-link.search-category__text{ data: { text: 'Что посмотреть' }}
         %b.search-category__total
           48
     %button.search-category.search-category_activities{ data: { facet: 'activities' } }
+      %span.icon-star.search-category__icon.search-category__icon_star
       %span.action-link.search-category__text{ data: { text: 'Чем заняться' }}
         %b.search-category__total
           48
-    %button.search-category.search-category_lodging{ data: { facet: 'lodging' } }
-      %span.action-link.search-category__text{ data: { text: 'Где заночевать' }}
+    %button.search-category.search-category_food{ data: { facet: 'food' } }
+      %span.icon-food-eat.search-category__icon.search-category__icon_food-eat
+      %span.action-link.search-category__text{ data: { text: 'Где поесть' }}
         %b.search-category__total
           48
-    %button.search-category.search-category_food{ data: { facet: 'food' } }
-      %span.action-link.search-category__text{ data: { text: 'Где поесть' }}
+    %button.search-category.search-category_lodging{ data: { facet: 'lodging' } }
+      %span.icon-bed.search-category__icon.search-category__icon_bed
+      %span.action-link.search-category__text{ data: { text: 'Где заночевать' }}
         %b.search-category__total
           48
     %button.search-category.search-category_places{ data: { facet: 'places' } }

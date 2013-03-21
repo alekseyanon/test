@@ -1,4 +1,7 @@
 .comment{id: dom_id(comment)}
-  =render partial: "shared/votes", locals: { object_to_vote: comment, nested_path: "reviews/#{comment.id}/" }
+  =render partial: "shared/votes", locals: { object_to_vote: comment, nested_path: "reviews/#{comment.commentable_id}/" }
   .comment_body= comment.body
-  %p= link_to 'Ответить', new_review_comment_path(@review, parent_id: comment.id)
+  %p
+    = link_to 'Ответить', new_review_comment_path(@review, parent_id: comment.id)
+    \|
+    = link_to 'Пожаловаться', '#complaint', onclick: "complaint('/reviews/#{comment.commentable_id}/comments/#{comment.id}');"
