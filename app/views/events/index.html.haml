@@ -9,11 +9,11 @@
 = link_to 'Позже', week_path('next week monday', @date)
 
 
-/- @days.each do |date, eos|
-  %h2= Russian::strftime(eos.first.start, "%A, %d %B %Y г.").mb_chars.capitalize
-  - eos.each do |eo|
-    %h3= link_to eo.event.title, eo.event
-    %p= eo.start
-    - unless eo.event.images.empty?
-      %img{width: 86, height: 73, src: eo.event.images.first.image_url(:thumb)}
-    %p= eo.event.body
+/ - @days.each do |date, eos|
+/   %h2= Russian::strftime(eos.first.start, "%A, %d %B %Y г.").mb_chars.capitalize
+/   - eos.each do |eo|
+/     %h3= link_to eo.event.title, eo.event
+/     %p= eo.start
+/     - unless eo.event.images.empty?
+/       %img{width: 86, height: 73, src: eo.event.images.first.image_url(:thumb)}
+/     %p= eo.event.body
