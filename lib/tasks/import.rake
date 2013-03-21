@@ -22,7 +22,7 @@ namespace :import do
 
   task db: :environment do
     conn = PG.connect( dbname: 'datamining' )
-    result = conn.exec('select * from landmarks where lonlat is not null AND categories is not null limit 10')
+    result = conn.exec('select * from landmarks where lonlat is not null AND categories is not null')
     objects = []
     test = []
     result.each do |r|
@@ -45,7 +45,7 @@ namespace :import do
         emails: emails
       }
     end
-    binding.pry
+    create_objects objects
   end
 
 end
@@ -58,19 +58,29 @@ def create_objects objects
 
   objects.each do |obj|
     next_id += 1
-    # TODO много категорий
-    category = Category.find_by_name_ru obj[:categories].first
-    if category.nil?
-      puts "No category #{obj[:categories].first}"
-      next
-    end
+    categories = categories_process obj[:categories]
+    next if categories.blank?
     node = Osm::Node.make! geom: "POINT(#{obj[:lon]} #{obj[:lat]})", id: next_id
     landmark = Landmark.make! osm: node
     ld = LandmarkDescription.make! describable: landmark,
       title: obj[:title],
       body: obj[:address],
       user: user,
-      tag_list: category.name
+      tag_list: categories
+    puts "Created #{ld.title}"
   end
 
+end
+
+def categories_process categories
+  cats_out = []
+  categories.each do |cat|
+    c = Category.find_by_name_ru cat
+    if c.nil?
+      puts "No category found #{cat}"
+      next
+    end
+    cats_out << c.name
+  end
+  cats_out.join ', '
 end
