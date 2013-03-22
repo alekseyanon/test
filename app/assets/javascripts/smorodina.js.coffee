@@ -3,4 +3,7 @@ window.Smorodina =
   Collections: {}
   Views: {}
   Routers: {}
-  Events: _.extend {}, Backbone.Events
+  Utils:
+    on: (selector, callback) ->
+      $ ->
+        if $(selector).length then callback()

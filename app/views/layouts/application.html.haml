@@ -13,7 +13,7 @@
     /[if lte IE 8]
       = stylesheet_link_tag  "ie"
     = csrf_meta_tags
-  %body
+    %body{ class: page_class }
 
     %div.promo-panel
       %div.promo-panel__inner
