@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
   ### TODO: add anonimous
 
   # AASM
+  # TODO Move to state_machine
   aasm column: 'state' do
     state :pending_activation, initial: true
     state :active, enter: :activation
