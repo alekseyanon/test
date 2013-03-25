@@ -18,7 +18,13 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :images
 
   validates :title, :start_date, :geom, presence: true
+  validate  :validate_event_tags
   validates_associated :user, :landmark
+
+
+  def validate_event_tags
+    errors.add(:event_tags, "need at least 1 tag") if event_tags.length < 1
+  end
 
   after_create :event_after_create
 

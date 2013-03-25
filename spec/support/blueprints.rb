@@ -74,6 +74,7 @@ Event.blueprint do
   title { Faker::Lorem.sentence }
   start_date { (1..14).to_a.sample.days.ago }
   geom { Geo::factory.point(10, 10) }
+  tag_list { 'aaa, bbb, ccc' }
   duration {3}
 end
 
@@ -114,10 +115,6 @@ Complaint.blueprint do
   complaintable { Review.make! }
 end
 
-EventTags.blueprint do
-  # Attributes here
-end
-
-EventTagging.blueprint do
-  # Attributes here
+EventTag.blueprint do
+  title { Faker::Lorem.word }
 end
