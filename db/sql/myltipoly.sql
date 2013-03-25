@@ -21,8 +21,8 @@ AS $$
 
     res = plpy.execute(nodes_plan, [multipoly])
     sequences = [r["nodes"] for r in res]
-    head, tail = sequences[0], sequences[1:]
     try:
+        head, tail = sequences[0], sequences[1:]
         while len(tail) > 0 and head[0] != head[-1]: #TODO remove hack
             nxt = next(seq for seq in tail if (seq[0] == head[-1] or seq[-1] == head[0] or seq[-1] == head[-1]))
             tail.remove(nxt)
