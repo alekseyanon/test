@@ -24,8 +24,15 @@ class EventsController < InheritedResources::Base
     index!
   end
 
+  # event[tag_list] - пользовательские теги через запятую
+  # system_event_tag_id - id одного из системных тегов
   def create
     params[:event][:start_date] = Time.parse params[:event][:start_date]
+    @event = Event.new params[:event]
+    unless params[:system_event_tag_id].blank?
+      system_tag = EventTag.find params[:system_event_tag_id]
+      @event.event_tags << system_tag
+    end
     create!
   end
 

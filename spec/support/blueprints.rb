@@ -113,3 +113,11 @@ Complaint.blueprint do
   user { User.make! }
   complaintable { Review.make! }
 end
+
+EventTags.blueprint do
+  # Attributes here
+end
+
+EventTagging.blueprint do
+  # Attributes here
+end
