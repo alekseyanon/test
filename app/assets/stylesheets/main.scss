@@ -64,6 +64,19 @@ h2 {
   text-align: center;
 }
 
+//TODO footer has the same appearance. May be in future, we'll make a common class.
+
+.search-panel {
+  background-color: #fff;
+  border: solid 1px $lightgrey;
+  margin-bottom: 36px;
+  border-radius: 10px;
+}
+
+.search-panel__inner {
+  padding: 24px 30px;
+}
+
 /* ---------------------------------------- LINKS START ----------------------------------------- */
 
 a, .action-link {
@@ -95,7 +108,12 @@ a:hover,
   display: inline-block;
   position: relative;
   cursor: pointer;
-  line-height: 1.2;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.action-link:hover {
+  text-decoration: none;
 }
 
 .ui-link:visited {
@@ -787,26 +805,20 @@ a:hover,
   @include trailer(0.5);
 }
 
-/* overriding bootstrap styles */
-.chronicle__search .chronicle__search__field__label {
+.chronicle__search__field__label {
   margin-right: 10px;
   float: none;
   width: auto;
   display: inline-block;
 }
 
-/* overriding bootstrap styles */
-.chronicle__search .chronicle__search__field__input {
-  padding-left: 15px;
-  @include border-radius(15px);
-  @include box-shadow(inset 2px 2px 3px $grey);
-}
-
-.chronicle__section {
+.chronicle__section,
+.search__results__date-section {
   @include trailer;
 }
 
-.chronicle__section__header {
+.chronicle__section__header,
+.search__results__date-section__header {
   @include trailer(0.5);
   @include vignette(10px, 1px, bottom, left, $lightgrey);
 }
@@ -1059,27 +1071,33 @@ a:hover,
   margin-top: -8px;
 }
 
+.smorodina-item__date-range {
+  color: $darkgrey;
+  font-size: 13px;
+}
+
+.smorodina-item__likes {
+  color: $darkgrey;
+  font-size: 13px;
+}
+
+.smorodina-item__event-label {
+  border-radius: 3px;
+  position: absolute;
+  top: 2px; right: 2px;
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.2;
+  padding: 3px 7px;
+}
+
+.smorodina-item__event-label_progress {
+  background-color: #a9cd19;
+}
+
 /* ---------------------------------------- CHRONICLE END --------------------------------------- */
 
 /* ---------------------------------------- SEARCH CATEGORIES START ----------------------------- */
-
-
- //TODO footer has the same appearance. May be in future, we'll make a common class.
-
-.search-categories {
-  background-color: #fff;
-  border: solid 1px $lightgrey;
-  @include border-radius(10px);
-  @include trailer;
-  display: none;
-}
-
-.search-categories__inner {
-  padding: 0 30px;
-  margin-bottom: -2px;
-  @include padding-leader;
-  @include padding-trailer;
-}
 
 .search-categories__title {
   margin-right: 10px;
@@ -1182,36 +1200,39 @@ a:hover,
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* ---------------------------------------- SEARCH CATEGORIES END ------------------------------- */
+.search-filter__category {
 
-/* ---------------------------------------- SEARCH PANEL START ---------------------------------- */
-
-
-.search-panel {
-  display: none;
-  @include trailer;
 }
 
-.search-panel__inner {
+/* ---------------------------------------- SEARCH CATEGORIES END ------------------------------- */
+
+/* ---------------------------------------- SEARCH RESULTS PANEL START -------------------------- */
+
+
+.search-results-panel {
+  margin-bottom: 24px;
+}
+
+.search-results-panel__inner {
   padding: 0 30px;
 }
 
-.search-panel__sort,
-.search-panel__show {
+.search-results-panel__sort,
+.search-results-panel__show {
   margin-right: 30px;
   display: inline-block;
   vertical-align: top;
 }
 
-.search-pannel__sort-title {
+.search-results-panel__sort-title {
   margin-right: 10px;
 }
 
-.search-pannel__show-title {
+.search-results-panel__show-title {
   margin-right: 10px;
 }
 
-/* ---------------------------------------- SEARCH PANEL END ------------------------------------ */
+/* ---------------------------------------- SEARCH RESULTS PANEL END ---------------------------- */
 
 /* ---------------------------------------- SEARCH RESULTS START -------------------------------- */
 
@@ -1295,6 +1316,104 @@ a:hover,
 }
 
 /* ---------------------------------------- SEARCH RESULTS END ---------------------------------- */
+
+/* ---------------------------------------- EVENTS START ---------------------------------------- */
+
+.events__add-event-button {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.events__pagination {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.events__pagination__dir {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.events__pagination__dir__link {
+  color: $lightblue;
+  font-size: 18px;
+  font-weight: 400;
+  word-spacing: -3px;
+}
+
+.events__pagination__dir_prev {
+  text-align: right;
+}
+
+.events__pagination__dir_next {
+  text-align: left;
+}
+
+.events__pagination__dir__link__arrow {
+  font-size: 24px;
+}
+
+.events__pagination__date {
+  color: $darkgrey;
+  display: block;
+  font-size: 13px;
+}
+
+// TODO may be change floats to inline-blocks in future
+.search-panel_events__inner {
+  padding-bottom: 15px;
+}
+
+.search-panel_events__input {
+  margin-right: 15px;
+}
+
+// TODO move out of events section
+
+.search-panel__change-controls {
+  float: left;
+}
+
+.search-panel__search-form {
+  float: right;
+}
+
+// TODO remove duplication
+
+.search-panel__change-place,
+.search-panel__change-date {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 40px;
+}
+
+.search-panel__change-place__icon,
+.search-panel__change-date__icon {
+  float: left;
+  margin-right: 10px;
+}
+
+.search-panel__change-place__content,
+.search-panel__change-date__content {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.search-panel__change-date__text,
+.search-panel__change-place__text {
+  font-weight: 700;
+  display: block;
+  margin-bottom: -2px;
+}
+
+.search-panel__change-date__link,
+.search-panel__change-place__link {
+  color: $lightblue;
+  font-size: 13px;
+}
+
+/* ---------------------------------------- EVENTS END ------------------------------------------ */
 
 // TODO these styles will be removed in future
 

@@ -11,8 +11,8 @@
 
 %h1#pageTitle.page-title{ data: { default: { title: 'Поиск' } } } Поиск
 
-%div#searchCategories.search-categories
-  %div.search-categories__inner
+%div#searchCategories.search-panel.search-categories
+  %div.search-panel__inner
     %b.search-categories__title
       Найдено результатов
     %button.search-category.search-category_all{ data: { facet: '' } }
@@ -44,10 +44,10 @@
         %b.search-category__total
           48
 
-%div#searchPanel.search-panel
-  %div.search-panel__inner
-    %span.sort-controls.search-panel__sort
-      %span.label_horizontal.search-panel__sort__title
+%div#searchResultsPanel.search-results-panel
+  %div.search-results-panel__inner
+    %span.sort-controls.search-results-panel__sort
+      %span.label_horizontal.search-results-panel__sort__title
         Сортировать по
       %span.sort-control.selected
         %span.action-link.sort-control__text
@@ -61,8 +61,8 @@
         %span.sort-control__arrow
           &nbsp;
         %span.sort-control__triangle
-    %span.search-panel__show
-      %label.label_horizontal.search-panel__show__title
+    %span.search-results-panel__show
+      %label.label_horizontal.search-results-panel__show__title
         Показывать
       %select.input-medium
         %option

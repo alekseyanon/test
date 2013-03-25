@@ -2,6 +2,28 @@
 
 %div.search-filter
   %div.search-filter__inner
+    -#
+      %button.search-category.search-filter__category.search-category_sightseeing{ data: { facet: 'sightseeing' } }
+        %span.icon-binoculars.search-category__icon.search-category__icon_binoculars
+        %span.action-link.search-category__text{ data: { text: 'Что посмотреть' }}
+          %b.search-category__total
+            48
+      %button.search-category.search-category_activities{ data: { facet: 'activities' } }
+        %span.icon-star.search-category__icon.search-category__icon_star
+        %span.action-link.search-category__text{ data: { text: 'Чем заняться' }}
+          %b.search-category__total
+            48
+      %button.search-category.search-category_food{ data: { facet: 'food' } }
+        %span.icon-food-eat.search-category__icon.search-category__icon_food-eat
+        %span.action-link.search-category__text{ data: { text: 'Где поесть' }}
+          %b.search-category__total
+            48
+      %button.search-category.search-category_lodging{ data: { facet: 'lodging' } }
+        %span.icon-bed.search-category__icon.search-category__icon_bed
+        %span.action-link.search-category__text{ data: { text: 'Где заночевать' }}
+          %b.search-category__total
+            48
+
 %div.map__outer
   %div.map__inner
     %div#map.map
@@ -12,19 +34,19 @@
 
 %div.chronicle
 
-  %form.form-horizontal.chronicle__search
-    %div.control-group.chronicle__search__field
-      %label.control-label.chronicle__search__field__label{ for: "chronicleSearchType" }
+  %form.chronicle__search
+    %div.chronicle__search__field
+      %label.chronicle__search__field__label{ for: "chronicleSearchType" }
         Показывать
       %span
-        %select#chronicleSearchType.input-medium.chronicle__search__field__select
+        %select#chronicleSearchType.input-medium
           %option
             Все записи
-    %div.control-group.chronicle__search__field
-      %label.control-label.chronicle__search__field__label{ for: "chronicleSearchPlace" }
+    %div.chronicle__search__field
+      %label.chronicle__search__field__label{ for: "chronicleSearchPlace" }
         Где?
       %span
-        %input#chronicleSearchPlace.input-xlarge.chronicle__search__field__input{ type: "text", placeholder: "Область, район, место" }
+        %input#chronicleSearchPlace.input_standard.input-xlarge{ type: "text", placeholder: "Область, район, место" }
 
   %div.chronicle__section
     %div.chronicle__section__header
