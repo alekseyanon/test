@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :first_time?
+  before_filter :set_first_time_cookie
 
   def request_logger params, error_message = ''
     logger.debug "url : #{request.original_url} | params : #{params} | " + error_message
@@ -9,11 +9,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def first_time?
-    if cookies[:first_time].nil?
-      cookies[:first_time] = {value: true, expires: 10.years.from_now}
-    else
-      cookies[:first_time] = {value: false, expires: 10.years.from_now}
-    end
+  def set_first_time_cookie
+    cookies[:first_time] = {value: cookies.has_key?(:first_time), expires: 10.years.from_now}
   end
+
 end
