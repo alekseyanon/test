@@ -161,13 +161,29 @@
 
 /* ---------------------------------------- INPUTS START ---------------------------------------- */
 
+textarea,
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+  color: $black;
+}
+
 .input_standard {
   display: inline-block;
   height: 24px;
   padding: 5px 6px 5px 15px;
   font-size: 14px;
   line-height: 24px;
-  color: $lightgrey;
   vertical-align: middle;
   border-radius: 15px;
   background-color: #fff;
