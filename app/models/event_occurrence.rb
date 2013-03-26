@@ -6,7 +6,7 @@ class EventOccurrence < ActiveRecord::Base
   def self.for_week any_day_of_week = Time.now
     monday = Chronic.parse('monday this week', now: any_day_of_week).strftime('%F')
     sunday = Chronic.parse('sunday this week', now: any_day_of_week).strftime('%F')
-    EventOccurrence.where("start > DATE '#{monday}' AND start < DATE '#{sunday}'").order(:start)
+    EventOccurrence.includes(:event).where("start > DATE '#{monday}' AND start < DATE '#{sunday}'").order(:start)
   end
 
   state_machine initial: :new do

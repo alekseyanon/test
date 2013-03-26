@@ -54,3 +54,8 @@
   @include background-image-svg("icons/dropdown");
   width: 20px; height: 16px;
 }
+
+.icon-comments {
+  background-image: image-url("icons/comments.png");
+  width: 19px; height: 15px;
+}

@@ -1,4 +1,6 @@
 class EventsController < InheritedResources::Base
+  respond_to :html, except: :search
+  respond_to :json, only: :search
 
   def new
     @landmarks = Landmark.limit(10)
@@ -21,7 +23,7 @@ class EventsController < InheritedResources::Base
       end
       @days[day] << eo
     end
-    index!
+    #respond_with(@event_occurrences, include: :event)
   end
 
   # event[tag_list] - пользовательские теги через запятую
@@ -37,12 +39,16 @@ class EventsController < InheritedResources::Base
   end
 
   def search
+    # TODO почистить: убрать вьюху, роут
     query = {}
     query[:text] = params[:text] if params[:text]
-    if !params[:date].blank?
-      query[:date] = ["#{params[:date]} 00:00:00", "#{params[:date]} 23:59:59"]
+    if params[:date].blank?
+      params[:date] = {}
+      params[:date][:start] = params[:date][:end] = Time.now.strftime '%F'
     end
-    @events = Event.search query if !query.blank?
+    query[:date] = ["#{params[:date][:start]} 00:00:00", "#{params[:date][:end]} 23:59:59"]
+    @events = Event.search query #if !query.blank?
+    respond_with(@events, include: :event_occurrences)
   end
 
 end

@@ -3,7 +3,4 @@ window.Smorodina =
   Collections: {}
   Views: {}
   Routers: {}
-#  initialize: -> alert 'Hello from Backbone!'
-
-#$(document).ready ->
-#  Smorodina.initialize()
+  Events: _.extend {}, Backbone.Events
