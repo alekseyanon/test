@@ -8,6 +8,8 @@ class CreateEvents < ActiveRecord::Migration
       t.integer    :duration
       t.string     :repeat_rule
       t.string     :image
+      t.string     :state
+      t.datetime   :published_at
       t.references :user
       t.references :landmark
 

@@ -37,7 +37,25 @@ class Event < ActiveRecord::Base
 
   scope :within_date_range, ->(from, to) do
     joins('JOIN event_occurrences ON event_occurrences.event_id = events.id').
-        where "start >= '#{from}' AND start <= '#{to}'"
+        where "start_date >= '#{from}' AND start_date <= '#{to}'"
+  end
+
+  state_machine do
+
+    before_transition on: :publish, do: :update_publish_date
+
+    event :publish do
+      transition to: :published
+    end
+
+    event :unpublish do
+      transition from: :published, to: :not_published
+    end
+
+  end
+
+  def update_publish_date
+    self.published_at = Time.now
   end
 
   def event_after_create
@@ -85,7 +103,7 @@ class Event < ActiveRecord::Base
   end
 
   def create_occurrence start_date
-    self.event_occurrences.create! start: start_date
+    self.event_occurrences.create! start_date: start_date
   end
 
   def tag_list

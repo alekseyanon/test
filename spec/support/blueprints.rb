@@ -79,7 +79,7 @@ Event.blueprint do
 end
 
 EventOccurrence.blueprint do
-  start { Time.now }
+  start_date { Time.now }
 end
 
 Review.blueprint do
