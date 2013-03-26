@@ -121,7 +121,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       ### TODO: Придумать корректное решение
       ### Это хак пока не придумал как его исправить
       ### Без него у меня почему то не работает (((
-      pending 'Capybara::Poltergeist::ObsoleteNode'
+      visit search_landmark_descriptions_path
       page.find('.search-category_all').click
 
       page.find("#searchResults").should have_content 'food'
