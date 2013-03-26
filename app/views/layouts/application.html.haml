@@ -40,7 +40,7 @@
                 %span.action-link.dropdown-toggle{ data: { toggle: 'dropdown' } }= current_user.email
                 %ol.dropdown-menu.pull-left.user-panel__account__dropdown{ role: 'menu' }
                   %li
-                    %a.tdn-link{href: '#108'}
+                    %a.tdn-link{href: profile_path(current_user.profile)}
                       %b
                         Личный кабинет
                   %li.divider
