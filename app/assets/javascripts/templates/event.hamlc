@@ -1,3 +1,6 @@
+- @comments_num || = 3 # TODO remove stub
+- @likes_num || = 200
+
 %div.smorodina-item__img
   %div.smorodina-item__img__inner
     %image{ src: '/assets/tmp/130x90.gif', alt: 'Фото', width: 130, height: 90 }
@@ -34,8 +37,8 @@
       %div.smorodina-item__date-range
         8 октября – 14 октября
       %div.smorodina-item__likes
-        200 чел. понравилось
+        = "#{@likes_num} чел. понравилось"
       %div.smorodina-item__comments
         %a{href: '#123'}
-          3 отзыва
+          = "#{@comments_num} отзыва"
         %span.icon.icon-comments.smorodina-item__comments__icon

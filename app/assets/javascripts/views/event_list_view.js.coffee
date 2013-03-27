@@ -3,7 +3,8 @@
 
 class Smorodina.Views.EventList extends Smorodina.Views.Base
   el: '#searchResults'
-  init: ->
+  initialize: ->
+    super()
     @$content = @$ '#searchResultsContent'
     @$sectionContent = @$ '#searchResultsDateSectionContent'
 

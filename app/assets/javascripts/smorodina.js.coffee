@@ -8,10 +8,10 @@ window.Smorodina =
       if $(selector).length then callback()
 
     onRoute: (routes, callback) ->
-      if typeof routes == 'string' and routes == document.location.pathname
+      if typeof routes == 'string' and document.location.pathname.indexOf(routes) isnt -1
         callback()
       else if routes instanceof Array
         for route in routes
-          if route == document.location.pathname
+          if document.location.pathname.indexOf(route) isnt -1
             callback()
             return
