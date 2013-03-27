@@ -7,5 +7,5 @@ class Smorodina.Views.SearchForm extends Smorodina.Views.Base
     'submit #mainSearchForm': 'submit'
 
   submit: (e) ->
-    Backbone.trigger 'MainSearchFormSubmit'
+    Backbone.trigger 'mainSearchFormSubmit'
     e.preventDefault()
