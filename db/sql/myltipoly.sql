@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION concatenate_ways(multipoly bigint)
   RETURNS geometry[]
 AS $$
     if not SD.has_key("nodes_plan"):
-        SD["nodes_plan"] = plpy.prepare("select nodes from ways where ways.id in ( select member_id from relation_members where relation_id = $1)", ["bigint"])
+        SD["nodes_plan"] = plpy.prepare("select nodes from ways where ways.id in ( select member_id from relation_members where relation_id = $1 and member_role = 'outer')", ["bigint"])
         SD["geoms_plan"] = plpy.prepare("select geom from nodes where id = $1", ["bigint"])
     nodes_plan = SD["nodes_plan"]
     geoms_plan = SD["geoms_plan"]
@@ -32,8 +32,12 @@ AS $$
                 if nxt[-1] == head[-1]:
                     nxt.reverse()
                 head += nxt[1:]
-        head.append(head[0]) #TODO remove hack
-        return [plpy.execute(geoms_plan, [id])[0]["geom"] for id in head]
+        if not head[0] == head[-1]:
+            head.append(head[0]) #TODO remove hack
+        if len(head) > 3:
+            return [plpy.execute(geoms_plan, [id])[0]["geom"] for id in head]
+        else:
+            return None
     except:
         return None
 $$ LANGUAGE plpythonu;
@@ -45,11 +49,10 @@ WHERE id IN (
     JOIN (
            SELECT relation_id FROM relation_members AS M
            GROUP BY relation_id
-           HAVING 'outer' = ALL (SELECT member_role FROM relation_members
+           HAVING 'inner' != ALL (SELECT member_role FROM relation_members
            WHERE relation_members.relation_id = M.relation_id)
          ) AS simple_poly
       ON relations.id = simple_poly.relation_id
-  WHERE tags -> 'type' = 'multipolygon'
-    AND tags -> 'boundary' = 'administrative'
+  WHERE tags -> 'boundary' = 'administrative'
      OR tags ? 'place'
 );
