@@ -3,7 +3,7 @@ window.Smorodina =
   Collections: {}
   Views: {}
   Routers: {}
-#  initialize: -> alert 'Hello from Backbone!'
-
-#$(document).ready ->
-#  Smorodina.initialize()
+  Utils:
+    on: (selector, callback) ->
+      $ ->
+        if $(selector).length then callback()

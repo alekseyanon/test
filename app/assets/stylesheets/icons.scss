@@ -4,6 +4,7 @@
   display: inline-block;
 }
 
+/*
 .icon-fb, .icon-vk, .icon-tw {
   width: 18px; height: 18px;
 }
@@ -19,6 +20,7 @@
 .icon-tw {
   @include background-image-svg("icons/tw");
 }
+*/
 
 .icon-clock {
   @include background-image-svg("icons/clock");
@@ -53,4 +55,9 @@
 .icon-dropdown {
   @include background-image-svg("icons/dropdown");
   width: 20px; height: 16px;
+}
+
+.icon-comments {
+  background-image: image-url("icons/comments.png");
+  width: 19px; height: 15px;
 }

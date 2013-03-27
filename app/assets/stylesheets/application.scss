@@ -1,10 +1,8 @@
 @import "base";
 @import "normalize";
+@import "fonts";
 @import "icons";
 @import "ui";
-
-@import "bootstrap/popovers";
-@import "bootstrap/grid";
 
 @import "chosen";
 @import "leaflet";
@@ -13,10 +11,6 @@
 @import "jquery/jRating.jquery";
 @import "jquery.Jcrop";
 
+@import "bootstrap-overrides";
 @import "main";
-@import "landmark_descriptions";
 @import "legacy";
-
-
-
-

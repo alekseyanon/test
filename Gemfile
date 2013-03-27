@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 gem 'pg'
 gem 'rgeo-activerecord'
@@ -71,6 +71,7 @@ end
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails_jquery_ui_datepicker'
+gem 'spinjs-rails'
 
 gem 'capistrano'
 gem 'rvm-capistrano'
