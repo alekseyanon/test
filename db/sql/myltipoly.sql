@@ -56,3 +56,15 @@ WHERE id IN (
   WHERE tags -> 'boundary' = 'administrative'
      OR tags ? 'place'
 );
+
+CREATE OR REPLACE FUNCTION safe_st_contains(geom1 geometry, geom2 geometry)
+  RETURNS BOOL AS
+  $$
+  BEGIN
+    RETURN ST_Contains($1, $2);
+    EXCEPTION WHEN others THEN
+      RAISE NOTICE 'TopologyException';
+      RETURN FALSE;
+  END;
+  $$
+LANGUAGE plpgsql;
