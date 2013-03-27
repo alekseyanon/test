@@ -72,14 +72,12 @@ end
 
 Event.blueprint do
   title { Faker::Lorem.sentence }
+  body { Faker::Lorem.sentences 10 }
+  # TODO REVIEW make in future or maybe now
   start_date { (1..14).to_a.sample.days.ago }
   geom { Geo::factory.point(10, 10) }
   tag_list { 'aaa, bbb, ccc' }
-  duration {3}
-end
-
-EventOccurrence.blueprint do
-  start_date { Time.now }
+  user { User.make! }
 end
 
 Review.blueprint do

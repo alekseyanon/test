@@ -13,16 +13,6 @@ class EventsController < InheritedResources::Base
     else
       @date = Time.now
     end
-    @event_occurrences = EventOccurrence.for_week @date
-    @days = {}
-    day = nil
-    @event_occurrences.each do |eo|
-      if eo.start.strftime("%F") != day
-        day = eo.start.strftime("%F")
-        @days[day] = []
-      end
-      @days[day] << eo
-    end
     #respond_with(@event_occurrences, include: :event)
   end
 
@@ -48,7 +38,7 @@ class EventsController < InheritedResources::Base
     end
     query[:date] = ["#{params[:date][:start]} 00:00:00", "#{params[:date][:end]} 23:59:59"]
     @events = Event.search query #if !query.blank?
-    respond_with(@events, include: :event_occurrences)
+    respond_with(@events)
   end
 
 end

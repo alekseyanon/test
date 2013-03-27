@@ -13,11 +13,14 @@
         %abbr{title: "required"} *
         Start date
       .controls
-        = text_field_tag 'event[start_date]', Time.now.strftime('%F')
+        = text_field_tag 'event[start_date]', Time.now.strftime('%F %R')
+    .control-group.text.required
+      %label.text.required.control-label{for: 'event_end_date'}
+        End date
+      .controls
+        = text_field_tag 'event[end_date]', 2.days.from_now.strftime('%F %R')
     = f.input :geom, input_html: { value: 'point(1 1)'}
-    = f.input :duration
-    = f.input :repeat_rule, collection: ['daily', 'weekly', 'monthly', 'half-year', 'yearly']
-    /= collection_select(:event, :system_event_tag_id, EventTag.system, :id, :title)
+    = f.input :repeat_rule, collection: Event::REPEAT_RULES
     = select_tag(:system_event_tag_id, options_from_collection_for_select(EventTag.system, :id, :title),
       include_blank: true)
     = f.input :tag_list

@@ -8,17 +8,84 @@ describe Event do
   it { should validate_presence_of :geom }
   it { should validate_presence_of :start_date }
   it { should belong_to :user }
-  it { should belong_to :landmark }
 
   let(:event) {Event.make! }
   let(:event_weekly){Event.make! repeat_rule: 'weekly'}
 
-  it "после создания должен генерироваться первое повторение" do
-    event.event_occurrences.count.should == 1
+  it { event.key.should_not be_empty }
+  it { event.archive_at.should_not be_empty }
+
+  describe 'multiple' do
+    it 'creates next event then current was archived'
   end
 
-  it 'must have RGeo Point Factory' do 
-    event.geom.class.to_s.should == 'RGeo::Geos::CAPIPointImpl'
+  describe 'duration' do
+
+    it 'can be calculated in days' do
+      event = Event.make start_date: Time.now, end_date: 5.days.from_now
+      event.duration.should == 5
+      event = Event.make start_date: Time.now
+      event.duration.should == 0
+    end
+
+    it 'cant be negative' do
+      event = Event.make start_date: Time.now, end_date: 5.days.ago
+      event.should_not be_valid
+    end
+
+    it 'must be more than 24 hours'
+      event = Event.make start_date: Time.now, end_date: 23.hours.from_now
+      event.should_not be_valid
+      event = Event.make start_date: Time.now, end_date: 24.hours.from_now
+      event.should be_valid
+    end
+
+    it 'еженедельного события <= 4 дней' do
+      event = Event.make start_date: Time.now, end_date: 5.days.from_now, repeat_rule: 'weekly'
+      event.should_not be_valid
+      event = Event.make start_date: Time.now, end_date: 4.days.from_now, repeat_rule: 'weekly'
+      event.should be_valid
+    end
+
+    it 'ежемесячного события <= 23 дней' do
+      event = Event.make start_date: Time.now, end_date: 24.days.from_now, repeat_rule: 'weekly'
+      event.should_not be_valid
+      event = Event.make start_date: Time.now, end_date: 23.days.from_now, repeat_rule: 'weekly'
+      event.should be_valid
+    end
+
+    it 'квартального события <= 60 дней' do
+      event = Event.make start_date: Time.now, end_date: 61.days.from_now, repeat_rule: 'weekly'
+      event.should_not be_valid
+      event = Event.make start_date: Time.now, end_date: 60.days.from_now, repeat_rule: 'weekly'
+      event.should be_valid
+    end
+
+    it 'ежегодного события <= 335 дней' do
+      event = Event.make start_date: Time.now, end_date: 336.days.from_now, repeat_rule: 'weekly'
+      event.should_not be_valid
+      event = Event.make start_date: Time.now, end_date: 335.days.from_now, repeat_rule: 'weekly'
+      event.should be_valid
+    end
+
+    it 'раз два года <= 700 дней' do
+      event = Event.make start_date: Time.now, end_date: 336.days.from_now, repeat_rule: 'weekly'
+      event.should_not be_valid
+      event = Event.make start_date: Time.now, end_date: 335.days.from_now, repeat_rule: 'weekly'
+      event.should be_valid
+    end
+
+    it 'раз три года <= 1065 дней' do
+      event = Event.make start_date: Time.now, end_date: 1066.days.from_now, repeat_rule: 'weekly'
+      event.should_not be_valid
+      event = Event.make start_date: Time.now, end_date: 1065.days.from_now, repeat_rule: 'weekly'
+      event.should be_valid
+    end
+
+  end
+
+  it 'have RGeo Point Factory' do
+    event.geom.class.should == RGeo::Geos::CAPIPointImpl
   end
 
   describe ".within_radius" do
@@ -45,43 +112,34 @@ describe Event do
     it 'performs full text search in specified radius' do
       described_class.search(text: 'one', geom: one.geom, r: 5).should == [one, two]
       described_class.search(text: 'one', geom: one.geom, r: 101).should == [four, one, two]
-    end    
+    end
 
     it 'performs full text search in specified radius and date' do
       described_class.search(text: 'one', geom: one.geom, r: 5, date: [1.day.ago, 14.day.from_now]).should == [one]
     end
   end
 
-  describe 'Schedule' do
-    let(:e){ Event.new }
-    it 'creates daily schedule' do
-      e.create_schedule(Time.now, 'daily').to_s.should == 'Daily'
-    end
-    it 'creates weekly schedule' do
-      e.create_schedule(Time.now, 'weekly').to_s.should == 'Weekly'
-    end
-    it 'creates monthly schedule' do
-      e.create_schedule(Time.now, 'monthly').to_s.should == 'Monthly'
-    end
-    it 'creates half-year schedule' do
-      e.create_schedule(Time.now, 'half-year').to_s.should == 'Every 6 months'
-    end
-    it 'creates yearly schedule' do
-      e.create_schedule(Time.now, 'yearly').to_s.should == 'Yearly'
-    end
-    it 'accessible' do
-      e.create_schedule(Time.now, 'weekly')
-      s = e.schedule
-      s.exrule IceCube::Rule.monthly.day_of_month(13)
-      e.schedule=s
-      e.schedule.to_s.should == 'Weekly / not Monthly on the 13th day of the month'
-    end
-  end
+  # describe 'Schedule' do
+  #   let(:e){ Event.new }
+  #   it 'creates weekly schedule' do
+  #     e.create_schedule(Time.now, 'weekly').to_s.should == 'Weekly'
+  #   end
+  #   it 'creates monthly schedule' do
+  #     e.create_schedule(Time.now, 'monthly').to_s.should == 'Monthly'
+  #   end
+  #   it 'creates half-year schedule' do
+  #     e.create_schedule(Time.now, 'half-year').to_s.should == 'Every 6 months'
+  #   end
+  #   it 'creates yearly schedule' do
+  #     e.create_schedule(Time.now, 'yearly').to_s.should == 'Yearly'
+  #   end
+  #   it 'accessible' do
+  #     e.create_schedule(Time.now, 'weekly')
+  #     s = e.schedule
+  #     s.exrule IceCube::Rule.monthly.day_of_month(13)
+  #     e.schedule=s
+  #     e.schedule.to_s.should == 'Weekly / not Monthly on the 13th day of the month'
+  #   end
+  # end
 
-  describe '.create_occurrences ' do    
-    it "должен генерировать повторения на 10 месяцев вперед согласно правилу schedule" do
-      event_weekly.create_occurrences
-      event_weekly.event_occurrences.count.should == 10
-    end
-  end
 end

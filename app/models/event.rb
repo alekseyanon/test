@@ -2,16 +2,28 @@ class Event < ActiveRecord::Base
   include IceCube
   include PgSearch
   include Searchable
-  attr_accessible :body, :title, :duration, :start_date, :repeat_rule, :landmark_id, :geom,
-                  :images_attributes, :event_tags, :tag_list#, :system_event_tag_id
+  require 'digest/sha2'
 
-  serialize                   :schedule, Hash
-  set_rgeo_factory_for_column :geom,     Geo::factory
+  REPEAT_RULES = ['weekly', 'monthly', 'quarterly', 'half-year', 'yearly', 'two-years', 'three-years', 'four-years']
+
+  attr_accessible :body, :title, :start_date, :end_date,
+                  :repeat_rule, :geom,
+                  :images_attributes, :event_tags, :tag_list
+
+  before_create :generate_key
+
+  # TODO delete EO table
+  # TODO gen event line key
+  # TODO validate event duration
+  # TODO validate event repeat rule
+  # TODO рассчитывать дату архивации сразу
+  # TODO написать таску для прогона событий по состояниям
+
+  serialize :schedule, Hash
+  set_rgeo_factory_for_column :geom, Geo::factory
 
   belongs_to :user
-  belongs_to :landmark
   has_many   :event_taggings
-  has_many   :event_occurrences
   has_many   :event_tags, through: :event_taggings
   has_many   :images,   as: :imageable
 
@@ -19,14 +31,18 @@ class Event < ActiveRecord::Base
 
   validates :title, :start_date, :geom, presence: true
   validate  :validate_event_tags
-  validates_associated :user, :landmark
+  validate  :validate_event_duration
+  validates_associated :user
+
+  def validate_event_duration
+    # TODO
+    1 if repeat_rule
+  end
 
 
   def validate_event_tags
     errors.add(:event_tags, "need at least 1 tag") if event_tags.length < 1
   end
-
-  after_create :event_after_create
 
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'}
@@ -36,34 +52,48 @@ class Event < ActiveRecord::Base
   end
 
   scope :within_date_range, ->(from, to) do
-    joins('JOIN event_occurrences ON event_occurrences.event_id = events.id').
-        where "start_date >= '#{from}' AND start_date <= '#{to}'"
+    where "start_date >= '#{from}' AND start_date <= '#{to}'"
   end
 
-  state_machine do
+  # TODO Конец всему/Горшочек не вари
+  state_machine initial: :new do
 
-    before_transition on: :publish, do: :update_publish_date
+    after_transition on: :archive, do: :create_new_repeat_event
 
-    event :publish do
-      transition to: :published
+    event :start do
+      transition from: :new, to: :started
     end
 
-    event :unpublish do
-      transition from: :published, to: :not_published
+    event :end do
+      transition from: :started, to: :ended
+    end
+
+    event :archive do
+      transition from: :ended, to: :archived
+    end
+
+    event :cancel do
+      transition to: :canceled
     end
 
   end
 
-  def update_publish_date
-    self.published_at = Time.now
+  def create_new_repeat_event
+    unless repeat_rule.blank?
+      puts 'I create next event in this line'
+    end
   end
 
-  def event_after_create
-    if self.repeat_rule.blank?
-      self.create_occurrence self.start_date
+  def generate_key
+    # TODO проверять уникальность, генерировать только для повторяющихся
+    key = Digest::SHA2.hexdigest title+start_date.to_s if key.blank?
+  end
+
+  def duration
+    if end_date
+      (end_date - start_date).to_i / 1.day
     else
-      self.create_schedule self.start_date, self.repeat_rule
-      self.create_occurrences
+      0
     end
   end
 
@@ -115,5 +145,11 @@ class Event < ActiveRecord::Base
       EventTag.where(title: n.strip).first_or_create!
     end
   end
+
+  private
+
+    def next_start_date
+      # TODO
+    end
 
 end
