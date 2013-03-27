@@ -10,8 +10,6 @@
     /%link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
-    /[if lte IE 8]
-      = stylesheet_link_tag  "ie"
     = csrf_meta_tags
     %body{ class: page_class }
 
@@ -42,7 +40,7 @@
                 %span.action-link.dropdown-toggle{ data: { toggle: 'dropdown' } }= current_user.email
                 %ol.dropdown-menu.pull-left.user-panel__account__dropdown{ role: 'menu' }
                   %li
-                    %a.tdn-link{href: '#108'}
+                    %a.tdn-link{href: profile_path(current_user.profile)}
                       %b
                         Личный кабинет
                   %li.divider

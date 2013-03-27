@@ -62,14 +62,16 @@ describe 'Users' do
 
   it 'not change email without confirmation' do
     login
-    click_on @user.email
+    find('.user-link .action-link').click
+    click_on 'Личный кабинет'
     click_on 'Настройки'
     fill_in 'user_email', with: 'tester@test.er'
     fill_in 'user_current_password', with: @user.password
     find(:type, 'submit').click
 		current_path.should == root_path
     page.should have_content('Ваша учетная запись изменена, вам выслано письмо подтверждения нового email')
-    click_on @user.email
+    find('.user-link .action-link').click
+    click_on 'Личный кабинет'
     click_on 'Настройки'
     find_field('user_email').value.should eq @user.email
     page.should have_content('Edit User')
@@ -78,7 +80,8 @@ describe 'Users' do
   it 'edit user' do
     # TODO move to profile spec
     login
-    click_on @user.email
+    find('.user-link .action-link').click
+    click_on 'Личный кабинет'
     click_on 'Edit'
     fill_in 'profile_name', with: 'tester'
     find(:type, 'submit').click

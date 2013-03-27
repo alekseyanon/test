@@ -3,7 +3,8 @@
 
 class Smorodina.Views.SearchPanel extends Smorodina.Views.Base
   el: '#searchResultsPanel'
-  init: ->
+  initialize: ->
+    super()
     @collection.on 'reset', @render
     @collection.on 'request', @onRequest
 

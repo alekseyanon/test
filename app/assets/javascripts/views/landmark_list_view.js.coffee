@@ -3,7 +3,8 @@
 
 class Smorodina.Views.LandmarkList extends Smorodina.Views.Base
   el: '#searchResults'
-  init: ->
+  initialize: ->
+    super()
     @$content = @$ '#searchResultsContent'
     @$bestContent = @$ '#searchResultsBestContent'
     @$restContent = @$ '#searchResultsRestContent'

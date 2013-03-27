@@ -1,10 +1,11 @@
 #= require ../collections/landmarks
-#= require ././base_view
+#= require ./base_view
 
 class Smorodina.Views.PageTitle extends Smorodina.Views.Base
   el: '#pageTitle'
 
-  init: ->
+  initialize: ->
+    super()
     @defaultTitle = @$el.data 'defaultTitle'
     @collection.on 'request', @onRequest
     @collection.on 'reset', @render

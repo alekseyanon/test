@@ -29,6 +29,6 @@
   display: none;
 }
 
-.search-category.selected > .search-category__text:after {
+.no-textshadow  .search-category.selected > .search-category__text:after {
   display: block;
 }
