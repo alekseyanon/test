@@ -4,6 +4,7 @@
   display: inline-block;
 }
 
+/*
 .icon-fb, .icon-vk, .icon-tw {
   width: 18px; height: 18px;
 }
@@ -19,6 +20,7 @@
 .icon-tw {
   @include background-image-svg("icons/tw");
 }
+*/
 
 .icon-clock {
   @include background-image-svg("icons/clock");

@@ -3,7 +3,8 @@
 
 class Smorodina.Views.LandmarkListEmpty extends Smorodina.Views.Base
   el: '#searchEmpty'
-  init: ->
+  initialize: ->
+    super()
     @$searchEmptyRequestText = @$ '#searchEmptyRequestText'
     @collection.on 'reset', @render
     @collection.on 'request', @onRequest

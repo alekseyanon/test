@@ -26,7 +26,7 @@ role :db,  "5.9.120.46", :primary => true        # This is where Rails migration
 
 
 set :scm,         :git
-set :branch,      '45491663-search-where-to-go-layout'
+set :branch,      'dev'
 set :deploy_to,   "/home/deployer/apps/#{application}"
 #set :deploy_via,  :remote_cache
 set :git_enable_submodules, 1

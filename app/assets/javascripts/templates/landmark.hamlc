@@ -1,4 +1,8 @@
 - @comments_num || = 3 # TODO remove stub
+- @similar_objects_num || = 21
+- @objects_total || = 123456
+- @raiting || = 59
+- @daily_raiting || = 5
 
 %div.smorodina-item__img
   %div.smorodina-item__img__inner
@@ -11,9 +15,9 @@
       %a{href: '#'}
         показать еще
           %b
-            21
+            = @similar_objects_num
     %i.smorodina-item__total
-      из 122456
+      = "из #{@objects_total}"
   %div.row-fluid
     %div.span8
       %div.smorodina-item__title
@@ -42,11 +46,11 @@
         %span.smorodina-item__rating__text
           Рейтинг объекта
         %span.smorodina-item__rating__number
-          59
+          = @raiting
         %span.smorodina-item__rating__daily.smorodina-item__rating__daily_up
-          3
+          = @daily_raiting
 
       %div.smorodina-item__comments
         %a{href: '#123'}
-          3 отзыва
+          = "#{@comments_num} отзыва"
         %span.icon.icon-comments.smorodina-item__comments__icon
