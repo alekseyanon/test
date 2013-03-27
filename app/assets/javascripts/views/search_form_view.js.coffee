@@ -1,5 +1,5 @@
 #= require ../collections/landmarks
-#= require ././base_view
+#= require ./base_view
 
 class Smorodina.Views.SearchForm extends Smorodina.Views.Base
   el: '#mainSearch'
@@ -9,5 +9,3 @@ class Smorodina.Views.SearchForm extends Smorodina.Views.Base
   submit: (e) ->
     Backbone.trigger 'MainSearchFormSubmit'
     e.preventDefault()
-
-

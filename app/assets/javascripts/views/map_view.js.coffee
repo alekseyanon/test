@@ -1,11 +1,12 @@
 #= require ../collections/landmarks
-#= require ././base_view
+#= require ./base_view
 
 class Smorodina.Views.Map extends Smorodina.Views.Base
   el: '#mapContainer'
   events:
     'click #mapExpandButton': 'expand'
-  init: ->
+  initialize: ->
+    super()
     Backbone.on 'MainSearchFormSubmit', @collapse
     @$mapContainer = @$ '#mapContainer'
     @$mapExpand = @$ '#mapExpand'

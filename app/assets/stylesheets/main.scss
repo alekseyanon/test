@@ -9,29 +9,18 @@ body {
   @include padding-trailer(2);
 }
 
+/* TODO debug class renders vertical grid for testing verical rythm
+be free to delete in future */
+
 .debug {
-  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(5%, rgba(204, 204, 204, 0.49)), color-stop(5%, rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(bottom, rgba(204, 204, 204, 0.49) 5%, rgba(0, 0, 0, 0) 5%);
-  background-image: -moz-linear-gradient(bottom, rgba(204, 204, 204, 0.49) 5%, rgba(0, 0, 0, 0) 5%);
-  background-image: -o-linear-gradient(bottom, rgba(204, 204, 204, 0.49) 5%, rgba(0, 0, 0, 0) 5%);
-  background-image: linear-gradient(bottom, rgba(204, 204, 204, 0.49) 5%, rgba(0, 0, 0, 0) 5%);
-  -webkit-background-size: 100% 12px;
-  -moz-background-size: 100% 12px;
-  -o-background-size: 100% 12px;
-  background-size: 100% 12px;
+  @include background-image(linear-gradient(bottom, rgba(204, 204, 204, 0.49) 5%, rgba(0, 0, 0, 0) 5%));
+  @include background-size(100% 12px);
   background-position: left top;
 }
 
 .debug .main {
-  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(5%, rgba(255, 0, 0, 0.49)), color-stop(5%, rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(bottom, rgba(255, 0, 0, 0.49) 5%, rgba(0, 0, 0, 0) 5%);
-  background-image: -moz-linear-gradient(bottom, rgba(255, 0, 0, 0.49) 5%, rgba(0, 0, 0, 0) 5%);
-  background-image: -o-linear-gradient(bottom, rgba(255, 0, 0, 0.49) 5%, rgba(0, 0, 0, 0) 5%);
-  background-image: linear-gradient(bottom, rgba(255, 0, 0, 0.49) 5%, rgba(0, 0, 0, 0) 5%);
-  -webkit-background-size: 100% 24px;
-  -moz-background-size: 100% 24px;
-  -o-background-size: 100% 24px;
-  background-size: 100% 24px;
+  @include background-image(linear-gradient(bottom, rgba(255, 0, 0, 0.49) 5%, rgba(0, 0, 0, 0) 5%));
+  @include background-size(100% 24px);
   background-position: left top;
 }
 
@@ -233,13 +222,20 @@ a:hover,
 .control-panel {
   border: solid 1px $lightgrey;
   border-bottom: solid 4px #9d9fac;
-  height: 61px; /* border-top + border-bottom + height = 1px + 4px + 51px = 66px = $base-line-height * 2.75 */
+
+  /* border-top + border-bottom + height = 1px + 4px + 51px = 66px = $base-line-height * 2.75 */
+  height: 61px;
+
   padding: 0 15px;
   font-size: 0;
   position: relative;
 
   @include border-radius(13px);
-  @include box-shadow(inset 0 -1px rgba(255,255,255,0.75), 0 9px 5px -5px rgba(43,41,7,0.2),0 21px 12px -12px rgba(43,41,7,0.4));
+  @include box-shadow(
+    inset 0 -1px rgba(255,255,255,0.75),
+    0 9px 5px -5px rgba(43,41,7,0.2),
+    0 21px 12px -12px rgba(43,41,7,0.4)
+  );
   @include background-image(linear-gradient(top, rgba(255,255,255,1) 20%,rgba(240,240,240,1) 100%));
   @include trailer(2);
 }
@@ -571,7 +567,9 @@ a:hover,
   @include font-large;
 }
 
-/* height + padding-top + padding-bottom + margin-bottom = 30px + 7px + 7px + 4px = 48px = $base-line-height * 2 */
+/* height + padding-top + padding-bottom + margin-bottom =
+  30px + 7px + 7px + 4px =
+  48px = $base-line-height * 2 */
 .main-search__button > .button__inner {
   height: 30px;
   padding: 7px 20px;

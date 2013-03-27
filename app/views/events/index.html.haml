@@ -9,7 +9,7 @@
 = link_to 'Позже', week_path('next week monday', @date)
 
 
-/- @days.each do |date, eos|
+- @days.each do |date, eos|
   %h2= Russian::strftime(eos.first.start, "%A, %d %B %Y г.").mb_chars.capitalize
   - eos.each do |eo|
     %h3= link_to eo.event.title, eo.event

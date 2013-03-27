@@ -1,9 +1,10 @@
 #= require ../collections/landmarks
-#= require ././base_view
+#= require ./base_view
 
 class Smorodina.Views.SearchPanel extends Smorodina.Views.Base
   el: '#searchPanel'
-  init: ->
+  initialize: ->
+    super()
     @collection.on 'reset', @render
     @collection.on 'request', @onRequest
 
