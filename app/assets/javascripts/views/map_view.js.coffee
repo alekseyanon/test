@@ -7,7 +7,7 @@ class Smorodina.Views.Map extends Smorodina.Views.Base
     'click #mapExpandButton': 'expand'
   initialize: ->
     super()
-    Backbone.on 'MainSearchFormSubmit', @collapse
+    Backbone.on 'mainSearchFormSubmit', @collapse
     @$mapContainer = @$ '#mapContainer'
     @$mapExpand = @$ '#mapExpand'
 
