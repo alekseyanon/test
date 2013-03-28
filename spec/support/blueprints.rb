@@ -73,8 +73,9 @@ end
 Event.blueprint do
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
-  # TODO REVIEW make in future or maybe now
-  start_date { (1..14).to_a.sample.days.ago }
+  start_date { Time.now }
+  end_date { 2.days.from_now }
+  repeat_rule { :no_repeat }
   geom { Geo::factory.point(10, 10) }
   tag_list { 'aaa, bbb, ccc' }
   user { User.make! }

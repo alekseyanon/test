@@ -3,10 +3,9 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.string     :title
       t.text       :body
-      t.text       :schedule
       t.datetime   :start_date
       t.datetime   :end_date
-      t.datetime   :archive_at
+      t.datetime   :archive_date
       t.string     :repeat_rule
       t.string     :state
       t.string     :key
