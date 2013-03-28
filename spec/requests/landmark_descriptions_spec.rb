@@ -134,6 +134,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
     it 'refines search results on query change' do
       ### Click on 'activities' tab
+      visit search_landmark_descriptions_path
       page.find('.search-category_activities').click
 
       page.find("#searchResults").should_not have_content 'food'

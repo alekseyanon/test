@@ -5,7 +5,7 @@ window.Smorodina =
   Routers: {}
   Utils:
     onSelector: (selector, callback) ->
-      if $(selector).length then callback()
+      callback() if $(selector).length
 
     onRoute: (routes, callback) ->
       if typeof routes == 'string' and document.location.pathname.indexOf(routes) isnt -1

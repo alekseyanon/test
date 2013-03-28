@@ -719,6 +719,10 @@ a:hover,
   width: 100%;
 }
 
+.map__container_collapsed .leaflet-control-zoom {
+  display: none;
+}
+
 .map {
   height: 480px;
 }

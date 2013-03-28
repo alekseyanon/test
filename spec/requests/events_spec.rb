@@ -37,6 +37,7 @@ describe "Events", js: true, type: :request do
   end
 
   it 'has repeats in future' do
+    pending 'not implemented'
     event
     visit events_path
     page.should have_content title
@@ -48,6 +49,7 @@ describe "Events", js: true, type: :request do
   end
 
   it 'searchable' do
+    pending 'not implemented'
     event
     visit search_events_path
     fill_in 'text', with: title
@@ -64,6 +66,7 @@ describe "Events", js: true, type: :request do
   end
 
   it 'add field for load image' do
+    pending 'not implemented'
     visit new_event_path
     page.should have_selector('a.add_fields')
     page.should_not have_selector("input[type='file']")

@@ -4,8 +4,6 @@
 
 Smorodina.Utils.onRoute ['/', '/landmark_descriptions'], ->
 
-  apiKey = 'cda4cc8498bd4da19e72af2b606f5c6e'
-  tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
   landmarks = new Smorodina.Collections.Landmarks
 
   $ ->
@@ -20,7 +18,7 @@ Smorodina.Utils.onRoute ['/', '/landmark_descriptions'], ->
   initMap = ->
     map = L.map('map', { scrollWheelZoom: false })
     lg = L.layerGroup([]).addTo map
-    L.tileLayer(tileUrlTemplate,{maxZoom: 18}).addTo map
+    L.tileLayer(Smorodina.Config.urlTemplate, {maxZoom: 18}).addTo map
     [map, lg]
 
   showLatLng = (latlng) ->
