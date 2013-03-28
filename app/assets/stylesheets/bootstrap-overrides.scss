@@ -249,7 +249,6 @@
 // Shared size and type resets
 select,
 textarea,
-input[type="text"],
 input[type="password"],
 input[type="datetime"],
 input[type="datetime-local"],
@@ -287,7 +286,6 @@ textarea {
 }
 // Everything else
 textarea,
-input[type="text"],
 input[type="password"],
 input[type="datetime"],
 input[type="datetime-local"],
@@ -390,13 +388,6 @@ select {
 
 button {
   line-height: inherit;
-}
-
-.label_horizontal {
-  display: inline-block;
-  @include padding-leader(0.25);
-  @include trailer(0.25);
-  margin-right: 10px;
 }
 
 .dropdown-menu:before {

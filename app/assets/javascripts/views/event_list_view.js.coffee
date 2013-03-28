@@ -1,13 +1,12 @@
-#= require ../collections/landmarks
+#= require ../collections/events
 #= require ./base_view
 
-class Smorodina.Views.LandmarkList extends Smorodina.Views.Base
+class Smorodina.Views.EventList extends Smorodina.Views.Base
   el: '#searchResults'
   initialize: ->
     super()
     @$content = @$ '#searchResultsContent'
-    @$bestContent = @$ '#searchResultsBestContent'
-    @$restContent = @$ '#searchResultsRestContent'
+    @$sectionContent = @$ '#searchResultsDateSectionContent'
 
     @$spinnerContainer = @$ '#searchResultsSpinner'
     @spinnerContainer = @$spinnerContainer.get 0
@@ -15,6 +14,7 @@ class Smorodina.Views.LandmarkList extends Smorodina.Views.Base
 
     @collection.on 'reset', @render
     @collection.on 'request', @showSpinner
+    if @collection.length then @render() else @showSpinner()
 
   showSpinner: ->
     @show()
@@ -33,15 +33,11 @@ class Smorodina.Views.LandmarkList extends Smorodina.Views.Base
 
     if @collection.length
       @collection.each @addOne
-
-      # TODO this is temorary solution only for demonstration
-      @$bestContent.html @$fragment.slice(0,4)
-      @$restContent.html @$fragment.slice(4)
-
+      @$sectionContent.html @$fragment
       @show()
     else
       @hide()
 
   addOne: (l) ->
-    view = new Smorodina.Views.Landmark(model: l)
+    view = new Smorodina.Views.Event(model: l)
     @$fragment = @$fragment.add view.render().el

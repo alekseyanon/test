@@ -1,0 +1,44 @@
+- @comments_num || = 3 # TODO remove stub
+- @likes_num || = 200
+
+%div.smorodina-item__img
+  %div.smorodina-item__img__inner
+    %image{ src: '/assets/tmp/130x90.gif', alt: 'Фото', width: 130, height: 90 }
+    %span.smorodina-item__event-label.smorodina-item__event-label_progress
+      Проходит
+%div.smorodina-item__content
+  %div.row-fluid
+    %div.span8
+      %div.smorodina-item__title
+        %a{href: '#'}
+          %b= @title
+      %div.smorodina-item__geo
+        %span.icon.icon-marker.smorodina-item__geo__icon
+        %ul.smorodina-item__geo__list
+          %li
+            %a.tdn-link{ href: '#' }
+              Полный
+          %li
+            %a.tdn-link{ href: '#' }
+              Географический
+          %li
+            %a.tdn-link{ href: '#' }
+              Идентификатор
+      %div.smorodina-item__tags
+        %span.icon.icon-tags.smorodina-item__tags__icon
+        %ul.smorodina-item__tags__list
+          %li
+            %a.tdn-link{ href: '#' }
+              Фестиваль
+          %li
+            %a.tdn-link{ href: '#' }
+              Open-Air
+    %div.span4
+      %div.smorodina-item__date-range
+        8 октября – 14 октября
+      %div.smorodina-item__likes
+        = "#{@likes_num} чел. понравилось"
+      %div.smorodina-item__comments
+        %a{href: '#123'}
+          = "#{@comments_num} отзыва"
+        %span.icon.icon-comments.smorodina-item__comments__icon

@@ -61,3 +61,14 @@
   background-image: image-url("icons/comments.png");
   width: 19px; height: 15px;
 }
+
+.icon-calendar {
+  @include background-image-svg("icons/calendar");
+  width: 20px; height: 21px;
+}
+
+.icon-bigpin {
+  @include background-image-svg("icons/bigpin");
+  width: 26px; height: 27px;
+}
+

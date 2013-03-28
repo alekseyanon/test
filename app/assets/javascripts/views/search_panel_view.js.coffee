@@ -2,7 +2,7 @@
 #= require ./base_view
 
 class Smorodina.Views.SearchPanel extends Smorodina.Views.Base
-  el: '#searchPanel'
+  el: '#searchResultsPanel'
   initialize: ->
     super()
     @collection.on 'reset', @render

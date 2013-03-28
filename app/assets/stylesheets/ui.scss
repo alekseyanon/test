@@ -9,6 +9,8 @@
   text-decoration: none;
   cursor: pointer;
   padding: 0;
+  border: none;
+  vertical-align: middle;
 }
 
 .button:hover {
@@ -32,13 +34,27 @@
   display: block;
 }
 
+/* standart buttons */
+
+.button_standard {
+  border-radius: 5px;
+}
+
+.button_standard__inner {
+  padding: 5px 15px;
+  border:  1px solid $lightgrey;
+}
+
+.button_standard__text {
+  font-weight: bold;
+}
+
 /* 3d styles */
 
 .button_3d {
-  @include border-radius(5px);
+  border-radius: 5px;
   font-size: 14px;
   font-weight: 700;
-  border: none;
   margin-bottom: 4px; /* to compensate bottom box-shadow */
 }
 
@@ -62,6 +78,10 @@
 .button_violet {
   @include background-image(linear-gradient(top, #9428b6, #b667ce));
   @include box-shadow(0 4px #4f3067, inset 0 -1px rgba(255,255,255,0.25),0 12px 18px -6px rgb(43,41,7));
+}
+
+.button_grey {
+  @include background-image(linear-gradient(top, #feffff, #ebebeb));
 }
 
 /* ---------------------------------------- BUTTONS END ----------------------------------------- */
@@ -138,3 +158,56 @@
 }
 
 /* ---------------------------------------- BUTTONS END ----------------------------------------- */
+
+/* ---------------------------------------- INPUTS START ---------------------------------------- */
+
+textarea,
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+  color: $black;
+}
+
+.input_standard {
+  display: inline-block;
+  height: 24px;
+  padding: 5px 6px 5px 15px;
+  font-size: 14px;
+  line-height: 24px;
+  vertical-align: middle;
+  border-radius: 15px;
+  background-color: #fff;
+  border: 1px solid $lightgrey;
+  @include box-shadow(inset 2px 2px 3px $grey);
+  @include transition(border .2s linear, box-shadow .2s linear);
+
+  &:focus {
+    border-color: rgba(82, 168, 236, .8);
+    outline: 0;
+    outline: thin dotted \9; /* IE6-9 */
+    @include box-shadow(inset 2px 2px 3px $grey, 0 0 8px rgba(82,168,236,.6));
+  }
+}
+
+/* ---------------------------------------- INPUTS END ------------------------------------------ */
+
+/* ---------------------------------------- LABELS START ---------------------------------------- */
+
+.label_horizontal {
+  display: inline-block;
+  padding-top: 6px;
+  margin-bottom: 6px;
+  margin-right: 10px;
+}
+
+/* ---------------------------------------- LABELS END ------------------------------------------ */
