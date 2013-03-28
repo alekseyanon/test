@@ -1,3 +1,5 @@
+= render 'layouts/main_search_form'
+
 %div#mapContainer.map__outer
   %div.map__inner
     %div.map__content
@@ -84,7 +86,7 @@
       %div#searchResultsRestContent
     = render 'layouts/fetch'
 
-= render 'layouts/search-empty', { type: 'объект' }
+= render 'layouts/search_empty', { type: 'объект' }
 
 = render 'layouts/footer'
 
