@@ -68,3 +68,27 @@ CREATE OR REPLACE FUNCTION safe_st_contains(geom1 geometry, geom2 geometry)
   END;
   $$
 LANGUAGE plpgsql;
+
+CREATE SEQUENCE agc_id_seq;
+CREATE table agc (id bigint NOT NULL DEFAULT nextval('agc_id_seq'), relations bigint[] NOT NULL);
+ALTER sequence agc_id_seq owned BY agc_with_id.id
+
+insert into agc (relations)
+select array[R1.id, R2.id, R3.id, R4.id] from relations as R1
+join relations as R2
+    on R2.geom is not null
+       and R1.id != R2.id
+       and R1.tags -> 'boundary' = 'administrative'
+       and R2.tags -> 'boundary' = 'administrative'
+       and Safe_ST_Contains(R1.geom, R2.geom)
+join relations as R3
+    on R3.geom is not null
+       and R2.id != R3.id
+       and R3.tags -> 'boundary' = 'administrative'
+       and Safe_ST_Contains(R2.geom, R3.geom)
+join relations as R4
+    on R4.geom is not null
+       and R3.id != R4.id
+       and R4.tags -> 'boundary' = 'administrative'
+       and Safe_ST_Contains(R3.geom, R4.geom)
+where R1.geom is not null;
