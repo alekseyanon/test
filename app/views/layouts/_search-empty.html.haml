@@ -1,0 +1,32 @@
+%div#searchEmpty.search__empty
+  %div.search__empty__request
+    По запросу
+    %b
+      «
+      %span#searchEmptyRequestText.search__empty__request__text>
+      »
+    ничего не найдено
+  %div.search__empty__info
+    %div.row-fluid
+      %div.span5.search__empty__info__warning
+        %div
+          Убедись, что все слова написаны без ошибок
+        %span.search__empty__info__warning__link
+          %a{href: '#123'}
+            Cмотри примеры поиска на нашем сайте
+
+      %div.span2.search__empty__info__or
+        %div.search__empty__info__or__text
+          или
+        =image_tag 'icons/figure-arrow-left.png'
+        =image_tag 'icons/figure-arrow-right.png'
+
+      %div.span5.search__empty__info__advise
+        %div.search__empty__info__advise__border
+        %div.search__empty__info__advise__title
+          Расскажи о том, что искал
+        %div.search__empty__info__advise__subtitle
+          Помоги в развитии проекта
+        %a.button.button_3d.button_orange{ href: new_landmark_description_path }
+          %span.button__inner.button_3d__inner
+            %span.button__text.button_3d__text{ data: { text: "Добавь #{type}" }}
