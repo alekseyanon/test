@@ -8,15 +8,3 @@ Smorodina.Utils.onRoute '/events', ->
 
   $ ->
     new Smorodina.Views.EventList(collection:events)
-
-###jQuery ->
-  $('form').on 'click', '.remove_fields', (event) ->
-    $(this).closest('fieldset').remove()
-    event.preventDefault()
-
-  $('form').on 'click', '.add_fields', (event) ->
-    time = new Date().getTime()
-    form = $(this)
-    regexp = ///#{form.data 'id' }///g
-    form.before form.data('fields').replace(regexp, time)
-    event.preventDefault()###

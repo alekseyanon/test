@@ -118,9 +118,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
     let!(:hata){ ld 'apartment', [30.343, 59.933] }
 
     it 'searches for landmarks' do
-      ### TODO: Придумать корректное решение
-      ### Это хак пока не придумал как его исправить
-      ### Без него у меня почему то не работает (((
+      ### TODO find a way to avoid this 'visit ...' hack
       visit search_landmark_descriptions_path
       page.find('.search-category_all').click
 
@@ -133,8 +131,9 @@ describe "LandmarkDescriptions", js: true, type: :request do
     end
 
     it 'refines search results on query change' do
-      ### Click on 'activities' tab
+      ### TODO find a way to avoid this 'visit ...' hack
       visit search_landmark_descriptions_path
+      ### Click on 'activities' tab
       page.find('.search-category_activities').click
 
       page.find("#searchResults").should_not have_content 'food'

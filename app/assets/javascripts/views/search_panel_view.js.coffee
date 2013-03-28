@@ -1,5 +1,5 @@
 #= require ../collections/landmarks
-#= require ././base_view
+#= require ./base_view
 
 class Smorodina.Views.SearchPanel extends Smorodina.Views.Base
   el: '#searchResultsPanel'

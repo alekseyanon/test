@@ -1,4 +1,4 @@
-%h1#pageTitle.page-title__centered
+%h1#pageTitle.page-title_centered
   Что происходит в стране
 %div.events__add-event-button
   %a.button.button_3d.button_orange{ href: new_event_path }
@@ -23,7 +23,8 @@
           %span.action-link.search-panel__change-place__link
             Изменить место
     %form.search-panel__search-form
-      %input.input_standard.input-xlarge.search-panel_events__input{ type: "text", placeholder: "Название или тип события" }
+      %input.input_standard.input-xlarge.search-panel_events__input{ type: "text",
+      placeholder: "Название или тип события" }
       %button.button.button_standard.button_grey
         %span.button__inner.button_standard__inner
           %span.button__text.button_standard__text{data: { text: 'Найти' }}
@@ -71,11 +72,6 @@
         %option
           Все
 
-/%ul{class: "nav nav-tabs"}
-/  %li.active= link_to 'События', '#'
-/  %li= link_to 'Новое событие', new_event_path
-/  %li= link_to 'Поиск', search_events_path
-
 %div#searchResults.search__results
   %div#searchResultsSpinner.search__results__spinner
   %div#searchResultsContent
@@ -102,14 +98,5 @@
         &rarr;
     %span.events__pagination__date
       15 октября – 21 октября
-
-/ - @days.each do |date, eos|
-/   %h2= Russian::strftime(eos.first.start, "%A, %d %B %Y г.").mb_chars.capitalize
-/   - eos.each do |eo|
-/     %h3= link_to eo.event.title, eo.event
-/     %p= eo.start
-/     - unless eo.event.images.empty?
-/       %img{width: 86, height: 73, src: eo.event.images.first.image_url(:thumb)}
-/     %p= eo.event.body
 
 = render 'layouts/footer'
