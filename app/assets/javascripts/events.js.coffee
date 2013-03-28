@@ -4,7 +4,7 @@
 
 Smorodina.Utils.onRoute '/events', ->
   events = new Smorodina.Collections.Events
-  events.fetch()
+  events.fetch({ reset: true })
 
   $ ->
     new Smorodina.Views.EventList(collection:events)

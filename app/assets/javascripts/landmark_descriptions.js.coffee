@@ -101,6 +101,7 @@ Smorodina.Utils.onRoute ['/', '/landmark_descriptions'], ->
       query.facets = facets
 
       landmarks.fetch
+        reset: true
         query: query
         data: $.param
           query: query

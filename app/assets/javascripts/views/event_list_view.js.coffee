@@ -14,6 +14,7 @@ class Smorodina.Views.EventList extends Smorodina.Views.Base
 
     @collection.on 'reset', @render
     @collection.on 'request', @showSpinner
+    if @collection.length then @render() else @showSpinner()
 
   showSpinner: ->
     @show()
