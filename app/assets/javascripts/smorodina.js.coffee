@@ -3,7 +3,15 @@ window.Smorodina =
   Collections: {}
   Views: {}
   Routers: {}
-#  initialize: -> alert 'Hello from Backbone!'
+  Utils:
+    onSelector: (selector, callback) ->
+      callback() if $(selector).length
 
-#$(document).ready ->
-#  Smorodina.initialize()
+    onRoute: (routes, callback) ->
+      findInLocationUrl = (str) ->
+        document.location.pathname.indexOf(str) != -1
+
+      if typeof routes == 'string' and findInLocationUrl(routes)
+        callback()
+      else if routes instanceof Array
+        callback() if _.find routes, findInLocationUrl

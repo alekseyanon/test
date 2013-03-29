@@ -1,19 +1,102 @@
-%ul{class: "nav nav-tabs"}
-  %li.active= link_to 'События', '#'
-  %li= link_to 'Новое событие', new_event_path
-  %li= link_to 'Поиск', search_events_path
+%h1#pageTitle.page-title_centered
+  Что происходит в стране
+%div.events__add-event-button
+  %a.button.button_3d.button_orange{ href: new_event_path }
+    %span.button__inner.button_3d__inner
+      %span.button__text.button_3d__text{ data: { text: 'Добавить новое событие' }}
 
-= link_to 'Раньше', week_path('last week monday', @date)
-События на неделю:
-= @date
-= link_to 'Позже', week_path('next week monday', @date)
+%div.search-panel
+  %div.search-panel__inner.search-panel_events__inner.clearfix
+    %div.search-panel__change-controls
+      %span.search-panel__change-date
+        %span.icon.icon-calendar.search-panel__change-date__icon
+        %span.search-panel__change-date__content
+          %span.search-panel__change-date__text
+            Начиная с 15го апреля 2013
+          %span.action-link.search-panel__change-date__link
+            Изменить дату
+      %span.search-panel__change-place
+        %span.icon.icon-bigpin.search-panel__change-place__icon
+        %span.search-panel__change-place__content
+          %span.search-panel__change-place__text
+            По всей России
+          %span.action-link.search-panel__change-place__link
+            Изменить место
+    %form.search-panel__search-form
+      %input.input_standard.input-xlarge.search-panel_events__input{ type: "text",
+      placeholder: "Название или тип события" }
+      %button.button.button_standard.button_grey
+        %span.button__inner.button_standard__inner
+          %span.button__text.button_standard__text{data: { text: 'Найти' }}
 
 
-- @days.each do |date, eos|
-  %h2= Russian::strftime(eos.first.start, "%A, %d %B %Y г.").mb_chars.capitalize
-  - eos.each do |eo|
-    %h3= link_to eo.event.title, eo.event
-    %p= eo.start
-    - unless eo.event.images.empty?
-      %img{width: 86, height: 73, src: eo.event.images.first.image_url(:thumb)}
-    %p= eo.event.body
+%div.events__pagination
+  %span.events__pagination__dir.events__pagination__dir_prev
+    %span.events__pagination__dir__link
+      %span.events__pagination__dir__link__arrow
+        &larr;
+      %a.action-link{ href: week_path('last week monday', @date)}<
+        Раньше
+    %span.events__pagination__date
+      7 октября – 1 октября
+  %span.events__pagination__dir.events__pagination__dir_next
+    %span.events__pagination__dir__link
+      %a.action-link{ href: week_path('next week monday', @date)}<
+        Позже
+      %span.events__pagination__dir__link__arrow
+        &rarr;
+    %span.events__pagination__date
+      15 октября – 21 октября
+
+%div#searchResultsPanel.search-results-panel
+  %div.search-results-panel__inner
+    %span.sort-controls.search-results-panel__sort
+      %span.label_horizontal.search-results-panel__sort__title
+        Сортировать по
+      %span.sort-control.selected
+        %span.action-link.sort-control__text
+          Дате
+        %span.sort-control__arrow
+          &nbsp;
+        %span.sort-control__triangle
+      %span.sort-control
+        %span.action-link.sort-control__text
+          Рейтингу
+        %span.sort-control__arrow
+          &nbsp;
+        %span.sort-control__triangle
+    %span.search-results-panel__show
+      %label.label_horizontal.search-results-panel__show__title
+        Показывать
+      %select.input-medium
+        %option
+          Все
+
+%div#searchResults.search__results
+  %div#searchResultsSpinner.search__results__spinner
+  %div#searchResultsContent
+    %div.search__results__date-section
+      %div.search__results__date-section__header
+        %b
+          Четверг, 11 октября 2013 г.
+      %div#searchResultsDateSectionContent.search__results__date-section__content
+
+%div.events__pagination
+  %span.events__pagination__dir.events__pagination__dir_prev
+    %span.events__pagination__dir__link
+      %span.events__pagination__dir__link__arrow
+        &larr;
+      %a.action-link{ href: week_path('last week monday', @date)}<
+        Раньше
+    %span.events__pagination__date
+      7 октября – 1 октября
+  %span.events__pagination__dir.events__pagination__dir_next
+    %span.events__pagination__dir__link
+      %a.action-link{ href: week_path('next week monday', @date)}<
+        Позже
+      %span.events__pagination__dir__link__arrow
+        &rarr;
+    %span.events__pagination__date
+      15 октября – 21 октября
+
+= render 'layouts/footer'

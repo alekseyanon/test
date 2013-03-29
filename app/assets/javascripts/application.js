@@ -16,12 +16,12 @@
 //= require jquery.ui.all
 //= require jquery-datetimepicker
 //= require chosen-jquery
-//= require bootstrap-tooltip
-//= require bootstrap-popover
+//= require bootstrap-dropdown
 //= require underscore
 //= require backbone
 //= require smorodina
 //= require hamlcoffee
+//= require spin
 //= require_tree .
 //= require leaflet
 //= require jquery/jRating.jquery

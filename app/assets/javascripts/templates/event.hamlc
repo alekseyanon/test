@@ -1,23 +1,12 @@
 - @comments_num || = 3 # TODO remove stub
-- @similar_objects_num || = 21
-- @objects_total || = 123456
-- @raiting || = 59
-- @daily_raiting || = 5
+- @likes_num || = 200
 
 %div.smorodina-item__img
   %div.smorodina-item__img__inner
     %image{ src: '/assets/tmp/130x90.gif', alt: 'Фото', width: 130, height: 90 }
+    %span.smorodina-item__event-label.smorodina-item__event-label_progress
+      Проходит
 %div.smorodina-item__content
-  %div.smorodina-item__top
-    %span{class: 'smorodina-item__label smorodina-item__label_' + @tag_list[0] }
-      = @tag_list[0]
-    %span.smorodina-item__show-more
-      %a{href: '#'}
-        показать еще
-          %b
-            = @similar_objects_num
-    %i.smorodina-item__total
-      = "из #{@objects_total}"
   %div.row-fluid
     %div.span8
       %div.smorodina-item__title
@@ -38,18 +27,17 @@
       %div.smorodina-item__tags
         %span.icon.icon-tags.smorodina-item__tags__icon
         %ul.smorodina-item__tags__list
-          - for tag in @tag_list
-            %li
-              %a.tdn-link{ href: '#' }= tag
+          %li
+            %a.tdn-link{ href: '#' }
+              Фестиваль
+          %li
+            %a.tdn-link{ href: '#' }
+              Open-Air
     %div.span4
-      %div.smorodina-item__rating
-        %span.smorodina-item__rating__text
-          Рейтинг объекта
-        %span.smorodina-item__rating__number
-          = @raiting
-        %span.smorodina-item__rating__daily.smorodina-item__rating__daily_up
-          = @daily_raiting
-
+      %div.smorodina-item__date-range
+        8 октября – 14 октября
+      %div.smorodina-item__likes
+        = "#{@likes_num} чел. понравилось"
       %div.smorodina-item__comments
         %a{href: '#123'}
           = "#{@comments_num} отзыва"
