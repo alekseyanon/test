@@ -1,11 +1,11 @@
-=render "shared/link_to_vote",css_id: dom_id(object_to_vote, :up), controller: nested_path
+=render "shared/link_to_vote",css_id: dom_id(object_to_vote, :up), controller: nested_path ||= '' , tag: tag ||= ''
 (
-%span.up-vote= "#{object_to_vote.votes_for}"
+%span.up-vote= "#{object_to_vote.votes_for(tag ||= '')}"
 )
 |
-=render "shared/link_to_vote",css_id: dom_id(object_to_vote, :down), controller: nested_path
+=render "shared/link_to_vote",css_id: dom_id(object_to_vote, :down), controller: nested_path ||= '' , tag: tag ||= ''
 (
-%span.down-vote= "#{object_to_vote.votes_against}"
+%span.down-vote= "#{object_to_vote.votes_against(tag ||= '')}"
 )
 - unless current_user.nil?
-  =link_to "unvote", "#", id: "vote-delete", onclick: "to_unvote(\'#{nested_path}#{dom_id(object_to_vote).split('_')[0]}\', #{object_to_vote.id});"
+  =link_to_unvote dom_id(object_to_vote), nested_path ||= '', tag ||= ''

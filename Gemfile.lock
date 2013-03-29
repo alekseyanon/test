@@ -7,6 +7,13 @@ GIT
       activesupport (~> 3.0)
       railties (~> 3.0)
 
+PATH
+  remote: ~/work/gems/thumbs_up
+  specs:
+    thumbs_up (0.6.4)
+      activerecord
+      statistics2
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -308,9 +315,6 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     statistics2 (0.54)
     thor (0.17.0)
-    thumbs_up (0.6.3)
-      activerecord
-      statistics2
     tilt (1.3.5)
     treetop (1.4.12)
       polyglot
@@ -387,5 +391,5 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   shoulda-matchers
   simple_form
-  thumbs_up
+  thumbs_up!
   uglifier (>= 1.0.3)

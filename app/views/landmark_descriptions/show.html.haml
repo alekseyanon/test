@@ -47,6 +47,11 @@
 |
 =link_to "Где поесть", "#"
 .type-form
+  %a{:name => "rate"}
+  - @tags.each do |tag|
+    .votes{id: dom_id(@landmark_description, tag)}
+      = tag
+      =render partial: "shared/votes", locals: { object_to_vote: @landmark_description, tag: tag }
   %br
   %br
   %p здесь будут представлены контактные данные фотографии рейтинги и т.д.

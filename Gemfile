@@ -52,7 +52,7 @@ gem 'rmagick'
 
 gem 'rinku'               # auto_link
 gem 'friendly_id'         # slug
-gem 'thumbs_up'           # voting system
+gem 'thumbs_up', path: '~/work/gems/thumbs_up'           # voting system
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -84,8 +84,8 @@ group :test, :development do
   gem 'rspec',   '~> 2.12'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'diff-lcs'
   gem 'capybara'
+  gem 'diff-lcs'
   gem 'launchy'
   gem 'pry'
   gem 'poltergeist'

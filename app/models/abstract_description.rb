@@ -40,6 +40,10 @@ class AbstractDescription < ActiveRecord::Base
     tree.empty? ? nil : tree
   end
 
+  def bottom_categories
+    Category.where(name: tag_list).leaves.pluck(:name).uniq
+  end
+
   def should_generate_new_friendly_id?
     new_record?
   end
