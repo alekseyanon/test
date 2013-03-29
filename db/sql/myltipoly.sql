@@ -1,17 +1,8 @@
-SELECT AddGeometryColumn('relations', 'geom', 4326, 'POLYGON', 2);
-
-select * from relations
-  join (
-         select relation_id from relation_members as M
-         group by relation_id
-         having 'outer' = all( select member_role from relation_members where relation_members.relation_id = M.relation_id)
-       ) as simple_multipoly
-    on relations.id = simple_multipoly.relation_id
-where tags->'type' = 'multipolygon'
-  and tags->'boundary' = 'administrative';
-
+-- Concatenating ways definitions belonging to a relation into a single polygon geometry
+-- Input: relation id
+-- Output: resulting polygon
 CREATE OR REPLACE FUNCTION concatenate_ways(multipoly bigint)
-  RETURNS geometry[]
+  RETURNS geometry
 AS $$
     if not SD.has_key("nodes_plan"):
         SD["nodes_plan"] = plpy.prepare("select nodes from ways where ways.id in ( select member_id from relation_members where relation_id = $1 and member_role = 'outer')", ["bigint"])
@@ -35,15 +26,34 @@ AS $$
         if not head[0] == head[-1]:
             head.append(head[0]) #TODO remove hack
         if len(head) > 3:
-            return [plpy.execute(geoms_plan, [id])[0]["geom"] for id in head]
+            return ST_MakePolygon(ST_MakeLine( [plpy.execute(geoms_plan, [id])[0]["geom"] for id in head] ))
         else:
             return None
     except:
         return None
 $$ LANGUAGE plpythonu;
 
+-- Wrapper catching whatever exceptions are thrown by ST_Contains
+-- TODO: fix catching every exception when PostGIS error codes are available
+CREATE OR REPLACE FUNCTION safe_st_contains(geom1 geometry, geom2 geometry)
+  RETURNS BOOL AS
+  $$
+  BEGIN
+    RETURN ST_Contains($1, $2);
+    EXCEPTION WHEN others THEN
+      RAISE NOTICE 'TopologyException';
+      RETURN FALSE;
+  END;
+  $$
+LANGUAGE plpgsql;
+
+
+
+
+SELECT AddGeometryColumn('relations', 'geom', 4326, 'POLYGON', 2);
+
 UPDATE relations
-SET geom = ST_MakePolygon(ST_MakeLine(concatenate_ways(id)))
+SET geom = concatenate_ways(id)
 WHERE id IN (
   SELECT id FROM relations
     JOIN (
@@ -57,23 +67,13 @@ WHERE id IN (
      OR tags ? 'place'
 );
 
-CREATE OR REPLACE FUNCTION safe_st_contains(geom1 geometry, geom2 geometry)
-  RETURNS BOOL AS
-  $$
-  BEGIN
-    RETURN ST_Contains($1, $2);
-    EXCEPTION WHEN others THEN
-      RAISE NOTICE 'TopologyException';
-      RETURN FALSE;
-  END;
-  $$
-LANGUAGE plpgsql;
 
 CREATE SEQUENCE agc_id_seq;
-CREATE table agc (id bigint NOT NULL DEFAULT nextval('agc_id_seq'), relations bigint[] NOT NULL);
-ALTER sequence agc_id_seq owned BY agc_with_id.id
+CREATE table agcs (id bigint NOT NULL DEFAULT nextval('agc_id_seq'), relations bigint[] NOT NULL);
+ALTER sequence agc_id_seq owned BY agcs.id
 
-insert into agc (relations)
+-- creating every AGC of length 4 starting at uppermost level available
+insert into agcs (relations)
 select array[R1.id, R2.id, R3.id, R4.id] from relations as R1
 join relations as R2
     on
