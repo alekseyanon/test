@@ -7,8 +7,9 @@ GIT
       activesupport (~> 3.0)
       railties (~> 3.0)
 
-PATH
-  remote: ~/work/gems/thumbs_up
+GIT
+  remote: git://github.com/lvl0nax/thumbs_up
+  revision: e8dcb9bf38c45e0e43ca6a3a20e3216a145a2e9c
   specs:
     thumbs_up (0.6.4)
       activerecord
