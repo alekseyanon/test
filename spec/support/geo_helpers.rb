@@ -60,7 +60,7 @@ end
 def load_descriptions
   File.open("#{Rails.root}/db/seeds/landmark_descriptions.yml"){|f| YAML.load f.read}.map do |yld|
     dc = described_class.make! yld.slice(:title, :body)
-    dc.tag_list += yld[:tags] if defined?(dc.tag_list) && yld[:tags]
+    dc.tag_list = yld[:tags].join ', ' if defined?(dc.tag_list) && yld[:tags]
     dc.save
     dc
   end
