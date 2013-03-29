@@ -17,12 +17,14 @@ module ApplicationHelper
     sign = prms[0]
     id = prms[-1]
     model = (prms - [sign, id]).join('_')
-    link_to "#{sign}", "#rate", id: "vote-#{sign}-#{tag}", onclick: "to_vote('#{controller}#{model}', #{id}, '#{sign}', '#{tag}');"
+    link_id = tag.blank? ? "vote-#{sign}" : "vote-#{sign}-#{tag}"
+    link_to "#{sign}", "#rate", id: link_id, onclick: "to_vote('#{controller}#{model}', #{id}, '#{sign}', '#{tag}');"
   end
 
   def link_to_unvote css_id, controller, tag
     id = css_id.split('_')[-1]
     model = css_id.gsub('_'+id, '')
-    link_to "unvote", "#rate", id: "vote-delete-#{tag}", onclick: "to_unvote('#{controller}#{model}', #{id}, '#{tag}');"
+    link_id = tag.blank? ? "vote-delete" : "vote-delete-#{tag}"
+    link_to "unvote", "#rate", id: link_id, onclick: "to_unvote('#{controller}#{model}', #{id}, '#{tag}');"
   end
 end

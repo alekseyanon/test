@@ -100,6 +100,22 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.should have_selector(".landmark-descrition-rating", :'data-id' => @ld.id)
       page.should have_content 'Ваша оценка'
     end
+
+    it 'voting system exsist' do
+      create_new title, category
+      visit landmark_description_path LandmarkDescription.last
+      page.should have_selector('.votes')
+      page.find('.up-vote').should have_content '0'
+      page.find('.down-vote').should have_content '0'
+    end
+
+    it 'make vote for the LandmarkDescription' do
+      create_new title, category
+      visit landmark_description_path LandmarkDescription.last
+      page.find('#vote-up-reservoir').click
+      page.find('.up-vote').should have_content '1'
+      page.find('.down-vote').should have_content '0'
+    end
   end
 
   context "landmark description search" do
