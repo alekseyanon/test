@@ -1,5 +1,9 @@
 Smorodina::Application.routes.draw do
 
+  namespace :api do
+    get "categories/index"
+  end
+
   resources :ratings, only: [:create]
 
   resources :profiles
