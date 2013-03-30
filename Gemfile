@@ -92,4 +92,5 @@ group :test, :development do
   gem 'pry'
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem "guard-rspec"
 end
