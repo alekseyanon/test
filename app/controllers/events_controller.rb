@@ -28,17 +28,4 @@ class EventsController < InheritedResources::Base
     create!
   end
 
-  def search
-    # TODO почистить: убрать вьюху, роут
-    query = {}
-    query[:text] = params[:text] if params[:text]
-    if params[:date].blank?
-      params[:date] = {}
-      params[:date][:start] = params[:date][:end] = Time.now.strftime '%F'
-    end
-    query[:date] = ["#{params[:date][:start]} 00:00:00", "#{params[:date][:end]} 23:59:59"]
-    @events = Event.search query #if !query.blank?
-    respond_with(@events)
-  end
-
 end
