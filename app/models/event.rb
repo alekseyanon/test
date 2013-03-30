@@ -6,21 +6,24 @@ class Event < ActiveRecord::Base
   #
   # == JS API
   #
-  # GET /api/events/week позволяет получить все события от :date до :date+7.days
-  # date - ISO 8601 date format обязательный
+  # GET /api/events/week позволяет получить все события от date до date+7.days
+  # Параметры:
+  # date - ISO 8601 date format - обязательный
   #
   # GET /api/events/tags возвращает все возможные теги событий.
   #
   # GET /api/events/search посзволяет искать события по следующим параметрам:
+  # Параметры:
   # text - строка для полнотекстового поиска
-  # start_date, end_date - границы временого интервала, внутри которого искать
+  # from, to - границы периода времени, внутри которого искать
   # place_id - место для поска @TODO
   # tag_id - только события с определенным тегом @TODO
   # sort_by - задает сортировку и может принимать значения: 'date' или 'rate' @TODO
   # page - номаер страницы результатов поиска @TODO
   # Если не передать параметров - вернуться события на сегодня
   #
-  # Чтобы посмотреть формат JSON ответа можно обратиться к соответсвующим спекам.
+  # Чтобы посмотреть формат JSON ответа можно обратиться к соответсвующим спекам:
+  # rspec -fd spec/controllers/api/events_controller_spec.rb
 
   include PgSearch
   include Searchable
@@ -91,7 +94,7 @@ class Event < ActiveRecord::Base
   end
 
   scope :within_date_range, ->(from, to) do
-    where "start_date >= '#{from}' AND start_date <= '#{to}'"
+    where 'start_date >= ? AND start_date <= ?', from, to
   end
 
 

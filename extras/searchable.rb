@@ -2,7 +2,7 @@ module Searchable
   def self.included(base)
     base.send :extend, ClassMethods
   end
- 
+
   module ClassMethods
     # Searches descriptions against title, body, tags, using upper level categories used as facets.
     # For queries with geospatial part, search is done within a radius of some point.
@@ -23,11 +23,15 @@ module Searchable
         r = query[:r] || 0
         chain = chain.within_radius(geom, r) if geom
         text = query[:text]
-        chain = chain.within_date_range *query[:date] if query[:date]
+        chain = chain.within_date_range query[:from], query[:to] if query[:from] and query[:to]
       end
       chain = chain.text_search(text) unless text.blank?
-      chain.where("abstract_descriptions.title != 'NoName'") if self.kind_of? AbstractDescription #TODO remove hack
-      chain.limit 20 #TODO remove hack
+      if self.kind_of? AbstractDescription
+        chain.where("abstract_descriptions.title != 'NoName'") #TODO remove hack
+        chain.limit 20 if self.kind_of? AbstractDescription #TODO remove hack
+      else
+        chain
+      end
     end
   end
 end

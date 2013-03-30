@@ -1,7 +1,10 @@
 Smorodina::Application.routes.draw do
 
   namespace :api do
-    get "categories/index"
+    get 'categories/index'
+    get 'events/week'
+    get 'events/tags'
+    get 'events/search'
   end
 
   resources :ratings, only: [:create]

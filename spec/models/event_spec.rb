@@ -11,7 +11,7 @@ describe Event do
   let(:event) {Event.make! }
   let(:event_weekly){Event.make! repeat_rule: 'weekly'}
 
-  it { event.key.should_not be_empty }
+  it { event_weekly.key.should_not be_blank }
   it { event.archive_date.nil?.should be_false }
   it { event.archive_date.should_not be_blank }
 
@@ -159,7 +159,8 @@ describe Event do
     end
 
     it 'performs full text search in specified radius and date' do
-      described_class.search(text: 'one', geom: one.geom, r: 5, date: [1.day.ago, 14.day.from_now]).should == [one]
+      described_class.search(text: 'one', geom: one.geom, r: 5, from: 1.day.ago,
+                             to: 14.day.from_now).should == [one]
     end
   end
 
