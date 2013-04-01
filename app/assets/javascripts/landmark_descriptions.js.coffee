@@ -15,6 +15,9 @@ Smorodina.Pages.LandmarkDescriptions = ->
     new Smorodina.Views.Map()
     new Smorodina.Views.SearchForm()
 
+    # TODO temporary solution
+    landmark_description_search()
+
   initMap = ->
     map = L.map('map', { scrollWheelZoom: false })
     lg = L.layerGroup([]).addTo map
