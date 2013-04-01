@@ -1,15 +1,3 @@
-CREATE SEQUENCE agcs_id_seq
-START WITH 1
-INCREMENT BY 1
-NO MINVALUE
-NO MAXVALUE
-CACHE 1;
-
-CREATE table agcs (id bigint NOT NULL, relations bigint[] NOT NULL);
-
-ALTER sequence agcs_id_seq owned BY agcs.id;
-
-
 -- first pass, create every AGC of length 2 starting at uppermost level available
 insert into agcs(relations)
 select array[R1.id, R2.id] from relations as R1
