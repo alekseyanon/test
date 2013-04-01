@@ -40,7 +40,7 @@ class AbstractDescription < ActiveRecord::Base
     tree.empty? ? nil : tree
   end
 
-  def bottom_categories
+  def leaf_categories
     Category.where(name: tag_list).leaves.pluck(:name).uniq
   end
 

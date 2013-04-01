@@ -47,7 +47,7 @@
 |
 =link_to "Где поесть", "#"
 .type-form
-  %a{:name => "rate"}
+  %a{name: "rate"}
   - @tags.each do |tag|
     .votes{id: dom_id(@landmark_description, tag)}
       = tag

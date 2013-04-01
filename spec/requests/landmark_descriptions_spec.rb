@@ -115,6 +115,9 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find('#vote-up-reservoir').click
       page.find('.up-vote').should have_content '1'
       page.find('.down-vote').should have_content '0'
+      page.find('#vote-down-reservoir').click
+      page.find('.up-vote').should have_content '0'
+      page.find('.down-vote').should have_content '1'
     end
   end
 

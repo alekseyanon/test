@@ -4,13 +4,9 @@ class VotesController < InheritedResources::Base
 
   def create
     tag = params[:voteable_tag].blank? ? nil : params[:voteable_tag]
-    if (params[:sign] == "up")
-      current_user.vote_exclusively_for(@voteable, tag)
-    else
-      current_user.vote_exclusively_against(@voteable, tag)
-    end
-    if (current_user.voted_on?(@voteable, tag))
-      render json: { positive: "#{@voteable.votes_for(tag)}", negative: "#{@voteable.votes_against(tag)}" }
+    current_user.vote(@voteable, exclusive: true, direction: params[:sign].to_sym, tag: tag)
+    if current_user.voted_on?(@voteable, tag)
+      render json: {positive: @voteable.votes_for(tag).to_s, negative: @voteable.votes_against(tag).to_s}
     else
       request_logger params, 'Message: Check controller name, controller method for find voteable model'
     end
@@ -19,10 +15,10 @@ class VotesController < InheritedResources::Base
   def destroy
     tag = params[:voteable_tag].blank? ? nil : params[:voteable_tag]
     current_user.unvote_for(@voteable, tag)
-    if (current_user.voted_on?(@voteable, tag))
+    if current_user.voted_on?(@voteable, tag)
       request_logger params,  'Message: Check controller name, controller method for find voteable model'
     else
-      render json: { positive: "#{@voteable.votes_for(tag)}", negative: "#{@voteable.votes_against(tag)}" }
+      render json: {positive: @voteable.votes_for(tag).to_s, negative: @voteable.votes_against(tag).to_s}
     end
   end
 
