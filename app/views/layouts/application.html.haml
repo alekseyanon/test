@@ -91,7 +91,7 @@
         - if controller_name == 'welcome' && !cookies[:first_time]
           = render 'layouts/promo_description'
 
-        = render 'layouts/main_search', { how_to_search: controller_name == 'welcome' && !cookies[:first_time] }
+        = render 'layouts/main_search', { how_to_search: controller_name == 'welcome' }
 
         = yield
 %script
