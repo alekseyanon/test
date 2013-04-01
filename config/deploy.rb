@@ -37,10 +37,11 @@ set :user,        'deployer'
 
 default_run_options[:pty] = true
 
-before 'deploy:update_code', 'smorodina:daemons:stop'
-after  'deploy:update_code', 'smorodina:symlink'
+before 'deploy:update_code',      'smorodina:daemons:stop'
+after  'deploy:update_code',      'smorodina:symlink'
 #after  'smorodina:symlink',  'smorodina:db'
-after  'smorodina:symlink',       'smorodina:daemons:start'
+after  'smorodina:symlink',       'smorodina:clear_assets'
+after  'smorodina:clear_assets',  'smorodina:daemons:start'
 
 def run_rake(task)
   run "cd #{current_path} && rake RAILS_ENV=#{rails_env} #{task}"
@@ -55,6 +56,10 @@ namespace :smorodina do
     run "ln -nfs #{shared_path}/config/social_services.yml #{release_path}/config/social_services.yml"
     run "ln -nfs #{shared_path}/uploads                    #{release_path}/public/uploads"
     run "ln -nfs $HOME/osm/RU-LEN.osm.bz2                  #{release_path}/RU-LEN.osm.bz2"
+  end
+
+  task :clear_assets do
+    run "rm -Rf #{shared_path}/assets/*"
   end
 
   task :db do
