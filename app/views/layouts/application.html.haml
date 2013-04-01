@@ -13,20 +13,11 @@
     = csrf_meta_tags
     %body{ class: page_class }
 
-    %div.promo-panel
-      %div.promo-panel__inner
-        %div.promo-panel__text.promo-panel__greeting
-          Добро пожаловать в Смородину — путеводитель по родной стране, созданный ее жителями!
-        %span.promo-panel__text
-          Всего в Смородине
-          %b{id: 'objets_total'} >9000
-          объектов
-        %a.button.button_3d.button_orange.promo-panel__button{ href: new_landmark_description_path }
-          %span.button__inner.button_3d__inner
-            %span.button__text.button_3d__text{ data: { text: "Добавить объект" }}
+    = render 'layouts/promo', { greeting: controller_name == 'welcome' }
 
     %div.main
       %div.main__inner
+
         %div.slogan-user-panel-container
           %div.user-panel
             - if current_user.nil?
@@ -97,81 +88,10 @@
                 %span.control-panel__social-block__link__text
                   Наш Twitter
 
-        %div.promo-description
-          %div.promo-description__inner
-            %div.promo-description__container.promo-description__container_3
-              %div.promo-description__container.promo-description__container_2
-                %div.promo-description__container.promo-description__container_1
-                  %div.promo-description__column
-                    %div.promo-description__column__inner
-                      %div.promo-description__title
-                        Узнавай
-                      %span.promo-description__text
-                        Найди на Смородине места, которых нет в путеводителях, о которых знают
-                        только местные жители. Искать легко через поисковую строку или сразу на карте.
-                  %div.promo-description__column
-                    %div.promo-description__column__inner
-                      %div.promo-description__title
-                        Рассказывай
-                      %span.promo-description__text
-                        Поделись знаниями о стране, о родном крае. Твоя родина очень большая и все,
-                        кто ищет информацию на Смородине, будут тебе благодарны за помощь —
-                        выкладывай фотографии и описывай интересные объекты.
-                  %div.promo-description__column
-                    %div.promo-description__column__inner
-                      %div.promo-description__title
-                        Путешествуй
-                      %span.promo-description__text
-                        Узнавать страну можно не только на Смородине. Отправляйся в путешествие и
-                        посмотри своими глазами нам мир вокруг. Система планирования путешествий
-                        поможет разработать подробную программу поездки.
+        - if controller_name == 'welcome' && !cookies[:first_time]
+          = render 'layouts/promo_description'
 
-        %div#mainSearch.main-search
-          %form#mainSearchForm
-            %div.main-search__inner
-            %div.main-search__column
-              %div.how-to-search.how-to-search
-
-            %div.main-search__column.main-search__field
-              %input#mainSearchFieldInput.main-search__field__input{ type: "text",
-                placeholder: "Куда поехать, что посмотреть, чем заняться, где заночевать, где поесть" }
-              %div.main-search__field__panel
-                %span.main-search__field__panel__example
-                  Например,
-                  %span.action-link.main-search__field__panel__example__text.dropdown-toggle{ data: { toggle: 'dropdown' } }
-                    водопад Девичьи слёзы
-                  %ol.dropdown-menu.pull-right.main-search__field__panel__dropdown.main-search__field__panel__dropdown_example{ role: 'menu'}
-                    %li
-                      %a{href: '#101'}
-                        Краснодар рестораны
-                    %li
-                      %a{href: '#102'}
-                        Рыбалка на Кубани
-                    %li
-                      %a{href: '#103'}
-                        Лыжи Сочи
-                    %li
-                      %a{href: '#104'}
-                        Петербург музеи
-                %span.main-search__field__panel__history
-                  %span.action-link.main-search__field__panel__history__text.dropdown-toggle{ data: { toggle: 'dropdown' } }
-                    История поиска
-                  %ol.dropdown-menu.pull-left.main-search__field__panel__dropdown.main-search__field__panel__dropdown_history{ role: 'menu'}
-                    %li
-                      %a{href: '#105'}
-                        Калуга
-                    %li
-                      %a{href: '#106'}
-                        Ресторан «Веселая рыбалка»
-                    %li
-                      %a{href: '#107'}
-                        Саратовский государственный академический театр драмы им. И. А. Слонова
-                  %span.icon.icon-clock.main-search__field__panel__history_icon
-
-            %div.main-search__column
-              %button#mainSearchButton.button.button_3d.button_violet.main-search__button
-                %span.button__inner.button_3d__inner
-                  %span.button__text.button_3d__text{ data: { text: "Найти" }}
+        = render 'layouts/main_search', { how_to_search: controller_name == 'welcome' }
 
         = yield
 %script
