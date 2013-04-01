@@ -20,6 +20,11 @@ describe Event do
     event_weekly.multiple?.should be_true
   end
 
+  it '.for_7_days_from works as expected' do
+    events = dates_to_events [7.days.ago, 4.days.ago, 3.days.ago, 1.days.from_now, 15.days.from_now]
+    Event.for_7_days_from(5.days.ago).should =~ [events[1],events[2],events[3]]
+  end
+
   it '.update_state! change states and can raise errors' do
     e = Event.make start_date: 60.days.ago, end_date: 58.days.ago
     e.new?.should be_true

@@ -1,7 +1,7 @@
 namespace :fake do
 
   desc "generate fake events"
-  task :events => :environment do
+  task events: :environment do
     load "#{Rails.root}/spec/support/blueprints.rb"
     fg = FakeGenerator.new
     fg.create_events

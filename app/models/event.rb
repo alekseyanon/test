@@ -97,6 +97,10 @@ class Event < ActiveRecord::Base
     where 'start_date >= ? AND start_date <= ?', from, to
   end
 
+  scope :for_7_days_from, -> interval_start do
+    where 'start_date >= ? AND start_date <= ?', interval_start, interval_start + 7.days
+  end
+
 
   state_machine initial: :new do
 

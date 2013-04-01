@@ -3,10 +3,13 @@ require 'spec_helper'
 describe Api::EventsController do
 
   describe 'GET week' do
-    it 'success' do
-      get :week
-      expect(response).to be_success
+
+    it 'returns events for specified date + 7 days' do
+      events = dates_to_events [7.days.ago, 4.days.ago, 3.days.ago, 1.days.from_now, 15.days.from_now]
+      get :week, date: 5.days.ago.strftime '%F'
+      assigns(:events).should =~ [events[1],events[2],events[3]]
     end
+
   end
 
   describe 'GET tags' do

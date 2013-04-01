@@ -19,6 +19,10 @@ def to_events(crd)
   crd.map{|p| Event.make! geom: p }
 end
 
+def dates_to_events dates
+  dates.map { |d| Event.make!(start_date: d) }
+end
+
 def to_poly(nodes)
   Osm::Poly.make! geom: Geo.factory.polygon(Geo.factory.line_string nodes.map(&:geom))
 end

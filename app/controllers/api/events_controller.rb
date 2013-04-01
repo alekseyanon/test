@@ -1,7 +1,9 @@
 class Api::EventsController < ApplicationController
+  respond_to :json
 
   def week
-    render text: 'ok'
+    @events = Event.for_7_days_from(Time.parse(params[:date]) || Time.now)
+    respond_with(@events, include: :images)
   end
 
   def tags

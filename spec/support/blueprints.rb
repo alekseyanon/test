@@ -74,7 +74,7 @@ Event.blueprint do
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
   start_date { Time.now }
-  end_date { 2.days.from_now }
+  end_date { object.start_date + 2.days }
   repeat_rule { :no_repeat }
   geom { Geo::factory.point(10, 10) }
   tag_list { 'aaa, bbb, ccc' }

@@ -2,7 +2,7 @@ Smorodina::Application.routes.draw do
 
   namespace :api do
     get 'categories/index'
-    get 'events/week'
+    match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
     get 'events/tags'
     get 'events/search'
   end

@@ -33,6 +33,7 @@ describe "Events", js: true, type: :request do
   let(:event) { Event.make! repeat_rule: 'weekly', title: title, start_date: Time.now}
 
   it 'creates a new event' do
+    pending
     create_new title, body, tags
     page.should have_content title
     page.should have_content body

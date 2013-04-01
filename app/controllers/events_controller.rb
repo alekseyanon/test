@@ -13,7 +13,6 @@ class EventsController < InheritedResources::Base
     else
       @date = Time.now
     end
-    #respond_with(@event_occurrences, include: :event)
   end
 
   # event[tag_list] - пользовательские теги через запятую
