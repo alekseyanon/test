@@ -1,4 +1,4 @@
 - if current_user.nil?
-  = "#{css_id.split('_')[0]}"
+  = sign.to_s
 - else
   =link_to_vote instance, sign, controller, tag
