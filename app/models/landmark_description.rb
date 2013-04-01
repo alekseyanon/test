@@ -1,6 +1,5 @@
 class LandmarkDescription < AbstractDescription
 
-	has_many :ratings
   attr_accessor :xld, :yld
   attr_accessible :xld, :yld
 
@@ -10,11 +9,8 @@ class LandmarkDescription < AbstractDescription
     LandmarkDescription.within_radius_scope geom, r, 'nodes'
   end
 
-  def average_rating
-  	self.ratings.average(:value).to_f
+  def rating
+    (self.votes_for.to_f / self.leaf_categories.count.to_f).round
   end
 
-  def user_vote_present?(userid)
-  	!self.ratings.where(user_id: userid).empty?
-  end
 end

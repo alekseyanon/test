@@ -81,26 +81,6 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.should have_content 'Дельфинарий'
     end
 
-    it 'check rating' do
-      create_new title, category
-      @ld = LandmarkDescription.last
-      visit landmark_description_path @ld
-      page.should have_selector(".landmark-descrition-rating", :'data-average' => '0.0')
-      page.should have_selector('.user-rating')
-      page.should have_selector('.jStar')
-    end
-
-    it "rating is changed" do
-      create_new title, category
-      @ld = LandmarkDescription.last
-      visit landmark_description_path @ld
-      page.should have_selector(".landmark-descrition-rating", :'data-average' => '0.0')
-      page.find('.jStar').click
-      visit landmark_description_path @ld
-      page.should have_selector(".landmark-descrition-rating", :'data-id' => @ld.id)
-      page.should have_content 'Ваша оценка'
-    end
-
     it 'voting system exsist' do
       create_new title, category
       visit landmark_description_path LandmarkDescription.last
