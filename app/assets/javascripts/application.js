@@ -28,7 +28,7 @@
 //= require jquery.Jcrop
 
 router = new Smorodina.Routers.Global;
-router.route('events/*path', 'events', Smorodina.Pages.Events);
+router.route('events', 'events', Smorodina.Pages.Events);
 router.route('landmark_descriptions/*path', 'landmark_descriptions', Smorodina.Pages.LandmarkDescriptions);
 router.route('.*', 'index', Smorodina.Pages.Index);
 Backbone.history.start({ hashChange: false });
