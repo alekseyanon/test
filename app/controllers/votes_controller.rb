@@ -6,7 +6,7 @@ class VotesController < InheritedResources::Base
     tag = params[:voteable_tag].blank? ? nil : params[:voteable_tag]
     current_user.vote(@voteable, exclusive: true, direction: params[:sign].to_sym, tag: tag)
     if current_user.voted_on?(@voteable, tag)
-      render json: {positive: @voteable.votes_for(tag).to_s, negative: @voteable.votes_against(tag).to_s}
+      render json: {positive: @voteable.votes_for(tag), negative: @voteable.votes_against(tag)}
     else
       request_logger params, 'Message: Check controller name, controller method for find voteable model'
     end
@@ -18,7 +18,7 @@ class VotesController < InheritedResources::Base
     if current_user.voted_on?(@voteable, tag)
       request_logger params,  'Message: Check controller name, controller method for find voteable model'
     else
-      render json: {positive: @voteable.votes_for(tag).to_s, negative: @voteable.votes_against(tag).to_s}
+      render json: {positive: @voteable.votes_for(tag), negative: @voteable.votes_against(tag)}
     end
   end
 

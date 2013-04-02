@@ -1,11 +1,11 @@
 =render "shared/link_to_vote", instance: object_to_vote, sign: :up,                 |
-            controller: nested_path ||= nil , tag: tag ||= nil                      |
+            voting_path: nested_path ||= nil , tag: tag ||= nil                     |
 (
 %span.up-vote= object_to_vote.votes_for(tag.blank? ? nil : tag)
 )
 |
 =render "shared/link_to_vote", instance: object_to_vote, sign: :down,               |
-            controller: nested_path ||= nil , tag: tag ||= nil                      |
+            voting_path: nested_path ||= nil , tag: tag ||= nil                     |
 (
 %span.down-vote= object_to_vote.votes_against(tag.blank? ? nil : tag)
 )
