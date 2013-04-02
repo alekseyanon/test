@@ -1,4 +1,4 @@
-class AGC < ActiveRecord::Base
+class Agc < ActiveRecord::Base
   attr_accessible :relations
   has_many :geo_units
 
@@ -10,6 +10,6 @@ class AGC < ActiveRecord::Base
   end
 
   def names
-    relations.map { |id| AGC.connection.raw_connection.exec_prepared('agc_names', [id]).first['name'] }
+    relations.map { |id| Agc.connection.raw_connection.exec_prepared('agc_names', [id]).first['name'] }
   end
 end
