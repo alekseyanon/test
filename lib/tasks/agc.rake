@@ -21,4 +21,7 @@ namespace :agc do
   task assign: :environment do
     RH.run_sql 'assign_agcs'
   end
+
+  desc 'Run all AGC tasks'
+  task all: %w(agc:functions agc:geoms agc:gen agc:assign)
 end
