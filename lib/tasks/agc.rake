@@ -19,6 +19,6 @@ namespace :agc do
 
   desc 'Assign AGCs to geographical units'
   task assign: :environment do
-    RH.run_sql '' #TODO
+    RH.run_sql 'assign_agcs'
   end
 end
