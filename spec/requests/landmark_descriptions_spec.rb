@@ -65,7 +65,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
     it 'edits existing landmark descriptions' do
       create_new title, category
       visit landmark_description_path LandmarkDescription.last
-      click_on 'Edit'
+      click_on 'редактировать описание'
       fill_in 'landmark_description_title', with: new_title
       select new_category, from: 'landmark_description_tag_list'
       click_on 'Применить изменения'
