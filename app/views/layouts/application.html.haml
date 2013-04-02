@@ -10,25 +10,14 @@
     /%link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
-    /[if lte IE 8]
-      = stylesheet_link_tag  "ie"
     = csrf_meta_tags
-  %body
+    %body{ class: page_class }
 
-    %div.promo-panel
-      %div.promo-panel__inner
-        %div.promo-panel__text.promo-panel__greeting
-          Добро пожаловать в Смородину — путеводитель по родной стране, созданный ее жителями!
-        %span.promo-panel__text
-          Всего в Смородине
-          %b{id: 'objets_total'} >9000
-          объектов
-        %a.button.button_3d.button_orange.promo-panel__button{ href: new_landmark_description_path }
-          %span.button__inner.button_3d__inner
-            %span.button__text.button_3d__text{ data: { text: "Добавить объект" }}
+    = render 'layouts/promo', { greeting: controller_name == 'welcome' }
 
     %div.main
       %div.main__inner
+
         %div.slogan-user-panel-container
           %div.user-panel
             - if current_user.nil?
@@ -38,9 +27,28 @@
                   %span.icon.icon-door.user-panel__login__icon
             - else
               %span.user-link.user-panel__account
-                %a{ href: profile_path(current_user.profile) }
-                  %span.action-link= current_user.email
-                  %span.icon.icon-user.user-link__icon
+                %span.icon.icon-user.user-link__icon
+                %span.action-link.dropdown-toggle{ data: { toggle: 'dropdown' } }= current_user.email
+                %ol.dropdown-menu.pull-left.user-panel__account__dropdown{ role: 'menu' }
+                  %li
+                    %a.tdn-link{href: profile_path(current_user.profile)}
+                      %b
+                        Личный кабинет
+                  %li.divider
+                  %li
+                    %a.tdn-link{href: '#109'}
+                      Добавить объект
+                  %li
+                    %a.tdn-link{href: '#110'}
+                      Добавить событие
+                  %li.divider
+                  %li
+                    %a.tdn-link{href: '#110'}
+                      Как пользоваться
+                  %li.divider
+                  %li
+                    %a.tdn-link{href: '#111'}
+                      Выход
 
           %div.slogan
             Путешествуй по России
@@ -49,85 +57,41 @@
           %a{ href: "/" }
             =image_tag "logo-fake.png", class: "control-panel__logo", alt: "Смородина"
           %nav.control-panel__menu
-            %a.ui-link.selected{ href: landmark_descriptions_path }
+            %a.ui-link{ class: controller_name == 'landmark_descriptions' ? 'selected' : '', href: landmark_descriptions_path }
               Куда отправиться
               %span.control-panel__menu__triangle
-            %a.ui-link{ href: events_path }
+            %a.ui-link{ class: controller_name == 'events' ? 'selected' : '', href: events_path }
               События
               %span.control-panel__menu__triangle
             %a.ui-link{ href: "#blogs" }
               Рейтинги
               %span.control-panel__menu__triangle
-          %div.control-panel__info-section
-            %a.ui-link.control-panel__info-section__link{ href: "#about" }<
-              О проекте
-            %span.control-panel__social-block
-              %a.control-panel__social-block__link{ href: "#" }
+          %div.control-panel__info-button.dropdown-toggle{ data: { toggle: 'dropdown' } }
+            %div.icon.icon-sm-list.control-panel__info-button__icon
+          %ul.dropdown-menu.pull-right.control-panel__info-section
+            %li
+              %a.ui-link.control-panel__info-section__link{ href: '#about' }<
+                О проекте
+            %li
+              %a.ui-link.control-panel__social-block__link{ href: '#' }
                 %span.icon.icon-vk.control-panel__social-block__link__icon
                 %span.control-panel__social-block__link__text
                   Смородина в Facebook
-              %a.control-panel__social-block__link{ href: "#" }
-                %span.icon.icon-fb.control-panel__social-block__link__icon
+            %li
+              %a.ui-link.control-panel__social-block__link{ href: '#' }
+                %span.icon.icon-facebook.control-panel__social-block__link__icon
                 %span.control-panel__social-block__link__text
                   Группа ВКонтакте
-              %a.control-panel__social-block__link{ href: "#" }
-                %span.icon.icon-tw.control-panel__social-block__link__icon
+            %li
+              %a.ui-link.control-panel__social-block__link{ href: '#' }
+                %span.icon.icon-twitter.control-panel__social-block__link__icon
                 %span.control-panel__social-block__link__text
                   Наш Twitter
-          %div.control-panel__info-button
-            %div.icon.icon-dropdown.control-panel__info-button__icon
 
-        %div.promo-description
-          %div.promo-description__inner
-            %div.promo-description__container.promo-description__container_3
-              %div.promo-description__container.promo-description__container_2
-                %div.promo-description__container.promo-description__container_1
-                  %div.promo-description__column
-                    %div.promo-description__column__inner
-                      %div.promo-description__title
-                        Узнавай
-                      %small.promo-description__text
-                        Найди на Смородине места, которых нет в путеводителях, о которых знают
-                        только местные жители. Искать легко через поисковую строку или сразу на карте.
-                  %div.promo-description__column
-                    %div.promo-description__column__inner
-                      %div.promo-description__title
-                        Рассказывай
-                      %small.promo-description__text
-                        Поделись знаниями о стране, о родном крае. Твоя родина очень большая и все,
-                        кто ищет информацию на Смородине, будут тебе благодарны за помощь —
-                        выкладывай фотографии и описывай интересные объекты.
-                  %div.promo-description__column
-                    %div.promo-description__column__inner
-                      %div.promo-description__title
-                        Путешествуй
-                      %small.promo-description__text
-                        Узнавать страну можно не только на Смородине. Отправляйся в путешествие и
-                        посмотри своими глазами нам мир вокруг. Система планирования путешествий
-                        поможет разработать подробную программу поездки.
+        - if controller_name == 'welcome' && !cookies[:first_time]
+          = render 'layouts/promo_description'
 
-        %div.main-search
-          %div.main-search__inner
-            %div.main-search__column
-              %div.how-to-search.how-to-search
-
-            %div.main-search__column.main-search__field
-              %input#mainSearchFieldInput.main-search__field__input{ type: "text",
-                placeholder: "Куда поехать, что посмотреть, чем заняться, где заночевать, где поесть" }
-              %div.main-search__field__panel
-                %small.main-search__field__panel__example
-                  Например,
-                  %span.action-link.main-search__field__panel__example__text
-                    водопад Девичьи слёзы
-                %small.main-search__field__panel__history
-                  %span.action-link.main-search__field__panel__history__text
-                    История поиска
-                  %span.icon.icon-clock.main-search__field__panel__history_icon
-
-            %div.main-search__column
-              %button#mainSearchButton.button.button_3d.button_violet.main-search__button
-                %span.button__inner.button_3d__inner
-                  %span.button__text.button_3d__text{ data: { text: "Найти" }}
+        = render 'layouts/main_search', { how_to_search: controller_name == 'welcome' }
 
         = yield
 %script

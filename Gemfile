@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 gem 'pg'
 gem 'rgeo-activerecord'
@@ -52,14 +52,16 @@ gem 'rmagick'
 
 gem 'rinku'               # auto_link
 gem 'friendly_id'         # slug
-gem 'thumbs_up'           # voting system
+
+### To update bundle update --source thumbs_up
+gem 'thumbs_up', git: 'git://github.com/lvl0nax/thumbs_up'           # voting system
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'bootstrap-sass', '~> 2.3.0.1'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails'
   gem 'compass-rails'
   gem 'modernizr-rails'
   gem 'uglifier', '>= 1.0.3'
@@ -71,6 +73,7 @@ end
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails_jquery_ui_datepicker'
+gem 'spinjs-rails'
 
 gem 'capistrano'
 gem 'rvm-capistrano'

@@ -65,7 +65,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
     it 'edits existing landmark descriptions' do
       create_new title, category
       visit landmark_description_path LandmarkDescription.last
-      click_on 'Edit'
+      click_on 'редактировать описание'
       fill_in 'landmark_description_title', with: new_title
       select new_category, from: 'landmark_description_tag_list'
       click_on 'Применить изменения'
@@ -100,6 +100,25 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.should have_selector(".landmark-descrition-rating", :'data-id' => @ld.id)
       page.should have_content 'Ваша оценка'
     end
+
+    it 'voting system exsist' do
+      create_new title, category
+      visit landmark_description_path LandmarkDescription.last
+      page.should have_selector('.votes')
+      page.find('.up-vote').should have_content '0'
+      page.find('.down-vote').should have_content '0'
+    end
+
+    it 'make vote for the LandmarkDescription' do
+      create_new title, category
+      visit landmark_description_path LandmarkDescription.last
+      page.find('#vote-up-reservoir').click
+      page.find('.up-vote').should have_content '1'
+      page.find('.down-vote').should have_content '0'
+      page.find('#vote-down-reservoir').click
+      page.find('.up-vote').should have_content '0'
+      page.find('.down-vote').should have_content '1'
+    end
   end
 
   context "landmark description search" do
@@ -118,50 +137,51 @@ describe "LandmarkDescriptions", js: true, type: :request do
     let!(:hata){ ld 'apartment', [30.343, 59.933] }
 
     it 'searches for landmarks' do
-      ### TODO: Придумать корректное решение
-      ### Это хак пока не придумал как его исправить
-      ### Без него у меня почему то не работает (((
-      page.find('.search-type-tab-cell:first-child .search-type-tab').click
+      ### TODO find a way to avoid this 'visit ...' hack
+      visit search_landmark_descriptions_path
+      page.find('.search-category_all').click
 
-      page.find("#search-results").should have_content 'food'
-      page.find("#search-results").should have_content 'bar'
-      page.find("#search-results").should have_content 'cafe'
+      page.find("#searchResults").should have_content 'food'
+      page.find("#searchResults").should have_content 'bar'
+      page.find("#searchResults").should have_content 'cafe'
 
-      page.find("#search-results").should have_content 'activities'
-      page.find("#search-results").should have_content 'dolphinarium'
+      page.find("#searchResults").should have_content 'activities'
+      page.find("#searchResults").should have_content 'dolphinarium'
     end
 
     it 'refines search results on query change' do
+      ### TODO find a way to avoid this 'visit ...' hack
+      visit search_landmark_descriptions_path
       ### Click on 'activities' tab
-      page.find('.search-type-tab-cell:nth-child(3) .search-type-tab').click
+      page.find('.search-category_activities').click
 
-      page.find("#search-results").should_not have_content 'food'
-      page.find("#search-results").should_not have_content 'bar'
-      page.find("#search-results").should_not have_content 'cafe'
+      page.find("#searchResults").should_not have_content 'food'
+      page.find("#searchResults").should_not have_content 'bar'
+      page.find("#searchResults").should_not have_content 'cafe'
 
-      page.find("#search-results").should have_content 'activities'
-      page.find("#search-results").should have_content 'dolphinarium'
+      page.find("#searchResults").should have_content 'activities'
+      page.find("#searchResults").should have_content 'dolphinarium'
 
       ### Click on 'food' tab
-      page.find('.search-type-tab-cell:last-child .search-type-tab').click
+      page.find('.search-category_food').click
 
-      page.find("#search-results").should have_content 'food'
-      page.find("#search-results").should have_content 'bar'
-      page.find("#search-results").should have_content 'cafe'
+      page.find("#searchResults").should have_content 'food'
+      page.find("#searchResults").should have_content 'bar'
+      page.find("#searchResults").should have_content 'cafe'
 
-      page.find("#search-results").should_not have_content 'activities'
-      page.find("#search-results").should_not have_content 'dolphinarium'
+      page.find("#searchResults").should_not have_content 'activities'
+      page.find("#searchResults").should_not have_content 'dolphinarium'
 
-      page.find('.search-type-tab-cell:first-child .search-type-tab').click
+      page.find('.search-category_all').click
       page.fill_in 'mainSearchFieldInput', with: 'apartment'
       click_on "mainSearchButton"
       sleep 5
-      page.find("#search-results").should_not have_content 'food'
-      page.find("#search-results").should_not have_content 'bar'
-      page.find("#search-results").should_not have_content 'cafe'
+      page.find("#searchResults").should_not have_content 'food'
+      page.find("#searchResults").should_not have_content 'bar'
+      page.find("#searchResults").should_not have_content 'cafe'
 
-      page.find("#search-results").should have_content 'lodging'
-      page.find("#search-results").should have_content 'apartment'
+      page.find("#searchResults").should have_content 'lodging'
+      page.find("#searchResults").should have_content 'apartment'
     end
   end
 end

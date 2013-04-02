@@ -11,7 +11,7 @@
 %a{name: 'complaint'}
 .complaint
 .votes{id: dom_id(@review)}
-  =render partial: "shared/votes", locals: { object_to_vote: @review, nested_path: '' }
+  =render partial: "shared/votes", locals: { object_to_vote: @review }
 
 %h4 Комментарии:
 

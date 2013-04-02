@@ -2,49 +2,52 @@
 
 %div.search-filter
   %div.search-filter__inner
+    -#
+      %button.search-category.search-filter__category.search-category_sightseeing{ data: { facet: 'sightseeing' } }
+        %span.icon-binoculars.search-category__icon.search-category__icon_binoculars
+        %span.action-link.search-category__text{ data: { text: 'Что посмотреть' }}
+          %b.search-category__total
+            48
+      %button.search-category.search-category_activities{ data: { facet: 'activities' } }
+        %span.icon-star.search-category__icon.search-category__icon_star
+        %span.action-link.search-category__text{ data: { text: 'Чем заняться' }}
+          %b.search-category__total
+            48
+      %button.search-category.search-category_food{ data: { facet: 'food' } }
+        %span.icon-food-eat.search-category__icon.search-category__icon_food-eat
+        %span.action-link.search-category__text{ data: { text: 'Где поесть' }}
+          %b.search-category__total
+            48
+      %button.search-category.search-category_lodging{ data: { facet: 'lodging' } }
+        %span.icon-bed.search-category__icon.search-category__icon_bed
+        %span.action-link.search-category__text{ data: { text: 'Где заночевать' }}
+          %b.search-category__total
+            48
+
 %div.map__outer
   %div.map__inner
     %div#map.map
-%div.footer
-  %div.footer__inner
-    %div.row-fluid
-      %div.span6
-        %div.footer__copyright
-          &copy; 2013 Смородина
-        %div.footer__copyright-description
-          Текст об условиях использования контента сайта и материалов пользователей,
-          политика конфиденциальности, об отсутствии ответственности за качество,
-          цены и прочих партнерских сервисов
-      %div.span4
-        %ul.footer__menu
-          %li
-            %a{href: "#"}
-              Контактная информация
-          %li
-            %span.action-link
-              Обратная связь
-          %li
-            %a{href: "#"}
-              Карта сайта
-      %div.span2.footer__social-block
-        =image_tag "tmp/vk.png"
-        =image_tag "tmp/fb.png"
-        =image_tag "tmp/tw.png"
-        =image_tag "tmp/g.png"
+= render "layouts/footer"
 
-%h1.page-header
+%h1.page-title.page-title_centered
   Хроника смородины
 
 %div.chronicle
-  %div.chronicle__search
-    %span.chronicle__search__field
+
+  %form.chronicle__search
+    %div.chronicle__search__field
       %label.chronicle__search__field__label{ for: "chronicleSearchType" }
-        Показывать записи
-      %input#chronicleSearchType.chronicle__search__field__input{ type: "text", placeholder: "Тип записей" }
-    %span.chronicle__search__field
+        Показывать
+      %span
+        %select#chronicleSearchType.input-medium
+          %option
+            Все записи
+    %div.chronicle__search__field
       %label.chronicle__search__field__label{ for: "chronicleSearchPlace" }
         Где?
-      %input#chronicleSearchPlace.chronicle__search__field__input{ type: "text", placeholder: "Тип населенного пункта" }
+      %span
+        %input#chronicleSearchPlace.input-xlarge.chronicle__search__field__input{ type: 'text',
+        placeholder: "Область, район, место"}
 
   %div.chronicle__section
     %div.chronicle__section__header
@@ -52,126 +55,132 @@
         Четверг, 11 октября 2013 г.
     %div.chronicle__section__content
       %div.row-fluid.chronicle__section__row
-        %div.span6
+        %div.span6.smorodina-item
           %div.smorodina-item__img
             %div.smorodina-item__img__inner
-              %img{src: 'http://placehold.it/130x90'}
+              %image{ src: "/assets/tmp/130x90.gif", alt: "Фото", width: 130, height: 90 }
           %div.smorodina-item__content
             %div.smorodina-item__title
-              %b
-                %a{href: "#"}
+              %a{href: "#1"}
+                %b
                   Клуб рыболовов «Голубая устрица»
-            %div.smorodina-item__tags
-              %span.icon.icon-tags.smorodina-item__tags__icon
-              %small.smorodina-item__tags__text
-                %a.tdn-link{ href: "#" }
-                  Активный отдых
-                →
-                %a.tdn-link{ href: "#" }
-                  На воде
-                →
-                %a.tdn-link{ href: "#" }
-                  Рыбалка
 
             %div.smorodina-item__geo
               %span.icon.icon-marker.smorodina-item__geo__icon
-              %small.smorodina-item__geo__text
-                %a.tdn-link{ href: "#" }
-                  Полный
-                →
-                %a.tdn-link{ href: "#" }
-                  Географический
-                →
-                %a.tdn-link{ href: "#" }
-                  Идентификатор
+              %ul.smorodina-item__geo__list
+                %li
+                  %a.tdn-link{ href: "#2" }
+                    Полный
+                %li
+                  %a.tdn-link{ href: "#3" }
+                    Географический
+                %li
+                  %a.tdn-link{ href: "#4" }
+                    Идентификатор
+            %div.smorodina-item__tags
+              %span.icon.icon-tags.smorodina-item__tags__icon
+              %ul.smorodina-item__tags__list
+                %li
+                  %a.tdn-link{ href: "#5" }
+                    Активный отдых
+                %li
+                  %a.tdn-link{ href: "#6" }
+                    На воде
+                %li
+                  %a.tdn-link{ href: "#7" }
+                    Рыбалка
 
             %div.smorodina-item__user
-              %small.smorodina-item__user__text
+              %span.smorodina-item__user__text
                 Добавил:
               %span.user-link
-                %a{ href: "#" }
+                %a.tdn-link{ href: "#8" }
                   Профиль
                   %span.icon.icon-user.user-link__icon
-        %div.span6
+        %div.span6.smorodina-item
           %div.smorodina-item__img
             %div.smorodina-item__img__inner
-              %img{src: 'http://placehold.it/130x90'}
+              %image{ src: "/assets/tmp/130x90.gif", alt: "Фото", width: 130, height: 90 }
           %div.smorodina-item__content
             %div.smorodina-item__title
-              %b
-                %a{href: "#"}
+              %a{href: "#40"}
+                %b
                   Клуб рыболовов «Голубая устрица»
-            %div.smorodina-item__tags
-              %span.icon.icon-tags.smorodina-item__tags__icon
-              %small.smorodina-item__tags__text
-                %a.tdn-link{ href: "#" }
-                  Активный отдых
-                →
-                %a.tdn-link{ href: "#" }
-                  На воде
-                →
-                %a.tdn-link{ href: "#" }
-                  Рыбалка
 
             %div.smorodina-item__geo
               %span.icon.icon-marker.smorodina-item__geo__icon
-              %small.smorodina-item__geo__text
-                %a.tdn-link{ href: "#" }
-                  Полный
-                →
-                %a.tdn-link{ href: "#" }
-                  Географический
-                →
-                %a.tdn-link{ href: "#" }
-                  Идентификатор
+              %ul.smorodina-item__geo__list
+                %li
+                  %a.tdn-link{ href: "#2" }
+                    Полный
+                %li
+                  %a.tdn-link{ href: "#3" }
+                    Географический
+                %li
+                  %a.tdn-link{ href: "#4" }
+                    Идентификатор
+            %div.smorodina-item__tags
+              %span.icon.icon-tags.smorodina-item__tags__icon
+              %ul.smorodina-item__tags__list
+                %li
+                  %a.tdn-link{ href: "#5" }
+                    Активный отдых
+                %li
+                  %a.tdn-link{ href: "#6" }
+                    На воде
+                %li
+                  %a.tdn-link{ href: "#7" }
+                    Рыбалка
 
             %div.smorodina-item__user
-              %small.smorodina-item__user__text
+              %span.smorodina-item__user__text
                 Добавил:
               %span.user-link
-                %a{ href: "#" }
+                %a.tdn-link{ href: "#15" }
                   Профиль
                   %span.icon.icon-user.user-link__icon
 
       %div.row-fluid.chronicle__section__row
-        %div.span6
+        %div.span6.smorodina-item
           %div.smorodina-item__img
             %div.smorodina-item__img__inner
-              %img{src: 'http://placehold.it/130x90'}
+              %image{ src: "/assets/tmp/130x90.gif", alt: "Фото", width: 130, height: 90 }
           %div.smorodina-item__content
             %div.smorodina-item__title
-              %b
-                %a{href: "#"}
+              %a{href: "#16"}
+                %b
                   Клуб рыболовов «Голубая устрица»
-            %div.smorodina-item__tags
-              %span.icon.icon-tags.smorodina-item__tags__icon
-              %small.smorodina-item__tags__text
-                %a.tdn-link{ href: "#" }
-                  Активный отдых
-                →
-                %a.tdn-link{ href: "#" }
-                  На воде
-                →
-                %a.tdn-link{ href: "#" }
-                  Рыбалка
 
             %div.smorodina-item__geo
               %span.icon.icon-marker.smorodina-item__geo__icon
-              %small.smorodina-item__geo__text
-                %a.tdn-link{ href: "#" }
-                  Полный
-                →
-                %a.tdn-link{ href: "#" }
-                  Географический
-                →
-                %a.tdn-link{ href: "#" }
-                  Идентификатор
+              %ul.smorodina-item__geo__list
+                %li
+                  %a.tdn-link{ href: "#2" }
+                    Полный
+                %li
+                  %a.tdn-link{ href: "#3" }
+                    Географический
+                %li
+                  %a.tdn-link{ href: "#4" }
+                    Идентификатор
+            %div.smorodina-item__tags
+              %span.icon.icon-tags.smorodina-item__tags__icon
+              %ul.smorodina-item__tags__list
+                %li
+                  %a.tdn-link{ href: "#5" }
+                    Активный отдых
+                %li
+                  %a.tdn-link{ href: "#6" }
+                    На воде
+                %li
+                  %a.tdn-link{ href: "#7" }
+                    Рыбалка
 
             %div.smorodina-item__user
-              %small.smorodina-item__user__text
+              %span.smorodina-item__user__text
                 Добавил:
               %span.user-link
-                %a{ href: "#" }
+                %a.tdn-link{ href: "#23" }
                   Профиль
                   %span.icon.icon-user.user-link__icon
 
@@ -181,95 +190,90 @@
         Четверг, 11 октября 2013 г.
     %div.chronicle__section__content
       %div.row-fluid.chronicle__section__row
-        %div.span6
+        %div.span6.smorodina-item
           %div.smorodina-item__img
             %div.smorodina-item__img__inner
-              %img{src: 'http://placehold.it/130x90'}
+              %image{ src: "/assets/tmp/130x90.gif", alt: "Фото", width: 130, height: 90 }
           %div.smorodina-item__content
             %div.smorodina-item__title
-              %b
-                %a{href: "#"}
+              %a{href: "#39"}
+                %b
                   Клуб рыболовов «Голубая устрица»
-            %div.smorodina-item__tags
-              %span.icon.icon-tags.smorodina-item__tags__icon
-              %small.smorodina-item__tags__text
-                %a.tdn-link{ href: "#" }
-                  Активный отдых
-                →
-                %a.tdn-link{ href: "#" }
-                  На воде
-                →
-                %a.tdn-link{ href: "#" }
-                  Рыбалка
 
             %div.smorodina-item__geo
               %span.icon.icon-marker.smorodina-item__geo__icon
-              %small.smorodina-item__geo__text
-                %a.tdn-link{ href: "#" }
-                  Полный
-                →
-                %a.tdn-link{ href: "#" }
-                  Географический
-                →
-                %a.tdn-link{ href: "#" }
-                  Идентификатор
-
-            %div.smorodina-item__user
-              %small.smorodina-item__user__text
-                Добавил:
-              %span.user-link
-                %a{ href: "#" }
-                  Профиль
-                  %span.icon.icon-user.user-link__icon
-
-        %div.span6
-          %div.smorodina-item__img
-            %div.smorodina-item__img__inner
-              %img{src: 'http://placehold.it/130x90'}
-          %div.smorodina-item__content
-            %div.smorodina-item__title
-              %b
-                %a{href: "#"}
-                  Клуб рыболовов «Голубая устрица»
+              %ul.smorodina-item__geo__list
+                %li
+                  %a.tdn-link{ href: "#2" }
+                    Полный
+                %li
+                  %a.tdn-link{ href: "#3" }
+                    Географический
+                %li
+                  %a.tdn-link{ href: "#4" }
+                    Идентификатор
             %div.smorodina-item__tags
               %span.icon.icon-tags.smorodina-item__tags__icon
-              %small.smorodina-item__tags__text
-                %a.tdn-link{ href: "#" }
-                  Активный отдых
-                →
-                %a.tdn-link{ href: "#" }
-                  На воде
-                →
-                %a.tdn-link{ href: "#" }
-                  Рыбалка
+              %ul.smorodina-item__tags__list
+                %li
+                  %a.tdn-link{ href: "#5" }
+                    Активный отдых
+                %li
+                  %a.tdn-link{ href: "#6" }
+                    На воде
+                %li
+                  %a.tdn-link{ href: "#7" }
+                    Рыбалка
+
+
+            %div.smorodina-item__user
+              %span.smorodina-item__user__text
+                Добавил:
+              %span.user-link
+                %a.tdn-link{ href: "#30" }
+                  Профиль
+                  %span.icon.icon-user.user-link__icon
+        %div.span6.smorodina-item
+          %div.smorodina-item__img
+            %div.smorodina-item__img__inner
+              %image{ src: "/assets/tmp/130x90.gif", alt: "Фото", width: 130, height: 90 }
+          %div.smorodina-item__content
+            %div.smorodina-item__title
+              %a{href: "#31"}
+                %b
+                  Клуб рыболовов «Голубая устрица»
 
             %div.smorodina-item__geo
               %span.icon.icon-marker.smorodina-item__geo__icon
-              %small.smorodina-item__geo__text
-                %a.tdn-link{ href: "#" }
-                  Полный
-                →
-                %a.tdn-link{ href: "#" }
-                  Географический
-                →
-                %a.tdn-link{ href: "#" }
-                  Идентификатор
+              %ul.smorodina-item__geo__list
+                %li
+                  %a.tdn-link{ href: "#2" }
+                    Полный
+                %li
+                  %a.tdn-link{ href: "#3" }
+                    Географический
+                %li
+                  %a.tdn-link{ href: "#4" }
+                    Идентификатор
+            %div.smorodina-item__tags
+              %span.icon.icon-tags.smorodina-item__tags__icon
+              %ul.smorodina-item__tags__list
+                %li
+                  %a.tdn-link{ href: "#5" }
+                    Активный отдых
+                %li
+                  %a.tdn-link{ href: "#6" }
+                    На воде
+                %li
+                  %a.tdn-link{ href: "#7" }
+                    Рыбалка
 
             %div.smorodina-item__user
-              %small.smorodina-item__user__text
+              %span.smorodina-item__user__text
                 Добавил:
               %span.user-link
-                %a{ href: "#" }
+                %a.tdn-link{ href: "#38" }
                   Профиль
                   %span.icon.icon-user.user-link__icon
 
-  %div.chronicle__footer
-    %div.icon.icon-circle-arrows.chronicle__footer__refresh-icon
-    %div.chronicle__footer__button
-      %a.button.button_3d.button_orange{ href: "#" }
-        %span.button__inner.button_3d__inner
-          %span.button__text.button_3d__text{ data: { text: "Еще результаты" }}
-
-
-%script
-  $(function(){ landmark_description_search();})
+  = render 'layouts/fetch'
