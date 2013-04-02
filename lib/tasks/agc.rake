@@ -1,29 +1,24 @@
 namespace :agc do
 
-  def database; Rails.configuration.database_configuration[Rails.env]['database'] end
-  def username; Rails.configuration.database_configuration[Rails.env]['username'] end
-
-  def run_script(name)
-    `psql #{database} --username=#{username} < db/sql/#{name}.sql`
-  end
+  require "#{Rails.root}/extras/rake_helper"
 
   desc 'Add geometry generation functions'
   task functions: :environment do
-    run_script 'agc_generation_functions'
+    RH.run_sql 'agc_generation_functions'
   end
 
   desc 'Generate relations geometries'
   task geoms: :environment do
-    run_script 'generate_relations_geometries'
+    RH.run_sql 'generate_relations_geometries'
   end
 
   desc 'Generate AGCs'
   task gen: :environment do
-    run_script 'generate_agcs'
+    RH.run_sql 'generate_agcs'
   end
 
   desc 'Assign AGCs to geographical units'
-  task geoms: :environment do
-    run_script '' #TODO
+  task assign: :environment do
+    RH.run_sql '' #TODO
   end
 end

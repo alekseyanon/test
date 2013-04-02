@@ -1,4 +1,4 @@
-SELECT AddGeometryColumn('relations', 'geom', 4326, 'POLYGON', 2);
+-- SELECT AddGeometryColumn('relations', 'geom', 4326, 'POLYGON', 2);
 
 UPDATE relations
 SET geom = concatenate_ways(id)

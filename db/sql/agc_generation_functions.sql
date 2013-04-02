@@ -3,8 +3,8 @@ create language plpythonu;
 -- Concatenating ways definitions belonging to a relation into a single polygon geometry
 -- Input: relation id
 -- Output: resulting polygon
-CREATE OR REPLACE FUNCTION concatenate_ways(multipoly bigint)
-  RETURNS geometry
+CREATE OR REPLACE FUNCTION multipoly_node_geoms(multipoly bigint)
+  RETURNS geometry[]
 AS $$
     if not SD.has_key("nodes_plan"):
         SD["nodes_plan"] = plpy.prepare("select nodes from ways where ways.id in ( select member_id from relation_members where relation_id = $1 and member_role = 'outer')", ["bigint"])
@@ -28,12 +28,21 @@ AS $$
         if not head[0] == head[-1]:
             head.append(head[0]) #TODO remove hack
         if len(head) > 3:
-            return ST_MakePolygon(ST_MakeLine( [plpy.execute(geoms_plan, [id])[0]["geom"] for id in head] ))
+            return [plpy.execute(geoms_plan, [id])[0]["geom"] for id in head]
         else:
             return None
     except:
         return None
 $$ LANGUAGE plpythonu;
+
+CREATE OR REPLACE FUNCTION concatenate_ways(relation_id bigint)
+  RETURNS geometry AS
+  $$
+  BEGIN
+    RETURN ST_MakePolygon(ST_MakeLine(multipoly_node_geoms(relation_id)));
+  END;
+  $$
+LANGUAGE plpgsql;
 
 -- Wrapper catching whatever exceptions are thrown by ST_Contains
 -- TODO: fix catching every exception when PostGIS error codes are available
