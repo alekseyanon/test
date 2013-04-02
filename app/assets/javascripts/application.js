@@ -63,15 +63,19 @@ $(function() {
 /*TODO сделать корректно.
 Пока работает следующим образом: родительского класса для голосавлки
 должно совпадать с названием контроллера объекта за который голосуем*/
-function to_vote(voteable_controller, voteable_id, sign) {
+function to_vote(voteable_controller, voteable_id, sign, tag) {
   var id = voteable_controller.split("/").pop() + "_" + voteable_id;
+  var params = {sign: sign};
+  if (tag.length > 0) {
+    id = tag + '_' + id;
+    params = {sign: sign, voteable_tag: tag};
+  }
   var up = "#" + id + " .up-vote";
   var down = "#" + id + " .down-vote"
   $.ajax({
     type: "POST",
-    /*url: "/reviews/"+review_id+"/make_vote",*/
     url: "/"+voteable_controller+"s/"+voteable_id+"/votes",
-    data: ({sign: sign}), /*, id: review_id*/
+    data: (params),
     success: function(data){
       $(up).html(data.positive);
       $(down).html(data.negative);
@@ -81,12 +85,17 @@ function to_vote(voteable_controller, voteable_id, sign) {
     },
     datatype: "json"});
 }
-function to_unvote(voteable_controller, voteable_id) {
+function to_unvote(voteable_controller, voteable_id, tag) {
   var id = voteable_controller.split("/").pop() + "_" + voteable_id;
+  var params = {"_method": "delete"};
+  if (tag.length > 0) {
+    id = tag + '_' + id;
+    params = {"_method": "delete", voteable_tag: tag};
+  }
   $.ajax({
     type: "POST",
     url: "/"+voteable_controller+"s/"+voteable_id+"/votes/500", /*"/votes/1",*/
-    data: ({"_method": "delete"}),
+    data: (params),
     success: function(data){
       $("#" + id + " .up-vote").html(data.positive);
       $("#" + id + " .down-vote").html(data.negative);
