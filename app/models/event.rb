@@ -17,10 +17,11 @@ class Event < ActiveRecord::Base
   # text - строка для полнотекстового поиска
   # from, to - границы периода времени, внутри которого искать
   # place_id - место для поска @TODO
-  # tag_id - только события с определенным тегом @TODO
+  # tag_id - только события с определенным тегом
   # sort_by - задает сортировку и может принимать значения: 'date' или 'rate' @TODO
-  # page - номаер страницы результатов поиска @TODO
-  # Если не передать параметров - вернуться события на сегодня
+  # page - номер страницы результатов поиска
+  # Без параметров не использовать. Текущая версия API не гарантирует, что в этот вызов без
+  # параметров будет что-то возвращать.
   #
   # Чтобы посмотреть формат JSON ответа можно обратиться к соответсвующим спекам:
   # rspec -fd spec/controllers/api/events_controller_spec.rb
@@ -98,7 +99,7 @@ class Event < ActiveRecord::Base
   end
 
   scope :for_7_days_from, -> interval_start do
-    where 'start_date >= ? AND start_date <= ?', interval_start, interval_start + 7.days
+    within_date_range interval_start, interval_start + 7.days
   end
 
 
