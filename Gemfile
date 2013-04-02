@@ -53,7 +53,9 @@ gem 'rmagick'
 
 gem 'rinku'               # auto_link
 gem 'friendly_id'         # slug
-gem 'thumbs_up'           # voting system
+
+### To update bundle update --source thumbs_up
+gem 'thumbs_up', git: 'git://github.com/lvl0nax/thumbs_up'           # voting system
 
 # Gems used only for assets and not required
 # in production environments by default.

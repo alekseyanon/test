@@ -12,8 +12,19 @@ module ApplicationHelper
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
-  def link_to_vote css_id, controller = ''
-    sign, model, id = css_id.split('_')[0..2]
-    link_to "#{sign}", "#", id: "vote-#{sign}", onclick: "to_vote(\'#{controller}#{model}\', #{id}, \'#{sign}\');"
+  def link_to_vote(obj, sign, voting_path, tag)
+    id = obj.id
+    model = obj.class.name.underscore
+    link_id = tag.blank? ? "vote-#{sign}" : "vote-#{sign}-#{tag}"
+    link_to "#{sign}", "#rate", id: link_id,
+            onclick: "to_vote('#{voting_path}#{model}', #{id}, '#{sign}', '#{tag}');"
+  end
+
+  def link_to_unvote(obj, voting_path, tag)
+    id = obj.id
+    model = obj.class.name.underscore
+    link_id = tag.blank? ? "vote-delete" : "vote-delete-#{tag}"
+    link_to "unvote", "#rate", id: link_id,
+            onclick: "to_unvote('#{voting_path}#{model}', #{id}, '#{tag}');"
   end
 end
