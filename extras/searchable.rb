@@ -28,23 +28,6 @@ module Searchable
       end
       chain = chain.text_search(text) unless text.blank?
       chain.where("abstract_descriptions.title != 'NoName'") if self.kind_of? AbstractDescription #TODO remove hack
-      if query[:rateorder]
-        chain = chain.joins("left outer join (
-                       select voteable_type, voteable_id, count(distinct voteable_tag) cnt
-                       from votes
-                       group by voteable_id, voteable_type
-                      ) c1 on abstract_descriptions.id = c1.voteable_id and
-                              c1.voteable_type = 'AbstractDescription'
-                    left outer join
-                      (
-                       select voteable_type, voteable_id, coalesce(count(*),0) as cnt
-                       from votes
-                       where vote = TRUE
-                       group by voteable_id, voteable_type
-                      ) c2 on abstract_descriptions.id = c2.voteable_id and
-                              c2.voteable_type = 'AbstractDescription'")
-        chain = chain.order("coalesce((c2.cnt::real / c1.cnt::real)::real, 0) desc, created_at ")
-      end
       chain.limit 20 #TODO remove hack
     end
   end
