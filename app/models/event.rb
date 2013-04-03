@@ -77,7 +77,7 @@ class Event < ActiveRecord::Base
   end
 
   def validate_repeat_rule
-    errors.add(:event_repeat_rule, 'unknown repeat rule') if not REPEAT_RULES.include?(repeat_rule)
+    errors.add(:event_repeat_rule, 'unknown repeat rule') unless REPEAT_RULES.include?(repeat_rule)
   end
 
   scope :newest, order('created_at DESC')
@@ -91,7 +91,11 @@ class Event < ActiveRecord::Base
   end
 
   scope :within_date_range, ->(from, to) do
-    where 'start_date >= ? AND start_date <= ?', from, to
+    if to
+      where 'start_date >= ? AND start_date <= ?', from, to
+    else
+      where 'start_date >= ?', from
+    end
   end
 
   scope :for_7_days_from, -> interval_start do
@@ -187,7 +191,7 @@ class Event < ActiveRecord::Base
   end
 
   def repeat_period
-    0 if not multiple?
+    0 unless multiple?
     @repeat_period ||= if weekly?; 1.weeks
     elsif monthly?; 1.months
     elsif quarterly?; 3.months

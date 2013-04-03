@@ -23,7 +23,7 @@ module Searchable
         r = query[:r] || 0
         chain = chain.within_radius(geom, r) if geom
         text = query[:text]
-        chain = chain.within_date_range query[:from], query[:to] if query[:from] and query[:to]
+        chain = chain.within_date_range query[:from], query[:to] if query[:from]
       end
       chain = chain.text_search(text) unless text.blank?
       if self.kind_of? AbstractDescription

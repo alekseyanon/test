@@ -30,13 +30,18 @@ describe Api::EventsController do
     end
   end
 
-  describe 'GET search' do
+  describe 'GET search' do          # 0             1           2           3           4                 5
     let!(:events){ dates_to_events([7.days.ago, 4.days.ago, 3.days.ago, Time.now, 1.days.from_now, 15.days.from_now]) }
     let!(:event) { Event.make!(title: 'New beautiful event', start_date: 50.days.from_now, tag_list: 'zzz, xxx, yyy') }
 
     it 'can search inside :from :to period' do
       get :search, from: 2.days.ago.strftime('%F'), to: 3.days.from_now.strftime('%F')
       assigns(:events).should == [events[3], events[4]]
+    end
+
+    it 'can search inside :from date' do
+      get :search, from: 2.days.ago.strftime('%F')
+      assigns(:events).should =~ [events[3], events[4], events[5], event]
     end
 
     it 'can search by text' do
