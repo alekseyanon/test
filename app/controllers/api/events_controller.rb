@@ -14,7 +14,7 @@ class Api::EventsController < ApplicationController
   def search
     query = {}
     query[:text] = params[:text] if params[:text]
-    if params[:from] and params[:to]
+    if params[:from] && params[:to]
       query[:from], query[:to] = ["#{params[:from]} 00:00:00", "#{params[:to]} 23:59:59"]
     elsif params[:from]
       query[:from] = "#{params[:from]} 00:00:00"

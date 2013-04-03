@@ -75,7 +75,7 @@ Event.blueprint do
   body { Faker::Lorem.sentences 10 }
   start_date { Time.now }
   end_date { object.start_date + 2.days }
-  repeat_rule { :no_repeat }
+  repeat_rule { :single }
   geom { Geo::factory.point(10, 10) }
   tag_list { 'aaa, bbb, ccc' }
   user { User.make! }

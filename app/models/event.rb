@@ -30,11 +30,11 @@ class Event < ActiveRecord::Base
   include Searchable
   require 'digest/sha2'
 
-  REPEAT_RULES = [:no_repeat, :weekly, :monthly, :monthly_weekly,
+  REPEAT_RULES = [:single, :weekly, :monthly, :monthly_weekly,
                   :quarterly, :halfyear, :yearly,
                   :two_years, :three_years, :four_years]
 
-  FEEDBACK_DURATION = { no_repeat: 3.days,
+  FEEDBACK_DURATION = { single: 3.days,
                         weekly: 3.days,
                         monthly: 7.days,
                         monthly_weekly: 7.days}
@@ -63,17 +63,18 @@ class Event < ActiveRecord::Base
   validates_associated :user
 
   def validate_tags
-    errors.add(:event_tags, "need at least 1 tag") if event_tags.length < 1
+    errors.add(:event_tags, 'need at least 1 tag') if event_tags.length < 1
   end
 
   def validate_duration
-    if weekly? && duration > 4
-      errors.add(:event_end_date, 'duration must be less then 4 days')
-    elsif duration > 20
-      errors.add(:event_end_date, 'duration must be less then 20 days')
+    msg = if duration > 20
+      'less than 20 days'
     elsif duration < 1
-      errors.add(:event_end_date, 'duration must be more then 1 day')
+      'more than 1 day'
+    elsif weekly? && duration > 4
+      'less than 4 days for weekly events'
     end
+    errors.add(:event_end_date, 'duration must be ' +msg) if msg
   end
 
   def validate_repeat_rule
@@ -140,8 +141,7 @@ class Event < ActiveRecord::Base
 
   # Returns duration in days as float
   def duration
-    # TODO REVIEW to_f
-    (end_date - start_date).to_f / 1.day
+    (end_date - start_date) / 1.day
   end
 
   # Add mehods weekly?, monthly?, etc. to instance
@@ -160,16 +160,16 @@ class Event < ActiveRecord::Base
   end
 
   def multiple?
-    repeat_rule != :no_repeat
+    !single?
   end
 
   def update_state!
-    if date_for_next_state && date_for_next_state < Time.now
-      process_to_next_state
-    elsif date_for_next_state.nil?
+    if date_for_next_state.nil?
       raise 'No next state'
-    else
+    elsif date_for_next_state > Time.now
       raise 'Too early for next state'
+    else
+      process_to_next_state
     end
   end
 
