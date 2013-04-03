@@ -47,10 +47,6 @@ class Event < ActiveRecord::Base
 
   before_create :generate_key, :calc_archive_date
 
-  # TODO delete EO table
-  # TODO написать таску для прогона событий по состояниям
-  # TODO написать генерацию fake событий для удобства тестирования
-
   set_rgeo_factory_for_column :geom, Geo::factory
 
   belongs_to :user
