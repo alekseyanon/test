@@ -2,7 +2,7 @@ class Api::EventsController < ApplicationController
   respond_to :json
 
   def week
-    @events = Event.for_7_days_from(Time.parse(params[:date]) || Time.now)
+    @events = Event.for_7_days_from(Time.parse(params[:date]) || Time.now).newest
     respond_with(@events, include: :images)
   end
 

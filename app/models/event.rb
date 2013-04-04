@@ -81,7 +81,7 @@ class Event < ActiveRecord::Base
     errors.add(:event_repeat_rule, 'unknown repeat rule') unless REPEAT_RULES.include?(repeat_rule)
   end
 
-  scope :newest, order('created_at DESC')
+  scope :newest, order('events.created_at DESC')
   scope :line, ->(key) { where key: key}
 
   pg_search_scope :text_search,
@@ -124,7 +124,7 @@ class Event < ActiveRecord::Base
       transition to: :canceled
     end
 
-    # TODO Конец всему/Горшочек не вари
+    # TODO Конец всему/Горшочек не вари/ Остановка генерации новых событий в данной линии
 
   end
 
