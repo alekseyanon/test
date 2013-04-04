@@ -42,6 +42,7 @@ gem 'omniauth-vkontakte'
 # gem 'omniauth-google-oauth2'
 
 gem 'aasm', '3.0.4'
+gem 'state_machine'
 gem 'magic_numbers', git: 'git://github.com/gzigzigzeo/magic_numbers.git' # Sotakone improved
 
 # for user avatar
@@ -93,4 +94,6 @@ group :test, :development do
   gem 'pry'
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'guard-rspec'
+  gem 'rb-inotify'
 end

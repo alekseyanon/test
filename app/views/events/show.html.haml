@@ -2,6 +2,8 @@
 
 %p= @event.body
 
+%p= @event.tag_list
+
 %ul
   - @event.images.each do |image|
     %li.event_image= image_tag image.image_url(:thumb)
