@@ -24,11 +24,15 @@ module Searchable
         r = query[:r] || 0
         chain = chain.within_radius(geom, r) if geom
         text = query[:text]
-        chain = chain.within_date_range *query[:date] if query[:date]
+        chain = chain.within_date_range query[:from], query[:to] if query[:from]
       end
       chain = chain.text_search(text) unless text.blank?
-      chain.where("abstract_descriptions.title != 'NoName'") if self.kind_of? AbstractDescription #TODO remove hack
-      chain.limit 20 #TODO remove hack
+      if self.kind_of? AbstractDescription
+        chain.where("abstract_descriptions.title != 'NoName'") #TODO remove hack
+        chain.limit 20 if self.kind_of? AbstractDescription #TODO remove hack
+      else
+        chain
+      end
     end
   end
 end

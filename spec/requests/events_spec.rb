@@ -18,22 +18,26 @@ describe "Events", js: true, type: :request do
     DatabaseCleaner.clean
   end
 
-  def create_new(title, body)
+  def create_new(title, body, tags = 'aaa, bbb, ccc')
     visit new_event_path
     fill_in 'event_title', with: title
     fill_in 'event_body', with: body
     fill_in 'event_geom', with: 'POINT(10 10)'
+    fill_in 'event_tag_list', with: tags
     click_on 'Save'
   end
 
   let(:title) { Faker::Lorem.sentence }
   let(:body)  { Faker::Lorem.sentence 2}
+  let(:tags)  { 'aaa, bbb, ccc' }
   let(:event) { Event.make! repeat_rule: 'weekly', title: title, start_date: Time.now}
 
   it 'creates a new event' do
-    create_new title, body
+    pending
+    create_new title, body, tags
     page.should have_content title
     page.should have_content body
+    page.should have_content tags
   end
 
   it 'has repeats in future' do

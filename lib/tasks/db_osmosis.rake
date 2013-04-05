@@ -10,7 +10,7 @@ namespace :db do
         create extension postgis;
 EOF`
     puts 'hstore and postgis extensions created'
-    `psql #{database} --username=#{username} < db/sql/pgsnapshot_schema_0.6.sql`
+    `cat db/sql/pgsnapshot_schema_0.6.sql db/sql/pgsnapshot_schema_0.6_linestring.sql | psql #{database} --username=#{username}`
   end
 
 
@@ -41,9 +41,11 @@ EOF`
     config = Rails.configuration.database_configuration
     database = config[Rails.env]["database"]
     username = config[Rails.env]["username"]
-    password = config[Rails.env]["password"]
-    pwd_option = password && !password.empty? ? "password=#{password}" : ""
-    `osmosis --read-xml #{args[:file]} --write-pgsql database=#{database} user=#{username} #{pwd_option}`
+    csv_dir = "#{Rails.root}/db/osmosis.csv.#{args[:file]}.#{Time.now().strftime '%Y.%m.%d:%H:%M'}"
+    `mkdir #{csv_dir}; cd #{csv_dir}`
+    puts "Temporary directory for csv files: #{csv_dir}"
+    `osmosis --read-xml #{args[:file]} --write-pgsql-dump enableLinestringBuilder=yes directory=.`
+    `psql #{database} --username=#{username} < #{Rails.root}/db/sql/pgsnapshot_load_0.6.sql`
   end
 
 

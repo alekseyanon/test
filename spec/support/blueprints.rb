@@ -72,13 +72,13 @@ end
 
 Event.blueprint do
   title { Faker::Lorem.sentence }
-  start_date { (1..14).to_a.sample.days.ago }
+  body { Faker::Lorem.sentences 10 }
+  start_date { Time.now }
+  end_date { object.start_date + 2.days }
+  repeat_rule { :single }
   geom { Geo::factory.point(10, 10) }
-  duration {3}
-end
-
-EventOccurrence.blueprint do
-  start { Time.now }
+  tag_list { 'aaa, bbb, ccc' }
+  user { User.make! }
 end
 
 Review.blueprint do
@@ -112,4 +112,8 @@ Complaint.blueprint do
   content { Faker::Lorem.sentences 3 }
   user { User.make! }
   complaintable { Review.make! }
+end
+
+EventTag.blueprint do
+  title { Faker::Lorem.word }
 end
