@@ -1,10 +1,9 @@
 def generate_users(count)
   if (c = User.all.count) <= count
     puts 'make new users:'
-    require pp
     load "#{Rails.root}/spec/support/blueprints.rb"
     (count - c + 1).times do |i|
-      pp i
+      print i.to_s
       User.make!
     end
   end
@@ -33,6 +32,7 @@ namespace :votes do
         puts "====> down vote user - #{i}"
         ld.leaf_categories.each {|tag| @users[i].vote_exclusively_against(ld, tag)}
       end
+      ld.update_attributes(rating: (ld.plusminus.to_f / ld.leaf_categories.count.to_f))
     end
   end
 end

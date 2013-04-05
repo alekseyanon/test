@@ -1,7 +1,7 @@
 class LandmarkDescription < AbstractDescription
 
   attr_accessor :xld, :yld
-  attr_accessible :xld, :yld
+  attr_accessible :xld, :yld, :rating, :x, :y
 
   acts_as_voteable
 
@@ -9,8 +9,8 @@ class LandmarkDescription < AbstractDescription
     LandmarkDescription.within_radius_scope geom, r, 'nodes'
   end
 
-  def rating
-    (self.votes_for.to_f / self.leaf_categories.count.to_f).round
-  end
+  #def rating
+  #  (self.votes_for.to_f / self.leaf_categories.count.to_f).round
+  #end
 
 end
