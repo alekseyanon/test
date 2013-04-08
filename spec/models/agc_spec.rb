@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Area do
+describe Agc do
   let(:delete_query) { id_to_name.keys.map { |n| "delete from relations where id = #{n};" }.join }
 
   def drop_relations
