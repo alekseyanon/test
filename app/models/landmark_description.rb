@@ -6,6 +6,10 @@ class LandmarkDescription < AbstractDescription
 
   acts_as_voteable
 
+  def objects_nearby radius
+    LandmarkDescription.where("abstract_descriptions.id <> #{id}").within_radius self.describable.osm.geom, radius
+  end
+
   def self.within_radius geom, r
     LandmarkDescription.within_radius_scope geom, r, 'nodes'
   end
