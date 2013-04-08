@@ -30,7 +30,8 @@ def create_landmark node, title, category
   landmark = Landmark.create osm: node
   ld = LandmarkDescription.new describable: landmark,
                              title: (title || "NoName"),
-                             tag_list: category.self_and_ancestors.map(&:name)
+                             tag_list: category.self_and_ancestors.map(&:name),
+                             pnt: node.geom
   ld.user = @user
   ld.save!
 rescue => ex

@@ -26,10 +26,8 @@ module Searchable
         chain = chain.within_date_range *query[:date] if query[:date]
       end
       chain = chain.text_search(text) unless text.blank?
+      chain = chain.order('rating desc, created_at')  if query[:rateorder]
       chain.where("abstract_descriptions.title != 'NoName'") if self.kind_of? AbstractDescription #TODO remove hack
-      #if query[:rateorder]
-        chain = chain.order('rating desc, created_at')
-      #end
       chain.limit 20 #TODO remove hack
     end
   end

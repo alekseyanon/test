@@ -21,9 +21,9 @@ class AbstractDescription < ActiveRecord::Base
   accessible_attributes :geo_unit_id #TODO remove hack: accessible geo_unit_id
 
   scope :within_radius_scope, ->(geom, r, table_name) do
-    joins("INNER JOIN geo_units ON abstract_descriptions.describable_id = geo_units.id
-           INNER JOIN #{table_name} ON geo_units.osm_id = #{table_name}.id").
-        where "ST_DWithin(#{table_name}.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
+    #joins("INNER JOIN geo_units ON abstract_descriptions.describable_id = geo_units.id
+    #       INNER JOIN #{table_name} ON geo_units.osm_id = #{table_name}.id").
+        where "ST_DWithin(abstract_descriptions.pnt, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
   end
 
   pg_search_scope :text_search,

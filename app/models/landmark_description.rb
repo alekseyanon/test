@@ -1,7 +1,7 @@
 class LandmarkDescription < AbstractDescription
 
   attr_accessor :xld, :yld
-  attr_accessible :xld, :yld, :rating, :x, :y
+  attr_accessible :xld, :yld, :rating, :pnt
 
   acts_as_voteable
 
