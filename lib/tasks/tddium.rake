@@ -10,5 +10,6 @@ namespace :tddium do
     Kernel.system "psql #{ENV['TDDIUM_DB_NAME']} -f db/sql/pgsnapshot_schema_0.6.sql"
     Kernel.system "echo 'drop table users;' | psql #{ENV['TDDIUM_DB_NAME']}"
     Rake::Task['db:migrate'].invoke
+    Rake::Task['agc:functions'].invoke
   end
 end
