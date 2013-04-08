@@ -13,6 +13,15 @@ Smorodina::Application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
+  # Авторизация через социальные сервисы
+  resources :authentications
+  #match "/user/social_accounts", :to => "authentications#index", :as => :auth_list
+  #match "/auth/:provider", to: 'users#auth_callback', as: :auth
+  #match "/auth/:provider/callback", to: 'users#auth_callback', as: :auth_callback
+  #match "/auth/:provider", to: 'authentications#create', as: :auth
+  #match "/users/auth/:provider/callback", to: 'authentications#create'
+  match "/users/auth/facebook/callback", to: 'authentications#create'
+
   resources :images do
     resources :votes, only: [:create, :destroy]
   end
@@ -49,12 +58,6 @@ Smorodina::Application.routes.draw do
   end
 
   resources :events
-
-  # Авторизация через социальные сервисы
-  resources :authentications, only: [:edit, :update, :destroy]
-  #match "/user/social_accounts", :to => "authentications#index", :as => :auth_list
-  match "/auth/:provider", to: 'users#auth_callback', as: :auth
-  match "/auth/:provider/callback", to: 'users#auth_callback', as: :auth_callback
 
   controller :welcome do
     get '/activation', action: 'pend_act', as: :pendtoact
