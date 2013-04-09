@@ -81,6 +81,8 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.should have_content 'Дельфинарий'
     end
 
+
+
     it 'voting system exsist' do
       create_new title, category
       visit landmark_description_path LandmarkDescription.last
@@ -91,13 +93,17 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
     it 'make vote for the LandmarkDescription' do
       create_new title, category
-      visit landmark_description_path LandmarkDescription.last
+      visit landmark_description_path ld = LandmarkDescription.last
       page.find('#vote-up-reservoir').click
       page.find('.up-vote').should have_content '1'
       page.find('.down-vote').should have_content '0'
+      visit landmark_description_path ld
+      page.find('.rate').should have_content '1'
       page.find('#vote-down-reservoir').click
       page.find('.up-vote').should have_content '0'
       page.find('.down-vote').should have_content '1'
+      visit landmark_description_path ld
+      page.find('.rate').should have_content '0'
     end
   end
 
@@ -115,6 +121,18 @@ describe "LandmarkDescriptions", js: true, type: :request do
     let!(:cafe){ ld 'cafe', [30.341, 59.931] }
     let!(:fishhouse){ ld 'dolphinarium', [30.342, 59.932] }
     let!(:hata){ ld 'apartment', [30.343, 59.933] }
+
+    it 'rating order' do
+      login @user
+      visit landmark_description_path ld = LandmarkDescription.last
+      page.find('#vote-up-apartment').click
+      page.find('.up-vote').should have_content '1'
+      page.find('.down-vote').should have_content '0'
+      get '/landmark_descriptions.json?query%5Brateorder%5D=1'
+      resp = response.body
+      temp = eval(resp.gsub('},{', '}|{').gsub(':', '=>').gsub(/\]*\[*/,'').split('|')[0])
+      temp['id'].should == ld.id
+    end
 
     it 'searches for landmarks' do
       ### TODO find a way to avoid this 'visit ...' hack

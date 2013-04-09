@@ -141,7 +141,7 @@ describe 'Users reset password' do
       visit new_user_session_path
       click_on 'Sign in with Facebook'
       wait_until(5) do
-        page.find('title').should have_content('Log In | Facebook')
+        page.find('title').should have_content('Facebook')
       end
     end
 
@@ -158,7 +158,7 @@ describe 'Users reset password' do
       visit new_user_session_path
       click_on 'Sign in with Facebook'
       wait_until(5) do
-        page.find('title').should have_content('Log In | Facebook')
+        page.find('title').should have_content('Facebook')
       end
     end
 
