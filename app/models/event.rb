@@ -68,6 +68,10 @@ class Event < ActiveRecord::Base
     errors.add(:event_tags, 'need at least 1 tag') if event_tags.length < 1
   end
 
+  def rating
+    Random.rand(999)
+  end
+
   def validate_duration
     msg = if duration > 20
       'less than 20 days'
