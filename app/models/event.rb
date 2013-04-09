@@ -30,6 +30,8 @@ class Event < ActiveRecord::Base
   include Searchable
   require 'digest/sha2'
 
+  acts_as_voteable
+
   REPEAT_RULES = [:single, :weekly, :monthly, :monthly_weekly,
                   :quarterly, :halfyear, :yearly,
                   :two_years, :three_years, :four_years]
@@ -201,6 +203,23 @@ class Event < ActiveRecord::Base
     elsif three_years?; 3.years
     elsif four_years?; 4.years
     end
+  end
+
+  def daily_rate
+    st = ActiveRecord::Base.connection.raw_connection.prepare("SELECT count(*) from votes
+WHERE vote = true
+AND voteable_id = ?
+AND voteable_type = 'event'
+AND created_at < now() - interval '1 day'
+AND created_at > now() - interval '2 day'")
+    before = st.execute(id, 'event')
+    current = ActiveRecord::Base.connection.raw_connection.prepare("SELECT count(*) from votes
+WHERE vote = true
+AND voteable_id = ?
+AND voteable_type = 'event'
+AND created_at < now()
+AND created_at > now() - interval '1 day'").execute(id, 'event')
+    current - befor
   end
 
   private

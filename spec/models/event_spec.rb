@@ -10,6 +10,7 @@ describe Event do
 
   let(:event) {Event.make! }
   let(:event_weekly){Event.make! repeat_rule: 'weekly'}
+  let(:user){User.make!}
 
   it { event_weekly.key.should_not be_blank }
   it { event.archive_date.nil?.should be_false }
@@ -171,6 +172,22 @@ describe Event do
       described_class.search(text: 'one', geom: one.geom, r: 5, from: 1.day.ago,
                              to: 14.day.from_now).should == [one]
     end
+  end
+
+  describe 'rating' do
+
+    it 'can be voted for' do
+      user.vote event, direction: :up
+      event.votes_for.should == 1
+    end
+
+    it 'have daily rate' do
+      user2 = User.make!
+      user.vote event, direction: :up
+      user2.vote event, direction: :up
+      event.daily_rate.should == 2
+    end
+
   end
 
 end
