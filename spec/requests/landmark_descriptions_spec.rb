@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "LandmarkDescriptions", js: true, js_errors: false, type: :request do
+describe "LandmarkDescriptions", js: true, type: :request do
 
   self.use_transactional_fixtures = false
 

@@ -33,4 +33,4 @@ end
 
 # Called from landmark_description_spec.rb, mind this fact when changing
 seed_categories
-#seed_event_tags
+seed_event_tags
