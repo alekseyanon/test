@@ -1,5 +1,6 @@
 class GeoUnit < ActiveRecord::Base
   belongs_to :osm, polymorphic: true
+  belongs_to :agc
   has_one :description, as: :describable
   attr_accessible :osm_id, :osm_type, :osm, :tag_list #TODO remove hack: accessible osm_id, osm_type
 

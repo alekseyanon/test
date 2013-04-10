@@ -9,8 +9,8 @@ class LandmarkDescription < AbstractDescription
     LandmarkDescription.within_radius_scope geom, r, 'nodes'
   end
 
-  #def rating
-  #  (self.votes_for.to_f / self.leaf_categories.count.to_f).round
-  #end
+  def average_rating
+    (rate = self.rating) > 0 ? rate.round : 0
+  end
 
 end

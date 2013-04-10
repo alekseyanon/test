@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "LandmarkDescriptions", js: true, type: :request do
+describe "LandmarkDescriptions", js: true, js_errors: false, type: :request do
 
   self.use_transactional_fixtures = false
 
@@ -65,7 +65,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
     it 'edits existing landmark descriptions' do
       create_new title, category
       visit landmark_description_path LandmarkDescription.last
-      click_on 'Edit'
+      click_on 'редактировать описание'
       fill_in 'landmark_description_title', with: new_title
       select new_category, from: 'landmark_description_tag_list'
       click_on 'Применить изменения'
@@ -114,7 +114,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
     end
 
     def ld(tag_list, latlon)
-      LandmarkDescription.make! tag_list: tag_list, describable: to_landmark(latlon)
+      LandmarkDescription.make! tag_list: tag_list, describable: to_landmark(latlon), pnt: to_point(latlon)
     end
 
     let!(:bar){ ld 'bar', [30.34, 59.93] }
@@ -129,16 +129,15 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find('.up-vote').should have_content '1'
       page.find('.down-vote').should have_content '0'
       get '/landmark_descriptions.json?query%5Brateorder%5D=1'
-      resp = response.body
-      temp = eval(resp.gsub('},{', '}|{').gsub(':', '=>').gsub(/\]*\[*/,'').split('|')[0])
-      temp['id'].should == ld.id
+      resp = JSON.parse(response_from_page.to_s)
+      resp[0]['id'].should == ld.id
     end
 
     it 'searches for landmarks' do
+      #pending 'wait for upgrade to new poltergeist'
       ### TODO find a way to avoid this 'visit ...' hack
       visit search_landmark_descriptions_path
-      page.find('.search-category_all').click
-
+      page.execute_script("$('.search-category_all').click();")
       page.find("#searchResults").should have_content 'food'
       page.find("#searchResults").should have_content 'bar'
       page.find("#searchResults").should have_content 'cafe'
@@ -150,8 +149,9 @@ describe "LandmarkDescriptions", js: true, type: :request do
     it 'refines search results on query change' do
       ### TODO find a way to avoid this 'visit ...' hack
       visit search_landmark_descriptions_path
+      page.execute_script("$('.search-category_activities').click();")
       ### Click on 'activities' tab
-      page.find('.search-category_activities').click
+      #page.find('.search-category_activities').click
 
       page.find("#searchResults").should_not have_content 'food'
       page.find("#searchResults").should_not have_content 'bar'
@@ -161,7 +161,8 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#searchResults").should have_content 'dolphinarium'
 
       ### Click on 'food' tab
-      page.find('.search-category_food').click
+      #page.find('.search-category_food').click
+      page.execute_script("$('.search-category_food').click();")
 
       page.find("#searchResults").should have_content 'food'
       page.find("#searchResults").should have_content 'bar'
@@ -170,7 +171,8 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#searchResults").should_not have_content 'activities'
       page.find("#searchResults").should_not have_content 'dolphinarium'
 
-      page.find('.search-category_all').click
+      #page.find('.search-category_all').click
+      page.execute_script("$('.search-category_all').click();")
       page.fill_in 'mainSearchFieldInput', with: 'apartment'
       click_on "mainSearchButton"
       sleep 5

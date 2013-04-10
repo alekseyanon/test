@@ -18,7 +18,7 @@
 .technical
   %h3 Рейтинг
   %h4{style: 'color: red;'}
-    = @landmark_description.rating
+    .rate= @landmark_description.average_rating
   = button_to "Добавить в планировщик", "#"
   .vk.soc
     Мне нравится VK

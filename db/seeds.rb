@@ -14,5 +14,23 @@ def seed_categories
   categories.each{ |c| create_category root_category, c }
 end
 
+def seed_event_tags
+  tags = [
+    'Народные праздники',
+    'Выставки и ярмарки',
+    'Театрально-художественные',
+    'Музыкально-танцевальные',
+    'Спортивные и спортивно-технические'
+  ]
+
+  tags.each do |tag|
+    et = EventTag.new title: tag
+    et.system = true
+    et.save!
+  end
+end
+
+
 # Called from landmark_description_spec.rb, mind this fact when changing
 seed_categories
+#seed_event_tags

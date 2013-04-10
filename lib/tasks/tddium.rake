@@ -9,6 +9,7 @@ namespace :tddium do
     Kernel.system "psql #{ENV['TDDIUM_DB_NAME']} -c 'CREATE EXTENSION postgis;'"
     Kernel.system "psql #{ENV['TDDIUM_DB_NAME']} -f db/sql/pgsnapshot_schema_0.6.sql"
     Kernel.system "echo 'drop table users;' | psql #{ENV['TDDIUM_DB_NAME']}"
+    Kernel.system "psql #{ENV['TDDIUM_DB_NAME']} -f db/sql/agc_generation_functions.sql"
     Rake::Task['db:migrate'].invoke
   end
 end

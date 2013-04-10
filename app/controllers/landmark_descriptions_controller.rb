@@ -27,7 +27,8 @@ class LandmarkDescriptionsController < ApplicationController
                   include: {
                       osm: {
                          only: [],
-                         methods: :latlon }}}} ) }
+                         methods: :latlon }}}}
+      ) }
     end
   end
 

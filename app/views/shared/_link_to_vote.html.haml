@@ -1,4 +1,4 @@
 - if current_user.nil?
-  = sign.to_s
+  = sign
 - else
-  =link_to_vote instance, sign, controller, tag
+  =link_to_vote instance, sign, voting_path, tag
