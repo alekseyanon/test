@@ -25,6 +25,14 @@ class Event < ActiveRecord::Base
   #
   # Чтобы посмотреть формат JSON ответа можно обратиться к соответсвующим спекам:
   # rspec -fd spec/controllers/api/events_controller_spec.rb
+  #
+  # == Статусы событий
+  #
+  # * new
+  # * started
+  # * ended
+  # * canceled - отмененено
+  # * halted - больше не проводиться @TODO
 
   include PgSearch
   include Searchable
@@ -205,6 +213,12 @@ class Event < ActiveRecord::Base
     elsif three_years?; 3.years
     elsif four_years?; 4.years
     end
+  end
+
+  def as_json options = nil
+    json = super options
+    json[:state_localized] = I18n.t 'events.states.'+state
+    json
   end
 
   private

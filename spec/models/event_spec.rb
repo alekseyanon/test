@@ -15,6 +15,10 @@ describe Event do
   it { event.archive_date.nil?.should be_false }
   it { event.archive_date.should_not be_blank }
 
+  it '.as_json has state_localized' do
+    event.as_json[:state_localized] == 'Запланировано'
+  end
+
   it '.multiple? works as expected' do
     event.multiple?.should be_false
     event_weekly.multiple?.should be_true
