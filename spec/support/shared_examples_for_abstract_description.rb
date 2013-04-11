@@ -26,7 +26,7 @@ end
 def update_abstract_description(d, osm)
   d.describable.osm = osm
   d.describable.save
-  if d.type == 'LandmarkDescription'
+  if d.kind_of? LandmarkDescription
     d.geom = osm.geom
     d.save
   end
