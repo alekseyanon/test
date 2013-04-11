@@ -24,7 +24,6 @@
 //= require spin
 //= require_tree .
 //= require leaflet
-//= require jquery/jRating.jquery
 //= require jquery.Jcrop
 
 router = new Smorodina.Routers.Global;
