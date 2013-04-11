@@ -34,12 +34,6 @@ end
 
 shared_examples_for 'combined search' do
   it 'performs full text search for geo units around coordinates provided' do
-    #d[0].describable.osm = osm
-    #d[0].describable.save
-    #if d[0].type == 'LandmarkDescription'
-    #  d[0].geom = osm.geom
-    #  d[0].save
-    #end
     update_abstract_description(d[0], osm)
     described_class.search(text: "fishing", geom: osm.geom, r: 1).should == [d[0]]
     described_class.search(text: "fishing", geom: osm.geom, r: 100).should == [d[0], d[2], d[3]]
@@ -48,12 +42,6 @@ end
 
 shared_examples_for 'combined faceted search' do
   it 'performs faceted combined text + geo search' do
-    #d[0].describable.osm = osm
-    #d[0].describable.save
-    #if d[0].type == 'LandmarkDescription'
-    #  d[0].geom = osm.geom
-    #  d[0].save
-    #end
     update_abstract_description(d[0], osm)
     described_class.search(text: "fishing", geom: osm.geom, r: 1, facets:[:lodging, :activities]).should == [d[0]]
     described_class.search(text: "fishing", geom: osm.geom, r: 100, facets:[:activities]).should =~ [d[0], d[2]]
