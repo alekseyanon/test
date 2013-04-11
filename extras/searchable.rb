@@ -10,7 +10,7 @@ module Searchable
     # @param [String, Hash] query 'query string' or {text: 'query string', geom: RGeo::Feature::Point, r: radius}
     #     or {text: 'query string', x: latitude, y: longitude, r: radius}
     #     or {facets: 'food,lodging', text: 'query string', x: latitude, y: longitude, r: radius}
-    #     or {text: 'query string', x: latitude, y: longitude, r: radius, rateorder: true}
+    #     or {text: 'query string', x: latitude, y: longitude, r: radius, sort_by: rate}
     # @return ActiveRecord::Relation all matching descriptions
     def search(query)
       return all unless query && !query.empty?
