@@ -70,3 +70,7 @@ end
 def logout
   @user_session = nil
 end
+
+def js_click(selector)
+  page.execute_script("$('#{selector}').click();")
+end

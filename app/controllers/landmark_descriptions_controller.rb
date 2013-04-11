@@ -4,7 +4,7 @@ class LandmarkDescriptionsController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
 
   def sanitize_search_params(params)
-    params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets, :rateorder) #TODO consider using ActiveRecord for this
+    params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets, :sort_by) #TODO consider using ActiveRecord for this
   end
 
   def history
@@ -91,7 +91,7 @@ class LandmarkDescriptionsController < ApplicationController
     node = Osm::Node.closest_node(x,y).first
     nl = node.geo_unit ? node.geo_unit : (Landmark.create osm: Osm::Node.closest_node(x,y).first)
     @landmark_description.describable = nl
-    @landmark_description.pnt = node.geom
+    @landmark_description.geom = node.geom
     respond_to do |format|
       if @landmark_description.save
         format.html { redirect_to @landmark_description, notice: 'Landmark description was successfully created.' }

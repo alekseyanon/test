@@ -52,7 +52,7 @@ end
 LandmarkDescription.blueprint do
   landmark =  Landmark.make
   describable { landmark }
-  pnt { landmark.osm.geom }
+  geom { landmark.osm.geom }
 end
 
 AreaDescription.blueprint do

@@ -23,10 +23,10 @@ class AbstractDescription < ActiveRecord::Base
   scope :within_radius_scope, ->(geom, r, table_name) do
     #joins("INNER JOIN geo_units ON abstract_descriptions.describable_id = geo_units.id
     #       INNER JOIN #{table_name} ON geo_units.osm_id = #{table_name}.id").
-        where "ST_DWithin(abstract_descriptions.pnt, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
+        where "ST_DWithin(abstract_descriptions.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
   end
 
-  scope :within_radius_scope_for_area, ->(geom, r, table_name) do
+  scope :within_radius_for_area_scope, ->(geom, r, table_name) do
     joins("INNER JOIN geo_units ON abstract_descriptions.describable_id = geo_units.id
            INNER JOIN #{table_name} ON geo_units.osm_id = #{table_name}.id").
     where "ST_DWithin(#{table_name}.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"

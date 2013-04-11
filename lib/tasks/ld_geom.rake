@@ -3,7 +3,7 @@ namespace :ld do
   task geom: :environment do
     LandmarkDescription.find_each do |ld|
       geom = ld.describable.osm.geom
-      ld.update_attributes(pnt: geom)
+      ld.update_attributes(geom: geom)
       puts "===========> #{ld.id}"
     end
   end

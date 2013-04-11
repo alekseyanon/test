@@ -137,7 +137,6 @@ describe 'Users reset password' do
 
 
     it 'facebook login' do
-      #pending 'soon will be fixed in social services task'
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
@@ -155,7 +154,6 @@ describe 'Users reset password' do
     end
 
     it 'facebook register' do
-      #pending 'soon will be fixed in social services task'
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'

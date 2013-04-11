@@ -10,9 +10,9 @@ def generate_users(count)
   @users = User.first(count)
 end
 
-namespace :votes do
+namespace :fake do
   desc 'Generate votes for some landmark descriptions'
-  task creator: :environment do
+  task votes: :environment do
 
     puts 'rake task started'
     user_count = 10

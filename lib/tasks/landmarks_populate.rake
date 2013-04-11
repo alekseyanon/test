@@ -31,7 +31,7 @@ def create_landmark node, title, category
   ld = LandmarkDescription.new describable: landmark,
                              title: (title || "NoName"),
                              tag_list: category.self_and_ancestors.map(&:name),
-                             pnt: node.geom
+                             geom: node.geom
   ld.user = @user
   ld.save!
 rescue => ex
