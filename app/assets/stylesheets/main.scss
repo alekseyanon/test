@@ -671,8 +671,7 @@ a:hover,
 }
 
 .search-filter__inner {
-  min-height: $base-line-height * 3;
-  margin-bottom: -2px;
+  padding: 15px 30px;
 }
 
 .map__outer {
@@ -1099,6 +1098,166 @@ a:hover,
 
 /* ---------------------------------------- CHRONICLE END --------------------------------------- */
 
+/* ---------------------------------------- SEARCH FILTER START --------------------------------- */
+
+.search-filter__category {
+  display: inline-block;
+  padding: 6px 15px 6px 12px;
+  border-radius: 20px;
+  background-color: #e6e6e6;
+  border: solid 1px #dcdde9;
+  text-shadow: 1px 1px 0 #fff;
+  position: relative;
+  @include box-shadow(0 1px #fff, inset 0 1px 1px #fff);
+  @include background-image(linear-gradient(top, #feffff, #ebebeb));
+}
+
+.search-filter__category__text {
+  vertical-align: middle;
+  color: #414141;
+}
+
+.search-filter__category__text:before {
+  content: attr(data-text);
+  position: relative;
+}
+
+.search-filter__category__icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+  font-size: 22px;
+  color: #808080;
+}
+
+.search-filter__category:hover {
+  background: #f7f7f7;
+  box-shadow: none;
+}
+
+.search-filter__category.selected,
+.search-filter__category:active {
+  border-color: #fff;
+  @include box-shadow(inset 1px 2px 3px rgba(0,0,0,.2));
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.search-filter__category_all.selected, .search-filter__category_all:active { background: #c266dc; }
+.search-filter__category_sightseeing.selected, .search-filter__category_sightseeing:active { background: #fe7b6c; }
+.search-filter__category_activities.selected, .search-filter__category_activities:active { background: #e98603; }
+.search-filter__category_lodging.selected, .search-filter__category_lodging:active { background: #a9cd19; }
+.search-filter__category_food.selected, .search-filter__category_food:active { background: #f8c101; }
+.search-filter__category_places.selected, .search-filter__category_places:active { background: #c266dc; }
+
+.search-filter__category.selected > .search-filter__category__text,
+.search-filter__category:active > .search-filter__category__text,
+.search-filter__category.selected > .search-filter__category__icon,
+.search-filter__category:active > .search-filter__category__icon {
+  color: #fff;
+}
+
+.search-filter__switcher {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 100px;
+  line-height: 0;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+  @include background-image(linear-gradient(top, #e1e1e1, #fbfbfb));
+}
+
+.search-filter__switcher__inner {
+  display: inline-block;
+  overflow: hidden;
+  width: 70px;
+  height: 20px;
+  border-radius: 10px;
+  @include background-image(linear-gradient(top, #c5c9cb, #ebebec));
+  @include box-shadow(inset 0 -2px 1px -1px #ffffff);
+  font-size: 0;
+  white-space: nowrap;
+}
+
+.search-filter__switcher__text {
+  display: inline-block;
+  width: 52px;
+  text-align: center;
+  height: 20px;
+  line-height: 20px;
+  text-transform: uppercase;
+  font-size: 11px;
+  position: relative;
+  color: #999999;
+}
+
+.search-filter__switcher__text_on {
+  padding-right: 18px;
+}
+
+.search-filter__switcher__text_off {
+  padding-left: 18px;
+}
+
+.search-filter__switcher__button {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #fbfcfb;
+  @include box-shadow(1px 2px #8b8c91);
+  @include background-image(linear-gradient(top, #feffff, #ebebeb));
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  margin-top: -11px;
+}
+
+.search-filter__switcher__button:after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -4px;
+  margin-left: -4px;
+  border-radius: 4px;
+  @include background-image(linear-gradient(top, #78318d, #d48af6));
+}
+
+.search-filter__switcher.selected .search-filter__switcher__inner {
+  @include background-image(linear-gradient(top, #7ab42c, #abe260));
+}
+
+.search-filter__switcher.selected .search-filter__switcher__text {
+  left: -70px;
+  color: #fff;
+}
+
+.search-filter__switcher.selected .search-filter__switcher__button {
+  left: auto;
+  right: 5px;
+}
+
+.search-filter__switcher__outer,
+.search-filter__categories {
+  @include opposite;
+}
+
+.search-filter__categories {
+  text-align: left;
+}
+
+.search-filter__second-level {
+  display: none;
+}
+
+.search-filter__second-level.selected {
+  display: block;
+}
+
+/* ---------------------------------------- SEARCH FILTER END ----------------------------------- */
+
 /* ---------------------------------------- SEARCH CATEGORIES START ----------------------------- */
 
 .search-categories__title {
@@ -1202,14 +1361,9 @@ a:hover,
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
-.search-filter__category {
-
-}
-
 /* ---------------------------------------- SEARCH CATEGORIES END ------------------------------- */
 
 /* ---------------------------------------- SEARCH RESULTS PANEL START -------------------------- */
-
 
 .search-results-panel {
   margin-bottom: 24px;

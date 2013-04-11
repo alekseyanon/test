@@ -8,5 +8,7 @@ Smorodina.Pages.Index = ->
   Smorodina.Pages.LandmarkDescriptions()
 
   $ ->
+    new Smorodina.Views.SearchFilter
+
     $('#mainSearchFieldInput').on 'focus', ->
       $('.how-to-search').addClass 'how-to-search_hidden'

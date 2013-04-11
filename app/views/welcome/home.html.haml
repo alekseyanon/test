@@ -1,28 +1,35 @@
+= render 'layouts/main_search', { how_to_search: true }
 %div#notice= notice
 
-%div.search-filter
+%div#searchFilter.search-filter
   %div.search-filter__inner
-    -#
-      %button.search-category.search-filter__category.search-category_sightseeing{ data: { facet: 'sightseeing' } }
-        %span.icon-binoculars.search-category__icon.search-category__icon_binoculars
-        %span.action-link.search-category__text{ data: { text: 'Что посмотреть' }}
-          %b.search-category__total
-            48
-      %button.search-category.search-category_activities{ data: { facet: 'activities' } }
-        %span.icon-star.search-category__icon.search-category__icon_star
-        %span.action-link.search-category__text{ data: { text: 'Чем заняться' }}
-          %b.search-category__total
-            48
-      %button.search-category.search-category_food{ data: { facet: 'food' } }
-        %span.icon-food-eat.search-category__icon.search-category__icon_food-eat
-        %span.action-link.search-category__text{ data: { text: 'Где поесть' }}
-          %b.search-category__total
-            48
-      %button.search-category.search-category_lodging{ data: { facet: 'lodging' } }
-        %span.icon-bed.search-category__icon.search-category__icon_bed
-        %span.action-link.search-category__text{ data: { text: 'Где заночевать' }}
-          %b.search-category__total
-            48
+    %span.search-filter__categories
+      %button.search-filter__category.search-filter__category_sightseeing{ data: { facet: 'sightseeing' } }
+        %span.icon-binoculars.search-filter__category__icon.search-filter__category__icon_binoculars
+        %span.search-filter__category__text
+          Что посмотреть
+      %button.search-filter__category.search-filter__category_activities{ data: { facet: 'activities' } }
+        %span.icon-star.search-filter__category__icon.search-filter__category__icon_star
+        %span.search-filter__category__text
+          Чем заняться
+      %button.search-filter__category.search-filter__category_food{ data: { facet: 'food' } }
+        %span.icon-food-eat.search-filter__category__icon.search-filter__category__icon_food-eat
+        %span.search-filter__category__text
+          Где поесть
+      %button.search-filter__category.search-filter__category_lodging{ data: { facet: 'lodging' } }
+        %span.icon-bed.search-filter__category__icon.search-filter__category__icon_bed
+        %span.search-filter__category__text
+          Где заночевать
+    %span.search-filter__switcher__outer
+      %span.search-filter__switcher
+        %span.search-filter__switcher__inner
+          %span.search-filter__switcher__text.search-filter__switcher__text_off
+            Выкл
+          %span.search-filter__switcher__text.search-filter__switcher__text_on
+            Вкл
+        %span.search-filter__switcher__button
+    %div.search-filter__second-level
+      Второй уровень
 
 %div.map__outer
   %div.map__inner

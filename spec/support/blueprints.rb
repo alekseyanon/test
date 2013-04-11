@@ -50,11 +50,15 @@ AbstractDescription.blueprint do
 end
 
 LandmarkDescription.blueprint do
-  describable { Landmark.make }
+  landmark =  Landmark.make
+  describable { landmark }
+  geom { landmark.osm.geom }
 end
 
 AreaDescription.blueprint do
-  describable { Area.make }
+  area = Area.make
+  describable { area }
+  #geom { area.osm.geom }
 end
 
 Authentication.blueprint do
@@ -72,13 +76,13 @@ end
 
 Event.blueprint do
   title { Faker::Lorem.sentence }
-  start_date { (1..14).to_a.sample.days.ago }
+  body { Faker::Lorem.sentences 10 }
+  start_date { Time.now }
+  end_date { object.start_date + 2.days }
+  repeat_rule { :single }
   geom { Geo::factory.point(10, 10) }
-  duration {3}
-end
-
-EventOccurrence.blueprint do
-  start { Time.now }
+  tag_list { 'aaa, bbb, ccc' }
+  user { User.make! }
 end
 
 Review.blueprint do
@@ -102,14 +106,12 @@ Profile.blueprint do
   name { Faker::Lorem.word }
 end
 
-Rating.blueprint do
-  user { User.make! }
-  value { rand(1..5) }
-  landmark_description { LandmarkDescription.make! }
-end
-
 Complaint.blueprint do
   content { Faker::Lorem.sentences 3 }
   user { User.make! }
   complaintable { Review.make! }
+end
+
+EventTag.blueprint do
+  title { Faker::Lorem.word }
 end

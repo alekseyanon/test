@@ -19,6 +19,10 @@ def to_events(crd)
   crd.map{|p| Event.make! geom: p }
 end
 
+def dates_to_events dates
+  dates.map { |d| Event.make!(start_date: d) }
+end
+
 def to_poly(nodes)
   Osm::Poly.make! geom: Geo.factory.polygon(Geo.factory.line_string nodes.map(&:geom))
 end
@@ -32,7 +36,7 @@ def to_landmarks(crd)
 end
 
 def landmarks_to_descriptions(landmarks)
-  landmarks.map{|lm| LandmarkDescription.make! describable: lm}
+  landmarks.map{|lm| LandmarkDescription.make! describable: lm, geom: lm.osm.geom}
 end
 
 def get_foursquares(start_from)
@@ -60,7 +64,7 @@ end
 def load_descriptions
   File.open("#{Rails.root}/db/seeds/landmark_descriptions.yml"){|f| YAML.load f.read}.map do |yld|
     dc = described_class.make! yld.slice(:title, :body)
-    dc.tag_list += yld[:tags] if defined?(dc.tag_list) && yld[:tags]
+    dc.tag_list = yld[:tags].join ', ' if defined?(dc.tag_list) && yld[:tags]
     dc.save
     dc
   end
