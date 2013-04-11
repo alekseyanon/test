@@ -39,8 +39,7 @@ describe Event do
 
     it '.update_rating! updates rating in model' do
       user.vote event, direction: :up
-      event.update_rating!
-      event.rating.should == 1
+      expect{event.update_rating!}.to change{event.rating}.from(0).to(1)
     end
 
     it 'cached in the model and cached value updated by rake task' do
