@@ -1,8 +1,7 @@
 class LandmarkDescription < AbstractDescription
 
-	has_many :ratings
   attr_accessor :xld, :yld
-  attr_accessible :xld, :yld
+  attr_accessible :xld, :yld, :rating, :geom
 
   acts_as_voteable
 
@@ -15,10 +14,7 @@ class LandmarkDescription < AbstractDescription
   end
 
   def average_rating
-  	self.ratings.average(:value).to_f
+    (rate = self.rating) > 0 ? rate.round : 0
   end
 
-  def user_vote_present?(userid)
-  	!self.ratings.where(user_id: userid).empty?
-  end
 end

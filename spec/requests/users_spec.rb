@@ -137,12 +137,11 @@ describe 'Users reset password' do
 
 
     it 'facebook login' do
-      pending 'soon will be fixed in social services task'
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
       wait_until(5) do
-        page.find('title').should have_content('Log In | Facebook')
+        page.find('title').should have_content('Facebook')
       end
     end
 
@@ -155,12 +154,11 @@ describe 'Users reset password' do
     end
 
     it 'facebook register' do
-      pending 'soon will be fixed in social services task'
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
       wait_until(5) do
-        page.find('title').should have_content('Log In | Facebook')
+        page.find('title').should have_content('Facebook')
       end
     end
 

@@ -24,6 +24,7 @@ module Searchable
         chain = chain.within_radius(geom, r) if geom
         text = query[:text]
         chain = chain.within_date_range query[:from], query[:to] if query[:from]
+        chain = chain.order('rating desc, created_at')  if query[:sort_by] == 'rate'
       end
       chain = chain.text_search(text) unless text.blank?
       if self.kind_of? AbstractDescription
