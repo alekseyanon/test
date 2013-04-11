@@ -68,10 +68,6 @@ class Event < ActiveRecord::Base
     errors.add(:event_tags, 'need at least 1 tag') if event_tags.length < 1
   end
 
-  def rating
-    Random.rand(999)
-  end
-
   def validate_duration
     msg = if duration > 20
       'less than 20 days'
@@ -210,13 +206,24 @@ class Event < ActiveRecord::Base
   end
 
   def rating_go
-    Vote.where(voteable_id: id,  voteable_type: 'Event').where(
-      "created_at < '#{start_date}'").count
+    Vote.for_voteable(self).where("created_at < '#{start_date}'").count
   end
 
   def rating_like
-    Vote.where(voteable_id: id,  voteable_type: 'Event').where(
-      "created_at > '#{start_date}'").count
+    Vote.for_voteable(self).where("created_at > '#{start_date}'").count
+  end
+
+  def update_rating!
+    self.rating = Vote.for_voteable(self).count
+    save!
+  end
+
+  def as_json options = nil
+    json = super options
+    json[:state_localized] = I18n.t 'events.states.'+state
+    json[:rating_go] = rating_go
+    json[:rating_like] = rating_like
+    json
   end
 
   private

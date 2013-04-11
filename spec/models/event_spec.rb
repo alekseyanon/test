@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
+require 'rake'
+load File.join(Rails.root, 'Rakefile')
+
 describe Event do
   subject { described_class.make! }
   it { should be_valid }
@@ -22,18 +25,9 @@ describe Event do
       event.votes_for.should == 1
     end
 
-    it 'have daily rate' do
-      pending 'no dr remove'
-      user2 = User.make!
-      user.vote event, direction: :up
-      user2.vote event, direction: :up
-      event.daily_rate.should == 2
-    end
-
     it 'has I will go count' do
       e = Event.make! start_date: 1.day.from_now
       user.vote e, direction: :up
-      binding.pry
       e.rating_go.should == 1
     end
 
@@ -43,12 +37,17 @@ describe Event do
       e.rating_like.should == 1
     end
 
+    it '.update_rating! updates rating in model' do
+      user.vote event, direction: :up
+      event.update_rating!
+      event.rating.should == 1
+    end
+
     it 'cached in the model and cached value updated by rake task' do
-      e = Event.make! start_date: 1.day.ago
-      user.vote e, direction: :up
-      e.rating.should == 0
-      # rake task invoke
-      e.rating.should == 1
+      user.vote event, direction: :up
+      event.rating.should == 0
+      Rake::Task['update_events_rating'].invoke
+      event.reload.rating.should == 1
     end
   end
 
