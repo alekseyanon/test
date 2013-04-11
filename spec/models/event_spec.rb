@@ -16,6 +16,42 @@ describe Event do
   it { event.archive_date.nil?.should be_false }
   it { event.archive_date.should_not be_blank }
 
+  describe 'rating' do
+    it 'can be voted for' do
+      user.vote event, direction: :up
+      event.votes_for.should == 1
+    end
+
+    it 'have daily rate' do
+      pending 'no dr remove'
+      user2 = User.make!
+      user.vote event, direction: :up
+      user2.vote event, direction: :up
+      event.daily_rate.should == 2
+    end
+
+    it 'has I will go count' do
+      e = Event.make! start_date: 1.day.from_now
+      user.vote e, direction: :up
+      binding.pry
+      e.rating_go.should == 1
+    end
+
+    it 'has I like count' do
+      e = Event.make! start_date: 1.day.ago
+      user.vote e, direction: :up
+      e.rating_like.should == 1
+    end
+
+    it 'cached in the model and cached value updated by rake task' do
+      e = Event.make! start_date: 1.day.ago
+      user.vote e, direction: :up
+      e.rating.should == 0
+      # rake task invoke
+      e.rating.should == 1
+    end
+  end
+
   it '.multiple? works as expected' do
     event.multiple?.should be_false
     event_weekly.multiple?.should be_true
@@ -172,22 +208,6 @@ describe Event do
       described_class.search(text: 'one', geom: one.geom, r: 5, from: 1.day.ago,
                              to: 14.day.from_now).should == [one]
     end
-  end
-
-  describe 'rating' do
-
-    it 'can be voted for' do
-      user.vote event, direction: :up
-      event.votes_for.should == 1
-    end
-
-    it 'have daily rate' do
-      user2 = User.make!
-      user.vote event, direction: :up
-      user2.vote event, direction: :up
-      event.daily_rate.should == 2
-    end
-
   end
 
 end

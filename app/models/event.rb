@@ -205,21 +205,14 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def daily_rate
-    st = ActiveRecord::Base.connection.raw_connection.prepare("SELECT count(*) from votes
-WHERE vote = true
-AND voteable_id = ?
-AND voteable_type = 'event'
-AND created_at < now() - interval '1 day'
-AND created_at > now() - interval '2 day'")
-    before = st.execute(id, 'event')
-    current = ActiveRecord::Base.connection.raw_connection.prepare("SELECT count(*) from votes
-WHERE vote = true
-AND voteable_id = ?
-AND voteable_type = 'event'
-AND created_at < now()
-AND created_at > now() - interval '1 day'").execute(id, 'event')
-    current - befor
+  def rating_go
+    Vote.where(voteable_id: id,  voteable_type: 'Event').where(
+      "created_at < '#{start_date}'").count
+  end
+
+  def rating_like
+    Vote.where(voteable_id: id,  voteable_type: 'Event').where(
+      "created_at > '#{start_date}'").count
   end
 
   private
