@@ -24,7 +24,7 @@ class VotesController < InheritedResources::Base
 
   private
 
-    def find_voteable_model # TODO event_id
+    def find_voteable_model
       [[:comment_id, Comment],
        [:review_id, Review],
        [:image_id, Image],
