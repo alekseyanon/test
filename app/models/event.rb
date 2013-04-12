@@ -30,6 +30,8 @@ class Event < ActiveRecord::Base
   include Searchable
   require 'digest/sha2'
 
+  acts_as_voteable
+
   REPEAT_RULES = [:single, :weekly, :monthly, :monthly_weekly,
                   :quarterly, :halfyear, :yearly,
                   :two_years, :three_years, :four_years]
@@ -201,6 +203,27 @@ class Event < ActiveRecord::Base
     elsif three_years?; 3.years
     elsif four_years?; 4.years
     end
+  end
+
+  def rating_go
+    Vote.for_voteable(self).where("created_at < '#{start_date}'").count
+  end
+
+  def rating_like
+    Vote.for_voteable(self).where("created_at > '#{start_date}'").count
+  end
+
+  def update_rating!
+    self.rating = Vote.for_voteable(self).count
+    save!
+  end
+
+  def as_json options = nil
+    json = super options
+    json[:state_localized] = I18n.t 'events.states.'+state
+    json[:rating_go] = rating_go
+    json[:rating_like] = rating_like
+    json
   end
 
   private
