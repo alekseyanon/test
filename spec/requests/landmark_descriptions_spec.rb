@@ -81,25 +81,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.should have_content 'Дельфинарий'
     end
 
-    it 'check rating' do
-      create_new title, category
-      @ld = LandmarkDescription.last
-      visit landmark_description_path @ld
-      page.should have_selector(".landmark-descrition-rating", :'data-average' => '0.0')
-      page.should have_selector('.user-rating')
-      page.should have_selector('.jStar')
-    end
 
-    it "rating is changed" do
-      create_new title, category
-      @ld = LandmarkDescription.last
-      visit landmark_description_path @ld
-      page.should have_selector(".landmark-descrition-rating", :'data-average' => '0.0')
-      page.find('.jStar').click
-      visit landmark_description_path @ld
-      page.should have_selector(".landmark-descrition-rating", :'data-id' => @ld.id)
-      page.should have_content 'Ваша оценка'
-    end
 
     it 'voting system exsist' do
       create_new title, category
@@ -111,13 +93,17 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
     it 'make vote for the LandmarkDescription' do
       create_new title, category
-      visit landmark_description_path LandmarkDescription.last
+      visit ld_path = (landmark_description_path LandmarkDescription.last)
       page.find('#vote-up-reservoir').click
       page.find('.up-vote').should have_content '1'
       page.find('.down-vote').should have_content '0'
+      visit ld_path
+      page.find('.rate').should have_content '1'
       page.find('#vote-down-reservoir').click
       page.find('.up-vote').should have_content '0'
       page.find('.down-vote').should have_content '1'
+      visit ld_path
+      page.find('.rate').should have_content '0'
     end
   end
 
@@ -128,7 +114,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
     end
 
     def ld(tag_list, latlon)
-      LandmarkDescription.make! tag_list: tag_list, describable: to_landmark(latlon)
+      LandmarkDescription.make! tag_list: tag_list, describable: to_landmark(latlon), geom: to_point(latlon)
     end
 
     let!(:bar){ ld 'bar', [30.34, 59.93] }
@@ -136,11 +122,22 @@ describe "LandmarkDescriptions", js: true, type: :request do
     let!(:fishhouse){ ld 'dolphinarium', [30.342, 59.932] }
     let!(:hata){ ld 'apartment', [30.343, 59.933] }
 
+    it 'can be ordered by rating' do
+      login @user
+      visit landmark_description_path ld = LandmarkDescription.last
+      page.find('#vote-up-apartment').click
+      page.find('.up-vote').should have_content '1'
+      page.find('.down-vote').should have_content '0'
+      get '/landmark_descriptions.json?query%5Bsort_by%5D=rate'
+      resp = JSON.parse(response_from_page.to_s)
+      resp[0]['id'].should == ld.id
+    end
+
     it 'searches for landmarks' do
+      #pending 'wait for upgrade to new poltergeist'
       ### TODO find a way to avoid this 'visit ...' hack
       visit search_landmark_descriptions_path
-      page.find('.search-category_all').click
-
+      js_click('.search-category_all')
       page.find("#searchResults").should have_content 'food'
       page.find("#searchResults").should have_content 'bar'
       page.find("#searchResults").should have_content 'cafe'
@@ -152,8 +149,9 @@ describe "LandmarkDescriptions", js: true, type: :request do
     it 'refines search results on query change' do
       ### TODO find a way to avoid this 'visit ...' hack
       visit search_landmark_descriptions_path
+      js_click('.search-category_activities')
       ### Click on 'activities' tab
-      page.find('.search-category_activities').click
+      #page.find('.search-category_activities').click
 
       page.find("#searchResults").should_not have_content 'food'
       page.find("#searchResults").should_not have_content 'bar'
@@ -163,7 +161,8 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#searchResults").should have_content 'dolphinarium'
 
       ### Click on 'food' tab
-      page.find('.search-category_food').click
+      #page.find('.search-category_food').click
+      js_click('.search-category_food')
 
       page.find("#searchResults").should have_content 'food'
       page.find("#searchResults").should have_content 'bar'
@@ -172,7 +171,8 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.find("#searchResults").should_not have_content 'activities'
       page.find("#searchResults").should_not have_content 'dolphinarium'
 
-      page.find('.search-category_all').click
+      #page.find('.search-category_all').click
+      js_click('.search-category_all')
       page.fill_in 'mainSearchFieldInput', with: 'apartment'
       click_on "mainSearchButton"
       sleep 5
