@@ -36,7 +36,7 @@ def to_landmarks(crd)
 end
 
 def landmarks_to_descriptions(landmarks)
-  landmarks.map{|lm| LandmarkDescription.make! describable: lm}
+  landmarks.map{|lm| LandmarkDescription.make! describable: lm, geom: lm.osm.geom}
 end
 
 def get_foursquares(start_from)

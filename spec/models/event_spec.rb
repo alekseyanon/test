@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
+require 'rake'
+load File.join(Rails.root, 'Rakefile')
+
 describe Event do
   subject { described_class.make! }
   it { should be_valid }
@@ -10,13 +13,41 @@ describe Event do
 
   let(:event) {Event.make! }
   let(:event_weekly){Event.make! repeat_rule: 'weekly'}
+  let(:user){User.make!}
 
   it { event_weekly.key.should_not be_blank }
   it { event.archive_date.nil?.should be_false }
   it { event.archive_date.should_not be_blank }
 
-  it '.as_json has state_localized' do
-    event.as_json[:state_localized] == 'Запланировано'
+  describe 'rating' do
+    it 'can be voted for' do
+      user.vote event, direction: :up
+      event.votes_for.should == 1
+    end
+
+    it 'has I will go count' do
+      e = Event.make! start_date: 1.day.from_now
+      user.vote e, direction: :up
+      e.rating_go.should == 1
+    end
+
+    it 'has I like count' do
+      e = Event.make! start_date: 1.day.ago
+      user.vote e, direction: :up
+      e.rating_like.should == 1
+    end
+
+    it '.update_rating! updates rating in model' do
+      user.vote event, direction: :up
+      expect{event.update_rating!}.to change{event.rating}.from(0).to(1)
+    end
+
+    it 'cached in the model and cached value updated by rake task' do
+      user.vote event, direction: :up
+      event.rating.should == 0
+      Rake::Task['update_events_rating'].invoke
+      event.reload.rating.should == 1
+    end
   end
 
   it '.multiple? works as expected' do

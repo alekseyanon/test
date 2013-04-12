@@ -50,11 +50,15 @@ AbstractDescription.blueprint do
 end
 
 LandmarkDescription.blueprint do
-  describable { Landmark.make }
+  landmark =  Landmark.make
+  describable { landmark }
+  geom { landmark.osm.geom }
 end
 
 AreaDescription.blueprint do
-  describable { Area.make }
+  area = Area.make
+  describable { area }
+  #geom { area.osm.geom }
 end
 
 Authentication.blueprint do
@@ -100,12 +104,6 @@ end
 
 Profile.blueprint do
   name { Faker::Lorem.word }
-end
-
-Rating.blueprint do
-  user { User.make! }
-  value { rand(1..5) }
-  landmark_description { LandmarkDescription.make! }
 end
 
 Complaint.blueprint do

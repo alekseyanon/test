@@ -25,18 +25,12 @@ class Event < ActiveRecord::Base
   #
   # Чтобы посмотреть формат JSON ответа можно обратиться к соответсвующим спекам:
   # rspec -fd spec/controllers/api/events_controller_spec.rb
-  #
-  # == Статусы событий
-  #
-  # * new
-  # * started
-  # * ended
-  # * canceled - отмененено
-  # * halted - больше не проводиться @TODO
 
   include PgSearch
   include Searchable
   require 'digest/sha2'
+
+  acts_as_voteable
 
   REPEAT_RULES = [:single, :weekly, :monthly, :monthly_weekly,
                   :quarterly, :halfyear, :yearly,
@@ -47,7 +41,7 @@ class Event < ActiveRecord::Base
                         monthly: 7.days,
                         monthly_weekly: 7.days}
 
-  FEEDBACK_DURATION.default 30.days
+  FEEDBACK_DURATION.default = 30.days
 
   attr_accessible :body, :title, :start_date, :end_date,
                   :repeat_rule, :geom,
@@ -72,10 +66,6 @@ class Event < ActiveRecord::Base
 
   def validate_tags
     errors.add(:event_tags, 'need at least 1 tag') if event_tags.length < 1
-  end
-
-  def rating
-    Random.rand(999)
   end
 
   def validate_duration
@@ -215,9 +205,24 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def rating_go
+    Vote.for_voteable(self).where("created_at < '#{start_date}'").count
+  end
+
+  def rating_like
+    Vote.for_voteable(self).where("created_at > '#{start_date}'").count
+  end
+
+  def update_rating!
+    self.rating = Vote.for_voteable(self).count
+    save!
+  end
+
   def as_json options = nil
     json = super options
     json[:state_localized] = I18n.t 'events.states.'+state
+    json[:rating_go] = rating_go
+    json[:rating_like] = rating_like
     json
   end
 
