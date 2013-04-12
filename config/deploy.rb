@@ -29,7 +29,7 @@ set :scm,         :git
 set :branch,      'dev'
 set :deploy_to,   "/home/deployer/apps/#{application}"
 #set :deploy_via,  :remote_cache
-set :git_enable_submodules, 1
+set :git_enable_submodules, 0
 set :rails_env,   'production'
 
 set :use_sudo,    false
