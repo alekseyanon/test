@@ -39,21 +39,29 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_create do |user|
+    where(auth.slice(:provider, :uid)).first_or_initialize do |user|
       user.provider = auth.provider
       user.uid = auth.uid
+      user.skip_confirmation!
+      user.save
     end
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user
-      user = User.create(
+      user = User.find_by_email(auth.info.email)
+      user.update_attributes(provider: auth.provider, uid:auth.uid) if user
+    end
+    unless user
+      user = User.new(
                          provider:auth.provider,
                          uid:auth.uid,
                          email:auth.info.email,
                          password:Devise.friendly_token[0,20]
       )
+      user.skip_confirmation!
+      user.save
     end
     user
   end
