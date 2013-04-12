@@ -41,7 +41,7 @@ class Event < ActiveRecord::Base
                         monthly: 7.days,
                         monthly_weekly: 7.days}
 
-  FEEDBACK_DURATION.default 30.days
+  FEEDBACK_DURATION.default = 30.days
 
   attr_accessible :body, :title, :start_date, :end_date,
                   :repeat_rule, :geom,
