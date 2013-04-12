@@ -1,4 +1,4 @@
-#= require ../collections/events
+#= require collections/events
 #= require ./base_view
 
 class Smorodina.Views.EventList extends Smorodina.Views.Base
@@ -6,14 +6,13 @@ class Smorodina.Views.EventList extends Smorodina.Views.Base
   initialize: ->
     super()
     @$content = @$ '#searchResultsContent'
-    @$sectionContent = @$ '#searchResultsDateSectionContent'
-
     @$spinnerContainer = @$ '#searchResultsSpinner'
     @spinnerContainer = @$spinnerContainer.get 0
     @spinner = new Spinner Smorodina.Config.spinner
 
     @collection.on 'reset', @render
     @collection.on 'request', @showSpinner
+    @collection.on 'sort', @render
     if @collection.length then @render() else @showSpinner()
 
   showSpinner: ->
@@ -27,17 +26,17 @@ class Smorodina.Views.EventList extends Smorodina.Views.Base
     @$spinnerContainer.hide()
     @spinner.stop()
 
-  render: ->
-    @hideSpinner()
-    @$fragment = $(null);
+  changeTemplate: ->
+    if @collection.sortProp == 'rating'
+      @template = JST['event_list']
+    else if @collection.sortProp == 'date'
+      @template = JST['event_list_grouped_by_date']
 
+  render: ->
+    @changeTemplate()
+    @hideSpinner()
     if @collection.length
-      @collection.each @addOne
-      @$sectionContent.html @$fragment
+      @$content.html @template(@collection.getGrouped())
       @show()
     else
       @hide()
-
-  addOne: (l) ->
-    view = new Smorodina.Views.Event(model: l)
-    @$fragment = @$fragment.add view.render().el

@@ -10,7 +10,6 @@
           %span#mapExpandButton.action-link.map__expand__button__text
             Посмотреть на карте
 
-
 %h1#pageTitle.page-title{ data: { default: { title: 'Поиск' } } } Поиск
 
 %div#searchCategories.search-panel.search-categories
@@ -51,25 +50,13 @@
     %span.sort-controls.search-results-panel__sort
       %span.label_horizontal.search-results-panel__sort__title
         Сортировать по
-      %span.sort-control.selected
-        %span.action-link.sort-control__text
-          Рейтингу
-        %span.sort-control__arrow
-          &nbsp;
-        %span.sort-control__triangle
-      %span.sort-control
-        %span.action-link.sort-control__text
-          Имени
-        %span.sort-control__arrow
-          &nbsp;
-        %span.sort-control__triangle
+      %span.sort-group
     %span.search-results-panel__show
       %label.label_horizontal.search-results-panel__show__title
         Показывать
       %select.input-medium
         %option
           Все
-
 
 %div#searchResults.search__results
   %div#searchResultsSpinner.search__results__spinner
@@ -84,7 +71,8 @@
         %span.search__results__title__text
           Все варианты
       %div#searchResultsRestContent
-    = render 'layouts/fetch'
+
+= render 'layouts/fetch'
 
 = render 'layouts/search_empty', { type: 'объект' }
 

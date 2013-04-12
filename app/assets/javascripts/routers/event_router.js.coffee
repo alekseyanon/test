@@ -2,10 +2,12 @@
 
 class Smorodina.Routers.EventRouter extends Backbone.Router
   routes:
-    'week/:date': 'changeDate'
+    'search': 'search'
     '': 'index'
-  changeDate: (week) ->
-    console.log week
+
+  initialize: ->
+    @initial = true
 
   index: ->
-    console.log 'index'
+    Backbone.trigger 'eventsPageLoad', @initial
+    @initial = false

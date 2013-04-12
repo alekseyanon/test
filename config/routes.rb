@@ -7,6 +7,8 @@ Smorodina::Application.routes.draw do
     get 'events/search'
   end
 
+  match 'events/search' => 'events#index'
+
   resources :ratings, only: [:create]
 
   resources :profiles
