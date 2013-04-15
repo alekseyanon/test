@@ -7,13 +7,13 @@ class StartMigration < ActiveRecord::Migration
 
     execute "CREATE EXTENSION IF NOT EXISTS hstore"
 
-    create_table "abstract_descriptions", force: true do |t|
+    create_table "geo_object", force: true do |t|
       t.string   "title"
       t.text     "body"
-      t.string   "see_address"
+      t.string   "address"
+      t.text     "contacts"
+      t.geometry "geom", srid: Geo::SRID
       t.integer  "user_id"
-      t.integer  "describable_id"
-      t.string   "describable_type"
       t.boolean  "published"
       t.datetime "published_at"
       t.datetime "created_at", null: false
@@ -81,16 +81,6 @@ class StartMigration < ActiveRecord::Migration
 
     add_index "complaints", ["user_id"], name: "index_complaints_on_user_id"
 
-    #create_table "event_occurrences", force: true do |t|
-    #  t.datetime "start"
-    #  t.datetime "end"
-    #  t.integer  "event_id"
-    #  t.datetime "created_at", null: false
-    #  t.datetime "updated_at", null: false
-    #end
-    #
-    #add_index "event_occurrences", ["event_id"], name: "index_event_occurrences_on_event_id"
-    #
     create_table "events", force: true do |t|
       t.string   "title"
       t.text     "body"
