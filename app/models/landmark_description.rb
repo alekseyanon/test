@@ -17,4 +17,17 @@ class LandmarkDescription < AbstractDescription
     (rate = self.rating) > 0 ? rate.round : 0
   end
 
+  def as_json options = nil
+    super only: [:id, :title, :body, :rating],
+          methods: :tag_list,
+          include: {
+              describable: {
+                  only: [],
+                  include: :agc,
+                  include: {
+                      osm: {
+                         only: [],
+                         methods: :latlon }}}}
+ end
+
 end
