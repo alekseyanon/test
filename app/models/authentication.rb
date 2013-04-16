@@ -1,7 +1,8 @@
 class Authentication < ActiveRecord::Base
   # attr_accessible :title, :body
   belongs_to :user
-  validates :uid, :uniqueness => {:scope => :provider}
+  validates :uid, uniqueness: {scope: :provider}
+  attr_accessible :provider, :uid, :name, :email
 
   # Создает пользователя по параметрам, возвращенным из социалки.
   def new_user(*args)
@@ -27,6 +28,9 @@ class Authentication < ActiveRecord::Base
   end
 
   class << self
+    def find_for_facebook_oauth(auth, signed_in_resource=nil)
+      #provider =
+    end
     # Получает на вход хеш omniauth.
     # Возвращает объект Authentication с заполненными параметрами.
     def find_or_create_from_provider(auth, params)

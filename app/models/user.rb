@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     self.create_profile!
   end
 
+  def identifier
+    self.email.blank? ? "Профиль пользователя #{self.id}" : self.email
+  end
+
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize do |user|
       user.provider = auth.provider
@@ -80,6 +84,10 @@ class User < ActiveRecord::Base
 
   def password_required?
     super && provider.blank?
+  end
+
+  def email_required?
+    super && self.authentications.blank?
   end
 
   ### TODO: add validations
@@ -156,7 +164,7 @@ private
   def activation
     #reset_perishable_token!
 
-    logger.debug "-------------activation--------------------"
+    logger.debug '-------------activation--------------------'
     #set_default_subscription
   end
 

@@ -8,11 +8,14 @@ Smorodina::Application.routes.draw do
     match 'objects/:id/nearby' => 'objects#nearby'
   end
 
+  match "/users/auth/:provider/callback", to: 'authentications#create'
+  match "/auth/:facebook/callback", to: 'authentications#create'
+
   resources :ratings, only: [:create]
 
   resources :profiles
 
-  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users#, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   # Авторизация через социальные сервисы
   resources :authentications
