@@ -17,7 +17,7 @@ class LandmarkDescription < AbstractDescription
     (rate = self.rating) > 0 ? rate.round : 0
   end
 
-  def as_json options = nil
+  def as_json options = {}
     op_hash = {
       only: [:id, :title, :body, :rating],
         methods: :tag_list,
@@ -29,7 +29,7 @@ class LandmarkDescription < AbstractDescription
                   osm: {
                      only: [],
                      methods: :latlon }}}}}
-    op_hash[:only] = [:id, :title, :rating] if options[:extra][:teaser]
+    op_hash[:only] = [:id, :title, :rating] if options[:extra] && options[:extra][:teaser]
     super op_hash
  end
 
