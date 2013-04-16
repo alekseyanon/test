@@ -26,8 +26,9 @@ def seed_event_tags
   tags.each do |tag|
     et = EventTag.new title: tag
     et.system = true
-    et.save!
+    et.save
   end
+
 end
 
 

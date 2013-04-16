@@ -16,6 +16,17 @@ describe LandmarkDescription do
     end
   end
 
+  describe ".objects_nearby" do
+    let(:triangle)     { to_points [[10, 10], [20, 10], [30, 10]] }
+    let(:landmarks)    { to_landmarks triangle }
+    let(:descriptions) { landmarks_to_descriptions landmarks }
+
+    it 'returns objects near another' do
+      descriptions[0].objects_nearby(15).should =~ [descriptions[1]]
+    end
+
+  end
+
   describe '.search' do
     before(:all){ load_categories }
 

@@ -18,7 +18,9 @@ describe Api::ObjectsController do
       l4 = Landmark.make! osm: n4
       ld4 = LandmarkDescription.make! describable: l4, title: 4
       get :nearby, id: ld1.id, r: 5
-      assigns(:objects).should =~ [ld2, ld4]
+      # binding.pry
+      expect(assigns(:objects)).to match_array([ld2, ld4])
+      # assigns(:objects).should =~ [ld2, ld4]
     end
 
   end
