@@ -18,16 +18,19 @@ class LandmarkDescription < AbstractDescription
   end
 
   def as_json options = nil
-    super only: [:id, :title, :body, :rating],
-          methods: :tag_list,
-          include: {
-              describable: {
-                  only: [],
-                  include: :agc,
-                  include: {
-                      osm: {
-                         only: [],
-                         methods: :latlon }}}}
+    op_hash = {
+      only: [:id, :title, :body, :rating],
+        methods: :tag_list,
+        include: {
+            describable: {
+              only: [],
+              include: :agc,
+              include: {
+                  osm: {
+                     only: [],
+                     methods: :latlon }}}}}
+    op_hash[:only] = [:id, :title, :rating] if options[:extra][:teaser]
+    super op_hash
  end
 
 end
