@@ -23,7 +23,7 @@ describe Event do
     Agc.make!
     e = Event.make! geom: 'POINT(0 0)'
     e.agc.names.blank?.should_not be true
-    e.to_json[:agc].blank?.should_not be true
+    e.as_json[:agc].blank?.should_not be true
   end
 
   describe 'rating' do
