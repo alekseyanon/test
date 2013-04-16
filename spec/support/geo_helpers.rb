@@ -1,3 +1,5 @@
+# fun coding: UTF-8
+
 def to_point(crd)
   Geo::factory.point *crd
 end
