@@ -116,6 +116,6 @@ EventTag.blueprint do
   title { Faker::Lorem.word }
 end
 
-SearchQuery.blueprint do
-  # Attributes here
+Agc.blueprint do
+  relations { make_sample_relations!; [1, 2, 3] }
 end

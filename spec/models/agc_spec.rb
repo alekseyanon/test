@@ -3,19 +3,6 @@ require 'spec_helper'
 describe Agc do
   let(:delete_query) { id_to_name.keys.map { |n| "delete from relations where id = #{n};" }.join }
 
-  def drop_relations
-    ActiveRecord::Base.connection.execute 'delete from relations'
-  end
-
-  def make_relations(id_to_fields)
-    ActiveRecord::Base.connection.execute(
-        id_to_fields.map do |id, fields|
-          "insert into relations (id, version, user_id, tstamp, changeset_id, geom)
-           values (#{id}, 1, 1, TIMESTAMP '2011-11-11 11:11:11', 1, #{fields.has_key?(:geom) ? "ST_GeomFromText('#{fields[:geom]}', #{Geo::SRID})" : 'null'});
-           UPDATE relations SET tags = ('name' => '#{fields[:name]}') where id = #{id};"
-        end.join)
-  end
-
   before :all do
     drop_relations
   end
@@ -26,10 +13,9 @@ describe Agc do
 
 
   describe '#names' do
-    let(:id_to_name) { Hash[(1..3).map { |n| [n, {name: "name#{n}"}] }] }
-    let(:agc) { make_relations(id_to_name); Agc.create relations: [1, 2, 3] }
+    let(:agc) { Agc.make! }
     it 'returns a chain of relation ids with names' do
-      agc.names.should == Hash[id_to_name.map { |id, fields| [id, fields[:name]] }]
+      agc.names.should == {1 => 'Россия', 2 => "Ленинградская область", 3 => "Санкт-Петербург"}
     end
   end
 
@@ -51,7 +37,6 @@ describe Agc do
 
 
     it 'returns the longest agc containing input geometry' do
-      require 'pp'; pp agcs
       Agc::most_precise_enclosing(Geo::factory.point(20, 17)).should == agcs[1]
       Agc::most_precise_enclosing(inner_triangle_poly.geom).should == agcs[1]
       Agc::most_precise_enclosing(triangle_poly.geom).should == agcs[3]
