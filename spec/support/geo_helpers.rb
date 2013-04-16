@@ -1,3 +1,5 @@
+# fun coding: UTF-8
+
 def to_point(crd)
   Geo::factory.point *crd
 end
@@ -68,4 +70,26 @@ def load_descriptions
     dc.save
     dc
   end
+end
+
+def drop_relations
+    ActiveRecord::Base.connection.execute 'delete from relations'
+  end
+
+# id_to_fields - хеш вида {id => {name: 'some text', geom: 'POINT(1,1)'}, ... }
+def make_relations(id_to_fields)
+  ActiveRecord::Base.connection.execute(
+      id_to_fields.map do |id, fields|
+        "insert into relations (id, version, user_id, tstamp, changeset_id, geom)
+         values (#{id}, 1, 1, TIMESTAMP '2011-11-11 11:11:11', 1, #{fields.has_key?(:geom) ? "ST_GeomFromText('#{fields[:geom]}', #{Geo::SRID})" : 'null'});
+         UPDATE relations SET tags = ('name' => '#{fields[:name]}') where id = #{id};"
+      end.join)
+end
+
+# 3 квадрата вокруг 0,0
+def make_sample_relations!
+  make_relations({ 1 => {name: 'Россия', geom: to_poly(to_nodes([[-30, -30], [-30, 30], [30, 30], [30, -30], [-30, -30]])).geom},
+                   2 => {name: 'Ленинградская область', geom: to_poly(to_nodes([[-20, -20], [-20, 20], [20, 20], [20, -20], [-20, -20]])).geom },
+                   3 => {name: 'Санкт-Петербург', geom: to_poly(to_nodes([[-10, -10], [-10, 10], [10, 10], [10, -10], [-10, -10]])).geom }
+                 })
 end
