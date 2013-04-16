@@ -14,8 +14,10 @@ describe SearchQuery do
     SearchQuery.add 'Привед, Медвед'
     SearchQuery.add 'привед, медвед'
     SearchQuery.add 'привед, медведик'
+    SearchQuery.add 'привед, медведик'
+    SearchQuery.add 'привед, медведик'
     SearchQuery.add 'хали гали паратрупер'
-    SearchQuery.popular_for('вед').should == ['привед, медвед', 'привед, медведик']
+    SearchQuery.popular_for('вед').should == ['привед, медведик', 'привед, медвед']
   end
 
 end
