@@ -7,7 +7,7 @@ describe "Reviews", js: true, type: :request do
 
   before :all do
     setup_db_cleaner
-    load_categories
+    load_seeds
   end
 
   before :each do
@@ -20,13 +20,13 @@ describe "Reviews", js: true, type: :request do
   end
 
   def create_new(title, body)
-    visit new_landmark_description_review_path(landmark_description)
+    visit new_geo_object_review_path(geo_object)
     fill_in 'review_title', with: title
     fill_in 'review_body', with: body
     click_on 'Save'
   end
 
-  let!(:landmark_description){ LandmarkDescription.make! }
+  let!(:geo_object){ GeoObject.make! }
   let(:title) { Faker::Lorem.sentence }
   let(:body)  { Faker::Lorem.sentence 2}
 

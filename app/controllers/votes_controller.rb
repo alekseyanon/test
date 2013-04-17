@@ -8,7 +8,7 @@ class VotesController < InheritedResources::Base
     if current_user.voted_on?(@voteable, tag)
       render json: {positive: @voteable.votes_for(tag), negative: @voteable.votes_against(tag)}
       if @voteable.respond_to?(:rating)
-        ### TODO leaf_categories метод имеется только у LandmarkDescription
+        ### TODO leaf_categories метод имеется только у GeoObject
         @voteable.update_attributes(rating: (@voteable.plusminus.to_f / @voteable.leaf_categories.count.to_f))
       end
     else
@@ -32,7 +32,8 @@ class VotesController < InheritedResources::Base
       [[:comment_id, Comment],
        [:review_id, Review],
        [:image_id, Image],
-       [:landmark_description_id, LandmarkDescription]].each do |(key, voteable_class)|
+       [:event_id, Event],
+       [:geo_object_id, GeoObject]].each do |(key, voteable_class)|
         return @voteable = voteable_class.find(params[key]) if params.has_key? key
       end
     end

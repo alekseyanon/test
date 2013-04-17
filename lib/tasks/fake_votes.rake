@@ -17,7 +17,7 @@ namespace :fake do
     puts 'rake task started'
     user_count = 10
     puts 'set users count'
-    @landmarkdescriptions = LandmarkDescription.first(20)
+    @landmarkdescriptions = GeoObject.first(20)
     puts 'select needed landmark descriptions'
     generate_users(user_count)
     puts 'generate users'

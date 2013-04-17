@@ -7,13 +7,15 @@ class StartMigration < ActiveRecord::Migration
 
     execute "CREATE EXTENSION IF NOT EXISTS hstore"
 
-    create_table "abstract_descriptions", force: true do |t|
+    create_table "geo_objects", force: true do |t|
       t.string   "title"
       t.text     "body"
-      t.string   "see_address"
+      t.string   "address"
+      t.text     "contacts"
+      t.geometry "geom", srid: Geo::SRID
+      t.float    "rating", default: 0
       t.integer  "user_id"
-      t.integer  "describable_id"
-      t.string   "describable_type"
+      t.integer  "agc_id"
       t.boolean  "published"
       t.datetime "published_at"
       t.datetime "created_at", null: false
@@ -22,7 +24,7 @@ class StartMigration < ActiveRecord::Migration
       t.string   "slug"
     end
 
-    add_index "abstract_descriptions", ["slug"], name: "index_abstract_descriptions_on_slug"
+    add_index "geo_objects", ["slug"], name: "index_geo_objects_on_slug"
 
     create_table "authentications", force: true do |t|
       t.string   "name"
@@ -81,44 +83,23 @@ class StartMigration < ActiveRecord::Migration
 
     add_index "complaints", ["user_id"], name: "index_complaints_on_user_id"
 
-    #create_table "event_occurrences", force: true do |t|
-    #  t.datetime "start"
-    #  t.datetime "end"
-    #  t.integer  "event_id"
-    #  t.datetime "created_at", null: false
-    #  t.datetime "updated_at", null: false
-    #end
-    #
-    #add_index "event_occurrences", ["event_id"], name: "index_event_occurrences_on_event_id"
-    #
     create_table "events", force: true do |t|
       t.string   "title"
       t.text     "body"
-      t.text     "schedule"
       t.datetime "start_date"
-      t.integer  "duration"
+      t.datetime "end_date"
+      t.datetime "archive_date"
+      t.datetime "published_at"
       t.string   "repeat_rule"
-      t.string   "image"
+      t.string   "state"
+      t.string   "key"
       t.integer  "user_id"
-      t.integer  "landmark_id"
+      t.integer  "rating", default: 0
       t.datetime "created_at",                                           null: false
       t.datetime "updated_at",                                           null: false
-      #t.spatial  "geom",        limit: {srid: 4326, type: "point"}
-    end
-    #add_column 'events', "geom", 'geometry(Point,4326)'
 
-    add_index "events", ["landmark_id"], name: "index_events_on_landmark_id"
+    end
     add_index "events", ["user_id"], name: "index_events_on_user_id"
-
-    create_table "geo_units", force: true do |t|
-      t.integer  "osm_id",     limit: 8
-      t.string   "osm_type"
-      t.string   "type"
-      t.datetime "created_at",              null: false
-      t.datetime "updated_at",              null: false
-    end
-
-    add_index "geo_units", ["osm_id"], name: "index_geo_units_on_osm_id"
 
     create_table "images", force: true do |t|
       t.string   "image"
@@ -128,7 +109,6 @@ class StartMigration < ActiveRecord::Migration
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
     end
-
     add_index "images", ["imageable_id"], name: "index_images_on_imageable_id"
 
     create_table "profiles", force: true do |t|
@@ -140,7 +120,6 @@ class StartMigration < ActiveRecord::Migration
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
     end
-
     add_index "profiles", ["slug"], name: "index_profiles_on_slug"
     add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
 
@@ -228,7 +207,7 @@ class StartMigration < ActiveRecord::Migration
     execute "DROP EXTENSION IF EXISTS hstore"
     execute 'ALTER TABLE ways DROP COLUMN geom'
     execute 'ALTER TABLE events DROP COLUMN geom'
-    drop_table :abstract_descriptions
+    drop_table :geo_objects
     drop_table :authentications
     drop_table :categories
     drop_table :comments

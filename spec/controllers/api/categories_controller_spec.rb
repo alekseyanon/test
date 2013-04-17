@@ -4,7 +4,7 @@ describe Api::CategoriesController do
 
   describe "GET 'index'" do
     it "returns http success" do
-      load_categories
+      load_seeds
       get :index, format: :json
       response.should be_success
       JSON.parse(response.body)

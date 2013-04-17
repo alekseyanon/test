@@ -9,7 +9,7 @@
 apiKey = 'cda4cc8498bd4da19e72af2b606f5c6e'
 tileUrlTemplate = "http://{s}.tile.cloudmade.com/#{apiKey}/997/256/{z}/{x}/{y}.png"
 
-window.landmark = ->    
+window.geo_object = ->
   map = L.map('map')
   lg = L.layerGroup([]).addTo map
   L.tileLayer(tileUrlTemplate,
@@ -25,7 +25,7 @@ window.landmark = ->
       .openOn(map)
 
   updateQuery = ->
-    $.getJSON '/landmarks.json',
+    $.getJSON '/geo_objects.json',
       (data) -> applySearch data
 
   map.on 'load', ->

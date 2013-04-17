@@ -28,7 +28,7 @@
 
 router = new Smorodina.Routers.Global;
 router.route('events', 'events', Smorodina.Pages.Events);
-router.route('landmark_descriptions/search', 'landmark_descriptions', Smorodina.Pages.LandmarkDescriptions);
+router.route('objects/search', 'geo_objects', Smorodina.Pages.GeoObjects);
 router.route('', 'index', Smorodina.Pages.Index);
 Backbone.history.start({ hashChange: false });
 
@@ -125,3 +125,10 @@ function complaint(path){
   });
 }
 
+function get_object(id, teaser, callback){
+  url = '/api/objects/'+id;
+  if(teaser){
+    url = url + '?teaser=1';
+  }
+  $.getJSON(url, {}, callback);
+}

@@ -57,7 +57,7 @@
           %a{ href: "/" }
             =image_tag "logo-fake.png", class: "control-panel__logo", alt: "Смородина"
           %nav.control-panel__menu
-            %a.ui-link{ class: controller_name == 'landmark_descriptions' ? 'selected' : '', href: landmark_descriptions_path }
+            %a.ui-link{ class: controller_name == 'geo_objects' ? 'selected' : '', href: geo_objects_path }
               Куда отправиться
               %span.control-panel__menu__triangle
             %a.ui-link{ class: controller_name == 'events' ? 'selected' : '', href: events_path }
