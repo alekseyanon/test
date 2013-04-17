@@ -123,3 +123,10 @@ function complaint(path){
   });
 }
 
+function get_object(id, teaser, callback){
+  url = '/api/objects/'+id;
+  if(teaser){
+    url = url + '?teaser=1';
+  }
+  $.getJSON(url, {}, callback);
+}

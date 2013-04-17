@@ -6,6 +6,7 @@ Smorodina::Application.routes.draw do
     get 'events/tags'
     get 'events/search'
     match 'objects/:id/nearby' => 'objects#nearby'
+    match 'objects/:id' => 'objects#show'
   end
 
   match 'events/search' => 'events#index'

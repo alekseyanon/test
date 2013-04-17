@@ -3,6 +3,9 @@ class LandmarkDescriptionsController < ApplicationController
   before_filter :get_landmark, only: [:edit, :show]
   before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
 
+  respond_to :json
+  respond_to :html, except: [:coordinates, :nearest_node, :count]
+
   def sanitize_search_params(params)
     params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets, :sort_by) #TODO consider using ActiveRecord for this
   end
@@ -11,25 +14,10 @@ class LandmarkDescriptionsController < ApplicationController
     @landmark_description = LandmarkDescription.find(params[:id])
   end
 
-  # GET /landmark_descriptions
-  # GET /landmark_descriptions.json
   def index
     landmark_descriptions = LandmarkDescription.search sanitize_search_params(params.symbolize_keys[:query])
     @landmark_descriptions = Kaminari.paginate_array(landmark_descriptions).page(params[:page]).per(25)
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @landmark_descriptions.to_json(
-          only: [:id, :title, :body, :rating],
-          methods: :tag_list,
-          include: {
-              describable: {
-                  only: [],
-                  include: {
-                      osm: {
-                         only: [],
-                         methods: :latlon }}}}
-      ) }
-    end
+    respond_with @landmark_descriptions
   end
 
   def search
@@ -39,47 +27,32 @@ class LandmarkDescriptionsController < ApplicationController
     redirect_to landmark_descriptions_path query:sanitize_search_params(params)
   end
 
+  #only json
   def coordinates
     @points = Osm::Node.with_landmarks.limit(10).pluck(:geom).map{|p| [p.y, p.x]}
-    respond_to do |format|
-      format.json { render json: @points }
-    end
+    respond_with @points
   end
 
+  #only json
   def nearest_node
     node = Osm::Node.closest_node(params["x"], params["y"]).first
-    respond_to do |format|
-      format.json { render json: node.latlon }
-    end
+    respond_with node.latlon
   end
 
-  # GET /landmark_descriptions/1
-  # GET /landmark_descriptions/1.json
   def show
     @categories_tree = @landmark_description.categories_tree
     @tags = @landmark_description.leaf_categories
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @landmark_description }
-    end
+    respond_with @landmark_description
   end
 
-  # GET /landmark_descriptions/new
-  # GET /landmark_descriptions/new.json
   def new
     @landmark_description = LandmarkDescription.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @landmark_description }
-    end
+    respond_with @landmark_description
   end
 
-  # GET /landmark_descriptions/1/edit
   def edit
   end
 
-  # POST /landmark_descriptions
-  # POST /landmark_descriptions.json
   def create
     x = params[:landmark_description][:xld] || 30.255188941955566
     y = params[:landmark_description][:yld] || 59.94736006104373
@@ -103,8 +76,6 @@ class LandmarkDescriptionsController < ApplicationController
     end
   end
 
-  # PUT /landmark_descriptions/1
-  # PUT /landmark_descriptions/1.json
   def update
 
     x = params[:landmark_description][:xld]
@@ -128,8 +99,6 @@ class LandmarkDescriptionsController < ApplicationController
     end
   end
 
-  # DELETE /landmark_descriptions/1
-  # DELETE /landmark_descriptions/1.json
   def destroy
     @landmark_description = LandmarkDescription.find(params[:id])
     @landmark_description.destroy
@@ -140,7 +109,7 @@ class LandmarkDescriptionsController < ApplicationController
   end
 
   def count
-    respond_to { |format| format.json { render json: LandmarkDescription.count } }
+    respond_with LandmarkDescription.count
   end
 
   protected
