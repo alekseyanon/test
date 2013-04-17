@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 # TODO temporary solution
-window.landmarks = new Smorodina.Collections.Landmarks
+window.geo_objects = new Smorodina.Collections.GeoObjects
 
 initMap = ->
   map = L.map('map', { scrollWheelZoom: false })
@@ -25,7 +25,7 @@ window.geo_object_new = ->
   popup = L.popup()
   map.on 'click', (e) ->
     showLatLng e.latlng
-    $.getJSON '/geo_objects/nearest_node.json',
+    $.getJSON '/objects/nearest_node.json',
       x: e.latlng.lng
       y: e.latlng.lat
       (data) ->
@@ -66,8 +66,8 @@ window.geo_object_search = ->
 
   putMarkers = ->
     lg.clearLayers()
-    landmarks.forEach (l) ->
-      latlon = l.get('describable').osm.latlon
+    geo_objects.forEach (l) ->
+      latlon = l.get('latlon')
       if 'food' in l.get('tag_list')
         L.marker(latlon, {icon: coffeeIcon}).addTo lg
       else
@@ -90,7 +90,7 @@ window.geo_object_search = ->
 
     query.facets = facets
 
-    landmarks.fetch
+    geo_objects.fetch
       reset: true
       query: query
       data: $.param

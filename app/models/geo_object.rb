@@ -24,7 +24,7 @@ class GeoObject < ActiveRecord::Base
   end
 
   def as_json options = {}
-    op_hash = { only: [:id, :title, :body, :rating, :geom], methods: :tag_list, include: :agc }
+    op_hash = { only: [:id, :title, :body, :rating, :geom], methods: [:tag_list, :latlon], include: :agc }
     op_hash[:only] = [:id, :title, :rating] if options[:extra] && options[:extra][:teaser]
     super op_hash
   end
@@ -37,23 +37,11 @@ class GeoObject < ActiveRecord::Base
   has_many :reviews, as: :reviewable
   belongs_to :user
   belongs_to :agc
-  attr_accessible :body, :describable, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at
+  attr_accessible :body, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at
   validates :title, :user, presence: true
   validates_associated :user
 
   acts_as_taggable
-
-  scope :within_radius_scope, ->(geom, r, table_name) do
-    #joins("INNER JOIN geo_units ON abstract_descriptions.describable_id = geo_units.id
-    #       INNER JOIN #{table_name} ON geo_units.osm_id = #{table_name}.id").
-        where "ST_DWithin(abstract_descriptions.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
-  end
-
-  scope :within_radius_for_area_scope, ->(geom, r, table_name) do
-    joins("INNER JOIN geo_units ON abstract_descriptions.describable_id = geo_units.id
-           INNER JOIN #{table_name} ON geo_units.osm_id = #{table_name}.id").
-    where "ST_DWithin(#{table_name}.geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
-  end
 
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'},

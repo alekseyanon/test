@@ -4,7 +4,7 @@
 Smorodina.Pages.Index = ->
 
   # TODO temporary solution.
-  # in future index page and landmarks page will have their own init code
+  # in future index page and geo_objects page will have their own init code
   Smorodina.Pages.GeoObjects()
 
   $ ->

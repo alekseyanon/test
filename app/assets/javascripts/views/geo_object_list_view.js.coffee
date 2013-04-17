@@ -1,7 +1,7 @@
-#= require ../collections/landmarks
+#= require ../collections/geo_objects
 #= require ./base_view
 
-class Smorodina.Views.LandmarkList extends Smorodina.Views.Base
+class Smorodina.Views.GeoObjectList extends Smorodina.Views.Base
   el: '#searchResults'
   initialize: ->
     super()
@@ -43,5 +43,5 @@ class Smorodina.Views.LandmarkList extends Smorodina.Views.Base
       @hide()
 
   addOne: (l) ->
-    view = new Smorodina.Views.Landmark(model: l)
+    view = new Smorodina.Views.GeoObject(model: l)
     @$fragment = @$fragment.add view.render().el
