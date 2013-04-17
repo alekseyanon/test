@@ -48,7 +48,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       click_on 'Создать объект'
     end
 
-    let(:title) { Faker::Lorem.word }
+    let(:title) { Faker::Lorem.words }
     let(:category) { Category.where(name: 'reservoir').first.name_ru }
 
     it 'creates a new landmark description' do
@@ -59,7 +59,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
       page.should have_content 'Водохранилище'
     end
 
-    let(:new_title){ Faker::Lorem.word }
+    let(:new_title){ Faker::Lorem.words }
     let(:new_category) { Category.where(name: 'dolphinarium').first.name_ru }
 
     it 'edits existing landmark descriptions' do
@@ -69,9 +69,8 @@ describe "LandmarkDescriptions", js: true, type: :request do
       fill_in 'landmark_description_title', with: new_title
       select new_category, from: 'landmark_description_tag_list'
       click_on 'Применить изменения'
-      sleep 5
+      wait_until(10){ page.should have_content new_title }
       page.should_not have_content title
-      page.should have_content new_title
       # see db/seeds/categories.yml
       page.should have_content 'Что посмотреть?'
       page.should have_content 'Природа'
@@ -175,13 +174,12 @@ describe "LandmarkDescriptions", js: true, type: :request do
       js_click('.search-category_all')
       page.fill_in 'mainSearchFieldInput', with: 'apartment'
       click_on "mainSearchButton"
-      sleep 5
+
+      wait_until(10){ page.find("#searchResults").should have_content 'lodging' }
+      page.find("#searchResults").should have_content 'apartment'
       page.find("#searchResults").should_not have_content 'food'
       page.find("#searchResults").should_not have_content 'bar'
       page.find("#searchResults").should_not have_content 'cafe'
-
-      page.find("#searchResults").should have_content 'lodging'
-      page.find("#searchResults").should have_content 'apartment'
     end
   end
 end
