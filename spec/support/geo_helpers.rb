@@ -65,8 +65,8 @@ def load_descriptions
 end
 
 def drop_relations
-    ActiveRecord::Base.connection.execute 'delete from relations'
-  end
+  ActiveRecord::Base.connection.execute 'delete from relations'
+end
 
 # id_to_fields - хеш вида {id => {name: 'some text', geom: 'POINT(1,1)'}, ... }
 def make_relations(id_to_fields)

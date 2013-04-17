@@ -30,6 +30,7 @@ describe GeoObject do
   end
 
   describe '.search' do
+    # TODO REVIEW maybe create only needed categories?
     before(:all){ load_seeds }
 
     let!(:d){ load_descriptions }
