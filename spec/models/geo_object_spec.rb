@@ -2,12 +2,14 @@ require 'spec_helper'
 
 describe GeoObject do
   subject { described_class.make! }
-  it_behaves_like "an abstract description"
+  it { should be_valid }
+  it { should validate_presence_of :title }
+  it { should belong_to :user }
 
   describe ".within_radius" do #TODO move to shared example group with landmarks and nodes altogether
     let(:triangle)     { to_points [[10, 10], [20, 20], [30, 10]] }
-    let(:landmarks)    { to_landmarks triangle }
-    let(:descriptions) { landmarks_to_descriptions landmarks }
+    let(:descriptions) { to_geo_objects triangle }
+
     it 'returns nodes within a specified radius of another node' do
       described_class.within_radius(triangle[0], 10).should =~ descriptions[0..0]
       described_class.within_radius(triangle[0], 15).should =~ descriptions[0..1]
@@ -18,8 +20,8 @@ describe GeoObject do
 
   describe ".objects_nearby" do
     let(:triangle)     { to_points [[10, 10], [20, 10], [30, 10]] }
-    let(:landmarks)    { to_landmarks triangle }
-    let(:descriptions) { landmarks_to_descriptions landmarks }
+    let(:descriptions) { to_geo_objects triangle }
+
 
     it 'returns objects near another' do
       descriptions[0].objects_nearby(15).should =~ [descriptions[1]]
@@ -28,7 +30,7 @@ describe GeoObject do
   end
 
   describe '.search' do
-    before(:all){ load_categories }
+    before(:all){ load_seeds }
 
     let!(:d){ load_descriptions }
 

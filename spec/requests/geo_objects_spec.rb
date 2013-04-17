@@ -10,7 +10,7 @@ describe "GeoObjects", js: true, type: :request do
     @user = User.make!
 
     Osm::Node.make!
-    load_categories
+    load_seeds
   end
 
   after :all do
@@ -126,7 +126,7 @@ describe "GeoObjects", js: true, type: :request do
     end
 
     def ld(tag_list, latlon)
-      GeoObject.make! tag_list: tag_list, describable: to_landmark(latlon), geom: to_point(latlon)
+      GeoObject.make! tag_list: tag_list, geom: latlon, geom: to_point(latlon)
     end
 
     let!(:bar){ ld 'bar', [30.34, 59.93] }

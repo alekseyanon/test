@@ -28,9 +28,9 @@ module Searchable
         chain = chain.order('rating desc, created_at')  if query[:sort_by] == 'rate'
       end
       chain = chain.text_search(text) unless text.blank?
-      if self.kind_of? AbstractDescription
-        chain.where("abstract_descriptions.title != 'NoName'") #TODO remove hack
-        chain.limit 20 if self.kind_of? AbstractDescription #TODO remove hack
+      if self.kind_of? GeoObject
+        chain.where("title != 'NoName'") #TODO remove hack
+        chain.limit 20  #TODO remove hack
       else
         chain
       end

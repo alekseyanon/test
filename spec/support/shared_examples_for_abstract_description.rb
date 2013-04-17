@@ -1,10 +1,3 @@
-shared_examples_for 'an abstract description' do
-  it { should be_valid }
-  it { should validate_presence_of :title }
-  it { should belong_to :user }
-  it { should belong_to :describable }
-end
-
 shared_examples_for 'text search against title and body' do
   def search(args) described_class.search args end
   it 'performs full text search against title and body' do
@@ -24,8 +17,6 @@ shared_examples_for 'text search against title and body and tags' do
 end
 
 def update_abstract_description(d, osm)
-  d.describable.osm = osm
-  d.describable.save
   if d.kind_of? GeoObject
     d.geom = osm.geom
     d.save

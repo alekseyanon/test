@@ -61,8 +61,6 @@ class GeoObjectsController < ApplicationController
     @geo_object.user = current_user
     ### TODO: Make decision. Maybe Landmark is useless. Maybe we can use Osm:Node only
     node = Osm::Node.closest_node(x,y).first
-    nl = node.geo_unit ? node.geo_unit : (Landmark.create osm: Osm::Node.closest_node(x,y).first)
-    @geo_object.describable = nl
     @geo_object.geom = node.geom
     respond_to do |format|
       if @geo_object.save
@@ -81,11 +79,9 @@ class GeoObjectsController < ApplicationController
     y = params[:geo_object][:yld]
 
     @geo_object = GeoObject.find(params[:id])
-    unless x.blank? && y.blank?
-      lm = @geo_object.describable
-      lm.osm = Osm::Node.closest_node(x,y).first
-      lm.save
-    end
+    #REVIEW create from coord
+    @geo_object.geom = Osm::Node.closest_node(x,y).first.geom unless x.blank? && y.blank?
+
 
     respond_to do |format|
       if @geo_object.update_attributes params[:geo_object]
@@ -119,6 +115,6 @@ class GeoObjectsController < ApplicationController
 
   def get_landmark
     @geo_object = GeoObject.find(params[:id])
-    @y, @x = @geo_object.describable.osm.latlon
+    @y, @x = @geo_object.latlon
   end
 end

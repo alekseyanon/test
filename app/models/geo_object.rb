@@ -8,32 +8,26 @@ class GeoObject < ActiveRecord::Base
   acts_as_voteable
 
   def objects_nearby radius
-    GeoObject.where("abstract_descriptions.id <> #{id}").within_radius self.describable.osm.geom, radius
+    GeoObject.where("geo_objects.id <> #{id}").within_radius self.geom, radius
   end
 
   def self.within_radius geom, r
-    GeoObject.within_radius_scope geom, r, 'nodes'
+    where "ST_DWithin(geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
   end
 
   def average_rating
     (rate = self.rating) > 0 ? rate.round : 0
   end
 
+  def latlon
+    [geom.y, geom.x] #TODO figure out what's really latitude and what is longitude
+  end
+
   def as_json options = {}
-    op_hash = {
-      only: [:id, :title, :body, :rating],
-        methods: :tag_list,
-        include: {
-            describable: {
-              only: [],
-              include: :agc,
-              include: {
-                  osm: {
-                     only: [],
-                     methods: :latlon }}}}}
+    op_hash = { only: [:id, :title, :body, :rating, :geom], methods: :tag_list, include: :agc }
     op_hash[:only] = [:id, :title, :rating] if options[:extra] && options[:extra][:teaser]
     super op_hash
- end
+  end
 
   extend FriendlyId
   friendly_id :make_slug, use: :slugged
@@ -42,6 +36,7 @@ class GeoObject < ActiveRecord::Base
   include Searchable
   has_many :reviews, as: :reviewable
   belongs_to :user
+  belongs_to :agc
   attr_accessible :body, :describable, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at
   validates :title, :user, presence: true
   validates_associated :user

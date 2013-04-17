@@ -7,7 +7,7 @@ describe "Reviews", js: true, type: :request do
 
   before :all do
     setup_db_cleaner
-    load_categories
+    load_seeds
   end
 
   before :each do

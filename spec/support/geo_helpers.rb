@@ -29,16 +29,8 @@ def to_poly(nodes)
   Osm::Poly.make! geom: Geo.factory.polygon(Geo.factory.line_string nodes.map(&:geom))
 end
 
-def to_landmark(crd)
-  Landmark.make! osm: (crd.is_a?(Osm::Node) ? crd : to_node(crd))
-end
-
-def to_landmarks(crd)
-  crd.map{|c| to_landmark c}
-end
-
-def landmarks_to_descriptions(landmarks)
-  landmarks.map{|lm| GeoObject.make! describable: lm, geom: lm.osm.geom}
+def to_geo_objects crds
+  crds.map{ |crd| GeoObject.make! geom: (crd.is_a?(Array) ? to_point(crd) : crd)}
 end
 
 def get_foursquares(start_from)
@@ -59,7 +51,7 @@ def get_foursquares(start_from)
   polygons
 end
 
-def load_categories
+def load_seeds
   load "#{Rails.root}/db/seeds.rb"
 end
 

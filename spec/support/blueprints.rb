@@ -39,7 +39,7 @@ GeoObject.blueprint do
   body { Faker::Lorem.sentences 10 }
   published { [true, false].sample }
   published_at { Time.now }
-  # geom { landmark.osm.geom }
+  geom { Geo::factory.point(29.9918672, 60.0052767) }
 end
 
 User.blueprint do
