@@ -115,3 +115,7 @@ end
 EventTag.blueprint do
   title { Faker::Lorem.word }
 end
+
+TwitterAccount.blueprint do
+  # Attributes here
+end

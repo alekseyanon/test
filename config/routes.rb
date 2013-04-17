@@ -1,5 +1,9 @@
 Smorodina::Application.routes.draw do
 
+  get "twitter_accounts/new"
+
+  get "twitter_accounts/callback"
+
   namespace :api do
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
@@ -10,6 +14,10 @@ Smorodina::Application.routes.draw do
 
   match "/users/auth/:provider/callback", to: 'authentications#create'
   match "/auth/:facebook/callback", to: 'authentications#create'
+
+  resource :twitter_account
+  match '/callback/twitter/' => "twitter_accounts#callback", :as => :twitter_callback
+
 
   resources :ratings, only: [:create]
 
