@@ -1,14 +1,14 @@
 
-=link_to "Создать объект", new_landmark_description_path
+=link_to "Создать объект", new_geo_object_path
 %br
 -# ###TODO: Move to partial
-=link_to "описание объекта", @landmark_description
+=link_to "описание объекта", @geo_object
 |
-=link_to "редактировать описание", edit_landmark_description_path(@landmark_description)
+=link_to "редактировать описание", edit_geo_object_path(@geo_object)
 |
-=link_to "История изменений", history_landmark_description_path(@landmark_description)
+=link_to "История изменений", history_geo_object_path(@geo_object)
 
-%h1= @landmark_description.title
+%h1= @geo_object.title
 
 %p здесь будут наши цепочки
 
@@ -18,7 +18,7 @@
 .technical
   %h3 Рейтинг
   %h4{style: 'color: red;'}
-    .rate= @landmark_description.average_rating
+    .rate= @geo_object.average_rating
   = button_to "Добавить в планировщик", "#"
   .vk.soc
     Мне нравится VK
@@ -43,9 +43,9 @@
 .type-form
   %a{name: "rate"}
   - @tags.each do |tag|
-    .votes{id: dom_id(@landmark_description, tag)}
+    .votes{id: dom_id(@geo_object, tag)}
       = tag
-      =render partial: "shared/votes", locals: { object_to_vote: @landmark_description, tag: tag }
+      =render partial: "shared/votes", locals: { object_to_vote: @geo_object, tag: tag }
   %br
   %br
   %p здесь будут представлены контактные данные фотографии рейтинги и т.д.
@@ -62,11 +62,11 @@
 =link_to "Что поблизости", "#"
 .type-form
   %h2 Лучшие отзывы
-  = link_to "+ Добавить отзыв", new_landmark_description_review_path(@landmark_description)
+  = link_to "+ Добавить отзыв", new_geo_object_review_path(@geo_object)
   %br
   %br
   %br
-  - @landmark_description.reviews.each do |r|
+  - @geo_object.reviews.each do |r|
     .review
       %h4= link_to r.title, r
       = r.body
@@ -80,8 +80,8 @@
 %br
 %br
 
-= link_to 'Edit', edit_landmark_description_path(@landmark_description)
+= link_to 'Edit', edit_geo_object_path(@geo_object)
 |
-= link_to 'Back', landmark_descriptions_path
+= link_to 'Back', geo_objects_path
 %script
-  $(window).load(function(){ landmark_description_show();})
+  $(window).load(function(){ geo_object_show();})

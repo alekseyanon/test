@@ -1,19 +1,19 @@
 
-=link_to "список объектов", landmark_descriptions_path
+=link_to "список объектов", geo_objects_path
 
 %h1 Добавление нового объекта
 
-= simple_form_for @landmark_description do |f|
-  - if @landmark_description.errors.any?
+= simple_form_for @geo_object do |f|
+  - if @geo_object.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@landmark_description.errors.count, "error")} не позволяют сохранить объект"
+      %h2= "#{pluralize(@geo_object.errors.count, "error")} не позволяют сохранить объект"
       %ul
-        - @landmark_description.errors.full_messages.each do |msg|
+        - @geo_object.errors.full_messages.each do |msg|
           %li= msg
   .inputs
     %a{:name => "name"}
     = f.input :title
-    
+
     %a{:name => "place"}
     %h3 Укажите местоположения
     %div.map__inner
@@ -25,9 +25,9 @@
     %a{:name => "category"}
     %h3 Категория
     = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите вручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name, :include_blank => false
-    %h3{:onclick => "$('.categories').toggle();"} 
+    %h3{:onclick => "$('.categories').toggle();"}
       =link_to "Или выбери из списка", "#"
-    .categories  
+    .categories
       %h4 Что посмотреть
       список чекбоксов для категории что посмотреть
       %h4 Чем заняться
@@ -38,16 +38,16 @@
       список чекбоксов для категории  где поесть
     = button_to "Фото", "#"
     = button_to "видео", "#"
-  
+
     = f.submit "Создать объект"
-    Чтобы создать объект: 
+    Чтобы создать объект:
     =link_to "дайте название", "#name"
     ,
     =link_to "укажите местоположение", "#place"
     ,
     =link_to "укажите категорию", "#category"
-= link_to 'Back', landmark_descriptions_path
-  
+= link_to 'Back', geo_objects_path
+
 %br
 %br
 %h3 Далее идет SEO-текст.
@@ -55,4 +55,4 @@
 %br
 
 %script
-  $(window).load(function(){ landmark_description_new();})
+  $(window).load(function(){ geo_object_new();})

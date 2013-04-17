@@ -1,25 +1,25 @@
 
-=link_to "Создать объект", new_landmark_description_path
+=link_to "Создать объект", new_geo_object_path
 %br
 -# ###TODO: Move to partial
-=link_to "описание объекта", @landmark_description
+=link_to "описание объекта", @geo_object
 |
-=link_to "редактировать описание", edit_landmark_description_path(@landmark_description)
+=link_to "редактировать описание", edit_geo_object_path(@geo_object)
 |
-=link_to "История изменений", history_landmark_description_path(@landmark_description)
+=link_to "История изменений", history_geo_object_path(@geo_object)
 %h1 Редактирование объекта
 
-= simple_form_for @landmark_description do |f|
-  - if @landmark_description.errors.any?
+= simple_form_for @geo_object do |f|
+  - if @geo_object.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@landmark_description.errors.count, "error")} prohibited this landmark_description from being saved:"
+      %h2= "#{pluralize(@geo_object.errors.count, "error")} prohibited this geo_object from being saved:"
       %ul
-        - @landmark_description.errors.full_messages.each do |msg|
+        - @geo_object.errors.full_messages.each do |msg|
           %li= msg
   .inputs
     %a{:name => "name"}
     = f.input :title
-    
+
     %a{:name => "place"}
     %h3 Где находится
     %div.map__outer
@@ -34,11 +34,11 @@
       список добавленых категорий с возможностью их удалить
     %br
     .blue
-      = @landmark_description.tag_list.join(" | ")
+      = @geo_object.tag_list.join(" | ")
     = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите вручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name, :include_blank => false
     %h3{:onclick => "$('.categories').toggle();"}
       =link_to "Или выбери из списка", "#"
-    .categories  
+    .categories
       %h4 Что посмотреть
       список чекбоксов для категории что посмотреть
       %h4 Чем заняться
@@ -76,9 +76,9 @@
     = button_to "видео", "#"
 
     = f.submit "Применить изменения"
-= link_to 'Show', @landmark_description
+= link_to 'Show', @geo_object
 |
-= link_to 'Back', landmark_descriptions_path
+= link_to 'Back', geo_objects_path
 
 %script
-  $(window).load(function(){ landmark_description_edit();})
+  $(window).load(function(){ geo_object_edit();})

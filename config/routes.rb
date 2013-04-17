@@ -28,7 +28,7 @@ Smorodina::Application.routes.draw do
     end
   end
 
-  resources :landmark_descriptions do
+  resources :geo_objects do
     resources :reviews, only: [:new, :create, :edit, :update]
     resources :votes, only: [:create, :destroy]
     member do

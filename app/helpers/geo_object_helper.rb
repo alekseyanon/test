@@ -1,4 +1,4 @@
-module LandmarkDescriptionHelper
+module GeoObjectHelper
   def render_category_tree(tree, prefix = "")
     return "" unless tree
     tree.each_with_index.inject("") do |html, ((name, children), index)|

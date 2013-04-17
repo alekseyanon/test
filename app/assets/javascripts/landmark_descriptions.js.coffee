@@ -1,7 +1,7 @@
-#= require ./landmark_descriptions_tmp
+#= require ./geo_objects_tmp
 #= require ./collections/landmarks
 
-Smorodina.Pages.LandmarkDescriptions = ->
+Smorodina.Pages.GeoObjects = ->
 
   $ ->
     new Smorodina.Views.LandmarkList(collection:landmarks)
@@ -13,4 +13,4 @@ Smorodina.Pages.LandmarkDescriptions = ->
     new Smorodina.Views.SearchForm()
 
     # TODO temporary solution
-    landmark_description_search()
+    geo_object_search()

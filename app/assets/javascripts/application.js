@@ -28,7 +28,7 @@
 
 router = new Smorodina.Routers.Global;
 router.route('events', 'events', Smorodina.Pages.Events);
-router.route('landmark_descriptions/search', 'landmark_descriptions', Smorodina.Pages.LandmarkDescriptions);
+router.route('geo_objects/search', 'geo_objects', Smorodina.Pages.GeoObjects);
 router.route('', 'index', Smorodina.Pages.Index);
 Backbone.history.start({ hashChange: false });
 

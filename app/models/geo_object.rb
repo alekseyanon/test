@@ -1,6 +1,39 @@
-require 'set'
+require 'set' # What is it?
 
-class AbstractDescription < ActiveRecord::Base
+class GeoObject < ActiveRecord::Base
+
+  attr_accessor :xld, :yld
+  attr_accessible :xld, :yld, :rating, :geom
+
+  acts_as_voteable
+
+  def objects_nearby radius
+    GeoObject.where("abstract_descriptions.id <> #{id}").within_radius self.describable.osm.geom, radius
+  end
+
+  def self.within_radius geom, r
+    GeoObject.within_radius_scope geom, r, 'nodes'
+  end
+
+  def average_rating
+    (rate = self.rating) > 0 ? rate.round : 0
+  end
+
+  def as_json options = {}
+    op_hash = {
+      only: [:id, :title, :body, :rating],
+        methods: :tag_list,
+        include: {
+            describable: {
+              only: [],
+              include: :agc,
+              include: {
+                  osm: {
+                     only: [],
+                     methods: :latlon }}}}}
+    op_hash[:only] = [:id, :title, :rating] if options[:extra] && options[:extra][:teaser]
+    super op_hash
+ end
 
   extend FriendlyId
   friendly_id :make_slug, use: :slugged
@@ -9,16 +42,11 @@ class AbstractDescription < ActiveRecord::Base
   include Searchable
   has_many :reviews, as: :reviewable
   belongs_to :user
-  belongs_to :describable, polymorphic: true
   attr_accessible :body, :describable, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at
   validates :title, :user, presence: true
   validates_associated :user
 
   acts_as_taggable
-  has_one :osm, through: :describable
-
-  validates_associated :describable
-  accessible_attributes :geo_unit_id #TODO remove hack: accessible geo_unit_id
 
   scope :within_radius_scope, ->(geom, r, table_name) do
     #joins("INNER JOIN geo_units ON abstract_descriptions.describable_id = geo_units.id
@@ -64,4 +92,5 @@ class AbstractDescription < ActiveRecord::Base
   def normalize_categories
     self.tag_list = Category.where(name: tag_list).map(&:self_and_ancestors).flatten.map(&:name).compact.uniq
   end
+
 end

@@ -1,3 +1,3 @@
 window.load_objects_count = ->
-  $.getJSON '/landmark_descriptions/count.json', (data) ->
+  $.getJSON '/geo_objects/count.json', (data) ->
     $('#objets_total').text data

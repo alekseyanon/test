@@ -32,6 +32,6 @@ def seed_event_tags
 end
 
 
-# Called from landmark_description_spec.rb, mind this fact when changing
+# Called from geo_object_spec.rb, mind this fact when changing
 seed_categories
 seed_event_tags

@@ -12,20 +12,20 @@ initMap = ->
   [map, lg]
 
 showLatLng = (latlng) ->
-  $("#landmark_description_xld").val latlng.lng
-  $("#landmark_description_yld").val latlng.lat
+  $("#geo_object_xld").val latlng.lng
+  $("#geo_object_yld").val latlng.lat
 
 getLatLng = ->
   d = $ '.leaflet-edit-object'
   new L.LatLng(d.data('y') || 59.947, d.data('x') || 30.233)
 
-window.landmark_description_new = ->
+window.geo_object_new = ->
   [map, _] = initMap()
   map.setView [59.947, 30.255], 13
   popup = L.popup()
   map.on 'click', (e) ->
     showLatLng e.latlng
-    $.getJSON '/landmark_descriptions/nearest_node.json',
+    $.getJSON '/geo_objects/nearest_node.json',
       x: e.latlng.lng
       y: e.latlng.lat
       (data) ->
@@ -34,7 +34,7 @@ window.landmark_description_new = ->
           .setContent("Place for object marker")
           .openOn(map)
 
-window.landmark_description_edit = ->
+window.geo_object_edit = ->
   [map, _] = initMap()
   latlng = getLatLng()
   map.setView latlng, 13
@@ -47,13 +47,13 @@ window.landmark_description_edit = ->
       .setContent("New place of object")
       .openOn(map)
 
-window.landmark_description_show = ->
+window.geo_object_show = ->
   [map, _] = initMap()
   latlng = getLatLng()
   map.setView latlng, 13
   L.marker(latlng).addTo map
 
-window.landmark_description_search = ->
+window.geo_object_search = ->
   [map, lg] = initMap()
   lastBounds = null
   facets = []

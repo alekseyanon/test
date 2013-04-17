@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "LandmarkDescriptions", js: true, type: :request do
+describe "GeoObjects", js: true, type: :request do
 
   self.use_transactional_fixtures = false
 
@@ -18,7 +18,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
   end
 
   it 'has JS function get_object()' do
-    ld = LandmarkDescription.make!
+    ld = GeoObject.make!
     visit root_path
     page.execute_script("get_object(#{ld.id}, 1, function(data){test_object = data});")
     sleep 3
@@ -31,21 +31,21 @@ describe "LandmarkDescriptions", js: true, type: :request do
   end
 
   context 'anonymous' do
-    let!(:landmark_description){LandmarkDescription.make!(user: @user)}
+    let!(:geo_object){GeoObject.make!(user: @user)}
 
     it 'renders index' do
-      visit landmark_descriptions_path
-      page.should have_content landmark_description.title
+      visit geo_objects_path
+      page.should have_content geo_object.title
     end
 
     it 'renders show' do
-      visit landmark_description_path landmark_description
-      page.should have_content landmark_description.title
+      visit geo_object_path geo_object
+      page.should have_content geo_object.title
     end
 
   end
 
-  context "LandmarkDescriptions with login" do
+  context "GeoObjects with login" do
 
     before :each do
       login @user
@@ -53,11 +53,11 @@ describe "LandmarkDescriptions", js: true, type: :request do
     end
 
     def create_new(title, tag = nil)
-      visit new_landmark_description_path
-      fill_in 'landmark_description_title', with: title
+      visit new_geo_object_path
+      fill_in 'geo_object_title', with: title
       find('#map').click
       #TODO cover multiple tags
-      select tag, from: 'landmark_description_tag_list' if tag
+      select tag, from: 'geo_object_tag_list' if tag
       click_on 'Создать объект'
     end
 
@@ -77,10 +77,10 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
     it 'edits existing landmark descriptions' do
       create_new title, category
-      visit landmark_description_path LandmarkDescription.last
+      visit geo_object_path GeoObject.last
       click_on 'редактировать описание'
-      fill_in 'landmark_description_title', with: new_title
-      select new_category, from: 'landmark_description_tag_list'
+      fill_in 'geo_object_title', with: new_title
+      select new_category, from: 'geo_object_tag_list'
       click_on 'Применить изменения'
       wait_until(10){ page.should have_content new_title }
       page.should_not have_content title
@@ -97,15 +97,15 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
     it 'voting system exsist' do
       create_new title, category
-      visit landmark_description_path LandmarkDescription.last
+      visit geo_object_path GeoObject.last
       page.should have_selector('.votes')
       page.find('.up-vote').should have_content '0'
       page.find('.down-vote').should have_content '0'
     end
 
-    it 'make vote for the LandmarkDescription' do
+    it 'make vote for the GeoObject' do
       create_new title, category
-      visit ld_path = (landmark_description_path LandmarkDescription.last)
+      visit ld_path = (geo_object_path GeoObject.last)
       page.find('#vote-up-reservoir').click
       page.find('.up-vote').should have_content '1'
       page.find('.down-vote').should have_content '0'
@@ -122,11 +122,11 @@ describe "LandmarkDescriptions", js: true, type: :request do
   context "landmark description search" do
 
     before :each do
-      visit search_landmark_descriptions_path
+      visit search_geo_objects_path
     end
 
     def ld(tag_list, latlon)
-      LandmarkDescription.make! tag_list: tag_list, describable: to_landmark(latlon), geom: to_point(latlon)
+      GeoObject.make! tag_list: tag_list, describable: to_landmark(latlon), geom: to_point(latlon)
     end
 
     let!(:bar){ ld 'bar', [30.34, 59.93] }
@@ -136,11 +136,11 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
     it 'can be ordered by rating' do
       login @user
-      visit landmark_description_path ld = LandmarkDescription.last
+      visit geo_object_path ld = GeoObject.last
       page.find('#vote-up-apartment').click
       page.find('.up-vote').should have_content '1'
       page.find('.down-vote').should have_content '0'
-      get '/landmark_descriptions.json?query%5Bsort_by%5D=rate'
+      get '/geo_objects.json?query%5Bsort_by%5D=rate'
       resp = JSON.parse(response_from_page.to_s)
       resp[0]['id'].should == ld.id
     end
@@ -148,7 +148,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
     it 'searches for landmarks' do
       #pending 'wait for upgrade to new poltergeist'
       ### TODO find a way to avoid this 'visit ...' hack
-      visit search_landmark_descriptions_path
+      visit search_geo_objects_path
       js_click('.search-category_all')
       page.find("#searchResults").should have_content 'food'
       page.find("#searchResults").should have_content 'bar'
@@ -160,7 +160,7 @@ describe "LandmarkDescriptions", js: true, type: :request do
 
     it 'refines search results on query change' do
       ### TODO find a way to avoid this 'visit ...' hack
-      visit search_landmark_descriptions_path
+      visit search_geo_objects_path
       js_click('.search-category_activities')
       ### Click on 'activities' tab
       #page.find('.search-category_activities').click

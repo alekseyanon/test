@@ -28,7 +28,7 @@ end
 
 def create_landmark node, title, category
   landmark = Landmark.create osm: node
-  ld = LandmarkDescription.new describable: landmark,
+  ld = GeoObject.new describable: landmark,
                              title: (title || "NoName"),
                              tag_list: category.self_and_ancestors.map(&:name),
                              geom: node.geom

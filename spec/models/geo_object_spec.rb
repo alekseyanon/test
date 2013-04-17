@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe LandmarkDescription do
+describe GeoObject do
   subject { described_class.make! }
   it_behaves_like "an abstract description"
 

@@ -38,7 +38,7 @@ def to_landmarks(crd)
 end
 
 def landmarks_to_descriptions(landmarks)
-  landmarks.map{|lm| LandmarkDescription.make! describable: lm, geom: lm.osm.geom}
+  landmarks.map{|lm| GeoObject.make! describable: lm, geom: lm.osm.geom}
 end
 
 def get_foursquares(start_from)
@@ -64,7 +64,7 @@ def load_categories
 end
 
 def load_descriptions
-  File.open("#{Rails.root}/db/seeds/landmark_descriptions.yml"){|f| YAML.load f.read}.map do |yld|
+  File.open("#{Rails.root}/db/seeds/geo_objects.yml"){|f| YAML.load f.read}.map do |yld|
     dc = described_class.make! yld.slice(:title, :body)
     dc.tag_list = yld[:tags].join ', ' if defined?(dc.tag_list) && yld[:tags]
     dc.save
