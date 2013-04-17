@@ -74,7 +74,7 @@ EOF`
          'db:osm_drop_users',
          'db:migrate',
          'db:seed',
-         'landmarks:populate']
+         'objects:populate']
     sequence.each do |t|
       puts "executing #{t}", '--------------------------------------------------------------------------------'
       Rake::Task[t].invoke
@@ -87,7 +87,7 @@ EOF`
      'db:osm_drop_users',
      'db:migrate',
      'db:seed',
-     'landmarks:populate'].each do |t|
+     'objects:populate'].each do |t|
       puts "executing #{t}", '--------------------------------------------------------------------------------'
       Rake::Task[t].invoke
     end
