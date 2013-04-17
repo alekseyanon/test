@@ -140,7 +140,7 @@ describe "GeoObjects", js: true, type: :request do
       page.find('#vote-up-apartment').click
       page.find('.up-vote').should have_content '1'
       page.find('.down-vote').should have_content '0'
-      get '/geo_objects.json?query%5Bsort_by%5D=rate'
+      get '/objects.json?query%5Bsort_by%5D=rate'
       resp = JSON.parse(response_from_page.to_s)
       resp[0]['id'].should == ld.id
     end
