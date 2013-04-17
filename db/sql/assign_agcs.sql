@@ -1,4 +1,4 @@
-UPDATE geo_units AS G
+UPDATE geo_objects AS G
 SET agc_id = (
   SELECT A.id FROM agcs AS A
     JOIN nodes ON nodes.id = G.osm_id
