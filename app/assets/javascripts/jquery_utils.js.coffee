@@ -21,9 +21,6 @@ $.fn.serializeObject = (falsyValues) ->
 class SortControl
   constructor: (@element, options) ->
     @$element = $ @element
-    @_init options
-
-  _init: (options) ->
     @options = $.extend {}, $.fn.sortControl.defaults, options
     @selected = @options.selected
     @order = @options.order
@@ -35,7 +32,7 @@ class SortControl
     @_bindEvents()
 
   _bindEvents: ->
-    @$element.on 'click', $.proxy(@onClick, @)
+    @$element.on 'click', $.proxy(@_onClick, @)
 
   _render: ->
     html = "<span class='#{@defaultClass}__text'>#{@text}</span>
@@ -46,7 +43,7 @@ class SortControl
       .html(html)
       .addClass "#{@defaultClass} #{@defaultClass}_#{@order}"
 
-  onClick: ->
+  _onClick: ->
     @changeOrder() if @selected
     @select() unless @selected
     @trigger('sort:control', { order: @order, type: @type, control: @ })
@@ -93,9 +90,9 @@ $.fn.sortControl.defaults =
 class SortGroup
   constructor: (@element, @options) ->
     @$element = $ @element
-    @_init()
+    @_initControls()
 
-  _init: ->
+  _initControls: ->
     for item in @options.controls
       selected = item.type == @options.selected
       control = $('<span>')
@@ -104,10 +101,10 @@ class SortGroup
           type: item.type
           text: item.text
           selected: selected )
-        .on('sort:control', $.proxy(@onSort, @))
+        .on('sort:control', $.proxy(@_onSort, @))
       @selected = control if selected
 
-  onSort: (e, data) ->
+  _onSort: (e, data) ->
     @selected.deselect()
     @selected = data.control.select()
     @trigger 'sort', data
@@ -129,4 +126,3 @@ $.fn.sortGroup = (options) ->
 
 $.fn.sortGroup.options =
   defaultClass: 'sort-control'
-
