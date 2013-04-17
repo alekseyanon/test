@@ -6,4 +6,9 @@ class Api::ObjectsController < ApplicationController
     render json: @objects
   end
 
+  def show
+    ld = LandmarkDescription.find params[:id]
+    render json: ld.to_json( extra: { teaser: params[:teaser] } )
+  end
+
 end

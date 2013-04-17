@@ -17,6 +17,19 @@ describe "LandmarkDescriptions", js: true, type: :request do
     DatabaseCleaner.clean
   end
 
+  it 'has JS function get_object()' do
+    ld = LandmarkDescription.make!
+    visit root_path
+    page.execute_script("get_object(#{ld.id}, 1, function(data){test_object = data});")
+    sleep 3
+    page.evaluate_script('test_object["title"]').should == ld.title
+    page.evaluate_script('test_object["body"]').should_not == ld.body
+    page.execute_script("get_object(#{ld.id}, 0, function(data){test_object = data});")
+    sleep 3
+    page.evaluate_script('test_object["title"]').should == ld.title
+    page.evaluate_script('test_object["body"]').should == ld.body
+  end
+
   context 'anonymous' do
     let!(:landmark_description){LandmarkDescription.make!(user: @user)}
 
