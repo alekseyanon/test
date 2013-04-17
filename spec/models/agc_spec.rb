@@ -1,4 +1,5 @@
-# -*- encoding : utf-8 -*-
+# fun coding: UTF-8
+
 require 'spec_helper'
 
 describe Agc do
