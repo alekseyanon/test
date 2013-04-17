@@ -26,7 +26,7 @@ class Smorodina.Views.EventSearchForm extends Smorodina.Views.Base
   onSubmit: (e) ->
     Backbone.trigger 'eventSearchFormSubmit'
     Backbone.history.navigate('search', true)
-    @collection.fetch({ data: @$el.serializeObject() })
+    @collection.fetch(data: @$el.serializeObject())
     e.preventDefault()
 
   changeTitle: ->

@@ -13,4 +13,4 @@ Smorodina.Pages.Events = ->
     new Smorodina.Views.SearchResultsPanel(collection:events)
     new Smorodina.Views.SearchEmpty(collection:events)
 
-    Backbone.history.start({ pushState: true, root: '/events' })
+    Backbone.history.start(pushState: true, root: '/events')
