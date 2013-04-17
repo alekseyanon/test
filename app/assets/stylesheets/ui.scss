@@ -98,13 +98,27 @@
   border: solid 1px transparent;
 }
 
-.sort-control.selected {
+.sort-control_selected {
   @include box-shadow(0 1px #fff, inset 0 1px 1px #fff);
   border-color: $lightgrey;
   @include background-image(linear-gradient(top, #feffff, #ebebeb));
 }
 
-.sort-control.selected > .sort-control__text {
+.sort-control__text {
+  @include transition(color 0.25s linear);
+  border-bottom: 1px dotted;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.sort-control__text:hover {
+  color: $lightblue;
+}
+
+.sort-control_selected > .sort-control__text {
   border-bottom-color: transparent;
   color: $black;
 }
@@ -114,7 +128,7 @@
   display: inline-block;
 }
 
-.sort-control.selected > .sort-control__arrow:after {
+.sort-control_selected > .sort-control__arrow:after {
   content:"\2191";
   font-size: 18px;
   position: absolute;
@@ -123,7 +137,7 @@
   margin-top: -0.75em;
 }
 
-.sort-control.selected.desc >.sort-control__arrow:after {
+.sort-control_selected.sort-control_desc >.sort-control__arrow:after {
   content:"\2193";
 }
 
@@ -153,7 +167,7 @@
   border-top: 8px solid #e4e5f1;
 }
 
-.sort-control.selected > .sort-control__triangle {
+.sort-control_selected > .sort-control__triangle {
   display: block;
 }
 

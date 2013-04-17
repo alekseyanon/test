@@ -8,6 +8,10 @@ Smorodina::Application.routes.draw do
     match 'objects/:id/nearby' => 'objects#nearby'
   end
 
+  match 'events/search' => 'events#index'
+
+  resources :events
+
   resources :ratings, only: [:create]
 
   resources :profiles
@@ -48,8 +52,6 @@ Smorodina::Application.routes.draw do
       post 'do_search'
     end
   end
-
-  resources :events
 
   # Авторизация через социальные сервисы
   resources :authentications, only: [:edit, :update, :destroy]
