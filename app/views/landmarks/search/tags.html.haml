@@ -1,7 +1,0 @@
-%h1 Input search tags
-
-= form_tag '/landmarks/do_search', :method => :post do
-  .inputs
-    = select_tag :tag_list, options_for_select(@categories), multiple: true, class: 'tag_list'
-  .actions
-    = submit_tag 'Search'

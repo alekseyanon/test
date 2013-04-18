@@ -1,4 +1,4 @@
-#= require ../collections/landmarks
+#= require ../collections/geo_objects
 #= require ./base_view
 
 class Smorodina.Views.PageTitle extends Smorodina.Views.Base

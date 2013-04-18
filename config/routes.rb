@@ -6,6 +6,7 @@ Smorodina::Application.routes.draw do
     get 'events/tags'
     get 'events/search'
     match 'objects/:id/nearby' => 'objects#nearby'
+    match 'objects/:id' => 'objects#show'
   end
 
   match 'events/search' => 'events#index'
@@ -31,7 +32,7 @@ Smorodina::Application.routes.draw do
     end
   end
 
-  resources :landmark_descriptions do
+  resources :geo_objects, path: "objects" do
     resources :reviews, only: [:new, :create, :edit, :update]
     resources :votes, only: [:create, :destroy]
     member do
@@ -43,13 +44,6 @@ Smorodina::Application.routes.draw do
       get 'coordinates'
       get 'nearest_node'
       get 'count'
-    end
-  end
-
-  resources :landmarks do
-    collection do
-      get 'search'
-      post 'do_search'
     end
   end
 
