@@ -24,7 +24,7 @@ describe ImagesController do
   # update the return value of this method accordingly.
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
-  let!(:ld){LandmarkDescription.make!}
+  let!(:ld){GeoObject.make!}
   let!(:review){Review.make!}
 
   before :all do

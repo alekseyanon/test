@@ -1,5 +1,5 @@
 #= require ./routers/global_router
-#= require ./landmark_descriptions
+#= require ./geo_objects
 
 Smorodina.Pages.Index = ->
 
@@ -8,7 +8,7 @@ Smorodina.Pages.Index = ->
     new Smorodina.Views.Map
 
     # TODO temporary solution
-    landmark_description_search()
+    geo_object_search()
 
     $('#mainSearchFieldInput').on 'focus', ->
       $('.how-to-search').addClass 'how-to-search_hidden'

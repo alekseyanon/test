@@ -1,0 +1,87 @@
+
+=link_to "Создать объект", new_geo_object_path
+%br
+-# ###TODO: Move to partial
+=link_to "описание объекта", @geo_object
+|
+=link_to "редактировать описание", edit_geo_object_path(@geo_object)
+|
+=link_to "История изменений", history_geo_object_path(@geo_object)
+
+%h1= @geo_object.title
+
+%p здесь будут наши цепочки
+
+= render_category_tree @categories_tree
+%br
+
+.technical
+  %h3 Рейтинг
+  %h4{style: 'color: red;'}
+    .rate= @geo_object.average_rating
+  = button_to "Добавить в планировщик", "#"
+  .vk.soc
+    Мне нравится VK
+  .fb.soc
+    like FB
+  .tw.soc
+    tweet
+  .cl-left
+  .links
+    = link_to "Голосовать", "#"
+    |
+    = link_to "Кто голосовал", "#"
+    (кол-во)
+%br
+=link_to "Что посмотреть", "#"
+|
+=link_to "Чем заняться", "#"
+|
+=link_to "Где заночевать", "#"
+|
+=link_to "Где поесть", "#"
+.type-form
+  %a{name: "rate"}
+  - @tags.each do |tag|
+    .votes{id: dom_id(@geo_object, tag)}
+      = tag
+      =render partial: "shared/votes", locals: { object_to_vote: @geo_object, tag: tag }
+  %br
+  %br
+  %p здесь будут представлены контактные данные фотографии рейтинги и т.д.
+  %br
+  %br
+  %br
+%br
+%div.map__outer
+  %div.map__inner
+    %div.map.leaflet-edit-object{id: "map", data: {x: @x, y: @y}}
+%br
+=link_to "Отзывы", "#"
+|
+=link_to "Что поблизости", "#"
+.type-form
+  %h2 Лучшие отзывы
+  = link_to "+ Добавить отзыв", new_geo_object_review_path(@geo_object)
+  %br
+  %br
+  %br
+  - @geo_object.reviews.each do |r|
+    .review
+      %h4= link_to r.title, r
+      = r.body
+  %br
+  %br
+  %br
+
+%br
+%br
+%h3 Далее идет SEO-текст.
+%br
+%br
+
+= link_to 'Edit', edit_geo_object_path(@geo_object)
+|
+= link_to 'Back', geo_objects_path
+%script
+  $(window).load(function(){ geo_object_show();})

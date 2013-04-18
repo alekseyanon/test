@@ -1,0 +1,26 @@
+%h1 Listing geo_objects
+= link_to "поиск объектов", search_geo_objects_path
+= paginate @geo_objects
+- @geo_objects.each do |geo_object|
+  .ld(style='border-top: 1px solid gray;')
+    .picture
+    %strong=link_to geo_object.title, geo_object
+    %br
+    = geo_object.body
+    %br
+    %strong Tags:
+    = geo_object.tag_list
+    %br
+    = geo_object.geom
+    %table
+      %tr
+        %td= link_to 'Show', geo_object
+        %td= link_to 'Edit', edit_geo_object_path(geo_object)
+        %td= link_to 'Destroy', geo_object, method: :delete, data: { confirm: 'Are you sure?' }
+    %br
+    .clear-lf
+
+
+%br
+
+= link_to 'New Landmark description', new_geo_object_path

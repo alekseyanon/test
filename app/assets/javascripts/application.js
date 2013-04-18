@@ -49,7 +49,7 @@ function to_vote(voteable_controller, voteable_id, sign, tag) {
   var id = voteable_controller.split("/").pop() + "_" + voteable_id;
   var params = {sign: sign};
   if (tag.length > 0) {
-    id = tag + '_' + id;
+    id = tag + '_geo_' + id;
     params = {sign: sign, voteable_tag: tag};
   }
   var up = "#" + id + " .up-vote";
@@ -71,7 +71,7 @@ function to_unvote(voteable_controller, voteable_id, tag) {
   var id = voteable_controller.split("/").pop() + "_" + voteable_id;
   var params = {"_method": "delete"};
   if (tag.length > 0) {
-    id = tag + '_' + id;
+    id = tag + '_geo_' + id;
     params = {"_method": "delete", voteable_tag: tag};
   }
   $.ajax({

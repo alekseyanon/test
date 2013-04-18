@@ -1,4 +1,4 @@
-#= require ../collections/landmarks
+#= require ../collections/geo_objects
 #= require ./base_view
 
 class Smorodina.Views.SearchForm extends Smorodina.Views.Base

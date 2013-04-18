@@ -29,16 +29,8 @@ def to_poly(nodes)
   Osm::Poly.make! geom: Geo.factory.polygon(Geo.factory.line_string nodes.map(&:geom))
 end
 
-def to_landmark(crd)
-  Landmark.make! osm: (crd.is_a?(Osm::Node) ? crd : to_node(crd))
-end
-
-def to_landmarks(crd)
-  crd.map{|c| to_landmark c}
-end
-
-def landmarks_to_descriptions(landmarks)
-  landmarks.map{|lm| LandmarkDescription.make! describable: lm, geom: lm.osm.geom}
+def to_geo_objects crds
+  crds.map{ |crd| GeoObject.make! geom: (crd.is_a?(Array) ? to_point(crd) : crd)}
 end
 
 def get_foursquares(start_from)
@@ -59,12 +51,12 @@ def get_foursquares(start_from)
   polygons
 end
 
-def load_categories
+def load_seeds
   load "#{Rails.root}/db/seeds.rb"
 end
 
 def load_descriptions
-  File.open("#{Rails.root}/db/seeds/landmark_descriptions.yml"){|f| YAML.load f.read}.map do |yld|
+  File.open("#{Rails.root}/db/seeds/geo_objects.yml"){|f| YAML.load f.read}.map do |yld|
     dc = described_class.make! yld.slice(:title, :body)
     dc.tag_list = yld[:tags].join ', ' if defined?(dc.tag_list) && yld[:tags]
     dc.save
@@ -73,8 +65,8 @@ def load_descriptions
 end
 
 def drop_relations
-    ActiveRecord::Base.connection.execute 'delete from relations'
-  end
+  ActiveRecord::Base.connection.execute 'delete from relations'
+end
 
 # id_to_fields - хеш вида {id => {name: 'some text', geom: 'POINT(1,1)'}, ... }
 def make_relations(id_to_fields)
