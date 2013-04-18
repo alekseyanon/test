@@ -25,7 +25,7 @@ window.geo_object = ->
       .openOn(map)
 
   updateQuery = ->
-    $.getJSON '/geo_objects.json',
+    $.getJSON '/objects.json',
       (data) -> applySearch data
 
   map.on 'load', ->

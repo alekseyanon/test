@@ -1,15 +1,22 @@
-#= require ../collections/geo_objects
 #= require ./base_view
 
-class Smorodina.Views.SearchPanel extends Smorodina.Views.Base
+class Smorodina.Views.SearchResultsPanel extends Smorodina.Views.Base
   el: '#searchResultsPanel'
   initialize: ->
     super()
     @collection.on 'reset', @render
-    @collection.on 'request', @onRequest
+
+    @$('.sort-group')
+      .sortGroup(
+        controls: [
+          { type: 'date', text: 'Дате' }
+          { type: 'rating', text: 'Рейтингу' }
+        ]
+        selected: 'date')
+      .on('sort', @sort)
 
   render: ->
     if @collection.length then @show() else @hide()
 
-  onRequest: ->
-    @hide()
+  sort: (e, data) ->
+    @collection.sortCollection(data.type, data.order)

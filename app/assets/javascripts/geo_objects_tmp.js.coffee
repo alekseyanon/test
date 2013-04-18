@@ -125,9 +125,3 @@ window.geo_object_search = ->
   $searchField.on 'keydown', (e) ->
     if e.which is 13
       resetBoundsAndSearch()
-
-  $(".sort-control").on 'click', ->
-    if $(this).is('.selected')
-      $(this).toggleClass('desc')
-    else
-      $(this).toggleClass('selected')

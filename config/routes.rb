@@ -9,6 +9,10 @@ Smorodina::Application.routes.draw do
     match 'objects/:id' => 'objects#show'
   end
 
+  match 'events/search' => 'events#index'
+
+  resources :events
+
   resources :ratings, only: [:create]
 
   resources :profiles
@@ -42,15 +46,6 @@ Smorodina::Application.routes.draw do
       get 'count'
     end
   end
-
-  resources :landmarks do
-    collection do
-      get 'search'
-      post 'do_search'
-    end
-  end
-
-  resources :events
 
   # Авторизация через социальные сервисы
   resources :authentications, only: [:edit, :update, :destroy]
