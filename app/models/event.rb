@@ -47,11 +47,12 @@ class Event < ActiveRecord::Base
                   :repeat_rule, :geom,
                   :images_attributes, :event_tags, :tag_list
 
-  before_create :generate_key, :calc_archive_date
+  before_create :generate_key, :calc_archive_date, :add_agc
 
   set_rgeo_factory_for_column :geom, Geo::factory
 
   belongs_to :user
+  belongs_to :agc
   has_many   :event_taggings
   has_many   :event_tags, through: :event_taggings
   has_many   :images,   as: :imageable
@@ -218,8 +219,9 @@ class Event < ActiveRecord::Base
     save!
   end
 
-  def as_json options = nil
+  def as_json options = {}
     json = super options
+    json[:agc] = agc.names if agc
     json[:state_localized] = I18n.t 'events.states.'+state
     json[:rating_go] = rating_go
     json[:rating_like] = rating_like
@@ -227,6 +229,10 @@ class Event < ActiveRecord::Base
   end
 
   private
+
+    def add_agc
+      self.agc = Agc.most_precise_enclosing(geom) unless geom.blank?
+    end
 
     def calc_archive_date
       self.archive_date = end_date + FEEDBACK_DURATION[repeat_rule]

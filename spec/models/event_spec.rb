@@ -19,6 +19,13 @@ describe Event do
   it { event.archive_date.nil?.should be_false }
   it { event.archive_date.should_not be_blank }
 
+  it 'gets agc after create and send it as json' do
+    Agc.make!
+    e = Event.make! geom: 'POINT(0 0)'
+    e.agc.names.blank?.should_not be true
+    e.as_json[:agc].blank?.should_not be true
+  end
+
   describe 'rating' do
     it 'can be voted for' do
       user.vote event, direction: :up
