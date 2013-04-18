@@ -62,7 +62,7 @@ def create_objects objects
     next if categories.blank?
     node = Osm::Node.make! geom: "POINT(#{obj[:lon]} #{obj[:lat]})", id: next_id
     landmark = Landmark.make! osm: node
-    ld = LandmarkDescription.make! describable: landmark,
+    ld = GeoObject.make! describable: landmark,
       title: obj[:title],
       body: obj[:address],
       user: user,

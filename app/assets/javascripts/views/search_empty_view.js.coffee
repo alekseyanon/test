@@ -1,7 +1,7 @@
-#= require ../collections/landmarks
+#= require ../collections/geo_objects
 #= require ./base_view
 
-class Smorodina.Views.LandmarkListEmpty extends Smorodina.Views.Base
+class Smorodina.Views.GeoObjectListEmpty extends Smorodina.Views.Base
   el: '#searchEmpty'
   initialize: ->
     super()

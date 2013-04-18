@@ -10,6 +10,7 @@ Smorodina::Application.routes.draw do
     get 'events/tags'
     get 'events/search'
     match 'objects/:id/nearby' => 'objects#nearby'
+    match 'objects/:id' => 'objects#show'
   end
 
   match "/users/auth/:provider/callback", to: 'authentications#create'
@@ -47,7 +48,7 @@ Smorodina::Application.routes.draw do
     end
   end
 
-  resources :landmark_descriptions do
+  resources :geo_objects, path: "objects" do
     resources :reviews, only: [:new, :create, :edit, :update]
     resources :votes, only: [:create, :destroy]
     member do

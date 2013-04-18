@@ -5,12 +5,12 @@ describe CommentsController do
 
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
-  let!(:ld){LandmarkDescription.make!}
+  let!(:ld){GeoObject.make!}
   let!(:review){Review.make!}
 
   before :all do
     Category.make!
-    # LandmarkDescription.make!
+    # GeoObject.make!
     # @review = Review.make!
   end
   login_user

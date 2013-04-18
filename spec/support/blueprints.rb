@@ -27,42 +27,19 @@ Osm::Poly.blueprint do
   changeset_id { 0 }
 end
 
-Landmark.blueprint do
-  osm { Osm::Node.make }
-end
-
-Area.blueprint do
-  osm { Osm::Poly.make }
-end
-
 Category.blueprint do
   name { Faker::Lorem.word }
   name_ru { Faker::Lorem.word }
   description { Faker::Lorem.sentence 2 }
 end
 
-AbstractDescription.blueprint do
+GeoObject.blueprint do
   user { User.make! }
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
   published { [true, false].sample }
   published_at { Time.now }
-end
-
-LandmarkDescription.blueprint do
-  landmark =  Landmark.make
-  describable { landmark }
-  geom { landmark.osm.geom }
-end
-
-AreaDescription.blueprint do
-  area = Area.make
-  describable { area }
-  #geom { area.osm.geom }
-end
-
-Authentication.blueprint do
-  # Attributes here
+  geom { Geo::factory.point(29.9918672, 60.0052767) }
 end
 
 User.blueprint do
@@ -89,7 +66,7 @@ Review.blueprint do
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
   user { User.make! }
-  reviewable { LandmarkDescription.make! }
+  reviewable { GeoObject.make! }
 end
 
 Image.blueprint do
@@ -114,6 +91,10 @@ end
 
 EventTag.blueprint do
   title { Faker::Lorem.word }
+end
+
+Agc.blueprint do
+    relations { make_sample_relations!; [1, 2, 3] }
 end
 
 TwitterAccount.blueprint do

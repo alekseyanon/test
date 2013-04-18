@@ -3,6 +3,6 @@ class CreateAgcs < ActiveRecord::Migration
     create_table :agcs do |t|
       t.integer_array :relations
     end
-    add_index :agcs, :relations
+    add_index :agcs, :relations, unique: true
   end
 end

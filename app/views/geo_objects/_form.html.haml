@@ -1,0 +1,12 @@
+= simple_form_for @geo_object do |f|
+  - if @geo_object.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@geo_object.errors.count, "error")} prohibited this geo_object from being saved:"
+      %ul
+        - @geo_object.errors.full_messages.each do |msg|
+          %li= msg
+  .inputs
+    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories
+
+  .actions
+    = f.submit 'Save'

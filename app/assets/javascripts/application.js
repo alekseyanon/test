@@ -28,7 +28,7 @@
 
 router = new Smorodina.Routers.Global;
 router.route('events', 'events', Smorodina.Pages.Events);
-router.route('landmark_descriptions/search', 'landmark_descriptions', Smorodina.Pages.LandmarkDescriptions);
+router.route('objects/search', 'geo_objects', Smorodina.Pages.GeoObjects);
 router.route('', 'index', Smorodina.Pages.Index);
 Backbone.history.start({ hashChange: false });
 
@@ -51,7 +51,7 @@ function to_vote(voteable_controller, voteable_id, sign, tag) {
   var id = voteable_controller.split("/").pop() + "_" + voteable_id;
   var params = {sign: sign};
   if (tag.length > 0) {
-    id = tag + '_' + id;
+    id = tag + '_geo_' + id;
     params = {sign: sign, voteable_tag: tag};
   }
   var up = "#" + id + " .up-vote";
@@ -73,7 +73,7 @@ function to_unvote(voteable_controller, voteable_id, tag) {
   var id = voteable_controller.split("/").pop() + "_" + voteable_id;
   var params = {"_method": "delete"};
   if (tag.length > 0) {
-    id = tag + '_' + id;
+    id = tag + '_geo_' + id;
     params = {"_method": "delete", voteable_tag: tag};
   }
   $.ajax({
@@ -125,3 +125,10 @@ function complaint(path){
   });
 }
 
+function get_object(id, teaser, callback){
+  url = '/api/objects/'+id;
+  if(teaser){
+    url = url + '?teaser=1';
+  }
+  $.getJSON(url, {}, callback);
+}

@@ -4,7 +4,7 @@ describe ReviewsController do
 
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
-  let!(:ld){LandmarkDescription.make!}
+  let!(:ld){GeoObject.make!}
 
   before :all do
     Category.make!
@@ -36,7 +36,7 @@ describe ReviewsController do
 
   describe "GET new" do
     it "assigns a new review as @review" do
-      get :new, {landmark_description_id: ld.id}
+      get :new, {geo_object_id: ld.id}
       assigns(:review).should be_a_new(Review)
     end
   end
@@ -53,18 +53,18 @@ describe ReviewsController do
     describe "with valid params" do
       it "creates a new Review" do
         expect {
-          post :create, landmark_description_id: ld.id, review: valid_attributes
+          post :create, geo_object_id: ld.id, review: valid_attributes
         }.to change(Review, :count).by(1)
       end
 
       it "assigns a newly created review as @review" do
-        post :create, {landmark_description_id: ld.id, review: valid_attributes}
+        post :create, {geo_object_id: ld.id, review: valid_attributes}
         assigns(:review).should be_a(Review)
         assigns(:review).should be_persisted
       end
 
       it "redirects to the created review" do
-        post :create, {landmark_description_id: ld.id, review: valid_attributes}
+        post :create, {geo_object_id: ld.id, review: valid_attributes}
         response.should redirect_to(Review.last)
       end
     end
@@ -72,13 +72,13 @@ describe ReviewsController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved review as @review" do
         Review.any_instance.stub(:save).and_return(false)
-        post :create, {landmark_description_id: ld.id, review: { title: 'invalid value' }}
+        post :create, {geo_object_id: ld.id, review: { title: 'invalid value' }}
         assigns(:review).should be_a_new(Review)
       end
 
       it "re-renders the 'new' template" do
         Review.any_instance.stub(:save).and_return(false)
-        post :create, {landmark_description_id: ld.id, review: { title: 'invalid value' }}
+        post :create, {geo_object_id: ld.id, review: { title: 'invalid value' }}
         response.should render_template("new")
       end
     end
@@ -93,18 +93,18 @@ describe ReviewsController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Review.any_instance.should_receive(:update_attributes).with({ 'title' => 'MyString' })
-        put :update, {landmark_description_id: ld.id, id: review.to_param, review: { 'title' => 'MyString' }}
+        put :update, {geo_object_id: ld.id, id: review.to_param, review: { 'title' => 'MyString' }}
       end
 
       it "assigns the requested review as @review" do
         review = Review.make! valid_attributes
-        put :update, {landmark_description_id: ld.id, id: review.to_param, review: valid_attributes}
+        put :update, {geo_object_id: ld.id, id: review.to_param, review: valid_attributes}
         assigns(:review).should eq(review)
       end
 
       it "redirects to the review" do
         review = Review.make! valid_attributes
-        put :update, {landmark_description_id: ld.id, id: review.to_param, review: valid_attributes}
+        put :update, {geo_object_id: ld.id, id: review.to_param, review: valid_attributes}
         response.should redirect_to(review)
       end
     end
