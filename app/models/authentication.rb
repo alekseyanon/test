@@ -2,71 +2,33 @@ class Authentication < ActiveRecord::Base
   # attr_accessible :title, :body
   belongs_to :user
   validates :uid, uniqueness: {scope: :provider}
-  attr_accessible :provider, :uid, :name, :email
+  attr_accessible :provider, :uid, :name, :email, :oauth_token, :oauth_token_secret
 
-  # Создает пользователя по параметрам, возвращенным из социалки.
-  def new_user(*args)
-    options = args.extract_options!
-    password = SecureRandom.base64(12)
+  def twitter_post(message)
+    social_cfg = YAML.load_file("#{Rails.root}/config/social_services.yml")
+    social_cfg = social_cfg[Rails.env]
 
-    attrs = options.merge(
-      :name => self.name,
-      :password => password,
-      :password_confirmation => password,
-      :external_picture_url => self.picture,
-      # :state => 'pending_activation',
-      :authentication_ids => [self.id])
+    Twitter.configure do |config|
+      config.consumer_key = social_cfg['twitter']['key']
+      config.consumer_secret = social_cfg['twitter']['secret']
+      config.oauth_token = self.oauth_token
+      config.oauth_token_secret = self.oauth_token_secret
+    end
 
-    self.user = User.new(attrs)
-    self.user.tap do |user|
-      pass = SecureRandom.base64
-      user.roles = [self.role]
-      user.email = self.email
-      user.password = pass
-      user.password_confirmation = pass
+    client = Twitter::Client.new
+    begin
+      client.update(message)
+      return true
+    rescue Exception => e
+      self.errors.add(:oauth_token, "Unable to send to twitter: #{e.to_s}")
+      return false
     end
   end
 
-  class << self
-    def find_for_facebook_oauth(auth, signed_in_resource=nil)
-      #provider =
-    end
-    # Получает на вход хеш omniauth.
-    # Возвращает объект Authentication с заполненными параметрами.
-    def find_or_create_from_provider(auth, params)
-      # logger.debug "===================================================="
-      # logger.debug "auth :" + auth.to_s
-      # logger.debug "params :" + params.to_s
-
-
-      params.stringify_keys!
-
-      provider  = auth['provider']
-      uid       = self.get_uid(auth)
-      user_info = auth['info']
-
-      user_name = user_info['name'] || uid
-      www       = user_info['urls'].values.first if user_info['urls'].present?
-      www       = user_info['urls']['Twitter'] if user_info['urls'].present? && provider.to_s == "twitter"
-      picture   = user_info['image']
-
-      ### TODO: refactor roles will be more then traveler and admin
-      role_name = params['type'].blank? ? "traveler" : params['type']
-
-      # Через #tap, а не через блок: если регистрация была прервана - нужно перезанести данные.
-      self.find_or_create_by_provider_and_uid(provider, uid).tap do |a|
-        a.name           = user_name
-        a.role           = role_name
-        a.url            = www
-        a.email          = user_info['email']
-        a.picture        = picture
-        a.save!
-      end
-    end
-
-    # i think that it method can be deleted
-    def get_uid(auth)
-      uid = auth['provider'] == 'google' ? auth['info']['email'].gsub(/@gmail.com/,'') : auth['uid']
-    end
+  def facebook_post(message)
+    @graph = Koala::Facebook::API.new(self.oauth_token)
+    @graph.put_connections("me", "feed", message: message)
+    return
   end
+
 end

@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   before_validation :set_role
   after_create :create_profile
 
+  validate :uniqueness_user
+
   def create_profile
     self.create_profile!
   end
@@ -42,45 +44,45 @@ class User < ActiveRecord::Base
     self.email.blank? ? "Профиль пользователя #{self.id}" : self.email
   end
 
-  def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_initialize do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.skip_confirmation!
-      user.save
-    end
-  end
-
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    user = User.where(:provider => auth.provider, :uid => auth.uid).first
-    unless user
-      user = User.find_by_email(auth.info.email)
-      user.update_attributes(provider: auth.provider, uid:auth.uid) if user
-    end
-    unless user
-      user = User.new(
-                         provider:auth.provider,
-                         uid:auth.uid,
-                         email:auth.info.email,
-                         password:Devise.friendly_token[0,20]
-      )
-      user.skip_confirmation!
-      user.save
-    end
-    user
-  end
-
-  def self.new_with_session(params, session)
-
-    if userattr = session["devise.user_attributes"]
-      new(userattr.except('roles'), without_protection: true) do |user|
-        user.attributes = params
-        user.valid?
-      end
-    else
-      super
-    end
-  end
+  #def self.from_omniauth(auth)
+  #  where(auth.slice(:provider, :uid)).first_or_initialize do |user|
+  #    user.provider = auth.provider
+  #    user.uid = auth.uid
+  #    user.skip_confirmation!
+  #    user.save
+  #  end
+  #end
+  #
+  #def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+  #  user = User.where(:provider => auth.provider, :uid => auth.uid).first
+  #  unless user
+  #    user = User.find_by_email(auth.info.email)
+  #    user.update_attributes(provider: auth.provider, uid:auth.uid) if user
+  #  end
+  #  unless user
+  #    user = User.new(
+  #                       provider:auth.provider,
+  #                       uid:auth.uid,
+  #                       email:auth.info.email,
+  #                       password:Devise.friendly_token[0,20]
+  #    )
+  #    user.skip_confirmation!
+  #    user.save
+  #  end
+  #  user
+  #end
+  #
+  #def self.new_with_session(params, session)
+  #
+  #  if userattr = session["devise.user_attributes"]
+  #    new(userattr.except('roles'), without_protection: true) do |user|
+  #      user.attributes = params
+  #      user.valid?
+  #    end
+  #  else
+  #    super
+  #  end
+  #end
 
   def password_required?
     super && provider.blank?
@@ -155,22 +157,20 @@ class User < ActiveRecord::Base
 
 private
 
+  def uniqueness_user
+    if self.email.blank?
+      if self.authentications.blank?
+        errors.add(:email, 'can not be blank without authentications')
+      end
+    else
+      errors.add(:email, ' is not uniq') if User.pluck(:email).uniq.include? self.email
+    end
+  end
+
   # Копирует в имя часть емейла до '@'
   def set_default_name_from_email
     email.to_s.match(/(.*)@/)
     self.name = $1 if name.blank?
-  end
-
-  def activation
-    #reset_perishable_token!
-
-    logger.debug '-------------activation--------------------'
-    #set_default_subscription
-  end
-
-  def _after_activate
-    # Notifier.user_activated(self).deliver
-    ### maybe we can add something that user created before activation
   end
 
 end

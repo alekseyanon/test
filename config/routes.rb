@@ -1,9 +1,5 @@
 Smorodina::Application.routes.draw do
 
-  get "twitter_accounts/new"
-
-  get "twitter_accounts/callback"
-
   namespace :api do
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
@@ -14,17 +10,13 @@ Smorodina::Application.routes.draw do
   end
 
   match "/users/auth/:provider/callback", to: 'authentications#create'
-  match "/auth/:facebook/callback", to: 'authentications#create'
-
-  resource :twitter_account
-  match '/callback/twitter/' => "twitter_accounts#callback", :as => :twitter_callback
-
+  #match "/auth/:facebook/callback", to: 'authentications#create'
 
   resources :ratings, only: [:create]
 
   resources :profiles
 
-  devise_for :users#, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users #, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   # Авторизация через социальные сервисы
   resources :authentications
@@ -33,7 +25,7 @@ Smorodina::Application.routes.draw do
   #match "/auth/:provider/callback", to: 'users#auth_callback', as: :auth_callback
   #match "/auth/:provider", to: 'authentications#create', as: :auth
   #match "/users/auth/:provider/callback", to: 'authentications#create'
-  match "/users/auth/facebook/callback", to: 'authentications#create'
+  #match "/users/auth/facebook/callback", to: 'authentications#create'
 
   resources :images do
     resources :votes, only: [:create, :destroy]
@@ -78,6 +70,9 @@ Smorodina::Application.routes.draw do
     get '/edit', action: 'edit'
     get '/show', action: 'show'
     get '/history', action: 'history'
+    get '/post', action: 'post'
+    get '/to_twitter', action: 'to_twitter'
+    get '/to_facebook', action: 'to_facebook'
   end
 
   root to: 'welcome#home'

@@ -96,7 +96,3 @@ end
 Agc.blueprint do
     relations { make_sample_relations!; [1, 2, 3] }
 end
-
-TwitterAccount.blueprint do
-  # Attributes here
-end
