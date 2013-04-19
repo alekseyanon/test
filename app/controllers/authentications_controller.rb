@@ -53,18 +53,12 @@ class AuthenticationsController < ApplicationController
           redirect_to authentications_path
         else  # У залогиненного пользователя не найдена authentication
           current_user.authentications.create!(args)
-          if email && current_user.email.blank?
-            current_user.update_attributes(email: email)
-          end
           flash[:notice] = 'Your account has been connected for signing in smorodina.'
           redirect_to authentications_path
         end
       else # Пользователь не вошел на сайт
         if auth # Пользователь не вошел в систему, но authentication найдена
           # залогинить пользователя.
-          if email && (user = auth.user).email.blank?
-            user.update_attributes(email: email)
-          end
           flash[:notice] = 'Signed in successfully via ' + provider.capitalize + '.'
           sign_in_and_redirect(:user, auth.user)
         else # Пользователь не вошел на сайт и authentication не найдена

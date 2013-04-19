@@ -34,8 +34,16 @@ class User < ActiveRecord::Base
   before_validation :set_role
   after_create :create_profile
 
-  validate :uniqueness_user
-
+  validate :uniqueness_user, on: :create
+  def uniqueness_user
+    if self.email.blank?
+      if self.authentications.blank?
+        self.errors.add(:email, 'can not be blank without authentications')
+      end
+    else
+      self.errors.add(:email, ' is not uniq') if User.pluck(:email).uniq.include? self.email
+    end
+  end
   def create_profile
     self.create_profile!
   end
@@ -157,20 +165,22 @@ class User < ActiveRecord::Base
 
 private
 
-  def uniqueness_user
-    if self.email.blank?
-      if self.authentications.blank?
-        errors.add(:email, 'can not be blank without authentications')
-      end
-    else
-      errors.add(:email, ' is not uniq') if User.pluck(:email).uniq.include? self.email
-    end
-  end
-
   # Копирует в имя часть емейла до '@'
   def set_default_name_from_email
     email.to_s.match(/(.*)@/)
     self.name = $1 if name.blank?
+  end
+
+  def activation
+    #reset_perishable_token!
+
+    logger.debug "-------------activation--------------------"
+    #set_default_subscription
+  end
+
+  def _after_activate
+    # Notifier.user_activated(self).deliver
+    ### maybe we can add something that user created before activation
   end
 
 end
