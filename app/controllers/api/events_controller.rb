@@ -20,8 +20,8 @@ class Api::EventsController < ApplicationController
       query[:from], query[:to] = ["#{params[:from]} 00:00:00", "#{params[:to]} 23:59:59"]
     elsif params[:from]
       query[:from] = "#{params[:from]} 00:00:00"
-    elsif place_id
-      query[:from] = Time.now if Event.in_place(place_id).where("start_date > '#{Time.now}'").count > 0
+    elsif place_id && Event.in_place(place_id).future.count > 0
+      query[:from] = Time.now
     end
     @events = Event.scoped
     @events = @events.search(query) unless query.blank?
