@@ -27,16 +27,13 @@
                 Идентификатор
         %div.smorodina-item__tags
           %span.icon.icon-tags.smorodina-item__tags__icon
-          %ul.smorodina-item__tags__list
-            %li
-              %a.tdn-link{ href: '#' }
-                Фестиваль
-            %li
-              %a.tdn-link{ href: '#' }
-                Open-Air
+          %ul.smorodina-item__tags__list.smorodina-item__tags__list_event
+            - for tag in @event_tags
+              %li
+                %a.tdn-link{ href: '#' }= tag.title
       %div.span4
         %div.smorodina-item__date-range
-          8 октября – 14 октября
+          = @date_range
         %div.smorodina-item__likes
           = "#{@likes_num} чел. понравилось"
         %div.smorodina-item__comments

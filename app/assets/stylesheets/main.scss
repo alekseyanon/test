@@ -1034,6 +1034,11 @@ a:hover,
   content: '\2192';
 }
 
+.smorodina-item__tags__list_event > li:after {
+  content: ',';
+  margin-left: -3px;
+}
+
 .smorodina-item__tags__list > li:last-child:after,
 .smorodina-item__geo__list > li:last-child:after {
   content: none;
