@@ -30,8 +30,9 @@ class AuthenticationsController < ApplicationController
     email = (params[:provider] == 'facebook' ? oauth['info']['email'] : nil)
 
     oauth_token = case params[:provider]
-                    when 'facebook' then oauth['credentials']['token']
-                    when 'twitter' then oauth['credentials']['token']
+                    when 'facebook', 'twitter' then oauth['credentials']['token']
+                    ### TODO: add vkontakte
+                    #when 'vk' then
                     else nil
                   end
     oauth_token_secret =  (params[:provider] == 'twitter' ? oauth['credentials']['secret'] : nil)

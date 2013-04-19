@@ -1,7 +1,7 @@
 class Authentication < ActiveRecord::Base
   # attr_accessible :title, :body
   belongs_to :user
-  validates :uid, uniqueness: {scope: :provider}
+  validates :uid, uniqueness: {scope: :provider}, presence: true
   attr_accessible :provider, :uid, :name, :email, :oauth_token, :oauth_token_secret
 
   def twitter_post(message)
