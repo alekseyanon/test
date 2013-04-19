@@ -86,10 +86,7 @@ class Event < ActiveRecord::Base
 
   scope :newest, order('events.created_at DESC')
   scope :line, ->(key) { where key: key}
-  scope :in_place, ->(place_id) do
-    joins('JOIN agcs ON events.agc_id = agcs.id').where('? = ANY(agcs.relations)', place_id)
-    # chain = chain.where("start_date > '#{Time.now}'")
-  end
+  scope :in_place, ->(place_id) { joins('JOIN agcs ON events.agc_id = agcs.id').where('? = ANY(agcs.relations)', place_id) }
 
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'}
