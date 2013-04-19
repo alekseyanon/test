@@ -8,7 +8,7 @@ class EventTag < ActiveRecord::Base
   scope :system, where(system: true)
   scope :user, where(system: false)
 
-  def as_json options
+  def as_json options = {}
     super only: [:id, :title, :system]
   end
 
