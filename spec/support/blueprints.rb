@@ -46,7 +46,7 @@ User.blueprint do
   pwd = Faker::Lorem.characters(9)
   password { pwd }
   password_confirmation { pwd }
-  email { "test#{sn}" + Faker::Internet.email }
+  email { "test#{sn}"+ rand(100).to_s + Faker::Internet.email }
   #roles { ["traveler"] }
   profile { Profile.make! }
 end

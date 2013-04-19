@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   include UserFeatures::Roles
 
   has_many :authentications, dependent: :destroy
-  has_many :abstract_descriptions
+  has_many :geo_objects
   has_one :profile
 
   #TODO remove hack
