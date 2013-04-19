@@ -4,6 +4,7 @@ module Searchable
   end
 
   module ClassMethods
+
     # Searches descriptions against title, body, tags, using upper level categories used as facets.
     # For queries with geospatial part, search is done within a radius of some point.
     #
@@ -23,6 +24,7 @@ module Searchable
         geom = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
         r = query[:r] || 0
         chain = chain.within_radius(geom, r) if geom
+        chain = chain.in_place(query[:place_id]) if query[:place_id]
         text = query[:text]
         chain = chain.within_date_range query[:from], query[:to] if query[:from]
         chain = chain.order('rating desc, created_at')  if query[:sort_by] == 'rate'
@@ -35,5 +37,6 @@ module Searchable
         chain
       end
     end
+
   end
 end

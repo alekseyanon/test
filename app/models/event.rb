@@ -86,6 +86,10 @@ class Event < ActiveRecord::Base
 
   scope :newest, order('events.created_at DESC')
   scope :line, ->(key) { where key: key}
+  scope :in_place, ->(place_id) do
+    joins('JOIN agcs ON events.agc_id = agcs.id').where('? = ANY(agcs.relations)', place_id)
+    # chain = chain.where("start_date > '#{Time.now}'")
+  end
 
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'}
@@ -231,7 +235,7 @@ class Event < ActiveRecord::Base
   private
 
     def add_agc
-      self.agc = Agc.most_precise_enclosing(geom) unless geom.blank?
+      self.agc = Agc.most_precise_enclosing(geom) if agc.nil? and !geom.blank?
     end
 
     def calc_archive_date
