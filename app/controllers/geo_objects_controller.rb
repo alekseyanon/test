@@ -105,7 +105,7 @@ class GeoObjectsController < ApplicationController
   end
 
   def count
-    respond_with LandmarkDescription.count
+    respond_with GeoObject.count
   end
 
   protected
