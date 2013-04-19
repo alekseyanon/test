@@ -223,6 +223,7 @@ class Event < ActiveRecord::Base
     json[:state_localized] = I18n.t 'events.states.'+state
     json[:rating_go] = rating_go
     json[:rating_like] = rating_like
+    json[:event_tags] = event_tags
     json
   end
 
