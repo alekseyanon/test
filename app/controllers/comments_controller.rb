@@ -26,7 +26,6 @@ class CommentsController < InheritedResources::Base
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end
-    #redirect_to @review
   end
 
   def update
@@ -37,7 +36,7 @@ class CommentsController < InheritedResources::Base
         format.html { redirect_to @review, notice: 'review was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: :edit }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
