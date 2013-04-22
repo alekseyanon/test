@@ -9,23 +9,16 @@ Smorodina::Application.routes.draw do
     match 'objects/:id' => 'objects#show'
   end
 
-  match "/users/auth/:provider/callback", to: 'authentications#create'
-  #match "/auth/:facebook/callback", to: 'authentications#create'
+  match '/users/auth/:provider/callback', to: 'authentications#create'
 
   resources :ratings, only: [:create]
 
   resources :profiles
 
-  devise_for :users #, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users
 
   # Авторизация через социальные сервисы
   resources :authentications
-  #match "/user/social_accounts", :to => "authentications#index", :as => :auth_list
-  #match "/auth/:provider", to: 'users#auth_callback', as: :auth
-  #match "/auth/:provider/callback", to: 'users#auth_callback', as: :auth_callback
-  #match "/auth/:provider", to: 'authentications#create', as: :auth
-  #match "/users/auth/:provider/callback", to: 'authentications#create'
-  #match "/users/auth/facebook/callback", to: 'authentications#create'
 
   resources :images do
     resources :votes, only: [:create, :destroy]
@@ -40,7 +33,7 @@ Smorodina::Application.routes.draw do
     end
   end
 
-  resources :geo_objects, path: "objects" do
+  resources :geo_objects, path: 'objects' do
     resources :reviews, only: [:new, :create, :edit, :update]
     resources :votes, only: [:create, :destroy]
     member do

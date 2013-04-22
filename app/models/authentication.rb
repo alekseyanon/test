@@ -27,7 +27,7 @@ class Authentication < ActiveRecord::Base
 
   def facebook_post(message)
     @graph = Koala::Facebook::API.new(self.oauth_token)
-    @graph.put_connections("me", "feed", message: message)
+    @graph.put_connections('me', 'feed', message: message)
     return
   end
 

@@ -60,8 +60,6 @@ class User < ActiveRecord::Base
     super && self.authentications.blank?
   end
 
-  ### TODO: add validations
-  ### TODO: refactor
   ### TODO: Add state_machine
 
   #TODO remove hack
@@ -71,5 +69,29 @@ class User < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     new_record?
+  end
+
+  def self.find_or_create(auth, args)
+    email = args[:email]
+    if auth # Пользователь не вошел в систему, но authentication найдена
+            # залогинить пользователя.
+      auth.user
+    else # Пользователь не вошел на сайт и authentication не найдена
+         # найти или создать пользователя, создать authentication и залогинить его
+         #поиск пользователя по email
+      user = (email ? self.find_by_email(email) : nil)
+      if user
+        #Создаем authentication и залогиниваем пользователя
+        user.authentications.create!(args)
+      else
+        # Создаем пользователя и authentication и залогиниваем его.
+        user = self.new(password: Devise.friendly_token[0,20])
+        user.authentications.build(args)
+        user.skip_confirmation!
+        user.save!
+        user.confirm!
+      end
+      user
+    end
   end
 end

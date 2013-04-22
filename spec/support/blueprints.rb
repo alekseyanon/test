@@ -46,7 +46,7 @@ User.blueprint do
   pwd = Faker::Lorem.characters(9)
   password { pwd }
   password_confirmation { pwd }
-  email { "test#{sn}"+ rand(100).to_s + Faker::Internet.email }
+  email { "test#{sn}" + Faker::Internet.email }
   #roles { ["traveler"] }
   profile { Profile.make! }
 end
@@ -94,5 +94,11 @@ EventTag.blueprint do
 end
 
 Agc.blueprint do
-    relations { make_sample_relations!; [1, 2, 3] }
+  relations { make_sample_relations!; [1, 2, 3] }
+end
+
+Authentication.blueprint do
+  uid {Time.now.to_i}
+  provider {'facebook'}
+  user {User.make!}
 end
