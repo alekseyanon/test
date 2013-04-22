@@ -42,6 +42,4 @@ describe AuthenticationsController do
     user.authentications.last.uid.should == @uid
     response.should redirect_to(authentications_path)
   end
-
-
 end

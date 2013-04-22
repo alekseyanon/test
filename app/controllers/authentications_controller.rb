@@ -27,32 +27,15 @@ class AuthenticationsController < ApplicationController
 
     if oauth['provider'] && oauth['uid']
       auth = Authentication.find_by_provider_and_uid(oauth['provider'], oauth['uid'])
-      args = {provider: oauth['provider'], uid: oauth['uid']}
-      args.merge!( email: oauth['info']['email']) if oauth['provider'] == 'facebook'
-
-      oauth_token = get_auth_token(oauth)
-      args.merge!( oauth_token: oauth_token) if oauth_token
-      args.merge!( oauth_token_secret: oauth['credentials']['secret']) if oauth['provider'] == 'twitter'
 
       if current_user
-        current_user.authentications.create!(args) unless auth
+        current_user.create_authentication(oauth) unless auth
         redirect_to authentications_path
       else
-        sign_in_and_redirect(:user, User.find_or_create(auth, args))
+        sign_in_and_redirect(:user, User.find_or_create(auth, oauth))
       end
     else
       render new_user_registration_path
-    end
-  end
-
-  private
-
-  def get_auth_token(oauth)
-    case oauth['provider']
-      when 'facebook', 'twitter' then oauth['credentials']['token']
-      ### TODO: add vkontakte
-      #when 'vk' then
-      else nil
     end
   end
 end

@@ -22,7 +22,19 @@ describe User do
 
 
   context 'find_or_create without users' do
-    subject { -> {User.find_or_create(nil, {provider: 'twitter', uid: Time.now.to_i.to_s})} }
+    subject do
+      oauth = {
+        'credentials' => {
+          'token' => '471261730-OSGlKOnc6cAWZLABJyV1WM1aWGe9WIeV2PakyoMb'
+        },
+        'provider' => 'twitter',
+        'uid' => Time.now.to_i.to_s,
+        'info' => {'email' => "test#{Time.now.to_i}test@test.test"}
+      }
+      -> do
+        User.find_or_create(nil, oauth)
+      end
+    end
     it {should change(User, :count).by(1)}
     it {should change(Authentication, :count).by(1)}
   end
@@ -30,8 +42,17 @@ describe User do
   context 'find_or_create with user' do
     subject do
       u = User.make!
+      oauth = {
+        'credentials' => {
+          'token' => '471261730-OSGlKOnc6cAWZLABJyV1WM1aWGe9WIeV2PakyoMb'
+        },
+        'provider' => 'facebook',
+        'uid' => Time.now.to_i.to_s,
+        'info' => {'email' => u.email}
+      }
+
       -> do
-        User.find_or_create(nil, {provider: 'twitter', uid: Time.now.to_i.to_s, email: u.email})
+        User.find_or_create(nil, oauth)
       end
     end
     it {should_not change(User, :count)}
@@ -41,12 +62,19 @@ describe User do
   context 'find_or_create with user and authentication' do
     subject do
       a = Authentication.make!
+      oauth = {
+        'credentials' => {
+          'token' => '471261730-OSGlKOnc6cAWZLABJyV1WM1aWGe9WIeV2PakyoMb'
+        },
+        'provider' => a.provider,
+        'uid' => a.uid,
+        'info' => {'email' => a.user.email}
+      }
       -> do
-        User.find_or_create(a, {provider: 'twitter', uid: Time.now.to_i.to_s, email: a.user.email})
+        User.find_or_create(a, oauth)
       end
     end
     it {should_not change(User, :count)}
     it {should_not change(Authentication, :count)}
   end
 end
-

@@ -71,15 +71,19 @@ class User < ActiveRecord::Base
     new_record?
   end
 
-  def self.find_or_create(auth, args)
-    email = args[:email]
+  def create_authentication(oauth)
+    self.authentications.create!(User.prepare_args_for_auth(oauth))
+  end
+
+  def self.find_or_create(auth, oauth)
+    args = prepare_args_for_auth(oauth)
     if auth # Пользователь не вошел в систему, но authentication найдена
             # залогинить пользователя.
       auth.user
     else # Пользователь не вошел на сайт и authentication не найдена
          # найти или создать пользователя, создать authentication и залогинить его
          #поиск пользователя по email
-      user = (email ? self.find_by_email(email) : nil)
+      user = (args[:email] ? self.find_by_email(args[:email]) : nil)
       if user
         #Создаем authentication и залогиниваем пользователя
         user.authentications.create!(args)
@@ -94,4 +98,20 @@ class User < ActiveRecord::Base
       user
     end
   end
+
+  def self.prepare_args_for_auth(oauth)
+    args = {provider: oauth['provider'], uid: oauth['uid']}
+    args.merge!( email: oauth['info']['email']) if oauth['provider'] == 'facebook'
+
+    oauth_token = case oauth['provider']
+                    when 'facebook', 'twitter' then oauth['credentials']['token']
+                    ### TODO: add vkontakte
+                    #when 'vk' then
+                    else nil
+                  end
+    args.merge!( oauth_token: oauth_token) if oauth_token
+    args.merge!( oauth_token_secret: oauth['credentials']['secret']) if oauth['provider'] == 'twitter'
+    args
+  end
+
 end
