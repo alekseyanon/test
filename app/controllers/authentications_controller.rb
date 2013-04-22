@@ -24,19 +24,15 @@ class AuthenticationsController < ApplicationController
       render text: 'No response'
       return
     end
-    provider = oauth['provider']
-    uid = oauth['uid']
-    email = (provider == 'facebook' ? oauth['info']['email'] : nil)
 
-    oauth_token = get_auth_token(provider, oauth)
-    oauth_token_secret = (provider == 'twitter' ? oauth['credentials']['secret'] : nil)
+    if oauth['provider'] && oauth['uid']
+      auth = Authentication.find_by_provider_and_uid(oauth['provider'], oauth['uid'])
+      args = {provider: oauth['provider'], uid: oauth['uid']}
+      args.merge!( email: oauth['info']['email']) if oauth['provider'] == 'facebook'
 
-    if provider && uid
-      auth = Authentication.find_by_provider_and_uid(provider, uid)
-
-      args = {provider: provider, uid: uid, email: email }
+      oauth_token = get_auth_token(oauth)
       args.merge!( oauth_token: oauth_token) if oauth_token
-      args.merge!( oauth_token_secret: oauth_token_secret) if oauth_token_secret
+      args.merge!( oauth_token_secret: oauth['credentials']['secret']) if oauth['provider'] == 'twitter'
 
       if current_user
         current_user.authentications.create!(args) unless auth
@@ -51,8 +47,8 @@ class AuthenticationsController < ApplicationController
 
   private
 
-  def get_auth_token(provider, oauth)
-    case provider
+  def get_auth_token(oauth)
+    case oauth['provider']
       when 'facebook', 'twitter' then oauth['credentials']['token']
       ### TODO: add vkontakte
       #when 'vk' then
