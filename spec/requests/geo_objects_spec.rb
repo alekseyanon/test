@@ -82,7 +82,8 @@ describe "GeoObjects", js: true, type: :request do
       fill_in 'geo_object_title', with: new_title
       select new_category, from: 'geo_object_tag_list'
       click_on 'Применить изменения'
-      wait_until(10){ page.should have_content new_title }
+      pause 3
+       page.should have_content new_title 
       page.should_not have_content title
       # see db/seeds/categories.yml
       page.should have_content 'Что посмотреть?'
