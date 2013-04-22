@@ -233,7 +233,7 @@ class Event < ActiveRecord::Base
   private
 
     def add_agc
-      self.agc = Agc.most_precise_enclosing(geom) if agc.nil? and !geom.blank?
+      self.agc ||= Agc.most_precise_enclosing(geom) unless geom.blank?
     end
 
     def calc_archive_date
