@@ -117,3 +117,8 @@ end
 EventTag.blueprint do
   title { Faker::Lorem.word }
 end
+
+Video.blueprint do
+  ids = %w(n0SVG6SgirE 3eRxPDLYM9Q TRbLicNOvzY BHjg6cTxmrQ)
+  vid { (ids - Video.pluck(:vid)).sample }
+end

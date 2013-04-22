@@ -1,6 +1,7 @@
 class LandmarkDescription < AbstractDescription
 
-	has_many :ratings
+  has_many :ratings
+  has_one :video, as: :movie_star
   attr_accessor :xld, :yld
   attr_accessible :xld, :yld
 
