@@ -96,3 +96,9 @@ end
 Agc.blueprint do
   relations { [1, 2, 3] }
 end
+
+Authentication.blueprint do
+  uid {Time.now.to_i}
+  provider {'facebook'}
+  user {User.make!}
+end

@@ -74,3 +74,9 @@ end
 def js_click(selector)
   page.execute_script("$('#{selector}').click();")
 end
+
+def get_credentials
+  {'credentials' => {
+      'token' => '471261730-OSGlKOnc6cAWZLABJyV1WM1aWGe9WIeV2PakyoMb'
+  }}
+end
