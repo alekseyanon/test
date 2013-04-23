@@ -126,7 +126,7 @@ describe "GeoObjects", js: true, type: :request do
     end
 
     def ld(tag_list, latlon)
-      GeoObject.make! tag_list: tag_list, geom: latlon, geom: to_point(latlon)
+      GeoObject.make! tag_list: tag_list, geom: to_point(latlon)
     end
 
     let!(:bar){ ld 'bar', [30.34, 59.93] }

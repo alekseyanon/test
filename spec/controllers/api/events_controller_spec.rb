@@ -35,6 +35,7 @@ describe Api::EventsController do
     let!(:events){ dates_to_events([7.days.ago, 4.days.ago, 3.days.ago, Time.now, 1.days.from_now, 15.days.from_now]) }
     let!(:event) { Event.make!(title: 'New beautiful event', start_date: 50.days.from_now, tag_list: 'zzz, xxx, yyy') }
 
+
     it 'has I will go count, I like count, sum of both' do
       get :search, text: 'beautiful'
       ev = JSON.parse(response.body, {symbolize_names: true}).first
@@ -64,12 +65,29 @@ describe Api::EventsController do
       assigns(:events).should == [event]
     end
 
-    it 'can search by place_id' do
-      pending 'No AGC'
+    context 'place' do
+
+      let(:agc) { make_sample_relations!; Agc.make!}
+      let!(:future_event_with_agc){ Event.make! agc: agc, start_date: 1.month.from_now}
+      let!(:past_event_with_agc){ Event.make! agc: agc, start_date: 1.month.ago}
+
+      it 'returns future events if exists' do
+        get :search, place_id: agc.relations.first
+        assigns(:events).should == [future_event_with_agc]
+      end
+
+      it 'returns first event if there is only past events' do
+        future_event_with_agc.destroy
+        get :search, place_id: agc.relations.first
+        assigns(:events).should == [past_event_with_agc]
+      end
+
     end
+
     it 'can sort results by date or rate' do
       pending 'No rating for events'
     end
+
   end
 
 end

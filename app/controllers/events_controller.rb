@@ -3,7 +3,6 @@ class EventsController < InheritedResources::Base
   respond_to :json, only: :search
 
   def new
-    @landmarks = Landmark.limit(10)
     new!
   end
 

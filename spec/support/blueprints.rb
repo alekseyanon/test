@@ -94,7 +94,7 @@ EventTag.blueprint do
 end
 
 Agc.blueprint do
-  relations { make_sample_relations!; [1, 2, 3] }
+  relations { [1, 2, 3] }
 end
 
 Authentication.blueprint do

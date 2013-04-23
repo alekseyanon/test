@@ -16,6 +16,7 @@
 //= require jquery.ui.all
 //= require jquery-datetimepicker
 //= require chosen-jquery
+//= require moment
 //= require bootstrap-dropdown
 //= require underscore
 //= require backbone
@@ -26,8 +27,10 @@
 //= require leaflet
 //= require jquery.Jcrop
 
+new Smorodina.Routers.Global;
 router = new Smorodina.Routers.Global;
 router.route('events', 'events', Smorodina.Pages.Events);
+router.route('events/search', 'events', Smorodina.Pages.Events);
 router.route('objects/search', 'geo_objects', Smorodina.Pages.GeoObjects);
 router.route('', 'index', Smorodina.Pages.Index);
 Backbone.history.start({ hashChange: false });

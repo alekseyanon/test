@@ -83,6 +83,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails_jquery_ui_datepicker'
 gem 'spinjs-rails'
+gem 'momentjs-rails'
 
 gem 'capistrano'
 gem 'rvm-capistrano'

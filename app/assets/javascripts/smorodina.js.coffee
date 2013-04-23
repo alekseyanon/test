@@ -6,9 +6,6 @@ window.Smorodina =
   Pages: {}
   Utils:
     History:
-      restart: (Router, options) ->
-        options = _.extend({}, { pushState: true }, options)
+      stop: ->
         Backbone.history.stop()
         Backbone.history = new Backbone.History;
-        new Router
-        Backbone.history.start(options)

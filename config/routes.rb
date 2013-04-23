@@ -10,14 +10,14 @@ Smorodina::Application.routes.draw do
   end
 
   match '/users/auth/:provider/callback', to: 'authentications#create'
+  match 'events/search' => 'events#index'
 
-  resources :ratings, only: [:create]
+  resources :events
 
   resources :profiles
 
   devise_for :users
 
-  # Авторизация через социальные сервисы
   resources :authentications
 
   resources :images do
@@ -47,15 +47,6 @@ Smorodina::Application.routes.draw do
       get 'count'
     end
   end
-
-  resources :landmarks do
-    collection do
-      get 'search'
-      post 'do_search'
-    end
-  end
-
-  resources :events
 
   controller :welcome do
     get '/activation', action: 'pend_act', as: :pendtoact

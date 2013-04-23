@@ -19,6 +19,24 @@ describe Event do
   it { event.archive_date.nil?.should be_false }
   it { event.archive_date.should_not be_blank }
 
+  it 'returns events in place' do
+    agc1 = Agc.make!
+    agc2 = Agc.make! relations: [1, 2]
+    agc3 = Agc.make! relations: [1]
+    e1 = Event.make! agc: agc1
+    e2 = Event.make! agc: agc2
+    e3 = Event.make! agc: agc3
+    Event.in_place(2).should =~ [e1, e2]
+  end
+
+  it 'gets agc after create and send it as json' do
+    make_sample_relations!
+    Agc.make!
+    e = Event.make! geom: 'POINT(0 0)'
+    e.agc.names.blank?.should_not be true
+    e.as_json[:agc].blank?.should_not be true
+  end
+
   describe 'rating' do
     it 'can be voted for' do
       user.vote event, direction: :up

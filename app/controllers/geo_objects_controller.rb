@@ -3,7 +3,8 @@ class GeoObjectsController < ApplicationController
   before_filter :get_landmark, only: [:edit, :show]
   before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
 
-  respond_to :html, :json
+  respond_to :json
+  respond_to :html, except: [:coordinates, :nearest_node, :count]
 
   def sanitize_search_params(params)
     params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets, :sort_by) #TODO consider using ActiveRecord for this
@@ -104,7 +105,7 @@ class GeoObjectsController < ApplicationController
   end
 
   def count
-    respond_to { |format| format.json { render json: GeoObject.count } }
+    respond_with GeoObject.count
   end
 
   protected

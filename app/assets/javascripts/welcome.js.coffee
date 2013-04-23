@@ -3,12 +3,12 @@
 
 Smorodina.Pages.Index = ->
 
-  # TODO temporary solution.
-  # in future index page and geo_objects page will have their own init code
-  Smorodina.Pages.GeoObjects()
-
   $ ->
     new Smorodina.Views.SearchFilter
+    new Smorodina.Views.Map
+
+    # TODO temporary solution
+    geo_object_search()
 
     $('#mainSearchFieldInput').on 'focus', ->
       $('.how-to-search').addClass 'how-to-search_hidden'

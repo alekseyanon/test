@@ -66,6 +66,19 @@ h2 {
   padding: 24px 30px;
 }
 
+.search-panel__header {
+  margin-bottom: 12px;
+}
+
+.search-panel__header__back-link {
+  font-size: 13px;
+  color: $lightblue;
+}
+
+.search-panel__header_default > .search-panel__header__back-link {
+  display: none;
+}
+
 /* ---------------------------------------- LINKS START ----------------------------------------- */
 
 a, .action-link {
@@ -101,16 +114,14 @@ a:hover,
   line-height: 1;
 }
 
-.action-link:hover {
-  text-decoration: none;
-}
-
-.ui-link:visited {
-  color: inherit;
-}
-
+.action-link:hover,
 .tdn-link {
   text-decoration: none;
+}
+
+.ui-link:visited,
+.action-link:visited {
+  color: inherit;
 }
 
 .user-link {
@@ -204,6 +215,7 @@ a:hover,
   padding: 0 0 0 12px;
   text-align: left;
   width: 100%;
+  z-index: 1001;
 }
 
 .user-panel__account__dropdown > li {
@@ -822,6 +834,7 @@ a:hover,
 .search__results__date-section__header {
   @include trailer(0.5);
   @include vignette(10px, 1px, bottom, left, $lightgrey);
+  font-weight: bold;
 }
 
 .chronicle__section__row {
@@ -1021,6 +1034,11 @@ a:hover,
   content: '\2192';
 }
 
+.smorodina-item__tags__list_event > li:after {
+  content: ',';
+  margin-left: -3px;
+}
+
 .smorodina-item__tags__list > li:last-child:after,
 .smorodina-item__geo__list > li:last-child:after {
   content: none;
@@ -1084,15 +1102,15 @@ a:hover,
 
 .smorodina-item__event-label {
   border-radius: 3px;
-  position: absolute;
-  top: 2px; right: 2px;
   color: #fff;
   font-size: 11px;
   line-height: 1.2;
   padding: 3px 7px;
+  margin-left: 10px;
 }
 
-.smorodina-item__event-label_progress {
+.smorodina-item__event-label_progress,
+.smorodina-item__event-label_new {
   background-color: #a9cd19;
 }
 
@@ -1515,22 +1533,28 @@ a:hover,
   font-size: 13px;
 }
 
-// TODO may be change floats to inline-blocks in future
+.search-panel_events {
+  padding: 0 30px;
+  margin-bottom: 24px;
+}
+
 .search-panel_events__inner {
-  padding-bottom: 18px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 24px;
 }
 
 .search-panel_events__input {
   margin-right: 15px;
 }
 
+// TODO may be change floats to inline-blocks in future
 // TODO move out of events section
 
 .search-panel__change-controls {
   float: left;
 }
 
-.search-panel__search-form {
+.search-panel__search-field {
   float: right;
 }
 

@@ -1,4 +1,4 @@
-# fun coding: UTF-8
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe Agc do
@@ -14,7 +14,7 @@ describe Agc do
 
 
   describe '#names' do
-    let(:agc) { Agc.make! }
+    let(:agc) { make_sample_relations!; Agc.make! }
     it 'returns a chain of relation ids with names' do
       agc.names.should == {1 => 'Россия', 2 => "Ленинградская область", 3 => "Санкт-Петербург"}
     end
