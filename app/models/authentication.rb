@@ -31,4 +31,8 @@ class Authentication < ActiveRecord::Base
     return
   end
 
+  def social_post(provider, message)
+    (provider == 'facebook') ? facebook_post(message) : twitter_post(message)
+  end
+
 end

@@ -37,10 +37,10 @@ class User < ActiveRecord::Base
   def uniqueness_user
     if self.email.blank?
       if self.authentications.blank?
-        self.errors.add(:email, 'can not be blank without authentications')
+        self.errors.add(:email, 'Either email or social network authentication is required')
       end
     else
-      self.errors.add(:email, ' is not uniq') if User.pluck(:email).uniq.include? self.email
+      self.errors.add(:email, ' is already in use') if User.pluck(:email).uniq.include? self.email
     end
   end
 
@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
     self.create_profile!
   end
 
+  ### TODO: remove temporary method
   def identifier
     self.email.blank? ? "Профиль пользователя #{self.id}" : self.email
   end
@@ -83,7 +84,7 @@ class User < ActiveRecord::Base
     else # Пользователь не вошел на сайт и authentication не найдена
          # найти или создать пользователя, создать authentication и залогинить его
          #поиск пользователя по email
-      user = (args[:email] ? self.find_by_email(args[:email]) : nil)
+      user = args[:email] && self.find_by_email(args[:email])
       if user
         #Создаем authentication и залогиниваем пользователя
         user.authentications.create!(args)
@@ -102,14 +103,7 @@ class User < ActiveRecord::Base
   def self.prepare_args_for_auth(oauth)
     args = {provider: oauth['provider'], uid: oauth['uid']}
     args.merge!( email: oauth['info']['email']) if oauth['provider'] == 'facebook'
-
-    oauth_token = case oauth['provider']
-                    when 'facebook', 'twitter' then oauth['credentials']['token']
-                    ### TODO: add vkontakte
-                    #when 'vk' then
-                    else nil
-                  end
-    args.merge!( oauth_token: oauth_token) if oauth_token
+    args.merge!( oauth_token: oauth['credentials']['token']) if %w(facebook twitter).include? oauth['provider']
     args.merge!( oauth_token_secret: oauth['credentials']['secret']) if oauth['provider'] == 'twitter'
     args
   end

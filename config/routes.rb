@@ -64,8 +64,7 @@ Smorodina::Application.routes.draw do
     get '/show', action: 'show'
     get '/history', action: 'history'
     get '/post', action: 'post'
-    get '/to_twitter', action: 'to_twitter'
-    get '/to_facebook', action: 'to_facebook'
+    get '/to_social_network', action: 'to_social_network'
   end
 
   root to: 'welcome#home'

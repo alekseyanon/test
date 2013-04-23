@@ -4,14 +4,11 @@ class AuthenticationsController < ApplicationController
 	### TODO: add view for this action
 	def index
     @authentications = current_user ? current_user.authentications.all : []
-    #@connected_providers = @authentications.map { |auth| auth.provider }
   end
 
 	def destroy
     # remove an authentication linked to the current user
-    @authentication = current_user.authentications.find(params[:id])
-    @authentication.destroy
-
+    current_user.authentications.destroy params[:id]
     redirect_to authentications_path
   end
 

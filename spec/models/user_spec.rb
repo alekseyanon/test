@@ -8,7 +8,7 @@ describe User do
   it { should have_many(:authentications) }
 
   it 'should not allow to save user without any role' do
-    pending
+    pending 'roles are not implemented'
     user.roles = []
     user.should_not be_valid
   end
@@ -23,14 +23,9 @@ describe User do
 
   context 'find_or_create without users' do
     subject do
-      oauth = {
-        'credentials' => {
-          'token' => '471261730-OSGlKOnc6cAWZLABJyV1WM1aWGe9WIeV2PakyoMb'
-        },
-        'provider' => 'twitter',
-        'uid' => Time.now.to_i.to_s,
-        'info' => {'email' => "test#{Time.now.to_i}test@test.test"}
-      }
+      oauth = get_credentials.merge('provider' => 'twitter',
+                                    'uid' => Time.now.to_i.to_s,
+                                    'info' => {'email' => "test#{Time.now.to_i}test@test.test"})
       -> do
         User.find_or_create(nil, oauth)
       end
@@ -42,15 +37,9 @@ describe User do
   context 'find_or_create with user' do
     subject do
       u = User.make!
-      oauth = {
-        'credentials' => {
-          'token' => '471261730-OSGlKOnc6cAWZLABJyV1WM1aWGe9WIeV2PakyoMb'
-        },
-        'provider' => 'facebook',
-        'uid' => Time.now.to_i.to_s,
-        'info' => {'email' => u.email}
-      }
-
+      oauth = get_credentials.merge('provider' => 'facebook',
+                                    'uid' => Time.now.to_i.to_s,
+                                    'info' => {'email' => u.email})
       -> do
         User.find_or_create(nil, oauth)
       end
@@ -62,14 +51,9 @@ describe User do
   context 'find_or_create with user and authentication' do
     subject do
       a = Authentication.make!
-      oauth = {
-        'credentials' => {
-          'token' => '471261730-OSGlKOnc6cAWZLABJyV1WM1aWGe9WIeV2PakyoMb'
-        },
-        'provider' => a.provider,
-        'uid' => a.uid,
-        'info' => {'email' => a.user.email}
-      }
+      oauth = oauth = get_credentials.merge('provider' => a.provider,
+                                            'uid' => a.uid,
+                                            'info' => {'email' => a.user.email})
       -> do
         User.find_or_create(a, oauth)
       end

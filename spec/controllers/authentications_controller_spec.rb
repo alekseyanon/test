@@ -3,13 +3,11 @@ require 'spec_helper'
 describe AuthenticationsController do
   before :each do
     @uid = (Time.now.to_i + rand(1000)).to_s
-    request.env['omniauth.auth'] = {
-                'credentials' => {
-                  'token' => '471261730-OSGlKOnc6cAWZLABJyV1WM1aWGe9WIeV2PakyoMb'
-                },
-                'provider' => 'twitter',
-                'uid' => @uid
-              }
+    request.env['omniauth.auth'] = get_credentials.merge(
+                                                          'provider' => 'twitter',
+                                                          'uid' => @uid
+                                                         )
+
   end
 
   it 'POST create authentications without users' do

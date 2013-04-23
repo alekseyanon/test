@@ -10,7 +10,7 @@ Devise.setup do |config|
   social_cfg = social_cfg[Rails.env]
 
   config.omniauth :facebook, social_cfg['facebook']['id'], social_cfg['facebook']['secret'],
-                  {:scope => 'publish_stream, read_stream, publish_actions, email'}
+                  {scope: 'publish_stream, read_stream, publish_actions, email'}
   config.omniauth :twitter, social_cfg['twitter']['key'], social_cfg['twitter']['secret']
   config.omniauth :vkontakte, social_cfg['vkontakte']['id'], social_cfg['vkontakte']['secret']
 

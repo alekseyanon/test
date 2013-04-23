@@ -19,16 +19,10 @@ class WelcomeController < ApplicationController
   end
 
   def post
-
   end
 
-  def to_twitter
-    current_user.authentications.where(provider: 'twitter').first.twitter_post(Time.now.to_s)
-    redirect_to root_path
-  end
-
-  def to_facebook
-    current_user.authentications.where(provider: 'facebook').first.facebook_post(Time.now.to_s)
+  def to_social_network
+    current_user.authentications.where(provider: params[:provider]).first.social_post(params[:provider], Time.now.to_s)
     redirect_to root_path
   end
 end
