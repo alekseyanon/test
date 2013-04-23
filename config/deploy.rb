@@ -78,7 +78,7 @@ namespace :smorodina do
     end
   end
 
-  set :rails_env, :production
+  set :rails_env, 'production'
   set :unicorn_config, "#{current_path}/config/unicorn.rb"
   set :unicorn_pid, "#{shared_path}/pids/unicorn.pid"
 
