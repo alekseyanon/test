@@ -57,7 +57,7 @@ describe "GeoObjects", js: true, type: :request do
       fill_in 'geo_object_title', with: title
       find('#map').click
       #TODO cover multiple tags
-      select tag, from: 'geo_object_tag_list' if tag
+      select tag, from: 'geo_object_tag_list', visible: false if tag
       click_on 'Создать объект'
     end
 
@@ -189,7 +189,8 @@ describe "GeoObjects", js: true, type: :request do
       page.fill_in 'mainSearchFieldInput', with: 'apartment'
       click_on "mainSearchButton"
 
-      wait_until(10){ page.find("#searchResults").should have_content 'lodging' }
+      sleep 3
+      page.find("#searchResults").should have_content 'lodging' 
       page.find("#searchResults").should have_content 'apartment'
       page.find("#searchResults").should_not have_content 'food'
       page.find("#searchResults").should_not have_content 'bar'
