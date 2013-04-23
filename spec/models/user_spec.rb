@@ -51,7 +51,7 @@ describe User do
   context 'find_or_create with user and authentication' do
     subject do
       a = Authentication.make!
-      oauth = oauth = get_credentials.merge('provider' => a.provider,
+      oauth = get_credentials.merge('provider' => a.provider,
                                             'uid' => a.uid,
                                             'info' => {'email' => a.user.email})
       -> do
