@@ -113,7 +113,6 @@ describe 'Users reset password' do
 		current_path.should == '/users/sign_in'
 	end
 
-<<<<<<< HEAD
 	it 'add new password after reset password' do
     pending
 		visit reset_password_url(token: @user.perishable_token)
@@ -124,9 +123,6 @@ describe 'Users reset password' do
 		page.should have_content('Профиль')
 		current_path.should == user_path(@user)
 	end
-
-=======
->>>>>>> c359693852d4f8ba79f5017667000e59d62f1d8a
 
   ### to use your account
   context 'Users social networks', js: true, type: :request do
