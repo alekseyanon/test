@@ -20,12 +20,7 @@
   %h4{style: 'color: red;'}
     .rate= @geo_object.average_rating
   = button_to "Добавить в планировщик", "#"
-  .vk.soc
-    Мне нравится VK
-  .fb.soc
-    like FB
-  .tw.soc
-    tweet
+  <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir"></div>
   .cl-left
   .links
     = link_to "Голосовать", "#"

@@ -30,7 +30,17 @@ describe "Events", js: true, type: :request do
   let(:title) { Faker::Lorem.sentence }
   let(:body)  { Faker::Lorem.sentence 2}
   let(:tags)  { 'aaa, bbb, ccc' }
-  let(:event) { Event.make! repeat_rule: 'weekly', title: title, start_date: Time.now}
+  let(:event) { Event.make! repeat_rule: 'weekly', title: title, start_date: start_date, end_date: end_date }
+
+  it 'should show event list' do
+    pending
+    event
+    visit events_path
+    item = page.find('.smorodina-item')
+    item.should have_content title
+    item.should have_content tags
+    item.should have_content "#{Time.now.strftime('%e %B')} - #{1.day.from_now.strftime('%e %B')}"
+  end
 
   it 'creates a new event' do
     pending

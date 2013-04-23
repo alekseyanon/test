@@ -80,10 +80,9 @@ describe "GeoObjects", js: true, type: :request do
       visit geo_object_path GeoObject.last
       click_on 'редактировать описание'
       fill_in 'geo_object_title', with: new_title
-      select new_category, from: 'geo_object_tag_list'
+      select new_category, from: 'geo_object_tag_list', visible: false
       click_on 'Применить изменения'
-      pause 3
-       page.should have_content new_title 
+      page.should have_content new_title 
       page.should_not have_content title
       # see db/seeds/categories.yml
       page.should have_content 'Что посмотреть?'
