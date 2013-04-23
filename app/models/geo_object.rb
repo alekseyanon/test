@@ -2,7 +2,7 @@ require 'set' # What is it?
 
 class GeoObject < ActiveRecord::Base
 
-  attr_accessor :xld, :yld
+  attr_accessor :xld, :yld, :best_object
   attr_accessible :xld, :yld, :rating, :geom
 
   acts_as_voteable
@@ -24,7 +24,7 @@ class GeoObject < ActiveRecord::Base
   end
 
   def as_json options = {}
-    op_hash = { only: [:id, :title, :body, :rating, :geom], methods: [:tag_list, :latlon], include: :agc }
+    op_hash = { only: [:id, :title, :body, :rating, :geom], methods: [:tag_list, :latlon, :best_object], include: :agc }
     op_hash[:only] = [:id, :title, :rating] if options[:extra] && options[:extra][:teaser]
     super op_hash
   end
