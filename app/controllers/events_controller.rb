@@ -9,7 +9,6 @@ class EventsController < InheritedResources::Base
   end
 
   def new
-    @landmarks = Landmark.limit(10)
     new!
   end
 
