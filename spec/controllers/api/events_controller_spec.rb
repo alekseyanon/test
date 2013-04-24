@@ -17,7 +17,7 @@ describe Api::EventsController do
     it 'возвращает все теги событий в JSON' do
       tag = EventTag.make!
       get :tags
-      assigns(:tags).should eq([tag])
+      assigns(:tags).should include(tag)
       expect(response).to be_success
     end
 
