@@ -7,6 +7,8 @@
           %li= msg
   .inputs
     = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories
-
+    = f.fields_for :images do |builder|
+      = render 'events/image_fields', f: builder
+    = link_to_add_fields 'add image', f, :images
   .actions
     = f.submit 'Save'
