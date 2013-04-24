@@ -9,7 +9,7 @@ class CreateVideoLinks < ActiveRecord::Migration
       t.timestamps
     end
     add_index :video_links, :user_id
-    add_index :video_links, :movie_star_id
-    add_index :video_links, [:movie_star_id, :user_id, :video_id], unique: true
+    add_index :video_links, [:movie_star_id, :movie_star_type]
+    add_index :video_links, [:movie_star_id, :movie_star_type, :user_id, :video_id], unique: true, name: 'total_index'
   end
 end

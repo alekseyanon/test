@@ -1,6 +1,7 @@
 class Video < ActiveRecord::Base
   URL_REGEX = /https?:\/\/(www.)?(?<type>youtube|vimeo)\.com\/(watch\?v=)?(?<id>.{11}|\d{8})(&.+)?/
-  VIDEO_TYPES = {'youtube' => 'YouTube', 'vimeo' => 'Vimeo'}
+              #TODO slim up regexp #/^(?:http:\/\/)?(?:www\.)?\w*\.\w*\/(?:watch\?v=)?((?:p\/)?[\w\-]+)/
+  VIDEO_TYPES = {'youtube' => YouTube, 'vimeo' => Vimeo}
   self.primary_key = :vid
 
 
@@ -11,14 +12,14 @@ class Video < ActiveRecord::Base
   has_many :users, through: :video_links
   has_many :movie_stars, through: :video_links,  source: :movie_star, source_type: 'LandmarkDescription'
 
-  def find_or_create_by_url(url)
+  def self.find_or_create_by_url(url)
     type, id = type_and_id_from_url url
-    Video.find_or_create_by_type_and_vid(type, id)
+    Video.find_or_create_by_type_and_vid(type.name, id).becomes type if type && id
   end
 
   protected
-  def type_and_id_from_url(url)
+  def self.type_and_id_from_url(url)
     md = URL_REGEX.match url
-    md && [VIDEO_TYPES[md[:type]], VIDEO_TYPES[md[:id]]]
+    md && [VIDEO_TYPES[md[:type]], md[:id]]
   end
 end

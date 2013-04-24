@@ -43,7 +43,7 @@ class Event < ActiveRecord::Base
 
   attr_accessible :body, :title, :start_date, :end_date,
                   :repeat_rule, :geom,
-                  :images_attributes, :videos_attributes, :event_tags, :tag_list
+                  :images_attributes, :event_tags, :tag_list
 
   before_create :generate_key, :calc_archive_date
 
@@ -53,10 +53,11 @@ class Event < ActiveRecord::Base
   has_many   :event_taggings
   has_many   :event_tags, through: :event_taggings
   has_many   :images,   as: :imageable
-  has_many   :videos,   as: :movie_star
+  has_many   :video_links, as: :movie_star
+  has_many   :you_tubes, through: :video_links, source: :video, source_type: 'YouTube'
+  has_many   :vimeos,    through: :video_links, source: :video, source_type: 'Vimeo'
 
   accepts_nested_attributes_for :images
-  accepts_nested_attributes_for :videos
 
   validates :title, :start_date, :end_date, :geom, :repeat_rule, presence: true
   validate  :validate_tags

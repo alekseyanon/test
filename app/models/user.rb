@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
   has_many :video_links
   has_many :you_tubes, through: :video_links, source: :video, source_type: 'YouTube'
-  has_many :vimeos, through: :video_links, source: :video, source_type: 'Vimeo'
+  has_many :vimeos,    through: :video_links, source: :video, source_type: 'Vimeo'
 
   acts_as_voter
   ### TODO: may be useful for calculation user rating
