@@ -4,10 +4,18 @@ namespace :fake do
         users authenticated by twitter, facebook and by the smorodina"
   
   #Creates fake users in database
+  #This task should be run after all migrations passed
+  #
+  #Creadentials for user with twitter account: [test333@mailinator.com, 123456a]
+  #Creadentials for user with facebook account: [test98732@yandex.ru, 123456ab]
+  #Creadentials for user with both twitter and facebook account: Facebook: [test98732both@yandex.ru, 123456ab]
+  #                                                              Twitter:  [test98732both@yandex.ru, 123456a ]
+
   task users: :environment do
 
     DEFAULT_PASSWORD = "12345678"
-
+    
+    #generic function for users creation 
     def user_creation
       u = User.new
       yield u
@@ -30,9 +38,6 @@ namespace :fake do
       end
     end
     
-    #Twitter credentials:
-    #test333@mailinator.com
-    #123456a
     def create_twitter_user
       user_creation do |u|
         u.password = Devise.friendly_token[0,20]
@@ -43,9 +48,6 @@ namespace :fake do
       end
     end
     
-    #Facebook credentials:
-    #test98732@yandex.ru
-    #123456ab
     def create_facebook_user
       user_creation do |u|
         u.authentications.build  email: "test98732@yandex.ru", provider: "facebook",
@@ -54,13 +56,6 @@ namespace :fake do
       end
     end
 
-    
-    #Twitter
-    #test98732both@yandex.ru
-    #123456a
-    #Facebook
-    #test98732both@yandex.ru
-    #123456ab
     def create_user_with_twitter_and_facebook
       user_creation do |u|
         u.authentications.build  email: "test98732both@yandex.ru", provider: "facebook",
