@@ -1,0 +1,84 @@
+
+=link_to "Создать объект", new_geo_object_path
+%br
+-# ###TODO: Move to partial
+=link_to "описание объекта", @geo_object
+|
+=link_to "редактировать описание", edit_geo_object_path(@geo_object)
+|
+=link_to "История изменений", history_geo_object_path(@geo_object)
+%h1 Редактирование объекта
+
+= simple_form_for @geo_object do |f|
+  - if @geo_object.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@geo_object.errors.count, "error")} prohibited this geo_object from being saved:"
+      %ul
+        - @geo_object.errors.full_messages.each do |msg|
+          %li= msg
+  .inputs
+    %a{:name => "name"}
+    = f.input :title
+
+    %a{:name => "place"}
+    %h3 Где находится
+    %div.map__outer
+      %div.map__inner
+        %div.map.leaflet-edit-object{id: "map", data: {x: @x, y: @y}}
+    = f.input :xld
+    = f.input :yld
+
+    %a{:name => "category"}
+    %h3 Категория
+    %b
+      список добавленых категорий с возможностью их удалить
+    %br
+    .blue
+      = @geo_object.tag_list.join(" | ")
+    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите вручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name, :include_blank => false
+    %h3{:onclick => "$('.categories').toggle();"}
+      =link_to "Или выбери из списка", "#"
+    .categories
+      %h4 Что посмотреть
+      список чекбоксов для категории что посмотреть
+      %h4 Чем заняться
+      список чекбоксов для категории чем заняться
+      %h4 Где заночевать
+      список чекбоксов для категории где заночевать
+      %h4 Где поесть
+      список чекбоксов для категории  где поесть
+
+      = f.input :tag_list, collection: @categories, :label => "Укажите вручную (например, монастырь, выставка, памятник)", as: :check_boxes, :label_method => :name_ru
+
+    =link_to "Что посмотреть", "#"
+    |
+    =link_to "Чем заняться", "#"
+    |
+    =link_to "Где заночевать", "#"
+    |
+    =link_to "Где поесть", "#"
+    .type-form
+      %br
+      %br
+      %p здесь будут формы для соответствующих форм
+      %br
+      %br
+    %h3 Фото
+    %p 3 фотографии объекта
+    %p и под каждой ссылка "пожаловаться"
+    = button_to "Все фото(кол-во)", "#"
+    = button_to "Фото", "#"
+
+    %h3 Видео
+    %p 3 видео объекта
+    %p и под каждым ссылка "пожаловаться"
+    = button_to "Все видео(кол-во)", "#"
+    = button_to "видео", "#"
+
+    = f.submit "Применить изменения"
+= link_to 'Show', @geo_object
+|
+= link_to 'Back', geo_objects_path
+
+%script
+  $(window).load(function(){ geo_object_edit();})

@@ -16,6 +16,7 @@
 //= require jquery.ui.all
 //= require jquery-datetimepicker
 //= require chosen-jquery
+//= require moment
 //= require bootstrap-dropdown
 //= require underscore
 //= require backbone
@@ -24,34 +25,14 @@
 //= require spin
 //= require_tree .
 //= require leaflet
-//= require jquery/jRating.jquery
 //= require jquery.Jcrop
 
-router = new Smorodina.Routers.Global;
-router.route('events', 'events', Smorodina.Pages.Events);
-router.route('events/new', 'events', Smorodina.Pages.Events);
-router.route('landmark_descriptions/search', 'landmark_descriptions', Smorodina.Pages.LandmarkDescriptions);
-router.route('', 'index', Smorodina.Pages.Index);
+new Smorodina.Routers.Global;
 Backbone.history.start({ hashChange: false });
 
 /* ------------------------------------------------------------------------------------------------------------------ */
 
 $(function() {
-    $(".landmark-descrition-rating").jRating({
-      step:true,
-      rateMax : 5,
-      length : 5,
-      bigStarsPath : '/assets/jquery/icons/stars.png',
-      smallStarsPath : '/assets/jquery/icons/small.png',
-      phpPath : '/ratings',
-      onSuccess :function(data, test){
-          $(".user-rating").html("");
-        },
-      onError :function(data, test){
-          $(".user-rating").html("<b style='color:red'>Произошла непредвиденная ошибка. Повторите попытку позже.</b>");
-        }
-    });
-
     $('#cropbox').Jcrop({
       aspectRatio: 1,
       setSelect: [0, 0, 600, 600],
@@ -68,7 +49,7 @@ function to_vote(voteable_controller, voteable_id, sign, tag) {
   var id = voteable_controller.split("/").pop() + "_" + voteable_id;
   var params = {sign: sign};
   if (tag.length > 0) {
-    id = tag + '_' + id;
+    id = tag + '_geo_' + id;
     params = {sign: sign, voteable_tag: tag};
   }
   var up = "#" + id + " .up-vote";
@@ -90,7 +71,7 @@ function to_unvote(voteable_controller, voteable_id, tag) {
   var id = voteable_controller.split("/").pop() + "_" + voteable_id;
   var params = {"_method": "delete"};
   if (tag.length > 0) {
-    id = tag + '_' + id;
+    id = tag + '_geo_' + id;
     params = {"_method": "delete", voteable_tag: tag};
   }
   $.ajax({
@@ -142,3 +123,10 @@ function complaint(path){
   });
 }
 
+function get_object(id, teaser, callback){
+  url = '/api/objects/'+id;
+  if(teaser){
+    url = url + '?teaser=1';
+  }
+  $.getJSON(url, {}, callback);
+}

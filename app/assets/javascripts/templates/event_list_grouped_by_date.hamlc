@@ -1,0 +1,5 @@
+- for day in @days
+  %div.search__results__date-section__header
+    = day.date
+  %div.search__results__date-section__content
+    != JST['event_list'](day)

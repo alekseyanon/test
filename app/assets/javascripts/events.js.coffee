@@ -1,18 +1,24 @@
 #= require ./routers/event_router
-#= require ./collections/events
+#= require collections/events
 
 Smorodina.Pages.Events = ->
-
   events = new Smorodina.Collections.Events
-  events.fetch({ reset: true })
 
   $ ->
+    Smorodina.Utils.History.stop()
+    new Smorodina.Routers.EventRouter
+    new Smorodina.Views.EventSearchForm(collection:events)
     new Smorodina.Views.EventList(collection:events)
-    new Smorodina.Utils.History.restart(Smorodina.Routers.EventRouter, { root: 'events' })
+    new Smorodina.Views.SearchFetch(collection:events)
+    new Smorodina.Views.SearchResultsPanel(collection:events)
+    new Smorodina.Views.SearchEmpty(collection:events)
+
+    Backbone.history.start(pushState: true, root: '/events')
+
     $('form').on 'click', '.remove_fields', (event) ->
-      $(this).prev('input[type=hidden]').val('1')
-      $(this).closest('fieldset').hide()
-      event.preventDefault()
+    $(this).prev('input[type=hidden]').val('1')
+    $(this).closest('fieldset').hide()
+    event.preventDefault()
 
     $('form').on 'click', '.add_fields', (event) ->
       time = new Date().getTime()

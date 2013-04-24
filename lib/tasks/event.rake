@@ -12,3 +12,12 @@ task process_event_states: :environment do
     end
   end
 end
+
+task update_events_rating: :environment do
+  # 30 дней - максимальный срок сбора статистики
+  # возможно надо будет выбирать более точнее
+  # будем смотреть по реальным данным
+  Event.where("end_date > '#{30.days.ago}'").all.each do |e|
+    e.update_rating!
+  end
+end

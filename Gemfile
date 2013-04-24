@@ -75,13 +75,14 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails_jquery_ui_datepicker'
 gem 'spinjs-rails'
+gem 'momentjs-rails'
 
 gem 'capistrano'
 gem 'rvm-capistrano'
 
 gem 'ptools'
 
-gem 'machinist' #TODO should be in test group, but required during deploy for landmarks:populate
+gem 'machinist' #TODO should be in test group, but required during deploy for objects:populate
 gem 'faker'
 
 group :test, :development do

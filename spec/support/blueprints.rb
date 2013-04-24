@@ -27,38 +27,19 @@ Osm::Poly.blueprint do
   changeset_id { 0 }
 end
 
-Landmark.blueprint do
-  osm { Osm::Node.make }
-end
-
-Area.blueprint do
-  osm { Osm::Poly.make }
-end
-
 Category.blueprint do
   name { Faker::Lorem.word }
   name_ru { Faker::Lorem.word }
   description { Faker::Lorem.sentence 2 }
 end
 
-AbstractDescription.blueprint do
+GeoObject.blueprint do
   user { User.make! }
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
   published { [true, false].sample }
   published_at { Time.now }
-end
-
-LandmarkDescription.blueprint do
-  describable { Landmark.make }
-end
-
-AreaDescription.blueprint do
-  describable { Area.make }
-end
-
-Authentication.blueprint do
-  # Attributes here
+  geom { Geo::factory.point(29.9918672, 60.0052767) }
 end
 
 User.blueprint do
@@ -85,7 +66,7 @@ Review.blueprint do
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }
   user { User.make! }
-  reviewable { LandmarkDescription.make! }
+  reviewable { GeoObject.make! }
 end
 
 Image.blueprint do
@@ -102,12 +83,6 @@ Profile.blueprint do
   name { Faker::Lorem.word }
 end
 
-Rating.blueprint do
-  user { User.make! }
-  value { rand(1..5) }
-  landmark_description { LandmarkDescription.make! }
-end
-
 Complaint.blueprint do
   content { Faker::Lorem.sentences 3 }
   user { User.make! }
@@ -116,6 +91,10 @@ end
 
 EventTag.blueprint do
   title { Faker::Lorem.word }
+end
+
+Agc.blueprint do
+  relations { make_sample_relations!; [1, 2, 3] }
 end
 
 Video.blueprint do
