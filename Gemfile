@@ -77,6 +77,7 @@ group :assets do
   gem 'backbone-on-rails'
   gem 'haml_coffee_assets'
   gem 'execjs'
+  gem 'quiet_assets', :group => :development
 end
 
 gem 'jquery-rails'
@@ -98,7 +99,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'diff-lcs'
-  gem 'capybara'
+  gem 'capybara', '~> 2.0'
   gem 'launchy'
   gem 'pry'
   gem 'poltergeist'

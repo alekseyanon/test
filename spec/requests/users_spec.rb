@@ -107,13 +107,22 @@ describe 'Users reset password' do
 		visit new_user_password_path
 		fill_in 'user_email', with: @user.email
 		find(:type, 'submit').click
-
 		#click_on 'Сбросить пароль'
 		#print page.html
 		page.should have_content('В течение нескольких минут вы получите письмо с инструкциями по восстановлению вашего пароля')
 		current_path.should == '/users/sign_in'
 	end
 
+	it 'add new password after reset password' do
+    pending
+		visit reset_password_url(token: @user.perishable_token)
+		page.should have_selector('input#password')
+		fill_in 'password', with: 'tester'
+		find(:type, 'submit').click
+		#click_on 'Сохранить'
+		page.should have_content('Профиль')
+		current_path.should == user_path(@user)
+	end
 
   ### to use your account
   context 'Users social networks', js: true, type: :request do
@@ -128,34 +137,33 @@ describe 'Users reset password' do
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
-      wait_until(5) do
-        page.find('title').should have_content('Facebook')
-      end
+      sleep 1
+      current_url.should =~ /facebook/
+      page.should have_content('Log in to use your Facebook account')
     end
 
     it 'twitter login' do
       visit new_user_session_path
       click_on 'Sign in with Twitter'
-      wait_until(5) do
-        page.find('title').should have_content('Twitter / Authorize an application')
-      end
+      sleep 1
+      current_url.should =~ /twitter/
+      page.should have_content("to use your account") #have_content('Twitter / Authorize an application')
     end
 
     it 'facebook register' do
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
-      wait_until(5) do
-        page.find('title').should have_content('Facebook')
-      end
+      sleep 1
+      current_url.should =~ /facebook/
+      page.should have_content('Facebook')
     end
 
     it 'twitter register' do
       visit new_user_session_path
       click_on 'Sign in with Twitter'
-      wait_until(5) do
-        page.find('title').should have_content('Twitter / Authorize an application')
-      end
+      sleep 1
+      current_url.should =~ /twitter/
     end
   end
 end
