@@ -27,6 +27,7 @@
     = f.fields_for :images do |builder|
       = render "image_fields", f: builder
     = link_to_add_fields "add image", f, :images
+    = link_to "add video", "#", class: :add_input
 
   .actions
     = f.submit 'Save'

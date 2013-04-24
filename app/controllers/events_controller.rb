@@ -2,6 +2,12 @@ class EventsController < InheritedResources::Base
   respond_to :html, except: :search
   respond_to :json, only: :search
 
+  before_filter :load_youtube #TODO remove hack, consider moving to initializers
+  def load_youtube
+    Video
+    YouTube
+  end
+
   def new
     @landmarks = Landmark.limit(10)
     new!
@@ -25,6 +31,10 @@ class EventsController < InheritedResources::Base
       @event.event_tags << system_tag
     end
     create!
+    video_urls = params[:video_urls].values
+    video_urls.each do |url|
+      VideoLink.find_or_create_by_content current_user, @event, url
+    end
   end
 
 end
