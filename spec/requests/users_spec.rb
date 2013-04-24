@@ -137,7 +137,7 @@ describe 'Users reset password' do
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
-      sleep 3
+      sleep 1
       current_url.should =~ /facebook/
       page.should have_content('Log in to use your Facebook account')
     end
@@ -145,7 +145,7 @@ describe 'Users reset password' do
     it 'twitter login' do
       visit new_user_session_path
       click_on 'Sign in with Twitter'
-      sleep 3
+      sleep 1
       current_url.should =~ /twitter/
       page.should have_content("to use your account") #have_content('Twitter / Authorize an application')
     end
@@ -154,7 +154,7 @@ describe 'Users reset password' do
       Capybara.app_host = 'http://localhost:3000'
       visit new_user_session_path
       click_on 'Sign in with Facebook'
-      sleep 3
+      sleep 1
       current_url.should =~ /facebook/
       page.should have_content('Facebook')
     end
@@ -162,7 +162,7 @@ describe 'Users reset password' do
     it 'twitter register' do
       visit new_user_session_path
       click_on 'Sign in with Twitter'
-      sleep 3
+      sleep 1
       current_url.should =~ /twitter/
     end
   end
