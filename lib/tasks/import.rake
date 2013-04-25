@@ -16,7 +16,7 @@ namespace :import do
       raise "Need json or yaml file to process"
     end
 
-    create_objects objects
+    create_mapping_objects objects
 
   end
 
@@ -29,13 +29,13 @@ namespace :import do
       # next if r['name'].blank? or r['lonlat'].blank? or r['categories'].blank?
       # test << r
       lon, lat = r["lonlat"].gsub(/[{}]/, '').split ','
-      categories = r['categories'].gsub(/[{}]/, '').split ','
+      categories = r['categories'].gsub(/[{}"]/, '').split ','
       phones = r['phones'] ? r['phones'].gsub(/[{}]/, '').split(',') : []
       sites = r['sites'] ? r['sites'].gsub(/[{}]/, '').split(',') : []
       emails = r['emails'] ? r['emails'].gsub(/[{}]/, '').split(',') : []
 
       objects << {
-        title: (r['name'] || 'NoName'),
+        title: (r['name'].blank? ? 'NoName' : r['name']),
         lon: lon,
         lat: lat,
         categories: categories,
@@ -45,29 +45,26 @@ namespace :import do
         emails: emails
       }
     end
-    create_objects objects
+    create_mapping_objects objects
   end
 
 end
 
-def create_objects objects
+def create_mapping_objects objects
 
   load "#{Rails.root}/spec/support/blueprints.rb"
   user = User.make!
-  next_id = Osm::Node.order("id DESC").pluck(:id).first || 0
 
   objects.each do |obj|
-    next_id += 1
     categories = categories_process obj[:categories]
     next if categories.blank?
-    node = Osm::Node.make! geom: "POINT(#{obj[:lon]} #{obj[:lat]})", id: next_id
-    landmark = Landmark.make! osm: node
-    ld = GeoObject.make! describable: landmark,
+    next if obj[:address].blank?
+    geo_object = GeoObject.make! geom: "POINT(#{obj[:lon]} #{obj[:lat]})",
       title: obj[:title],
       body: obj[:address],
       user: user,
       tag_list: categories
-    puts "Created #{ld.title}"
+    puts "Created #{geo_object.title}"
   end
 
 end
