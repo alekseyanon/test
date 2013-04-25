@@ -47,7 +47,7 @@
   %br
   .photos
     - @geo_object.images.each do |image|
-      %li.event_image= image_tag image.image_url(:thumb)
+      %li.object_image= image_tag image.image_url(:thumb)
       .votes{id: dom_id(image)}
         =render partial: 'shared/votes', locals: { object_to_vote: image, nested_path: '' }
   %br

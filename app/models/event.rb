@@ -55,7 +55,7 @@ class Event < ActiveRecord::Base
   belongs_to :agc
   has_many   :event_taggings
   has_many   :event_tags, through: :event_taggings
-  has_many   :images,   as: :imageable
+  has_many   :images, as: :imageable
 
   accepts_nested_attributes_for :images
 
