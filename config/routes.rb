@@ -59,6 +59,7 @@ Smorodina::Application.routes.draw do
     get '/edit', action: 'edit'
     get '/show', action: 'show'
     get '/history', action: 'history'
+    get '/about', action: 'about'
   end
 
   root to: 'welcome#home'

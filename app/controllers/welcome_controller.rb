@@ -17,4 +17,6 @@ class WelcomeController < ApplicationController
   end
   def history
   end
+  def about
+  end
 end

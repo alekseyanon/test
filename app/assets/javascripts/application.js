@@ -17,7 +17,7 @@
 //= require jquery-datetimepicker
 //= require chosen-jquery
 //= require moment
-//= require bootstrap-dropdown
+//= require bootstrap
 //= require underscore
 //= require backbone
 //= require smorodina
