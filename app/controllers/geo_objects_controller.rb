@@ -17,6 +17,9 @@ class GeoObjectsController < ApplicationController
   def index
     geo_objects = GeoObject.search sanitize_search_params(params.symbolize_keys[:query])
     @geo_objects = Kaminari.paginate_array(geo_objects).page(params[:page]).per(25)
+    if (params[:page].nil? || params[:page] == 1) && (params[:query].blank? || params[:query][:facets].blank?)
+      @geo_objects = mark_best_geo_object @geo_objects
+    end
     respond_with @geo_objects
   end
 
@@ -118,4 +121,25 @@ class GeoObjectsController < ApplicationController
     @geo_object = GeoObject.find(params[:id])
     @y, @x = @geo_object.latlon
   end
+
+  private
+
+  # вычисляет "лучшие" объекты
+  def mark_best_geo_object geo_objects
+    data = {} # тут сохраняю лучший рейтинг и индекс объекта в категории
+    geo_objects.each_with_index do |o,i|
+      o.tags.each do |t|
+        c = Category.find_by_name t.name # Ууупс TODO REVIEW kill acts_as_taggable_on помоему он на фиг не нужен
+        if c.level == 2 && (data[t.name].nil? || data[t.name][:rating] < o.rating)
+          data[t.name] = {} unless data[t.name].kind_of? Hash
+          data[t.name][:rating] = o.rating
+          geo_objects[data[t.name][:i]].best_object = false if data[t.name][:i].kind_of? Integer
+          o.best_object = true
+          data[t.name][:i] = i
+        end
+      end
+    end
+    geo_objects
+  end
+
 end
