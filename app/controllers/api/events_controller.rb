@@ -26,6 +26,11 @@ class Api::EventsController < ApplicationController
     @events = Event.scoped
     @events = @events.search(query) unless query.blank?
     @events = @events.includes(:event_tags).where('event_tags.id' => params[:tag_id]) if params[:tag_id]
+    if params[:sort_by] == 'rating'
+      @events = @events.order('rating DESC')
+    else
+      @events = @events.order('start_date')
+    end
     @events = @events.page params[:page]
     render json: @events
   end
