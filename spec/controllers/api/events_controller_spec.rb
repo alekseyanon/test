@@ -35,6 +35,15 @@ describe Api::EventsController do
     let!(:events){ dates_to_events([7.days.ago, 4.days.ago, 3.days.ago, Time.now, 1.days.from_now, 15.days.from_now]) }
     let!(:event) { Event.make!(title: 'New beautiful event', start_date: 50.days.from_now, tag_list: 'zzz, xxx, yyy') }
 
+    it 'can sort results by date or rate' do
+      get :search, from: 8.days.ago.strftime('%F'), to: Time.now.strftime('%F'), sort_by: 'date'
+      assigns(:events).should == [events[0], events[1], events[2], events[3]]
+      events[3].update_column(:rating, 3)
+      events[2].update_column(:rating, 3)
+      events[1].update_column(:rating, 1)
+      get :search, from: 8.days.ago.strftime('%F'), to: Time.now.strftime('%F'), sort_by: 'rating'
+      assigns(:events).should == [events[3], events[2], events[1], events[0]]
+    end
 
     it 'has I will go count, I like count, sum of both' do
       get :search, text: 'beautiful'
@@ -82,10 +91,6 @@ describe Api::EventsController do
         assigns(:events).should == [past_event_with_agc]
       end
 
-    end
-
-    it 'can sort results by date or rate' do
-      pending 'No rating for events'
     end
 
   end
