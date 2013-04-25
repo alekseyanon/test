@@ -21,7 +21,7 @@ namespace :import do
   end
 
   task db: :environment do
-    conn = PG.connect( dbname: 'datamining_template', user: 'postgres' )
+    conn = PG.connect( dbname: 'datamining' )
     result = conn.exec('select * from landmarks where lonlat is not null AND categories is not null')
     objects = []
     test = []
