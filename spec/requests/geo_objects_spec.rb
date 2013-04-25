@@ -21,11 +21,11 @@ describe "GeoObjects", js: true, type: :request do
     ld = GeoObject.make!
     visit root_path
     page.execute_script("get_object(#{ld.id}, 1, function(data){test_object = data});")
-    sleep 3
+    sleep 0.5
     page.evaluate_script('test_object["title"]').should == ld.title
     page.evaluate_script('test_object["body"]').should_not == ld.body
     page.execute_script("get_object(#{ld.id}, 0, function(data){test_object = data});")
-    sleep 3
+    sleep 0.5
     page.evaluate_script('test_object["title"]').should == ld.title
     page.evaluate_script('test_object["body"]').should == ld.body
   end
@@ -57,7 +57,7 @@ describe "GeoObjects", js: true, type: :request do
       fill_in 'geo_object_title', with: title
       find('#map').click
       #TODO cover multiple tags
-      select tag, from: 'geo_object_tag_list' if tag
+      select tag, from: 'geo_object_tag_list', visible: false if tag
       click_on 'Создать объект'
     end
 
@@ -80,9 +80,9 @@ describe "GeoObjects", js: true, type: :request do
       visit geo_object_path GeoObject.last
       click_on 'редактировать описание'
       fill_in 'geo_object_title', with: new_title
-      select new_category, from: 'geo_object_tag_list'
+      select new_category, from: 'geo_object_tag_list', visible: false
       click_on 'Применить изменения'
-      wait_until(10){ page.should have_content new_title }
+      page.should have_content new_title 
       page.should_not have_content title
       # see db/seeds/categories.yml
       page.should have_content 'Что посмотреть?'
@@ -188,7 +188,8 @@ describe "GeoObjects", js: true, type: :request do
       page.fill_in 'mainSearchFieldInput', with: 'apartment'
       click_on "mainSearchButton"
 
-      wait_until(10){ page.find("#searchResults").should have_content 'lodging' }
+      sleep 3
+      page.find("#searchResults").should have_content 'lodging' 
       page.find("#searchResults").should have_content 'apartment'
       page.find("#searchResults").should_not have_content 'food'
       page.find("#searchResults").should_not have_content 'bar'
