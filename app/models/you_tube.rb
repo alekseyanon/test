@@ -1,5 +1,5 @@
 class YouTube < Video
   def html
-    "<iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/#{id}\" frameborder=\"0\" allowfullscreen></iframe>"
+    "<iframe name='#{id}' width=\"420\" height=\"315\" src=\"http://www.youtube.com/embed/#{id}\" frameborder=\"0\" allowfullscreen></iframe>"
   end
 end

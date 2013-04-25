@@ -24,6 +24,7 @@ describe "Events", js: true, type: :request do
     fill_in 'event_body', with: body
     fill_in 'event_geom', with: 'POINT(10 10)'
     fill_in 'event_tag_list', with: tags
+    select  'single', from: 'event_repeat_rule'
     click_on 'Save'
   end
 
@@ -102,6 +103,29 @@ describe "Events", js: true, type: :request do
     page.find('#vote-up').click
     page.find('.up-vote').should have_content '1'
     page.find('.down-vote').should have_content '0'
+  end
+
+  it 'event with multiple youtube videos' do
+    visit new_event_path
+    fill_in 'event_title', with: title
+    fill_in 'event_body', with: body
+    fill_in 'event_geom', with: 'POINT(10 10)'
+    fill_in 'event_tag_list', with: tags
+    select  'single', from: 'event_repeat_rule'
+    2.times{ click_on 'add video' }
+    inputs = page.all :css, 'input[id^="video_url"]'
+    inputs[0].set 'youtube.com/watch?v=DZGINaRUEkU'
+    inputs[1].set 'youtube.com/watch?v=4wTLjEqj5Xk'
+    page.execute_script "$('form#new_event').submit()" #totally a hack. click_button('Save') fails for no visible reason
+    sleep 2
+    visit event_path Event.last
+    puts page.html
+    page.within_frame 'DZGINaRUEkU' do
+      page.should have_content 'DZGINaRUEkU'
+    end
+    page.within_frame '4wTLjEqj5Xk' do
+      page.should have_content '4wTLjEqj5Xk'
+    end
   end
 end
 
