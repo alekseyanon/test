@@ -102,3 +102,8 @@ Authentication.blueprint do
   provider {'facebook'}
   user {User.make!}
 end
+
+Video.blueprint do
+  ids = %w(n0SVG6SgirE 3eRxPDLYM9Q TRbLicNOvzY BHjg6cTxmrQ)
+  vid { (ids - Video.pluck(:vid)).sample }
+end
