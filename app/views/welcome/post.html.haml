@@ -1,0 +1,4 @@
+- if current_user
+  = link_to 'post to twitter', to_social_network_path(provider: 'twitter')
+  |
+  = link_to 'post to facebook', to_social_network_path(provider: 'facebook')

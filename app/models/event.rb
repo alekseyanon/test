@@ -16,9 +16,9 @@ class Event < ActiveRecord::Base
   # Параметры:
   # text - строка для полнотекстового поиска
   # from, to - границы периода времени, внутри которого искать
-  # place_id - место для поска @TODO
+  # place_id - место для поска
   # tag_id - только события с определенным тегом
-  # sort_by - задает сортировку и может принимать значения: 'date' или 'rate' @TODO
+  # sort_by - задает сортировку и может принимать значения: 'date' или 'rating'
   # page - номер страницы результатов поиска
   # Без параметров не использовать. Текущая версия API не гарантирует, что в этот вызов без
   # параметров будет что-то возвращать.
@@ -47,14 +47,18 @@ class Event < ActiveRecord::Base
                   :repeat_rule, :geom,
                   :images_attributes, :event_tags, :tag_list
 
-  before_create :generate_key, :calc_archive_date
+  before_create :generate_key, :calc_archive_date, :add_agc
 
   set_rgeo_factory_for_column :geom, Geo::factory
 
   belongs_to :user
+  belongs_to :agc
   has_many   :event_taggings
   has_many   :event_tags, through: :event_taggings
   has_many   :images,   as: :imageable
+  has_many   :video_links, as: :movie_star
+  has_many   :you_tubes, through: :video_links, uniq: true, source: :video, source_type: 'YouTube'
+  has_many   :vimeos,    through: :video_links, uniq: true, source: :video, source_type: 'Vimeo'
 
   accepts_nested_attributes_for :images
 
@@ -85,6 +89,8 @@ class Event < ActiveRecord::Base
 
   scope :newest, order('events.created_at DESC')
   scope :line, ->(key) { where key: key}
+  scope :in_place, ->(place_id) { joins('JOIN agcs ON events.agc_id = agcs.id').where('? = ANY(agcs.relations)', place_id) }
+  scope :future, where("start_date > '#{Time.now}'")
 
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'}
@@ -218,8 +224,9 @@ class Event < ActiveRecord::Base
     save!
   end
 
-  def as_json options = nil
+  def as_json options = {}
     json = super options
+    json[:agc] = agc.names if agc
     json[:state_localized] = I18n.t 'events.states.'+state
     json[:rating_go] = rating_go
     json[:rating_like] = rating_like
@@ -228,6 +235,10 @@ class Event < ActiveRecord::Base
   end
 
   private
+
+    def add_agc
+      self.agc ||= Agc.most_precise_enclosing(geom) unless geom.blank?
+    end
 
     def calc_archive_date
       self.archive_date = end_date + FEEDBACK_DURATION[repeat_rule]

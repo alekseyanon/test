@@ -61,7 +61,7 @@ Smorodina::Application.configure do
       user_name: 'monax.spam@gmail.com',
       password: 'code4gmail'
   }
-  config.action_mailer.default_url_options = {host: 'smorodina.com'}
+  config.action_mailer.default_url_options = {host: 'smorodina.com:1331'}
 
   # Enable threaded mode
   # config.threadsafe!

@@ -41,6 +41,14 @@ gem 'omniauth-vkontakte'
 # gem 'omniauth-mailru'
 # gem 'omniauth-google-oauth2'
 
+####  Gem for posting to social networks
+#### twitter
+gem 'oauth'
+gem 'twitter', git: 'git://github.com/sferik/twitter.git'
+
+#### facebook
+gem 'koala'
+
 gem 'aasm', '3.0.4'
 gem 'state_machine'
 gem 'magic_numbers', git: 'git://github.com/gzigzigzeo/magic_numbers.git' # Sotakone improved
@@ -69,6 +77,7 @@ group :assets do
   gem 'backbone-on-rails'
   gem 'haml_coffee_assets'
   gem 'execjs'
+  gem 'quiet_assets', :group => :development
 end
 
 gem 'jquery-rails'
@@ -90,7 +99,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'diff-lcs'
-  gem 'capybara'
+  gem 'capybara', '~> 2.0'
   gem 'launchy'
   gem 'pry'
   gem 'poltergeist'

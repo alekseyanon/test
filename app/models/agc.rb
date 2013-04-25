@@ -1,6 +1,7 @@
 class Agc < ActiveRecord::Base
   attr_accessible :relations
   has_many :geo_objects
+  has_many :events
 
   #TODO consider introducing a model for 'relations' table
   ActiveRecord::Base.connection.raw_connection.prepare(

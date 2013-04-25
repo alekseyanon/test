@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   has_many :reviews
   has_many :complaints
 
+  has_many :video_links
+  has_many :you_tubes, through: :video_links, uniq: true, source: :video, source_type: 'YouTube'
+  has_many :vimeos,    through: :video_links, uniq: true, source: :video, source_type: 'Vimeo'
+
   acts_as_voter
   ### TODO: may be useful for calculation user rating
   # The following line is optional, and tracks karma (up votes) for questions this user has submitted.
@@ -23,125 +27,89 @@ class User < ActiveRecord::Base
   # You can track any voteable model.
   # has_karma(:questions, :as => :submitter, :weight => 0.5)
 
-  include AASM
   include UserFeatures::Roles
 
   has_many :authentications, dependent: :destroy
-  has_many :abstract_descriptions
+  has_many :geo_objects
   has_one :profile
 
   #TODO remove hack
   before_validation :set_role
   after_create :create_profile
 
+  validate :uniqueness_user, on: :create
+  def uniqueness_user
+    if self.email.blank?
+      if self.authentications.blank?
+        self.errors.add(:email, 'Either email or social network authentication is required')
+      end
+    else
+      self.errors.add(:email, ' is already in use') if User.pluck(:email).uniq.include? self.email
+    end
+  end
+
   def create_profile
     self.create_profile!
   end
 
-  def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_create do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid
-    end
-  end
-
-  def self.new_with_session(params, session)
-
-    if userattr = session["devise.user_attributes"]
-      new(userattr.except('roles'), without_protection: true) do |user|
-        user.attributes = params
-        user.valid?
-      end
-    else
-      super
-    end
+  ### TODO: remove temporary method
+  def identifier
+    self.email.blank? ? "Профиль пользователя #{self.id}" : self.email
   end
 
   def password_required?
     super && provider.blank?
   end
 
-  ### TODO: add validations
-  ### TODO: refactor
-  ### TODO: add anonimous
-
-  # AASM
-  # TODO Move to state_machine
-  aasm column: 'state' do
-    state :pending_activation, initial: true
-    state :active, enter: :activation
-    state :blocked
-    state :deleted#, :enter => :prepare_user_for_deletion
-
-    event :activate, after: :_after_activate do
-      transitions from: :pending_activation, to: :active
-    end
-
-    event :deactivate do
-      transitions from: :active, to: :pending_activation
-    end
-
-    event :block do
-      transitions from: :active, to: :blocked
-    end
-
-    event :unblock do
-      transitions from: :blocked, to: :active
-    end
-
-    event :soft_destroy do
-      transitions from: :active, to: :deleted
-    end
+  def email_required?
+    super && self.authentications.blank?
   end
 
-  # Scopes
-  scope :in_state, lambda { |state|
-    where(:state => state.to_s)
-  }
-
-  scope :in_states, lambda { |*states|
-    where(:state => states.map { |s| s.to_s } )
-  }
+  ### TODO: Add state_machine
 
   #TODO remove hack
   def set_role
     self.roles = [:traveler]
   end
 
-  def active?
-    self.state == 'active'
-  end
-
-  # def to_s
-  #   deleted? ? "Аккаунт удален" : name
-  # end
-
-  def name_domain_from_email
-    email.split("@")
-  end
-
   def should_generate_new_friendly_id?
     new_record?
   end
 
-private
-
-  # Копирует в имя часть емейла до '@'
-  def set_default_name_from_email
-    email.to_s.match(/(.*)@/)
-    self.name = $1 if name.blank?
+  def create_authentication(oauth)
+    self.authentications.create!(User.prepare_args_for_auth(oauth))
   end
 
-  def activation
-    #reset_perishable_token!
-
-    logger.debug "-------------activation--------------------"
-    #set_default_subscription
+  def self.find_or_create(auth, oauth)
+    args = prepare_args_for_auth(oauth)
+    if auth # Пользователь не вошел в систему, но authentication найдена
+            # залогинить пользователя.
+      auth.user
+    else # Пользователь не вошел на сайт и authentication не найдена
+         # найти или создать пользователя, создать authentication и залогинить его
+         #поиск пользователя по email
+      user = args[:email] && self.find_by_email(args[:email])
+      if user
+        #Создаем authentication и залогиниваем пользователя
+        user.authentications.create!(args)
+      else
+        # Создаем пользователя и authentication и залогиниваем его.
+        user = self.new(password: Devise.friendly_token[0,20])
+        user.authentications.build(args)
+        user.skip_confirmation!
+        user.save!
+        user.confirm!
+      end
+      user
+    end
   end
 
-  def _after_activate
-    # Notifier.user_activated(self).deliver
-    ### maybe we can add something that user created before activation
+  def self.prepare_args_for_auth(oauth)
+    args = {provider: oauth['provider'], uid: oauth['uid']}
+    args.merge!( email: oauth['info']['email']) if oauth['provider'] == 'facebook'
+    args.merge!( oauth_token: oauth['credentials']['token']) if %w(facebook twitter).include? oauth['provider']
+    args.merge!( oauth_token_secret: oauth['credentials']['secret']) if oauth['provider'] == 'twitter'
+    args
   end
 
 end

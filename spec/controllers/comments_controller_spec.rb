@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe CommentsController do
-  #before { pending "Waiting for AuthLogic testing helpers to be mastered" }
 
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
@@ -59,8 +58,7 @@ describe CommentsController do
       end
 
       it "assigns a newly created comment as @comment" do
-        pending 'problem with inherited resources + nested resources '
-        post :create, {comment: valid_attributes, review_id: review.id}
+        post :create, {review_id: review, comment: valid_attributes }
         assigns(:comment).should be_a(Comment)
         assigns(:comment).should be_persisted
       end
@@ -73,7 +71,6 @@ describe CommentsController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved comment as @comment" do
-        pending 'problem with inherited resources + nested resources '
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
         Comment.any_instance.stub(:errors).and_return(['error'])
@@ -82,11 +79,9 @@ describe CommentsController do
       end
 
       it "re-renders the 'new' template" do
-        pending 'problem with inherited resources + nested resources '
-        # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
         Comment.any_instance.stub(:errors).and_return(['error'])
-        post :create, {comment: { "body" => "invalid value" }, review_id: review.id}
+        post :create, {comment: { "body" => "" }, review_id: review.id}
         response.should render_template("new")
       end
     end
@@ -95,7 +90,6 @@ describe CommentsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested comment" do
-        pending 'problem with inherited resources + nested resources '
         comment = Comment.make! valid_attributes
         # Assuming there are no other comments in the database, this
         # specifies that the Comment created on the previous line
@@ -114,7 +108,7 @@ describe CommentsController do
       it "redirects to the comment" do
         comment = Comment.make! valid_attributes
         put :update, {id: comment.to_param, comment: valid_attributes, review_id: comment.commentable_id}
-        response.should redirect_to(root_url)
+        response.should redirect_to(comment.commentable)
       end
     end
 
@@ -129,12 +123,10 @@ describe CommentsController do
       end
 
       it "re-renders the 'edit' template" do
-        pending 'problem with inherited resources + nested resources '
         comment = Comment.make! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
-        #Comment.any_instance.stub(:errors).and_return(['error'])
-        put :update, {id: comment.to_param, comment: { "body" => "invalid value" }, review_id: comment.commentable_id}
+        put :update, {id: comment.to_param, comment: { "body" => "" }, review_id: comment.commentable_id}
         response.should render_template("edit")
       end
     end

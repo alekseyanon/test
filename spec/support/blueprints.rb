@@ -94,5 +94,16 @@ EventTag.blueprint do
 end
 
 Agc.blueprint do
-  relations { make_sample_relations!; [1, 2, 3] }
+  relations { [1, 2, 3] }
+end
+
+Authentication.blueprint do
+  uid {Time.now.to_i}
+  provider {'facebook'}
+  user {User.make!}
+end
+
+Video.blueprint do
+  ids = %w(n0SVG6SgirE 3eRxPDLYM9Q TRbLicNOvzY BHjg6cTxmrQ)
+  vid { (ids - Video.pluck(:vid)).sample }
 end

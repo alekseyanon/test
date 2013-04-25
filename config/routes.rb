@@ -9,15 +9,16 @@ Smorodina::Application.routes.draw do
     match 'objects/:id' => 'objects#show'
   end
 
+  match '/users/auth/:provider/callback', to: 'authentications#create'
   match 'events/search' => 'events#index'
 
   resources :events
 
-  resources :ratings, only: [:create]
-
   resources :profiles
 
-  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users
+
+  resources :authentications
 
   resources :images do
     resources :votes, only: [:create, :destroy]
@@ -32,7 +33,7 @@ Smorodina::Application.routes.draw do
     end
   end
 
-  resources :geo_objects, path: "objects" do
+  resources :geo_objects, path: 'objects' do
     resources :reviews, only: [:new, :create, :edit, :update]
     resources :votes, only: [:create, :destroy]
     member do
@@ -47,18 +48,14 @@ Smorodina::Application.routes.draw do
     end
   end
 
-  # Авторизация через социальные сервисы
-  resources :authentications, only: [:edit, :update, :destroy]
-  #match "/user/social_accounts", :to => "authentications#index", :as => :auth_list
-  match "/auth/:provider", to: 'users#auth_callback', as: :auth
-  match "/auth/:provider/callback", to: 'users#auth_callback', as: :auth_callback
-
   controller :welcome do
     get '/activation', action: 'pend_act', as: :pendtoact
     get '/new', action: 'new'
     get '/edit', action: 'edit'
     get '/show', action: 'show'
     get '/history', action: 'history'
+    get '/post', action: 'post'
+    get '/to_social_network', action: 'to_social_network'
     get '/about', action: 'about'
   end
 

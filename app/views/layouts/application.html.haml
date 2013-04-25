@@ -10,6 +10,8 @@
     /%link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
+    <script type="text/javascript" src="//yandex.st/share/share.js"
+    charset="utf-8"></script>
     = csrf_meta_tags
     %body{ class: page_class }
 
@@ -28,7 +30,7 @@
             - else
               %span.user-link.user-panel__account
                 %span.icon.icon-user.user-link__icon
-                %span.action-link.dropdown-toggle{ data: { toggle: 'dropdown' } }= current_user.email
+                %span.action-link.dropdown-toggle{ data: { toggle: 'dropdown' } }= current_user.identifier
                 %ol.dropdown-menu.pull-left.user-panel__account__dropdown{ role: 'menu' }
                   %li
                     %a.tdn-link{href: profile_path(current_user.profile)}
@@ -92,5 +94,5 @@
           = render 'layouts/promo_description'
 
         = yield
-%script
-  $(window).load(load_objects_count)
+  %script
+    $(window).load(load_objects_count)
