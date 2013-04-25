@@ -67,7 +67,9 @@
     %p 3 фотографии объекта
     %p и под каждой ссылка "пожаловаться"
     = button_to "Все фото(кол-во)", "#"
-    = button_to "Фото", "#"
+    = f.fields_for :images do |builder|
+      = render 'image_fields', f: builder
+    = link_to_add_fields 'add image', f, :images
 
     %h3 Видео
     %p 3 видео объекта
