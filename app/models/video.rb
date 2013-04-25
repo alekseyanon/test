@@ -8,8 +8,9 @@ class Video < ActiveRecord::Base
   attr_accessor :url
 
   has_many :video_links, foreign_key: :video_id, primary_key: :vid
-  has_many :users, through: :video_links
-  has_many :movie_stars, through: :video_links,  source: :movie_star, source_type: 'LandmarkDescription'
+  has_many :users, through: :video_links, uniq: true
+  has_many :geo_objects, through: :video_links, uniq: true, source: :movie_star, source_type: 'GeoObject'
+  has_many :events,      through: :video_links, uniq: true, source: :movie_star, source_type: 'Event'
 
   def self.find_or_create_by_url(url)
     type, id = type_and_id_from_url url

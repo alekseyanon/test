@@ -57,8 +57,8 @@ class Event < ActiveRecord::Base
   has_many   :event_tags, through: :event_taggings
   has_many   :images,   as: :imageable
   has_many   :video_links, as: :movie_star
-  has_many   :you_tubes, through: :video_links, source: :video, source_type: 'YouTube'
-  has_many   :vimeos,    through: :video_links, source: :video, source_type: 'Vimeo'
+  has_many   :you_tubes, through: :video_links, uniq: true, source: :video, source_type: 'YouTube'
+  has_many   :vimeos,    through: :video_links, uniq: true, source: :video, source_type: 'Vimeo'
 
   accepts_nested_attributes_for :images
 

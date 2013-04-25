@@ -41,6 +41,11 @@ class GeoObject < ActiveRecord::Base
   validates :title, :user, presence: true
   validates_associated :user
 
+  #TODO consider refactoring: move from here and from event.rb to a separate module
+  has_many   :video_links, as: :movie_star
+  has_many   :you_tubes, through: :video_links, uniq: true, source: :video, source_type: 'YouTube'
+  has_many   :vimeos,    through: :video_links, uniq: true, source: :video, source_type: 'Vimeo'
+
   acts_as_taggable
 
   pg_search_scope :text_search,
