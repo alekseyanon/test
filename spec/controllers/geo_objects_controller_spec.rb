@@ -1,3 +1,4 @@
+#encoding: utf-8
 require 'spec_helper'
 
 describe GeoObjectsController do
@@ -20,6 +21,27 @@ describe GeoObjectsController do
 
   def valid_session
     {}
+  end
+
+  context 'api' do
+    it 'marks best object' do
+      # TODO best object == max rating in requests
+      load_seeds
+      cat1 = Category.find_by_name_ru 'Водохранилище'
+      cat2 = Category.find_by_name_ru 'Вещевой'
+      cats1 = cat1.self_and_ancestors.map(&:name)
+      cats2 = cat2.self_and_ancestors.map(&:name)
+      obj1 = GeoObject.make! tag_list: cats1
+      obj2 = GeoObject.make! tag_list: cats2
+      obj3 = GeoObject.make! tag_list: cats1
+      get :index, format: :json
+      objects = JSON.parse response.body
+      best_obj_counter = 0
+      objects.each { |o| best_obj_counter +=1 if o['best_object']}
+      best_obj_counter.should == 2
+      Category.delete_all
+      EventTag.delete_all
+    end
   end
 
   context 'anonymous' do

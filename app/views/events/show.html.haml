@@ -9,3 +9,7 @@
     %li.event_image= image_tag image.image_url(:thumb)
     .votes{id: dom_id(image)}
       =render partial: "shared/votes", locals: { object_to_vote: image, nested_path: "" }
+
+%ul
+  - @event.you_tubes.each do |video|
+    %li.event_video= raw video.html

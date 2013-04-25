@@ -16,9 +16,9 @@ class Event < ActiveRecord::Base
   # Параметры:
   # text - строка для полнотекстового поиска
   # from, to - границы периода времени, внутри которого искать
-  # place_id - место для поска @TODO
+  # place_id - место для поска
   # tag_id - только события с определенным тегом
-  # sort_by - задает сортировку и может принимать значения: 'date' или 'rate' @TODO
+  # sort_by - задает сортировку и может принимать значения: 'date' или 'rating'
   # page - номер страницы результатов поиска
   # Без параметров не использовать. Текущая версия API не гарантирует, что в этот вызов без
   # параметров будет что-то возвращать.
@@ -55,7 +55,10 @@ class Event < ActiveRecord::Base
   belongs_to :agc
   has_many   :event_taggings
   has_many   :event_tags, through: :event_taggings
-  has_many   :images, as: :imageable
+  has_many   :images,   as: :imageable
+  has_many   :video_links, as: :movie_star
+  has_many   :you_tubes, through: :video_links, uniq: true, source: :video, source_type: 'YouTube'
+  has_many   :vimeos,    through: :video_links, uniq: true, source: :video, source_type: 'Vimeo'
 
   accepts_nested_attributes_for :images
 

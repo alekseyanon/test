@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   has_many :reviews
   has_many :complaints
 
+  has_many :video_links
+  has_many :you_tubes, through: :video_links, uniq: true, source: :video, source_type: 'YouTube'
+  has_many :vimeos,    through: :video_links, uniq: true, source: :video, source_type: 'Vimeo'
+
   acts_as_voter
   ### TODO: may be useful for calculation user rating
   # The following line is optional, and tracks karma (up votes) for questions this user has submitted.
