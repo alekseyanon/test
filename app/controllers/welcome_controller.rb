@@ -25,4 +25,6 @@ class WelcomeController < ApplicationController
     current_user.authentications.where(provider: params[:provider]).first.social_post(params[:provider], Time.now.to_s)
     redirect_to root_path
   end
+  def about
+  end
 end

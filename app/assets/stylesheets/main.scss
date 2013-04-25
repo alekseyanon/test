@@ -1626,3 +1626,118 @@ a:hover,
 .leaflet-edit-object {
   height: $base-line-height * 0.5;
 }
+
+/* ---------------------------------------- ABOUT PAGE START ------------------------------------ */
+
+.about {
+  padding: 0 30px;
+}
+
+.about__contacts {
+  background-color: #ebebeb;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.about__contacts__inner {
+  @include background-image-retina("creampaper", 158px, 144px);
+  padding: 24px;
+}
+
+.about__contacts__title {
+  margin: 0 0 24px 0;
+  line-height: 1.2;
+  text-align: left;
+  padding-bottom: 18px;
+  border-bottom: 1px solid $grey;
+}
+
+.about__contacts__common {
+  margin-bottom: 24px;
+}
+
+.about__contacts__common__item {
+  margin-top: 24px;
+}
+
+.about__contacts__common__item:first-child {
+  margin-top: 0;
+}
+
+.about__contacts__common__item__title {
+  color: $darkgrey;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.about__contacts__common__item__content {
+  font-size: 18px;
+}
+
+.about__contacts__personal {
+  margin-top: 36px;
+}
+
+.about__contacts__personal:first-child {
+  margin-top: 0;
+}
+
+.about__contacts__personal__photo {
+  @include vignette(5px, 1px, middle, center, $grey);
+  margin-bottom: 12px;
+}
+
+.about__contacts__personal__position {
+  color: $darkgrey;
+  margin-bottom: 6px;
+}
+
+.about__contacts__personal__name {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.about__contacts__personal__phone {
+  margin-bottom: 6px;
+}
+
+.about__contacts__personal__email {
+   color: $lightblue;
+}
+
+.about__description__content {
+  padding-left: 36px;
+}
+
+.about__mobile-apps {
+  margin: 60px 0;
+}
+
+.about__mobile-apps__link {
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.about__vacancy__title {
+  margin-bottom: 12px;
+}
+
+
+.about__vacancy__description {
+  margin-bottom: 18px;
+}
+
+.about__vacancy__item {
+  margin-bottom: 6px;
+}
+
+.about__vacancy__item__title {
+  color: $lightblue;
+}
+
+.about__vacancy__item__content {
+  padding-bottom: 18px;
+}
+
+/* ---------------------------------------- ABOUT PAGE END--------------------------------------- */
