@@ -1,6 +1,5 @@
 class Video < ActiveRecord::Base
-  URL_REGEX = /https?:\/\/(www.)?(?<type>youtube|vimeo)\.com\/(watch\?v=)?(?<id>.{11}|\d{8})(&.+)?/
-              #TODO slim up regexp #/^(?:http:\/\/)?(?:www\.)?\w*\.\w*\/(?:watch\?v=)?((?:p\/)?[\w\-]+)/
+  URL_REGEX = /(?:https?:\/\/)?(?:www.)?(?<type>youtube|vimeo)\.com\/(?:watch\?v=)?(?<id>\w{11}|\d{8})(?:(&|#).*)?/
   VIDEO_TYPES = {'youtube' => YouTube, 'vimeo' => Vimeo}
   self.primary_key = :vid
 
