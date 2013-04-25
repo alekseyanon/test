@@ -21,28 +21,16 @@ describe 'Images', js: true, type: :request do
   end
 
   it 'fields appear on geo_object created form' do
-    visit new_event_path
+    login
+    visit new_geo_object_path
     page.should have_selector '.add_fields'
     page.find('.add_fields').click
     page.should have_selector "input[id^='geo_object_images_attributes_']"
     page.should have_selector '.add_fields'
   end
 
-  it 'can be added to the GeoObject' do
-    login
-    go = GeoObject.make!
-    visit edit_geo_object_path(go)
-    page.find('.add_fields').click
-    ImageUploader.any_instance.stub(:download!)
-    uploader = ImageUploader.new(go, Image.make!(imageable: go))
-    uploader.store!(File.open("#{Rails.root}/spec/fixtures/images/fishing/toon376.gif"))
-    click_on 'Применить изменения'
-    current_path.should == geo_object_path(go)
-    go.images.count.should > 0
-  end
-
   it 'are displayed on the object page' do
-    go = GeoObject.make!#( images: [Image.make!])
+    go = GeoObject.make!(tag_list: [Category.make!.name])#( images: [Image.make!])
     go.images.make!
     visit geo_object_path(go)
     page.should have_selector('.object_image')
