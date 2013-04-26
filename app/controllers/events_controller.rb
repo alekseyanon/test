@@ -29,7 +29,7 @@ class EventsController < InheritedResources::Base
       system_tag = EventTag.find params[:system_event_tag_id]
       @event.event_tags << system_tag
     end
-    if create!
+    if create! && params[:video_urls]
       video_urls = params[:video_urls].values
       video_urls.each do |url|
         VideoLink.find_or_create_by_content current_user, @event, url
