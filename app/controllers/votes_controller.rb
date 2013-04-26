@@ -9,7 +9,7 @@ class VotesController < InheritedResources::Base
       render json: {positive: @voteable.votes_for(tag), negative: @voteable.votes_against(tag)}
       if @voteable.respond_to?(:rating)
         ### TODO leaf_categories метод имеется только у GeoObject
-        @voteable.update_attributes(rating: (@voteable.plusminus.to_f / @voteable.leaf_categories.count.to_f))
+        @voteable.update_attributes(rating: (@voteable.plusminus.to_f / @voteable.leaf_categories.count))
       end
     else
       request_logger params, 'Message: Check controller name, controller method for find voteable model'
@@ -23,6 +23,7 @@ class VotesController < InheritedResources::Base
       request_logger params,  'Message: Check controller name, controller method for find voteable model'
     else
       render json: {positive: @voteable.votes_for(tag), negative: @voteable.votes_against(tag)}
+      @voteable.update_attributes(rating: (@voteable.plusminus.to_f / @voteable.leaf_categories.count))
     end
   end
 
