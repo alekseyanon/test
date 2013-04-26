@@ -45,7 +45,11 @@
   %br
   %p здесь будут представлены контактные данные фотографии рейтинги и т.д.
   %br
-  %br
+  .photos
+    - @geo_object.images.each do |image|
+      %li.object_image= image_tag image.image_url(:thumb)
+      .votes{id: dom_id(image)}
+        =render partial: 'shared/votes', locals: { object_to_vote: image, nested_path: '' }
   %br
 %br
 %div.map__outer

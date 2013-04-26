@@ -3,7 +3,7 @@ require 'set' # What is it?
 class GeoObject < ActiveRecord::Base
 
   attr_accessor :xld, :yld, :best_object
-  attr_accessible :xld, :yld, :rating, :geom
+  attr_accessible :xld, :yld, :rating, :images_attributes, :geom
 
   acts_as_voteable
 
@@ -35,6 +35,10 @@ class GeoObject < ActiveRecord::Base
   include PgSearch
   include Searchable
   has_many :reviews, as: :reviewable
+  has_many :images,  as: :imageable
+
+  accepts_nested_attributes_for :images
+
   belongs_to :user
   belongs_to :agc
   attr_accessible :body, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at

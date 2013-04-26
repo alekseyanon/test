@@ -25,8 +25,9 @@
       include_blank: true)
     = f.input :tag_list
     = f.fields_for :images do |builder|
-      = render "image_fields", f: builder
-    = link_to_add_fields "add image", f, :images
+      = render 'image_fields', f: builder
+    = link_to_add_fields 'add image', f, :images
+
     %div{class: "control-group string optional"}
       .controls
         = link_to "add video", "#", class: :add_input

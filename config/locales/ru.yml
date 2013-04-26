@@ -172,6 +172,7 @@ ru:
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:
+      extension_white_list_error: Для загрузки разрешены изображения следующих расширений - jpg, png, gif
       accepted: нужно подтвердить
       blank: не может быть пустым
       confirmation: не совпадает с подтверждением
