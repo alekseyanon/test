@@ -1,5 +1,7 @@
 Smorodina::Application.routes.draw do
 
+  get "verstka/index"
+
   namespace :api do
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
