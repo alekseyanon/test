@@ -7,8 +7,6 @@ class Smorodina.Models.Category extends Backbone.Model
 
   initialize: ->
     _.bindAll(@)
-    @collection.on 'reset', @bindParent
-    @collection.on 'reset', @bindChildren
 
   kickOff: ->
     selected = !@get('selected')
@@ -16,17 +14,26 @@ class Smorodina.Models.Category extends Backbone.Model
     @updateChildren(selected)
     @updateParent(selected)
 
+  setSelected: ->
+    @set('selected' : true, 'semiSelected' : false )
+
+  setSemiSelected: ->
+    @set('semiSelected' : true, 'selected' : false)
+
+  setUnselected: ->
+    @set('semiSelected': false, 'selected' : false)
+
   updateParent: ->
     selected_siblings = _.filter @_siblings(), (s)-> s.get('selected')
     semi_selected_siblings = _.filter @_siblings(), (s)->s.get('semiSelected')
     parent = @_getParentModel()
     if parent
       if selected_siblings.length == @_siblings().length
-        parent.set('selected' : true, 'semiSelected' : false )
+        parent.setSelected()
       else if selected_siblings.length > 0 || semi_selected_siblings.length > 0
-        parent.set('semiSelected' : true, 'selected' : false)
+        parent.setSemiSelected()
       else 
-        parent.set('semiSelected': false, 'selected' : false)
+        parent.setUnselected()
       parent.updateParent()
 
   

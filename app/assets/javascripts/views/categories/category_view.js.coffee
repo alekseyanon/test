@@ -24,10 +24,9 @@ class Smorodina.Views.Category extends Backbone.View
     @$subList.append view.render().el
 
   toggle: (e) ->
-    @model.set(selected: !@model.get('selected'))
-    console.log '------------------------------------------------------------'
+    @model.set selected: !@model.get('selected')
     e.stopPropagation()
 
   toggleSelected: ->
-    @$el.toggleClass('semi-selected', @model.get('semiSelected'))
+    @$el.toggleClass 'semi-selected', @model.get('semiSelected')
     @$el.toggleClass('selected', @model.get('selected') && !@model.get('semiSelected'))
