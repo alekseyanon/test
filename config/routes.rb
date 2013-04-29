@@ -41,6 +41,7 @@ Smorodina::Application.routes.draw do
     member do
       get 'history'
       get 'images'
+      get 'video'
     end
     collection do
       get 'search'
