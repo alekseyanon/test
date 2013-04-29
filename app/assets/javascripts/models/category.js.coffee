@@ -7,32 +7,45 @@ class Smorodina.Models.Category extends Backbone.Model
 
   initialize: ->
     _.bindAll(@)
-    @collection.on 'reset', @getParent
-    @collection.on 'reset', @getChildren
+    @collection.on 'reset', @bindParent
+    @collection.on 'reset', @bindChildren
 
-  getParent: ->
-    parentModel = @collection.findWhere(id: @get('parent_id'))
-    if parentModel then parentModel.on 'change:selected', @updateByParent
+  kickOff: ->
+    selected = !@get('selected')
+    @set('selected', selected)
+    @updateChildren(selected)
+    @updateParent(selected)
 
-  getChildren: ->
-    children = @get('children')
-    if children.length then _.each children, @_getChildren
+  updateParent: ->
+    selected_siblings = _.filter @_siblings(), (s)-> s.get('selected')
+    semi_selected_siblings = _.filter @_siblings(), (s)->s.get('semiSelected')
+    parent = @_getParentModel()
+    if parent
+      if selected_siblings.length == @_siblings().length
+        parent.set('selected' : true, 'semiSelected' : false )
+      else if selected_siblings.length > 0 || semi_selected_siblings.length > 0
+        parent.set('semiSelected' : true, 'selected' : false)
+      else 
+        parent.set('semiSelected': false, 'selected' : false)
+      parent.updateParent()
 
-  _getChildren: (childId) ->
-    child = @collection.findWhere(id: childId)
-    child.on 'change:selected', @updateByChildren
+  
+  #Если родителский элемент был выделен(не выделен), то дети будут тоже. 
+  updateChildren: (value)->
+    #Только что кликнутый родительский элемент не может быть полувыделенным, исправляем:
+    @set('semiSelected', false)
+    _.each @_getChildrenModels(), (c)=>
+      c.set('selected', value)
+      c.updateChildren(value)
 
-  updateByParent: (parentModel, selected, options) ->
-    if !options.preventCapture then @set('selected', selected)
+  _siblings: ->
+    if parent = @_getParentModel()
+      parent._getChildrenModels()
 
-  updateByChildren: (childModel, selected, options) ->
-    if !options.preventBubble
-      counter = if selected then 1 else -1
-      selectedChildren = @get('selectedChildren') + counter
-      semiSelected = Boolean(selectedChildren) && @get('children').length != selectedChildren
+  _getChildrenModels: ->
+    _.map @get('children'), (childId) => 
+      @collection.findWhere(id: childId)
+  
+  _getParentModel: ->
+    @collection.findWhere(id: @get('parent_id'))
 
-      @set(selectedChildren: selectedChildren)
-      @set(semiSelected: semiSelected)
-      #@set({ selected: false }, { preventCapture: true, preventBubble: true }) if semiSelected
-
-      console.log @get('name'), @get('selected'), semiSelected, selectedChildren, @get('children').length
