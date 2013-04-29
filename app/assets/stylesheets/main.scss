@@ -820,6 +820,8 @@ a:hover,
 
 .chronicle__search__field__label {
   margin-right: 10px;
+  padding-top: 5px;
+  vertical-align: top;
   float: none;
   width: auto;
   display: inline-block;
@@ -1740,4 +1742,74 @@ a:hover,
   padding-bottom: 18px;
 }
 
-/* ---------------------------------------- ABOUT PAGE END--------------------------------------- */
+/* ---------------------------------------- ABOUT PAGE END --------------------------------------- */
+
+/* ---------------------------------------- MODALS START ----------------------------------------- */
+
+.reg-modal {
+  width: 760px;
+  margin-left: -380px;
+}
+
+.reg-modal__social__title,
+.reg-modal__forms__title {
+  font-size: 16px;
+  margin-bottom: 30px;
+  @include vignette(10px, 1px, bottom, center, $lightgrey);
+}
+
+.reg-modal__forms__title {
+  margin-bottom: 18px;
+}
+
+.reg-modal__social__content {
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 0;
+}
+
+.reg-modal__social__link {
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.reg-modal__social__link:hover {
+  text-decoration: none;
+}
+
+.reg-modal__form__inner {
+  padding: 20px;
+}
+
+.reg-modal__form__title {
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.reg-modal__form__password-links {
+  font-size: 13px;
+  margin-top: 2px;
+  color: $darkgrey;
+}
+
+.reg-modal__form__checkboxes {
+  margin: 18px 0 24px;
+}
+
+.reg-modal__form__password-links__show {
+  float: left;
+}
+
+.reg-modal__form__password-links__forgot {
+  float: right;
+}
+
+.reg-modal__form_registration {
+  background-color: #ebebeb;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.reg-modal__form__inner_registration {
+  @include background-image-retina("creampaper", 158px, 144px);
+}
