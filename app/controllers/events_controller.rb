@@ -25,7 +25,7 @@ class EventsController < InheritedResources::Base
   # system_event_tag_id - id одного из системных тегов
   def create
     params[:event][:start_date] = Time.parse params[:event][:start_date]
-    @event = Event.new params[:event]
+    @event = current_user.events.build(params[:event])
     unless params[:system_event_tag_id].blank?
       system_tag = EventTag.find params[:system_event_tag_id]
       @event.event_tags << system_tag
