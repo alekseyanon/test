@@ -37,6 +37,11 @@ class User < ActiveRecord::Base
   before_validation :set_role
   after_create :create_profile
 
+  #TODO add roles and role check
+  def admin?
+    false
+  end
+
   validate :uniqueness_user, on: :create
   def uniqueness_user
     if self.email.blank?
