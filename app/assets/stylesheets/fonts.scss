@@ -11,7 +11,8 @@
 .icon-facebook, .icon-twitter, .icon-vk, .icon-flag, .icon-thumbs-up, .icon-thumbs-down, .icon-cross,
 .icon-search, .icon-arrow-left, .icon-arrow-right, .icon-arrow-down, .icon-login, .icon-logout,
 .icon-list, .icon-clock, .icon-cycle, .icon-bed, .icon-food-eat, .icon-star, .icon-binoculars,
-.icon-sm-list {
+.icon-sm-list, .icon-sm-pencil, .icon-sm-pictures, .icon-sm-video, .icon-sm-arrow-left-3, .icon-sm-history,
+.icon-sm-arrow-up{
   font-family: 'smorodina-icons';
   speak: none;
   font-style: normal;
@@ -83,4 +84,22 @@
 }
 .icon-sm-list:before {
   content: "\e00d";
+}
+.icon-sm-pencil:before {
+	content: "\3f";
+}
+.icon-sm-pictures:before {
+	content: "\26";
+}
+.icon-sm-video:before {
+	content: "\27";
+}
+.icon-sm-arrow-left-3:before {
+	content: "\2a";
+}
+.icon-sm-history:before {
+	content: "\30";
+}
+.icon-sm-arrow-up:before {
+	content: "\2d";
 }
