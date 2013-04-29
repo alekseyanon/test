@@ -100,6 +100,7 @@ group :test, :development do
   gem 'shoulda-matchers'
   gem 'diff-lcs'
   gem 'capybara', '~> 2.0'
+  gem 'capybara-screenshot'
   gem 'launchy'
   gem 'pry'
   gem 'poltergeist'

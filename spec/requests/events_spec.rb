@@ -40,6 +40,15 @@ describe "Events", js: true, type: :request do
     click_on 'Save'
   end
 
+  context 'as guest' do
+    it 'cant edit event' do
+      e = Event.make!
+      visit edit_event_path(e)
+      uri = URI.parse(current_url)
+      "#{uri.path}#{uri.query}".should == root_path
+    end
+  end
+
   it 'should show event list' do
     pending
     #event
