@@ -107,10 +107,6 @@ class GeoObjectsController < ApplicationController
     end
   end
 
-  def images
-    @geo_object = GeoObject.find(params[:id])
-  end
-
   def video
     @geo_object = GeoObject.find(params[:id])
   end
