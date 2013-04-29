@@ -107,6 +107,10 @@ class GeoObjectsController < ApplicationController
     end
   end
 
+  def images
+    @geo_object = GeoObject.find(params[:id])
+  end
+
   def count
     respond_with GeoObject.count
   end

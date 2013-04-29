@@ -40,6 +40,7 @@ Smorodina::Application.routes.draw do
     resources :votes, only: [:create, :destroy]
     member do
       get 'history'
+      get 'images'
     end
     collection do
       get 'search'
