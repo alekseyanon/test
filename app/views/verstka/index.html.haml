@@ -3,7 +3,7 @@
     %div.span6
       = link_to "Поиск объектов", "#", {class: "object-search"}
 
-  %ul.navigation.page-nav
+  %ul.obj-page-navigation
     %li 
       = link_to "Описание объекта", "#"
     %li.active 
@@ -24,7 +24,7 @@
     %div.span6
       = link_to "Добавить фото или видео", "#", {class: "button button_standard button_grey"}
 
-  %ul.thumbnails
+  %ul.obj-page-gallery
     - @photos.each do |photo|
       %li 
         = link_to image_tag("http://placehold.it/139x97"), "#"

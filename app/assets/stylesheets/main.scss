@@ -1743,15 +1743,117 @@ a:hover,
 /* ---------------------------------------- ABOUT PAGE END--------------------------------------- */
 
 /* ---------------------------------------- ALL PHOTOS PAGE START ------------------------------- */
+.obj-page-navigation{
+	border-bottom: 2px solid #000;
+	padding: 0px 0px 0px 30px;
+	@include clearfix;
+	li{
+		float: left;
+		padding: 13px 20px 13px 20px;
+		@include border-top-radius($baseBorderRadius);
+		position: relative;
+		&.pull-right{
+			float: right;
+		}
+		a{
+			text-decoration: none;
+			border-bottom: 1px dotted $black;
+			&.icons{
+				&.photo{
+					&:before{
+						content: "";
+						display: block;
+						float: left;
+						width: 24px;
+						height: 24px;
+						background-image: url('/assets/icons/all-photos-icons.png');
+						background-repeat: no-repeat;
+						background-position: 0px 3px;
+					}
+				}
+				&.video{
+					&:before{
+						content: "";
+						display: block;
+						float: left;
+						width: 24px;
+						height: 24px;
+						background-image: url('/assets/icons/all-photos-icons.png');
+						background-repeat: no-repeat;
+						background-position: 0 -89px;
+					}
+				}
+				&.edit{
+					&:before{
+						content: "";
+						display: block;
+						float: left;
+						width: 24px;
+						height: 24px;
+						background-image: url('/assets/icons/all-photos-icons.png');
+						background-repeat: no-repeat;
+						background-position: 0 -365px;
+					}
+				}
+				&.time{
+					background-image: url('/assets/icons/all-photos-icons.png');
+					background-repeat: no-repeat;
+					background-position: 0 -184px;
+					border: 0 none;
+					padding-left: 18px;
+				}
+				&.flag{
+					background-image: url('/assets/icons/all-photos-icons.png');
+					background-repeat: no-repeat;
+					background-position: 0 -277px;
+					border: 0 none;
+					padding-left: 18px;
+				}
+			}
+			&:hover{
+				color: $black;
+				border: 0 none;
+			}
+		}
+		&.active{
+			@include gradient-vertical($black, $gray);
+			a{
+				color: #fff;
+				border: 0 none;
+				&.photo{
+					&:before{
+						background-position: 0px -46px;
+					}
+				}
+				&.video{
+					&:before{
+						background-position: 0 -135px;
+					}
+				}
+				&.edit{
+					&:before{
+						background-position: 0 -413px;
+					}
+				}
+				&.time{
+					background-position: 0 -230px;
+				}
+				&.flag{
+					background-position: 0 -323px;
+				}
+			}
+		}
+	}
+}
 .all-photos-page{
-	
 	.object-search{
 		color: $blueLinkColor;
 		padding: 0 0 0 20px;
 		margin: 0 0 0 30px;
 		background-image: url('/assets/icons/all-photos-icons.png');
-		background-position: 0 -552px;
+		background-position: 0 -548px;
 		background-repeat: no-repeat;
+		display: block;
 	}
 	.add{
 		margin-bottom: 30px;
@@ -1780,154 +1882,43 @@ a:hover,
 			}
 		}
 	}
-	.navigation{
-		border-bottom: 2px solid #000;
-		padding: 0px 0px 0px 30px;
-		li{
-			float: left;
-			padding: 13px 20px 13px 20px;
-			@include border-top-radius($baseBorderRadius);
-			position: relative;
-			&.pull-right{
-				float: right;
-			}
-			a{
-				text-decoration: none;
-				position: relative;
-				z-index: 1;
-				&.icons{
-					background-image: url('/assets/icons/all-photos-icons.png');
-					background-repeat: no-repeat;
-					background-position: 0px 0px;
-					padding: 0 0 0 22px;
-					&.photo{
-						background-position: 0px 0px;
-					}
-					&.video{
-						background-position: 0 -93px;
-					}
-					&.edit{
-						background-position: 0 -369px;
-					}
-					&.time{
-						background-position: 0 -184px;
-						border: 0 none;
-						padding-left: 18px;
-						&:after{
-							display: block;
-							border: 0px dotted #1A1A1A;
-							margin-left: 22px;
-							content: "";
-							margin-top: -5px;
-						}
-					}
-					&.flag{
-						background-position: 0 -277px;
-						border: 0 none;
-						padding-left: 18px;
-						&:after{
-							display: block;
-							border: 0px dotted #1A1A1A;
-							margin-left: 22px;
-							content: "";
-							margin-top: -5px;
-						}
-					}
-					&:after{
-						margin-left: 22px;
-					}
-				}
-				&:hover{
-					color: $black;
-					&:after{
-						display: block;
-						border: 0px dotted #1A1A1A;
-						margin-left: 22px;
-						content: "";
-						margin-top: -5px;
-					}
-				}
-				&:after{
-					display: block;
-					border: 1px dotted #1A1A1A;
-					content: "";
-					margin-top: -5px;
-				}
-			}
-			&.active{
-				@include gradient-vertical($black, $gray);
-				a{
-					color: #fff;
-					&.photo{
-						background-position: 0px -46px;
-					}
-					&.video{
-						background-position: 0 -139px;
-					}
-					&.edit{
-						background-position: 0 -415px;
-					}
-					&.time{
-						background-position: 0 -230px;
-						border: 0 none;
-					}
-					&.flag{
-						background-position: 0 -323px;
-						border: 0 none;
-					}
-					&:after{
-						display: none;
-						content: none;
-					}
-				}
-			}
-		}
-		&:after{
-			content: "";
+}
+
+.obj-page-gallery{
+	padding: 0 0 0 47px;
+	@include clearfix;
+	li{
+		float: left;
+		position: relative;
+		z-index: 0;
+		margin: 0 27px 24px 0;
+		@include box-shadow(rgba(0, 0, 0, 0.1) 0 3px 8px 0);
+		a{
 			display: block;
-			clear: both;
-		}
-	}
-	.thumbnails{
-		padding: 0 0 0 47px;
-		li{
-			float: left;
 			position: relative;
-			z-index: 0;
-			margin: 0 27px 24px 0;
-			@include box-shadow(rgba(0, 0, 0, 0.1) 0 3px 8px 0);
-			a{
-				display: block;
-				position: relative;
-				padding: 5px;
-				background-color: #fff;
-				z-index: 1;
-			}
-			img{
-				display: block;
-			}
-			&:before,
-			&:after {
-				display: block;
-				content: "";
-				position: absolute;
-				bottom: 5px;
-				left: 5px;
-				width: 50%;
-				height: 20%;
-				@include box-shadow(rgba(0, 0, 0, 0.2) 0 8px 8px 0);
-				@include rotate(-7deg);
-			}
-			&:after {
-				right: 5px;
-				left: auto;
-				@include rotate(7deg);
-			}
+			padding: 5px;
+			background-color: #fff;
+			z-index: 1;
 		}
-		&:after{
+		img{
+			display: block;
+		}
+		&:before,
+		&:after {
+			display: block;
 			content: "";
-			clear: both;
-			display: table;
+			position: absolute;
+			bottom: 5px;
+			left: 5px;
+			width: 50%;
+			height: 20%;
+			@include box-shadow(rgba(0, 0, 0, 0.2) 0 8px 8px 0);
+			@include rotate(-7deg);
+		}
+		&:after {
+			right: 5px;
+			left: auto;
+			@include rotate(7deg);
 		}
 	}
 }
