@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :reviews
   has_many :complaints
+  has_many :images
 
   has_many :video_links
   has_many :you_tubes, through: :video_links, uniq: true, source: :video, source_type: 'YouTube'
