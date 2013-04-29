@@ -30,15 +30,15 @@ describe 'Images', js: true, type: :request do
   end
 
   it 'are displayed on the object page' do
-    go = GeoObject.make!(tag_list: [Category.make!.name])#( images: [Image.make!])
-    go.images.make!
+    go = GeoObject.make!(tag_list: [Category.make!.name])
+    Image.make!(imageable: go)
     visit geo_object_path(go)
     page.should have_selector('.object_image')
   end
 
   it 'are displayed on the event page' do
-    e = Event.make!#( images: [Image.make!])
-    e.images.make!
+    e = Event.make!
+    Image.make!(imageable: e)
     visit event_path(e)
     page.should have_selector('.event_image')
   end
