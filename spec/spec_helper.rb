@@ -8,6 +8,11 @@ require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
 
+# Uncomment to disable failures on js errors
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+# end
+
 Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,

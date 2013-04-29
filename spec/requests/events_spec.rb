@@ -36,7 +36,7 @@ describe "Events", js: true, type: :request do
 
 
   def create_new
-    fill_in_new title, body, tags
+    fill_in_new
     click_on 'Save'
   end
 
@@ -61,8 +61,7 @@ describe "Events", js: true, type: :request do
   end
 
   it 'creates a new event' do
-    pending
-    create_new title, body, tags
+    create_new
     page.should have_content title
     page.should have_content body
     page.should have_content tags

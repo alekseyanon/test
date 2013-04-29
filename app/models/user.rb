@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :ratings
 
   has_many :comments
+  has_many :events
   has_many :reviews
   has_many :complaints
 
