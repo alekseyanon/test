@@ -4,6 +4,8 @@
 @import "bootstrap/mixins";
 @import "bootstrap/grid";
 @import "bootstrap/component-animations";
+@import "bootstrap/modals";
+@import "bootstrap/close";
 @import "bootstrap/accordion";
 
 //
@@ -431,6 +433,42 @@ button {
   color: $black;
 }
 
-
 /* ----------------------------------------- colors -----------------------*/
-$blueLinkColor: #21b0e6;
+/* -------------------------------------- MODAL START ----------------------------------- */
+
+.modal-backdrop {
+  background-color: #ffffff;
+}
+
+.modal {
+  border-radius: 0;
+  border: none;
+  @include box-shadow(0 17px 17px rgba(47,41,7,.42), inset 0 -5px 5px rgba(0,0,0,.02));
+}
+
+.close {
+  color: $violet;
+  opacity: 1;
+}
+
+.modal-content {
+  border-top: 9px solid $violet;
+  padding: 15px 25px;
+}
+
+.modal-header {
+  border-bottom: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.modal-body {
+  padding: 0;
+  max-height: none;
+}
+
+.modal-header h3 {
+  font-size: 18px;
+}
+
+/* -------------------------------------- MODAL END ------------------------------------- */

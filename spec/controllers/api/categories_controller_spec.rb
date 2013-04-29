@@ -11,9 +11,10 @@ describe Api::CategoriesController do
       c2.move_to_child_of root
       get :index, format: :json
       response.should be_success
-      JSON.parse(response.body)
-      response.body.should have_content c1.name_ru
-      response.body.should have_content c2.name_ru
+      body = response.body
+      JSON.parse(body)
+      body.should have_content c1.name_ru
+      body.should have_content c2.name_ru
     end
   end
 

@@ -13,6 +13,7 @@ describe 'Images', js: true, type: :request do
   end
 
   it 'fields appear on event created form' do
+    login
     visit new_event_path
     page.should have_selector '.add_fields'
     page.find('.add_fields').click
