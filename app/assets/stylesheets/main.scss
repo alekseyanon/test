@@ -3,7 +3,7 @@
 
 body {
   color: $black;
-  font-family: "Open Sans", sans-serif;
+  font-family: $base-font;
   font-weight: 400;
   min-width: 768px;
   @include padding-trailer(2);
@@ -81,7 +81,7 @@ h2 {
 
 /* ---------------------------------------- LINKS START ----------------------------------------- */
 
-a, .action-link {
+a, .action-link, .action-link-bullet {
   @include transition(color 0.25s linear);
 }
 
@@ -95,6 +95,7 @@ a:visited {
 
 a:hover,
 .action-link:hover,
+.action-link-bullet:hover,
 .ui-link:visited:hover {
   color: $lightblue;
 }
@@ -114,7 +115,27 @@ a:hover,
   line-height: 1;
 }
 
+.action-link-bullet{
+	text-decoration: none;
+  display: inline-block;
+ 	position: relative;
+  cursor: pointer;
+ 	line-height: 1;
+	@include font-large;
+	font-size: 16px;
+ 	.inner{
+		border-bottom: 1px dotted;
+		margin-left: 3px;
+		font-size: $base-font-size;
+		font-family: $base-font; 
+	}
+	&:before{
+		vertical-align: middle;
+	}
+}
+
 .action-link:hover,
+.action-link-bullet:hover,
 .tdn-link {
   text-decoration: none;
 }
@@ -1749,111 +1770,38 @@ a:hover,
 	@include clearfix;
 	li{
 		float: left;
-		padding: 13px 20px 13px 20px;
+		padding: 12px 20px 12px 20px;
 		@include border-top-radius($baseBorderRadius);
 		position: relative;
 		&.pull-right{
 			float: right;
-		}
-		a{
-			text-decoration: none;
-			border-bottom: 1px dotted $black;
-			&.icons{
-				&.photo{
-					&:before{
-						content: "";
-						display: block;
-						float: left;
-						width: 24px;
-						height: 24px;
-						background-image: url('/assets/icons/all-photos-icons.png');
-						background-repeat: no-repeat;
-						background-position: 0px 3px;
-					}
-				}
-				&.video{
-					&:before{
-						content: "";
-						display: block;
-						float: left;
-						width: 24px;
-						height: 24px;
-						background-image: url('/assets/icons/all-photos-icons.png');
-						background-repeat: no-repeat;
-						background-position: 0 -89px;
-					}
-				}
-				&.edit{
-					&:before{
-						content: "";
-						display: block;
-						float: left;
-						width: 24px;
-						height: 24px;
-						background-image: url('/assets/icons/all-photos-icons.png');
-						background-repeat: no-repeat;
-						background-position: 0 -365px;
-					}
-				}
-				&.time{
-					background-image: url('/assets/icons/all-photos-icons.png');
-					background-repeat: no-repeat;
-					background-position: 0 -184px;
-					border: 0 none;
-					padding-left: 18px;
-				}
-				&.flag{
-					background-image: url('/assets/icons/all-photos-icons.png');
-					background-repeat: no-repeat;
-					background-position: 0 -277px;
-					border: 0 none;
-					padding-left: 18px;
-				}
-			}
-			&:hover{
-				color: $black;
-				border: 0 none;
-			}
 		}
 		&.active{
 			@include gradient-vertical($black, $gray);
 			a{
 				color: #fff;
 				border: 0 none;
-				&.photo{
-					&:before{
-						background-position: 0px -46px;
-					}
+				.inner{
+					border: 0 none;
 				}
-				&.video{
-					&:before{
-						background-position: 0 -135px;
-					}
-				}
-				&.edit{
-					&:before{
-						background-position: 0 -413px;
-					}
-				}
-				&.time{
-					background-position: 0 -230px;
-				}
-				&.flag{
-					background-position: 0 -323px;
+				&.action-link{
+					margin: 8px 0 6px 0;
+					display: inline-block;
 				}
 			}
 		}
 	}
 }
 .all-photos-page{
-	.object-search{
-		color: $blueLinkColor;
-		padding: 0 0 0 20px;
-		margin: 0 0 0 30px;
-		background-image: url('/assets/icons/all-photos-icons.png');
-		background-position: 0 -548px;
-		background-repeat: no-repeat;
-		display: block;
+	.search{
+		a{
+			color: $lightblue;
+			margin-left: 30px;
+			.inner{
+				text-decoration: underline;
+				border: 0 none;
+			}
+		}
 	}
 	.add{
 		margin-bottom: 30px;
@@ -1866,19 +1814,24 @@ a:hover,
 			padding: 9px 18px;
 			border: 1px solid #dcdde9;
 			margin: 14px 20px 0 0;
+			color: #000;
 			&:hover{
 				color: $black;
 			}
 			&:before{
+				@include  font-large;
 				display: block;
 				float: left;
-				width: 24px;
-				height: 24px;
-				content: " ";
-				margin: 0 5px 0 0;
-				background-image: url('/assets/icons/all-photos-icons.png');
-				background-position: 0 -457px;
-				background-repeat: no-repeat;
+				margin: 3px 5px 0 0;
+				content: "\2d";
+  			font-family: 'smorodina-icons';
+			  speak: none;
+			  font-style: normal;
+			  font-weight: normal;
+			  font-variant: normal;
+			  text-transform: none;
+			  line-height: 1;
+			  -webkit-font-smoothing: antialiased;
 			}
 		}
 	}
