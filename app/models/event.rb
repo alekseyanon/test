@@ -62,7 +62,7 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :images
 
-  validates :title, :start_date, :end_date, :geom, :repeat_rule, presence: true
+  validates :title, :start_date, :end_date, :geom, :repeat_rule, :user, presence: true
   validate  :validate_tags
   validate  :validate_duration
   validate  :validate_repeat_rule

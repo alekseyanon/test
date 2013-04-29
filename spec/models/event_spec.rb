@@ -10,6 +10,7 @@ describe Event do
   it { should validate_presence_of :title }
   it { should validate_presence_of :geom }
   it { should belong_to :user }
+  it { should validate_presence_of :user }
 
   let(:event) {Event.make! }
   let(:event_weekly){Event.make! repeat_rule: 'weekly'}
