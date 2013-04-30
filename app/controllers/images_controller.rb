@@ -12,7 +12,7 @@ class ImagesController < InheritedResources::Base
     @image = @imageable.images.build params[:image]
     @image.user = current_user
     if @image.save
-      redirect_to geo_object_image_path(@imageable, @image)
+      redirect_to polymorphic_url([@imageable, @image])
     else
       respond_with do |format|
         format.html { render action: :new }

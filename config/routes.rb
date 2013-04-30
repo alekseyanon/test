@@ -12,7 +12,11 @@ Smorodina::Application.routes.draw do
   match '/users/auth/:provider/callback', to: 'authentications#create'
   match 'events/search' => 'events#index'
 
-  resources :events
+  resources :events do
+    resources :images
+    resources :videos
+    resources :you_tubes, path: 'videos'
+  end
 
   resources :profiles
 

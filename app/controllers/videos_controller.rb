@@ -19,13 +19,13 @@ class VideosController < InheritedResources::Base
 
   def create
     @video_link = VideoLink.find_or_create_by_content current_user, @video_star, params[:you_tube][:url]
-    @video = @video_link.video
+    @video = @video_link.try(:video)
     if @video
       redirect_to polymorphic_url([@video_star, Video])
     else
       respond_with do |format|
         format.html { render action: :new }
-        format.json { render json: @video_star.errors, status: :unprocessable_entity }
+        format.json { render json: @video.errors, status: :unprocessable_entity }
       end
     end
   end
