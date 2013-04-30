@@ -117,20 +117,27 @@ a:hover,
 
 .action-link-bullet{
 	text-decoration: none;
-  display: inline-block;
  	position: relative;
-  cursor: pointer;
- 	line-height: 1;
-	@include font-large;
-	font-size: 16px;
  	.inner{
 		border-bottom: 1px dotted;
-		margin-left: 3px;
+		margin-left: 20px;
 		font-size: $base-font-size;
 		font-family: $base-font; 
+  	display: inline-block;
+		cursor: pointer;
+	 	line-height: 1;
 	}
 	&:before{
-		vertical-align: middle;
+  	@include font-large;
+		position: absolute;
+		margin-top: -11px;
+		top: 50%;
+	}
+	&:visited{
+		&:hover{
+  		color: $lightblue;
+		}
+		color: #000;
 	}
 }
 
@@ -1773,14 +1780,31 @@ a:hover,
 		padding: 12px 20px 12px 20px;
 		@include border-top-radius($baseBorderRadius);
 		position: relative;
+		.icon-flag:before,
+		.icon-sm-history:before{	
+			@include font-large;
+			line-height: 1;
+		}
 		&.pull-right{
 			float: right;
+			a{
+				text-decoration: none;
+				&:visited{
+					color: #000;
+					&:hover{
+						color: $lightblue;
+					}
+				}
+			}
 		}
 		&.active{
 			@include gradient-vertical($black, $gray);
 			a{
 				color: #fff;
 				border: 0 none;
+				&:hover{
+					color: #fff;
+				}
 				.inner{
 					border: 0 none;
 				}
