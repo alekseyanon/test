@@ -99,11 +99,11 @@ window.toggleType = (link, field) ->
     obj.type = "text"
     obj2.innerHTML = "скрыть пароль"
 window.complaint = (path) ->
-  $(".complaint").html("").load path + "/complaints/new", ->
+  $(".complaint").html("").load path + "/complaints/new"
 
 window.get_object = (id, teaser, callback) ->
   url = "/api/objects/" + id
-  url = url + "?teaser=1"  if teaser
+  url += "?teaser=1" if teaser
   $.getJSON url, {}, callback
 
 new Smorodina.Routers.Global
