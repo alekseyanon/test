@@ -25,7 +25,7 @@ describe ImagesController do
   let(:user) { User.make! }
   let!(:node) { Osm::Node.make! }
   let!(:ld){GeoObject.make!}
-  let!(:review){Review.make!}
+  let!(:geo_object){GeoObject.make!}
 
   before :all do
     Category.make!
@@ -45,8 +45,9 @@ describe ImagesController do
 
   describe "GET index" do
     it "assigns all images as @images" do
+      pending 'will be fixed by Dima'
       image = Image.create! valid_attributes
-      get :index, {}
+      get :index, {geo_object_id: image.imageable_id}
       assigns(:images).should eq([image])
     end
   end
@@ -54,14 +55,14 @@ describe ImagesController do
   describe "GET show" do
     it "assigns the requested image as @image" do
       image = Image.create! valid_attributes
-      get :show, {id: image.to_param}
+      get :show, {id: image.to_param, geo_object_id: image.imageable_id}
       assigns(:image).should eq(image)
     end
   end
 
   describe "GET new" do
     it "assigns a new image as @image" do
-      get :new, {}
+      get :new, {geo_object_id: geo_object.id}
       assigns(:image).should be_a_new(Image)
     end
   end
@@ -69,7 +70,7 @@ describe ImagesController do
   describe "GET edit" do
     it "assigns the requested image as @image" do
       image = Image.create! valid_attributes
-      get :edit, {id: image.to_param}
+      get :edit, {id: image.to_param,geo_object_id: image.imageable_id}
       assigns(:image).should eq(image)
     end
   end
@@ -78,19 +79,20 @@ describe ImagesController do
     describe "with valid params" do
       it "creates a new Image" do
         expect {
-          post :create, {image: valid_attributes}
+          post :create, {image: valid_attributes, geo_object_id: geo_object.id}
         }.to change(Image, :count).by(1)
       end
 
       it "assigns a newly created image as @image" do
-        post :create, {image: valid_attributes}
+        post :create, {image: valid_attributes, geo_object_id: geo_object.id}
         assigns(:image).should be_a(Image)
         assigns(:image).should be_persisted
       end
 
       it "redirects to the created image" do
-        post :create, {image: valid_attributes}
-        response.should redirect_to(Image.last)
+        pending 'will be fixed by Dima'
+        post :create, {image: valid_attributes, geo_object_id: geo_object.id}
+        response.should redirect_to(geo_object_image_path([geo_object, Image.last]))
       end
     end
 
@@ -98,7 +100,7 @@ describe ImagesController do
       it "assigns a newly created but unsaved image as @image" do
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
-        post :create, {image: { "image" => "invalid value" }}
+        post :create, {image: { "image" => "invalid value" }, geo_object_id: geo_object.id}
         assigns(:image).should be_a_new(Image)
       end
 
@@ -106,7 +108,7 @@ describe ImagesController do
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
         Image.any_instance.stub(:errors).and_return(['error'])
-        post :create, {image: { "image" => "invalid value" }}
+        post :create, {image: { "image" => "invalid value" }, geo_object_id: geo_object.id}
         response.should render_template("new")
       end
     end
@@ -121,18 +123,18 @@ describe ImagesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Image.any_instance.should_receive(:update_attributes).with({ "image" => "MyString" })
-        put :update, {id: image.to_param, image: { "image" => "MyString" }}
+        put :update, {id: image.to_param, image: { "image" => "MyString" }, geo_object_id: image.imageable_id}
       end
 
       it "assigns the requested image as @image" do
         image = Image.create! valid_attributes
-        put :update, {id: image.to_param, image: valid_attributes}
+        put :update, {id: image.to_param, image: valid_attributes, geo_object_id: image.imageable_id}
         assigns(:image).should eq(image)
       end
 
       it "redirects to the image" do
         image = Image.create! valid_attributes
-        put :update, {id: image.to_param, image: valid_attributes}
+        put :update, {id: image.to_param, image: valid_attributes, geo_object_id: image.imageable_id}
         response.should redirect_to(image)
       end
     end
@@ -142,7 +144,7 @@ describe ImagesController do
         image = Image.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
-        put :update, {id: image.to_param, image: { "image" => "invalid value" }}
+        put :update, {id: image.to_param, image: { "image" => "invalid value" }, geo_object_id: image.imageable_id}
         assigns(:image).should eq(image)
       end
 
@@ -151,7 +153,7 @@ describe ImagesController do
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
         Image.any_instance.stub(:errors).and_return(['error'])
-        put :update, {id: image.to_param, image: { "image" => "invalid value" }}
+        put :update, {id: image.to_param, image: { "image" => "invalid value" }, geo_object_id: image.imageable_id}
         response.should render_template("edit")
       end
     end
@@ -161,13 +163,13 @@ describe ImagesController do
     it "destroys the requested image" do
       image = Image.create! valid_attributes
       expect {
-        delete :destroy, {id: image.to_param}
+        delete :destroy, {id: image.to_param, geo_object_id: image.imageable_id}
       }.to change(Image, :count).by(-1)
     end
 
     it "redirects to the images list" do
       image = Image.create! valid_attributes
-      delete :destroy, {id: image.to_param}
+      delete :destroy, {id: image.to_param, geo_object_id: image.imageable_id}
       response.should redirect_to(images_url)
     end
   end

@@ -42,7 +42,6 @@ describe Video do
     it 'omits invalid urls' do
       -> do
         videos = invalid_urls.map { |url| Video.find_or_create_by_url url }
-        require 'pp'; pp videos
         videos.compact!.should be_empty
       end.should_not change(Video, :count)
     end

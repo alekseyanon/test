@@ -1,10 +1,13 @@
-#= require ./routers/global_router
-#= require ./geo_objects
+#= require routers/global_router
+#= require collections/categories
 
 Smorodina.Pages.Index = ->
 
+  categories = new Smorodina.Collections.Categories
+
   $ ->
     new Smorodina.Views.SearchFilter
+    new Smorodina.Views.Categories(collection: categories)
     new Smorodina.Views.Map
 
     # TODO temporary solution

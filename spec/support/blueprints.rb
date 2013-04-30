@@ -71,6 +71,7 @@ end
 
 Image.blueprint do
   image { File.open("#{Rails.root}/spec/fixtures/images/fishing/toon376.gif") }
+  imageable { GeoObject.make! }
 end
 
 Comment.blueprint do
