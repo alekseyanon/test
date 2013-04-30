@@ -36,8 +36,17 @@ describe "Events", js: true, type: :request do
 
 
   def create_new
-    fill_in_new title, body, tags
+    fill_in_new
     click_on 'Save'
+  end
+
+  context 'as guest' do
+    it 'cant edit event' do
+      e = Event.make!
+      visit edit_event_path(e)
+      uri = URI.parse(current_url)
+      "#{uri.path}#{uri.query}".should == root_path
+    end
   end
 
   it 'should show event list' do
@@ -52,11 +61,12 @@ describe "Events", js: true, type: :request do
   end
 
   it 'creates a new event' do
-    pending
-    create_new title, body, tags
+    create_new
     page.should have_content title
     page.should have_content body
-    page.should have_content tags
+    page.should have_content 'aaa'
+    page.should have_content 'bbb'
+    page.should have_content 'ccc '
   end
 
   it 'has repeats in future' do

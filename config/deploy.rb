@@ -38,10 +38,10 @@ set :user,        'deployer'
 default_run_options[:pty] = true
 
 before 'deploy:update_code',      'smorodina:daemons:stop'
+before 'deploy:update_code',      'smorodina:clear_assets'
 after  'deploy:update_code',      'smorodina:symlink'
 #after  'smorodina:symlink',  'smorodina:db'
-after  'smorodina:symlink',       'smorodina:clear_assets'
-after  'smorodina:clear_assets',  'smorodina:daemons:start'
+after  'deploy:update',           'smorodina:daemons:start'
 
 def run_rake(task)
   run "cd #{current_path} && rake RAILS_ENV=#{rails_env} #{task}"
@@ -51,7 +51,6 @@ end
 namespace :smorodina do
   desc "Make symlink for additional smorodina files"
   task :symlink do
-    run "rm -f #{current_path} && ln -s #{release_path} #{current_path}" #TODO remove hack, capistrano should do this
     run "ln -nfs #{shared_path}/config/database.yml        #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/config/social_services.yml #{release_path}/config/social_services.yml"
     run "ln -nfs #{shared_path}/uploads                    #{release_path}/public/uploads"

@@ -13,6 +13,7 @@ describe 'Images', js: true, type: :request do
   end
 
   it 'fields appear on event created form' do
+    login
     e = Event.make!
     visit event_path(e)
     click_on 'Add photo'

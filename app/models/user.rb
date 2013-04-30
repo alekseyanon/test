@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :ratings
 
   has_many :comments
+  has_many :events
   has_many :reviews
   has_many :complaints
   has_many :images
@@ -37,6 +38,11 @@ class User < ActiveRecord::Base
   #TODO remove hack
   before_validation :set_role
   after_create :create_profile
+
+  #TODO add roles and role check
+  def admin?
+    false
+  end
 
   validate :uniqueness_user, on: :create
   def uniqueness_user

@@ -1,4 +1,5 @@
 class EventsController < InheritedResources::Base
+  before_filter :authorize
   respond_to :html, except: :search
   respond_to :json, only: :search
 
@@ -24,7 +25,7 @@ class EventsController < InheritedResources::Base
   # system_event_tag_id - id одного из системных тегов
   def create
     params[:event][:start_date] = Time.parse params[:event][:start_date]
-    @event = Event.new params[:event]
+    @event = current_user.events.build(params[:event])
     unless params[:system_event_tag_id].blank?
       system_tag = EventTag.find params[:system_event_tag_id]
       @event.event_tags << system_tag
@@ -35,6 +36,22 @@ class EventsController < InheritedResources::Base
         VideoLink.find_or_create_by_content current_user, @event, url
       end
     end
+  end
+
+  def update
+    @event = current_resource
+    update!
+  end
+
+  def edit
+    @event = current_resource
+    edit!
+  end
+
+  private
+
+  def current_resource
+    @current_resource ||= Event.find(params[:id]) if params[:id]
   end
 
 end
