@@ -1,14 +1,9 @@
 class Image < ActiveRecord::Base
-  attr_accessible :image
+  attr_accessible :image, :user_id
   mount_uploader  :image, ImageUploader
   belongs_to      :imageable, polymorphic: true
-  belongs_to      :images
+  belongs_to      :user
 
   acts_as_voteable
 
-  before_save :attach_to_user
-
-  def attach_to_user
-    self.user = session[:user]
-  end
 end

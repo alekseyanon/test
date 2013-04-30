@@ -36,6 +36,9 @@ Smorodina::Application.routes.draw do
   resources :geo_objects, path: 'objects' do
     resources :reviews, only: [:new, :create, :edit, :update]
     resources :votes, only: [:create, :destroy]
+    resources :images
+    resources :videos
+    resources :you_tubes, path: 'videos'
     member do
       get 'history'
     end
