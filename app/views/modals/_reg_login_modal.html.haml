@@ -1,0 +1,77 @@
+%div#regLoginModal.modal.hide.fade.reg-modal{ role: 'dialog', tabindex: '-1' }
+  %div.modal-content
+    %div.modal-header
+      %button.close{ data: { dismiss: 'modal'}, type: 'button'} ×
+      %h3
+        Войдите или зарегистрируйтесь
+    %div.modal-body
+      %div.reg-modal__social__title
+        Пожалуйста, авторизуйтесь через
+      %div.reg-modal__social__content
+        %a.reg-modal__social__link{ href: omniauth_authorize_path(:user, :facebook) }
+          %span.icon.icon-fb
+        %a.reg-modal__social__link{ href: '#' }
+          %span.icon.icon-vkontakte
+        %a.reg-modal__social__link{ href: omniauth_authorize_path(:user, :twitter) }
+          %span.icon.icon-tw
+        %a.reg-modal__social__link{ href: '#' }
+          %span.icon.icon-gplus
+      %div.reg-modal__forms__title
+        или
+      %div.row-fluid.reg-modal__forms__content
+        %div.span6
+          %div.reg-modal__form
+            %div.reg-modal__form__inner
+              %div.reg-modal__form__title
+                Регистрация нового пользователя
+              %form{ action: '/users/sign_in', method: 'post' }
+                %div.form-field
+                  %input#user_email.span12{ name: 'user[email]', size: '50', type: 'email', placeholder: 'Эл. почта' }
+                %div.form-field
+                  %input#user_password.span12{ name: 'user[password]', size: '50', type: 'password', placeholder: 'Пароль' }
+                  %div.reg-modal__form__password-links.clearfix
+                    %a.reg-modal__form__password-links__show{ href: '#' }
+                      Показать пароль
+                    %a.reg-modal__form__password-links__forgot{ href: '#' }
+                      Забыли пароль?
+                %div.reg-modal__form__checkboxes
+                  %label.checkbox{ for: 'user_remember_me' }
+                    %input#user_remember_me{ name: 'user[remember_me]', type: 'checkbox', value: '1' }
+                    %span.label-text
+                      Запомнить меня
+                %button.button.button_3d.button_orange.button_full{ type: 'submit' }
+                  %span.button__inner.button_3d__inner.button_full__inner
+                    %span.button__text.button_3d__text{ data: { text: 'Войти' } }
+
+        %div.span6
+          %div.reg-modal__form.reg-modal__form_registration
+            %div.reg-modal__form__inner.reg-modal__form__inner_registration
+              %div.reg-modal__form__title
+                Зарегистрированы в
+                %b
+                  «Смородине»
+                ?
+              %form{ action: '/users/sign_in', method: 'post' }
+                %div.form-field
+                  %input#user_email.span12{ name: 'user[email]', size: '50', type: 'email', placeholder: 'Эл. почта' }
+                %div.form-field
+                  %input#user_name.span12{ name: 'user[name]', size: '50', type: 'text', placeholder: 'Имя' }
+                %div.form-field
+                  %input#user_password.span12{ name: 'user[password]', size: '50', type: 'password', placeholder: 'Пароль' }
+                  %div.reg-modal__form__password-links.clearfix
+                    %a.reg-modal__form__password-links__show{ href: '#' }
+                      Скрыть пароль
+                %div.reg-modal__form__checkboxes
+                  %label.checkbox{ for: 'user_rules' }
+                    %input#user_rules{ name: 'user[rules]', type: 'checkbox', value: '1' }
+                    %span.label-text
+                      Согласен с
+                      %a{ href: '#' }
+                        правилами проекта
+                  %label.checkbox{ for: 'user_spam' }
+                    %input#user_spam{ name: 'user[spam]', type: 'checkbox', value: '1' }
+                    %span.label-text
+                      Хочу получать рассылку
+                %button.button.button_3d.button_orange.button_full{ type: 'submit' }
+                  %span.button__inner.button_3d__inner.button_full__inner
+                    %span.button__text.button_3d__text{ data: { text: 'Зарегистрироваться' } }
