@@ -28,5 +28,5 @@ class Smorodina.Views.Category extends Backbone.View
     e.stopPropagation()
 
   toggleSelected: ->
-    @$el.toggleClass('semi-selected', @model.get('semiSelected'))
-    @$el.toggleClass('selected', @model.get('selected'))
+    @$el.toggleClass 'semi-selected', @model.get('semiSelected')
+    @$el.toggleClass 'selected', @model.get('selected')
