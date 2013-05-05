@@ -7,7 +7,9 @@ class Permission
     allow :events, [:index, :show]
     if user
       allow :events, [:new, :create]
-      allow :events, [:edit, :update] { |event| event.user_id == user.id }
+      allow :runtips, [:new, :create]
+      allow :events, [:edit, :update] { |resource| resource.user_id == user.id }
+      allow :runtips, [:edit, :update] { |resource| resource.user_id == user.id }
       allow_all if user.admin?
     end
   end

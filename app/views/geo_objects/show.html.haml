@@ -73,6 +73,21 @@
   %br
   %br
 
+%h4 Как добраться
+
+- @geo_object.runtips.each do |rt|
+  %div= rt.body
+
+
+%h4 Добавить совет Как добраться
+
+= form_for([@geo_object, @geo_object.runtips.build]) do |f|
+  %p
+    = f.label :body
+    %br
+    = f.text_area :body, rows: '3'
+  %p= f.submit
+
 %br
 %br
 %h3 Далее идет SEO-текст.

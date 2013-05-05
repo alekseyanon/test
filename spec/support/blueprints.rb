@@ -108,3 +108,9 @@ Video.blueprint do
   ids = %w(n0SVG6SgirE 3eRxPDLYM9Q TRbLicNOvzY BHjg6cTxmrQ)
   vid { (ids - Video.pluck(:vid)).sample }
 end
+
+Runtip.blueprint do
+  body { Faker::Lorem.sentences 10 }
+  user { User.make! }
+  geo_object { GeoObject.make! }
+end

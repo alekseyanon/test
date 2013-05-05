@@ -34,6 +34,7 @@ Smorodina::Application.routes.draw do
   end
 
   resources :geo_objects, path: 'objects' do
+    resources :runtips
     resources :reviews, only: [:new, :create, :edit, :update]
     resources :votes, only: [:create, :destroy]
     resources :images

@@ -1,21 +1,24 @@
 namespace :fake do
 
-  desc "Generates fake accounts for admins, 
+  desc "Generates fake accounts for admins,
         users authenticated by twitter, facebook and by the smorodina"
-  
-  #Creates fake users in database
-  #This task should be run after all migrations passed
+
+  # Creates fake users in database
+  # This task should be run after all migrations passed
   #
-  #Creadentials for user with twitter account: [test333@mailinator.com, 123456a]
-  #Creadentials for user with facebook account: [test98732@yandex.ru, 123456ab]
-  #Creadentials for user with both twitter and facebook account: Facebook: [test98732both@yandex.ru, 123456ab]
-  #                                                              Twitter:  [test98732both@yandex.ru, 123456a ]
+  # Creadentials for user with twitter account:
+  #   [test333@mailinator.com, 123456a]
+  # Creadentials for user with facebook account:
+  #   [test98732@yandex.ru, 123456ab]
+  # Creadentials for user with both twitter and facebook account:
+  #   Facebook: [test98732both@yandex.ru, 123456ab]
+  #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
   task users: :environment do
 
     DEFAULT_PASSWORD = "12345678"
-    
-    #generic function for users creation 
+
+    #generic function for users creation
     def user_creation
       u = User.new
       yield u
@@ -37,7 +40,7 @@ namespace :fake do
         u.password = DEFAULT_PASSWORD
       end
     end
-    
+
     def create_twitter_user
       user_creation do |u|
         u.password = Devise.friendly_token[0,20]
@@ -47,7 +50,7 @@ namespace :fake do
         u.skip_confirmation!
       end
     end
-    
+
     def create_facebook_user
       user_creation do |u|
         u.authentications.build  email: "test98732@yandex.ru", provider: "facebook",
@@ -67,11 +70,12 @@ namespace :fake do
       end
     end
 
-    puts "creating users..."
+    print 'creating users... '
     create_admin
     create_smorodina_user
     create_twitter_user
     create_facebook_user
     create_user_with_twitter_and_facebook
+    puts 'DONE'
   end
 end

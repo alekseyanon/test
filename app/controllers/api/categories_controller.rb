@@ -1,8 +1,12 @@
 class Api::CategoriesController < ApplicationController
   respond_to :json
-  # "created_at", "description", "lft", "rgt", "updated_at"
+
   def index
-    respond_with Category.root.descendants
+    if Category.root
+    	respond_with Category.root.descendants
+    else
+    	respond_with []
+    end
   end
 
 end

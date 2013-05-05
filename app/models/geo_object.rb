@@ -36,6 +36,7 @@ class GeoObject < ActiveRecord::Base
   include Searchable
   has_many :reviews, as: :reviewable
   has_many :images,  as: :imageable
+  has_many :runtips
 
   accepts_nested_attributes_for :images
 
