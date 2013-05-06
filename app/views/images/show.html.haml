@@ -1,3 +1,83 @@
+- content_for :custom_javascript_includes do
+  = javascript_include_tag "page_specific/images_show"
+.pic_show
+  .pic_show__title
+    = link_to "Object title", "#", {class: "action-link"}
+  .pic_show__counter
+    Фото 1 из 32
+  .pic_show__image
+    = image_tag "http://placehold.it/724x485"
+    .pic_show__image__navi
+      .pic_show__image__navi__left
+        = link_to "", "", {class: "icon-sm-arrow-left-2"}
+      .pic_show__image__navi__right
+        = link_to "", "", {class: "icon-sm-untitled"}
+      .pic_show__image__navi__sub
+        .pic_show__image__navi__sub__inner
+          .pic_show__image__navi__sub__inner__download
+            = link_to raw("<span class='inner'>Скачать</span>"), "", {class: "action-link-bullet icon-sm-arrow-down-2 ui-link"}
+          .pic_show__image__navi__sub__inner__fullscreen
+            = link_to raw("<span class='inner'>На весь экран</span>"), "", {class: "action-link-bullet icon-sm-full-screen right ui-link"}
+  .pic_show__social
+    .pic_show__social__title
+      Раскажи друзьям 
+    .pic_show__social__icons
+      %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
+  .pic_show__vote
+    .pic_vote.pic_vote_positive
+      .pic_vote__up
+        = link_to "", "#", {class: "icon-thumbs-up ui-link"}
+      .pic_vote__count
+        80
+      .pic_vote__down
+        = link_to "", "#", {class: "icon-thumbs-down ui-link"}
+      .pic_vote__spam
+        = link_to "", "#", {class: "icon-flag ui-link"}
+.pic__author
+  .pic__author__avatar
+    = image_tag "http://placehold.it/64x64"
+  .pic__author__info
+    .pic__author__info__name
+      Alex Baglay
+    .pic__author__info__date
+      30.04.2013
+    .pic__author__info__comment
+      Super mega comment
+    .pic__author__actions
+      .pic__author__actions_respond
+        = link_to raw("<span class='inner'>Ответить</span>"), "#", {class: "icon-sm-reply action-link-bullet"}
+.pic_comments
+  .pic_comments__count
+    .pic_comments__count__text
+      67 comments
+  .pic_comments__comment
+    .pic_comments__comment__avatar
+      = image_tag "http://placehold.it/48x48"
+    .pic_comments__comment__info
+      .pic_comments__comment__info__name
+        Alex Baglay
+      .pic_comments__comment__info__date
+        1.05.2013
+      .pic_comments__comment__info__comment
+        Super mega comment
+      .pic_comments__comment__actions
+        .pic_comments__comment__actions__respond
+          = link_to raw("<span class='inner'>Ответить</span>"), "#", {class: "icon-sm-reply action-link-bullet"}
+        .comments__comment__actions__vote
+  .pic_comments__add
+    .pic_comments__add__avatar
+      = image_tag "http://placehold.it/48x48"
+    .pic_comments__add__input
+      %textarea
+    .pic_comments__add__controls
+      .pic_comments__add__controls__submit
+        %input(type="submit" class="button button_standard button_grey" value="Отправить")
+      .pic_comments__add__controls__reset
+        %input(type="reset" class="action-link" value="Отменить")
+  .pic_comments__next
+    = link_to "Показать ещё", "#", {class: "button button_standard button_grey ui-link"}
+
+
 %p
   %b Image:
   =image_tag @image.image_url(:thumb)

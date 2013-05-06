@@ -12,9 +12,9 @@
       = link_to raw("<span class='inner'>Видео</span>"), video_geo_object_path(@geo_object), {class: "icon-sm-video action-link-bullet"}
 
     %li.pull-right
-      = link_to "", "#", {class: "icon-flag action-link-bullet"}
+      = link_to "", "#", {class: "icon-flag"}
     %li.pull-right
-      = link_to "", "#" , {class: "icon-sm-history action-link-bullet"}
+      = link_to "", "#" , {class: "icon-sm-history"}
     %li.pull-right
       = link_to raw("<span class='inner'>Редактировать</span>"), edit_geo_object_path(@geo_object), {class: "icon-sm-pencil action-link-bullet"}
 
@@ -28,5 +28,5 @@
   %ul.obj-page-gallery
     - @geo_object.images.each do |image|
       %li
-        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@geo_object, image) 
+        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@geo_object, image, anchor: "images/#{image.id}")
 = render 'layouts/footer'
