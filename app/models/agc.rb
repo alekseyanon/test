@@ -4,7 +4,7 @@ class Agc < ActiveRecord::Base
   has_many :events
 
   def titles
-    Hash[agus.map { |id| [id, Agu.find(id)['title']] }]
+    Hash[agus.map { |id| [id, Agu.find(id).title] }]
   end
 
   def self.most_precise_enclosing(geom)
