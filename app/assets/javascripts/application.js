@@ -23,13 +23,13 @@
 //= require smorodina
 //= require hamlcoffee
 //= require spin
+//= require_tree ./collections
+//= require_tree ./geo
+//= require_tree ./models
+//= require_tree ./routers
+//= require_tree ./templates
+//= require_tree ./views
 //= require_directory .
-//= require_directory ./collections
-//= require_directory ./geo
-//= require_directory ./models
-//= require_directory ./routers
-//= require_directory ./templates
-//= require_directory ./views
 //= require jquery.Jcrop
 
 new Smorodina.Routers.Global;

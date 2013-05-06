@@ -24,15 +24,7 @@
     .pic_show__social__icons
       %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
   .pic_show__vote
-    .pic_vote.pic_vote_positive
-      .pic_vote__up
-        = link_to "", "#", {class: "icon-thumbs-up ui-link"}
-      .pic_vote__count
-        80
-      .pic_vote__down
-        = link_to "", "#", {class: "icon-thumbs-down ui-link"}
-      .pic_vote__spam
-        = link_to "", "#", {class: "icon-flag ui-link"}
+    = render partial: "shared/vote_for"
 .pic__author
   .pic__author__avatar
     = image_tag "http://placehold.it/64x64"
@@ -60,15 +52,16 @@
         1.05.2013
       .pic_comments__comment__info__comment
         Super mega comment
-      .pic_comments__comment__actions
-        .pic_comments__comment__actions__respond
+      .pic_comments__comment__info__actions
+        .pic_comments__comment__info__actions__respond
           = link_to raw("<span class='inner'>Ответить</span>"), "#", {class: "icon-sm-reply action-link-bullet"}
-        .comments__comment__actions__vote
+        .pic_comments__comment__info__actions__vote
+          = render partial: "shared/vote_for"
   .pic_comments__add
     .pic_comments__add__avatar
       = image_tag "http://placehold.it/48x48"
     .pic_comments__add__input
-      %textarea
+      %input(type="text")
     .pic_comments__add__controls
       .pic_comments__add__controls__submit
         %input(type="submit" class="button button_standard button_grey" value="Отправить")

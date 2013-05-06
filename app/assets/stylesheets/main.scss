@@ -2134,6 +2134,12 @@ a:hover,
 	}
 	.pic_comments__comment__info__actions__vote{
 		display: inline-block;
+		&:before{
+			content: "\b7";
+			margin: 0 10px 0 10px;
+			font-weight: bold;
+			color: $siteLightGray;
+		}
 	}
 
 	.pic_comments__add{
@@ -2164,10 +2170,14 @@ a:hover,
 			background-position: 0px 0px;
 			z-index: 2;
 		}
-		textarea{
+		input{
 			position: relative;
 			z-index: 1;
 			border: 1px solid $siteLightGray;
+			@include font-large;
+			line-height: 43px !important;
+			@include border-radius(0px);
+			width: 538px;
 		}
 	}
 	.pic_comments__add__controls{
@@ -2211,6 +2221,7 @@ a:hover,
 }
 
 .pic_vote{
+	display: inline;
 	text-align: right;
 	color: $siteGray;
 	a{
