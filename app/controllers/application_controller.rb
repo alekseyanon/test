@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
   delegate :allow?, to: :current_permission
   helper_method :allow?
-  
+
   delegate :allow_param?, to: :current_permission
   helper_method :allow_param?
 
@@ -13,8 +13,18 @@ class ApplicationController < ActionController::Base
     logger.debug "url : #{request.original_url} | params : #{params} | " + error_message
   end
 
+  def find_parent_model
+    [[:comment_id, Comment],
+     [:review_id, Review],
+     [:image_id, Image],
+     [:event_id, Event],
+     [:geo_object_id, GeoObject]].each do |(key, parent_class)|
+      return @parent = parent_class.find(params[key]) if params.has_key? key
+    end
+  end
+
   private
-  
+
   def current_permission
     @current_permission ||= Permission.new(current_user)
   end

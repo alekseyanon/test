@@ -1,15 +1,15 @@
 class VotesController < InheritedResources::Base
   before_filter :authenticate_user!, only: [:create, :destroy]
-  before_filter :find_voteable_model
+  before_filter :find_parent_model
 
   def create
     tag = params[:voteable_tag].blank? ? nil : params[:voteable_tag]
-    current_user.vote(@voteable, exclusive: true, direction: params[:sign].to_sym, tag: tag)
-    if current_user.voted_on?(@voteable, tag)
-      render json: {positive: @voteable.votes_for(tag), negative: @voteable.votes_against(tag)}
-      if @voteable.respond_to?(:rating)
+    current_user.vote(@parent, exclusive: true, direction: params[:sign].to_sym, tag: tag)
+    if current_user.voted_on?(@parent, tag)
+      render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag)}
+      if @parent.respond_to?(:rating)
         ### TODO leaf_categories метод имеется только у GeoObject
-        @voteable.update_attributes(rating: (@voteable.plusminus.to_f / @voteable.leaf_categories.count))
+        @parent.update_attributes(rating: (@parent.plusminus.to_f / @parent.leaf_categories.count))
       end
     else
       request_logger params, 'Message: Check controller name, controller method for find voteable model'
@@ -18,12 +18,12 @@ class VotesController < InheritedResources::Base
 
   def destroy
     tag = params[:voteable_tag].blank? ? nil : params[:voteable_tag]
-    current_user.unvote_for(@voteable, tag)
-    if current_user.voted_on?(@voteable, tag)
+    current_user.unvote_for(@parent, tag)
+    if current_user.voted_on?(@parent, tag)
       request_logger params,  'Message: Check controller name, controller method for find voteable model'
     else
-      render json: {positive: @voteable.votes_for(tag), negative: @voteable.votes_against(tag)}
-      @voteable.update_attributes(rating: (@voteable.plusminus.to_f / @voteable.leaf_categories.count))
+      render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag)}
+      @parent.update_attributes(rating: (@parent.plusminus.to_f / @parent.leaf_categories.count))
     end
   end
 
@@ -35,7 +35,7 @@ class VotesController < InheritedResources::Base
        [:image_id, Image],
        [:event_id, Event],
        [:geo_object_id, GeoObject]].each do |(key, voteable_class)|
-        return @voteable = voteable_class.find(params[key]) if params.has_key? key
+        return @parent = voteable_class.find(params[key]) if params.has_key? key
       end
     end
 end

@@ -66,7 +66,7 @@ describe "Events", js: true, type: :request do
     page.should have_content body
     page.should have_content 'aaa'
     page.should have_content 'bbb'
-    page.should have_content 'ccc '
+    page.should have_content 'ccc'
   end
 
   it 'has repeats in future' do

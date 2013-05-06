@@ -5,28 +5,28 @@
 
   %ul.obj-page-navigation
     %li
-      = link_to raw("Описание объекта"), geo_object_path(@imageable), {class: 'action-link'}
+      = link_to raw("Описание объекта"), geo_object_path(@parent), {class: 'action-link'}
     %li.active
-      = link_to raw("<span class='inner'>Фото</span>"), geo_object_images_path(@imageable), {class: "icon-sm-pictures action-link-bullet"}
+      = link_to raw("<span class='inner'>Фото</span>"), geo_object_images_path(@parent), {class: "icon-sm-pictures action-link-bullet"}
     %li
-      = link_to raw("<span class='inner'>Видео</span>"), geo_object_videos_path(@imageable), {class: "icon-sm-video action-link-bullet"}
+      = link_to raw("<span class='inner'>Видео</span>"), geo_object_videos_path(@parent), {class: "icon-sm-video action-link-bullet"}
 
     %li.pull-right
       = link_to "", "#", {class: "icon-flag action-link-bullet"}
     %li.pull-right
       = link_to "", "#" , {class: "icon-sm-history action-link-bullet"}
     %li.pull-right
-      = link_to raw("<span class='inner'>Редактировать</span>"), edit_geo_object_path(@imageable), {class: "icon-sm-pencil action-link-bullet"}
+      = link_to raw("<span class='inner'>Редактировать</span>"), edit_geo_object_path(@parent), {class: "icon-sm-pencil action-link-bullet"}
 
   %div.row-fluid.add
     %div.span6
       %h4
-        = @imageable.title
+        = @parent.title
     %div.span6
       = link_to "Добавить фото или видео", "#", {class: "button button_standard button_grey"}
 
   %ul.obj-page-gallery
-    - @imageable.images.each do |image|
+    - @parent.images.each do |image|
       %li
-        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@imageable, image)
+        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@parent, image)
 = render 'layouts/footer'

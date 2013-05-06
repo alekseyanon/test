@@ -12,7 +12,7 @@ describe 'Images', js: true, type: :request do
     DatabaseCleaner.clean
   end
 
-  it 'fields appear on event created form' do
+  it 'can be attached to Event' do
     login
     e = Event.make!
     visit event_path(e)
@@ -20,7 +20,7 @@ describe 'Images', js: true, type: :request do
     page.current_path.should == new_event_image_path(e)
   end
 
-  it 'fields appear on geo_object created form' do
+  it 'can be attached to GeoObject' do
     login
     go = GeoObject.make!(tag_list: [Category.make!.name])
     visit geo_object_path(go)

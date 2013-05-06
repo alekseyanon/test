@@ -6,4 +6,4 @@
   - @videos.each do |video|
     %tr
       %td= raw video.html
-      %td= link_to 'show', polymorphic_url([@video_star, video])
+      %td= link_to 'show', polymorphic_url([@parent, video])
