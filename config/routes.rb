@@ -1,5 +1,12 @@
 Smorodina::Application.routes.draw do
 
+  get 'ratings/general'
+  get 'ratings/commentators'
+  get 'ratings/bloggers'
+  get 'ratings/photographers'
+  get 'ratings/experts'
+  get 'ratings/discoverers'
+
   namespace :api do
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }

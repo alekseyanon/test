@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
          :validatable, :omniauthable, :confirmable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :provider, :uid, :authentication_ids
+                  :provider, :uid, :authentication_ids, :experts, :discoverer,
+                  :photographer, :blogger, :commentator
 
   has_many :ratings
 
