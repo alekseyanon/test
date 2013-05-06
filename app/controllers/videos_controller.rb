@@ -29,13 +29,4 @@ class VideosController < InheritedResources::Base
       end
     end
   end
-
-  private
-
-  def find_video_star_model
-    [[:event_id, Event],
-     [:geo_object_id, GeoObject]].each do |(key, video_star_class)|
-      return @parent = video_star_class.find(params[key]) if params.has_key? key
-    end
-  end
 end

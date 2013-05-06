@@ -20,13 +20,4 @@ class ImagesController < InheritedResources::Base
       end
     end
   end
-
-  private
-
-  def find_imageable_model
-    [[:event_id, Event],
-     [:geo_object_id, GeoObject]].each do |(key, imageable_class)|
-      return @parent = imageable_class.find(params[key]) if params.has_key? key
-    end
-  end
 end
