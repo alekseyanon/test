@@ -8,7 +8,7 @@ describe 'Users' do
 
   def login email=@user.email, password=@user.password
     visit root_path
-    click_on "show_modal"
+    click_on 'show_modal'
     fill_in 'user_email_log', with: email
     fill_in 'user_password_log', with: password
     click_on 'login'
@@ -16,7 +16,7 @@ describe 'Users' do
 
 	it 'welcomes the user' do
     visit '/'
-    page.should have_content("Добро пожаловать в Смородину")
+    page.should have_content('Добро пожаловать в Смородину')
   end
 
   it 'check url' do
@@ -27,7 +27,7 @@ describe 'Users' do
 
   it 'user login' do
     login
-    page.should have_content("Вход в систему выполнен.")
+    page.should have_content('Вход в систему выполнен.')
   end
 
   it 'user incorrect login' do
@@ -44,7 +44,7 @@ describe 'Users' do
     current_path.should == '/users'
   end
 
-  it "should register user with email notifications and name" do
+  it 'should register user with email notifications and name' do
     fake_email = Faker::Internet.email
     visit root_path
     fill_in 'user_email_reg', with: fake_email
@@ -57,8 +57,8 @@ describe 'Users' do
     
     u = User.find_by_email(fake_email)
     p u.profile.settings
-    u.profile.name.should == "Richard"
-    u.profile.settings["news_mailer"].should == "1"
+    u.profile.name.should == 'Richard'
+    u.profile.settings['news_mailer'].should == '1'
   end
 
   it 'not registers invalid attributes' do
@@ -70,12 +70,12 @@ describe 'Users' do
     page.should have_content('Проверьте заполненные поля')
   end
 
-  it "does not register if terms of service are not accepted" do
+  it 'does not register if terms of service are not accepted' do
     visit root_path
     fill_in 'user_email_reg', with: 'tester'
     fill_in 'user_password_reg', with: 'tester'
     click_on 'register'
-    page.should have_content("Вам необходимо принять соглашение")
+    page.should have_content('Вам необходимо принять соглашение')
   end
 
   it 'should not be registered with existing email' do

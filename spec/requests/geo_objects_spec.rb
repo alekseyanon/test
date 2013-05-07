@@ -79,7 +79,7 @@ describe "GeoObjects", js: true, type: :request do
     it 'edits existing geo_object descriptions' do
       create_new title, category
       visit geo_object_path GeoObject.last
-      find("a", :text => /редактировать описание/).trigger('click')
+      find('a', text: /редактировать описание/).trigger 'click'
       fill_in 'geo_object_title', with: new_title
       select new_category, from: 'geo_object_tag_list', visible: false
       click_on 'Применить изменения'

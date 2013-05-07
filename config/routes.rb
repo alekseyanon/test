@@ -16,7 +16,7 @@ Smorodina::Application.routes.draw do
 
   resources :profiles
 
-  devise_for :users, :controllers => { :registrations => 'registrations' }
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :authentications
 
