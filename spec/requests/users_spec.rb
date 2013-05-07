@@ -7,10 +7,11 @@ describe 'Users' do
 	end
 
   def login email=@user.email, password=@user.password
-    visit new_user_session_path
-    fill_in 'user_email', with: email
-    fill_in 'user_password', with: password
-    click_on 'Sign in'
+    visit root_path
+    click_on "show_modal"
+    fill_in 'user_email_log', with: email
+    fill_in 'user_password_log', with: password
+    click_on 'login'
   end
 
 	it 'welcomes the user' do
@@ -26,7 +27,7 @@ describe 'Users' do
 
   it 'user login' do
     login
-    current_path.should == root_path
+    page.should have_content("Вход в систему выполнен.")
   end
 
   it 'user incorrect login' do
@@ -35,29 +36,55 @@ describe 'Users' do
   end
 
   it 'user register' do
-  	visit new_user_registration_path
-  	fill_in 'user_email', with: Faker::Internet.email
-    fill_in 'user_password', with: 'tes123ter'
-    click_on 'Sign up'
+  	visit root_path
+  	fill_in 'user_email_reg', with: Faker::Internet.email
+    fill_in 'user_password_reg', with: 'tes123ter'
+    page.check 'user_rules'
+    click_on 'register'
     current_path.should == '/users'
   end
 
-  it 'not registers invalid attributes' do
-  	visit new_user_registration_path
-  	fill_in 'user_email', with: 'tester'
-    fill_in 'user_password', with: 'tester'
-    click_on 'Sign up'
-    page.should have_content('Please review the problems below')
-    page.should have_content('Passwordне совпадает с подтверждением')
-    page.should have_content('Emailимеет неверное значение')
+  it "should register user with email notifications and name" do
+    fake_email = Faker::Internet.email
+    visit root_path
+    fill_in 'user_email_reg', with: fake_email
+    fill_in 'user_password_reg', with: 'tes123ter'
+    fill_in 'user_name', with: 'Richard'
+    page.check 'user_rules'
+    page.check 'user_spam'
+    click_on 'register'
+    current_path.should == '/users'
+    
+    u = User.find_by_email(fake_email)
+    p u.profile.settings
+    u.profile.name.should == "Richard"
+    u.profile.settings["news_mailer"].should == "1"
   end
 
-  it 'should not be registered with excisting email' do
-  	visit new_user_registration_path
-  	fill_in 'user_email', with: @user.email
-    fill_in 'user_password', with: @user.password
-    click_on 'Sign up'
-    page.should have_content('Emailуже существует')
+  it 'not registers invalid attributes' do
+  	visit root_path
+  	fill_in 'user_email_reg', with: 'tester'
+    fill_in 'user_password_reg', with: 'tester'
+    page.check 'user_rules'
+    click_on 'register'
+    page.should have_content('Проверьте заполненные поля')
+  end
+
+  it "does not register if terms of service are not accepted" do
+    visit root_path
+    fill_in 'user_email_reg', with: 'tester'
+    fill_in 'user_password_reg', with: 'tester'
+    click_on 'register'
+    page.should have_content("Вам необходимо принять соглашение")
+  end
+
+  it 'should not be registered with existing email' do
+  	visit root_path
+  	fill_in 'user_email_reg', with: @user.email
+    fill_in 'user_password_reg', with: @user.password
+    page.check 'user_rules'
+    click_on 'register'
+    find('#regLoginModal').should be_visible
   end
 
   it 'not change email without confirmation' do
@@ -67,7 +94,7 @@ describe 'Users' do
     click_on 'Настройки'
     fill_in 'user_email', with: 'tester@test.er'
     fill_in 'user_current_password', with: @user.password
-    find(:type, 'submit').click
+    click_on 'Update'
 		current_path.should == root_path
     page.should have_content('Ваша учетная запись изменена, вам выслано письмо подтверждения нового email')
     find('.user-link .action-link').click
@@ -84,7 +111,7 @@ describe 'Users' do
     click_on 'Личный кабинет'
     click_on 'Edit'
     fill_in 'profile_name', with: 'tester'
-    find(:type, 'submit').click
+    find('.actions .btn').click
     page.should have_content('tester')
 		#current_path.should == profile_path(@user)
   end
@@ -99,14 +126,14 @@ describe 'Users reset password' do
 	it 'reset password form is opened' do
 		visit root_path
 		click_on 'Вход и регистрация'
-		click_on 'Forgot your password?'
+		click_on 'Забыли пароль?'
 		page.should have_selector('input#user_email')
 	end
 
 	it 'fill email for reset password' do
 		visit new_user_password_path
 		fill_in 'user_email', with: @user.email
-		find(:type, 'submit').click
+		find('.form-actions .btn').click
 		#click_on 'Сбросить пароль'
 		#print page.html
 		page.should have_content('В течение нескольких минут вы получите письмо с инструкциями по восстановлению вашего пароля')
@@ -118,7 +145,7 @@ describe 'Users reset password' do
 		visit reset_password_url(token: @user.perishable_token)
 		page.should have_selector('input#password')
 		fill_in 'password', with: 'tester'
-		find(:type, 'submit').click
+		find('.form-actions .btn').click
 		#click_on 'Сохранить'
 		page.should have_content('Профиль')
 		current_path.should == user_path(@user)
