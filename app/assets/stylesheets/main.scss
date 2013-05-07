@@ -2175,9 +2175,9 @@ a:hover,
 			z-index: 1;
 			border: 1px solid $siteLightGray;
 			@include font-large;
-			line-height: 43px !important;
 			@include border-radius(0px);
 			width: 538px;
+			padding: 14px 14px 16px 14px;
 		}
 	}
 	.pic_comments__add__controls{
