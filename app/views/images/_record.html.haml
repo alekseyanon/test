@@ -1,0 +1,76 @@
+.pic_show
+  .pic_show__title
+    = link_to @image.imageable.title, geo_object_path(@image.imageable), {class: "action-link"}
+  .pic_show__counter
+    Фото
+    = @image_number
+    из
+    = @image_total
+  .pic_show__image
+    = image_tag(@image.image_url(:showthumb))
+
+    .pic_show__image__navi
+      .pic_show__image__navi__left
+        - unless prev_image(@image).nil?
+          = link_to "", polymorphic_path([@image.imageable, prev_image(@image)]), {class: "icon-sm-arrow-left-2", remote: true}
+        - else
+          = link_to "", polymorphic_path([@image.imageable, last_image(@image)]), {class: "icon-sm-arrow-left-2", remote: true}
+      .pic_show__image__navi__right
+        - unless next_image(@image).nil?
+          = link_to "", polymorphic_path([@image.imageable, next_image(@image)]), {class: "icon-sm-untitled", remote: true}
+        - else
+          = link_to "", polymorphic_path([@image.imageable, first_image(@image)]), {class: "icon-sm-untitled", remote: true}
+      .pic_show__image__navi__sub
+        .pic_show__image__navi__sub__inner
+          .pic_show__image__navi__sub__inner__download
+            = link_to raw("<span class='inner'>Скачать</span>"), "", {class: "action-link-bullet icon-sm-arrow-down-2 ui-link"}
+          .pic_show__image__navi__sub__inner__fullscreen
+            = link_to raw("<span class='inner'>На весь экран</span>"), "", {class: "action-link-bullet icon-sm-full-screen right ui-link"}
+  .pic_show__social
+    .pic_show__social__title
+      Раскажи друзьям
+    .pic_show__social__icons
+      %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
+  .pic_show__vote
+    = render partial: "shared/vote_for"
+.pic__author
+  .pic__author__avatar
+    - unless @image.user.nil?
+      = image_tag(@image.user.profile.avatar_url(:image_author_thumb))
+  .pic__author__info
+    .pic__author__info__name
+      - unless @image.user.nil?
+        = @image.user.profile.name
+      - else
+        Anonymous
+    .pic__author__info__date
+      = @image.created_at.strftime("%d.%m.%Y")
+    .pic__author__info__comment
+      Super mega comment
+    .pic__author__actions
+      .pic__author__actions_respond
+        = link_to raw("<span class='inner'>Ответить</span>"), "#", {class: "icon-sm-reply action-link-bullet"}
+
+.pic_comments
+  .pic_comments__count
+    .pic_comments__count__text
+      67 comments
+  .pic_comments__comment
+    .pic_comments__comment__avatar
+      = image_tag "http://placehold.it/48x48"
+    .pic_comments__comment__info
+      .pic_comments__comment__info__name
+        Alex Baglay
+      .pic_comments__comment__info__date
+        1.05.2013
+      .pic_comments__comment__info__comment
+        Super mega comment
+      .pic_comments__comment__info__actions
+        .pic_comments__comment__info__actions__respond
+          = link_to raw("<span class='inner'>Ответить</span>"), "#", {class: "icon-sm-reply action-link-bullet"}
+        .pic_comments__comment__info__actions__vote
+          = render partial: "shared/vote_for"
+  = render partial: "comments/add_comment", locals: {commentable: @image, comment: @image.comments.build}
+  
+  .pic_comments__next
+    = link_to "Показать ещё", "#", {class: "button button_standard button_grey ui-link"}

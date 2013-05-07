@@ -112,6 +112,7 @@ router.route "events", "events", Smorodina.Pages.Events
 router.route "events/search", "events", Smorodina.Pages.Events
 router.route "objects/search", "geo_objects", Smorodina.Pages.GeoObjects
 router.route "", "index", Smorodina.Pages.Index
+router.route "objects/:object_name/images/:image_id", "image_show", Smorodina.Pages.ImageShow
 Backbone.history.start hashChange: false
 
 $ ->

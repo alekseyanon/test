@@ -1925,6 +1925,15 @@ a:hover,
 /* ---------------------------------------- ALL PHOTOS PAGE END ---------------------------------- */
 
 /* ---------------------------------------- SHOW PHOTO PAGE ----------------------------------- */
+.pic_show__container{
+	position: relative;
+}
+.pic_show__spinner{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -5px 0 0 -5px; 
+}
 .pic_show{
 	width: 724px;
 	@include clearfix;
@@ -2052,6 +2061,7 @@ a:hover,
 		float: left;
 		margin: 0 21px 0 0;
 		img{
+			@include size(64px, 64px);
 			@include border-radius(32px);
 		}
 	}
@@ -2157,72 +2167,6 @@ a:hover,
 		}
 	}
 
-	.pic_comments__add{
-		margin-top: 16px;
-		margin-left: 35px;
-	}
-
-	.pic_comments__add__avatar{
-		float: left;
-		margin-right: 7px;
-		img{
-			@include border-radius(24px);
-		}
-	}
-	.pic_comments__add__input{
-		@include clearfix;
-		float: left;
-		position: relative;
-		padding: 0 0 0 13px;
-		&:before{
-			position: absolute;
-			top: 14px;
-			left: 0px;
-			content: "";
-			@include size(14px, 14px);
-			background-image: url("/assets/comment-text-bullet.png");
-			background-repeat: no-repeat;
-			background-position: 0px 0px;
-			z-index: 2;
-		}
-		input{
-			position: relative;
-			z-index: 1;
-			border: 1px solid $siteLightGray;
-			@include font-large;
-			@include border-radius(0px);
-			width: 538px;
-			padding: 14px 14px 16px 14px;
-		}
-	}
-	.pic_comments__add__controls{
-		clear: both;
-		margin-left: 70px;
-		padding-top: 14px;
-	}
-
-	.pic_comments__add__controls__submit{
-		display: inline-block;
-		margin-right: 27px;
-		.button{
-			padding: 13px 15px;
-			font-weight: bold;
-			border: 1px solid $siteLightGray;
-		}
-	}
-
-	.pic_comments__add__controls__reset{
-		display: inline-block;
-		.action-link{
-			padding: 0;
-			background-color: transparent;
-			border-left: 0px;
-			border-top: 0px;
-			border-right: 0px;
-			color: #b2b3bc;
-		}
-	}
-
 	.pic_comments__next{
 		@include clearfix;
 		text-align: center;
@@ -2232,6 +2176,72 @@ a:hover,
 			font-weight: bold;
 			border: 1px solid #e4e5f1;
 		}
+	}
+}
+
+.pic_comments__add{
+	margin-top: 16px;
+	margin-left: 35px;
+}
+
+.pic_comments__add__avatar{
+	float: left;
+	margin-right: 7px;
+	img{
+		@include border-radius(24px);
+	}
+}
+.pic_comments__add__input{
+	@include clearfix;
+	float: left;
+	position: relative;
+	padding: 0 0 0 13px;
+	&:before{
+		position: absolute;
+		top: 14px;
+		left: 0px;
+		content: "";
+		@include size(14px, 14px);
+		background-image: url("/assets/comment-text-bullet.png");
+		background-repeat: no-repeat;
+		background-position: 0px 0px;
+		z-index: 2;
+	}
+	input{
+		position: relative;
+		z-index: 1;
+		border: 1px solid $siteLightGray;
+		@include font-large;
+		@include border-radius(0px);
+		width: 538px;
+		padding: 14px 14px 16px 14px;
+	}
+}
+.pic_comments__add__controls{
+	clear: both;
+	margin-left: 70px;
+	padding-top: 14px;
+}
+
+.pic_comments__add__controls__submit{
+	display: inline-block;
+	margin-right: 27px;
+	.button{
+		padding: 13px 15px;
+		font-weight: bold;
+		border: 1px solid $siteLightGray;
+	}
+}
+
+.pic_comments__add__controls__reset{
+	display: inline-block;
+	.action-link{
+		padding: 0;
+		background-color: transparent;
+		border-left: 0px;
+		border-top: 0px;
+		border-right: 0px;
+		color: #b2b3bc;
 	}
 }
 

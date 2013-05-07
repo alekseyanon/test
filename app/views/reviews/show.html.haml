@@ -19,13 +19,8 @@
   = nested_comments root.subtree.arrange(order: :created_at)
 
 %h4 Добавить комментарий:
+= render partial: "comments/add_comment", locals: { commentable: @review, comment: @review.comments.build }
 
-= form_for([@review, @review.comments.build]) do |f|
-  %p
-    = f.label :body
-    %br
-    = f.text_area :body, rows: '3'
-  %p= f.submit
 = link_to 'Edit', edit_geo_object_review_path(@geo_object, @review)
 \|
 = link_to 'Back', reviews_path
