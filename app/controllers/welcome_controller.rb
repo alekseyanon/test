@@ -27,4 +27,7 @@ class WelcomeController < ApplicationController
   end
   def about
   end
+
+  def terms
+  end
 end
