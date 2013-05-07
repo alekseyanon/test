@@ -13,34 +13,50 @@ describe 'Ratings', js: true, type: :request do
     DatabaseCleaner.clean
   end
 
+  before :each do
+    login(user_to_vote)
+  end
+
   let!(:user_to_vote){ User.make! }
   let!(:user_without_vote){ User.make! }
-  let!(:geo_object){ GeoObject.make!(user: user_without_vote, tag_list: 'tester') }
-  let!(:image){ Image.make!(user: user_without_vote) }
   let!(:review){ Review.make!(user: user_without_vote) }
-  let!(:comment){ Comment.make!(user: user_without_vote) }
 
-  it 'changed after vote for review' do
-    login(user_to_vote)
+  it 'expert can be changed' do
     visit review_path(review)
     page.find('#vote-up').click
     page.find('.up-vote').should have_content '1'
     page.find('.down-vote').should have_content '0'
-    User.find(user_without_vote.id).expert.should == 1
+    User.find(user_without_vote.id).expert.should == 1.3
   end
 
-  it 'creates a new Geo Object' do
-    login(user_to_vote)
-    #visit new_geo_object_path
-    #fill_in 'geo_object_title', with: 'test title'
-    #find('#map').click
-    ##TODO cover multiple tags
-    #select Category.where(name: 'reservoir').first.name_ru, from: 'geo_object_tag_list', visible: false
-    #click_on 'Создать объект'
-    visit geo_object_path(geo_object)
-    page.find('#vote-up-tester').click
+  it 'discoverer can be changed' do
+    go = GeoObject.make! tag_list: 'reservoir'
+    visit geo_object_path(go)
+    page.find('#vote-up-reservoir').click
     page.find('.up-vote').should have_content '1'
     page.find('.down-vote').should have_content '0'
-    User.find(user_to_vote.id).discoverer.should == 1
+    User.find(go.user_id).discoverer.should == 1.4
+  end
+
+  it 'photographer can be changed' do
+    e = Event.make!
+    img = Image.make!(imageable: e)
+    visit event_path(e)
+    page.should have_selector('.event_image')
+    page.find('#vote-up').click
+    page.find('.up-vote').should have_content '1'
+    page.find('.down-vote').should have_content '0'
+    User.find(img.user_id).photographer.should == 1.2
+  end
+
+  it 'commentator can be changed' do
+    visit review_path(review)
+    fill_in 'comment_body', with: 'abra cadabra'
+    click_on 'Создать Comment'
+    comment = Comment.last
+    page.find("#comment_#{comment.id}").find('#vote-up').click
+    page.find("#comment_#{comment.id}").find('.up-vote').should have_content '1'
+    page.find("#comment_#{comment.id}").find('.down-vote').should have_content '0'
+    User.find(comment.user_id).commentator.should == 1.08
   end
 end

@@ -122,11 +122,11 @@ class User < ActiveRecord::Base
 
   def update_rating(voteable, delta)
     case voteable.class.to_s
-      when 'Comment'    then self.commentator   = self.commentator + delta
-      when 'Post'       then self.blogger       = self.blogger + delta
-      when 'Review'     then self.expert        = self.expert + delta
-      when 'Photo'      then self.photographer  = self.photographer + delta
-      when 'GeoObject'  then self.discoverer    = self.discoverer + delta
+      when 'Comment'    then self.commentator   = self.commentator + delta*1.08
+      when 'Post'       then self.blogger       = self.blogger + delta*1.42
+      when 'Review'     then self.expert        = self.expert + delta*1.3
+      when 'Image'      then self.photographer  = self.photographer + delta*1.2
+      when 'GeoObject'  then self.discoverer    = self.discoverer + delta*1.4
     end
     self.save!
   end
