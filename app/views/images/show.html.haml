@@ -4,7 +4,10 @@
   .pic_show__title
     = link_to "Object title", "#", {class: "action-link"}
   .pic_show__counter
-    Фото 1 из 32
+    Фото
+    = @image_number
+    из
+    = @image_total
   .pic_show__image
     = image_tag "http://placehold.it/724x485"
     .pic_show__image__navi
@@ -20,7 +23,7 @@
             = link_to raw("<span class='inner'>На весь экран</span>"), "", {class: "action-link-bullet icon-sm-full-screen right ui-link"}
   .pic_show__social
     .pic_show__social__title
-      Раскажи друзьям 
+      Раскажи друзьям
     .pic_show__social__icons
       %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
   .pic_show__vote
@@ -78,4 +81,3 @@
 %p
   %b Imageable:
   = @image.imageable.class.to_s
-

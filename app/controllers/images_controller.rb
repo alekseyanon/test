@@ -1,7 +1,13 @@
 class ImagesController < InheritedResources::Base
   def index
     @geo_object = GeoObject.find(params[:geo_object_id])
-    @images = @geo_object.images
+    @images = @geo_object.images.order(:id)
+  end
+
+  def show
+    @image = Image.find(params[:id])
+    @image_total = @image.imageable.images.count
+    @image_number = @image_total - @image.imageable.images.where('id < ?', @image.id).count
   end
 
   def new
