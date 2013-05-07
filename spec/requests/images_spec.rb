@@ -12,22 +12,20 @@ describe 'Images', js: true, type: :request do
     DatabaseCleaner.clean
   end
 
-  it 'fields appear on event created form' do
+  it 'can be attached to Event' do
     login
-    visit new_event_path
-    page.should have_selector '.add_fields'
-    page.find('.add_fields').click
-    page.should have_selector "input[id^='event_images_attributes_']"
-    page.should have_selector '.add_fields'
+    e = Event.make!
+    visit event_path(e)
+    click_on 'Add photo'
+    page.current_path.should == new_event_image_path(e)
   end
 
-  it 'fields appear on geo_object created form' do
+  it 'can be attached to GeoObject' do
     login
-    visit new_geo_object_path
-    page.should have_selector '.add_fields'
-    page.find('.add_fields').click
-    page.should have_selector "input[id^='geo_object_images_attributes_']"
-    page.should have_selector '.add_fields'
+    go = GeoObject.make!(tag_list: [Category.make!.name])
+    visit geo_object_path(go)
+    click_on 'Add photo'
+    page.current_path.should == new_geo_object_image_path(go)
   end
 
   it 'are displayed on the object page' do

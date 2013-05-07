@@ -11,10 +11,6 @@ class GeoObject < ActiveRecord::Base
     GeoObject.where("geo_objects.id <> #{id}").within_radius self.geom, radius
   end
 
-  def self.within_radius geom, r
-    where "ST_DWithin(geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
-  end
-
   def average_rating
     (rate = self.rating) > 0 ? rate.round : 0
   end

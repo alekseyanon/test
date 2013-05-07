@@ -1,0 +1,9 @@
+%table
+  %tr
+    %th Video
+    %th
+
+  - @videos.each do |video|
+    %tr
+      %td= raw video.html
+      %td= link_to 'show', polymorphic_url([@parent, video])

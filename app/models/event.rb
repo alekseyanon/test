@@ -89,7 +89,7 @@ class Event < ActiveRecord::Base
 
   scope :newest, order('events.created_at DESC')
   scope :line, ->(key) { where key: key}
-  scope :in_place, ->(place_id) { joins('JOIN agcs ON events.agc_id = agcs.id').where('? = ANY(agcs.relations)', place_id) }
+  scope :in_place, ->(place_id) { joins('JOIN agcs ON events.agc_id = agcs.id').where('? = ANY(agcs.agus)', place_id) }
   scope :future, where("start_date > '#{Time.now}'")
 
   pg_search_scope :text_search,
@@ -226,7 +226,7 @@ class Event < ActiveRecord::Base
 
   def as_json options = {}
     json = super options
-    json[:agc] = agc.names if agc
+    json[:agc] = agc.titles if agc
     json[:state_localized] = I18n.t 'events.states.'+state
     json[:rating_go] = rating_go
     json[:rating_like] = rating_like

@@ -4,12 +4,15 @@
 
 %p= @event.tag_list
 
+= link_to 'Add photo', new_event_image_path(@event)
+
 %ul
   - @event.images.each do |image|
     %li.event_image= image_tag image.image_url(:thumb)
     .votes{id: dom_id(image)}
       =render partial: "shared/votes", locals: { object_to_vote: image, nested_path: "" }
 
+= link_to 'Add video', new_event_video_path(@event)
 %ul
   - @event.you_tubes.each do |video|
     %li.event_video= raw video.html

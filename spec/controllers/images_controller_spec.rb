@@ -45,8 +45,7 @@ describe ImagesController do
 
   describe "GET index" do
     it "assigns all images as @images" do
-      pending 'will be fixed by Dima'
-      image = Image.create! valid_attributes
+      image = Image.make! valid_attributes
       get :index, {geo_object_id: image.imageable_id}
       assigns(:images).should eq([image])
     end
@@ -54,7 +53,7 @@ describe ImagesController do
 
   describe "GET show" do
     it "assigns the requested image as @image" do
-      image = Image.create! valid_attributes
+      image = Image.make! valid_attributes
       get :show, {id: image.to_param, geo_object_id: image.imageable_id}
       assigns(:image).should eq(image)
     end
@@ -69,8 +68,8 @@ describe ImagesController do
 
   describe "GET edit" do
     it "assigns the requested image as @image" do
-      image = Image.create! valid_attributes
-      get :edit, {id: image.to_param,geo_object_id: image.imageable_id}
+      image = Image.make! valid_attributes
+      get :edit, {id: image.to_param, geo_object_id: image.imageable_id}
       assigns(:image).should eq(image)
     end
   end
@@ -90,9 +89,8 @@ describe ImagesController do
       end
 
       it "redirects to the created image" do
-        pending 'will be fixed by Dima'
         post :create, {image: valid_attributes, geo_object_id: geo_object.id}
-        response.should redirect_to(geo_object_image_path([geo_object, Image.last]))
+        response.should redirect_to(geo_object_image_path(geo_object, Image.last))
       end
     end
 
@@ -117,7 +115,7 @@ describe ImagesController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested image" do
-        image = Image.create! valid_attributes
+        image = Image.make! valid_attributes
         # Assuming there are no other images in the database, this
         # specifies that the Image created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -127,13 +125,13 @@ describe ImagesController do
       end
 
       it "assigns the requested image as @image" do
-        image = Image.create! valid_attributes
+        image = Image.make! valid_attributes
         put :update, {id: image.to_param, image: valid_attributes, geo_object_id: image.imageable_id}
         assigns(:image).should eq(image)
       end
 
       it "redirects to the image" do
-        image = Image.create! valid_attributes
+        image = Image.make! valid_attributes
         put :update, {id: image.to_param, image: valid_attributes, geo_object_id: image.imageable_id}
         response.should redirect_to(image)
       end
@@ -141,7 +139,7 @@ describe ImagesController do
 
     describe "with invalid params" do
       it "assigns the image as @image" do
-        image = Image.create! valid_attributes
+        image = Image.make! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
         put :update, {id: image.to_param, image: { "image" => "invalid value" }, geo_object_id: image.imageable_id}
@@ -149,7 +147,7 @@ describe ImagesController do
       end
 
       it "re-renders the 'edit' template" do
-        image = Image.create! valid_attributes
+        image = Image.make! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Image.any_instance.stub(:save).and_return(false)
         Image.any_instance.stub(:errors).and_return(['error'])
@@ -161,14 +159,14 @@ describe ImagesController do
 
   describe "DELETE destroy" do
     it "destroys the requested image" do
-      image = Image.create! valid_attributes
+      image = Image.make! valid_attributes
       expect {
         delete :destroy, {id: image.to_param, geo_object_id: image.imageable_id}
       }.to change(Image, :count).by(-1)
     end
 
     it "redirects to the images list" do
-      image = Image.create! valid_attributes
+      image = Image.make! valid_attributes
       delete :destroy, {id: image.to_param, geo_object_id: image.imageable_id}
       response.should redirect_to(images_url)
     end

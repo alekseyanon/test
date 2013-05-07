@@ -4,29 +4,29 @@
       = link_to raw("<span class='inner'>Поиск объектов</span>"), search_geo_objects_path, {class: "action-link-bullet icon-sm-arrow-left-3"}
 
   %ul.obj-page-navigation
-    %li 
-      = link_to raw("Описание объекта"), geo_object_path(@geo_object), {class: 'action-link'}
-    %li.active 
-      = link_to raw("<span class='inner'>Фото</span>"), geo_object_images_path(@geo_object), {class: "icon-sm-pictures action-link-bullet"}
     %li
-      = link_to raw("<span class='inner'>Видео</span>"), video_geo_object_path(@geo_object), {class: "icon-sm-video action-link-bullet"}
+      = link_to raw("Описание объекта"), geo_object_path(@parent), {class: 'action-link'}
+    %li.active
+      = link_to raw("<span class='inner'>Фото</span>"), geo_object_images_path(@parent), {class: "icon-sm-pictures action-link-bullet"}
+    %li
+      = link_to raw("<span class='inner'>Видео</span>"), geo_object_videos_path(@parent), {class: "icon-sm-video action-link-bullet"}
 
     %li.pull-right
       = link_to "", "#", {class: "icon-flag"}
     %li.pull-right
       = link_to "", "#" , {class: "icon-sm-history"}
     %li.pull-right
-      = link_to raw("<span class='inner'>Редактировать</span>"), edit_geo_object_path(@geo_object), {class: "icon-sm-pencil action-link-bullet"}
+      = link_to raw("<span class='inner'>Редактировать</span>"), edit_geo_object_path(@parent), {class: "icon-sm-pencil action-link-bullet"}
 
   %div.row-fluid.add
     %div.span6
-      %h4 
-        = @geo_object.title
+      %h4
+        = @parent.title
     %div.span6
       = link_to "Добавить фото или видео", "#", {class: "button button_standard button_grey"}
 
   %ul.obj-page-gallery
-    - @geo_object.images.each do |image|
+    - @parent.images.each do |image|
       %li
-        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@geo_object, image) 
+        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@parent, image)
 = render 'layouts/footer'
