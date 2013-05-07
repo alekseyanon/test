@@ -24,9 +24,6 @@
     = select_tag(:system_event_tag_id, options_from_collection_for_select(EventTag.system, :id, :title),
       include_blank: true)
     = f.input :tag_list
-    = f.fields_for :images do |builder|
-      = render 'image_fields', f: builder
-    = link_to_add_fields 'add image', f, :images
 
     %div{class: "control-group string optional"}
       .controls

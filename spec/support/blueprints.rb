@@ -48,7 +48,6 @@ User.blueprint do
   password_confirmation { pwd }
   email { "test#{sn}" + Faker::Internet.email }
   #roles { ["traveler"] }
-  profile { Profile.make! }
 end
 
 Event.blueprint do
@@ -71,6 +70,7 @@ end
 
 Image.blueprint do
   image { File.open("#{Rails.root}/spec/fixtures/images/fishing/toon376.gif") }
+  user { User.make! }
   imageable { GeoObject.make! }
 end
 
@@ -82,6 +82,7 @@ end
 
 Profile.blueprint do
   name { Faker::Lorem.word }
+  user { User.make! }
 end
 
 Complaint.blueprint do

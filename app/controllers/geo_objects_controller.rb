@@ -38,7 +38,7 @@ class GeoObjectsController < ApplicationController
 
   #only json
   def nearest_node
-    node = Osm::Node.closest_node(params["x"], params["y"]).first
+    node = Osm::Node.closest_node(params['x'], params['y']).first
     respond_with node.latlon
   end
 
@@ -71,7 +71,7 @@ class GeoObjectsController < ApplicationController
         format.html { redirect_to @geo_object, notice: 'Landmark description was successfully created.' }
         format.json { render json: @geo_object, status: :created, location: @geo_object }
       else
-        format.html { render action: "new" }
+        format.html { render action: :new }
         format.json { render json: @geo_object.errors, status: :unprocessable_entity }
       end
     end
@@ -92,7 +92,7 @@ class GeoObjectsController < ApplicationController
         format.html { redirect_to @geo_object, notice: 'Landmark description was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: :edit }
         format.json { render json: @geo_object.errors, status: :unprocessable_entity }
       end
     end
@@ -105,10 +105,6 @@ class GeoObjectsController < ApplicationController
       format.html { redirect_to geo_objects_url }
       format.json { head :no_content }
     end
-  end
-
-  def video
-    @geo_object = GeoObject.find(params[:id])
   end
 
   def count
