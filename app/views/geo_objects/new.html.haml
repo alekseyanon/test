@@ -36,9 +36,6 @@
       список чекбоксов для категории где заночевать
       %h4 Где поесть
       список чекбоксов для категории  где поесть
-    = f.fields_for :images do |builder|
-      = render 'image_fields', f: builder
-    = link_to_add_fields 'add image', f, :images
     = button_to "видео", "#"
 
     = f.submit "Создать объект"

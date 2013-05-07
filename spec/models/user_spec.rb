@@ -6,6 +6,8 @@ describe User do
 
   it { should be_valid }
   it { should have_many(:authentications) }
+  it { should have_many(:images) }
+  it { should have_many(:complaints) }
 
   it 'should not allow to save user without any role' do
     pending 'roles are not implemented'

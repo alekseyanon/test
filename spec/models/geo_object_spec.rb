@@ -6,24 +6,23 @@ describe GeoObject do
   it { should validate_presence_of :title }
   it { should belong_to :user }
 
-  describe ".within_radius" do #TODO move to shared example group with landmarks and nodes altogether
+
+  describe "geometry requests" do #TODO move to shared example group with landmarks and nodes altogether
     let(:triangle)     { to_points [[10, 10], [20, 20], [30, 10]] }
     let(:descriptions) { to_geo_objects triangle }
 
-    it 'returns nodes within a specified radius of another node' do
+    it '.bounding_box' do
+      described_class.bounding_box(15,15,40,40).should =~ [descriptions[1]]
+    end
+
+    it '.within_radius' do
       described_class.within_radius(triangle[0], 10).should =~ descriptions[0..0]
       described_class.within_radius(triangle[0], 15).should =~ descriptions[0..1]
       described_class.within_radius(triangle[0], 20).should =~ descriptions
       described_class.within_radius(triangle[2], 15).should =~ descriptions[1..2]
     end
-  end
 
-  describe ".objects_nearby" do
-    let(:triangle)     { to_points [[10, 10], [20, 10], [30, 10]] }
-    let(:descriptions) { to_geo_objects triangle }
-
-
-    it 'returns objects near another' do
+    it '.objects_nearby' do
       descriptions[0].objects_nearby(15).should =~ [descriptions[1]]
     end
 

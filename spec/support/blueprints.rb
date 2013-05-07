@@ -48,7 +48,6 @@ User.blueprint do
   password_confirmation { pwd }
   email { "test#{sn}" + Faker::Internet.email }
   #roles { ["traveler"] }
-  profile { Profile.make! }
 end
 
 Event.blueprint do
@@ -71,6 +70,7 @@ end
 
 Image.blueprint do
   image { File.open("#{Rails.root}/spec/fixtures/images/fishing/toon376.gif") }
+  user { User.make! }
   imageable { GeoObject.make! }
 end
 
@@ -82,6 +82,7 @@ end
 
 Profile.blueprint do
   name { Faker::Lorem.word }
+  user { User.make! }
 end
 
 Complaint.blueprint do
@@ -95,7 +96,7 @@ EventTag.blueprint do
 end
 
 Agc.blueprint do
-  relations { [1, 2, 3] }
+  agus { [1, 2, 3] }
 end
 
 Authentication.blueprint do
@@ -107,4 +108,15 @@ end
 Video.blueprint do
   ids = %w(n0SVG6SgirE 3eRxPDLYM9Q TRbLicNOvzY BHjg6cTxmrQ)
   vid { (ids - Video.pluck(:vid)).sample }
+end
+
+Agu.blueprint do
+  title { Faker::Lorem.sentence }
+  geom { 'POLYGON((0 0, 1 0, 0 1, 0 0))' }
+end
+
+Runtip.blueprint do
+  body { Faker::Lorem.sentences 10 }
+  user { User.make! }
+  geo_object { GeoObject.make! }
 end

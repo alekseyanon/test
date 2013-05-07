@@ -1,0 +1,2 @@
+%span.filter-category__text{ data: { facet: @name } }
+  = @name_ru

@@ -64,7 +64,9 @@ describe "Events", js: true, type: :request do
     create_new
     page.should have_content title
     page.should have_content body
-    page.should have_content tags
+    page.should have_content 'aaa'
+    page.should have_content 'bbb'
+    page.should have_content 'ccc'
   end
 
   it 'has repeats in future' do

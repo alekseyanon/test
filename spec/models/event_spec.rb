@@ -22,8 +22,8 @@ describe Event do
 
   it 'returns events in place' do
     agc1 = Agc.make!
-    agc2 = Agc.make! relations: [1, 2]
-    agc3 = Agc.make! relations: [1]
+    agc2 = Agc.make! agus: [1, 2]
+    agc3 = Agc.make! agus: [1]
     e1 = Event.make! agc: agc1
     e2 = Event.make! agc: agc2
     e3 = Event.make! agc: agc3
@@ -31,10 +31,10 @@ describe Event do
   end
 
   it 'gets agc after create and send it as json' do
-    make_sample_relations!
+    make_sample_agus!
     Agc.make!
     e = Event.make! geom: 'POINT(0 0)'
-    e.agc.names.blank?.should_not be true
+    e.agc.titles.blank?.should_not be true
     e.as_json[:agc].blank?.should_not be true
   end
 

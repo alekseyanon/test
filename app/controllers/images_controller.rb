@@ -1,7 +1,7 @@
 class ImagesController < InheritedResources::Base
+  before_filter :find_parent_model
   def index
-    @geo_object = GeoObject.find(params[:geo_object_id])
-    @images = @geo_object.images.order(:id)
+    @images = @parent.images
   end
 
   def show
@@ -11,21 +11,18 @@ class ImagesController < InheritedResources::Base
   end
 
   def new
-    @geo_object = GeoObject.find(params[:geo_object_id])
-    @image = @geo_object.images.new
+    @image = @parent.images.new
   end
 
   def create
-    @geo_object = GeoObject.find(params[:geo_object_id])
-    @image = @geo_object.images.build params[:image]
-    ### TODO: temporary comment(for Dima)
-    #@image.user = current_user
+    @image = @parent.images.build params[:image]
+    @image.user = current_user
     if @image.save
-      redirect_to geo_object_image_path(@geo_object, @image)
+      redirect_to polymorphic_url([@parent, @image])
     else
       respond_with do |format|
         format.html { render action: :new }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end
   end

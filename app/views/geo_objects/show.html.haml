@@ -45,6 +45,9 @@
   %br
   %p здесь будут представлены контактные данные фотографии рейтинги и т.д.
   %br
+  = link_to 'Add video', new_geo_object_video_path(@geo_object)
+  |
+  = link_to 'Add photo', new_geo_object_image_path(@geo_object)
   .photos
     - @geo_object.images.each do |image|
       %li.object_image= image_tag image.image_url(:thumb)
@@ -72,6 +75,21 @@
   %br
   %br
   %br
+
+%h4 Как добраться
+
+- @geo_object.runtips.each do |rt|
+  %div= rt.body
+
+
+%h4 Добавить совет Как добраться
+
+= form_for([@geo_object, @geo_object.runtips.build]) do |f|
+  %p
+    = f.label :body
+    %br
+    = f.text_area :body, rows: '3'
+  %p= f.submit
 
 %br
 %br
