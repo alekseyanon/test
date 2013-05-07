@@ -117,20 +117,27 @@ a:hover,
 
 .action-link-bullet{
 	text-decoration: none;
-  display: inline-block;
  	position: relative;
-  cursor: pointer;
- 	line-height: 1;
-	@include font-large;
-	font-size: 16px;
  	.inner{
 		border-bottom: 1px dotted;
-		margin-left: 3px;
+		margin-left: 20px;
 		font-size: $base-font-size;
 		font-family: $base-font; 
+  	display: inline-block;
+		cursor: pointer;
+	 	line-height: 1;
 	}
 	&:before{
-		vertical-align: middle;
+  	@include font-large;
+		position: absolute;
+		margin-top: -11px;
+		top: 50%;
+	}
+	&:visited{
+		&:hover{
+  		color: $lightblue;
+		}
+		color: #000;
 	}
 }
 
@@ -1308,6 +1315,19 @@ a:hover,
   display: block;
 }
 
+.search-filter__second-level ul,
+.search-filter__second-level ul ul {
+  margin-left: 20px;
+}
+
+.search-filter__second-level li.selected > .filter-category__text {
+  background-color: red;
+}
+
+.search-filter__second-level li.semi-selected > .filter-category__text {
+  background-color: pink;
+}
+
 /* ---------------------------------------- SEARCH FILTER END ----------------------------------- */
 
 /* ---------------------------------------- SEARCH CATEGORIES START ----------------------------- */
@@ -1761,9 +1781,10 @@ a:hover,
   padding-bottom: 18px;
 }
 
-/* ---------------------------------------- ABOUT PAGE END--------------------------------------- */
+/* ---------------------------------------- ABOUT PAGE END --------------------------------------- */
 
-/* ---------------------------------------- ALL PHOTOS PAGE START ------------------------------- */
+/* ---------------------------------------- ALL PHOTOS PAGE START -------------------------------- */
+
 .obj-page-navigation{
 	border-bottom: 2px solid #000;
 	padding: 0px 0px 0px 30px;
@@ -1773,14 +1794,31 @@ a:hover,
 		padding: 12px 20px 12px 20px;
 		@include border-top-radius($baseBorderRadius);
 		position: relative;
+		.icon-flag:before,
+		.icon-sm-history:before{	
+			@include font-large;
+			line-height: 1;
+		}
 		&.pull-right{
 			float: right;
+			a{
+				text-decoration: none;
+				&:visited{
+					color: #000;
+					&:hover{
+						color: $lightblue;
+					}
+				}
+			}
 		}
 		&.active{
 			@include gradient-vertical($black, $gray);
 			a{
 				color: #fff;
 				border: 0 none;
+				&:hover{
+					color: #fff;
+				}
 				.inner{
 					border: 0 none;
 				}
@@ -1875,5 +1913,75 @@ a:hover,
 		}
 	}
 }
-/* ---------------------------------------- ALL PHOTOS PAGE END ------------------------------- */
 
+/* ---------------------------------------- ALL PHOTOS PAGE END ---------------------------------- */
+
+/* ---------------------------------------- MODALS START ----------------------------------------- */
+
+.reg-modal {
+  width: 760px;
+  margin-left: -380px;
+}
+
+.reg-modal__social__title,
+.reg-modal__forms__title {
+  font-size: 16px;
+  margin-bottom: 30px;
+  @include vignette(10px, 1px, bottom, center, $lightgrey);
+}
+
+.reg-modal__forms__title {
+  margin-bottom: 18px;
+}
+
+.reg-modal__social__content {
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 0;
+}
+
+.reg-modal__social__link {
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.reg-modal__social__link:hover {
+  text-decoration: none;
+}
+
+.reg-modal__form__inner {
+  padding: 20px;
+}
+
+.reg-modal__form__title {
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.reg-modal__form__password-links {
+  font-size: 13px;
+  margin-top: 2px;
+  color: $darkgrey;
+}
+
+.reg-modal__form__checkboxes {
+  margin: 18px 0 24px;
+}
+
+.reg-modal__form__password-links__show {
+  float: left;
+}
+
+.reg-modal__form__password-links__forgot {
+  float: right;
+}
+
+.reg-modal__form_registration {
+  background-color: #ebebeb;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.reg-modal__form__inner_registration {
+  @include background-image-retina("creampaper", 158px, 144px);
+}
