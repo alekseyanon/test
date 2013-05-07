@@ -1,15 +1,10 @@
 class Agc < ActiveRecord::Base
-  attr_accessible :relations
+  attr_accessible :agus
   has_many :geo_objects
   has_many :events
 
-  #TODO consider introducing a model for 'relations' table
-  ActiveRecord::Base.connection.raw_connection.prepare(
-      'agc_names',
-      "select tags->'name' as name from relations where id = $1")
-
-  def names
-    Hash[relations.map { |id| [id, Agc.connection.raw_connection.exec_prepared('agc_names', [id]).first['name']] }]
+  def titles
+    Hash[agus.map { |id| [id, Agu.find(id).title] }]
   end
 
   def self.most_precise_enclosing(geom)
@@ -17,11 +12,11 @@ class Agc < ActiveRecord::Base
     find_by_sql(["SELECT * from agcs A
                   WHERE
                     Safe_ST_Contains((
-                      select geom from relations
+                      select geom from agus
                       where
-                        id = A.relations[array_length(A.relations, 1)] limit 1), ST_GeomFromText( ? , #{Geo::SRID}))
+                        id = A.agus[array_length(A.agus, 1)] limit 1), ST_GeomFromText( ? , #{Geo::SRID}))
                   ORDER BY
-                    array_length(A.relations, 1) DESC
+                    array_length(A.agus, 1) DESC
                   LIMIT 1", geom.as_text])[0]
   end
 end

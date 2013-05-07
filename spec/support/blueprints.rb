@@ -96,7 +96,7 @@ EventTag.blueprint do
 end
 
 Agc.blueprint do
-  relations { [1, 2, 3] }
+  agus { [1, 2, 3] }
 end
 
 Authentication.blueprint do
@@ -108,4 +108,9 @@ end
 Video.blueprint do
   ids = %w(n0SVG6SgirE 3eRxPDLYM9Q TRbLicNOvzY BHjg6cTxmrQ)
   vid { (ids - Video.pluck(:vid)).sample }
+end
+
+Agu.blueprint do
+  title { Faker::Lorem.sentence }
+  geom { 'POLYGON((0 0, 1 0, 0 1, 0 0))' }
 end

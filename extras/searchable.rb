@@ -5,6 +5,10 @@ module Searchable
 
   module ClassMethods
 
+    def within_radius geom, r
+      where "ST_DWithin(geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
+    end
+
     # Searches descriptions against title, body, tags, using upper level categories used as facets.
     # For queries with geospatial part, search is done within a radius of some point.
     #
