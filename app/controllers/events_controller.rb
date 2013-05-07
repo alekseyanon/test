@@ -1,5 +1,5 @@
 class EventsController < InheritedResources::Base
-  before_filter :authorize
+  before_filter :authorize # TODO move to ApplicationController
   respond_to :html, except: :search
   respond_to :json, only: :search
 

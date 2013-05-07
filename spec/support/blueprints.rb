@@ -114,3 +114,9 @@ Agu.blueprint do
   title { Faker::Lorem.sentence }
   geom { 'POLYGON((0 0, 1 0, 0 1, 0 0))' }
 end
+
+Runtip.blueprint do
+  body { Faker::Lorem.sentences 10 }
+  user { User.make! }
+  geo_object { GeoObject.make! }
+end
