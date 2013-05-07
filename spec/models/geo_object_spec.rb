@@ -12,7 +12,7 @@ describe GeoObject do
     let(:descriptions) { to_geo_objects triangle }
 
     it '.bounding_box' do
-      described_class.bounding_box(15,15,40,40) =~ descriptions[2]
+      described_class.bounding_box(15,15,40,40).should =~ [descriptions[1]]
     end
 
     it '.within_radius' do
