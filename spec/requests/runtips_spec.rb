@@ -22,7 +22,7 @@ describe "Runtips" do
   let(:geo_object){ GeoObject.make! }
   let(:body)  { Faker::Lorem.sentence 5}
 
-  it 'creates a new comment' do
+  it 'creates a new runtip' do
     visit geo_object_path(geo_object)
     fill_in 'runtip_body', with: body
     click_on 'Создать Runtip'
