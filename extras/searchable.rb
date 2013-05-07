@@ -1,6 +1,9 @@
 module Searchable
   def self.included(base)
     base.send :extend, ClassMethods
+    base.scope :bounding_box, ->( xmin, ymin, xmax, ymax) do
+      base.where('geom && ST_MakeEnvelope(?,?,?,?,?)', xmin, ymin, xmax, ymax, Geo::SRID)
+    end
   end
 
   module ClassMethods
