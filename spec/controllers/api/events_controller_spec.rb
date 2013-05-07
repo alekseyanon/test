@@ -76,18 +76,18 @@ describe Api::EventsController do
 
     context 'place' do
 
-      let(:agc) { make_sample_relations!; Agc.make!}
+      let(:agc) { make_sample_agus!; Agc.make!}
       let!(:future_event_with_agc){ Event.make! agc: agc, start_date: 1.month.from_now}
       let!(:past_event_with_agc){ Event.make! agc: agc, start_date: 1.month.ago}
 
       it 'returns future events if exists' do
-        get :search, place_id: agc.relations.first
+        get :search, place_id: agc.agus.first
         assigns(:events).should == [future_event_with_agc]
       end
 
       it 'returns first event if there is only past events' do
         future_event_with_agc.destroy
-        get :search, place_id: agc.relations.first
+        get :search, place_id: agc.agus.first
         assigns(:events).should == [past_event_with_agc]
       end
 
