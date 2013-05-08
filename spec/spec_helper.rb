@@ -53,7 +53,7 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
 
-  Capybara.server_port = 3000
+  Capybara.server_port = 54321 + ENV.fetch('TDDIUM_TID', 0).to_i
   Capybara.add_selector(:type) do
     xpath { |type| XPath.descendant[XPath.attr(:type) == type.to_s] }
   end
