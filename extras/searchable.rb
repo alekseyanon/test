@@ -30,7 +30,11 @@ module Searchable
         chain = chain.tagged_with query[:facets], any: true  if query[:facets]
         geom = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
         r = query[:r] || 0
-        chain = chain.within_radius(geom, r) if geom
+        if query[:bounding_box]
+          chain = chain.bounding_box(query[:bounding_box][0], query[:bounding_box][1], query[:bounding_box][2], query[:bounding_box][3])
+        elsif geom
+          chain = chain.within_radius(geom, r)
+        end
         chain = chain.in_place(query[:place_id]) if query[:place_id]
         text = query[:text]
         chain = chain.within_date_range query[:from], query[:to] if query[:from]

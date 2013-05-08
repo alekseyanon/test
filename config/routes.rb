@@ -5,6 +5,7 @@ Smorodina::Application.routes.draw do
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
     get 'events/tags'
     get 'events/search'
+    get 'agus/search'
     match 'objects/:id/nearby' => 'objects#nearby'
     match 'objects/:id' => 'objects#show'
   end
