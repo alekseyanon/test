@@ -2,9 +2,7 @@ class Api::AgusController < ApplicationController
   respond_to :json
 
   def search
-    @agus = Agu.where(place: true)
-    @agus = @agus.search(params[:query])
-    @agus = @agus.page params[:page]
+    @agus = Agu.where(place: true).search(params[:query]).page(params[:page])
     respond_with @agus
   end
 
