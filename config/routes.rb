@@ -20,7 +20,7 @@ Smorodina::Application.routes.draw do
 
   resources :profiles
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :authentications
 
@@ -65,6 +65,7 @@ Smorodina::Application.routes.draw do
     get '/post', action: 'post'
     get '/to_social_network', action: 'to_social_network'
     get '/about', action: 'about'
+    get '/terms', action: 'terms'
   end
 
   root to: 'welcome#home'

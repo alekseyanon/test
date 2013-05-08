@@ -4,23 +4,27 @@
   display: inline-block;
 }
 
-/*
-.icon-fb, .icon-vk, .icon-tw {
-  width: 18px; height: 18px;
+.icon-fb, .icon-vkontakte, .icon-tw, .icon-gplus {
+  width: 61px; height: 60px;
+  background-image: image-url("social-icons.png");
+  background-repeat: no-repeat;
 }
 
 .icon-fb {
-  @include background-image-svg("icons/fb");
+  background-position: 0 0;
 }
 
-.icon-vk {
-  @include background-image-svg("icons/vk");
+.icon-vkontakte {
+  background-position: -61px 0;
 }
 
 .icon-tw {
-  @include background-image-svg("icons/tw");
+  background-position: -122px 0;
 }
-*/
+
+.icon-gplus {
+  background-position: -183px 0;
+}
 
 .icon-clock {
   @include background-image-svg("icons/clock");
