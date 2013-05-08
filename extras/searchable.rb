@@ -31,7 +31,7 @@ module Searchable
         geom = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
         r = query[:r] || 0
         if query[:bounding_box]
-          chain = chain.bounding_box(query[:bounding_box][0], query[:bounding_box][1], query[:bounding_box][2], query[:bounding_box][3])
+          chain = chain.bounding_box(*query[:bounding_box])
         elsif geom
           chain = chain.within_radius(geom, r)
         end
