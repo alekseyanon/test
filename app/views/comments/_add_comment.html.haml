@@ -1,5 +1,6 @@
+- css_prefix ||= 'hidable'
 - unless current_user.profile.nil?
-  .pic_comments__add
+  %div(class= "pic_comments__add #{css_prefix}")
     .pic_comments__add__errors
       - if comment.errors.any?
         #error_explanation
@@ -7,7 +8,8 @@
           %ul
             - comment.errors.full_messages.each do |msg|
               %li= msg
-    = form_for([commentable, comment]) do |f|
+    = form_for([commentable, comment], remote: true, :disable_with => "Submitting...") do |f|
+      = hidden_field_tag 'parent_id', params[:parent_id]
       .pic_comments__add__avatar
         = image_tag current_user.profile.avatar_url(:image_commentor_thumb)
       .pic_comments__add__input

@@ -5,7 +5,10 @@ class CommentsController < InheritedResources::Base
 
   def new
     @comment = @commentable.comments.build
-    new!
+		respond_to do |format|
+			format.html
+			format.js
+		end
   end
 
   def create
@@ -13,11 +16,15 @@ class CommentsController < InheritedResources::Base
     @comment.user = current_user
     @comment.parent_id = params[:parent_id]
     if @comment.save
-      redirect_to @commentable
+			respond_with do |format|
+				format.html { redirect_to @commentable }
+				format.js { render "_record", locals: { comment: @comment, sub_comments: nil }}
+			end
     else
       respond_with do |format|
         format.html { render action: :new }
         format.json { render json: @commentable.errors, status: :unprocessable_entity }
+				format.js { render "_add_comment", locals: {commentable: @commentable, comment: @comment }}
       end
     end
   end

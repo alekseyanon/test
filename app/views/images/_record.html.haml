@@ -12,14 +12,18 @@
     .pic_show__image__navi
       .pic_show__image__navi__left
         - unless prev_image(@image).nil?
-          = link_to "", polymorphic_path([@image.imageable, prev_image(@image)]), {class: "icon-sm-arrow-left-2", remote: true}
+          - path = polymorphic_path([@image.imageable, prev_image(@image)])
+          = link_to "", polymorphic_path([@image.imageable, prev_image(@image)], anchor: path), {class: "icon-sm-arrow-left-2", remote: true}
         - else
-          = link_to "", polymorphic_path([@image.imageable, last_image(@image)]), {class: "icon-sm-arrow-left-2", remote: true}
+          - path = polymorphic_path([@image.imageable, last_image(@image)]) 
+          = link_to "", polymorphic_path([@image.imageable, last_image(@image)], anchor: path), {class: "icon-sm-arrow-left-2", remote: true}
       .pic_show__image__navi__right
         - unless next_image(@image).nil?
-          = link_to "", polymorphic_path([@image.imageable, next_image(@image)]), {class: "icon-sm-untitled", remote: true}
+          - path = polymorphic_path([@image.imageable, next_image(@image)]) 
+          = link_to "", polymorphic_path([@image.imageable, next_image(@image)], anchor: path), {class: "icon-sm-untitled", remote: true}
         - else
-          = link_to "", polymorphic_path([@image.imageable, first_image(@image)]), {class: "icon-sm-untitled", remote: true}
+          - path = polymorphic_path([@image.imageable, first_image(@image)])
+          = link_to "", polymorphic_path([@image.imageable, first_image(@image)], anchor: path), {class: "icon-sm-untitled", remote: true}
       .pic_show__image__navi__sub
         .pic_show__image__navi__sub__inner
           .pic_show__image__navi__sub__inner__download
@@ -30,7 +34,7 @@
     .pic_show__social__title
       Раскажи друзьям
     .pic_show__social__icons
-      %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
+      %div#ya_share__block
   .pic_show__vote
     = render partial: "shared/vote_for"
 .pic__author
@@ -49,28 +53,19 @@
       Super mega comment
     .pic__author__actions
       .pic__author__actions_respond
-        = link_to raw("<span class='inner'>Ответить</span>"), "#", {class: "icon-sm-reply action-link-bullet"}
+        = link_to raw("<span class='inner'>Ответить</span>"), '#add_comment_form', {class: "icon-sm-reply action-link-bullet"}
+
 
 .pic_comments
   .pic_comments__count
     .pic_comments__count__text
-      67 comments
-  .pic_comments__comment
-    .pic_comments__comment__avatar
-      = image_tag "http://placehold.it/48x48"
-    .pic_comments__comment__info
-      .pic_comments__comment__info__name
-        Alex Baglay
-      .pic_comments__comment__info__date
-        1.05.2013
-      .pic_comments__comment__info__comment
-        Super mega comment
-      .pic_comments__comment__info__actions
-        .pic_comments__comment__info__actions__respond
-          = link_to raw("<span class='inner'>Ответить</span>"), "#", {class: "icon-sm-reply action-link-bullet"}
-        .pic_comments__comment__info__actions__vote
-          = render partial: "shared/vote_for"
-  = render partial: "comments/add_comment", locals: {commentable: @image, comment: @image.comments.build}
+      = @image.comments.count
+      = Russian::p(@image.comments.count, 'коментарий', 'коментария', 'коментариев')
+  .pic_comments__list
+    - @comment_roots.each do |root|
+      = nested_comments root.subtree.arrange(order: :created_at)
+  %a#add_comment_form
+  = render partial: "comments/add_comment", locals: {commentable: @image, comment: @image.comments.build, css_prefix: ""}
   
   .pic_comments__next
     = link_to "Показать ещё", "#", {class: "button button_standard button_grey ui-link"}

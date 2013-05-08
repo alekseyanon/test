@@ -13,7 +13,8 @@ class Smorodina.Views.ImageShow extends Backbone.View
 		this.$el.find('.pic_show__image__navi').css({opacity: 0})
 		spinner_config = Smorodina.Config.spinner
 		@spinner = new Spinner spinner_config
-		
+		@init_ya_share()
+				
 	show_navi: ->
 		this.$el.find('.pic_show__image__navi').animate({opacity: 1})
 
@@ -28,4 +29,15 @@ class Smorodina.Views.ImageShow extends Backbone.View
 		$('#pic_show_content').html(data.responseText);
 		$('#pic_show_content').animate({opacity: 1})
 		@spinner.stop()
+		@init_ya_share()
+		new Smorodina.Views.Comments
+
+	init_ya_share: ->
+		new Ya.share(
+			'element': 'ya_share__block',
+			'elementStyle':{
+				'quickServices': ['yaru', 'vkontakte', 'facebook', 'twitter', 'odnoklassniki', 'moimir'],
+				'type': 'icon'
+			}
+		);
 

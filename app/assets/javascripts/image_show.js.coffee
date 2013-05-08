@@ -3,4 +3,5 @@
 
 Smorodina.Pages.ImageShow = ->
 	$ ->
-		ImageShowView = new Smorodina.Views.ImageShow
+		new Smorodina.Views.ImageShow
+		new Smorodina.Views.Comments
