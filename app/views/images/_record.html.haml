@@ -54,16 +54,5 @@
     .pic__author__actions
       .pic__author__actions_respond
         = link_to raw("<span class='inner'>Ответить</span>"), '#add_comment_form', {class: "icon-sm-reply action-link-bullet"}
-.pic_comments
-  .pic_comments__count
-    .pic_comments__count__text
-      = @image.comments.count
-      = Russian::p(@image.comments.count, 'коментарий', 'коментария', 'коментариев')
-  .pic_comments__list
-    - @comment_roots.each do |root|
-      = nested_comments root.subtree.arrange(order: :created_at)
-  %a#add_comment_form
-  = render partial: "comments/add_comment", locals: {commentable: @image, comment: @image.comments.build, css_prefix: ""}
-  
-  .pic_comments__next
-    = link_to "Показать ещё", "#", {class: "button button_standard button_grey ui-link"}
+= render partial: "comments/list", locals: {commentable: @image} 
+

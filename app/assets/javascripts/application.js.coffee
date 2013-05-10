@@ -114,6 +114,8 @@ router.route "objects/search", "geo_objects", Smorodina.Pages.GeoObjects
 router.route "", "index", Smorodina.Pages.Index
 router.route "objects/:object_name/images/:image_id", "image_show", Smorodina.Pages.ImageShow
 router.route "images/:image_id", "image_show", Smorodina.Pages.ImageShow
+router.route "objects/:object_name/images", "images_index", Smorodina.Pages.ImagesIndex
+router.route "objects/:object_name/images#objects/:hash_object_name/images/:hash_image_id", "images_index_hash", Smorodina.Pages.ImageShowWindow
 Backbone.history.start hashChange: false
 
 $ ->

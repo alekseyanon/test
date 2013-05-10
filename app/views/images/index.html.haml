@@ -14,7 +14,7 @@
     %li.pull-right
       = link_to "", "#", {class: "icon-flag ui-link"}
     %li.pull-right
-      = link_to "", "#" , {class: "icon-sm-history ui-link"}
+      = link_to "", history_geo_object_path(@parent), {class: "icon-sm-history ui-link"}
     %li.pull-right
       = link_to raw("<span class='inner'>Редактировать</span>"), edit_geo_object_path(@parent), {class: "icon-sm-pencil action-link-bullet ui-link"}
 
@@ -30,4 +30,5 @@
       %li
         - path = geo_object_image_path(@parent, image)
         = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@parent, image, anchor: path)
+  = render "modals/image_show_modal"
 = render 'layouts/footer'

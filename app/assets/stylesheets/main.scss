@@ -2315,6 +2315,33 @@ a:hover,
 	}
 }
 
+#showImageModal{
+	position: absolute;
+	width: 724px;
+	
+	.modal-content{
+		padding: 15px 0 25px 0;
+		position: relative;
+		.modal-header{
+			position: absolute;
+			@include size(20px, 100%);
+			z-index: 2;
+			.close{
+				margin-right: 25px;
+				line-height: 10px;
+			}
+		}
+		.modal-body{
+			min-height: 100px;
+			.modal-spinner{
+				top: 50px;
+				position: absolute;
+				width: 100%;
+			}
+		}
+	}
+}
+
 /* ---------------------------------------- SHOW PHOTO PAGE END ----------------------------------- */
 
 /* ---------------------------------------- MODALS START ----------------------------------------- */
