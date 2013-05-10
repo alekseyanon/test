@@ -31,6 +31,7 @@ class Smorodina.Views.ImageShow extends Backbone.View
 		@spinner.stop()
 		@init_ya_share()
 		new Smorodina.Views.Comments
+		new Smorodina.Views.Votings
 
 	init_ya_share: ->
 		new Ya.share(

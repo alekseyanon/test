@@ -2249,16 +2249,27 @@ a:hover,
 	display: inline;
 	text-align: right;
 	color: $siteGray;
-	a{
+	a, button{
 		text-decoration: none;
 		color: $siteGray;
 		@include font-large;
+		border: 0px none;
+		background-color: transparent;
+		&:hover{
+			color: $lightblue;
+		}
 	}
 	.pic_vote__up{
 		display: inline;
+		form{
+			display: inline;
+		}
 	}
 	.pic_vote__down{
 		display: inline;
+		form{
+			display: inline;
+		}
 	}
 	.pic_vote__count{
 		display: inline-block;
@@ -2278,7 +2289,7 @@ a:hover,
 	}
 	&.pic_vote_positive{
 		.pic_vote__up{
-			a{
+			a, button{
 				color: $siteGreen;
 				&:hover{
 					color: $lightblue;
@@ -2290,9 +2301,12 @@ a:hover,
 		}
 	}
 	&.pic_vote_negative{
-		.pic_vote_down{
-			a{
+		.pic_vote__down{
+			a, button{
 				color: $siteRed;
+				&:hover{
+					color: $lightblue;
+				}
 			}
 		}
 		.pic_vote__count{

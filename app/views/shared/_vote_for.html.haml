@@ -1,9 +1,21 @@
-.pic_vote.pic_vote_positive
+- rating = votable.plusminus
+- css_prefix = (rating >= 0) ? "pic_vote_positive" : "pic_vote_negative"
+
+- if votable.class.name == "Comment"
+  - path = polymorphic_path([votable.commentable, votable, votable.votes.build])
+- else
+  - path = polymorphic_path([votable, votable.votes.build])
+
+%div(class="pic_vote #{css_prefix}")
   .pic_vote__up
-    = link_to "", "#", {class: "icon-thumbs-up ui-link"}
+    = form_tag path, remote: true do 
+      = hidden_field_tag :sign, "up"
+      = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
   .pic_vote__count
-    80
+    = rating
   .pic_vote__down
-    = link_to "", "#", {class: "icon-thumbs-down ui-link"}
+    = form_tag path, remote: true do 
+      = hidden_field_tag :sign, "down"
+      = button_tag "", {class: "icon-thumbs-down ui-link"}
   .pic_vote__spam
     = link_to "", "#", {class: "icon-flag ui-link"}

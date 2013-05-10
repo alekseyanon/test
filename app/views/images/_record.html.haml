@@ -36,7 +36,7 @@
     .pic_show__social__icons
       %div#ya_share__block
   .pic_show__vote
-    = render partial: "shared/vote_for"
+    = render partial: "shared/vote_for", locals: {votable: @image}
 .pic__author
   .pic__author__avatar
     - unless @image.user.nil?
@@ -54,8 +54,6 @@
     .pic__author__actions
       .pic__author__actions_respond
         = link_to raw("<span class='inner'>Ответить</span>"), '#add_comment_form', {class: "icon-sm-reply action-link-bullet"}
-
-
 .pic_comments
   .pic_comments__count
     .pic_comments__count__text

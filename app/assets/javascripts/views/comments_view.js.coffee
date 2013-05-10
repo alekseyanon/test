@@ -11,7 +11,6 @@ class Smorodina.Views.Comments extends Backbone.View
 		'ajax:complete .pic_comments__add.hidable form'												: 'after_h_form_ajax'
 
 	initialize: ->
-		console.log('comments page')
 				
 	before_link_ajax: (evt, xhr, settings)->
 		@append_to = $(evt.currentTarget).parents('.pic_comments__comment').first().find('.pic_comments__chid_comments').first()
@@ -28,10 +27,12 @@ class Smorodina.Views.Comments extends Backbone.View
 		
 	after_h_form_ajax: (evt, data, status, xhr)->
 		@replace_to.parent().replaceWith(data.responseText);
+		new Smorodina.Views.Votings
 	
 	before_form_ajax: (evt, xhr, settings)->
 
 		
 	after_form_ajax: (evt, data, status, xhr)->
 		$('.pic_comments__list').append(data.responseText);
+		new Smorodina.Views.Votings
 

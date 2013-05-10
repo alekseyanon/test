@@ -5,3 +5,4 @@ Smorodina.Pages.ImageShow = ->
 	$ ->
 		new Smorodina.Views.ImageShow
 		new Smorodina.Views.Comments
+		new Smorodina.Views.Votings

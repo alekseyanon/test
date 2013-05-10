@@ -13,8 +13,7 @@
         - path = new_polymorphic_path([comment.commentable, comment], parent_id: comment.id)
         = link_to raw("<span class='inner'>Ответить</span>"), path, {class: "icon-sm-reply action-link-bullet", remote: true} 
       .pic_comments__comment__info__actions__vote
-        = render partial: "shared/vote_for"
+        = render partial: "shared/vote_for", locals: {votable: comment}
   .pic_comments__chid_comments
     - unless sub_comments.nil?
       = nested_comments(sub_comments)
-
