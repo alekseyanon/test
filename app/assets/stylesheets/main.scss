@@ -1931,10 +1931,11 @@ a:hover,
 /* ---------------------------------------- SHOW PHOTO PAGE ----------------------------------- */
 .pic_show__container{
 	position: relative;
+	min-height: 400px;
 }
 .pic_show__spinner{
 	position: absolute;
-	top: 50%;
+	top: 200px;
 	left: 50%;
 	margin: -5px 0 0 -5px; 
 }
@@ -1958,6 +1959,7 @@ a:hover,
 	.pic_show__image{
 		position: relative;
 		margin-top: 14px;
+		min-height: 485px;
 	}
 	.pic_show__image__navi{
 		position: absolute;

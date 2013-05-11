@@ -3,4 +3,4 @@
 
 Smorodina.Pages.ImagesIndex = ->
 	$ ->
-		new Smorodina.Views.ImagesIndex
+		imagesIndexView = new Smorodina.Views.ImagesIndex

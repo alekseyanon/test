@@ -21,7 +21,8 @@ class Smorodina.Views.ImageShow extends Backbone.View
 	hide_navi: ->
 		this.$el.find('.pic_show__image__navi').animate({opacity: 0})
 
-	before_ajax: ->
+	before_ajax: (e)->
+		window.location.hash = e.currentTarget.hash
 		@spinner.spin($('.pic_show__spinner__home').get 0)
 		$('#pic_show_content').animate({opacity: 0.25})
 	

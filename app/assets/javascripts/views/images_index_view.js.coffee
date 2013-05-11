@@ -3,6 +3,7 @@ class Smorodina.Views.ImagesIndex extends Backbone.View
 
 	events:
 		'click .obj-page-gallery a'  : 'prevent_link'
+		'contentLoaded #pic_show_content' : "content_loaded"
 
 	initialize: ->
 		spinner_config = Smorodina.Config.spinner
@@ -20,10 +21,13 @@ class Smorodina.Views.ImagesIndex extends Backbone.View
 			$('#showImageModal').attr('data-url', url);
 			$('#showImageModal').modal();
 			$('#showImageModal #pic_show_content').html("");
-			$('#showImageModal #pic_show_content').append("<div class='modal-spinner'></div>");
-			@spinner.spin($('#showImageModal .modal-spinner').get 0)
+			@spinner.spin($('#showImageModal .pic_show__spinner__home').get 0)
 			$('#showImageModal #pic_show_content').load(url + '.js', ()->
-				new Smorodina.Views.ImageShow
-				new Smorodina.Views.Comments
-				new Smorodina.Views.Votings
+				$('#pic_show_content').trigger('contentLoaded')
 			);
+
+	content_loaded: ->
+		@spinner.stop()
+		new Smorodina.Views.ImageShow
+		new Smorodina.Views.Comments
+		new Smorodina.Views.Votings
