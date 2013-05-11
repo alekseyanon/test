@@ -53,6 +53,10 @@ h2 {
   text-align: center;
 }
 
+.content_narrow {
+  margin: 0 30px;
+}
+
 //TODO footer has the same appearance. May be in future, we'll make a common class.
 
 .search-panel {
@@ -2413,3 +2417,17 @@ a:hover,
 .reg-modal__form__inner_registration {
   @include background-image-retina("creampaper", 158px, 144px);
 }
+
+/* ---------------------------------------- PASSWORD FORMS START --------------------------------- */
+
+.password-form__description {
+  font-size: 16px;
+  margin-bottom: 18px;
+  margin-top: 36px;
+}
+
+.password-form__button {
+  margin-top: 18px;
+}
+
+/* ---------------------------------------- PASSWORD FORMS END ----------------------------------- */

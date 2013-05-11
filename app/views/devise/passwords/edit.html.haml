@@ -1,0 +1,11 @@
+%h1.page-title
+  Смена пароля
+%div.content_narrow
+  %form.password-form{ action: password_path(resource_name), method: 'POST' }
+    %div.password-form__description
+      Введите новый пароль. Пароль может содержать латинские буквы и цифры.
+    %div.form-field
+      %input.input-xlarge{ type: 'password', placeholder: 'Пароль', autofocus: true }
+    %div.password-form__button
+      %button.btn.btn_rounded{ type: 'submit' }
+        Задать новый пароль
