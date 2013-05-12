@@ -2125,6 +2125,13 @@ a:hover,
 	}
 	.pic_comments__comment{
 		margin-left: 35px;
+		.pic_comments__comment{
+			.pic_comments__comment{
+				.pic_comments__comment{
+					margin-left: 0px;
+				}
+			}
+		}
 	}
 	.pic_comments__comment__avatar{
 		float: left;
@@ -2219,7 +2226,7 @@ a:hover,
 		border: 1px solid $siteLightGray;
 		@include font-large;
 		@include border-radius(0px);
-		width: 538px;
+		width: 100%;
 		padding: 14px 14px 16px 14px;
 	}
 }

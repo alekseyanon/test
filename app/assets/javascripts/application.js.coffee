@@ -44,7 +44,7 @@ window.to_vote = (voteable_controller, voteable_id, sign, tag) ->
   down = "#" + id + " .down-vote"
   $.ajax
     type: "POST"
-    url: "/" + voteable_controller + "s/" + voteable_id + "/votes"
+    url: "/" + voteable_controller + "s/" + voteable_id + "/votes.json"
     data: (params)
     success: (data) ->
       $(up).html data.positive
@@ -65,7 +65,7 @@ window.to_unvote = (voteable_controller, voteable_id, tag) ->
       voteable_tag: tag
   $.ajax
     type: "POST"
-    url: "/" + voteable_controller + "s/" + voteable_id + "/votes/500" #"/votes/1",
+    url: "/" + voteable_controller + "s/" + voteable_id + "/votes/500.json" #"/votes/1",
     data: (params)
     success: (data) ->
       $("#" + id + " .up-vote").html data.positive
