@@ -1,5 +1,5 @@
 - css_prefix ||= 'hidable'
-- unless current_user.profile.nil?
+- unless current_user.nil?
   %div(class= "pic_comments__add #{css_prefix}")
     .pic_comments__add__errors
       - if comment.errors.any?

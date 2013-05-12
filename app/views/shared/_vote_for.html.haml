@@ -8,14 +8,17 @@
 
 %div(class="pic_vote #{css_prefix}")
   .pic_vote__up
-    = form_tag path, remote: true do 
-      = hidden_field_tag :sign, "up"
-      = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
+    - unless current_user.nil?
+      = form_tag path, remote: true do 
+        = hidden_field_tag :sign, "up"
+        = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
   .pic_vote__count
     = rating
   .pic_vote__down
-    = form_tag path, remote: true do 
-      = hidden_field_tag :sign, "down"
-      = button_tag "", {class: "icon-thumbs-down ui-link"}
-  .pic_vote__spam
-    = link_to "", "#", {class: "icon-flag ui-link"}
+    - unless current_user.nil?
+      = form_tag path, remote: true do 
+        = hidden_field_tag :sign, "down"
+        = button_tag "", {class: "icon-thumbs-down ui-link"}
+  - unless current_user.nil?
+    .pic_vote__spam
+      = link_to "", "#", {class: "icon-flag ui-link"}
