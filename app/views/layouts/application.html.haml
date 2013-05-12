@@ -72,8 +72,7 @@
             %div.icon.icon-sm-list.control-panel__info-button__icon
           %ul.dropdown-menu.pull-right.control-panel__info-section
             %li
-              %a.ui-link.control-panel__info-section__link{ href: 'about' }<
-                О проекте
+              =link_to "О проекте", about_path, {class: "ui-link control-panel__info-section__link"} 
             %li
               %a.ui-link.control-panel__social-block__link{ href: '#' }
                 %span.icon.icon-vk.control-panel__social-block__link__icon

@@ -23,6 +23,7 @@ class Smorodina.Views.Comments extends Backbone.View
 		$(event.currentTarget).parents('.pic_comments__add').first().remove();
 
 	before_h_form_ajax: (evt, xhr, settings)->
+		$(evt.currentTarget).find("input[type='submit']").attr('disabled', 'disabled');
 		@replace_to = $(evt.currentTarget)
 		
 	after_h_form_ajax: (evt, data, status, xhr)->
@@ -30,9 +31,13 @@ class Smorodina.Views.Comments extends Backbone.View
 		new Smorodina.Views.Votings
 	
 	before_form_ajax: (evt, xhr, settings)->
+		@form = $(evt.currentTarget) 
+		@form.find("input[type='submit']").attr('disabled', 'disabled');
+		@form.find("input[type='text']").val('');
 
 		
 	after_form_ajax: (evt, data, status, xhr)->
 		$('.pic_comments__list').append(data.responseText);
+		@form.find("input[type='submit']").removeAttr('disabled');
 		new Smorodina.Views.Votings
 

@@ -9,6 +9,8 @@ class Smorodina.Views.ImagesIndex extends Backbone.View
 		spinner_config = Smorodina.Config.spinner
 		@spinner = new Spinner spinner_config
 		@show_modal(window.location.hash)
+		$('#showImageModal').on('hidden', ()-> window.location.hash = "");
+		
 		
 	prevent_link: (e)->
 		window.location.hash = e.currentTarget.hash

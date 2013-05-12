@@ -7,7 +7,7 @@
     из
     = @image_total
   .pic_show__image
-    = image_tag(@image.image_url(:showthumb))
+    = image_tag(@image.image_url(:showthumb), width: 724, height: 485, alt: @image.imageable.title)
 
     .pic_show__image__navi
       .pic_show__image__navi__left
