@@ -1,0 +1,22 @@
+%div#feedback.feedback-modal.modal.hide.fade
+  %div.modal-header
+    %h3
+      Обратная связь
+      %a.close{data: {dismiss: 'modal'}}
+        &times;
+  %div.modal-body
+    %div
+      %form.feedback{ action: '/', method: 'POST' }
+        %div.form-field
+          %input.input{ type: 'email', placeholder: 'Эл. почта', autofocus: true }
+        %div.form-field
+          %input.input{ type: 'text', placeholder: 'Имя'}
+        %div.form-field
+          %textarea.input{ placeholder: 'Сообщение'}
+        %div.feedback-form__button
+          %button.btn.btn_rounded{ type: 'submit' }
+            Отправить
+          %div.form-cancel
+            или
+            %a.cancel{data: {dismiss: 'modal'}}
+              Отменить

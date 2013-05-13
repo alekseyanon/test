@@ -1985,3 +1985,50 @@ a:hover,
 .reg-modal__form__inner_registration {
   @include background-image-retina("creampaper", 158px, 144px);
 }
+
+.feedback-modal{
+  width: 600px;
+  .modal-header{
+    h3{
+      padding-top:15px;
+      padding-left:30px;
+      padding-right:30px;
+      font-weight:normal;
+      .close{
+        font-size:30px;
+        font-weight:100;
+      }
+    }
+    height:10px;
+    background-color: #9428b6;
+  }
+  .modal-body{
+    overflow:visible;
+    padding:30px;
+    padding-bottom:15px;
+    .input{
+      height:30px;
+      width:524px;
+    }
+    textarea.input{
+      height: 105px;
+    }
+    .feedback-form__button{
+      padding-top:25px;
+      display:inline-block;
+      button{
+        font-weight:bold;
+        float:left;
+      }
+      div{
+        line-height:38px;
+        float:left;
+        margin-left: 20px;
+        a{
+          margin-left:10px;
+          cursor:pointer;
+        }
+      }
+    }
+  }
+}
