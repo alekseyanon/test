@@ -2185,9 +2185,10 @@ a:hover,
 		text-align: center;
 		margin: 48px 0 35px 0;
 		.button{
-			padding: 13px 15px;
+			padding: 5px 28px;
 			font-weight: bold;
-			border: 1px solid #e4e5f1;
+			border: 1px solid $siteLightGray;
+			font-family: $advanced-font;
 		}
 	}
 }
@@ -2240,7 +2241,7 @@ a:hover,
 	display: inline-block;
 	margin-right: 27px;
 	.button{
-		padding: 13px 15px;
+		padding: 5px 15px;
 		font-weight: bold;
 		border: 1px solid $siteLightGray;
 	}
