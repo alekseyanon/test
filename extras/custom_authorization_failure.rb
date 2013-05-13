@@ -1,5 +1,5 @@
 # Файл определяет поведение при неудачной авторизации
-class CustomFailure < Devise::FailureApp
+class CustomAuthorizationFailure < Devise::FailureApp
   def redirect_url
   	# редирект на главную с автоматическим повторным открытием
   	# окна регистрации/авторизации

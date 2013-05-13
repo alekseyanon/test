@@ -8,11 +8,17 @@ describe 'Users' do
 
   def login email=@user.email, password=@user.password
     visit root_path
-    click_on 'show_modal'
-    fill_in 'user_email_log', with: email
-    fill_in 'user_password_log', with: password
+    click_on 'show_registration_modal'
+    fill_in 'user_login_email', with: email
+    fill_in 'user_login_password', with: password
     click_on 'login'
   end
+
+  let(:fake_email){ Faker::Internet.email }
+
+  let(:fake_password){ 'tes123ter' }
+
+  let(:fake_name){ 'Richard' }
 
 	it 'welcomes the user' do
     visit '/'
@@ -37,52 +43,50 @@ describe 'Users' do
 
   it 'user register' do
   	visit root_path
-  	fill_in 'user_email_reg', with: Faker::Internet.email
-    fill_in 'user_password_reg', with: 'tes123ter'
-    page.check 'user_rules'
+  	fill_in 'user_registration_email', with: fake_email
+    fill_in 'user_registration_password', with: fake_password
+    page.check 'tos'
     click_on 'register'
     current_path.should == '/users'
   end
 
   it 'should register user with email notifications and name' do
-    fake_email = Faker::Internet.email
     visit root_path
-    fill_in 'user_email_reg', with: fake_email
-    fill_in 'user_password_reg', with: 'tes123ter'
-    fill_in 'user_name', with: 'Richard'
-    page.check 'user_rules'
+    fill_in 'user_registration_email', with: fake_email
+    fill_in 'user_registration_password', with: fake_password
+    fill_in 'user_name', with: fake_name
+    page.check 'tos'
     page.check 'user_spam'
     click_on 'register'
     current_path.should == '/users'
     
     u = User.find_by_email(fake_email)
-    p u.profile.settings
-    u.profile.name.should == 'Richard'
+    u.profile.name.should == fake_name
     u.profile.settings['news_mailer'].should == '1'
   end
 
   it 'not registers invalid attributes' do
   	visit root_path
-  	fill_in 'user_email_reg', with: 'tester'
-    fill_in 'user_password_reg', with: 'tester'
-    page.check 'user_rules'
+  	fill_in 'user_registration_email', with: 'tester'
+    fill_in 'user_registration_password', with: 'tester'
+    page.check 'tos'
     click_on 'register'
     page.should have_content('Проверьте заполненные поля')
   end
 
   it 'does not register if terms of service are not accepted' do
     visit root_path
-    fill_in 'user_email_reg', with: 'tester'
-    fill_in 'user_password_reg', with: 'tester'
+    fill_in 'user_registration_email', with: 'tester'
+    fill_in 'user_registration_password', with: 'tester'
     click_on 'register'
     page.should have_content('Вам необходимо принять соглашение')
   end
 
   it 'should not be registered with existing email' do
   	visit root_path
-  	fill_in 'user_email_reg', with: @user.email
-    fill_in 'user_password_reg', with: @user.password
-    page.check 'user_rules'
+  	fill_in 'user_registration_email', with: @user.email
+    fill_in 'user_registration_password', with: @user.password
+    page.check 'tos'
     click_on 'register'
     find('#regLoginModal').should be_visible
   end
@@ -157,40 +161,22 @@ describe 'Users reset password' do
 
     before :each do
       page.driver.headers = {'Accept-Language' => 'q=0.8,en-US'}
+      visit root_path
+      click_on "show_registration_modal"
     end
 
 
     it 'facebook login' do
       Capybara.app_host = 'http://localhost:3000'
-      visit new_user_session_path
-      click_on 'Sign in with Facebook'
-      sleep 1
+      find('.icon-fb').click
+      p current_url
       current_url.should =~ /facebook/
-      page.should have_content('Log in to use your Facebook account')
     end
 
     it 'twitter login' do
-      visit new_user_session_path
-      click_on 'Sign in with Twitter'
-      sleep 1
-      current_url.should =~ /twitter/
-      page.should have_content("to use your account") #have_content('Twitter / Authorize an application')
-    end
-
-    it 'facebook register' do
-      Capybara.app_host = 'http://localhost:3000'
-      visit new_user_session_path
-      click_on 'Sign in with Facebook'
-      sleep 1
-      current_url.should =~ /facebook/
-      page.should have_content('Facebook')
-    end
-
-    it 'twitter register' do
-      visit new_user_session_path
-      click_on 'Sign in with Twitter'
-      sleep 1
+      find('.icon-tw').click
       current_url.should =~ /twitter/
     end
+
   end
 end
