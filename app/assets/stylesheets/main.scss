@@ -2021,12 +2021,14 @@ a:hover,
         float:left;
       }
       div{
+        color: $darkgrey;
         line-height:38px;
         float:left;
         margin-left: 20px;
         a{
           margin-left:10px;
           cursor:pointer;
+          text-decoration:underline;
         }
       }
     }
