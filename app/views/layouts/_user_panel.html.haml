@@ -1,7 +1,4 @@
 %div.user-panel
-  - if params[:modal]
-    :javascript
-      $(function(){ $('.user-panel__login').find('.ui-link').click(); });
   - if current_user.nil?
     %span.user-panel__login
       %a.ui-link#show_modal{ href: '#regLoginModal', data: { toggle: 'modal' } }

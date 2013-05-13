@@ -137,3 +137,6 @@ $ ->
     time = new Date().getTime()
     $(this).parent().append "<input class='string optional' id='video_url_" + time + "' name='video_urls[" + time + "]' size='50' type='text'><br>"
 
+  
+  if location.href.match /modal=true/
+    $('#regLoginModal').modal('show')
