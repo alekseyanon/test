@@ -11,7 +11,7 @@
     .pic_comments__comment__info__actions
       .pic_comments__comment__info__actions__respond
         - path = new_polymorphic_path([comment.commentable, comment], parent_id: comment.id)
-        = link_to raw("<span class='inner'>Ответить</span>"), path, {class: "icon-sm-reply action-link-bullet", remote: true} 
+        = link_to raw("<span class='inner'>Ответить</span>"), path, {class: "icon-sm-reply action-link-bullet", remote: !current_user.nil? } 
       .pic_comments__comment__info__actions__vote
         = render partial: "shared/vote_for", locals: {votable: comment}
   .pic_comments__chid_comments

@@ -28,7 +28,7 @@
       .pic_show__image__navi__sub
         .pic_show__image__navi__sub__inner
           .pic_show__image__navi__sub__inner__download
-            = link_to raw("<span class='inner'>Скачать</span>"), "", {class: "action-link-bullet icon-sm-arrow-down-2 ui-link"}
+            = link_to raw("<span class='inner'>Скачать</span>"), @image.image_url, {class: "action-link-bullet icon-sm-arrow-down-2 ui-link", target: :blank}
           .pic_show__image__navi__sub__inner__fullscreen
             = link_to raw("<span class='inner'>На весь экран</span>"), "", {class: "action-link-bullet icon-sm-full-screen right ui-link"}
   .pic_show__social

@@ -10,17 +10,14 @@
 
 %div(class="pic_vote #{css_prefix}")
   .pic_vote__up
-    - unless current_user.nil?
-      = form_tag path, remote: true do 
-        = hidden_field_tag :sign, "up"
-        = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
+    = form_tag path, remote: !current_user.nil? do 
+      = hidden_field_tag :sign, "up"
+      = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
   .pic_vote__count
     = rating
   .pic_vote__down
-    - unless current_user.nil?
-      = form_tag path, remote: true do 
-        = hidden_field_tag :sign, "down"
-        = button_tag "", {class: "icon-thumbs-down ui-link"}
-  - unless current_user.nil?
-    .pic_vote__spam
-      = link_to "", complaint_path, {class: "icon-flag ui-link", title: "Пожаловаться", target: :blank }
+    = form_tag path, remote: !current_user.nil? do 
+      = hidden_field_tag :sign, "down"
+      = button_tag "", {class: "icon-thumbs-down ui-link"}
+  .pic_vote__spam
+    = link_to "", complaint_path, {class: "icon-flag ui-link", title: "Пожаловаться", target: :blank }

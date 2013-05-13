@@ -9,6 +9,8 @@ class Smorodina.Views.Comments extends Backbone.View
 		'ajax:complete .pic_comments__add form'																: 'after_form_ajax'
 		'ajax:beforeSend .pic_comments__add.hidable form'											: 'before_h_form_ajax'
 		'ajax:complete .pic_comments__add.hidable form'												: 'after_h_form_ajax'
+		'focus .pic_comments__add input[type="text"]'													: 'focus_form'
+		'blur .pic_comments__add input[type="text"]'													: 'blur_form'
 
 	initialize: ->
 				
@@ -41,3 +43,11 @@ class Smorodina.Views.Comments extends Backbone.View
 		@form.find("input[type='submit']").removeAttr('disabled');
 		new Smorodina.Views.Votings
 
+	focus_form: (e)->
+		console.log('focused');
+		@focused = $(e.currentTarget).parents('.pic_comments__add__input').first();
+		@focused.toggleClass('active');
+		
+	blur_form: ->
+		console.log('blured');
+		@focused.toggleClass('active');

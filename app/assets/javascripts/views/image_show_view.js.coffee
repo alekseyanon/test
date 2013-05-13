@@ -8,6 +8,8 @@ class Smorodina.Views.ImageShow extends Backbone.View
 		'ajax:beforeSend .pic_show__image__navi__right a' : 'before_ajax'
 		'ajax:complete .pic_show__image__navi__left a'	  : 'after_ajax'
 		'ajax:complete .pic_show__image__navi__right a'	  : 'after_ajax'
+		'click .pic__author__actions_respond a'	  				: 'simple_add_comment'
+
 
 	initialize: ->
 		this.$el.find('.pic_show__image__navi').css({opacity: 0})
@@ -42,4 +44,9 @@ class Smorodina.Views.ImageShow extends Backbone.View
 				'type': 'icon'
 			}
 		);
+	
+	simple_add_comment: (e)->
+		$('.pic_comments__add input[type="text"]').focus();
+		e.preventDefault()
+
 

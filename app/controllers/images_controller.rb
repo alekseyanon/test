@@ -5,7 +5,6 @@ class ImagesController < InheritedResources::Base
   end
 
   def show
-		sleep 1
     @image = Image.find(params[:id])
     @image_total = @image.imageable.images.count
     @image_number = @image_total - @image.imageable.images.where('id < ?', @image.id).count
