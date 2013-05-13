@@ -65,6 +65,7 @@ Smorodina::Application.routes.draw do
     get '/post', action: 'post'
     get '/to_social_network', action: 'to_social_network'
     get '/about', action: 'about'
+    #TODO: Terms Of Service page
     get '/terms', action: 'terms'
   end
 

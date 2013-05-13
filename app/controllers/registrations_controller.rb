@@ -7,6 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
         resource.profile.update_attributes settings: params[:settings], name: params[:name]
         render 'welcome/pend_act.html.haml'
       else
+        # Если в будущем нужно будет реализовать детальное описание ошибок
         # flash[:error] = resource.errors.messages.each.map{|k,v| "#{k.capitalize} #{v[0]}"}
         flash[:error] = "Проверьте заполненные поля"
         redirect_to root_path(modal: true)
