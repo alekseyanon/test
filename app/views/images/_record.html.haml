@@ -6,6 +6,10 @@
     = @image_number
     из
     = @image_total
+
+  .pic_show__complaint.complaint
+    = link_to 'Пожаловаться', '#complaint', onclick: "complaint('/images/#{@image.id}');", id: 'image_complaint'
+
   .pic_show__image
     = image_tag(@image.image_url(:showthumb), width: 724, height: 485, alt: @image.imageable.title)
 
@@ -15,11 +19,11 @@
           - path = polymorphic_path([@image.imageable, prev_image(@image)])
           = link_to "", polymorphic_path([@image.imageable, prev_image(@image)], anchor: path), {class: "icon-sm-arrow-left-2", remote: true}
         - else
-          - path = polymorphic_path([@image.imageable, last_image(@image)]) 
+          - path = polymorphic_path([@image.imageable, last_image(@image)])
           = link_to "", polymorphic_path([@image.imageable, last_image(@image)], anchor: path), {class: "icon-sm-arrow-left-2", remote: true}
       .pic_show__image__navi__right
         - unless next_image(@image).nil?
-          - path = polymorphic_path([@image.imageable, next_image(@image)]) 
+          - path = polymorphic_path([@image.imageable, next_image(@image)])
           = link_to "", polymorphic_path([@image.imageable, next_image(@image)], anchor: path), {class: "icon-sm-untitled", remote: true}
         - else
           - path = polymorphic_path([@image.imageable, first_image(@image)])
@@ -54,5 +58,5 @@
     .pic__author__actions
       .pic__author__actions_respond
         = link_to raw("<span class='inner'>Ответить</span>"), '#add_comment_form', {class: "icon-sm-reply action-link-bullet"}
-= render partial: "comments/list", locals: {commentable: @image} 
+= render partial: "comments/list", locals: {commentable: @image}
 
