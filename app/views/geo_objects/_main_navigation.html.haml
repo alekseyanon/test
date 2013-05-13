@@ -1,0 +1,23 @@
+%div.row-fluid
+  %div.span6.search
+    = link_to content_tag(:span, 'Поиск объектов', class: 'inner'), search_geo_objects_path, {class: 'action-link-bullet icon-sm-arrow-left-3'}
+
+%ul.obj-page-navigation
+  %li{class: current_page?(geo_object_path(object)) ? 'active' : ''}
+    = link_to 'Описание объекта', geo_object_path(object), {class: 'action-link'}
+
+  %li{class: current_page?(geo_object_images_path(object)) ? 'active' : ''}
+    = link_to content_tag(:span, 'Фото', class: 'inner'), geo_object_images_path(object), {class: 'icon-sm-pictures action-link-bullet'}
+    
+  %li{class: current_page?(geo_object_videos_path(object)) ? 'active' : ''}
+    = link_to content_tag(:span, 'Видео', class: 'inner'), geo_object_videos_path(object), {class: 'icon-sm-video action-link-bullet'}
+
+  %li.pull-right
+    = link_to '', '#', {class: 'icon-flag'}
+
+  %li.pull-right
+    = link_to '', '#' , {class: 'icon-sm-history'}
+
+  %li{class: current_page?(edit_geo_object_path(object)) ? ['active', 'pull-right'] : 'pull-right'}
+    = link_to content_tag(:span, 'Редактировать', class: 'inner'), edit_geo_object_path(object), {class: 'icon-sm-pencil action-link-bullet'}
+
