@@ -25,15 +25,15 @@ describe "Reviews" do
   it 'creates a new comment' do
     visit review_path(review)
     fill_in 'comment_body', with: body
-    click_on 'Создать Comment'
+    click_on 'Отправить'
     page.should have_content body
   end
 
   it 'can answer another comment' do
     visit new_review_comment_path(comment.commentable, parent_id: comment.id)
     fill_in 'comment_body', with: body
-    click_on 'Save'
-    page.should have_selector('.nested_comments .nested_comments')
+    click_on 'Отправить'
+    page.should have_selector('.pic_comments__chid_comments .pic_comments__chid_comments')
     page.should have_content body
   end
 

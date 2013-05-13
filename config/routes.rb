@@ -26,7 +26,12 @@ Smorodina::Application.routes.draw do
   resources :authentications
 
   resources :images do
+    resources :complaints, only: [:new, :create, :index, :destroy]
     resources :votes, only: [:create, :destroy]
+    resources :comments do
+      resources :complaints, only: [:new, :create, :index, :destroy]
+      resources :votes, only: [:create, :destroy]
+    end
   end
 
   resources :reviews do

@@ -1,0 +1,22 @@
+- css_prefix ||= 'hidable'
+%div(class= "pic_comments__add #{css_prefix}")
+  .pic_comments__add__errors
+    - if comment.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(comment.errors.count, 'error')} prohibited this comment from being saved:"
+        %ul
+          - comment.errors.full_messages.each do |msg|
+            %li= msg
+  = form_for([commentable, comment], remote: !current_user.nil?) do |f|
+    = hidden_field_tag 'parent_id', params[:parent_id]
+    .pic_comments__add__avatar
+      - unless current_user.nil?
+        = image_tag current_user.profile.avatar_url(:image_commentor_thumb)
+    .pic_comments__add__input
+      = f.text_field :body
+    .pic_comments__add__controls
+      .pic_comments__add__controls__submit
+        = f.submit 'Отправить', {class: 'button button_standard button_grey'}
+      .pic_comments__add__controls__reset
+        = f.submit 'Отменить', {class: 'action-link', type: 'reset'}
+

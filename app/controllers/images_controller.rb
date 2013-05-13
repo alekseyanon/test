@@ -4,6 +4,17 @@ class ImagesController < InheritedResources::Base
     @images = @parent.images
   end
 
+  def show
+    @image = Image.find(params[:id])
+    @image_total = @image.imageable.images.count
+    @image_number = @image_total - @image.imageable.images.where('id < ?', @image.id).count
+    @comment_roots  = @image.comments.roots.order "created_at asc"
+		respond_to do |format|
+			format.html
+			format.js
+		end
+  end
+
   def new
     @image = @parent.images.new
   end

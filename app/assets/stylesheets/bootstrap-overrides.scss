@@ -10,6 +10,9 @@
 @import "bootstrap/close";
 @import "bootstrap/forms";
 
+
+$borderRadius45:      45px !default;
+$borderRadius20:      20px !default;
 //
 // Dropdown menus
 // --------------------------------------------------
@@ -370,6 +373,10 @@ button.btn_rounded {
 /* -------------------------------------- FORMS END ------------------------------------- */
 
 /* ----------------------------------------- colors -----------------------*/
+$siteGray: #b2b3bc;
+$siteLightGray: #e4e5f1;
+$siteGreen: #88bf41;
+$siteRed: #bf3f35;
 /* -------------------------------------- MODAL START ----------------------------------- */
 
 .modal-backdrop {
