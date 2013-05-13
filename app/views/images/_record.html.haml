@@ -7,9 +7,6 @@
     из
     = @image_total
 
-  .pic_show__complaint.complaint
-    = link_to 'Пожаловаться', '#complaint', onclick: "complaint('/images/#{@image.id}');", id: 'image_complaint'
-
   .pic_show__image
     = image_tag(@image.image_url(:showthumb), width: 724, height: 485, alt: @image.imageable.title)
 

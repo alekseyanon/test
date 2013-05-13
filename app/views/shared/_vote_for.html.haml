@@ -3,8 +3,10 @@
 
 - if votable.class.name == "Comment"
   - path = polymorphic_path([votable.commentable, votable, votable.votes.build])
+  - complaint_path = new_polymorphic_path([votable.commentable, votable, votable.complaints.build])
 - else
   - path = polymorphic_path([votable, votable.votes.build])
+  - complaint_path = new_polymorphic_path([votable, votable.complaints.build])
 
 %div(class="pic_vote #{css_prefix}")
   .pic_vote__up
@@ -21,4 +23,4 @@
         = button_tag "", {class: "icon-thumbs-down ui-link"}
   - unless current_user.nil?
     .pic_vote__spam
-      = link_to "", "#", {class: "icon-flag ui-link"}
+      = link_to "", complaint_path, {class: "icon-flag ui-link", title: "Пожаловаться", target: :blank }
