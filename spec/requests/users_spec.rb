@@ -143,8 +143,6 @@ describe 'Users reset password' do
     visit new_user_password_path
     fill_in 'user_email', with: @user.email
     find('.password-form__button input').click
-    #click_on 'Сбросить пароль'
-    #print page.html
     page.should have_content('В течение нескольких минут вы получите письмо с инструкциями по восстановлению вашего пароля')
     current_path.should == '/users/sign_in'
   end
