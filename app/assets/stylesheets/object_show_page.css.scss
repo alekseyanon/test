@@ -1,0 +1,45 @@
+.obj_descr{
+  padding: 0px 30px;
+}
+
+
+.obj_descr__info{
+  @include clearfix;
+  margin: 27px 0 50px 0;
+}
+
+.obj_descr__info__photo{
+  float: left;
+  width: 745px;
+  img{
+    display: block;
+    float: left;
+    margin: 0 0px 4px 0;
+    &.main{
+      margin: 0 4px 0 0;
+    }
+  }
+}
+
+.obj_descr__info__links{
+  margin-left: 38px;
+  float: left;
+}
+  
+.obj_descr__text{
+  @include clearfix;
+  margin-bottom: 57px;
+}
+    
+.obj_descr__text__vote_stats{
+  width: 240px;
+  text-align: center;
+  float: left;
+  margin-right: 64px;
+}
+
+.obj_descr__text__vote_stats__value{
+  border: 1px solid $siteLightGray;
+  @include border-radius($baseBorderRadius);
+  margin-bottom: 28px;
+}

@@ -1,0 +1,9 @@
+- html_content ||= ''
+- tag_tree.each do |key, data_hash|
+  - html_content += content_tag :li, link_to(" #{key} ", '#', class: 'tdn-link')
+  - unless data_hash
+    .smorodina-item__tags
+      %span.icon.icon-tags.smorodina-item__tags__icon
+      = content_tag :ul, html_content.html_safe, class: 'smorodina-item__tags__list'
+  - else
+    = render partial: 'shared/tag_list', locals: {tag_tree: data_hash, html_content: html_content}

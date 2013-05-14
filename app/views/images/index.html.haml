@@ -4,8 +4,8 @@
     %div.span6
       %h4
         = @parent.title
-    %div.span6
-      = link_to "Добавить фото или видео", "#", {class: "button button_standard button_grey ui-link"}
+    %div.span6.add_photo_or_video_link
+      = link_to "Добавить фото или видео", "#", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
 
   %ul.obj-page-gallery
     - @parent.images.each do |image|
