@@ -12,10 +12,13 @@ describe 'Videos', js: true, type: :request do
     DatabaseCleaner.clean
   end
 
+  before :each do
+    login
+  end
+
   let(:youtube_url) {'http://www.youtube.com/watch?v=EYApe6Cs11A'}
 
   it 'can be attached to events' do
-    login
     e = Event.make!
     visit event_path(e)
     click_on 'Add video'
@@ -27,7 +30,6 @@ describe 'Videos', js: true, type: :request do
   end
 
   it 'can be attached to GeoObject' do
-    login
     go = GeoObject.make!(tag_list: [Category.make!.name])
     visit geo_object_path(go)
     click_on 'Add video'
