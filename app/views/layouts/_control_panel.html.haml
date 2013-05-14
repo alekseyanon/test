@@ -1,0 +1,34 @@
+%div.control-panel
+  %a{ href: "/" }
+    =image_tag "logo-fake.png", class: "control-panel__logo", alt: "Смородина"
+  %nav.control-panel__menu
+    %a.ui-link{ class: controller_name == 'geo_objects' ? 'selected' : '', href: geo_objects_path }
+      Куда отправиться
+      %span.control-panel__menu__triangle
+    %a.ui-link{ class: controller_name == 'events' ? 'selected' : '', href: events_path }
+      События
+      %span.control-panel__menu__triangle
+    %a.ui-link{ href: "#blogs" }
+      Рейтинги
+      %span.control-panel__menu__triangle
+  %div.control-panel__info-button.dropdown-toggle{ data: { toggle: 'dropdown' } }
+    %div.icon.icon-sm-list.control-panel__info-button__icon
+  %ul.dropdown-menu.pull-right.control-panel__info-section
+    %li
+      %a.ui-link.control-panel__info-section__link{ href: 'about' }<
+        О проекте
+    %li
+      %a.ui-link.control-panel__social-block__link{ href: '#' }
+        %span.icon.icon-vk.control-panel__social-block__link__icon
+        %span.control-panel__social-block__link__text
+          Смородина в Facebook
+    %li
+      %a.ui-link.control-panel__social-block__link{ href: '#' }
+        %span.icon.icon-facebook.control-panel__social-block__link__icon
+        %span.control-panel__social-block__link__text
+          Группа ВКонтакте
+    %li
+      %a.ui-link.control-panel__social-block__link{ href: '#' }
+        %span.icon.icon-twitter.control-panel__social-block__link__icon
+        %span.control-panel__social-block__link__text
+          Наш Twitter

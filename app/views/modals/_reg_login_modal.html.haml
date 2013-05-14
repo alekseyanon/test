@@ -1,0 +1,78 @@
+%div#regLoginModal.modal.hide.fade.reg-modal{ role: 'dialog', tabindex: '-1' }
+  %div.modal-content
+    %div.modal-header
+      %button.close{ data: { dismiss: 'modal'}, type: 'button'} ×
+      %h3
+        Войдите или зарегистрируйтесь
+    %div.modal-body
+      %div.reg-modal__social__title
+        Пожалуйста, авторизуйтесь через
+      %div.reg-modal__social__content
+        %a.reg-modal__social__link{ href: omniauth_authorize_path(:user, :facebook) }
+          %span.icon.icon-fb
+        %a.reg-modal__social__link{ href: '#' }
+          %span.icon.icon-vkontakte
+        %a.reg-modal__social__link{ href: omniauth_authorize_path(:user, :twitter) }
+          %span.icon.icon-tw
+        %a.reg-modal__social__link{ href: '#' }
+          %span.icon.icon-gplus
+      %div.reg-modal__forms__title
+        или
+      = content_tag(:div, flash[:error], class: "alert alert-error") if flash[:error] 
+      = content_tag(:div, flash[:notice], class: "alert alert-info") if flash[:notice]
+      = content_tag(:div, flash[:alert], class: "alert alert-block") if flash[:alert] 
+      %div.row-fluid.reg-modal__forms__content
+        %div.span6
+          %div.reg-modal__form
+            %div.reg-modal__form__inner
+              %div.reg-modal__form__title
+                Зарегистрированы в
+                %b
+                  «Смородине»
+                ?
+              = simple_form_for(User.new, as: :user, url: session_path(:user)) do |f| 
+                %div.form-field
+                  = f.input :email, size: '50', type: 'email', placeholder: 'Эл. почта', class: "span12", :input_html => { id: 'user_login_email', type: 'email' }
+                %div.form-field
+                  = f.input :password, size: '50', type: 'password', placeholder: 'Пароль', class: "span12", :input_html => { id: 'user_login_password' }
+                  %div.reg-modal__form__password-links.clearfix
+                    %a.reg-modal__form__password-links__show#show_password{ href: '#', :onclick => "toggleType('show_password', 'user_login_password')" }
+                      Показать пароль
+                    = link_to "Забыли пароль?", new_user_password_path, class: "a reg-modal__form__password-links__forgot"
+                %div.reg-modal__form__checkboxes
+                  %label.checkbox{ for: 'user_remember_me' }
+                    = f.input :remember_me, type: 'checkbox', value: '1', id: "user_remember_me",  as: :boolean, label: false, inline_label: " Запомнить меня"
+                %button.button.button_3d.button_orange.button_full#login{ type: 'submit' }
+                  %span.button__inner.button_3d__inner.button_full__inner
+                    %span.button__text.button_3d__text{ data: { text: 'Войти' } }
+
+        %div.span6
+          %div.reg-modal__form.reg-modal__form_registration
+            %div.reg-modal__form__inner.reg-modal__form__inner_registration
+              %div.reg-modal__form__title
+                Регистрация нового пользователя
+              = simple_form_for(User.new, as: :user, url: user_registration_path) do |f|
+                %div.form-field
+                  = f.error_notification
+                  = f.input :email, size: '50', placeholder: 'Эл. почта', :input_html => { id: 'user_registration_email', type: 'email' }, class: 'span12'
+                %div.form-field
+                  .control-group
+                    .controls
+                      %input{ name: "name", size: '50', placeholder: 'Имя', id: 'user_name', type: "text" }
+                %div.form-field
+                  = f.input :password, size: '50', placeholder: 'Пароль', :input_html => { id: 'user_registration_password' }, class: 'span12'
+                  %div.reg-modal__form__password-links.clearfix
+                    %a.reg-modal__form__password-links__show#show_reg_password{ href: '#', :onclick => "toggleType('show_reg_password', 'user_registration_password')"}
+                      Показать пароль
+                %div.reg-modal__form__checkboxes
+                  %label.checkbox{ for: 'tos' }
+                    %input{ name: "accepted_tos", id: 'tos', type: 'checkbox', value: '1' }
+                    %span.label-text
+                      Согласен с
+                      = link_to 'правилами проекта', "/terms"
+                  %label.checkbox{ for: 'user_spam' }
+                    %input#user_spam{ name: "settings[news_mailer]", type: 'checkbox', value: '1', as: :boolean, label: false }
+                    Хочу получать рассылку
+                %button.button.button_3d.button_orange.button_full#register{ type: 'submit' }
+                  %span.button__inner.button_3d__inner.button_full__inner
+                    %span.button__text.button_3d__text{ data: { text: 'Зарегистрироваться' } }

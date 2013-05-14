@@ -1,8 +1,5 @@
-%p
-  %b Image:
-  =image_tag @image.image_url(:thumb)
-
-%p
-  %b Imageable:
-  = @image.imageable.class.to_s
-
+.pic_show__container
+  .pic_show__spinner
+    .pic_show__spinner__home
+  #pic_show_content
+    = render partial: "record"

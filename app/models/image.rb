@@ -4,5 +4,9 @@ class Image < ActiveRecord::Base
   belongs_to      :imageable, polymorphic: true
   belongs_to      :user
 
+  has_many        :comments,    as: :commentable
+  has_many        :complaints,  as: :complaintable
+  belongs_to      :imageable, polymorphic: true
   acts_as_voteable
+
 end

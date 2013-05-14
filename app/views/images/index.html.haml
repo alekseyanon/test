@@ -5,10 +5,12 @@
       %h4
         = @parent.title
     %div.span6
-      = link_to 'Добавить фото или видео', '#', {class: 'button button_standard button_grey'}
+      = link_to "Добавить фото или видео", "#", {class: "button button_standard button_grey ui-link"}
 
   %ul.obj-page-gallery
     - @parent.images.each do |image|
       %li
-        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@parent, image)
+        - path = geo_object_image_path(@parent, image)
+        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@parent, image, anchor: path)
+  = render "modals/image_show_modal"
 = render 'layouts/footer'

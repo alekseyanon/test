@@ -11,7 +11,7 @@ describe "Reviews", js: true, type: :request do
 
   before :each do
     login
-    current_path.should == root_path
+    page.should have_content('Вход в систему выполнен')
   end
 
   after :all do
