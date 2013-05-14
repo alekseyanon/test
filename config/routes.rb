@@ -21,12 +21,17 @@ Smorodina::Application.routes.draw do
 
   resources :profiles
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :authentications
 
   resources :images do
+    resources :complaints, only: [:new, :create, :index, :destroy]
     resources :votes, only: [:create, :destroy]
+    resources :comments do
+      resources :complaints, only: [:new, :create, :index, :destroy]
+      resources :votes, only: [:create, :destroy]
+    end
   end
 
   resources :reviews do
@@ -66,6 +71,8 @@ Smorodina::Application.routes.draw do
     get '/post', action: 'post'
     get '/to_social_network', action: 'to_social_network'
     get '/about', action: 'about'
+    #TODO: Terms Of Service page
+    get '/terms', action: 'terms'
   end
 
   root to: 'welcome#home'

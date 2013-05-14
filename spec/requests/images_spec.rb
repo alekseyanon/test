@@ -24,7 +24,8 @@ describe 'Images', js: true, type: :request do
     login
     go = GeoObject.make!(tag_list: [Category.make!.name])
     visit geo_object_path(go)
-    click_on 'Add photo'
+    find("a[href*='/images/new']").trigger 'click'
+    save_and_open_page
     page.current_path.should == new_geo_object_image_path(go)
   end
 

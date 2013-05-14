@@ -1,32 +1,34 @@
 %div.all-photos-page
   %div.row-fluid
     %div.span6.search
-      = link_to raw("<span class='inner'>Поиск объектов</span>"), search_geo_objects_path, {class: "action-link-bullet icon-sm-arrow-left-3"}
+      = link_to raw("<span class='inner'>Поиск объектов</span>"), search_geo_objects_path, {class: "action-link-bullet icon-sm-arrow-left-3 ui-link"}
 
   %ul.obj-page-navigation
+    %li 
+      = link_to raw("Описание объекта"), geo_object_path(@parent), {class: 'action-link ui-link'}
+    %li.active 
+      = link_to raw("<span class='inner'>Фото</span>"), geo_object_images_path(@parent), {class: "icon-sm-pictures action-link-bullet ui-link"}
     %li
-      = link_to raw("Описание объекта"), geo_object_path(@parent), {class: 'action-link'}
-    %li.active
-      = link_to raw("<span class='inner'>Фото</span>"), geo_object_images_path(@parent), {class: "icon-sm-pictures action-link-bullet"}
-    %li
-      = link_to raw("<span class='inner'>Видео</span>"), geo_object_videos_path(@parent), {class: "icon-sm-video action-link-bullet"}
+      = link_to raw("<span class='inner'>Видео</span>"), geo_object_videos_path(@parent), {class: "icon-sm-video action-link-bullet ui-link"}
 
     %li.pull-right
-      = link_to "", "#", {class: "icon-flag"}
+      = link_to "", "#", {class: "icon-flag ui-link"}
     %li.pull-right
-      = link_to "", "#" , {class: "icon-sm-history"}
+      = link_to "", history_geo_object_path(@parent), {class: "icon-sm-history ui-link"}
     %li.pull-right
-      = link_to raw("<span class='inner'>Редактировать</span>"), edit_geo_object_path(@parent), {class: "icon-sm-pencil action-link-bullet"}
+      = link_to raw("<span class='inner'>Редактировать</span>"), edit_geo_object_path(@parent), {class: "icon-sm-pencil action-link-bullet ui-link"}
 
   %div.row-fluid.add
     %div.span6
       %h4
         = @parent.title
     %div.span6
-      = link_to "Добавить фото или видео", "#", {class: "button button_standard button_grey"}
+      = link_to "Добавить фото или видео", "#", {class: "button button_standard button_grey ui-link"}
 
   %ul.obj-page-gallery
     - @parent.images.each do |image|
       %li
-        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@parent, image)
+        - path = geo_object_image_path(@parent, image)
+        = link_to image_tag(image.image_url(:indexthumb)), geo_object_image_path(@parent, image, anchor: path)
+  = render "modals/image_show_modal"
 = render 'layouts/footer'
