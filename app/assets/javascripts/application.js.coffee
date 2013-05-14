@@ -141,11 +141,11 @@ $ ->
     time = new Date().getTime()
     $(this).parent().append "<input class='string optional' id='video_url_" + time + "' name='video_urls[" + time + "]' size='50' type='text'><br>"
 
-	$('.modal').on 'hidden', ()->
-		$(this).css 'display': "none"
+  $('.modal').on 'hidden', ()->
+    $(this).css 'display': "none"
 
-	$('.modal').on 'show', ()->
-		$(this).css 'display': "block"
+  $('.modal').on 'show', ()->
+    $(this).css 'display': "block"
 
   
   if location.href.match /modal=true/
