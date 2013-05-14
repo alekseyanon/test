@@ -12,7 +12,8 @@
 .icon-search, .icon-arrow-left, .icon-arrow-right, .icon-arrow-down, .icon-login, .icon-logout,
 .icon-list, .icon-clock, .icon-cycle, .icon-bed, .icon-food-eat, .icon-star, .icon-binoculars,
 .icon-sm-list, .icon-sm-pencil, .icon-sm-pictures, .icon-sm-video, .icon-sm-arrow-left-3, .icon-sm-history,
-.icon-sm-arrow-up, .icon-sm-reply{ 
+.icon-sm-arrow-up, .icon-sm-reply, .icon-sm-arrow-left-2, .icon-sm-untitled, .icon-sm-full-screen,
+.icon-sm-arrow-down-2, .icon-sm-close{ 
   font-family: 'smorodina-icons';
   speak: none;
   font-style: normal;
@@ -106,4 +107,20 @@
 .icon-sm-reply:before {
 	content: "\38";
 }
-
+.icon-sm-untitled:before {
+	content: "\28";
+}
+.icon-sm-arrow-left-2:before {
+	content: "\29";
+}
+.icon-sm-full-screen{
+	&:before {
+		content: "\3e";
+	}
+}
+.icon-sm-arrow-down-2:before {
+	content: "\2c";
+}
+.icon-sm-close:before {
+	content: "\3d";
+}

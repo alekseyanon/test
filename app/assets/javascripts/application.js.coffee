@@ -44,7 +44,7 @@ window.to_vote = (voteable_controller, voteable_id, sign, tag) ->
   down = "#" + id + " .down-vote"
   $.ajax
     type: "POST"
-    url: "/" + voteable_controller + "s/" + voteable_id + "/votes"
+    url: "/#{voteable_controller}s/#{voteable_id}/votes.json"
     data: (params)
     success: (data) ->
       $(up).html data.positive
@@ -65,7 +65,7 @@ window.to_unvote = (voteable_controller, voteable_id, tag) ->
       voteable_tag: tag
   $.ajax
     type: "POST"
-    url: "/" + voteable_controller + "s/" + voteable_id + "/votes/500" #"/votes/1",
+    url: "/#{voteable_controller}s/#{voteable_id}/votes/500.json" #"/votes/1",
     data: (params)
     success: (data) ->
       $("#" + id + " .up-vote").html data.positive
@@ -112,6 +112,10 @@ router.route "events", "events", Smorodina.Pages.Events
 router.route "events/search", "events", Smorodina.Pages.Events
 router.route "objects/search", "geo_objects", Smorodina.Pages.GeoObjects
 router.route "", "index", Smorodina.Pages.Index
+router.route "objects/:object_name/images/:image_id", "image_show", Smorodina.Pages.ImageShow
+router.route "images/:image_id", "image_show", Smorodina.Pages.ImageShow
+router.route "objects/:object_name/images", "images_index", Smorodina.Pages.ImagesIndex
+router.route "objects/:object_name/images#objects/:hash_object_name/images/:hash_image_id", "images_index_hash", Smorodina.Pages.ImageShowWindow
 Backbone.history.start hashChange: false
 
 $ ->
@@ -137,3 +141,12 @@ $ ->
     time = new Date().getTime()
     $(this).parent().append "<input class='string optional' id='video_url_" + time + "' name='video_urls[" + time + "]' size='50' type='text'><br>"
 
+	$('.modal').on 'hidden', ()->
+		$(this).css 'display': "none"
+
+	$('.modal').on 'show', ()->
+		$(this).css 'display': "block"
+
+  
+  if location.href.match /modal=true/
+    $('#regLoginModal').modal('show')

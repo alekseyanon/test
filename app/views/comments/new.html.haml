@@ -1,3 +1,3 @@
 %h1 New comment
 
-= render 'form'
+= render partial: "add_comment", locals: {commentable: @comment.commentable, comment: @comment}

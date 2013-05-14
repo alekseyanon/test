@@ -1,0 +1,30 @@
+%div.user-panel
+  - if current_user.nil?
+    %span.user-panel__login
+      %a.ui-link#show_registration_modal{ href: '#regLoginModal', data: { toggle: 'modal' } }
+        Вход и регистрация
+        %span.icon.icon-door.user-panel__login__icon
+  - else
+    %span.user-link.user-panel__account
+      %span.icon.icon-user.user-link__icon
+      %span.action-link.dropdown-toggle{ data: { toggle: 'dropdown' } }= current_user.identifier
+      %ol.dropdown-menu.pull-left.user-panel__account__dropdown{ role: 'menu' }
+        %li
+          %a.tdn-link{href: profile_path(current_user.profile)}
+            %b
+              Личный кабинет
+        %li.divider
+        %li
+          %a.tdn-link{href: '#109'}
+            Добавить объект
+        %li
+          %a.tdn-link{href: '#110'}
+            Добавить событие
+        %li.divider
+        %li
+          %a.tdn-link{href: '#110'}
+            Как пользоваться
+        %li.divider
+        %li
+          %a.tdn-link{href: '#111'}
+            Выход
