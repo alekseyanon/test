@@ -82,7 +82,7 @@ describe "GeoObjects", js: true, type: :request do
       fill_in 'geo_object_title', with: new_title
       select new_category, from: 'geo_object_tag_list', visible: false
       click_on 'Применить изменения'
-      page.should have_content new_title 
+      page.should have_content new_title
       page.should_not have_content title
       # see db/seeds/categories.yml
       page.should have_content 'Что посмотреть?'
@@ -189,7 +189,7 @@ describe "GeoObjects", js: true, type: :request do
       click_on "mainSearchButton"
 
       sleep 3
-      page.find("#searchResults").should have_content 'lodging' 
+      page.find("#searchResults").should have_content 'lodging'
       page.find("#searchResults").should have_content 'apartment'
       page.find("#searchResults").should_not have_content 'food'
       page.find("#searchResults").should_not have_content 'bar'
