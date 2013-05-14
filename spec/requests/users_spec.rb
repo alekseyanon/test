@@ -171,7 +171,6 @@ describe 'Users reset password' do
     it 'facebook login' do
       Capybara.app_host = 'http://localhost:3000'
       find('.icon-fb').click
-      p current_url
       current_url.should =~ /facebook/
     end
 
