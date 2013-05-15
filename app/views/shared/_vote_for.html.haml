@@ -10,13 +10,13 @@
 
 %div(class="pic_vote #{css_prefix}")
   .pic_vote__up
-    = form_tag path, remote: !current_user.nil? do 
+    = form_tag path do 
       = hidden_field_tag :sign, "up"
       = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
   .pic_vote__count
     = rating
   .pic_vote__down
-    = form_tag path, remote: !current_user.nil? do 
+    = form_tag path do 
       = hidden_field_tag :sign, "down"
       = button_tag "", {class: "icon-thumbs-down ui-link"}
   .pic_vote__spam
