@@ -1,4 +1,6 @@
 = render partial: 'geo_objects/main_navigation', locals: {object: @geo_object}
+.complaint
+=link_to 'Пожаловаться', '#complaint', onclick: "complaint('/objects/#{@geo_object.id}');", id: 'geoobject_complaint'
 .obj_descr
   .obj_descr__title
     %h1= @geo_object.title
