@@ -25,6 +25,24 @@
   margin-left: 38px;
   float: left;
 }
+
+.obj_descr__info__links__rate{
+  h3{
+    margin: 0px 0 24px 0; 
+  }
+}
+
+.obj_descr__info__links__planner{
+  margin: 0 0 15px 2px;
+}
+
+.obj_descr__info__links__print{
+  margin: 0 0 34px 2px;
+}
+
+.obj_descr__info__links__social{
+  margin: 0 0 46px 7px;
+}
   
 .obj_descr__text{
   @include clearfix;
@@ -42,4 +60,82 @@
   border: 1px solid $siteLightGray;
   @include border-radius($baseBorderRadius);
   margin-bottom: 28px;
+}
+
+.obj_descr__text__vote_stats__value__title{
+  h3{
+    margin: 30px 0px 26px 0;
+  }
+}
+
+.obj_descr__text__vote_stats__value__item{
+  margin: 0px 45px 28px 45px;
+  p{
+    font-weight: bold;
+    margin: 0px;
+    @include font-small;
+  }
+}
+    
+.obj_descr__text__descr{
+  float: left;
+}
+
+
+.obj_descr__text__descr__location,
+.obj_descr__text__descr__time,
+.obj_descr__text__descr__organizations{
+  &:before{
+    width: 38px;
+    @include font-large;
+    display: inline-block;
+  }
+}
+.obj_descr__text__descr__location{
+  margin: 0 0 16px 0;
+}
+.obj_descr__text__descr__time{
+  margin: 0 0 24px 0;
+}
+
+.obj_descr__text__descr__organizations{
+  margin: 0 0 35px 0;
+}
+
+.obj_descr__text__descr__body__full_link{
+  margin: 17px 0 20px 0;
+  a{
+    @include font-small;
+    color: $lightblue;
+  }
+}
+
+.obj_descr__text__descr__adder{
+  .smorodina-item__user,
+  .obj_descr__text__descr__adder__edit,
+  .obj_descr__text__descr__adder__history,
+  .obj_descr__text__descr__adder__spam{
+    display: inline-block;
+  }
+}
+
+.obj_descr__text__descr__adder{
+  .obj_descr__text__descr__adder__edit,
+  .obj_descr__text__descr__adder__history,
+  .obj_descr__text__descr__adder__spam{
+    @include before-gray-dot;
+    a{
+      text-decoration: none;
+      color: $siteGray;
+      &:hover{
+        color: $lightblue;
+      }
+      &:visited{
+        color: $siteGray;
+        &:hover{
+          color: $lightblue;
+        }
+      }
+    }
+  }
 }

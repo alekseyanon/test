@@ -2063,12 +2063,7 @@ display: block;
 		display: inline;
 		@include font-small;
 		color: $siteGray;
-		&:before{
-			content: "\b7";
-			margin: 0 10px 0 10px;
-			font-weight: bold;
-			color: $siteLightGray;
-		}
+    @include before-gray-dot;
 	}
 	.pic__author__actions_respond{
 		a{
@@ -2132,12 +2127,7 @@ display: block;
 		display: inline;
 		@include font-small;
 		color: $siteGray;
-		&:before{
-			content: "\b7";
-			margin: 0 10px 0 10px;
-			font-weight: bold;
-			color: $siteLightGray;
-		}
+    @include before-gray-dot;
 	}
 	.pic_comments__comment__info__actions{
 	}
@@ -2152,12 +2142,7 @@ display: block;
 	}
 	.pic_comments__comment__info__actions__vote{
 		display: inline-block;
-		&:before{
-			content: "\b7";
-			margin: 0 10px 0 10px;
-			font-weight: bold;
-			color: $siteLightGray;
-		}
+    @include before-gray-dot;
 	}
 
 	.pic_comments__next{
@@ -2272,12 +2257,46 @@ display: block;
 			display: inline;
 		}
 	}
+  &.simple{
+    .pic_vote__up{
+      button, a{
+        padding: 0;
+        color: $siteGreen;
+        &:hover{
+          color: $lightblue;
+        }
+        &:visited{
+          color: $siteGreen;
+        }
+      }
+       
+    }
+    .pic_vote__down{
+      button, a{
+        padding: 0;
+        color: $siteRed;
+        &:hover{
+          color: $lightblue;
+        }
+        &:visited{
+          color: $siteRed;
+        }
+      }
+    }
+  }
 	.pic_vote__count{
 		display: inline-block;
 		@include font-small;
 		vertical-align: top;
 		font-weight: bold;
 		line-height: 24px;
+    &.up{
+      color: $siteGreen;
+      margin-right: 10px;
+    }
+    &.down{
+      color: $siteRed;
+    }
 	}
 	.pic_vote__spam{
 		display: inline;

@@ -37,28 +37,53 @@
       .obj_descr__info__links__print
         = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
       .obj_descr__info__links__social
-      %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
+        %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
       .add_photo_or_video_link
         = link_to "Добавить фото или видео", "#", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"} 
   .obj_descr__text
     .obj_descr__text__vote_stats
       .obj_descr__text__vote_stats__value
-        %h4 Мнение посетителей
+        .obj_descr__text__vote_stats__value__title
+          %h3 Мнение посетителей
+        .obj_descr__text__vote_stats__value__item
+          %p Бар, ресторан
+          = render partial: "shared/vote_for_simple", locals: {votable: @geo_object}
+        .obj_descr__text__vote_stats__value__item
+          %p Коттедж, гостинница
+          = render partial: "shared/vote_for_simple", locals: {votable: @geo_object}
+        .obj_descr__text__vote_stats__value__item
+          %p Равнинные лыжи, снегоход, каток
+          = render partial: "shared/vote_for_simple", locals: {votable: @geo_object}
+
+
       .obj_descr__text__vote_stats__near_objects
         = link_to "Объекты поблизости", "#", {class: "link-like-button bullet icon-sm-compass button button_standard button_grey ui-link"} 
 
     .obj_descr__text__descr
-      .obj_descr__text__descr__location
-      .obj_descr__text__descr__time
-      .obj_descr__text__descr__organizations
+      .obj_descr__text__descr__location.icon-sm-location
+        address goes here
+      .obj_descr__text__descr__time.icon-sm-clock
+        working time goes here
+      .obj_descr__text__descr__organizations.icon-sm-directions
+        organizations goes here
       .obj_descr__text__descr__body
-        = @geo_object.body
+        body goes here 
+        .obj_descr__text__descr__body__full_link
+          =link_to 'Подробнее', '#', class: 'action-link'
       .obj_descr__text__descr__adder
         .smorodina-item__user
           %span.smorodina-item__user__text
             Добавил:
           %span.user-link
-            = link_to raw(content_tag(:span, '', class: 'icon icon-user user-link__icon') + 'Профиль'), '#', class: 'tdn-link'
+            - uname = (@geo_object.user.profile.name.nil?) ? 'Anonymous' : @geo_object.user.profile.name
+            = link_to raw(content_tag(:span, '', class: 'icon icon-user user-link__icon') + uname), '#', class: 'tdn-link'
+        .obj_descr__text__descr__adder__edit
+          = link_to '', edit_geo_object_path(@geo_object), {class: 'icon-sm-pencil ui-link', title: 'Редактировать'}
+        .obj_descr__text__descr__adder__history
+          = link_to '', history_geo_object_path(@geo_object), {class: 'icon-sm-history ui-link', title: 'История изменений'}
+        .obj_descr__text__descr__adder__spam
+          = link_to '', '#' , {class: 'icon-flag ui-link'}
+
 
   .obj_descr__responces
     .obj_descr__responces__responce

@@ -13,7 +13,8 @@
 .icon-list, .icon-clock, .icon-cycle, .icon-bed, .icon-food-eat, .icon-star, .icon-binoculars,
 .icon-sm-list, .icon-sm-pencil, .icon-sm-pictures, .icon-sm-video, .icon-sm-arrow-left-3, .icon-sm-history,
 .icon-sm-arrow-up, .icon-sm-reply, .icon-sm-arrow-left-2, .icon-sm-untitled, .icon-sm-full-screen,
-.icon-sm-arrow-down-2, .icon-sm-close, .icon-sm-print, .icon-sm-plus, .icon-sm-compass{ 
+.icon-sm-arrow-down-2, .icon-sm-close, .icon-sm-print, .icon-sm-plus, .icon-sm-compass, .icon-sm-location,
+.icon-sm-clock, .icon-sm-directions{ 
   font-family: 'smorodina-icons';
   speak: none;
   font-style: normal;
@@ -132,4 +133,13 @@
 }
 .icon-sm-compass:before {
   content: "\32";
+}
+.icon-sm-location:before {
+  content: "\34";
+}
+.icon-sm-directions:before {
+  content: "\31";
+}
+.icon-sm-clock:before {
+  content: "\e00e";
 }

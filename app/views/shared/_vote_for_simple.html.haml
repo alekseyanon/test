@@ -1,0 +1,21 @@
+- rating = votable.plusminus
+
+- if votable.class.name == "Comment"
+  - path = polymorphic_path([votable.commentable, votable, votable.votes.build])
+- else
+  - path = polymorphic_path([votable, votable.votes.build])
+
+%div(class="pic_vote simple")
+  .pic_vote__up
+    = form_tag path, remote: !current_user.nil? do 
+      = hidden_field_tag :sign, "up"
+      = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
+  .pic_vote__count.up
+    = rating
+  .pic_vote__down
+    = form_tag path, remote: !current_user.nil? do 
+      = hidden_field_tag :sign, "down"
+      = button_tag "", {class: "icon-thumbs-down ui-link"}
+  .pic_vote__count.down
+    = rating
+
