@@ -18,14 +18,6 @@ describe CommentsController do
     { "body" => "MyText" }
   end
 
-  describe "GET index" do
-    it "assigns all comments as @comments" do
-      comment = Comment.make! valid_attributes
-      get :index, {review_id: comment.commentable_id}
-      assigns(:comments).should eq([comment])
-    end
-  end
-
   describe "GET show" do
     it "assigns the requested comment as @comment" do
       comment = Comment.make! valid_attributes
