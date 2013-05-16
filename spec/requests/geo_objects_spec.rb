@@ -48,7 +48,7 @@ describe "GeoObjects", js: true, type: :request do
   context "GeoObjects with login" do
 
     before :each do
-      login @user
+      login
       page.should have_content('Вход в систему выполнен')
       current_path.should == root_path
     end
