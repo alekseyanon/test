@@ -1,12 +1,9 @@
 - rating = votable.plusminus
 - css_prefix = (rating >= 0) ? "pic_vote_positive" : "pic_vote_negative"
+- user_vote = current_user.get_vote(votable) if current_user
 
-- if votable.class.name == "Comment"
-  - path = polymorphic_path([votable.commentable, votable, votable.votes.build])
-  - complaint_path = new_polymorphic_path([votable.commentable, votable, votable.complaints.build])
-- else
-  - path = polymorphic_path([votable, votable.votes.build])
-  - complaint_path = new_polymorphic_path([votable, votable.complaints.build])
+- path = new_vote_polymorphic_path votable
+- complaint_path = new_complaint_polymorphic_path votable
 
 %div(class="pic_vote #{css_prefix}")
   .pic_vote__up

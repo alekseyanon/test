@@ -88,6 +88,11 @@ class User < ActiveRecord::Base
     self.authentications.create!(User.prepare_args_for_auth(oauth))
   end
 
+  def get_vote voteable
+    v = self.votes.where(voteable_id: voteable.id, voteable_type: voteable.class).first
+    v.nil? ? false : (v.vote ? 1 : 0)
+  end
+
   def self.find_or_create(auth, oauth)
     args = prepare_args_for_auth(oauth)
     if auth # Пользователь не вошел в систему, но authentication найдена
