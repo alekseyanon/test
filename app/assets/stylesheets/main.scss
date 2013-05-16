@@ -1319,6 +1319,19 @@ a:hover,
 display: block;
 }
 
+.search-filter__second-level ul,
+.search-filter__second-level ul ul {
+  margin-left: 20px;
+}
+
+.search-filter__second-level li.selected > .filter-category__text {
+  background-color: red;
+}
+
+.search-filter__second-level li.semi-selected > .filter-category__text {
+  background-color: pink;
+}
+
 /* ---------------------------------------- SEARCH FILTER END ----------------------------------- */
 
 /* ---------------------------------------- SEARCH CATEGORIES START ----------------------------- */

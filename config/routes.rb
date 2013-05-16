@@ -75,6 +75,10 @@ Smorodina::Application.routes.draw do
     get '/terms', action: 'terms'
   end
 
+  controller :feedbacks do
+    post '/send_feedback', action: 'send_feedback'
+  end
+
   root to: 'welcome#home'
 
 end

@@ -6,13 +6,13 @@
         &times;
   %div.modal-body
     %div
-      %form.feedback{ action: '/', method: 'POST' }
+      %form.feedback{ action: '/send_feedback', method: 'POST' }
         %div.form-field
-          %input.input{ type: 'email', placeholder: 'Эл. почта', autofocus: true }
+          %input.input{ type: 'email', placeholder: 'Эл. почта', autofocus: true, name: 'feedback[email]' }
         %div.form-field
-          %input.input{ type: 'text', placeholder: 'Имя'}
+          %input.input{ type: 'text', placeholder: 'Имя', name: 'feedback[name]'}
         %div.form-field
-          %textarea.input{ placeholder: 'Сообщение'}
+          %textarea.input{ placeholder: 'Сообщение', name: 'feedback[content]'}
         %div.feedback-form__button
           %button.btn.btn_rounded{ type: 'submit' }
             Отправить
@@ -20,4 +20,3 @@
             или
             %a.cancel{data: {dismiss: 'modal'}}
               Отменить
-              
