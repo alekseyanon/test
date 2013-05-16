@@ -69,7 +69,7 @@ Review.blueprint do
 end
 
 Image.blueprint do
-  image { fixture_file_upload('/images/fishing/toon376.gif', 'image/gif') }
+  image { File.open("#{Rails.root}/spec/fixtures/images/fishing/toon376.gif") }
   user { User.make! }
   imageable { GeoObject.make! }
 end
