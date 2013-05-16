@@ -9,7 +9,7 @@ class VotesController < InheritedResources::Base
 			respond_to do |format|
 				format.html { redirect_to :back}
 				format.js 
-				format.json {render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag)}}
+				format.json {render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag), user_vote: current_user.get_vote(@parent)}}
 			end
       if @parent.respond_to?(:rating)
         ### TODO leaf_categories метод имеется только у GeoObject
@@ -26,7 +26,7 @@ class VotesController < InheritedResources::Base
     if current_user.voted_on?(@parent, tag)
       request_logger params,  'Message: Check controller name, controller method for find voteable model'
     else
-      render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag)}
+      render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag), user_vote: current_user.get_vote(@parent)}
       @parent.update_attributes(rating: (@parent.plusminus.to_f / @parent.leaf_categories.count))
     end
   end

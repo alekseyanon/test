@@ -2381,12 +2381,22 @@ li{
 		form{
 			display: inline;
 		}
+		a, button{
+      &:hover{
+        color: $siteGreen
+      }
+    }
 	}
 	.pic_vote__down{
 		display: inline;
 		form{
 			display: inline;
 		}
+		a, button{
+      &:hover{
+        color: $siteRed;
+      }
+    }
 	}
 	.pic_vote__count{
 		display: inline-block;
@@ -2405,32 +2415,33 @@ li{
 		}
 	}
 	&.pic_vote_positive{
-		.pic_vote__up{
-			a, button{
-				color: $siteGreen;
-				&:hover{
-					color: $lightblue;
-				}
-			}
-		}
 		.pic_vote__count{
 			color: $siteGreen;
 		}
 	}
 	&.pic_vote_negative{
-		.pic_vote__down{
-			a, button{
-				color: $siteRed;
-				&:hover{
-					color: $lightblue;
-				}
-			}
-		}
 		.pic_vote__count{
 			color: $siteRed;
 		}
 	}
+  &.voted_up{
+    .pic_vote__up{
+			a, button{
+				color: $siteGreen;
+			}
+		}
+  }
+  &.voted_down{
+    .pic_vote__down{
+			a, button{
+				color: $siteRed;
+			}
+		}
+  }
 }
+
+    
+		
 
 #showImageModal{
 	position: absolute;

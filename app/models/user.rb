@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
 
   def get_vote voteable
     v = self.votes.where(voteable_id: voteable.id, voteable_type: voteable.class).first
-    v.nil? ? false : (v.vote ? 1 : 0)
+    v.nil? ? 0 : (v.vote ? 1 : -1)
   end
 
   def self.find_or_create(auth, oauth)

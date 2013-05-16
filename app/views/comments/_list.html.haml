@@ -8,7 +8,7 @@
     - roots.each do |root|
       = nested_comments root.subtree.arrange(order: :created_at)
   %a#add_comment_form
-  = render partial: 'comments/add_comment', locals: {commentable: commentable, comment: commentable.comments.build, css_prefix: ''}
+  = render partial: 'comments/add_comment', locals: {commentable: commentable, comment: commentable.comments.build, css_prefix: 'normal'}
   .pic_comments__next
     = link_to 'Показать ещё', '#', {class: 'button button_standard button_grey ui-link'}
 
