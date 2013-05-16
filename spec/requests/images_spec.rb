@@ -24,7 +24,6 @@ describe 'Images', js: true, type: :request do
     login
     go = GeoObject.make!(tag_list: [Category.make!.name])
     visit geo_object_path(go)
-    #find('Add photo').click
     click_on 'Add photo'
     page.current_path.should == new_geo_object_image_path(go)
   end

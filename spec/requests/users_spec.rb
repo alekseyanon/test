@@ -8,7 +8,6 @@ describe 'Users' do
 
   def login email=@user.email, password=@user.password
     visit root_path
-    #click_on 'show_registration_modal'
     page.find('#show_registration_modal').click
     fill_in 'user_login_email', with: email
     fill_in 'user_login_password', with: password
@@ -164,26 +163,16 @@ describe 'Users reset password' do
 
     before :each do
       page.driver.headers = {'Accept-Language' => 'q=0.8,en-US'}
-      visit root_path
-      #print page.html
-      #page.find('#show_registration_modal').click
+      Capybara.visit root_path
+      page.find('#show_registration_modal').click
     end
 
-
     it 'facebook login' do
-      page.find('#show_registration_modal').click
-      #Capybara.app_host = 'http://localhost:3000'
       find('.icon-fb').click
       current_url.should =~ /facebook/
     end
 
     it 'twitter login' do
-      Capybara.visit('/')
-
-      #print page.html
-      #print current_url
-      #save_and_open_page
-      page.find('#show_registration_modal').click
       find('.icon-tw').click
       current_url.should =~ /twitter/
     end
