@@ -14,7 +14,7 @@
             %a{href: "#"}
               Контактная информация
           %li
-            %span.action-link
+            %a{href: '#feedback', data: {toggle: 'modal'}}
               Обратная связь
           %li
             %a{href: "#"}
@@ -24,3 +24,4 @@
         %img{ src: '/assets/tmp/fb.png' }
         %img{ src: '/assets/tmp/tw.png' }
         %img{ src: '/assets/tmp/g.png' }
+=render 'welcome/feedback'
