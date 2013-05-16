@@ -22,24 +22,25 @@ class Smorodina.Views.Votings extends Backbone.View
 
     if data['user_vote'] == 1
       @replace.addClass 'voted_up'
-      @replace.find('.pic_vote__up input[name=_method]').attr 'value', 'delete'
       @replace.find('.pic_vote__up form').attr 'action', @unvote_url
+      @replace.find('.pic_vote__up input[name=_method]').attr 'value', 'delete'
     else
-      @replace.find('.pic_vote__up input[name=_method]').attr 'value', 'post'
       @replace.find('.pic_vote__up form').attr 'action', @vote_url
+      @replace.find('.pic_vote__up input[name=_method]').attr 'value', 'post'
 
     if data['user_vote'] == -1
       @replace.addClass 'voted_down'
-      @replace.find('.pic_vote__down input[name=_method]').attr 'value', 'delete'
       @replace.find('.pic_vote__down form').attr 'action', @unvote_url
+      @replace.find('.pic_vote__down input[name=_method]').attr 'value', 'delete'
     else
-      @replace.find('.pic_vote__down input[name=_method]').attr 'value', 'post'
       @replace.find('.pic_vote__down form').attr 'action', @vote_url
+      @replace.find('.pic_vote__down input[name=_method]').attr 'value', 'post'
     
   before_ajax_vote: (evt, xhr, settings)->
-    @vote_url = $(evt.currentTarget).attr 'data-vote-url'
-    @unvote_url = $(evt.currentTarget).attr 'data-unvote-url'
     @replace = $(evt.currentTarget).parents('.pic_vote').first()
+    @vote_url = @replace.attr 'data-vote-url'
+    @unvote_url = @replace.attr 'data-unvote-url'
+
 	
   after_ajax_vote: (evt, data, status, xhr)->
     @render(JSON.parse(data.responseText))
