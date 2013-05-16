@@ -132,12 +132,8 @@ describe "Events", js: true, type: :request do
     page.execute_script "$('form#new_event').submit()" #totally a hack. click_button('Save') fails for no visible reason
     sleep 2
     visit event_path Event.last
-    page.within_frame 'DZGINaRUEkU' do
-      page.should have_content 'DZGINaRUEkU'
-    end
-    page.within_frame '4wTLjEqj5Xk' do
-      page.should have_content '4wTLjEqj5Xk'
-    end
+    page.should have_selector 'iframe[name="DZGINaRUEkU"]'
+    page.should have_selector 'iframe[name="4wTLjEqj5Xk"]'
   end
 end
 
