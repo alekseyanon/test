@@ -1,6 +1,5 @@
 - rating = votable.plusminus
-- user_vote = 0
-- user_vote = current_user.get_vote(votable) if current_user
+- user_vote = current_user ? current_user.get_vote(votable) : 0
 
 - path = new_vote_polymorphic_path votable
 - unvote_path = path + '/500'
