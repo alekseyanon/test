@@ -44,8 +44,9 @@ Smorodina::Application.routes.draw do
   end
 
   resources :geo_objects, path: 'objects' do
-    resources :runtips
-    resources :complaints, only: [:new, :create, :index, :destroy]
+    resources :runtips do
+      resources :votes, only: [:create, :destroy]
+    end
     resources :reviews, only: [:new, :create, :edit, :update]
     resources :votes, only: [:create, :destroy]
     resources :images
@@ -74,6 +75,10 @@ Smorodina::Application.routes.draw do
     get '/about', action: 'about'
     #TODO: Terms Of Service page
     get '/terms', action: 'terms'
+  end
+
+  controller :feedbacks do
+    post '/send_feedback', action: 'send_feedback'
   end
 
   root to: 'welcome#home'

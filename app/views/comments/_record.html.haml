@@ -1,6 +1,6 @@
 .pic_comments__comment
   .pic_comments__comment__avatar
-    = image_tag comment.user.profile.avatar_url(:image_commentor_thumb)
+    = image_tag comment.user.profile.avatar_url(:image_commentor_thumb), width: 48, height: 48
   .pic_comments__comment__info
     .pic_comments__comment__info__name
       = comment.user.profile.name
@@ -10,8 +10,9 @@
       = comment.body
     .pic_comments__comment__info__actions
       .pic_comments__comment__info__actions__respond
-        - path = new_polymorphic_path([comment.commentable, comment], parent_id: comment.id)
-        = link_to raw("<span class='inner'>Ответить</span>"), path, {class: "icon-sm-reply action-link-bullet", remote: !current_user.nil? } 
+        - if comment.parent_id.nil?
+          - path = new_polymorphic_path([comment.commentable, comment], parent_id: comment.id)
+          = link_to content_tag(:span, "Ответить", class: 'inner'), path, {class: "icon-sm-reply action-link-bullet", remote: !current_user.nil? } 
       .pic_comments__comment__info__actions__vote
         = render partial: "shared/vote_for", locals: {votable: comment}
   .pic_comments__chid_comments

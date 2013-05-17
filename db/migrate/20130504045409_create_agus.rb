@@ -10,6 +10,5 @@ class CreateAgus < ActiveRecord::Migration
     # выборки и чтение часто
     add_index :agus, :title
     add_index :agus, :place
-    add_index :agus, :geom
   end
 end
