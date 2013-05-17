@@ -140,7 +140,9 @@ class User < ActiveRecord::Base
 
   def update_rating(voteable, delta)
     attr = @@class_to_attr[voteable.class.to_s]
-    self[attr] += delta*@@attr_to_k[attr]
-    self.save!
+    if attr
+      self[attr] += delta*@@attr_to_k[attr]
+      self.save!
+    end
   end
 end
