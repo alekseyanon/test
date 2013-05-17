@@ -1815,6 +1815,9 @@ display: block;
 		padding: 12px 20px 12px 20px;
 		@include border-top-radius($baseBorderRadius);
 		position: relative;
+    .button_3d{
+      margin: 5px 0 0 30px;
+    }
 		.icon-flag:before,
 		.icon-sm-history:before{	
 			@include font-large;
@@ -1849,7 +1852,14 @@ display: block;
 				}
 			}
 		}
+    &.no-padding{
+      padding: 0;
+    }
 	}
+  &.subnavigation{
+	  padding: 0px 0px 0px 336px;
+  }
+  
 }
 .objs_search_link{
   margin-left: 30px;

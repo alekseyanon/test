@@ -139,3 +139,34 @@
     }
   }
 }
+.obj_descr__text__descr__how_to_reach{
+  @include font-xlarge;
+  margin: 42px 0 0 0;
+}
+
+.obj_descr__responces__responce{
+  @include clearfix;
+}
+
+.obj_descr__responces__responce__author{
+  float: left;
+  width: 223px;
+}
+
+.obj_descr__responces__responce__author__avatar{
+  float: left;
+  width: 64px;
+  img{
+    @include border-radius(32px);
+  }
+}
+
+.obj_descr__responces__responce__author__name{
+  float: left;
+  width: 155px;
+}
+
+.obj_descr__responces__responce__text{
+  float: left;
+  width: 710px;
+}
