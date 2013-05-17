@@ -6,12 +6,8 @@ class VotesController < InheritedResources::Base
     tag = params[:voteable_tag].blank? ? nil : params[:voteable_tag]
     current_user.vote(@parent, exclusive: true, direction: params[:sign].to_sym, tag: tag)
     if current_user.voted_on?(@parent, tag)
-      respond_to do |format|
-        format.html { redirect_to :back}
-        format.js 
-        format.json {render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag)}}
-      end
-      if @parent.respond_to?(:rating)
+      render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag), user_vote: current_user.get_vote(@parent)}
+      if @parent.respond_to?(:rating) && @parent.respond_to?(:leaf_categories) 
         ### TODO leaf_categories метод имеется только у GeoObject
         @parent.update_attributes(rating: (@parent.plusminus.to_f / @parent.leaf_categories.count))
       end
@@ -26,8 +22,11 @@ class VotesController < InheritedResources::Base
     if current_user.voted_on?(@parent, tag)
       request_logger params,  'Message: Check controller name, controller method for find voteable model'
     else
-      render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag)}
-      @parent.update_attributes(rating: (@parent.plusminus.to_f / @parent.leaf_categories.count))
+      render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag), user_vote: current_user.get_vote(@parent)}
+      if @parent.respond_to?(:rating)
+        # TODO leaf_categories метод имеется только у GeoObject
+        @parent.update_attributes(rating: (@parent.plusminus.to_f / @parent.leaf_categories.count))
+      end
     end
   end
 end

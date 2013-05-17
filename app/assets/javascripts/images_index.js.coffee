@@ -2,5 +2,5 @@
 #= require collections/categories
 
 Smorodina.Pages.ImagesIndex = ->
-	$ ->
-		imagesIndexView = new Smorodina.Views.ImagesIndex
+  $ ->
+    new Smorodina.Views.ImagesIndex

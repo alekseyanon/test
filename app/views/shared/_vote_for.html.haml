@@ -1,23 +1,43 @@
 - rating = votable.plusminus
-- css_prefix = (rating >= 0) ? "pic_vote_positive" : "pic_vote_negative"
+- user_vote = current_user.get_vote(votable) if current_user
 
-- if votable.class.name == "Comment"
-  - path = polymorphic_path([votable.commentable, votable, votable.votes.build])
-  - complaint_path = new_polymorphic_path([votable.commentable, votable, votable.complaints.build])
-- else
-  - path = polymorphic_path([votable, votable.votes.build])
-  - complaint_path = new_polymorphic_path([votable, votable.complaints.build])
+- path = new_vote_polymorphic_path votable
+- unvote_path = path + '/500'
+- complaint_path = new_complaint_polymorphic_path votable
 
-%div(class="pic_vote #{css_prefix}")
+
+- css_prefix = ''
+- css_prefix = "pic_vote_positive" if rating > 0
+- css_prefix = "pic_vote_negative" if rating < 0
+- user_css = ''
+- user_css = 'voted_down' if user_vote == -1
+- user_css = 'voted_up' if user_vote == 1
+
+- up_form_path = path
+- up_form_method = 'post'
+- if user_vote > 0
+  - up_form_path = unvote_path
+  - up_form_method = 'delete'
+
+- down_form_path = path
+- down_form_method = 'post'
+- if user_vote < 0
+  - down_form_path = unvote_path
+  - down_form_method = 'delete'
+
+
+%div(class="pic_vote #{css_prefix} #{user_css}" data-vote-url="#{path + '.json'}" data-unvote-url="#{unvote_path + '.json'}")
   .pic_vote__up
-    = form_tag path, remote: !current_user.nil? do 
+    = form_tag up_form_path + '.json', remote: !current_user.nil? do 
       = hidden_field_tag :sign, "up"
-      = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
+      = hidden_field_tag :_method, up_form_method
+      = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit", title: "Мне нравится"}
   .pic_vote__count
     = rating
   .pic_vote__down
-    = form_tag path, remote: !current_user.nil? do 
+    = form_tag down_form_path + '.json', remote: !current_user.nil? do 
       = hidden_field_tag :sign, "down"
-      = button_tag "", {class: "icon-thumbs-down ui-link"}
+      = hidden_field_tag :_method, down_form_method
+      = button_tag "", {class: "icon-thumbs-down ui-link", title: "Мне не нравится"}
   .pic_vote__spam
-    = link_to "", complaint_path, {class: "icon-flag ui-link", title: "Пожаловаться", target: :blank }
+    = link_to "", complaint_path, {class: "icon-flag ui-link", title: "Пожаловаться на содержимое", target: :blank }
