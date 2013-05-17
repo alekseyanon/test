@@ -2,8 +2,8 @@ class Smorodina.Views.ImagesIndex extends Backbone.View
   el: '.all-photos-page'
 
   events:
-    'click .obj-page-gallery a'  : 'prevent_link'
-    'contentLoaded #pic_show_content' : "content_loaded"
+    'click .obj-page-gallery a'        : 'prevent_link'
+    'contentLoaded #pic_show_content'  : "content_loaded"
 
   initialize: ->
     spinner_config = Smorodina.Config.spinner

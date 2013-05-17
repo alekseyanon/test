@@ -6,6 +6,7 @@ class Smorodina.Views.Votings extends Backbone.View
     'ajax:complete form'   : 'after_ajax_vote'
    
   render: (data)->
+    #TODO move client-side voting rendering to hamlc
     data['rating'] = data.positive - data.negative
 
     @replace.find('.pic_vote__count').html data['rating']
