@@ -1,25 +1,19 @@
 class RatingsController < ApplicationController
-  def general
-    @users = User.all
-  end
 
-  def commentators
-    @users = User.order('commentator DESC')
-  end
+  respond_to :html, :json
 
-  def bloggers
-    @users = User.order('blogger DESC')
-  end
-
-  def photographers
-    @users = User.order('photographer DESC')
-  end
-
-  def experts
-    @users = User.order('expert DESC')
-  end
-
-  def discoverers
-    @users = User.order('discoverer DESC')
+  @@type_to_sql = { commentators:   'commentator DESC',
+                  bloggers:       'blogger DESC',
+                  photographers:  'photographer DESC',
+                  experts:        'expert DESC',
+                  discoverers:    'discoverer DESC'
+  }
+  def list
+    @users = User.order(@@type_to_sql[ params[:order_by].try(:to_sym) ]).page params[:page]
+    respond_to do |format|
+      format.html
+      format.js
+      format.json {render json: @users }
+    end
   end
 end

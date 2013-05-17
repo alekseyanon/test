@@ -1,17 +1,13 @@
 Smorodina::Application.routes.draw do
 
-  get 'ratings/general'
-  get 'ratings/commentators'
-  get 'ratings/bloggers'
-  get 'ratings/photographers'
-  get 'ratings/experts'
-  get 'ratings/discoverers'
+  get 'ratings/list'
 
   namespace :api do
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
     get 'events/tags'
     get 'events/search'
+    get 'agus/search'
     match 'objects/:id/nearby' => 'objects#nearby'
     match 'objects/:id' => 'objects#show'
   end
@@ -27,12 +23,17 @@ Smorodina::Application.routes.draw do
 
   resources :profiles
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :authentications
 
   resources :images do
+    resources :complaints, only: [:new, :create, :index, :destroy]
     resources :votes, only: [:create, :destroy]
+    resources :comments do
+      resources :complaints, only: [:new, :create, :index, :destroy]
+      resources :votes, only: [:create, :destroy]
+    end
   end
 
   resources :reviews do
@@ -72,6 +73,12 @@ Smorodina::Application.routes.draw do
     get '/post', action: 'post'
     get '/to_social_network', action: 'to_social_network'
     get '/about', action: 'about'
+    #TODO: Terms Of Service page
+    get '/terms', action: 'terms'
+  end
+
+  controller :feedbacks do
+    post '/send_feedback', action: 'send_feedback'
   end
 
   root to: 'welcome#home'

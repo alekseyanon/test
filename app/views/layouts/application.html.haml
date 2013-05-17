@@ -13,86 +13,21 @@
     <script type="text/javascript" src="//yandex.st/share/share.js"
     charset="utf-8"></script>
     = csrf_meta_tags
-    %body{ class: page_class }
-
+  %body{ class: page_class }
     = render 'layouts/promo', { greeting: controller_name == 'welcome' }
-
     %div.main
       %div.main__inner
 
         %div.slogan-user-panel-container
-          %div.user-panel
-            - if current_user.nil?
-              %span.user-panel__login
-                %a.ui-link{ href: new_user_session_path }
-                  Вход и регистрация
-                  %span.icon.icon-door.user-panel__login__icon
-            - else
-              %span.user-link.user-panel__account
-                %span.icon.icon-user.user-link__icon
-                %span.action-link.dropdown-toggle{ data: { toggle: 'dropdown' } }= current_user.identifier
-                %ol.dropdown-menu.pull-left.user-panel__account__dropdown{ role: 'menu' }
-                  %li
-                    %a.tdn-link{href: profile_path(current_user.profile)}
-                      %b
-                        Личный кабинет
-                  %li.divider
-                  %li
-                    %a.tdn-link{href: '#109'}
-                      Добавить объект
-                  %li
-                    %a.tdn-link{href: '#110'}
-                      Добавить событие
-                  %li.divider
-                  %li
-                    %a.tdn-link{href: '#110'}
-                      Как пользоваться
-                  %li.divider
-                  %li
-                    %a.tdn-link{href: '#111'}
-                      Выход
-
+          = render 'layouts/user_panel'
           %div.slogan
             Путешествуй по России
 
-        %div.control-panel
-          %a{ href: "/" }
-            =image_tag "logo-fake.png", class: "control-panel__logo", alt: "Смородина"
-          %nav.control-panel__menu
-            %a.ui-link{ class: controller_name == 'geo_objects' ? 'selected' : '', href: geo_objects_path }
-              Куда отправиться
-              %span.control-panel__menu__triangle
-            %a.ui-link{ class: controller_name == 'events' ? 'selected' : '', href: events_path }
-              События
-              %span.control-panel__menu__triangle
-            %a.ui-link{ href: ratings_general_path }
-              Рейтинги
-              %span.control-panel__menu__triangle
-          %div.control-panel__info-button.dropdown-toggle{ data: { toggle: 'dropdown' } }
-            %div.icon.icon-sm-list.control-panel__info-button__icon
-          %ul.dropdown-menu.pull-right.control-panel__info-section
-            %li
-              %a.ui-link.control-panel__info-section__link{ href: 'about' }<
-                О проекте
-            %li
-              %a.ui-link.control-panel__social-block__link{ href: '#' }
-                %span.icon.icon-vk.control-panel__social-block__link__icon
-                %span.control-panel__social-block__link__text
-                  Смородина в Facebook
-            %li
-              %a.ui-link.control-panel__social-block__link{ href: '#' }
-                %span.icon.icon-facebook.control-panel__social-block__link__icon
-                %span.control-panel__social-block__link__text
-                  Группа ВКонтакте
-            %li
-              %a.ui-link.control-panel__social-block__link{ href: '#' }
-                %span.icon.icon-twitter.control-panel__social-block__link__icon
-                %span.control-panel__social-block__link__text
-                  Наш Twitter
+        = render 'layouts/control_panel'
 
         - if controller_name == 'welcome' && !cookies[:first_time]
           = render 'layouts/promo_description'
-
         = yield
+    = render 'modals/reg_login_modal'
   %script
     $(window).load(load_objects_count)

@@ -8,7 +8,11 @@ class VotesController < InheritedResources::Base
     current_user.vote(@parent, exclusive: true, direction: params[:sign].to_sym, tag: tag)
     new_rating = @parent.plusminus
     unless old_rating == new_rating
-      render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag)}
+      respond_to do |format|
+        format.html { redirect_to :back}
+        format.js 
+        format.json {render json: {positive: @parent.votes_for(tag), negative: @parent.votes_against(tag)}}
+      end
       if @parent.respond_to?(:rating)
         ### TODO leaf_categories метод имеется только у GeoObject
         @parent.update_attributes(rating: (@parent.plusminus.to_f / @parent.leaf_categories.count))

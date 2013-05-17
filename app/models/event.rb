@@ -95,10 +95,6 @@ class Event < ActiveRecord::Base
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'}
 
-  scope :within_radius, ->(geom, r) do
-    where "ST_DWithin(geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
-  end
-
   scope :within_date_range, ->(from, to) do
     if to
       where 'start_date >= ? AND start_date <= ?', from, to

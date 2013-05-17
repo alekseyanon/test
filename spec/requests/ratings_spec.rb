@@ -50,13 +50,15 @@ describe 'Ratings', js: true, type: :request do
   end
 
   it 'commentator can be changed' do
+    pending 'while voting without positive and negative numbers'
     visit review_path(review)
     fill_in 'comment_body', with: 'abra cadabra'
-    click_on 'Создать Comment'
+    click_on 'Ответить'
     comment = Comment.last
-    page.find("#comment_#{comment.id}").find('#vote-up').click
-    page.find("#comment_#{comment.id}").find('.up-vote').should have_content '1'
-    page.find("#comment_#{comment.id}").find('.down-vote').should have_content '0'
+    page.find('pic_comments__comment').find('button.icon-thumbs-up').click
+    page.find('pic_comments__comment').find('.up-vote').should have_content '1'
+    page.find('pic_comments__comment').find('.down-vote').should have_content '0'
     User.find(comment.user_id).commentator.should == 1.08
   end
+
 end

@@ -1,0 +1,37 @@
+%h1 Ratings#bloggers
+|
+= link_to 'Общий', ratings_list_path()
+|
+= link_to 'commentator', ratings_list_path(order_by: 'commentators')
+|
+= link_to 'blogger', ratings_list_path(order_by: 'bloggers')
+|
+= link_to 'Photographer', ratings_list_path(order_by: 'photographers')
+|
+= link_to 'Expert', ratings_list_path(order_by: 'experts')
+|
+= link_to 'discoverer', ratings_list_path(order_by: 'discoverers')
+|
+%br
+= paginate @users
+%table
+  %tr
+    %th number
+    %th id
+    %th email
+    %th blogger
+    %th  commentator
+    %th  expert
+    %th  photographer
+    %th  discoverer
+
+  - @users.each_with_index do |u, i|
+    %tr
+      %td= i+1 + (params[:page].nil? ? 0 : (params[:page].to_i - 1)*10)
+      %td= u.id
+      %td= u.try(:email)
+      %td= u.blogger
+      %td= u.commentator
+      %td= u.expert
+      %td= u.photographer
+      %td= u.discoverer

@@ -48,14 +48,15 @@ describe "GeoObjects", js: true, type: :request do
   context "GeoObjects with login" do
 
     before :each do
-      login @user
+      login
+      page.should have_content('Вход в систему выполнен')
       current_path.should == root_path
     end
 
     def create_new(title, tag = nil)
       visit new_geo_object_path
       fill_in 'geo_object_title', with: title
-      find('#map').click
+      find('#map').trigger 'click'
       #TODO cover multiple tags
       select tag, from: 'geo_object_tag_list', visible: false if tag
       click_on 'Создать объект'
@@ -64,7 +65,7 @@ describe "GeoObjects", js: true, type: :request do
     let(:title) { Faker::Lorem.words }
     let(:category) { Category.where(name: 'reservoir').first.name_ru }
 
-    it 'creates a new landmark description' do
+    it 'creates a new geo_object' do
       create_new title, category
       page.should have_content title
       page.should have_content 'Что посмотреть?'
@@ -75,14 +76,14 @@ describe "GeoObjects", js: true, type: :request do
     let(:new_title){ Faker::Lorem.words }
     let(:new_category) { Category.where(name: 'dolphinarium').first.name_ru }
 
-    it 'edits existing landmark descriptions' do
+    it 'edits existing geo_object descriptions' do
       create_new title, category
       visit geo_object_path GeoObject.last
-      click_on 'редактировать описание'
+      find('a', text: /редактировать описание/).trigger 'click'
       fill_in 'geo_object_title', with: new_title
       select new_category, from: 'geo_object_tag_list', visible: false
       click_on 'Применить изменения'
-      page.should have_content new_title 
+      page.should have_content new_title
       page.should_not have_content title
       # see db/seeds/categories.yml
       page.should have_content 'Что посмотреть?'
@@ -119,7 +120,7 @@ describe "GeoObjects", js: true, type: :request do
     end
   end
 
-  context "landmark description search" do
+  context "geo_object search" do
 
     before :each do
       visit search_geo_objects_path
@@ -189,7 +190,7 @@ describe "GeoObjects", js: true, type: :request do
       click_on "mainSearchButton"
 
       sleep 3
-      page.find("#searchResults").should have_content 'lodging' 
+      page.find("#searchResults").should have_content 'lodging'
       page.find("#searchResults").should have_content 'apartment'
       page.find("#searchResults").should_not have_content 'food'
       page.find("#searchResults").should_not have_content 'bar'

@@ -1,0 +1,15 @@
+%h1.page-title
+  Восстановление пароля
+%div.content_narrow
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'password-form' }) do |f|
+    %div.password-form__description
+      Пожалуйста, введите адрес электронной почты, на которую зарегистрированы.
+      %br
+      Вам будет выслано письмо с инструкциями по смене пароля.
+
+    %div.form-field
+      = f.input :email, label: false, required: true, autofocus: true, placeholder: 'Эл. почта', input_html: {class: 'input-xlarge'}
+
+    %div.password-form__button
+      = f.button :submit, "Восстановить пароль", class: 'btn_rounded'
+
