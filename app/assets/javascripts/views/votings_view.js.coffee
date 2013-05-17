@@ -10,14 +10,11 @@ class Smorodina.Views.Votings extends Backbone.View
 
     @replace.find('.pic_vote__count').html data['rating']
 
-    @replace.removeClass 'pic_vote_negative'
-    @replace.removeClass 'pic_vote_positive'
-    @replace.removeClass 'voted_up'
-    @replace.removeClass 'voted_down'
+    @replace.removeClass 'pic_vote_negative pic_vote_positive voted_up voted_down'
 
     if data['rating'] > 0
       @replace.addClass 'pic_vote_positive'
-    if data['rating'] < 0
+    else if data['rating'] < 0
       @replace.addClass 'pic_vote_negative'
 
     if data['user_vote'] == 1
