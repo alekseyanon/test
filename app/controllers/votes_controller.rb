@@ -37,16 +37,4 @@ class VotesController < InheritedResources::Base
       @parent.user.update_rating(@parent, new_rating - old_rating)
     end
   end
-
-  private
-
-    def find_voteable_model
-      [[:comment_id, Comment],
-       [:review_id, Review],
-       [:image_id, Image],
-       [:event_id, Event],
-       [:geo_object_id, GeoObject]].each do |(key, voteable_class)|
-        return @parent = voteable_class.find(params[key]) if params.has_key? key
-      end
-    end
 end
