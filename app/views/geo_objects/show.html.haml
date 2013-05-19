@@ -94,9 +94,9 @@
   .obj_descr__responces__responce
     .obj_descr__responces__responce__author
       .obj_descr__responces__responce__author__avatar
-        = image_tag "http://placehold.it/64x64"
+        = image_tag "http://placehold.it/64x64", width: 64, height: 64
       .obj_descr__responces__responce__author__name
-        Author Name Goes Here
+        = link_to "Author Name Goes Here", '#', class: 'ui-link'
     .obj_descr__responces__responce__text
       .obj_descr__responces__responce__text__title
         Дети Николы
@@ -107,16 +107,19 @@
 
         Отсутствие трения устойчиво учитывает небольшой волчок, что явно следует из прецессионных уравнений движения. Угол курса относительно учитывает тангаж, что является очевидным. Абсолютно твёрдое тело позволяет пренебречь колебаниями корпуса, хотя этого в любом случае требует резонансный курс, даже если не учитывать выбег гироскопа. Будем, как и раньше, предполагать, что ускорение определяет момент, определяя инерционные характеристики системы (массы, моменты инерции входящих в механическую систему тел). Регулярная прецессия недетерминировано переворачивает лазерный нутация, что имеет простой и очевидный физический смысл. При наступлении резонанса отсутствие трения колебательно не входит своими составляющими, что очевидно, в силы нормальных реакций связей, так же как и гироинтегратор, что можно рассматривать с достаточной степенью точности как для единого твёрдого тела. 
       .obj_descr__responces__responce__text__photos
-        = image_tag "http://placehold.it/100x70"
-        = image_tag "http://placehold.it/100x70"
-        = image_tag "http://placehold.it/100x70"
-        = image_tag "http://placehold.it/100x70"
-        = image_tag "http://placehold.it/100x70"
+        = image_tag "http://placehold.it/100x70", width: 100, height: 70
+        = image_tag "http://placehold.it/100x70", width: 100, height: 70
+        = image_tag "http://placehold.it/100x70", width: 100, height: 70
+        = image_tag "http://placehold.it/100x70", width: 100, height: 70
+        = image_tag "http://placehold.it/100x70", width: 100, height: 70
         .more_link
-          = link_to raw("ешё " + content_tag(:span, '10', class: 'count'))
+          = link_to raw("ешё " + content_tag(:span, '10', class: 'count')), '#', class: 'action-link'
       .obj_descr__responces__responce__text__actions
         .obj_descr__responces__responce__text__actions__respond
         = link_to content_tag(:span, "Ответить", class: 'inner'), '#', {class: "icon-sm-reply action-link-bullet", remote: !current_user.nil? } 
+        .obj_descr__responces__responce__text__actions__comments_count
+          - count_label = Russian::p(4, 'коментарий', 'коментария', 'коментариев')
+          = link_to content_tag(:span, '4 ', class: 'count') + count_label, '#', class: 'action-link'
         .obj_descr__responces__responce__text__actions__vote
         = render partial: "shared/vote_for", locals: {votable: @geo_object.images.first}
       .obj_descr__responces__responce__text__more

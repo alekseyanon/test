@@ -144,29 +144,101 @@
   margin: 42px 0 0 0;
 }
 
+.obj_descr__responces{
+  margin-left: 30px;
+}
+
 .obj_descr__responces__responce{
   @include clearfix;
+  margin-left: 24px;
+  margin-bottom: 46px;
 }
 
 .obj_descr__responces__responce__author{
   float: left;
+  display: table;
   width: 223px;
+  height: 64px;
 }
 
 .obj_descr__responces__responce__author__avatar{
-  float: left;
+  display: inline-block;
   width: 64px;
+  margin-right: 13px;
   img{
     @include border-radius(32px);
   }
 }
 
 .obj_descr__responces__responce__author__name{
-  float: left;
-  width: 155px;
+  display: table-cell;
+  width: 140px;
+  @include font-small;
+  vertical-align: middle;
 }
 
 .obj_descr__responces__responce__text{
   float: left;
   width: 710px;
+}
+
+.obj_descr__responces__responce__text__title{
+  display: inline-block;
+  margin-right: 24px;
+  font-weight: bold;
+}
+
+.obj_descr__responces__responce__text__date{
+  display: inline-block;
+  @include font-small;
+  color: $siteGray;
+}
+      
+.obj_descr__responces__responce__text__data{
+  margin: 20px 0 30px 0;
+}
+
+.obj_descr__responces__responce__text__photos{
+  line-height: 70px;
+  .more_link{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 24px;
+    a{
+      @include font-small;
+      color: $lightblue;
+      .count{
+        font-weight: bold;
+      }
+    }
+  }
+}
+        
+.obj_descr__responces__responce__text__actions__respond{
+  display: inline-block;
+}
+        
+.obj_descr__responces__responce__text__actions__comments_count{
+  @include before-gray-dot;
+  display: inline-block;
+  vertical-align: bottom;
+  a{
+    color: $lightblue;
+    @include font-small;
+    .count{
+      font-weight: bold;
+    }
+    &.visited{
+      color: $lightblue;
+    }
+  }
+}
+        
+.obj_descr__responces__responce__text__actions__vote{
+  @include before-gray-dot;
+  display: inline-block;
+}
+      
+.obj_descr__responces__responce__text__more{
+  margin-top: 18px;
 }
