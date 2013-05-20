@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
+
+  paginates_per 10
   # TODO avatar crop!
   # :token_authenticatable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
@@ -7,7 +9,8 @@ class User < ActiveRecord::Base
          :validatable, :omniauthable, :confirmable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :provider, :uid, :authentication_ids
+                  :provider, :uid, :authentication_ids, :experts, :discoverer,
+                  :photographer, :blogger, :commentator
 
   has_many :ratings
 
@@ -125,4 +128,27 @@ class User < ActiveRecord::Base
     args
   end
 
+  @@class_to_attr = {
+                      'Comment'   => :commentator,
+                      'Post'      => :blogger,
+                      'Review'    => :expert,
+                      'Runtip'    => :expert,
+                      'Image'     => :photographer,
+                      'GeoObject' => :discoverer
+                    }
+  @@attr_to_k = {
+                  commentator:  1.08,
+                  blogger:      1.42,
+                  expert:       1.3,
+                  photographer: 1.2,
+                  discoverer:   140
+                }
+
+  def update_rating(voteable, delta)
+    attr = @@class_to_attr[voteable.class.to_s]
+    if attr
+      self[attr] += delta*@@attr_to_k[attr]
+      self.save!
+    end
+  end
 end
