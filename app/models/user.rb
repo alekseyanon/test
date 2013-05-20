@@ -127,6 +127,7 @@ class User < ActiveRecord::Base
                       'Comment'   => :commentator,
                       'Post'      => :blogger,
                       'Review'    => :expert,
+                      'Runtip'    => :expert,
                       'Image'     => :photographer,
                       'GeoObject' => :discoverer
                     }
@@ -135,7 +136,7 @@ class User < ActiveRecord::Base
                   blogger:      1.42,
                   expert:       1.3,
                   photographer: 1.2,
-                  discoverer:   1.4
+                  discoverer:   140
                 }
 
   def update_rating(voteable, delta)
