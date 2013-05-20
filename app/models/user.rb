@@ -121,33 +121,31 @@ class User < ActiveRecord::Base
   end
 
   def self.prepare_args_for_auth(oauth)
-    args = {provider: oauth['provider'], uid: oauth['uid']}
-    args.merge!( email: oauth['info']['email']) if oauth['provider'] == 'facebook'
-    args.merge!( oauth_token: oauth['credentials']['token']) if %w(facebook twitter).include? oauth['provider']
-    args.merge!( oauth_token_secret: oauth['credentials']['secret']) if oauth['provider'] == 'twitter'
-    args
+    args = {provider: provider = oauth['provider'], uid: oauth['uid']}
+    email = (info = oauth['info']) && info['email']
+    token = (cred = oauth['credentials']) && cred['token']
+    token_secret = cred && cred['secret']
+    args.merge! case provider
+                  when 'facebook'; {email: email,                     oauth_token: token}
+                  when 'twitter';  {oauth_token_secret: token_secret, oauth_token: token}
+                  else
+                    raise NotImplementedError, "#{provider} oauth provider not supported"
+                end
   end
 
-  @@class_to_attr = {
-                      'Comment'   => :commentator,
-                      'Post'      => :blogger,
-                      'Review'    => :expert,
-                      'Runtip'    => :expert,
-                      'Image'     => :photographer,
-                      'GeoObject' => :discoverer
-                    }
-  @@attr_to_k = {
-                  commentator:  1.08,
-                  blogger:      1.42,
-                  expert:       1.3,
-                  photographer: 1.2,
-                  discoverer:   140
-                }
+  CLASS_TO_ATTR_AND_K = {
+                      Comment   => [:commentator, 1.08],
+                      #Post      => [:blogger, 1.42],
+                      Review    => review_val = [:expert, 1.3],
+                      Runtip    => review_val,
+                      Image     => [:photographer, 1.2],
+                      GeoObject => [:discoverer, 140]
+                    }.each_value(&:freeze).freeze
 
   def update_rating(voteable, delta)
-    attr = @@class_to_attr[voteable.class.to_s]
+    attr, k = CLASS_TO_ATTR_AND_K[voteable.class]
     if attr
-      self[attr] += delta*@@attr_to_k[attr]
+      self[attr] += delta*k
       self.save!
     end
   end
