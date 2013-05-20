@@ -41,7 +41,7 @@
 .pic__author
   .pic__author__avatar
     - unless @image.user.nil?
-      = image_tag(@image.user.profile.avatar_url(:image_author_thumb))
+      = image_tag @image.user.profile.avatar_url(:image_author_thumb), width: 64, height: 64
   .pic__author__info
     .pic__author__info__name
       - unless @image.user.nil?
