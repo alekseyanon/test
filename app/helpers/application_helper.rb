@@ -27,4 +27,20 @@ module ApplicationHelper
     link_to 'unvote', '#rate', id: link_id,
             onclick: "to_unvote('#{voting_path}#{model}', #{id}, '#{tag}');"
   end
+
+  def new_complaint_polymorphic_path votable
+    new_polymorphic_path( if votable.is_a? Comment
+                            [votable.commentable, votable, votable.complaints.build]
+                          else
+                            [votable, votable.complaints.build]
+                          end )
+  end
+
+  def new_vote_polymorphic_path votable
+    polymorphic_path( if votable.is_a? Comment
+                        [votable.commentable, votable, votable.votes.build]
+                      else
+                        [votable, votable.votes.build]
+                      end )
+  end
 end
