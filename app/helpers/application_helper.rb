@@ -39,6 +39,8 @@ module ApplicationHelper
   def new_vote_polymorphic_path votable
     polymorphic_path( if votable.is_a? Comment
                         [votable.commentable, votable, votable.votes.build]
+                      elsif votable.is_a? Runtip
+                        [votable.geo_object, votable, votable.votes.build]
                       else
                         [votable, votable.votes.build]
                       end )

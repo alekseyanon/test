@@ -3,7 +3,6 @@
 
 - path = new_vote_polymorphic_path votable
 - unvote_path = path + '/500'
-- complaint_path = new_complaint_polymorphic_path votable
 
 
 - css_prefix = ''
@@ -40,4 +39,4 @@
       = hidden_field_tag :_method, down_form_method
       = button_tag "", {class: "icon-thumbs-down ui-link", title: "Мне не нравится"}
   .pic_vote__spam
-    = link_to "", complaint_path, {class: "icon-flag ui-link", title: "Пожаловаться на содержимое", target: :blank }
+    = render partial: 'shared/spam_to', locals: {spammable: votable}

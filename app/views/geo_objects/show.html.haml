@@ -47,29 +47,23 @@
       .obj_descr__text__vote_stats__value
         .obj_descr__text__vote_stats__value__title
           %h3 Мнение посетителей
-        .obj_descr__text__vote_stats__value__item
-          %p Бар, ресторан
-          = render partial: "shared/vote_for_simple", locals: {votable: @geo_object}
-        .obj_descr__text__vote_stats__value__item
-          %p Коттедж, гостинница
-          = render partial: "shared/vote_for_simple", locals: {votable: @geo_object}
-        .obj_descr__text__vote_stats__value__item
-          %p Равнинные лыжи, снегоход, каток
-          = render partial: "shared/vote_for_simple", locals: {votable: @geo_object}
-
+          - @tags.each do |tag|
+            .obj_descr__text__vote_stats__value__item
+              = tag
+              = render partial: "shared/vote_for_simple", locals: {votable: @geo_object}
 
       .obj_descr__text__vote_stats__near_objects
         = link_to "Объекты поблизости", "#", {class: "link-like-button bullet icon-sm-compass button button_standard button_grey ui-link"} 
 
     .obj_descr__text__descr
       .obj_descr__text__descr__location.icon-sm-location
-        address goes here
+        = @geo_object.address
       .obj_descr__text__descr__time.icon-sm-clock
         working time goes here
       .obj_descr__text__descr__organizations.icon-sm-directions
-        organizations goes here
+        = @geo_object.contacts
       .obj_descr__text__descr__body
-        body goes here 
+        = @geo_object.body
         .obj_descr__text__descr__body__full_link
           =link_to 'Подробнее', '#', class: 'action-link'
       .obj_descr__text__descr__adder
@@ -85,45 +79,75 @@
           = link_to '', history_geo_object_path(@geo_object), {class: 'icon-sm-history ui-link', title: 'История изменений'}
         .obj_descr__text__descr__adder__spam
           = link_to '', '#' , {class: 'icon-flag ui-link'}
-      .obj_descr__text__descr__how_to_reach
-        = link_to 'Как добраться', '#' , {class: 'action-link ui-link'}
+      .obj_descr__text__descr__how_to_reach{data: {id: @geo_object.id}}
+        = link_to 'Как добраться', '#' , {class: 'action-link ui-link runtip_switcher'}
+        .obj_descr__text__descr__how_to_reach__list
+          .obj_descr__text__descr__how_to_reach__list__author
+            Добавил
+          .obj_descr__text__descr__how_to_reach__list__date
+            Дата
+          .obj_descr__text__descr__how_to_reach__list__rate
+            Рейтинг
+          - @geo_object.runtips.each do |runtip|
+            .obj_descr__text__descr__how_to_reachi__list__record
+              .obj_descr__text__descr__how_to_reachi__list__record__author
+                = runtip.user.profile.name
+              .obj_descr__text__descr__how_to_reachi__list__record__date
+                = Russian::strftime(runtip.created_at, "%d %B %Y")
+              .obj_descr__text__descr__how_to_reachi__list__record__rate
+                = render partial: "shared/vote_for_simple", locals: {votable: runtip}
+              .obj_descr__text__descr__how_to_reachi__list__record__description
+                .obj_descr__text__descr__how_to_reachi__list__record__description__text
+                  = runtip.body
+                .obj_descr__text__descr__how_to_reachi__list__record__description__actions
+                  .obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct
+                    Вариант полезен?
+                  .obj_descr__text__descr__how_to_reachi__list__record__description__actions__vote
+                    = render partial: 'shared/vote_for_simple', locals: {votable: runtip}
+                  .obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam
+                    = render partial: 'shared/spam_to', locals: {spammable: @geo_object.images.first}
+
+
 
 = render partial: 'geo_objects/sub_navigation', locals: {object: @geo_object}
 .obj_descr__responces
   %h2 Лучшие отзывы
-  .obj_descr__responces__responce
-    .obj_descr__responces__responce__author
-      .obj_descr__responces__responce__author__avatar
-        = image_tag "http://placehold.it/64x64", width: 64, height: 64
-      .obj_descr__responces__responce__author__name
-        = link_to "Author Name Goes Here", '#', class: 'ui-link'
-    .obj_descr__responces__responce__text
-      .obj_descr__responces__responce__text__title
-        Дети Николы
-      .obj_descr__responces__responce__text__date
-        Опубликовано 15 июля 2013
-      .obj_descr__responces__responce__text__data
-        Подшипник подвижного объекта принципиально трансформирует прецессионный подшипник подвижного объекта, исходя из определения обобщённых координат. Проекция на подвижные оси устойчиво не входит своими составляющими, что очевидно, в силы нормальных реакций связей, так же как и поплавковый крен, сводя задачу к квадратурам. Маховик отличительно трансформирует экваториальный момент, не забывая о том, что интенсивность диссипативных сил, характеризующаяся величиной коэффициента D, должна лежать в определённых пределах. Точность курса зависима. Направление косвенно преобразует экваториальный момент, действуя в рассматриваемой механической системе.
-
-        Отсутствие трения устойчиво учитывает небольшой волчок, что явно следует из прецессионных уравнений движения. Угол курса относительно учитывает тангаж, что является очевидным. Абсолютно твёрдое тело позволяет пренебречь колебаниями корпуса, хотя этого в любом случае требует резонансный курс, даже если не учитывать выбег гироскопа. Будем, как и раньше, предполагать, что ускорение определяет момент, определяя инерционные характеристики системы (массы, моменты инерции входящих в механическую систему тел). Регулярная прецессия недетерминировано переворачивает лазерный нутация, что имеет простой и очевидный физический смысл. При наступлении резонанса отсутствие трения колебательно не входит своими составляющими, что очевидно, в силы нормальных реакций связей, так же как и гироинтегратор, что можно рассматривать с достаточной степенью точности как для единого твёрдого тела. 
-      .obj_descr__responces__responce__text__photos
-        = image_tag "http://placehold.it/100x70", width: 100, height: 70
-        = image_tag "http://placehold.it/100x70", width: 100, height: 70
-        = image_tag "http://placehold.it/100x70", width: 100, height: 70
-        = image_tag "http://placehold.it/100x70", width: 100, height: 70
-        = image_tag "http://placehold.it/100x70", width: 100, height: 70
-        .more_link
-          = link_to raw("ешё " + content_tag(:span, '10', class: 'count')), '#', class: 'action-link'
-      .obj_descr__responces__responce__text__actions
-        .obj_descr__responces__responce__text__actions__respond
-        = link_to content_tag(:span, "Ответить", class: 'inner'), '#', {class: "icon-sm-reply action-link-bullet", remote: !current_user.nil? } 
-        .obj_descr__responces__responce__text__actions__comments_count
-          - count_label = Russian::p(4, 'коментарий', 'коментария', 'коментариев')
-          = link_to content_tag(:span, '4 ', class: 'count') + count_label, '#', class: 'action-link'
-        .obj_descr__responces__responce__text__actions__vote
-        = render partial: "shared/vote_for", locals: {votable: @geo_object.images.first}
-      .obj_descr__responces__responce__text__more
-        = link_to "Читать весь отзыв и комментарии", "#", class: 'ui-link link-like-button button button_standard button_grey'
+  - @geo_object.reviews.each do |review|
+    .obj_descr__responces__responce
+      .obj_descr__responces__responce__author
+        .obj_descr__responces__responce__author__avatar
+          = image_tag review.user.profile.avatar_url(:image_author_thumb), width: 64, height: 64
+        .obj_descr__responces__responce__author__name
+          = review.user.profile.name
+      .obj_descr__responces__responce__text
+        .obj_descr__responces__responce__text__padding
+          .obj_descr__responces__responce__text__title
+            = review.title
+          .obj_descr__responces__responce__text__date
+            Опубликовано
+            = Russian::strftime(review.created_at, "%d %B %Y")
+          .obj_descr__responces__responce__text__data
+            = review.body
+          .obj_descr__responces__responce__text__photos
+            = image_tag "http://placehold.it/100x70", width: 100, height: 70
+            = image_tag "http://placehold.it/100x70", width: 100, height: 70
+            = image_tag "http://placehold.it/100x70", width: 100, height: 70
+            = image_tag "http://placehold.it/100x70", width: 100, height: 70
+            = image_tag "http://placehold.it/100x70", width: 100, height: 70
+            .more_link
+              = link_to raw("ешё " + content_tag(:span, '10', class: 'count')), '#', class: 'action-link'
+          .obj_descr__responces__responce__text__actions
+            .obj_descr__responces__responce__text__actions__respond
+            = link_to content_tag(:span, "Ответить", class: 'inner'), '#', {class: "icon-sm-reply action-link-bullet", remote: !current_user.nil? } 
+            .obj_descr__responces__responce__text__actions__comments_count
+              - count_label = Russian::p(review.comments.count, 'коментарий', 'коментария', 'коментариев')
+              = link_to content_tag(:span, "#{review.comments.count} ", class: 'count') + count_label, '#', class: 'action-link'
+            .obj_descr__responces__responce__text__actions__vote
+              = render partial: "shared/vote_for", locals: {votable: review}
+            .obj_descr__responces__responce__text__actions__comments
+              comments goes here
+          .obj_descr__responces__responce__text__more
+            = link_to "Читать весь отзыв и комментарии", "#", class: 'ui-link link-like-button button button_standard button_grey'
 .obj_descr__responces_count
 
 

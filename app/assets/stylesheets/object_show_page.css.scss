@@ -140,9 +140,74 @@
   }
 }
 .obj_descr__text__descr__how_to_reach{
-  @include font-xlarge;
   margin: 42px 0 0 0;
+  .runtip_switcher{
+    @include font-xlarge;
+  }
+    
 }
+
+.obj_descr__text__descr__how_to_reach__list{
+  margin-top: 27px;
+}
+
+.obj_descr__text__descr__how_to_reachi__list__record{
+  border-top: 1px solid $siteLightGray;
+  @include font-small;
+}
+          
+.obj_descr__text__descr__how_to_reach__list__author,
+.obj_descr__text__descr__how_to_reachi__list__record__author{
+  margin-left: 20px;
+  width: 185px;
+}
+
+.obj_descr__text__descr__how_to_reach__list__date,
+.obj_descr__text__descr__how_to_reachi__list__record__date{
+  width: 255px;
+}
+
+.obj_descr__text__descr__how_to_reach__list__rate,
+.obj_descr__text__descr__how_to_reachi__list__record__rate{
+  width: 170px;
+}
+
+.obj_descr__text__descr__how_to_reach__list__author,
+.obj_descr__text__descr__how_to_reach__list__date,
+.obj_descr__text__descr__how_to_reach__list__rate,
+.obj_descr__text__descr__how_to_reachi__list__record__author,
+.obj_descr__text__descr__how_to_reachi__list__record__date,
+.obj_descr__text__descr__how_to_reachi__list__record__rate,
+.obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct,
+.obj_descr__text__descr__how_to_reachi__list__record__description__actions__vote,
+.obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam{
+  display: inline-block;
+  padding: 19px 0 19px 0;
+}
+
+.obj_descr__text__descr__how_to_reach__list__author,
+.obj_descr__text__descr__how_to_reach__list__date,
+.obj_descr__text__descr__how_to_reach__list__rate{
+  padding: 11px 0 11px 0;
+}
+
+.obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam{
+  @include before-gray-dot;
+  a{
+    color: $siteGray;
+    text-decoration: none;
+  }
+}
+
+.obj_descr__text__descr__how_to_reachi__list__record__date,
+.obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct{
+  color: $siteGray;
+}
+
+.obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct{
+  margin-right: 15px;
+}
+
 
 .obj_descr__responces{
   margin-left: 30px;
@@ -153,6 +218,7 @@
   margin-left: 24px;
   margin-bottom: 46px;
 }
+    
 
 .obj_descr__responces__responce__author{
   float: left;
@@ -180,6 +246,26 @@
 .obj_descr__responces__responce__text{
   float: left;
   width: 710px;
+  border-left: 1px solid $siteLightGray;
+  position: relative;
+  z-index: 1;
+  margin-left: 35px;
+  &:before{
+    content: "";
+    display: block;
+    @include size(25px, 24px);
+    background-image: url('/assets/object-responce-bullet.png');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    position: absolute;
+    left: -24px;
+    top: 37px;
+    z-index: 2;
+  }
+}
+      
+.obj_descr__responces__responce__text__padding{
+  padding-left: 24px;
 }
 
 .obj_descr__responces__responce__text__title{

@@ -1,9 +1,6 @@
 - rating = votable.plusminus
 
-- if votable.class.name == "Comment"
-  - path = polymorphic_path([votable.commentable, votable, votable.votes.build])
-- else
-  - path = polymorphic_path([votable, votable.votes.build])
+- path = new_vote_polymorphic_path votable
 
 %div(class="pic_vote simple")
   .pic_vote__up
