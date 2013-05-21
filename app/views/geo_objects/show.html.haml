@@ -70,9 +70,7 @@
         .smorodina-item__user
           %span.smorodina-item__user__text
             Добавил:
-          %span.user-link
-            - uname = (@geo_object.user.profile.name.nil?) ? 'Anonymous' : @geo_object.user.profile.name
-            = link_to raw(content_tag(:span, '', class: 'icon icon-user user-link__icon') + uname), '#', class: 'tdn-link'
+          = render partial: 'shared/username_link', locals: {user: @geo_object.user}
         .obj_descr__text__descr__adder__edit
           = link_to '', edit_geo_object_path(@geo_object), {class: 'icon-sm-pencil ui-link', title: 'Редактировать'}
         .obj_descr__text__descr__adder__history
@@ -81,6 +79,15 @@
           = link_to '', '#' , {class: 'icon-flag ui-link'}
       .obj_descr__text__descr__how_to_reach{data: {id: @geo_object.id}}
         = link_to 'Как добраться', '#' , {class: 'action-link ui-link runtip_switcher'}
+
+        .obj_descr__text__descr__how_to_reach__list__add
+          = form_for new_geo_object_runtip_path(@geo_object) do |f|
+            .pic_comments__add__avatar
+              - unless current_user.nil?
+                = image_tag current_user.profile.avatar_url(:image_commentor_thumb)
+            .pic_comments__add__input
+              = f.text_field :body, placeholder: 'Предложить вариант'
+
         .obj_descr__text__descr__how_to_reach__list
           .obj_descr__text__descr__how_to_reach__list__author
             Добавил
@@ -91,9 +98,10 @@
           - @geo_object.runtips.each do |runtip|
             .obj_descr__text__descr__how_to_reachi__list__record
               .obj_descr__text__descr__how_to_reachi__list__record__author
-                = runtip.user.profile.name
+                = render partial: 'shared/username_link', locals: {user: runtip.user}
               .obj_descr__text__descr__how_to_reachi__list__record__date
-                = Russian::strftime(runtip.created_at, "%d %B %Y")
+                - unless runtip.created_at.nil?
+                  = Russian::strftime(runtip.created_at, "%d %B %Y")
               .obj_descr__text__descr__how_to_reachi__list__record__rate
                 = render partial: "shared/vote_for_simple", locals: {votable: runtip}
               .obj_descr__text__descr__how_to_reachi__list__record__description
@@ -145,7 +153,7 @@
             .obj_descr__responces__responce__text__actions__vote
               = render partial: "shared/vote_for", locals: {votable: review}
             .obj_descr__responces__responce__text__actions__comments
-              comments goes here
+              = render partial: 'comments/list', locals: {commentable: review, show_count: false, show_more: false}
           .obj_descr__responces__responce__text__more
             = link_to "Читать весь отзыв и комментарии", "#", class: 'ui-link link-like-button button button_standard button_grey'
 .obj_descr__responces_count

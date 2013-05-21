@@ -150,10 +150,21 @@
 .obj_descr__text__descr__how_to_reach__list{
   margin-top: 27px;
 }
+        
+.obj_descr__text__descr__how_to_reach__list__add{
+  margin: 27px 0 0 21px;
+  @include clearfix;
+}
 
 .obj_descr__text__descr__how_to_reachi__list__record{
   border-top: 1px solid $siteLightGray;
   @include font-small;
+}
+
+.obj_descr__text__descr__how_to_reachi__list__record__author{
+  a{
+    font-weight: bold;
+  }
 }
           
 .obj_descr__text__descr__how_to_reach__list__author,
