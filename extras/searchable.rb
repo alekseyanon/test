@@ -33,7 +33,7 @@ module Searchable
         if query[:bounding_box]
           chain = chain.bounding_box(*query[:bounding_box])
         elsif geom
-          chain = chain.within_radius(geom, r)
+          chain = chain.ordered_by_rating(geom, r)
         end
         chain = chain.in_place(query[:place_id]) if query[:place_id]
         text = query[:text]
