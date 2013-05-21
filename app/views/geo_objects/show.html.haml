@@ -80,6 +80,8 @@
 %h4 Как добраться
 
 - @geo_object.runtips.each do |rt|
+  .runtip{id: dom_id(rt)}
+    =render partial: "shared/votes", locals: { object_to_vote: rt, nested_path: "objects/#{@geo_object.id}/" }
   %div= rt.body
 
 

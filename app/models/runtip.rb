@@ -5,4 +5,6 @@ class Runtip < ActiveRecord::Base
   attr_accessible :body
 
   validates :body, :user, :geo_object, presence: true
+
+  acts_as_voteable
 end
