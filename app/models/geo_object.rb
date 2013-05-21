@@ -5,6 +5,8 @@ class GeoObject < ActiveRecord::Base
   attr_accessor :xld, :yld, :best_object
   attr_accessible :xld, :yld, :rating, :images_attributes, :geom
 
+  scope :with_rating_order, order('rating DESC')
+
   acts_as_voteable
 
   def objects_nearby radius
