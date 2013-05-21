@@ -23,11 +23,18 @@ class ImagesController < InheritedResources::Base
     @image = @parent.images.build params[:image]
     @image.user = current_user
     if @image.save
-      redirect_to polymorphic_url([@parent, @image])
+      respond_to do |format|
+        format.html {
+         redirect_to polymorphic_url([@parent])
+        }
+        format.json {
+          render :json => [@image.to_jq_upload].to_json
+        }
+      end
     else
       respond_with do |format|
         format.html { render action: :new }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
+        format.json { render json: {errors: @image.errors.full_messages}, status: :unprocessable_entity }
       end
     end
   end

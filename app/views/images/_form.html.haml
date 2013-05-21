@@ -1,5 +1,24 @@
-= simple_form_for [@parent, @image] do |f|
-  .field
-    = f.input :image
-  .actions
-    = f.submit 'Save'
+= form_for([obj, obj.images.build]) do |f|
+  %div.form-field
+    %div.hdr
+      Файл для загрузки:
+    %div.fileinput-url
+      %input.input.file-url{type: "text", id:'fileupload-url', name: 'image[remote_image_url]', placeholder: 'URL изображения'}
+      %button.btn.fileinput-url-button
+        Загрузить
+    %div.fileinput
+      %button.btn.fileinput-button
+        Выбрать файл
+      %span.fileinput-description
+        Файл не выбран
+    %img#preview
+    %input.file-hide{type: "file", id:'fileupload',name:"image[image]"}
+  %table.table.table-stripped{role:"presentation"}
+    %tbody.files
+  %div.small-form__button
+    %button.btn.subm{ type: 'submit', disabled: 'disabled' }
+      Вставить
+    %div.form-cancel
+      или
+      %a.cancel{data: {dismiss: 'modal'}}
+        Отменить
