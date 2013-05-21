@@ -2579,6 +2579,12 @@ li{
     .radios{
       padding-left:30px;
       margin-top:15px;
+      input{
+        margin-right:8px;
+      }
+      .right{
+        margin-left:30px;
+      }
     }
     height:10px;
     background-color: #9428b6;
@@ -2592,6 +2598,9 @@ li{
       width: 540px;
       border-bottom: 1px solid $lightgrey;
       margin-bottom: 5px;
+    }
+    .uploader{
+      height: 180px;
     }
     .input{
       height:30px;
