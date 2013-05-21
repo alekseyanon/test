@@ -114,8 +114,7 @@ router.route "objects/search", "geo_objects", Smorodina.Pages.GeoObjects
 router.route "", "index", Smorodina.Pages.Index
 router.route "objects/:object_name/images/:image_id", "image_show", Smorodina.Pages.ImageShow
 router.route "images/:image_id", "image_show", Smorodina.Pages.ImageShow
-router.route "objects/:object_name/images", "images_index", Smorodina.Pages.ImagesIndex
-router.route "objects/:object_name/images#objects/:hash_object_name/images/:hash_image_id", "images_index_hash", Smorodina.Pages.ImageShowWindow
+router.route "objects/:param/images", "images_index", Smorodina.Pages.ImagesIndex
 Backbone.history.start hashChange: false
 
 $ ->
@@ -140,13 +139,6 @@ $ ->
   $("form").on "click", ".add_input", ->
     time = new Date().getTime()
     $(this).parent().append "<input class='string optional' id='video_url_" + time + "' name='video_urls[" + time + "]' size='50' type='text'><br>"
-
-  $('.modal').on 'hidden', ()->
-    $(this).css 'display': "none"
-
-  $('.modal').on 'show', ()->
-    $(this).css 'display': "block"
-
-  
+ 
   if location.href.match /modal=true/
     $('#regLoginModal').modal('show')

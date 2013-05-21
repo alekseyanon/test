@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
 
   def find_parent_model
     [[:comment_id, Comment],
+     [:runtip_id, Runtip],
      [:review_id, Review],
      [:image_id, Image],
      [:event_id, Event],

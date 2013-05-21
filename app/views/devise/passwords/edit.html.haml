@@ -1,11 +1,12 @@
 %h1.page-title
   Смена пароля
 %div.content_narrow
-  %form.password-form{ action: password_path(resource_name), method: 'POST' }
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'password-form' }) do |f|
     %div.password-form__description
       Введите новый пароль. Пароль может содержать латинские буквы и цифры.
     %div.form-field
-      %input.input-xlarge{ type: 'password', placeholder: 'Пароль', autofocus: true }
+      = f.input :reset_password_token, as: :hidden
+      = f.input :password, placeholder: 'Пароль', required: true, autofocus: true, input_html: {class: 'input-xlarge'}, label: false
     %div.password-form__button
-      %button.btn.btn_rounded{ type: 'submit' }
-        Задать новый пароль
+      = f.button :submit, 'Задать новый пароль', class: 'btn_rounded'
+
