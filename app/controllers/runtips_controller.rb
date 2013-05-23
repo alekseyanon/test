@@ -1,5 +1,5 @@
 class RuntipsController < InheritedResources::Base
-	before_filter :authorize # TODO move to ApplicationController
+	#before_filter :authorize # TODO move to ApplicationController
 
 	def create
     @geo_object = GeoObject.find(params[:geo_object_id])
@@ -7,6 +7,10 @@ class RuntipsController < InheritedResources::Base
     @runtip.user = current_user
     @runtip.save
     redirect_to geo_object_path(@geo_object)
+  end
+
+  def index
+    render json: GeoObject.find(params[:geo_object_id]).runtips.to_json 
   end
 
 end

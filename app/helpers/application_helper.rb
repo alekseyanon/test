@@ -31,18 +31,22 @@ module ApplicationHelper
   def new_complaint_polymorphic_path votable
     new_polymorphic_path( if votable.is_a? Comment
                             [votable.commentable, votable, votable.complaints.build]
+                          elsif votable.is_a? Runtip
+                             [votable.geo_object, votable, votable.complaints.build]
                           else
                             [votable, votable.complaints.build]
                           end )
   end
 
-  def new_vote_polymorphic_path votable
-    polymorphic_path( if votable.is_a? Comment
-                        [votable.commentable, votable, votable.votes.build]
-                      elsif votable.is_a? Runtip
-                        [votable.geo_object, votable, votable.votes.build]
-                      else
-                        [votable, votable.votes.build]
-                      end )
+  def new_vote_polymorphic_path votable, tag = nil
+    args = [] << if votable.is_a? Comment
+                   [votable.commentable, votable, votable.votes.build]
+                 elsif votable.is_a? Runtip
+                   [votable.geo_object, votable, votable.votes.build]
+                 else
+                   [votable, votable.votes.build]
+                 end
+    args.push votable_tag: tag if tag
+    polymorphic_path *args
   end
 end

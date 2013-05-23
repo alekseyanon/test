@@ -1,0 +1,15 @@
+.obj_descr__text__descr__how_to_reachi__list__record
+  .obj_descr__text__descr__how_to_reachi__list__record__author
+  .obj_descr__text__descr__how_to_reachi__list__record__date
+    = @runtip.created
+  .obj_descr__text__descr__how_to_reachi__list__record__rate
+  .obj_descr__text__descr__how_to_reachi__list__record__description
+    .obj_descr__text__descr__how_to_reachi__list__record__description__text
+      = @runtip.body
+    .obj_descr__text__descr__how_to_reachi__list__record__description__actions
+      .obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct
+        Вариант полезен?
+      .obj_descr__text__descr__how_to_reachi__list__record__description__actions__vote
+      .obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam
+
+

@@ -1,162 +1,163 @@
-= render partial: 'geo_objects/main_navigation', locals: {object: @geo_object}
-.complaint
-=link_to 'Пожаловаться', '#complaint', onclick: "complaint('/objects/#{@geo_object.id}');", id: 'geoobject_complaint'
-.obj_descr
-  .obj_descr__title
-    %h1= @geo_object.title
-  .obj_descr__gps
-    .smorodina-item__geo
-      %span.icon.icon-marker.smorodina-item__geo__icon
-      %ul.smorodina-item__geo__list
-        %li
-          %a.tdn-link{ href: "#2" }
-            Полный
-        %li
-          %a.tdn-link{ href: "#3" }
-            Географический
-        %li
-          %a.tdn-link{ href: "#4" }
-            Идентификатор
-  .obj_descr__tags
-    = render partial: 'shared/tag_list', locals: {tag_tree: @categories_tree}
+.obj_show_page
+  = render partial: 'geo_objects/main_navigation', locals: {object: @geo_object}
+  .obj_descr
+    .obj_descr__title
+      %h1= @geo_object.title
+    .obj_descr__gps
+      .smorodina-item__geo
+        %span.icon.icon-marker.smorodina-item__geo__icon
+        %ul.smorodina-item__geo__list
+          %li
+            %a.tdn-link{ href: "#2" }
+              Полный
+          %li
+            %a.tdn-link{ href: "#3" }
+              Географический
+          %li
+            %a.tdn-link{ href: "#4" }
+              Идентификатор
+    .obj_descr__tags
+      = render partial: 'shared/tag_list', locals: {tag_tree: @categories_tree}
 
-  .obj_descr__info
-    .obj_descr__info__photo
-      - images = @geo_object.images.limit(3)
-      - images.each_with_index do |image, index|
-        - if index == 0
-          = image_tag(image.image_url(:objmainthumb), width: 504, height: 337, class: 'main')
-        - else 
-          = image_tag(image.image_url(:objsecthumb), width: 237, height: 167)
-    .obj_descr__info__links
-      .obj_descr__info__links__rate
-        %h3 
-          Рейтинг oбъекта
-          %span{style: 'color: red;'} 
-            = @geo_object.average_rating
-      .obj_descr__info__links__planner
-        = link_to content_tag(:span, "В планировщик", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-plus icon-sm-print ui-link'}
-      .obj_descr__info__links__print
-        = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
-      .obj_descr__info__links__social
-        %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
-      .add_photo_or_video_link
-        = link_to "Добавить фото или видео", "#", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"} 
-  .obj_descr__text
-    .obj_descr__text__vote_stats
-      .obj_descr__text__vote_stats__value
-        .obj_descr__text__vote_stats__value__title
-          %h3 Мнение посетителей
-          - @tags.each do |tag|
-            .obj_descr__text__vote_stats__value__item
-              = tag
-              = render partial: "shared/vote_for_simple", locals: {votable: @geo_object}
+    .obj_descr__info
+      .obj_descr__info__photo
+        - images = @geo_object.images.limit(3)
+        - images.each_with_index do |image, index|
+          - if index == 0
+            = image_tag(image.image_url(:objmainthumb), width: 504, height: 337, class: 'main')
+          - else 
+            = image_tag(image.image_url(:objsecthumb), width: 237, height: 167)
+      .obj_descr__info__links
+        .obj_descr__info__links__rate
+          %h3 
+            Рейтинг oбъекта
+            %span{style: 'color: red;'} 
+              = @geo_object.average_rating
+        .obj_descr__info__links__planner
+          = link_to content_tag(:span, "В планировщик", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-plus icon-sm-print ui-link'}
+        .obj_descr__info__links__print
+          = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
+        .obj_descr__info__links__social
+          %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
+        .add_photo_or_video_link
+          = link_to "Добавить фото или видео", "#", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"} 
+    .obj_descr__text
+      .obj_descr__text__vote_stats
+        .obj_descr__text__vote_stats__value
+          .obj_descr__text__vote_stats__value__title
+            %h3 Мнение посетителей
+            - @tags.each do |tag|
+              .obj_descr__text__vote_stats__value__item
+                .obj_descr__text__vote_stats__value__item__name
+                  = tag
+                .obj_descr__text__vote_stats__value__item__value
+                  = render partial: "shared/vote_for_simple", locals: {votable: @geo_object, tag: tag}
 
-      .obj_descr__text__vote_stats__near_objects
-        = link_to "Объекты поблизости", "#", {class: "link-like-button bullet icon-sm-compass button button_standard button_grey ui-link"} 
+        .obj_descr__text__vote_stats__near_objects
+          = link_to "Объекты поблизости", "#", {class: "link-like-button bullet icon-sm-compass button button_standard button_grey ui-link"} 
 
-    .obj_descr__text__descr
-      .obj_descr__text__descr__location.icon-sm-location
-        = @geo_object.address
-      .obj_descr__text__descr__time.icon-sm-clock
-        working time goes here
-      .obj_descr__text__descr__organizations.icon-sm-directions
-        = @geo_object.contacts
-      .obj_descr__text__descr__body
-        = @geo_object.body
-        .obj_descr__text__descr__body__full_link
-          =link_to 'Подробнее', '#', class: 'action-link'
-      .obj_descr__text__descr__adder
-        .smorodina-item__user
-          %span.smorodina-item__user__text
-            Добавил:
-          = render partial: 'shared/username_link', locals: {user: @geo_object.user}
-        .obj_descr__text__descr__adder__edit
-          = link_to '', edit_geo_object_path(@geo_object), {class: 'icon-sm-pencil ui-link', title: 'Редактировать'}
-        .obj_descr__text__descr__adder__history
-          = link_to '', history_geo_object_path(@geo_object), {class: 'icon-sm-history ui-link', title: 'История изменений'}
-        .obj_descr__text__descr__adder__spam
-          = link_to '', '#' , {class: 'icon-flag ui-link'}
-      .obj_descr__text__descr__how_to_reach{data: {id: @geo_object.id}}
-        = link_to 'Как добраться', '#' , {class: 'action-link ui-link runtip_switcher'}
+      .obj_descr__text__descr
+        .obj_descr__text__descr__location.icon-sm-location
+          = @geo_object.address
+        .obj_descr__text__descr__time.icon-sm-clock
+          working time goes here
+        .obj_descr__text__descr__organizations.icon-sm-directions
+          = @geo_object.contacts
+        .obj_descr__text__descr__body
+          = @geo_object.body
+          .obj_descr__text__descr__body__full_link
+            =link_to 'Подробнее', '#', class: 'action-link'
+        .obj_descr__text__descr__adder
+          .smorodina-item__user
+            %span.smorodina-item__user__text
+              Добавил:
+            = render partial: 'shared/username_link', locals: {user: @geo_object.user}
+          .obj_descr__text__descr__adder__edit
+            = link_to '', edit_geo_object_path(@geo_object), {class: 'icon-sm-pencil ui-link', title: 'Редактировать'}
+          .obj_descr__text__descr__adder__history
+            = link_to '', history_geo_object_path(@geo_object), {class: 'icon-sm-history ui-link', title: 'История изменений'}
+          .obj_descr__text__descr__adder__spam
+            = render partial: 'shared/spam_to', locals: {spammable: @geo_object}
+        .obj_descr__text__descr__how_to_reach{data: {id: @geo_object.id}}
+          = link_to 'Как добраться', '#' , {class: 'action-link ui-link runtip_switcher'}
+          .obj_descr__text__descr__how_to_reach__list__container
+            .obj_descr__text__descr__how_to_reach__list__add
+              = form_for([@geo_object, Runtip.new]) do |f|
+                .pic_comments__add__avatar
+                  - unless current_user.nil?
+                    = image_tag current_user.profile.avatar_url(:image_commentor_thumb)
+                .pic_comments__add__input
+                  = f.text_field :body, placeholder: 'Предложить вариант'
 
-        .obj_descr__text__descr__how_to_reach__list__add
-          = form_for new_geo_object_runtip_path(@geo_object) do |f|
-            .pic_comments__add__avatar
-              - unless current_user.nil?
-                = image_tag current_user.profile.avatar_url(:image_commentor_thumb)
-            .pic_comments__add__input
-              = f.text_field :body, placeholder: 'Предложить вариант'
-
-        .obj_descr__text__descr__how_to_reach__list
-          .obj_descr__text__descr__how_to_reach__list__author
-            Добавил
-          .obj_descr__text__descr__how_to_reach__list__date
-            Дата
-          .obj_descr__text__descr__how_to_reach__list__rate
-            Рейтинг
-          - @geo_object.runtips.each do |runtip|
-            .obj_descr__text__descr__how_to_reachi__list__record
-              .obj_descr__text__descr__how_to_reachi__list__record__author
-                = render partial: 'shared/username_link', locals: {user: runtip.user}
-              .obj_descr__text__descr__how_to_reachi__list__record__date
-                - unless runtip.created_at.nil?
-                  = Russian::strftime(runtip.created_at, "%d %B %Y")
-              .obj_descr__text__descr__how_to_reachi__list__record__rate
-                = render partial: "shared/vote_for_simple", locals: {votable: runtip}
-              .obj_descr__text__descr__how_to_reachi__list__record__description
-                .obj_descr__text__descr__how_to_reachi__list__record__description__text
-                  = runtip.body
-                .obj_descr__text__descr__how_to_reachi__list__record__description__actions
-                  .obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct
-                    Вариант полезен?
-                  .obj_descr__text__descr__how_to_reachi__list__record__description__actions__vote
-                    = render partial: 'shared/vote_for_simple', locals: {votable: runtip}
-                  .obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam
-                    = render partial: 'shared/spam_to', locals: {spammable: @geo_object.images.first}
+            .obj_descr__text__descr__how_to_reach__list
+              .obj_descr__text__descr__how_to_reach__list__author
+                Добавил
+              .obj_descr__text__descr__how_to_reach__list__date
+                Дата
+              .obj_descr__text__descr__how_to_reach__list__rate
+                Рейтинг
+              - @geo_object.runtips.each do |runtip|
+                .obj_descr__text__descr__how_to_reachi__list__record
+                  .obj_descr__text__descr__how_to_reachi__list__record__author
+                    = render partial: 'shared/username_link', locals: {user: runtip.user}
+                  .obj_descr__text__descr__how_to_reachi__list__record__date
+                    - unless runtip.created_at.nil?
+                      = Russian::strftime(runtip.created_at, "%d %B %Y")
+                  .obj_descr__text__descr__how_to_reachi__list__record__rate
+                    = render partial: "shared/vote_for_simple", locals: {votable: runtip}
+                  .obj_descr__text__descr__how_to_reachi__list__record__description
+                    .obj_descr__text__descr__how_to_reachi__list__record__description__text
+                      = runtip.body
+                    .obj_descr__text__descr__how_to_reachi__list__record__description__actions
+                      .obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct
+                        Вариант полезен?
+                      .obj_descr__text__descr__how_to_reachi__list__record__description__actions__vote
+                        = render partial: 'shared/vote_for_simple', locals: {votable: runtip}
+                      .obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam
+                        = render partial: 'shared/spam_to', locals: {spammable: @geo_object.images.first}
 
 
 
-= render partial: 'geo_objects/sub_navigation', locals: {object: @geo_object}
-.obj_descr__responces
-  %h2 Лучшие отзывы
-  - @geo_object.reviews.each do |review|
-    .obj_descr__responces__responce
-      .obj_descr__responces__responce__author
-        .obj_descr__responces__responce__author__avatar
-          = image_tag review.user.profile.avatar_url(:image_author_thumb), width: 64, height: 64
-        .obj_descr__responces__responce__author__name
-          = review.user.profile.name
-      .obj_descr__responces__responce__text
-        .obj_descr__responces__responce__text__padding
-          .obj_descr__responces__responce__text__title
-            = review.title
-          .obj_descr__responces__responce__text__date
-            Опубликовано
-            = Russian::strftime(review.created_at, "%d %B %Y")
-          .obj_descr__responces__responce__text__data
-            = review.body
-          .obj_descr__responces__responce__text__photos
-            = image_tag "http://placehold.it/100x70", width: 100, height: 70
-            = image_tag "http://placehold.it/100x70", width: 100, height: 70
-            = image_tag "http://placehold.it/100x70", width: 100, height: 70
-            = image_tag "http://placehold.it/100x70", width: 100, height: 70
-            = image_tag "http://placehold.it/100x70", width: 100, height: 70
-            .more_link
-              = link_to raw("ешё " + content_tag(:span, '10', class: 'count')), '#', class: 'action-link'
-          .obj_descr__responces__responce__text__actions
-            .obj_descr__responces__responce__text__actions__respond
-            = link_to content_tag(:span, "Ответить", class: 'inner'), '#', {class: "icon-sm-reply action-link-bullet", remote: !current_user.nil? } 
-            .obj_descr__responces__responce__text__actions__comments_count
-              - count_label = Russian::p(review.comments.count, 'коментарий', 'коментария', 'коментариев')
-              = link_to content_tag(:span, "#{review.comments.count} ", class: 'count') + count_label, '#', class: 'action-link'
-            .obj_descr__responces__responce__text__actions__vote
-              = render partial: "shared/vote_for", locals: {votable: review}
-            .obj_descr__responces__responce__text__actions__comments
-              = render partial: 'comments/list', locals: {commentable: review, show_count: false, show_more: false}
-          .obj_descr__responces__responce__text__more
-            = link_to "Читать весь отзыв и комментарии", "#", class: 'ui-link link-like-button button button_standard button_grey'
-.obj_descr__responces_count
+  = render partial: 'geo_objects/sub_navigation', locals: {object: @geo_object}
+  .obj_descr__responces
+    %h2 Лучшие отзывы
+    - @geo_object.reviews.each do |review|
+      .obj_descr__responces__responce
+        .obj_descr__responces__responce__author
+          .obj_descr__responces__responce__author__avatar
+            = image_tag review.user.profile.avatar_url(:image_author_thumb), width: 64, height: 64
+          .obj_descr__responces__responce__author__name
+            = review.user.profile.name
+        .obj_descr__responces__responce__text
+          .obj_descr__responces__responce__text__padding
+            .obj_descr__responces__responce__text__title
+              = review.title
+            .obj_descr__responces__responce__text__date
+              Опубликовано
+              = Russian::strftime(review.created_at, "%d %B %Y")
+            .obj_descr__responces__responce__text__data
+              = review.body
+            .obj_descr__responces__responce__text__photos
+              = image_tag "http://placehold.it/100x70", width: 100, height: 70
+              = image_tag "http://placehold.it/100x70", width: 100, height: 70
+              = image_tag "http://placehold.it/100x70", width: 100, height: 70
+              = image_tag "http://placehold.it/100x70", width: 100, height: 70
+              = image_tag "http://placehold.it/100x70", width: 100, height: 70
+              .more_link
+                = link_to raw("ешё " + content_tag(:span, '10', class: 'count')), '#', class: 'action-link'
+            .obj_descr__responces__responce__text__actions
+              .obj_descr__responces__responce__text__actions__respond
+              = link_to content_tag(:span, "Ответить", class: 'inner'), '#', {class: "icon-sm-reply action-link-bullet", remote: !current_user.nil? } 
+              .obj_descr__responces__responce__text__actions__comments_count
+                - count_label = Russian::p(review.comments.count, 'коментарий', 'коментария', 'коментариев')
+                = link_to content_tag(:span, "#{review.comments.count} ", class: 'count') + count_label, '#', class: 'action-link'
+              .obj_descr__responces__responce__text__actions__vote
+                = render partial: "shared/vote_for", locals: {votable: review}
+              .obj_descr__responces__responce__text__actions__comments
+                = render partial: 'comments/list', locals: {commentable: review, show_count: false, show_more: false}
+            .obj_descr__responces__responce__text__more
+              = link_to "Читать весь отзыв и комментарии", "#", class: 'ui-link link-like-button button button_standard button_grey'
+  .obj_descr__responces_count
 
 
 

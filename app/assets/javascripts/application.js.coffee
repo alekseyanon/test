@@ -115,6 +115,7 @@ router.route "", "index", Smorodina.Pages.Index
 router.route "objects/:object_name/images/:image_id", "image_show", Smorodina.Pages.ImageShow
 router.route "images/:image_id", "image_show", Smorodina.Pages.ImageShow
 router.route "objects/:param/images", "images_index", Smorodina.Pages.ImagesIndex
+router.route "objects/:object_name", "images_index", Smorodina.Pages.ObjectShow
 Backbone.history.start hashChange: false
 
 $ ->

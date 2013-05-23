@@ -146,6 +146,10 @@
   }
     
 }
+          
+.obj_descr__text__descr__how_to_reach__list__container{
+  display: none;
+}
 
 .obj_descr__text__descr__how_to_reach__list{
   margin-top: 27px;
@@ -334,6 +338,29 @@
 .obj_descr__responces__responce__text__actions__vote{
   @include before-gray-dot;
   display: inline-block;
+}
+            
+.obj_descr__responces__responce__text__actions__comments{
+  .pic_comments{
+    margin-left: 0px;
+    .pic_comments__add{
+      margin-left: 0px;
+    }
+    .pic_comments__comment{
+      margin-left: 0px;
+    }
+  }
+  .pic_comments__add__controls{
+    input{
+      display: none;
+    }
+  } 
+
+  .pic_comments__add__input{
+    input{
+      padding: 14px 14px;
+    }
+  }
 }
       
 .obj_descr__responces__responce__text__more{
