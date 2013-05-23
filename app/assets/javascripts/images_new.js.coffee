@@ -16,12 +16,7 @@ $(document).ready ->
           $(".subm").removeAttr "disabled"
           $(".subm").click (event) ->
             event.preventDefault()
-            jqXHR = data.submit().success((result, textStatus, jqXHR) ->
-              console.log "success"
-            ).error((jqXHR, textStatus, errorThrown) ->
-              console.log $.parseJSON(jqXHR.responseText).errors.toSource()
-              console.log errorThrown
-            ).complete((result, textStatus, jqXHR) ->
+            jqXHR = data.submit().complete((result, textStatus, jqXHR) ->
               $("#newimage").modal show: false
               location.reload()
             )
