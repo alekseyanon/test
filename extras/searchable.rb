@@ -33,12 +33,11 @@ module Searchable
         if query[:bounding_box]
           chain = chain.bounding_box(*query[:bounding_box])
         elsif geom
-          chain = chain.ordered_by_rating(geom, r)
+          chain = chain.within_radius(geom, r)
         end
         chain = chain.in_place(query[:place_id]) if query[:place_id]
         text = query[:text]
         chain = chain.within_date_range query[:from], query[:to] if query[:from]
-        chain = chain.with_rating_order  if query[:sort_by] == 'rating'
       end
       chain = chain.text_search(text) unless text.blank?
       if self.kind_of? GeoObject
