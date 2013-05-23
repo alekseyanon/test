@@ -9,11 +9,10 @@ module RspecHelper
     fill_in 'user_login_password', with: user.password
     page.should have_selector('#login')
     find('#login').click
-    if page.has_selector?('#login')
-      find('#login').click
-    end
-    if page.has_selector?('#login')
-      find('#login').click
-    end
+    try_click '#login', 2
+  end
+
+  def try_click(selector, count)
+    count.times { find(selector).click if page.has_selector?(selector) }
   end
 end
