@@ -82,6 +82,7 @@
 
 
         .obj_descr__text__descr__how_to_reach{data: {id: @geo_object.id}}
+          .obj_descr__text__descr__how_to_reach__spinner
           = link_to 'Как добраться', "#runtips_list", {class: 'action-link ui-link runtip_switcher', data:{toggle: "collapse", target: "#runtips_list"}}
           .obj_descr__text__descr__how_to_reach__list__container.collapse#runtips_list
             .obj_descr__text__descr__how_to_reach__list__add

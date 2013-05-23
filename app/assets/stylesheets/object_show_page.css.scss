@@ -142,11 +142,22 @@
 .obj_descr__text__descr__how_to_reach{
   margin: 42px 0 0 0;
   min-width: 640px;
+  position: relative;
   .runtip_switcher{
     @include font-xlarge;
   }
     
 }
+
+.obj_descr__text__descr__how_to_reach__spinner{
+  position: absolute;
+  left: 0px;
+  top: 100px;
+  display: none;
+  width: 100%;
+  height: 100px;
+}
+
           
 .obj_descr__text__descr__how_to_reach__list__container{
 }

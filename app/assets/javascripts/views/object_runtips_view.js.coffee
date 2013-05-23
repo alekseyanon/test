@@ -20,16 +20,20 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
     @collection.on 'add', @render
     @collection.on 'request', @startRequest
 
+  start: ->
     @collection.fetch()
 
   render: ->
     @spinner.stop()
+    $('.obj_descr__text__descr__how_to_reach__spinner').hide()
     rendered = @template runtips: @collection.toJSON()
     $(@el).find('.obj_descr__text__descr__how_to_reach__list').html rendered
     @
     
   startRequest: ->
-    @spinner.spin($('.obj_descr__text__descr__how_to_reach__list').get 0)
+    $('.obj_descr__text__descr__how_to_reach__spinner').show()
+    @spinner.spin($('.obj_descr__text__descr__how_to_reach__spinner').get 0)
+
 
   create_new_runtip: (e)->
     e.preventDefault()

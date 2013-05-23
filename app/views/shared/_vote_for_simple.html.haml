@@ -1,6 +1,7 @@
 - tag ||= ''
-- path = (tag.blank?) ? new_vote_polymorphic_path(votable) : new_vote_polymorphic_path(votable, tag)
-%div(class="pic_vote simple")
+- path = (tag.blank?) ? new_vote_polymorphic_path(votable, nil) : new_vote_polymorphic_path(votable, tag)
+- unvote_path = (tag.blank?) ? new_vote_polymorphic_path(votable, nil) : new_vote_polymorphic_path(votable, tag)
+%div{class: "pic_vote simple", data: {vote_url: "#{path}", unvote_url: "#{unvote_path}"}}
   .pic_vote__up
     = form_tag path, remote: !current_user.nil? do 
       = hidden_field_tag :sign, "up"
