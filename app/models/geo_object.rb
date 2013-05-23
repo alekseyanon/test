@@ -5,7 +5,7 @@ class GeoObject < ActiveRecord::Base
   attr_accessor :xld, :yld, :best_object
   attr_accessible :xld, :yld, :rating, :images_attributes, :geom
 
-  scope :ordered_by_rating, order('rating DESC, created_at')
+  scope :ordered_by_rating, order('rating DESC, created_at DESC')
   scope :ordered_by_name,   order('title')
 
   acts_as_voteable

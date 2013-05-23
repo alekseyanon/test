@@ -9,7 +9,12 @@ class RatingsController < ApplicationController
                   discoverers:    'discoverer DESC'
   }
   def list
-    @users = User.order(@@type_to_sql[ params[:order_by].try(:to_sym) ]).page params[:page]
+    cond = if query = params[:order_by]
+             @@type_to_sql[ query.try(:to_sym) ]
+           else
+             '(commentator + blogger + photographer + expert + discoverer) DESC'
+           end
+    @users = User.order(cond + ', created_at DESC').page params[:page]
     respond_to do |format|
       format.html
       format.js
