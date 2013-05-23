@@ -141,6 +141,7 @@
 }
 .obj_descr__text__descr__how_to_reach{
   margin: 42px 0 0 0;
+  min-width: 640px;
   .runtip_switcher{
     @include font-xlarge;
   }
@@ -148,7 +149,6 @@
 }
           
 .obj_descr__text__descr__how_to_reach__list__container{
-  display: none;
 }
 
 .obj_descr__text__descr__how_to_reach__list{
@@ -198,6 +198,10 @@
 .obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam{
   display: inline-block;
   padding: 19px 0 19px 0;
+}
+                  
+.obj_descr__text__descr__how_to_reachi__list__record__description{
+  display: none;
 }
 
 .obj_descr__text__descr__how_to_reach__list__author,

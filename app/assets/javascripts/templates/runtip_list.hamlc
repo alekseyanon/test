@@ -5,5 +5,5 @@
     Дата
   .obj_descr__text__descr__how_to_reach__list__rate
     Рейтинг
-- for runtip in @runtips
-  != JST['runtip'](runtip: runtip)
+  - for runtip in @runtips
+    != JST['runtip'](runtip: runtip)

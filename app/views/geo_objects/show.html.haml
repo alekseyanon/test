@@ -4,6 +4,7 @@
     .obj_descr__title
       %h1= @geo_object.title
     .obj_descr__gps
+      = render partial: 'shared/geo_list', locals: {tree: @geo_object.agc.titles}
       .smorodina-item__geo
         %span.icon.icon-marker.smorodina-item__geo__icon
         %ul.smorodina-item__geo__list
@@ -78,14 +79,16 @@
             = link_to '', history_geo_object_path(@geo_object), {class: 'icon-sm-history ui-link', title: 'История изменений'}
           .obj_descr__text__descr__adder__spam
             = render partial: 'shared/spam_to', locals: {spammable: @geo_object}
+
+
         .obj_descr__text__descr__how_to_reach{data: {id: @geo_object.id}}
-          = link_to 'Как добраться', '#' , {class: 'action-link ui-link runtip_switcher'}
-          .obj_descr__text__descr__how_to_reach__list__container
+          = link_to 'Как добраться', "#runtips_list", {class: 'action-link ui-link runtip_switcher', data:{toggle: "collapse", target: "#runtips_list"}}
+          .obj_descr__text__descr__how_to_reach__list__container.collapse#runtips_list
             .obj_descr__text__descr__how_to_reach__list__add
               = form_for([@geo_object, Runtip.new]) do |f|
                 .pic_comments__add__avatar
                   - unless current_user.nil?
-                    = image_tag current_user.profile.avatar_url(:image_commentor_thumb)
+                    = image_tag current_user.profile.avatar_url(:image_commentor_thumb), width: 48, height: 48
                 .pic_comments__add__input
                   = f.text_field :body, placeholder: 'Предложить вариант'
 
@@ -114,7 +117,7 @@
                       .obj_descr__text__descr__how_to_reachi__list__record__description__actions__vote
                         = render partial: 'shared/vote_for_simple', locals: {votable: runtip}
                       .obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam
-                        = render partial: 'shared/spam_to', locals: {spammable: @geo_object.images.first}
+                        = render partial: 'shared/spam_to', locals: {spammable: @geo_object}
 
 
 

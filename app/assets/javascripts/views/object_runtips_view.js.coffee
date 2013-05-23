@@ -8,25 +8,28 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
 
   initialize: ->
     _.bindAll(@)
-    object_id = $(@el).attr('data-id')
+    object_id = $(@el).attr 'data-id'
     @model = new Smorodina.Models.Runtip()
     @collection = new Smorodina.Collections.Runtips(@model, {url: "/objects/#{object_id}/runtips.json"})
 
+    @spinner = new Spinner Smorodina.Config.spinner
+
     $(@el).find('.obj_descr__text__descr__how_to_reach__list').html ''
-    $(@el).find('.obj_descr__text__descr__how_to_reach__list__container').slideDown()
 
     @collection.on 'sync', @render
+    @collection.on 'add', @render
     @collection.on 'request', @startRequest
 
     @collection.fetch()
 
   render: ->
+    @spinner.stop()
     rendered = @template runtips: @collection.toJSON()
     $(@el).find('.obj_descr__text__descr__how_to_reach__list').html rendered
     @
     
   startRequest: ->
-    console.log 'request started'
+    @spinner.spin($('.obj_descr__text__descr__how_to_reach__list').get 0)
 
   create_new_runtip: (e)->
     e.preventDefault()
@@ -36,7 +39,7 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
     @collection.create data,
       wait: true,
       success: ->
-        @render
+        $('.obj_descr__text__descr__how_to_reach__list__add form')[0].reset() 
       error: ->
         @handleCreationError
       
