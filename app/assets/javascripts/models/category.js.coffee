@@ -7,110 +7,101 @@ class Smorodina.Models.Category extends Backbone.Model
 
   initialize: ->
     _.bindAll(@)
-
+  
+  # При клике на категорию в дереве
   kickOff: ->
     @toggleSelected()
     wasSelected = @get('selected')
-    wasSemiSelected = @get('semiSelected')
-    @diselectSiblings() if wasSelected
-
+    @diselectDefaultSemisielections()
     @updateParent()
     
+    _.each @children(), (c)->
+      c.updateChildren 'semiSelected' : wasSelected, 'selected' : false, 'bordered' : false
+  
+  # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
+  updateByEmblem: (val)->
+    @set 'visibility' : val, 'semiSelected' : val
+    @cleanUnwantedStates 'semiSelected'
+    _.each @children(), (c)=>
+      c.updateByEmblem val
+
+  toggleSelected: ->
+    @cleanUnwantedStates 'selected'
+    @set 'selected' : !@get('selected')
+
+  # Снимется блеклое выделение по умолчанию
+  diselectDefaultSemisielections: ->
+    _.each @siblings(), (s)=>
+      if _.all(s.descendants_and_self(), (c)=> !c.get('semiSelected') and !c.get('bordered'))
+        s.updateChildren 'semiSelected', false 
+
+
+  updateParent: ->
+    # selected_siblings = _.filter @siblings_and_self(), (s)-> s.get('selected')
+    parent = @parent()
+    
+    # Снимаем все полувыделения с родителей, их соседей и потомков 
+    for s in (_.filter @siblings(), (s)-> s.get('semiSelected'))
+      s.updateChildren 'semiSelected', false 
+
+    if parent
+      change_state = false
+      # Выделяем родителя, если все дети были выделены
+      if _.all(@siblings_and_self(), (s)-> s.get 'selected' )
+        change_state = 'selected'
+      # Обводим родителя в рамку, если хоть один ребенок выделен
+      else if _.any(@siblings_and_self(), (s)-> s.get('selected') or s.get('bordered'))
+        change_state = 'bordered'
+      else 
+        parent.cleanUnwantedStates()
+      if change_state
+        parent.set change_state, true
+        parent.cleanUnwantedStates(change_state)
+      parent.updateParent()
+
+  updateChildren: (state, value="")->
+    if state instanceof Object
+      for k, v of state
+        @set k, v
+    else
+      @set state, value
     _.each @_getVisibleChildrenModels(), (c)=>
-      c.updateChildren 'semiSelected', wasSelected 
-      c.updateChildren 'selected', false
-      c.updateChildren 'bordered', false
-
-
-  cleanUnwantedStates: (exception)->
+      c.updateChildren state, value
+        
+  # Снимаем все выделения у элемента, кроме...
+  cleanUnwantedStates: (exception = "")->
     h = {}
     for state in ['selected', 'semiSelected', 'bordered']
       if state != exception
         h[state] = false
         @set h
 
-  toggleSelected: ->
-    @set 'selected' : !@get('selected'), 'semiSelected' : false, 'bordered' : false
+  siblings: ->
+    collection = if parent = @parent() 
+                   parent.children() 
+                 else
+                   @collection.where('parent_id' : 1)
+    _.filter collection, (m)=> m.id != @id
 
-  setSelected: ->
-    @set 'selected' : true, 'semiSelected' : false, 'bordered' : false
+  siblings_and_self: ->
+    @siblings().concat @
 
-  setSemiSelected: ->
-    @set 'semiSelected' : true, 'selected' : false, 'bordered' : false
+  parent: ->
+    @collection.findWhere(id: @get('parent_id'))
 
-  setUnselected: ->
-    @set 'semiSelected': false, 'selected' : false , 'bordered' : false
-
-  setBordered: ->
-    @set 'selected' : false, 'semiSelected' : false, 'bordered' : true
-
-  diselectSiblings: ->
-    _.each @_siblings(true), (s)=>
-      if _.all(s._getChildrenModels('full_tree' : true).concat(s), (c)=> !c.get('selected') and !c.get('bordered'))
-        s.updateChildren 'semiSelected', false 
+  children: (options = {})->
+    _.map @get('children'), (childId) => @collection.findWhere(id: childId)
   
+  descendants: ->
+    children     = @children()
+    new_children = []
+    for c in children
+      new_children.concat c.descendants()
+    new_children.concat children
 
-
-  updateParent: ->
-    selected_siblings      = _.filter @_siblings(), (s)-> s.get('selected')
-    semi_selected_siblings = _.filter @_siblings(), (s)-> s.get('semiSelected')
-    parent = @_getParentModel()
-    if _.any(@_siblings(), (s)-> s.get('bordered'))
-      semiSelectedSiblings = _.filter @_siblings(true), (s)-> s.get('semiSelected') 
-      for s in semiSelectedSiblings
-        s.updateChildren('semiSelected', false)
-
-    if parent
-      if selected_siblings.length + semi_selected_siblings.length == @_siblings().length
-        parent.setSelected()
-      else if _.filter(@_siblings(), (s)-> s.get('semiSelected') or s.get('selected') or s.get('bordered')).length > 0
-        parent.setBordered()
-      else 
-        parent.setUnselected()
-      parent.updateParent()
-
-  updateChildren: (state, value)->
-    console.log  state, value
-    @set state, value
-    _.each @_getVisibleChildrenModels(), (c)=>
-      c.updateChildren state, value
+  descendants_and_self: ->
+    @descendants().concat @
   
-  #При клике по категории в виде кнопки
-  updateByEmblem: (should_be_visible)->
-    @setSemiSelected() if should_be_visible
-    @set('visibility', should_be_visible)
-    _.each @_getChildrenModels(), (c)=>
-      c.updateByEmblem should_be_visible
-
-
-  _siblings: (except_itself = false)->
-    if parent = @_getParentModel()
-      if except_itself
-        _.filter parent._getChildrenModels(), (m)=> m.id != @id
-      else
-        parent._getChildrenModels()#, (m)=> m.id != @id 
-    else
-      if except_itself
-        _.filter @collection.where('parent_id' : 1), (m)=> m.id != @id
-      else
-        @collection.where('parent_id' : 1)#, (m)=> m.id != @id 
-
-  _getChildrenModels: (options = {})->
-    children = _.map @get('children'), (childId) => @collection.findWhere(id: childId)
-    if options['full_tree']
-      new_children = []
-      for c in children
-        new_children.concat c._getChildrenModels('full_tree' : true)
-      new_children.concat children
-    else
-      return children
-
-    
 
   _getVisibleChildrenModels: ->
-    _.filter @_getChildrenModels(), (m) -> m.get('visibility')
-
-  
-  _getParentModel: ->
-    @collection.findWhere id: @get('parent_id')
-
+    _.filter @children(), (m) -> m.get('visibility')

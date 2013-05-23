@@ -43,5 +43,3 @@ class Smorodina.Views.Category extends Backbone.View
 
   toggleSelected: ->
     @$el.toggleClass 'selected', @model.get('selected')
-
-
