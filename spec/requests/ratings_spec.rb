@@ -22,7 +22,7 @@ describe 'Ratings', js: true, type: :request do
   let!(:review){ Review.make!(user: user_without_vote) }
 
   it 'expert can be changed' do
-    visit review_path(review)
+    Capybara.visit review_path(review)
     page.find('#vote-up').click
     page.find('.up-vote').should have_content '1'
     page.find('.down-vote').should have_content '0'
@@ -31,7 +31,7 @@ describe 'Ratings', js: true, type: :request do
 
   it 'discoverer can be changed' do
     go = GeoObject.make! tag_list: 'reservoir'
-    visit geo_object_path(go)
+    Capybara.visit geo_object_path(go)
     page.find('#vote-up-reservoir').click
     page.find('.up-vote').should have_content '1'
     page.find('.down-vote').should have_content '0'
@@ -41,7 +41,7 @@ describe 'Ratings', js: true, type: :request do
   it 'photographer can be changed' do
     e = Event.make!
     img = Image.make!(imageable: e)
-    visit event_path(e)
+    Capybara.visit event_path(e)
     page.should have_selector('.event_image')
     page.find('#vote-up').click
     page.find('.up-vote').should have_content '1'
@@ -51,7 +51,7 @@ describe 'Ratings', js: true, type: :request do
 
   it 'commentator can be changed' do
     pending 'while voting without positive and negative numbers'
-    visit review_path(review)
+    Capybara.visit review_path(review)
     fill_in 'comment_body', with: 'abra cadabra'
     click_on 'Ответить'
     comment = Comment.last

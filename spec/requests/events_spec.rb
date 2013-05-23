@@ -26,12 +26,17 @@ describe "Events", js: true, type: :request do
   let(:event) { Event.make! repeat_rule: 'weekly', title: title, start_date: start_date, end_date: end_date }
 
   def fill_in_new
-    visit new_event_path
-    fill_in 'event_title', with: title
-    fill_in 'event_body', with: body
-    fill_in 'event_geom', with: 'POINT(10 10)'
-    fill_in 'event_tag_list', with: tags
-    select  'single', from: 'event_repeat_rule'
+    Capybara.visit new_event_path
+    unless page.has_selector? '#new_ecent'
+      Capybara.visit new_event_path
+    end
+    within '#new_event' do
+      fill_in 'event_title', with: title
+      fill_in 'event_body', with: body
+      fill_in 'event_geom', with: 'POINT(10 10)'
+      fill_in 'event_tag_list', with: tags
+      select  'single', from: 'event_repeat_rule'
+    end
   end
 
 
