@@ -66,9 +66,7 @@ describe "Events", js: true, type: :request do
   end
 
   it 'creates a new event' do
-    #create_new
-    fill_in_new
-    click_on 'Save'
+    create_new
     page.should have_content title
     page.should have_content body
     page.should have_content 'aaa'
