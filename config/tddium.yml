@@ -7,5 +7,5 @@
     :adapter: 'postgis'
     :config:
       postgis_extension: true
-      encoding: unicode
+      encoding: utf8
       pool: 5
