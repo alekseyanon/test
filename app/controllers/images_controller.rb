@@ -5,10 +5,10 @@ class ImagesController < InheritedResources::Base
   end
 
   def show
-    @image = Image.find(params[:id])
+    @image = Image.find params[:id]
     @image_total = @image.imageable.images.count
     @image_number = @image_total - @image.imageable.images.where('id < ?', @image.id).count
-    @comment_roots  = @image.comments.roots.order "created_at asc"
+    @comment_roots  = @image.comments.roots.order 'created_at asc'
 		respond_to do |format|
 			format.html
 			format.js
@@ -24,12 +24,8 @@ class ImagesController < InheritedResources::Base
     @image.user = current_user
     if @image.save
       respond_to do |format|
-        format.html {
-         redirect_to polymorphic_url([@parent])
-        }
-        format.json {
-          render :json => [@image.to_jq_upload].to_json
-        }
+        format.html { redirect_to polymorphic_url([@parent]) }
+        format.json { render json: [@image.to_jq_upload].to_json }
       end
     else
       respond_with do |format|
