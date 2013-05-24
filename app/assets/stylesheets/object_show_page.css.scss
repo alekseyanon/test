@@ -141,19 +141,45 @@
 }
 .obj_descr__text__descr__how_to_reach{
   margin: 42px 0 0 0;
+  min-width: 640px;
+  position: relative;
   .runtip_switcher{
     @include font-xlarge;
   }
     
 }
 
+.obj_descr__text__descr__how_to_reach__spinner{
+  position: absolute;
+  left: 0px;
+  top: 100px;
+  display: none;
+  width: 100%;
+  height: 100px;
+}
+
+          
+.obj_descr__text__descr__how_to_reach__list__container{
+}
+
 .obj_descr__text__descr__how_to_reach__list{
   margin-top: 27px;
+}
+        
+.obj_descr__text__descr__how_to_reach__list__add{
+  margin: 27px 0 0 21px;
+  @include clearfix;
 }
 
 .obj_descr__text__descr__how_to_reachi__list__record{
   border-top: 1px solid $siteLightGray;
   @include font-small;
+}
+
+.obj_descr__text__descr__how_to_reachi__list__record__author{
+  a{
+    font-weight: bold;
+  }
 }
           
 .obj_descr__text__descr__how_to_reach__list__author,
@@ -183,6 +209,10 @@
 .obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam{
   display: inline-block;
   padding: 19px 0 19px 0;
+}
+                  
+.obj_descr__text__descr__how_to_reachi__list__record__description{
+  display: none;
 }
 
 .obj_descr__text__descr__how_to_reach__list__author,
@@ -323,6 +353,29 @@
 .obj_descr__responces__responce__text__actions__vote{
   @include before-gray-dot;
   display: inline-block;
+}
+            
+.obj_descr__responces__responce__text__actions__comments{
+  .pic_comments{
+    margin-left: 0px;
+    .pic_comments__add{
+      margin-left: 0px;
+    }
+    .pic_comments__comment{
+      margin-left: 0px;
+    }
+  }
+  .pic_comments__add__controls{
+    input{
+      display: none;
+    }
+  } 
+
+  .pic_comments__add__input{
+    input{
+      padding: 14px 14px;
+    }
+  }
 }
       
 .obj_descr__responces__responce__text__more{

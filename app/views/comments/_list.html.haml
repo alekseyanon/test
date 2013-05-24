@@ -1,14 +1,19 @@
+
+- show_count = true if show_count.nil?
+- show_more = true if show_more.nil?
 .pic_comments
-  .pic_comments__count
-    .pic_comments__count__text
-      = commentable.comments.count
-      = Russian::p(commentable.comments.count, 'коментарий', 'коментария', 'коментариев')
+  - if show_count
+    .pic_comments__count
+      .pic_comments__count__text
+        = commentable.comments.count
+        = Russian::p(commentable.comments.count, 'коментарий', 'коментария', 'коментариев')
   .pic_comments__list
     - roots = commentable.comments.roots.order 'created_at asc'
     - roots.each do |root|
       = nested_comments root.subtree.arrange(order: :created_at)
   %a#add_comment_form
   = render partial: 'comments/add_comment', locals: {commentable: commentable, comment: commentable.comments.build, css_prefix: 'normal'}
-  .pic_comments__next
-    = link_to 'Показать ещё', '#', {class: 'button button_standard button_grey ui-link'}
+  - if show_more
+    .pic_comments__next
+      = link_to 'Показать ещё', '#', {class: 'button button_standard button_grey ui-link'}
 

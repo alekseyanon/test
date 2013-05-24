@@ -27,6 +27,7 @@
 /config/social_services.yml
 *.orig
 *.swp
+*.swo
 *~
 
 /public/uploads/

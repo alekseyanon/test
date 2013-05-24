@@ -1,18 +1,17 @@
-- rating = votable.plusminus
-
-- path = new_vote_polymorphic_path votable
-
-%div(class="pic_vote simple")
+- tag ||= ''
+- path = (tag.blank?) ? new_vote_polymorphic_path(votable, nil) : new_vote_polymorphic_path(votable, tag)
+- unvote_path = (tag.blank?) ? new_vote_polymorphic_path(votable, nil) : new_vote_polymorphic_path(votable, tag)
+%div{class: "pic_vote simple", data: {vote_url: "#{path}", unvote_url: "#{unvote_path}"}}
   .pic_vote__up
     = form_tag path, remote: !current_user.nil? do 
       = hidden_field_tag :sign, "up"
       = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
   .pic_vote__count.up
-    = rating
+    = votable.votes_for(tag.blank? ? nil : tag)
   .pic_vote__down
     = form_tag path, remote: !current_user.nil? do 
       = hidden_field_tag :sign, "down"
       = button_tag "", {class: "icon-thumbs-down ui-link"}
   .pic_vote__count.down
-    = rating
+    = votable.votes_against(tag.blank? ? nil : tag)
 

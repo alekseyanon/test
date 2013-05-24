@@ -1,0 +1,28 @@
+- @runtip.user ||= {username: 'username goes here', link_to_profile: '#link_to_profile_goes_here'}
+- @runtip.date ||= '15.11.2013'
+
+- @runtip.rating ||= {}
+- @runtip.rating.votes_for ||= 0
+- @runtip.rating.votes_against ||= 0
+- @runtip.rating.current_user_vote ||= 0
+- @runtip.rating.vote_for_link ||= '/link_for_vote_up'
+- @runtip.rating.vote_against_link ||= '/link_for_vote_down'
+- @runtip.rating.vote_reset_link ||= '/link_for_reset_vote'
+
+.obj_descr__text__descr__how_to_reachi__list__record
+  .obj_descr__text__descr__how_to_reachi__list__record__author
+    != JST['username_link'](user: @runtip.user)
+  .obj_descr__text__descr__how_to_reachi__list__record__date
+    = @runtip.date
+  .obj_descr__text__descr__how_to_reachi__list__record__rate
+    != JST['vote_for_simple'](rating: @runtip.rating)
+  .obj_descr__text__descr__how_to_reachi__list__record__description
+    .obj_descr__text__descr__how_to_reachi__list__record__description__text
+      = @runtip.body
+    .obj_descr__text__descr__how_to_reachi__list__record__description__actions
+      .obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct
+        Вариант полезен?
+      .obj_descr__text__descr__how_to_reachi__list__record__description__actions__vote
+      .obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam
+
+
