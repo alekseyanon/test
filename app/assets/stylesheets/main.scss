@@ -1311,10 +1311,6 @@ a:hover,
   text-align: left;
 }
 
-.search-filter__second-level {
-  display: none;
-}
-
 .search-filter__second-level.selected {
 display: block;
 }
@@ -1330,6 +1326,10 @@ display: block;
 
 .search-filter__second-level li.semi-selected > .filter-category__text {
   background-color: pink;
+}
+
+.search-filter__second-level li.bordered > .filter-category__text {
+  border: 1px solid;
 }
 
 /* ---------------------------------------- SEARCH FILTER END ----------------------------------- */

@@ -6,10 +6,14 @@ class Smorodina.Views.Category extends Backbone.View
 
   initialize: ->
     _.bindAll(@)
-    @model.on 'change', @toggleSelected
+    @model.on 'change:visibility', @toggleVisibility
+    @model.on 'change:selected', @toggleSelected
+    @model.on 'change:semiSelected', @toggleSemiSelected
+    @model.on 'change:bordered', @toggleBordered
 
   render: ->
     @$el.append @template @model.toJSON()
+    @model.set('visibility', false)
     subLevel = @model.collection.where(depth: @model.get('depth') + 1, parent_id: @model.get('id'))
     @renderSubLevel(subLevel) if subLevel.length
     @
@@ -27,6 +31,15 @@ class Smorodina.Views.Category extends Backbone.View
     @model.kickOff()
     e.stopPropagation()
 
-  toggleSelected: ->
+  toggleVisibility: (model, val)->
+    @$el.toggle val 
+    
+  toggleBordered: ->
+    @$el.toggleClass 'bordered', @model.get('bordered')
+
+  toggleSemiSelected: ->
     @$el.toggleClass 'semi-selected', @model.get('semiSelected')
+
+
+  toggleSelected: ->
     @$el.toggleClass 'selected', @model.get('selected')
