@@ -2563,7 +2563,7 @@ li{
 }
 
 
-.feedback-modal{
+.small-modal{
   width: 600px;
   .modal-header{
     h3{
@@ -2576,6 +2576,16 @@ li{
         font-weight:100;
       }
     }
+    .radios{
+      padding-left:30px;
+      margin-top:15px;
+      input{
+        margin-right:8px;
+      }
+      .right{
+        margin-left:30px;
+      }
+    }
     height:10px;
     background-color: #9428b6;
   }
@@ -2583,14 +2593,48 @@ li{
     overflow:visible;
     padding:30px;
     padding-bottom:15px;
+    .divider{
+      height: 5px;
+      width: 540px;
+      border-bottom: 1px solid $lightgrey;
+      margin-bottom: 5px;
+    }
+    .uploader{
+      height: 180px;
+    }
     .input{
       height:30px;
       width:524px;
     }
+    .file-hide{
+      position:absolute;
+      left: -99999px;
+      opacity:0.0;
+      filter:alpha(opacity=0);
+    }
+    .fileinput, .hdr, .fileinput-url, .fileinput-url-button{
+      margin-top:15px;
+    }
+    .fileinput-button, .hdr, .fileinput-url-button{
+      font-size:14px;
+      font-weight:bold;
+    }
+    .fileinput-url{
+      
+    }
+    .fileinput-description{
+      color: $darkgrey;
+      line-height:38px;
+      padding-left:15px;
+    }
+    img{
+      max-width: 240px;
+      max-height: 160px;
+    }
     textarea.input{
       height: 105px;
     }
-    .feedback-form__button{
+    .small-form__button{
       padding-top:25px;
       display:inline-block;
       button{
@@ -2611,7 +2655,11 @@ li{
     }
   }
 }
-
+#newimage{
+  .modal-header{
+    margin-bottom: 65px;
+  }
+}
 /* ---------------------------------------- PASSWORD FORMS START --------------------------------- */
 
 .password-form__description {

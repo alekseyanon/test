@@ -1,4 +1,4 @@
-%div#feedback.feedback-modal.modal.hide.fade
+%div#feedback.small-modal.modal.hide.fade
   %div.modal-header
     %h3
       Обратная связь
@@ -13,8 +13,8 @@
           %input.input{ type: 'text', placeholder: 'Имя', name: 'feedback[name]'}
         %div.form-field
           %textarea.input{ placeholder: 'Сообщение', name: 'feedback[content]'}
-        %div.feedback-form__button
-          %button.btn.btn_rounded{ type: 'submit' }
+        %div.small-form__button
+          %button.btn{ type: 'submit' }
             Отправить
           %div.form-cancel
             или
