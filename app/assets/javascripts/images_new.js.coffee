@@ -1,55 +1,69 @@
-$(document).ready ->
-  $(".file-hide").fileupload
-    uploadTemplateId: null,
-    downloadTemplateId: null,
-    uploadTemplate: (o) ->
-      ""
-    downloadTemplate: (o) ->
-      ""
-    add: (e, data) ->
-      $.each data.files, (index, file) ->
-        $(".fileinput-description").html file.name
-        reader = new FileReader
-        reader.onload = (e) ->
-          $("#preview").attr "src", e.target.result
-          $("div.fileinput").hide()
-          $(".subm").removeAttr "disabled"
+class Smorodina.Views.ImageNew extends Backbone.View
+  el: '#newimage'
+  
+  events:
+    'click .fileinput-button'         : 'uploadOpen'
+    'change .uploadtype'              : 'changeUploadType'
+    'imageChange #preview'            : 'hideInputs'
+    'click .fileinput-url-button'     : 'fileUrlChange'
+  
+  initialize: ->
+    this.render('uploader_file')
+    this.submBindFile()
+    this.reader = new FileReader
+    this.reader.onload = (e) ->
+      $("#preview").attr "src", e.target.result
+      $('#preview').trigger('imageChange')
+  
+  fileinputChange: (file) ->
+    filename = file.name
+    if filename.match(/\.(jpg|jpeg|gif|png)$/)
+      this.$el.find('.fileinput-description').html(filename)
+      this.reader.readAsDataURL file
+    else
+      this.$el.find('.fileinput-description').html("Неправильный формат файла")
+    
+  fileUrlChange: (e) ->
+    e.preventDefault()
+    if $(".file-url").val().match(/\.(jpg|jpeg|gif|png)$/)
+      if $(".file-url").val() isnt ""
+        $("#preview").attr "src", $(".file-url").val()
+        $('#preview').trigger('imageChange')
+  
+  hideInputs: -> 
+    this.$el.find('.fileinput').hide()
+    this.$el.find('.fileinput-url').hide()
+    this.$el.find(".subm").removeAttr "disabled"
+    
+  
+  submBindFile: ->
+    $(".subm").unbind()
+    th = this
+    this.$el.find(".file-hide").fileupload
+      uploadTemplateId: null,
+      downloadTemplateId: null,
+      uploadTemplate: (o) ->
+        ""
+      downloadTemplate: (o) ->
+        ""
+      add: (e, data) ->
+        $.each data.files, (index, file) ->
+          th.fileinputChange(file)
           $(".subm").click (event) ->
             event.preventDefault()
+            $(this).attr "disabled", "disabled"
             jqXHR = data.submit().complete((result, textStatus, jqXHR) ->
               $("#newimage").modal show: false
               location.reload()
             )
-        reader.readAsDataURL file
-      
-  $(".fileinput-button").click (e) ->
-    e.preventDefault()
-    $(".file-hide").click()
-  
-  $(".uploadtype").change ->
-    $("#preview").attr "src", ""
+            
+  submBindUrl: ->
     $(".subm").unbind()
-    $(".subm").attr "disabled", "disabled"
-    if $(this).val() is "pc"
-      $(".fileinput-url").hide()
-      $('.file-url').val ""
-      $(".fileinput").show()
-    else
-      $(".fileinput").hide()
-      filec = $(".file-hide")
-      newfilec = filec.clone true
-      filec.replaceWith newfilec
-      $(".fileinput-description").html "Файл не выбран"
-      $(".fileinput-url").show()
-  $(".fileinput-url-button").click (e) ->
-    e.preventDefault()
-    $("#preview").attr "src", $('.file-url').val()
-    $(".fileinput-url").hide()
-    $(".subm").removeAttr "disabled"
-    $("#new_image").submit (event) ->
+    $(".subm").click (event) ->
       event.preventDefault()
+      $(this).attr "disabled", "disabled"
       formData = $("#new_image").serializeArray()
-      $form = $(this)
+      $form = $("#new_image")
       file_url = $('.file-url').val()
       url = $form.attr "action"
       $.ajax(
@@ -59,4 +73,25 @@ $(document).ready ->
       ).done (msg) ->
          $("#newimage").modal show: false
          location.reload()
-              
+  
+  changeUploadType: ->
+    utype = this.$el.find('.uploadtype:checked').val()
+    if utype is "pc"
+      this.render('uploader_file')
+      this.submBindFile()
+    else
+      this.render('uploader_url')
+      this.submBindUrl()
+  
+  uploadOpen: (e) ->
+    e.preventDefault()
+    this.$el.find(".file-hide").click()
+  
+  render: (tmpl_name) ->
+    this.$el.find(".subm").attr "disabled", "disabled"
+    template = JST[tmpl_name]
+    this.$el.find('.content').html template
+  
+$(document).ready ->
+  $("#newimage").on "shown", ->
+    new Smorodina.Views.ImageNew
