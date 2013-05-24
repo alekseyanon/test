@@ -4,7 +4,4 @@
   %span.fileinput-description
     Файл не выбран
 %img#preview
-%input.file-hide
-  type: 'file'
-  id:'fileupload'
-  name:'image[image]'
+%input.file-hide{ type: 'file',id:'fileupload',name:'image[image]'}

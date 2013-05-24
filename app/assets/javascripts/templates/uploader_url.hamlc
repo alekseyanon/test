@@ -1,9 +1,5 @@
 %div.fileinput-url
-  %input.input.file-url
-    type: 'text'
-    id: 'fileupload-url'
-    name: 'image[remote_image_url]'
-    placeholder: 'URL изображения'
+  %input.input.file-url{type: 'text',id: 'fileupload-url',name: 'image[remote_image_url]',placeholder: 'URL изображения'}
   %button.btn.fileinput-url-button
     Загрузить
 %img#preview
