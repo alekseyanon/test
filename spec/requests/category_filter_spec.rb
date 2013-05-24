@@ -92,6 +92,18 @@ describe "Category filter", js: true, type: :request do
       page.all('li.selected').size.should == 3
       page.should have_selector('li.selected span[data-facet=downhill_skiing_boarding]')
     end
+    
+    it "doesn't deselect semi-selected categories" do
+      click_emblem 'sightseeing'
+      click_category 'nature'
+      click_category 'culture'
+      click_category 'religion'
+      given_size    = page.all('li.semi-selected').size
+      click_category 'activities'
+      click_category 'activities'
+      expected_size = page.all('li.semi-selected').size
+      given_size.should == expected_size 
+    end
 
   end
 

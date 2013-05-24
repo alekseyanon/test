@@ -12,7 +12,6 @@ class Smorodina.Models.Category extends Backbone.Model
   kickOff: ->
     @toggleSelected()
     wasSelected = @get('selected')
-    @deselectDefaultSemisielections()
     @updateParent()
     
     _.each @children(), (c)->
@@ -29,15 +28,8 @@ class Smorodina.Models.Category extends Backbone.Model
     @cleanUnwantedStates 'selected'
     @set 'selected' : !@get('selected')
 
-  # Снимется блеклое выделение по умолчанию
-  deselectDefaultSemisielections: ->
-    _.each @siblings(), (s)=>
-      if _.all(s.descendants_and_self(), (c)=> !c.get('semiSelected') and !c.get('bordered'))
-        s.updateChildren 'semiSelected', false 
-
 
   updateParent: ->
-    # selected_siblings = _.filter @siblings_and_self(), (s)-> s.get('selected')
     parent = @parent()
     
     # Снимаем все полувыделения с родителей, их соседей и потомков 
