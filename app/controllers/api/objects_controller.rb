@@ -11,4 +11,8 @@ class Api::ObjectsController < ApplicationController
     render json: ld.to_json( extra: { teaser: params[:teaser] } )
   end
 
+  def runtips
+    @runtips = GeoObject.find(params[:geo_object_id]).runtips
+    logger.debug "runtips = #{@runtips} -------------------------------"
+  end
 end
