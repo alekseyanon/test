@@ -30,10 +30,12 @@ module ApplicationHelper
 
   def new_complaint_polymorphic_path votable
     new_polymorphic_path( if votable.is_a? Comment
-                            [votable.commentable, votable, votable.complaints.build]
+                            [votable.commentable]
+                          elsif votable.is_a? Runtip
+                            [votable.geo_object ]
                           else
-                            [votable, votable.complaints.build]
-                          end )
+                            []
+                          end + [votable, votable.complaints.build])
   end
 
   ### TODO: предполагаем что параметров может быть до 3-х
@@ -52,10 +54,10 @@ module ApplicationHelper
                    [votable.geo_object]
                  else
                    []
-                 end  << [votable, votable.votes.build]
-    params.each do |p|
+                 end  + [votable, votable.votes.build]
+    params.compact.each do |p|
       options.merge!((p.is_a? String) ? {votable_tag: p} : p)
     end
-    polymorphic_path *(args.push options)
+    polymorphic_path args, options
   end
 end
