@@ -43,4 +43,9 @@ module ApplicationHelper
                         [votable, votable.votes.build]
                       end )
   end
+
+  def ip_location ip
+    (@sx_geo ||= SxGeo.new).get(ip)
+  end
+
 end
