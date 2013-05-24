@@ -36,13 +36,23 @@ module ApplicationHelper
                           end )
   end
 
-  def new_vote_polymorphic_path votable
-    polymorphic_path( if votable.is_a? Comment
-                        [votable.commentable, votable, votable.votes.build]
-                      elsif votable.is_a? Runtip
-                        [votable.geo_object, votable, votable.votes.build]
-                      else
-                        [votable, votable.votes.build]
-                      end )
+  ### TODO: предполагаем что параметров может быть до 3-х
+  ### votable - модель за которую голосуем
+  ### *params может содержать тег модели за которую голосуем
+  ### и формат данных(json)
+  ### !!!ФОРМАТ ДОЛЖЕН БЫТЬ ПОСЛЕДНИМ ПАРАМЕТРОМ
+  def new_vote_polymorphic_path votable, *params
+    options = {}
+    args = [] << if votable.is_a? Comment
+                   [votable.commentable, votable, votable.votes.build]
+                 elsif votable.is_a? Runtip
+                   [votable.geo_object, votable, votable.votes.build]
+                 else
+                   [votable, votable.votes.build]
+                 end
+    params.each do |p|
+      options.merge!((p.class == String) ? {votable_tag: p} : p)
+    end
+    polymorphic_path *(args.push options)
   end
 end
