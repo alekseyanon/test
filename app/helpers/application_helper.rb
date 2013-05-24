@@ -40,18 +40,21 @@ module ApplicationHelper
   ### votable - модель за которую голосуем
   ### *params может содержать тег модели за которую голосуем
   ### и формат данных(json)
-  ### !!!ФОРМАТ ДОЛЖЕН БЫТЬ ПОСЛЕДНИМ ПАРАМЕТРОМ
+  ### new_vote_polymorphic_path @geo_object
+  ### new_vote_polymorphic_path @geo_object, format: :json
+  ### new_vote_polymorphic_path @geo_object, 'tag'
+  ### new_vote_polymorphic_path @geo_object, 'tag', format: :json
   def new_vote_polymorphic_path votable, *params
     options = {}
-    args = [] << if votable.is_a? Comment
-                   [votable.commentable, votable, votable.votes.build]
+    args =  if votable.is_a? Comment
+                   [votable.commentable]
                  elsif votable.is_a? Runtip
-                   [votable.geo_object, votable, votable.votes.build]
+                   [votable.geo_object]
                  else
-                   [votable, votable.votes.build]
-                 end
+                   []
+                 end  << [votable, votable.votes.build]
     params.each do |p|
-      options.merge!((p.class == String) ? {votable_tag: p} : p)
+      options.merge!((p.is_a? String) ? {votable_tag: p} : p)
     end
     polymorphic_path *(args.push options)
   end
