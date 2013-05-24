@@ -10,7 +10,12 @@ Smorodina::Application.routes.draw do
     get 'agus/search'
     match 'objects/:id/nearby' => 'objects#nearby'
     match 'objects/:id' => 'objects#show'
-    match 'objects/:geo_object_id/runtips/:id' => 'objects#runtips'
+    resources :objects do
+      resources :runtips
+      resources :reviews do
+        resources :comments
+      end
+    end
   end
 
   match '/users/auth/:provider/callback', to: 'authentications#create'
