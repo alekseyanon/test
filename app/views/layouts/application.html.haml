@@ -36,4 +36,4 @@
     = request.remote_ip
     Ваш город:
     - location = ip_location(request.remote_ip)
-    = location ? location['city'] : 'Не определен'
+    = location ? location['city'].force_encoding('UTF-8') : 'Не определен'
