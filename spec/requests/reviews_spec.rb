@@ -11,7 +11,7 @@ describe "Reviews", js: true, type: :request do
 
   before :each do
     login
-    page.should have_content('Вход в систему выполнен')
+    page.find('#notice').should have_content('Вход в систему выполнен')
   end
 
   after :all do

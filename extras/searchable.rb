@@ -18,7 +18,7 @@ module Searchable
     # @param [String, Hash] query 'query string' or {text: 'query string', geom: RGeo::Feature::Point, r: radius}
     #     or {text: 'query string', x: latitude, y: longitude, r: radius}
     #     or {facets: 'food,lodging', text: 'query string', x: latitude, y: longitude, r: radius}
-    #     or {text: 'query string', x: latitude, y: longitude, r: radius, sort_by: rate}
+    #     or {text: 'query string', x: latitude, y: longitude, r: radius, sort_by: rating}
     # @return ActiveRecord::Relation all matching descriptions
     def search(query)
       return all unless query && !query.empty?
@@ -38,7 +38,6 @@ module Searchable
         chain = chain.in_place(query[:place_id]) if query[:place_id]
         text = query[:text]
         chain = chain.within_date_range query[:from], query[:to] if query[:from]
-        chain = chain.order('rating desc, created_at')  if query[:sort_by] == 'rate'
       end
       chain = chain.text_search(text) unless text.blank?
       if self.kind_of? GeoObject

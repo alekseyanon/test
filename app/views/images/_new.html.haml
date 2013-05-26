@@ -1,0 +1,15 @@
+%div#newimage.small-modal.modal.hide.fade
+  %div.modal-header
+    %h3
+      Загрузить фото
+      %a.close{data: {dismiss: 'modal'}}
+        &times;
+    %div.radios
+      %input.uploadtype{type: 'radio', name: 'dl_type', value: 'pc', checked: 'true'}
+      С Этого компьютера
+      %input.uploadtype.right{type: 'radio', name: 'dl_type', value: 'url'}
+      Из интернета (URL)
+  %div.modal-body
+    %div.divider
+    %div
+      = render partial: 'images/form', locals: { obj: object }

@@ -20,7 +20,7 @@ describe 'Videos', js: true, type: :request do
 
   it 'can be attached to events' do
     e = Event.make!
-    visit event_path(e)
+    Capybara.visit event_path(e)
     click_on 'Add video'
     page.current_path.should == new_event_video_path(e)
     page.find('#you_tube_url').set youtube_url
@@ -31,7 +31,7 @@ describe 'Videos', js: true, type: :request do
 
   it 'can be attached to GeoObject' do
     go = GeoObject.make!(tag_list: [Category.make!.name])
-    visit geo_object_path(go)
+    Capybara.visit geo_object_path(go)
     click_on 'Add video'
     page.current_path.should == new_geo_object_video_path(go)
     page.find('#you_tube_url').set youtube_url
