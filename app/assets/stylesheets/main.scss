@@ -2294,12 +2294,10 @@ display: block;
     .pic_vote__up{
       button, a{
         padding: 0;
-        color: $siteGreen;
         &:hover{
-          color: $lightblue;
+          color: $siteGreen;
         }
         &:visited{
-          color: $siteGreen;
         }
       }
        
@@ -2307,12 +2305,10 @@ display: block;
     .pic_vote__down{
       button, a{
         padding: 0;
-        color: $siteRed;
         &:hover{
-          color: $lightblue;
+          color: $siteRed;
         }
         &:visited{
-          color: $siteRed;
         }
       }
     }

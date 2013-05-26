@@ -1,16 +1,27 @@
-- tag ||= nil
-- path = unvote_path = new_vote_polymorphic_path votable, tag
-%div{class: "pic_vote simple", data: {vote_url: "#{path}", unvote_url: "#{unvote_path}"}}
+- tag_name ||= nil
+- path = new_vote_polymorphic_path votable, tag_name, format: :json
+
+- user_vote = current_user ? current_user.get_vote(votable) : 0
+
+- user_css = ''
+- user_css = 'voted_down' if user_vote == -1
+- user_css = 'voted_up' if user_vote == 1
+
+- p '-------------------------------'
+- puts tag_name
+- p '-------------------------------'
+
+%div{class: "pic_vote simple #{user_css}", data: {vote_url: "#{path}", user_vote: user_vote}}
   .pic_vote__up
-    = form_tag path, remote: !current_user.nil? do 
+    = form_tag path do 
       = hidden_field_tag :sign, "up"
       = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit"}
   .pic_vote__count.up
-    = votable.votes_for(tag.blank? ? nil : tag)
+    = votable.votes_for(tag_name)
   .pic_vote__down
-    = form_tag path, remote: !current_user.nil? do 
+    = form_tag path do 
       = hidden_field_tag :sign, "down"
       = button_tag "", {class: "icon-thumbs-down ui-link"}
   .pic_vote__count.down
-    = votable.votes_against(tag.blank? ? nil : tag)
+    = votable.votes_against(tag_name)
 

@@ -5,9 +5,7 @@
 - @runtip.rating.votes_for ||= 0
 - @runtip.rating.votes_against ||= 0
 - @runtip.rating.current_user_vote ||= 0
-- @runtip.rating.vote_for_link ||= '/link_for_vote_up'
-- @runtip.rating.vote_against_link ||= '/link_for_vote_down'
-- @runtip.rating.vote_reset_link ||= '/link_for_reset_vote'
+- @runtip.rating.vote_url ||= '/link_for_vote_up'
 
 .obj_descr__text__descr__how_to_reachi__list__record
   .obj_descr__text__descr__how_to_reachi__list__record__author

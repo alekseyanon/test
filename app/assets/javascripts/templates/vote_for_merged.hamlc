@@ -1,0 +1,28 @@
+- @rating ||= {}
+- @rating.votes_for ||= 0
+- @rating.votes_against ||= 0
+- @rating.current_user_vote ||= 0
+- @rating.vote_url ||= 'vote_url_goes_here'
+
+- rating = @rating.votes_for - @rating.votes_against
+
+- css_prefix = ''
+- css_prefix = "pic_vote_positive" if rating > 0
+- css_prefix = "pic_vote_negative" if rating < 0
+
+- user_css = ''
+- user_css = 'voted_down' if @rating.current_user_vote == -1
+- user_css = 'voted_up' if @rating.current_user_vote == 1
+
+%div{class: "pic_vote #{css_prefix} #{user_css}" data: {vote_url: @rating.vote_url, user_vote: @rating.current_user_vote}}
+  .pic_vote__up
+    = form_tag @rating.vote_url do 
+      = hidden_field_tag :sign, "up"
+      = button_tag "", {class: "icon-thumbs-up ui-link", type: "submit", title: "Мне нравится"}
+  .pic_vote__count
+    = rating
+  .pic_vote__down
+    = form_tag @rating.vote_url do 
+      = hidden_field_tag :sign, "down"
+      = button_tag "", {class: "icon-thumbs-down ui-link", title: "Мне не нравится"}
+

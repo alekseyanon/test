@@ -1,21 +1,15 @@
-- up_path = @rating.vote_for_link
-- down_path = @rating.vote_against_link
-
-- if @rating.current_user_vote == 1
-  - up_path = @rating.vote_reset_link
-
-- if @rating.current_user_vote == -1
-  - down_path = @rating.vote_reset_link
-
-.pic_vote.simple
+- user_css = ''
+- user_css = 'voted_down' if @rating.current_user_vote == -1
+- user_css = 'voted_up' if @rating.current_user_vote == 1
+%div{class: "pic_vote simple #{user_css}", data: {vote_url: @rating.vote_url, user_vote: @rating.current_user_vote}}
   .pic_vote__up
-    %form(method="post" action="#{up_path}" accept-charset="UTF-8")
+    %form(method="post" action="#{@rating.vote_url}" accept-charset="UTF-8")
       %input(type="hidden" value="up" name="sign" id="sign")
       %button(type="submit" name="button" class="icon-thumbs-up ui-link")
   .pic_vote__count.up
     = @rating.votes_for
   .pic_vote__down
-    %form(method="post" action="#{down_path}" accept-charset="UTF-8")
+    %form(method="post" action="#{@rating.vote_url}" accept-charset="UTF-8")
       %input(type="hidden" value="down" name="sign" id="sign")
       %button(type="submit" name="button" class="icon-thumbs-down ui-link")
   .pic_vote__count.down

@@ -5,6 +5,7 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
 
   events:
     'submit .obj_descr__text__descr__how_to_reach__list__add form' : 'create_new_runtip'
+    'click .obj_descr__text__descr__how_to_reachi__list__record' : 'show_runtip'
 
   initialize: ->
     _.bindAll(@)
@@ -49,4 +50,15 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
       
 
   handleCreationError: ->
-    console.logr 'Some errors happened!'
+    console.log 'Some errors happened!'
+
+  show_runtip: (e)->
+    current = $(e.currentTarget)
+    if current.hasClass 'opened'
+      current.removeClass 'opened'
+      current.find('.obj_descr__text__descr__how_to_reachi__list__record__description').slideUp()
+    else
+      current.addClass 'opened'
+      current.find('.obj_descr__text__descr__how_to_reachi__list__record__description').slideDown()
+
+
