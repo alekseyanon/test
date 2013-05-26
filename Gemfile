@@ -21,6 +21,8 @@ gem 'pg_search'
 
 gem 'kaminari'
 
+gem 'rabl'
+
 ################## views #########################
 gem 'simple_form'
 gem 'haml-rails'
