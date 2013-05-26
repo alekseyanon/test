@@ -1,7 +1,6 @@
 node :complaint do |r|
-  # TODO: remove these stubs 
   {
-    url: "some/path" ,
-    current_user: true
+    url: new_complaint_polymorphic_path(r),
+    current_user: r.complaints.exists?(user_id: current_user.id)
   }
 end
