@@ -1,5 +1,7 @@
 Smorodina::Application.routes.draw do
 
+  get 'ratings/list'
+
   namespace :api do
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
@@ -8,6 +10,12 @@ Smorodina::Application.routes.draw do
     get 'agus/search'
     match 'objects/:id/nearby' => 'objects#nearby'
     match 'objects/:id' => 'objects#show'
+    resources :objects do
+      resources :runtips
+      resources :reviews do
+        resources :comments
+      end
+    end
   end
 
   match '/users/auth/:provider/callback', to: 'authentications#create'

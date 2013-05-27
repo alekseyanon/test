@@ -15,6 +15,7 @@
 #= require jquery_ujs
 #= require jquery.ui.all
 #= require jquery-datetimepicker
+#= require jquery-fileupload
 #= require chosen-jquery
 #= require moment
 #= require bootstrap

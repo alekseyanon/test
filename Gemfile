@@ -21,6 +21,8 @@ gem 'pg_search'
 
 gem 'kaminari'
 
+gem 'rabl'
+
 ################## views #########################
 gem 'simple_form'
 gem 'haml-rails'
@@ -85,6 +87,7 @@ gem 'jquery-ui-rails'
 gem 'rails_jquery_ui_datepicker'
 gem 'spinjs-rails'
 gem 'momentjs-rails'
+gem 'jquery-fileupload-rails'
 
 gem 'capistrano'
 gem 'rvm-capistrano'

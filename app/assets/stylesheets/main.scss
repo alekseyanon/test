@@ -1328,10 +1328,6 @@ a:hover,
   text-align: left;
 }
 
-.search-filter__second-level {
-  display: none;
-}
-
 .search-filter__second-level.selected {
 display: block;
 }
@@ -1347,6 +1343,10 @@ display: block;
 
 .search-filter__second-level li.semi-selected > .filter-category__text {
   background-color: pink;
+}
+
+.search-filter__second-level li.bordered > .filter-category__text {
+  border: 1px solid;
 }
 
 /* ---------------------------------------- SEARCH FILTER END ----------------------------------- */
@@ -2472,7 +2472,7 @@ display: block;
 }
 
 
-.feedback-modal{
+.small-modal{
   width: 600px;
   .modal-header{
     h3{
@@ -2485,6 +2485,16 @@ display: block;
         font-weight:100;
       }
     }
+    .radios{
+      padding-left:30px;
+      margin-top:15px;
+      input{
+        margin-right:8px;
+      }
+      .right{
+        margin-left:30px;
+      }
+    }
     height:10px;
     background-color: #9428b6;
   }
@@ -2492,14 +2502,48 @@ display: block;
     overflow:visible;
     padding:30px;
     padding-bottom:15px;
+    .divider{
+      height: 5px;
+      width: 540px;
+      border-bottom: 1px solid $lightgrey;
+      margin-bottom: 5px;
+    }
+    .uploader{
+      height: 180px;
+    }
     .input{
       height:30px;
       width:524px;
     }
+    .file-hide{
+      position:absolute;
+      left: -99999px;
+      opacity:0.0;
+      filter:alpha(opacity=0);
+    }
+    .fileinput, .hdr, .fileinput-url, .fileinput-url-button{
+      margin-top:15px;
+    }
+    .fileinput-button, .hdr, .fileinput-url-button{
+      font-size:14px;
+      font-weight:bold;
+    }
+    .fileinput-url{
+      
+    }
+    .fileinput-description{
+      color: $darkgrey;
+      line-height:38px;
+      padding-left:15px;
+    }
+    img{
+      max-width: 240px;
+      max-height: 160px;
+    }
     textarea.input{
       height: 105px;
     }
-    .feedback-form__button{
+    .small-form__button{
       padding-top:25px;
       display:inline-block;
       button{
@@ -2520,7 +2564,11 @@ display: block;
     }
   }
 }
-
+#newimage{
+  .modal-header{
+    margin-bottom: 65px;
+  }
+}
 /* ---------------------------------------- PASSWORD FORMS START --------------------------------- */
 
 .password-form__description {
