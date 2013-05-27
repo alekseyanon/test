@@ -12,7 +12,7 @@
 - up_form_method = user_vote > 0 ? 'delete' : 'post'
 - down_form_method = user_vote < 0 ? 'delete' : 'post'
 
-%div{class: "pic_vote #{css_prefix} #{user_css}" data: {vote_url: path, user_vote: user_vote}}
+%div{class: "pic_vote #{css_prefix} #{user_css}", data: {vote_url: path, user_vote: user_vote}}
   .pic_vote__up
     = form_tag path do 
       = hidden_field_tag :sign, "up"
