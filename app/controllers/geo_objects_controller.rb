@@ -7,7 +7,7 @@ class GeoObjectsController < ApplicationController
   respond_to :html, except: [:coordinates, :nearest_node, :count]
 
   def sanitize_search_params(params)
-    params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets, :sort_by) #TODO consider using ActiveRecord for this
+    params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets, :sort_by, :agc_id) #TODO consider using ActiveRecord for this
   end
 
   def history

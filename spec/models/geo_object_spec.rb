@@ -50,5 +50,15 @@ describe GeoObject do
         let(:osm){ Osm::Node.make! geom: Geo::factory.point(10, 10) }
       end
     end
+
+    context 'for queries with agc_id' do
+      it 'searches with agc_id' do
+        g = GeoObject.last
+        id = g.create_agc.id
+        g.save!
+        described_class.search(agc_id: id).length.should == 1
+      end
+    end
+
   end
 end
