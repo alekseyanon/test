@@ -56,7 +56,7 @@ module ApplicationHelper
                    []
                  end  + [votable, votable.votes.build]
     params.compact.each do |p|
-      options.merge!((p.is_a? String) ? {votable_tag: p} : p)
+      options.merge!((p.is_a? String) ? {voteable_tag: p} : p)
     end
     polymorphic_path args, options
   end
