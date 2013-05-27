@@ -1,9 +1,3 @@
-- @rating ||= {}
-- @rating.votes_for ||= 0
-- @rating.votes_against ||= 0
-- @rating.current_user_vote ||= 0
-- @rating.vote_url ||= 'vote_url_goes_here'
-
 - rating = @rating.votes_for - @rating.votes_against
 
 - css_prefix = ''

@@ -11,15 +11,16 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
     _.bindAll(@)
     object_id = $(@el).attr 'data-id'
     @model = new Smorodina.Models.Runtip()
-    @collection = new Smorodina.Collections.Runtips(@model, {url: "/objects/#{object_id}/runtips.json"})
+    @collection = new Smorodina.Collections.Runtips(@model, {url: "/api/objects/#{object_id}/runtips.json"})
 
     @spinner = new Spinner Smorodina.Config.spinner
 
     $(@el).find('.obj_descr__text__descr__how_to_reach__list').html ''
 
     @collection.on 'sync', @render
-    @collection.on 'add', @render
+    #@collection.on 'add', @render
     @collection.on 'request', @startRequest
+    console.log @parent
 
   start: ->
     @collection.fetch()
@@ -29,6 +30,7 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
     $('.obj_descr__text__descr__how_to_reach__spinner').hide()
     rendered = @template runtips: @collection.toJSON()
     $(@el).find('.obj_descr__text__descr__how_to_reach__list').html rendered
+    $(@el).trigger 'runtips_ready'
     @
     
   startRequest: ->
@@ -53,13 +55,15 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
     console.log 'Some errors happened!'
 
   show_runtip: (e)->
-    console.log e.currentTarget
-    current = $(e.currentTarget).parent('.obj_descr__text__descr__how_to_reachi__list__record').first()
-    if current.hasClass 'opened'
-      current.removeClass 'opened'
-      current.find('.obj_descr__text__descr__how_to_reachi__list__record__description').slideUp()
-    else
-      current.addClass 'opened'
-      current.find('.obj_descr__text__descr__how_to_reachi__list__record__description').slideDown()
+    tagName = $(e.target).prop 'tagName'
+    if tagName != 'A' && tagName != 'BUTTON'
+      e.preventDefault()
+      current = $(e.currentTarget).parent('.obj_descr__text__descr__how_to_reachi__list__record').first()
+      if current.hasClass 'opened'
+        current.removeClass 'opened'
+        current.find('.obj_descr__text__descr__how_to_reachi__list__record__description').slideUp()
+      else
+        current.addClass 'opened'
+        current.find('.obj_descr__text__descr__how_to_reachi__list__record__description').slideDown()
 
 
