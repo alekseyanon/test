@@ -10,8 +10,9 @@
     /%link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,cyrillic' rel='stylesheet')
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
-    <script type="text/javascript" src="//yandex.st/share/share.js"
-    charset="utf-8"></script>
+    %script{:type => "text/javascript"}
+      var addthis_config = {"data_track_addressbar":false};
+    %script{:src => "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51a45ad6548225f4", :type => "text/javascript"}
     = csrf_meta_tags
   %body{ class: page_class }
     = render 'layouts/promo', { greeting: controller_name == 'welcome' }
