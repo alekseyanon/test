@@ -3,20 +3,16 @@ class Smorodina.Views.ObjectShow extends Backbone.View
 
   events:
     'click .obj_descr__text__descr__how_to_reach a.runtip_switcher' : 'init_runtips'
-    'runtips_ready .obj_descr__text__descr__how_to_reach' : 'runtips_ready'
+
+  object_id: 0
 
   initialize: ->
-    @vote_for_simple_view = new Smorodina.Views.VoteForSimple
-
+    _.bindAll @
+    @object_id = @options.object_id
 
   init_runtips: (e)-> 
     e.preventDefault()
     if !@runtips_view
-      @runtips_view = new Smorodina.Views.ObjectRuntipsView
-      @runtips_view.start()
-
-  runtips_ready: (e)->
-    console.log $('.pic_vote.simple').length
-    @vote_for_simple_view = new Smorodina.Views.VoteForSimple
-
-
+      @runtip_model = new Smorodina.Models.Runtip()
+      @runtips_collection = new Smorodina.Collections.Runtips(@model, {url: "/api/objects/#{@object_id}/runtips.json"})
+      @runtips_view = new Smorodina.Views.ObjectRuntipsView collection: @runtips_collection

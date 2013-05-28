@@ -171,47 +171,47 @@
   @include clearfix;
 }
 
-.obj_descr__text__descr__how_to_reachi__list__record{
+.obj_descr__text__descr__how_to_reach__list__record{
   border-top: 1px solid $siteLightGray;
   @include font-small;
 }
 
-.obj_descr__text__descr__how_to_reachi__list__record__author{
+.obj_descr__text__descr__how_to_reach__list__record__author{
   a{
     font-weight: bold;
   }
 }
           
 .obj_descr__text__descr__how_to_reach__list__author,
-.obj_descr__text__descr__how_to_reachi__list__record__author{
+.obj_descr__text__descr__how_to_reach__list__record__author{
   margin-left: 20px;
   width: 185px;
 }
 
 .obj_descr__text__descr__how_to_reach__list__date,
-.obj_descr__text__descr__how_to_reachi__list__record__date{
+.obj_descr__text__descr__how_to_reach__list__record__date{
   width: 255px;
 }
 
 .obj_descr__text__descr__how_to_reach__list__rate,
-.obj_descr__text__descr__how_to_reachi__list__record__rate{
+.obj_descr__text__descr__how_to_reach__list__record__rate{
   width: 170px;
 }
 
 .obj_descr__text__descr__how_to_reach__list__author,
 .obj_descr__text__descr__how_to_reach__list__date,
 .obj_descr__text__descr__how_to_reach__list__rate,
-.obj_descr__text__descr__how_to_reachi__list__record__author,
-.obj_descr__text__descr__how_to_reachi__list__record__date,
-.obj_descr__text__descr__how_to_reachi__list__record__rate,
-.obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct,
-.obj_descr__text__descr__how_to_reachi__list__record__description__actions__vote,
-.obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam{
+.obj_descr__text__descr__how_to_reach__list__record__author,
+.obj_descr__text__descr__how_to_reach__list__record__date,
+.obj_descr__text__descr__how_to_reach__list__record__rate,
+.obj_descr__text__descr__how_to_reach__list__record__description__actions__is_correct,
+.obj_descr__text__descr__how_to_reach__list__record__description__actions__vote,
+.obj_descr__text__descr__how_to_reach__list__record__description__actions__spam{
   display: inline-block;
   padding: 19px 0 19px 0;
 }
                   
-.obj_descr__text__descr__how_to_reachi__list__record__description{
+.obj_descr__text__descr__how_to_reach__list__record__description{
   display: none;
 }
 
@@ -221,7 +221,7 @@
   padding: 11px 0 11px 0;
 }
 
-.obj_descr__text__descr__how_to_reachi__list__record__description__actions__spam{
+.obj_descr__text__descr__how_to_reach__list__record__description__actions__spam{
   @include before-gray-dot;
   a{
     color: $siteGray;
@@ -229,12 +229,12 @@
   }
 }
 
-.obj_descr__text__descr__how_to_reachi__list__record__date,
-.obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct{
+.obj_descr__text__descr__how_to_reach__list__record__date,
+.obj_descr__text__descr__how_to_reach__list__record__description__actions__is_correct{
   color: $siteGray;
 }
 
-.obj_descr__text__descr__how_to_reachi__list__record__description__actions__is_correct{
+.obj_descr__text__descr__how_to_reach__list__record__description__actions__is_correct{
   margin-right: 15px;
 }
 

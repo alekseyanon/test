@@ -1,6 +1,7 @@
 - user_css = ''
 - user_css = 'voted_down' if @rating.current_user_vote == -1
 - user_css = 'voted_up' if @rating.current_user_vote == 1
+
 %div{class: "pic_vote simple #{user_css}", data: {vote_url: @rating.vote_url, user_vote: @rating.current_user_vote}}
   .pic_vote__up
     %form{method: "post", action: @rating.vote_url}

@@ -22,6 +22,7 @@ class Smorodina.Views.VoteForSimple extends Backbone.View
     @replace.html $(rendered).html()
     @replace.attr 'data-vote_url', $(rendered).attr 'data-vote_url'
     @replace.attr 'data-user_vote', $(rendered).attr 'data-user_vote'
+    @replace.attr 'class', $(rendered).attr 'class'
     @
 
   make_vote: (e) ->
