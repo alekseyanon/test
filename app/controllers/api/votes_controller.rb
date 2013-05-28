@@ -2,6 +2,17 @@ class VotesController < InheritedResources::Base
   before_filter :authenticate_user!, only: [:create, :destroy]
   before_filter :find_parent_model
 
+  def index
+    tag = params[:voteable_tag].blank? ? nil : params[:voteable_tag]
+    render json: {
+                   id: @parent.id,
+                   votes_for: @parent.votes_for(tag),
+                   votes_against: @parent.votes_against(tag),
+                   current_user_vote: current_user.get_vote(@parent),
+                   vote_url: new_vote_polymorphic_path(@parent)
+                  }
+  end
+
   def create
     tag = params[:voteable_tag].blank? ? nil : params[:voteable_tag]
     old_rating = @parent.plusminus
