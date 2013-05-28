@@ -20,7 +20,6 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
     @collection.on 'sync', @render
     #@collection.on 'add', @render
     @collection.on 'request', @startRequest
-    console.log @parent
 
   start: ->
     @collection.fetch()

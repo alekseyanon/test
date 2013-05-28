@@ -16,6 +16,7 @@ class Smorodina.Views.ObjectShow extends Backbone.View
       @runtips_view.start()
 
   runtips_ready: (e)->
+    console.log $('.pic_vote.simple').length
     @vote_for_simple_view = new Smorodina.Views.VoteForSimple
 
 

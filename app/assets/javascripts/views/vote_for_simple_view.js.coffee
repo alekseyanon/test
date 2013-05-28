@@ -8,10 +8,7 @@ class Smorodina.Views.VoteForSimple extends Backbone.View
 
   initialize: ->
     _.bindAll this, "render"
-    @path = $(@el).attr 'data-vote_url'
-    @model = new Backbone.Model [], {url: @path, id: null, sign: ''}
-    @model.on 'sync', @render 
-
+    
   render: ->
     values = $.parseJSON @result.responseText
     rating =
@@ -21,17 +18,20 @@ class Smorodina.Views.VoteForSimple extends Backbone.View
       votes_against: values.negative
     
     rendered = @template rating: rating
-    old_element = $(@el) 
-    new_element = $(rendered)
-    @setElement new_element
 
-    old_element.replaceWith new_element
+    @replace.html $(rendered).html()
+    @replace.attr 'data-vote_url', $(rendered).attr 'data-vote_url'
+    @replace.attr 'data-user_vote', $(rendered).attr 'data-user_vote'
     @
 
   make_vote: (e) ->
     e.preventDefault()
-    @user_vote = $(@el).attr 'data-user_vote'
+    @replace = $(e.currentTarget).parents('.pic_vote.simple').first()
     @direction = $(e.currentTarget).find('input[name="sign"]').attr 'value'
+    @path = @replace.attr 'data-vote_url'
+    @user_vote = @replace.attr 'data-user_vote'
+    @model = new Backbone.Model [], {url: @path, id: null, sign: ''}
+    @model.on 'sync', @render 
 
     switch @user_vote
       when '1'
