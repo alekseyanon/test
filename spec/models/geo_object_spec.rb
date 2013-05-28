@@ -1,3 +1,4 @@
+# fun coding: UTF-8
 require 'spec_helper'
 
 describe GeoObject do
@@ -52,11 +53,15 @@ describe GeoObject do
     end
 
     context 'for queries with agc_id' do
-      it 'searches with agc_id' do
-        g = GeoObject.last
-        id = g.create_agc.id
-        g.save!
-        described_class.search(agc_id: id).length.should == 1
+      let(:agc1){ Agc.make! agus: [3,4] }
+      let(:agc2){ Agc.make! agus: [5] }
+
+      it 'searches GeoObject with agc_id' do
+        GeoObject.make!(geom: Geo::factory.point(10, 10), agc: agc1, title: 'Кафе').save!
+        GeoObject.make!(geom: Geo::factory.point(9, 9),   agc: agc1, title: 'Кафе').save!
+        GeoObject.make!(geom: Geo::factory.point(10, 10), agc: agc2, title: 'Кафе').save!
+        described_class.search(agc_id: agc2.id, title: 'Кафе').length.should == 1
+        described_class.search(agc_id: agc1.id, title: 'Кафе').length.should == 2
       end
     end
 
