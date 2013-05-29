@@ -4,7 +4,6 @@
   .obj_descr__text__descr__how_to_reach__list__record__date
     = @runtip.get('created_at')
   .obj_descr__text__descr__how_to_reach__list__record__rate
-    != JST['vote_for_simple'](rating: @runtip.get('rating'))
 .obj_descr__text__descr__how_to_reach__list__record__description
   .obj_descr__text__descr__how_to_reach__list__record__description__text
     = @runtip.get('body')
@@ -12,7 +11,6 @@
     .obj_descr__text__descr__how_to_reach__list__record__description__actions__is_correct
       Вариант полезен?
     .obj_descr__text__descr__how_to_reach__list__record__description__actions__vote
-      != JST['vote_for_merged'](rating: @runtip.get('rating'))
     .obj_descr__text__descr__how_to_reach__list__record__description__actions__spam
       != JST['spam_to'](complaint: @runtip.get('complaint'))
 

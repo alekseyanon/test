@@ -13,10 +13,13 @@ class Smorodina.Views.RuntipView extends Backbone.View
 
   render: ->
     @$el.html @template runtip: @model
+    @vote_for_simple = new Smorodina.Views.VoteForSimple votable: @model
+    @vote_for_merged = new Smorodina.Views.VoteForSimple votable: @model, template: 'vote_for_merged'
+    @$el.find('.obj_descr__text__descr__how_to_reach__list__record__rate').html @vote_for_simple.render().el
+    @$el.find('.obj_descr__text__descr__how_to_reach__list__record__description__actions__vote').html @vote_for_merged.render().el
     @
 
   show_runtip: (e)->
-    console.log 'showing runtip'
     tagName = $(e.target).prop 'tagName'
     if tagName != 'A' && tagName != 'BUTTON'
       e.preventDefault()

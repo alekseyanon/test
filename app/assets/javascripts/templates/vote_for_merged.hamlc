@@ -1,4 +1,4 @@
-- rating = @rating.votes_for - @rating.votes_against
+- rating = parseInt(@rating.votes_for)- parseInt(@rating.votes_against)
 
 - css_prefix = ''
 - css_prefix = "pic_vote_positive" if rating > 0
