@@ -73,4 +73,6 @@ def make_sample_agus!
   Agu.make! id: 1, title: 'Россия', geom: to_poly(to_nodes([[-30, -30], [-30, 30], [30, 30], [30, -30], [-30, -30]])).geom
   Agu.make! id: 2, title: 'Ленинградская область', geom: to_poly(to_nodes([[-20, -20], [-20, 20], [20, 20], [20, -20], [-20, -20]])).geom
   Agu.make! id: 3, title: 'Санкт-Петербург', geom: to_poly(to_nodes([[-10, -10], [-10, 10], [10, 10], [10, -10], [-10, -10]])).geom
+  Agu.make! id: 4, title: 'Москва', geom: to_poly(to_nodes([[4, 4], [50, 4], [50, 50], [4, 50], [4, 4]])).geom
+  Agu.make! id: 5, title: 'Гусь-Хрустальный', geom: to_poly(to_nodes([[65, 65], [70, 65], [70, 70], [65, 70], [65, 65]])).geom
 end
