@@ -11,12 +11,15 @@ sightseeing:
         waterflow:
           ru: Водопад
           osm: waterway.waterfall
-          from_poly: true # Импортировать ли из полигонов
+          # from_poly: true # Импортировать ли из полигонов
+          # Скорее нет http://wiki.openstreetmap.org/wiki/Tag:waterway%3Dwaterfall
         volcano:
           ru: Вулкан или кратер
           osm: natural.volcano
           from_poly: true
-        geyser: Гейзер
+        geyser: 
+          ru: Гейзер
+          osm: natural.geyser
         mountains: Горы
         mud_well: Грязевой источник
         reserve:
@@ -51,6 +54,9 @@ sightseeing:
           ru: Ручей
           osm: natural.spring
           from_poly: true
+        national_park:
+          ru: Национальный природный парк
+          osm: boundary.national_park
     culture:
       ru: Культура
       sub:
