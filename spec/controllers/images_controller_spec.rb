@@ -88,9 +88,9 @@ describe ImagesController do
         assigns(:image).should be_persisted
       end
 
-      it "redirects to the created image" do
+      it "redirects to the imageable" do
         post :create, {image: valid_attributes, geo_object_id: geo_object.id}
-        response.should redirect_to(geo_object_image_path(geo_object, Image.last))
+        response.should redirect_to(geo_object_path(geo_object))
       end
     end
 
