@@ -47,7 +47,8 @@
   %br
   = link_to 'Add video', new_geo_object_video_path(@geo_object)
   |
-  = link_to 'Add photo', new_geo_object_image_path(@geo_object)
+  %a{href: '#newimage', data: {toggle: 'modal'}}
+    Добавить Фото
   .photos
     - @geo_object.images.each do |image|
       %li.object_image= image_tag image.image_url(:thumb)
@@ -104,3 +105,4 @@
 = link_to 'Back', geo_objects_path
 %script
   $(window).load(function(){ geo_object_show();})
+= render partial: 'images/new', locals: { object: @geo_object }

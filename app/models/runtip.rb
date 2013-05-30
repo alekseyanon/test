@@ -4,6 +4,8 @@ class Runtip < ActiveRecord::Base
   belongs_to :geo_object
   attr_accessible :body
 
+  has_many :complaints, as: :complaintable
+
   validates :body, :user, :geo_object, presence: true
 
   acts_as_voteable

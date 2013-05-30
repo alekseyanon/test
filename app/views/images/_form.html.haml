@@ -1,5 +1,12 @@
-= simple_form_for [@parent, @image] do |f|
-  .field
-    = f.input :image
-  .actions
-    = f.submit 'Save'
+= form_for [obj, obj.images.build], remote: 'true' do |f|
+  %div.form-field.uploader
+    %div.hdr
+      Файл для загрузки:
+    %div.content
+  %div.small-form__button
+    %button.btn.subm{ type: 'submit', disabled: 'disabled' }
+      Вставить
+    %div.form-cancel
+      или
+      %a.cancel{data: {dismiss: 'modal'}}
+        Отменить
