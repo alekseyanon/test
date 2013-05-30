@@ -6,7 +6,7 @@
     = hidden_field_tag 'parent_id', params[:parent_id]
     .pic_comments__add__avatar
       - unless current_user.nil?
-        = image_tag current_user.profile.avatar_url(:image_commentor_thumb)
+        = image_tag current_user.profile.avatar_url(:image_commentor_thumb), width: 48, height: 48
     .pic_comments__add__input
       = f.text_field :body, placeholder: 'Добавить комментарий'
     .pic_comments__add__controls
