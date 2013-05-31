@@ -1,0 +1,22 @@
+- rating = parseInt(@rating.votes_for)- parseInt(@rating.votes_against)
+
+- css_prefix = ''
+- css_prefix = "pic_vote_positive" if rating > 0
+- css_prefix = "pic_vote_negative" if rating < 0
+
+- user_css = ''
+- user_css = 'voted_down' if @rating.current_user_vote == -1
+- user_css = 'voted_up' if @rating.current_user_vote == 1
+
+%div{class: "pic_vote #{css_prefix} #{user_css}", data: {vote_url: @rating.vote_url, user_vote: @rating.current_user_vote}}
+  .pic_vote__up
+    %form{action: @rating.vote_url}
+      %input{type: 'hidden', name: 'sign', value: "up"}
+      %button{class: "icon-thumbs-up ui-link", type: "submit", title: "Мне нравится", value: ''}
+  .pic_vote__count
+    = rating
+  .pic_vote__down
+    %form{action: @rating.vote_url}
+      %input{type: 'hidden', name: 'sign', value: "down"}
+      %button{class: "icon-thumbs-down ui-link", type: "submit", title: "Мне не нравится", value: ''}
+

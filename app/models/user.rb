@@ -91,8 +91,10 @@ class User < ActiveRecord::Base
     self.authentications.create!(User.prepare_args_for_auth(oauth))
   end
 
-  def get_vote voteable
-    v = self.votes.where(voteable_id: voteable.id, voteable_type: voteable.class).first
+  def get_vote voteable, tag = nil
+    args = {voteable_id: voteable.id, voteable_type: voteable.class}
+    args.merge!(voteable_tag: tag) if tag
+    v = self.votes.where(args).first
     v.nil? ? 0 : (v.vote ? 1 : -1)
   end
 

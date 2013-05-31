@@ -33,9 +33,10 @@ class GeoObject < ActiveRecord::Base
 
   include PgSearch
   include Searchable
-  has_many :reviews, as: :reviewable
-  has_many :images,  as: :imageable
+  has_many :reviews,    as: :reviewable
+  has_many :images,     as: :imageable
   has_many :runtips
+  has_many :complaints, as: :complaintable
 
   accepts_nested_attributes_for :images
 

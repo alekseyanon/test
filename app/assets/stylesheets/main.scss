@@ -131,6 +131,7 @@ a:hover,
 	&:before{
 		@include font-large;
 		vertical-align: middle;
+    float: left;
 	}
 	&.right{
 		&:before{
@@ -142,6 +143,22 @@ a:hover,
 			margin-right: 3px;
 		}
 	}
+}
+
+.link-like-button{
+  padding: 9px 18px 9px 18px;
+  font-family: inherit;
+  border: 1px solid $siteLightGray;
+  @include font-regular;
+  &.bullet{
+    &:before{
+      @include font-large;
+      font-family: 'smorodina-icons';
+      line-height: 1;
+      float: left;
+      margin: 4px 5px 0 0;
+    }
+  }
 }
 
 
@@ -1672,122 +1689,6 @@ display: block;
   height: $base-line-height * 0.5;
 }
 
-/* ---------------------------------------- ALL PHOTOS PAGE START -------------------------------- */
-
-.obj-page-navigation{
-	border-bottom: 2px solid #000;
-	padding: 0px 0px 0px 30px;
-	@include clearfix;
-	li{
-		float: left;
-		padding: 12px 20px 12px 20px;
-		@include border-top-radius($baseBorderRadius);
-		position: relative;
-		&.pull-right{
-			float: right;
-		}
-		&.active{
-			@include gradient-vertical($black, $gray);
-			a{
-				color: #fff;
-				border: 0 none;
-				.inner{
-					border: 0 none;
-				}
-				&.action-link{
-					margin: 8px 0 6px 0;
-					display: inline-block;
-				}
-			}
-		}
-	}
-}
-.all-photos-page{
-.search{
-	a{
-		color: $lightblue;
-		margin-left: 30px;
-		.inner{
-			text-decoration: underline;
-			border: 0 none;
-		}
-	}
-}
-.add{
-	margin-bottom: 30px;
-	h4{
-		margin: 30px 0px 0px 30px;
-	}
-	.button{
-		display: block;
-		float: right;
-		padding: 9px 18px;
-		border: 1px solid #dcdde9;
-		margin: 14px 20px 0 0;
-		color: #000;
-		&:hover{
-			color: $black;
-		}
-		&:before{
-			@include  font-large;
-			display: block;
-			float: left;
-			margin: 3px 5px 0 0;
-			content: "\2d";
-			font-family: 'smorodina-icons';
-			speak: none;
-			font-style: normal;
-			font-weight: normal;
-			font-variant: normal;
-			text-transform: none;
-			line-height: 1;
-			-webkit-font-smoothing: antialiased;
-		}
-	}
-}
-}
-
-.obj-page-gallery{
-padding: 0 0 0 47px;
-@include clearfix;
-li{
-	float: left;
-	position: relative;
-	z-index: 0;
-	margin: 0 27px 24px 0;
-	@include box-shadow(rgba(0, 0, 0, 0.1) 0 3px 8px 0);
-	a{
-		display: block;
-		position: relative;
-		padding: 5px;
-		background-color: #fff;
-		z-index: 1;
-	}
-	img{
-		display: block;
-	}
-	&:before,
-	&:after {
-		display: block;
-		content: "";
-		position: absolute;
-		bottom: 5px;
-		left: 5px;
-		width: 50%;
-		height: 20%;
-		@include box-shadow(rgba(0, 0, 0, 0.2) 0 8px 8px 0);
-		@include rotate(-7deg);
-	}
-	&:after {
-		right: 5px;
-		left: auto;
-		@include rotate(7deg);
-	}
-}
-}
-
-/* ---------------------------------------- ALL PHOTOS PAGE END ---------------------------------- */
-
 /* ---------------------------------------- ABOUT PAGE START ------------------------------------ */
 
 .about {
@@ -1914,6 +1815,9 @@ li{
 		padding: 12px 20px 12px 20px;
 		@include border-top-radius($baseBorderRadius);
 		position: relative;
+    .button_3d{
+      margin: 5px 0 0 30px;
+    }
 		.icon-flag:before,
 		.icon-sm-history:before{	
 			@include font-large;
@@ -1948,52 +1852,42 @@ li{
 				}
 			}
 		}
+    &.no-padding{
+      padding: 0;
+    }
 	}
+  &.subnavigation{
+	  padding: 0px 0px 0px 336px;
+  }
+  
+}
+.objs_search_link{
+  margin-left: 30px;
+  margin-bottom: 20px;
+  a{
+    color: $lightblue !important;
+    .inner{
+      text-decoration: underline;
+      border: 0 none;
+    }
+  }
 }
 .all-photos-page{
-	.search{
-		a{
-			color: $lightblue;
-			margin-left: 30px;
-			.inner{
-				text-decoration: underline;
-				border: 0 none;
-			}
-		}
-	}
-	.add{
-		margin-bottom: 30px;
-		h4{
-			margin: 30px 0px 0px 30px;
-			@include font-xlarge;
-		}
-		.button{
-			display: block;
-			float: right;
-			padding: 9px 18px;
-			border: 1px solid #dcdde9;
-			margin: 14px 20px 0 0;
-			color: #000;
-			&:hover{
-				color: $black;
-			}
-			&:before{
-				@include  font-large;
-				display: block;
-				float: left;
-				margin: 3px 5px 0 0;
-				content: "\2d";
-  			font-family: 'smorodina-icons';
-			  speak: none;
-			  font-style: normal;
-			  font-weight: normal;
-			  font-variant: normal;
-			  text-transform: none;
-			  line-height: 1;
-			  -webkit-font-smoothing: antialiased;
-			}
-		}
-	}
+  .add_photo_or_video_link{  
+    margin-bottom: 30px;
+  }	
+  .add{
+    h4{
+      margin: 30px 0px 0px 30px;
+      @include font-xlarge;
+    }
+  }
+  .add_photo_or_video_link{ 
+    .button{
+      float: right;
+      margin: 14px 20px 0 0;
+    }
+  }
 }
 
 .obj-page-gallery{
@@ -2192,12 +2086,7 @@ li{
 		display: inline;
 		@include font-small;
 		color: $siteGray;
-		&:before{
-			content: "\b7";
-			margin: 0 10px 0 10px;
-			font-weight: bold;
-			color: $siteLightGray;
-		}
+    @include before-gray-dot;
 	}
 	.pic__author__actions_respond{
 		a{
@@ -2261,12 +2150,7 @@ li{
 		display: inline;
 		@include font-small;
 		color: $siteGray;
-		&:before{
-			content: "\b7";
-			margin: 0 10px 0 10px;
-			font-weight: bold;
-			color: $siteLightGray;
-		}
+    @include before-gray-dot;
 	}
 	.pic_comments__comment__info__actions{
 	}
@@ -2281,12 +2165,7 @@ li{
 	}
 	.pic_comments__comment__info__actions__vote{
 		display: inline-block;
-		&:before{
-			content: "\b7";
-			margin: 0 10px 0 10px;
-			font-weight: bold;
-			color: $siteLightGray;
-		}
+    @include before-gray-dot;
 	}
 
 	.pic_comments__next{
@@ -2411,12 +2290,42 @@ li{
       }
     }
 	}
+  &.simple{
+    .pic_vote__up{
+      button, a{
+        padding: 0;
+        &:hover{
+          color: $siteGreen;
+        }
+        &:visited{
+        }
+      }
+       
+    }
+    .pic_vote__down{
+      button, a{
+        padding: 0;
+        &:hover{
+          color: $siteRed;
+        }
+        &:visited{
+        }
+      }
+    }
+  }
 	.pic_vote__count{
 		display: inline-block;
 		@include font-small;
 		vertical-align: top;
 		font-weight: bold;
 		line-height: 24px;
+    &.up{
+      color: $siteGreen;
+      margin-right: 10px;
+    }
+    &.down{
+      color: $siteRed;
+    }
 	}
 	.pic_vote__spam{
 		display: inline;
