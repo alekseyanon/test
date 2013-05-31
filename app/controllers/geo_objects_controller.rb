@@ -111,6 +111,10 @@ class GeoObjectsController < ApplicationController
     respond_with GeoObject.count
   end
 
+  def my_location
+    Agu.where(:title, params[:my_city]).centroid
+  end
+
   protected
 
   def get_categories

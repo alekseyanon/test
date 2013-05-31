@@ -7,9 +7,32 @@ window.geo_objects = new Smorodina.Collections.GeoObjects
 
 initMap = ->
   map = L.map('map', { scrollWheelZoom: false })
+  window.map = map
   lg = L.layerGroup([]).addTo map
   L.tileLayer(Smorodina.Config.urlTemplate, {maxZoom: 18}).addTo map
+  initMyLocationControl()
   [map, lg]
+
+initMyLocationControl = ->
+  L.MyLocationCommand = L.Control.extend(
+    options:
+      position: "topleft"
+
+    onAdd: (map) ->
+      controlDiv = $('.leaflet-control-zoom.leaflet-control')[0] #L.DomUtil.create("div", "")
+      $(controlDiv).click ->
+        showMyLocation()
+      controlUI = L.DomUtil.create("a", "leaflet-control-my-location", controlDiv)
+      controlUI.setAttribute('href', '# ')
+      controlUI.title = "Show my location"
+      controlDiv
+  )
+  commandControl = new L.MyLocationCommand()
+  window.map.addControl(commandControl);
+
+  showMyLocation = ()->
+    if window.my_location = 'Дачное'
+      $.get('my_location', { my_city : window.my_location }, ->(data)        console.log data    )
 
 showLatLng = (latlng) ->
   $("#geo_object_xld").val latlng.lng

@@ -10,4 +10,7 @@ class Agu < ActiveRecord::Base
   	Agc.where('? = ANY(agcs.agus)', id)
   end
 
+   def centroid
+     geom.centroid
+   end
 end
