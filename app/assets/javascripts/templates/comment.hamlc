@@ -1,0 +1,19 @@
+.pic_comments__comment__avatar
+  %img{src: @comment.get('user').avatar, width: 48, height: 48}
+.pic_comments__comment__info
+  .pic_comments__comment__info__name
+    = @comment.get('user').username
+  .pic_comments__comment__info__date
+    = @comment.get('created_at')
+  .pic_comments__comment__info__comment
+    = @comment.get('body')
+  .pic_comments__comment__info__actions
+    - if @comment.get('parent_id') == null
+      .pic_comments__comment__info__actions__respond
+        %a{href: '#', class: "icon-sm-reply action-link-bullet"}
+          %span{class: 'inner'}
+            Ответить
+    .pic_comments__comment__info__actions__vote
+    .pic_comments__comment__info__actions__spam
+      != JST['spam_to'](complaint: @comment.get('complaint'))
+.pic_comments__chid_comments

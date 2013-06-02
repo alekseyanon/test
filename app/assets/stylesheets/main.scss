@@ -2130,6 +2130,7 @@ display: block;
 				}
 			}
 		}
+    
 	}
 	.pic_comments__comment__avatar{
 		float: left;
@@ -2166,6 +2167,9 @@ display: block;
 	.pic_comments__comment__info__actions__vote{
 		display: inline-block;
     @include before-gray-dot;
+    .simple_voting{
+      display: inline-block;
+    }
 	}
 
 	.pic_comments__next{
