@@ -1,10 +1,10 @@
-extends "api/shared/rating"
-extends "api/shared/complaints"
+extends 'api/shared/rating'
+extends 'api/shared/complaints'
+extends 'api/shared/date'
+extends 'api/shared/comments'
 
 collection @reviews
 attributes :id, :body, :title, :created_at
-
-node(:comments_count) { |r| "#{r.comments.count} коментариев"}
 
 child :user do
   attributes :id
