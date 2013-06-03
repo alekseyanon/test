@@ -13,8 +13,7 @@ class Api::CommentsController < ApplicationController
   end
 
   def index
-    @comments = GeoObject.find(params[:object_id]).reviews
-                         .find(params[:review_id]).comments
+    @comments = Review.find(params[:review_id]).comments
   end
 
 end

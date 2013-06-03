@@ -2124,6 +2124,12 @@ display: block;
 	.pic_comments__comment{
 		margin-left: 35px;
 		.pic_comments__comment{
+      .pic_comments__comment__info__actions__vote{
+        &:before{
+          display: none;
+          content: '';
+        }
+      }
 			.pic_comments__comment{
 				.pic_comments__comment{
 					margin-left: 0px;

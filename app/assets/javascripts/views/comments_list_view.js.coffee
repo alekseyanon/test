@@ -11,8 +11,6 @@ class Smorodina.Views.CommentsListView extends Backbone.View
 
 
   render: ->
-    console.log @collection.where(parent_id: @parent_id)
-    console.log @parent_id
     _.each @collection.where(parent_id: @parent_id), @render_one
     @
 

@@ -257,6 +257,20 @@
   margin-left: 24px;
   margin-bottom: 46px;
 }
+.obj_descr__review__record{
+  .pic_comments__count{
+      &:after{
+        border: 0;
+      }
+  }
+  &.opened{
+    .pic_comments__count{
+      &:after{
+        border-bottom: 1px solid $siteLightGray;
+      }
+    }
+  }
+}
     
 
 .obj_descr__responces__responce__author{
