@@ -19,8 +19,14 @@ class Api::CommentsController < ApplicationController
   end
 
   def index
-    @comments = GeoObject.find(params[:object_id]).reviews
-                         .find(params[:review_id]).comments
+    @comments = Review.find(params[:review_id]).comments
+  end
+
+  private
+
+  def load_commentable
+    resource, id = request.path.split('/')[2, 3]
+    @commentable = resource.singularize.classify.constantize.find(id)
   end
 
 end

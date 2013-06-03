@@ -24,11 +24,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def load_commentable
-    resource, id = request.path.split('/')[1, 2]
-    @commentable = resource.singularize.classify.constantize.find(id)
-  end
-
   private
 
   def current_permission
