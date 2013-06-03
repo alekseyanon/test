@@ -1,9 +1,9 @@
-extends "api/shared/rating"
-extends "api/shared/complaints"
+extends 'api/shared/rating'
+extends 'api/shared/complaints'
+extends 'api/shared/date'
 
 collection @runtips
 attributes :id, :body, :created_at
-
 
 child :user do
   attributes :id
