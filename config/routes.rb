@@ -45,7 +45,7 @@ Smorodina::Application.routes.draw do
     resources :you_tubes, path: 'videos'
   end
 
-  get 'profiles/my_avatar' => 'profiles#my_avatar'
+  get 'my_profile/avatar' => 'profiles#my_avatar'
   resources :profiles
 
   devise_for :users, controllers: { registrations: 'registrations' }
