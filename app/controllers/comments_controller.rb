@@ -5,10 +5,10 @@ class CommentsController < InheritedResources::Base
 
   def new
     @comment = @commentable.comments.build
-		respond_to do |format|
-			format.html
-			format.js
-		end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
@@ -16,15 +16,15 @@ class CommentsController < InheritedResources::Base
     @comment.user = current_user
     @comment.parent_id = params[:parent_id]
     if @comment.save
-			respond_with do |format|
-				format.html { redirect_to @commentable }
-				format.js { render "_record", locals: { comment: @comment, sub_comments: nil }}
-			end
+      respond_with do |format|
+        format.html { redirect_to @commentable }
+        format.js { render '_record', locals: { comment: @comment, sub_comments: nil }}
+      end
     else
       respond_with do |format|
         format.html { render action: :new }
         format.json { render json: @commentable.errors, status: :unprocessable_entity }
-				format.js { render "_add_comment", locals: {commentable: @commentable, comment: @comment }}
+        format.js { render '_add_comment', locals: {commentable: @commentable, comment: @comment }}
       end
     end
   end
@@ -42,11 +42,6 @@ class CommentsController < InheritedResources::Base
   end
 
   private
-
-  def load_commentable
-    resource, id = request.path.split('/')[1, 2]
-    @commentable = resource.singularize.classify.constantize.find(id)
-  end
 
   def find_comment
     @comment = Comment.find params[:id]

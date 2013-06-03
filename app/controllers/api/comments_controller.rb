@@ -1,6 +1,12 @@
 class Api::CommentsController < ApplicationController
+  before_filter :load_commentable
   
   def create
+    @comment = @commentable.comments.build params[:comment]
+    @comment.user = current_user
+    @comment.parent_id = params[:parent_id]
+    @comment.save
+    @comment
   end
 
   def update
