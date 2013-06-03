@@ -2,7 +2,7 @@
   .obj_descr__text__descr__how_to_reach__list__record__author
     != JST['username_link'](user: @runtip.get('user'))
   .obj_descr__text__descr__how_to_reach__list__record__date
-    = @runtip.get('created_at')
+    = @runtip.get('date')
   .obj_descr__text__descr__how_to_reach__list__record__rate
 .obj_descr__text__descr__how_to_reach__list__record__description
   .obj_descr__text__descr__how_to_reach__list__record__description__text

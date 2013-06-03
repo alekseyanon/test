@@ -1,0 +1,8 @@
+- show_more = false
+.pic_comments__list
+
+!= JST['add_comment']
+- if show_more
+  .pic_comments__next
+    = link_to 'Показать ещё', '#', {class: 'button button_standard button_grey ui-link'}
+

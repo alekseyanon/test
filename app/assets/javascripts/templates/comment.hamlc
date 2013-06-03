@@ -4,7 +4,7 @@
   .pic_comments__comment__info__name
     = @comment.get('user').username
   .pic_comments__comment__info__date
-    = @comment.get('created_at')
+    = @comment.get('date')
   .pic_comments__comment__info__comment
     = @comment.get('body')
   .pic_comments__comment__info__actions

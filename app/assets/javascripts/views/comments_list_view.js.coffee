@@ -1,22 +1,22 @@
 class Smorodina.Views.CommentsListView extends Backbone.View
-  className: 'pic_comments__list'
-  @parent_id: null
+  className: 'pic_comments__container'
+  parent_id: null
+  template: JST['comments_list']
   
   initialize: ->
     _.bindAll @
     @parent_id = @options.parent_id
     if !@collection.length
-      @collection.on 'sync', @render
+      @collection.on 'add', @render_one
       @collection.fetch()
 
-
   render: ->
-    _.each @collection.where(parent_id: @parent_id), @render_one
+    @$el.html @template 
     @
 
   render_one: (record)->
     view = new Smorodina.Views.CommentView model: record, collection: @collection
-    @$el.append view.render().el
+    @$el.find('.pic_comments__list').append view.render().el
 
 
   create_new: (e)->
