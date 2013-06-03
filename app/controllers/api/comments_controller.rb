@@ -1,5 +1,6 @@
 class Api::CommentsController < ApplicationController
-  before_filter :load_commentable
+  before_filter :load_commentable, only: [:create]
+  before_filter :find_parent_model, only: [:index]
   
   def create
     @comment = @commentable.comments.build params[:comment]
@@ -19,7 +20,7 @@ class Api::CommentsController < ApplicationController
   end
 
   def index
-    @comments = Review.find(params[:review_id]).comments
+    @comments = @parent.comments
   end
 
   private
