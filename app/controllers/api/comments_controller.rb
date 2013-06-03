@@ -1,6 +1,13 @@
 class Api::CommentsController < ApplicationController
+  before_filter :load_commentable, only: [:create]
+  before_filter :find_parent_model, only: [:index]
   
   def create
+    @comment = @commentable.comments.build params[:comment]
+    @comment.user = current_user
+    @comment.parent_id = params[:parent_id]
+    @comment.save
+    @comment
   end
 
   def update
@@ -13,8 +20,14 @@ class Api::CommentsController < ApplicationController
   end
 
   def index
-    @comments = GeoObject.find(params[:object_id]).reviews
-                         .find(params[:review_id]).comments
+    @comments = @parent.comments
+  end
+
+  private
+
+  def load_commentable
+    resource, id = request.path.split('/')[2, 3]
+    @commentable = resource.singularize.classify.constantize.find(id)
   end
 
 end

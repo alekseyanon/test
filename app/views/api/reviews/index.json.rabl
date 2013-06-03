@@ -1,5 +1,5 @@
-extends "api/shared/rating"
-extends "api/shared/complaints"
+extends 'api/shared/rating'
+extends 'api/shared/complaints'
 
 collection @reviews
 attributes :id, :body, :title, :created_at

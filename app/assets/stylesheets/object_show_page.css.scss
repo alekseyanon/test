@@ -221,11 +221,20 @@
   padding: 11px 0 11px 0;
 }
 
-.obj_descr__text__descr__how_to_reach__list__record__description__actions__spam{
+.obj_descr__text__descr__how_to_reach__list__record__description__actions__spam,
+.obj_descr__responces__responce__text__actions__spam,
+.pic_comments__comment__info__actions__spam{
+  display: inline-block;
   @include before-gray-dot;
   a{
     color: $siteGray;
     text-decoration: none;
+    &:visited{
+      color: $siteGray;
+    }
+    &:hover{
+      color: $lightblue;
+    }
   }
 }
 
@@ -353,15 +362,15 @@
 .obj_descr__responces__responce__text__actions__vote{
   @include before-gray-dot;
   display: inline-block;
+  .simple_voting{
+    display: inline-block;
+  }
 }
             
 .obj_descr__responces__responce__text__actions__comments{
   .pic_comments{
     margin-left: 0px;
     .pic_comments__add{
-      margin-left: 0px;
-    }
-    .pic_comments__comment{
       margin-left: 0px;
     }
   }

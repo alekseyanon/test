@@ -12,7 +12,7 @@ class Smorodina.Views.ObjectShow extends Backbone.View
     @review_model = new Backbone.Model()
     @reviews_collection = new Backbone.Collection @model, url: "/api/objects/#{@object_id}/reviews.json"
     @reviews_view = new Smorodina.Views.ReviewsListView collection: @reviews_collection
-    @$el.find('.obj_descr__responces').html @reviews_view.el
+    @$el.find('.obj_descr__responces__starter').html @reviews_view.el
 
   init_runtips: (e)-> 
     e.preventDefault()

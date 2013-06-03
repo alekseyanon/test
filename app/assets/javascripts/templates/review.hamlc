@@ -18,5 +18,15 @@
             %span{class: 'inner'} 
               Ответить
         .obj_descr__responces__responce__text__actions__vote
-        .obj_descr__responces__responce__text__actions__comments
+        .obj_descr__responces__responce__text__actions__spam
+          != JST['spam_to'](complaint: @review.get('complaint'))
+      %div{class: 'obj_descr__responces__responce__text__actions__comments'}
+        %div{class: 'pic_comments'}
+          .pic_comments__count
+            .pic_comments__count__text
+              %span{class: 'action-link'}
+                = @review.get('comments_count')
+          %div{class: "pic_comments__container"}
+            .pic_comments__list
+              comments_goes_here
 
