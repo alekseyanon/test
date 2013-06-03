@@ -14,25 +14,25 @@ initMap = ->
   [map, lg]
 
 initMyLocationControl = ->
-  L.MyLocationCommand = L.Control.extend(
-    options:
-      position: "topleft"
+  $ ->
+    L.MyLocationCommand = L.Control.extend(
+      options:
+        position: 'topleft'
+      onAdd: (map) ->
+        controlDiv = $('.leaflet-control-zoom.leaflet-control')[0]
+        controlUI = L.DomUtil.create 'a', 'leaflet-control-my-location', controlDiv
+        controlUI.setAttribute 'href', '#'
+        controlUI.title = 'Show my location'
+        $(controlUI).click ->
+          showMyLocation()
+        controlDiv
+    )
+    commandControl = new L.MyLocationCommand()
+    window.map.addControl(commandControl);
 
-    onAdd: (map) ->
-      controlDiv = $('.leaflet-control-zoom.leaflet-control')[0] #L.DomUtil.create("div", "")
-      $(controlDiv).click ->
-        showMyLocation()
-      controlUI = L.DomUtil.create("a", "leaflet-control-my-location", controlDiv)
-      controlUI.setAttribute('href', '# ')
-      controlUI.title = "Show my location"
-      controlDiv
-  )
-  commandControl = new L.MyLocationCommand()
-  window.map.addControl(commandControl);
-
-  showMyLocation = ()->
-    if window.my_location = 'Дачное'
-      $.get('my_location', { my_city : window.my_location }, ->(data)        console.log data    )
+    showMyLocation = ->
+      $.get 'objects/my_location', (data)-> window.map.setView(data, 13) if data
+      false
 
 showLatLng = (latlng) ->
   $("#geo_object_xld").val latlng.lng

@@ -62,9 +62,9 @@ Smorodina::Application.routes.draw do
     resources :you_tubes, path: 'videos'
     member do
       get 'history'
-      get 'my_location'
     end
     collection do
+      get 'my_location'
       get 'search'
       post 'do_search'
       get 'coordinates'
