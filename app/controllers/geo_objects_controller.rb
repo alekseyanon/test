@@ -117,6 +117,7 @@ class GeoObjectsController < ApplicationController
       c = agu_location.geom.centroid
       respond_with [c.x, c.y]
     else
+      Rails.logger.warn "No match found in agus for city #{client_city}" if client_city
       respond_with nil
     end
   end
