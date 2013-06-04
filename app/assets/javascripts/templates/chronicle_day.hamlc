@@ -1,0 +1,48 @@
+%div.chronicle__section
+  %div.chronicle__section__header
+    %b
+      Четверг, 11 октября 2013 г.
+  %div.chronicle__section__content
+    %div.span6.smorodina-item
+      %div.smorodina-item__img
+        %div.smorodina-item__img__inner
+          %image{ src: "/assets/tmp/130x90.gif", alt: "Фото", width: 130, height: 90 }
+      %div.smorodina-item__content
+        %div.smorodina-item__title
+          %a{href: "#16"}
+            %b
+              Клуб рыболовов «Голубая устрица»
+
+        %div.smorodina-item__geo
+          %span.icon.icon-marker.smorodina-item__geo__icon
+          %ul.smorodina-item__geo__list
+            %li
+              %a.tdn-link{ href: "#2" }
+                Полный
+            %li
+              %a.tdn-link{ href: "#3" }
+                Географический
+            %li
+              %a.tdn-link{ href: "#4" }
+                Идентификатор
+        %div.smorodina-item__tags
+          %span.icon.icon-tags.smorodina-item__tags__icon
+          %ul.smorodina-item__tags__list
+            %li
+              %a.tdn-link{ href: "#5" }
+                Активный отдых
+            %li
+              %a.tdn-link{ href: "#6" }
+                На воде
+            %li
+              %a.tdn-link{ href: "#7" }
+                Рыбалка
+
+        %div.smorodina-item__user
+          %span.smorodina-item__user__text
+            Добавил:
+          %span.user-link
+            %a.tdn-link{ href: "#23" }
+              Профиль
+              %span.icon.icon-user.user-link__icon
+
