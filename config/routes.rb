@@ -64,6 +64,7 @@ Smorodina::Application.routes.draw do
       get 'history'
     end
     collection do
+      get 'my_location'
       get 'search'
       post 'do_search'
       get 'coordinates'
