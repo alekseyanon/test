@@ -1,8 +1,6 @@
-- show_more = false
 .pic_comments__list
+- style = false
+- style = 'display: none;' if @parent_id != null
 
-!= JST['add_comment']
-- if show_more
-  .pic_comments__next
-    = link_to 'Показать ещё', '#', {class: 'button button_standard button_grey ui-link'}
-
+%div{class: 'pic_comments__add', style: style}
+  != JST['add_comment'](parent_id: @parent_id)
