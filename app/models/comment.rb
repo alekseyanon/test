@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   has_ancestry
-  attr_accessible :body
+  attr_accessible :body, :commentable, :parent
   belongs_to :commentable, polymorphic: true
   belongs_to :user
 
