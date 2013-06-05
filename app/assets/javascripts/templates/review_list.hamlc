@@ -4,6 +4,9 @@
 
 - if @count > 3
   .obj_descr__responces_count
-    - link_to "Все отзывы #{@count}", '#' 
+    %a{href: '#', class: 'action-link show_all'}
+      Все отзывы: 
+      =@count
 
-
+    %a{href: '#', class: 'action-link hide_all'}
+      Свернуть

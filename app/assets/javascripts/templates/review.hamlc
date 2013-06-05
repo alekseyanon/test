@@ -1,10 +1,11 @@
 .obj_descr__responces__responce
   .obj_descr__responces__responce__author
-    .obj_descr__responces__responce__author__avatar
-      %img{src: @review.get('user').avatar, width: 64, height: 64}
-    .obj_descr__responces__responce__author__name
-      %a{href: @review.get('user').link_to_profile, class: 'ui-link action-link'}
-        = @review.get('user').username
+    .obj_descr__responces__responce__author__inner
+      .obj_descr__responces__responce__author__avatar
+        %img{src: @review.get('user').avatar, width: 64, height: 64}
+      .obj_descr__responces__responce__author__name
+        %a{href: @review.get('user').link_to_profile, class: 'ui-link action-link'}
+          = @review.get('user').username
   .obj_descr__responces__responce__text
     .obj_descr__responces__responce__text__padding
       .obj_descr__responces__responce__text__title
@@ -13,6 +14,12 @@
         = @review.get('date')
       .obj_descr__responces__responce__text__data
         = @review.get('body')
+        .transparency
+      .obj_descr__responces__responce__text__show_full
+        %a{href: '#', class: 'action-link show_all'}
+          Читать весь отзыв
+        %a{href: '#', class: 'action-link hide_all'}
+          Свернуть
       .obj_descr__responces__responce__text__actions
         .obj_descr__responces__responce__text__actions__respond
           %a{href: "#", class: "icon-sm-reply action-link-bullet"}

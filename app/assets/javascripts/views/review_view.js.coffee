@@ -8,17 +8,18 @@ class Smorodina.Views.ReviewView extends Backbone.View
   events:
     'click .pic_comments__count__text'  : 'show_comments'
     'click .obj_descr__responces__responce__text__actions__respond a' : 'respond'
+    'click .obj_descr__responces__responce__text__show_full a' : 'show_full'
 
   initialize: ->
     _.bindAll @
-    @render
-
+    
 
   render: ->
     @$el.html @template review: @model
     @$el.find('.pic_comments__container').css display: 'none'
     @vote_for_merged = new Smorodina.Views.VoteForSimple votable: @model, template: 'vote_for_merged'
     @$el.find('.obj_descr__responces__responce__text__actions__vote').html @vote_for_merged.render().el
+    
     @
 
   show_comments: (e)->
@@ -35,6 +36,9 @@ class Smorodina.Views.ReviewView extends Backbone.View
     @$el.toggleClass 'opened'
     e.preventDefault()
 
+  show_full: (e)->
+    e.preventDefault()
+    @$el.toggleClass 'show_full'
 
   respond: (e)->
     @show_comments(e)

@@ -1,4 +1,0 @@
-HAML.globals = ->
-  isAuthenticated: app.controller.current_user 
-  isAdmin: false
-

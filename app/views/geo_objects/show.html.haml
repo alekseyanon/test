@@ -83,13 +83,14 @@
 
             .obj_descr__text__descr__how_to_reach__list
     
+  %div.map__outer
+    %div.map__inner
+      %div.map.leaflet-edit-object{id: "map", data: {x: @x, y: @y}}
 
   = render partial: 'geo_objects/sub_navigation', locals: {object: @geo_object}
   .obj_descr__responces__starter
     
 
-%div.map__outer
-  %div.map__inner
-    %div.map.leaflet-edit-object{id: "map", data: {x: @x, y: @y}}
+
 %script
   $(window).load(function(){ geo_object_show();})

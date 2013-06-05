@@ -12,7 +12,7 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
     _.bindAll @
     @collection.on 'add', @render_runtip
     @collection.fetch()
-    @list_container = @$el.find('.obj_descr__text__descr__how_to_reach__list')
+    @list_container = @$('.obj_descr__text__descr__how_to_reach__list')
 
   render_runtip: (runtip)->
     view = new Smorodina.Views.RuntipView model: runtip
