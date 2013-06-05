@@ -3,7 +3,9 @@ class Api::ChroniclesController < ApplicationController
 
   def show
     ### TODO: group_by option is turned off
-    @objects = GeoObject.first(5) #.group_by{|g| g.created_at.strftime('%d %b %y')}
+    window = 5
+    page = params[:page].to_i
+    @objects = GeoObject.limit(5).offset(page*window) #.group_by{|g| g.created_at.strftime('%d %b %y')}
     @objects
   end
 end

@@ -1,17 +1,13 @@
 class Smorodina.Views.ChronicleIndex extends Backbone.View
-  events:
-    'click .fetch-results__button': 'render'
 
   initialize: ->
-    @collection.on('reset', @render, this)
+    @collection.on 'sync', @render, @
+    @collection.fetch reset: true
 
   render: ->
-    console.log 'rendering'
-    #    $(@el).html(@template())
-    @collection.each(@render_chronicle_item)
-    this
+    @collection.each @render_chronicle_item
+    @
 
   render_chronicle_item: (item) ->
-    console.log 'rendering chronicle item'
     view = new Smorodina.Views.ChronicleItem(model: item)
-    $('.temp_for-chronicle').append( view.render().el)
+    $('.test').append view.render().el

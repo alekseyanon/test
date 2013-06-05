@@ -1,7 +1,11 @@
 class Smorodina.Views.ChronicleItem extends Backbone.View
-  tagName: 'li'
+  tagname: 'div'
+  template: JST['chronicle_day']
+
+  initialize: ->
+    _.bindAll(@)
 
   render: ->
     console.log 'rendering single chronicle item'
-    $(@el).html (@model.get('title'))
-    this
+    @$el.append @template chronicle_item: @model
+    @
