@@ -10,7 +10,6 @@ class Smorodina.Views.RuntipView extends Backbone.View
     _.bindAll @
     @render
 
-
   render: ->
     @$el.html @template runtip: @model
     @vote_for_simple = new Smorodina.Views.VoteForSimple votable: @model

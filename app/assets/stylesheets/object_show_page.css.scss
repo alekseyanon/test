@@ -384,9 +384,9 @@
 .obj_descr__responces__responce__text__actions__comments{
   .pic_comments{
     margin-left: 0px;
-    .pic_comments__add{
-      margin-left: 0px;
-    }
+  }
+  .pic_comments__add{
+    overflow: hidden;
   }
   .pic_comments__add__controls{
     input{

@@ -7,6 +7,7 @@ class Smorodina.Views.ReviewView extends Backbone.View
 
   events:
     'click .pic_comments__count__text'  : 'show_comments'
+    'click .obj_descr__responces__responce__text__actions__respond a' : 'respond'
 
   initialize: ->
     _.bindAll @
@@ -21,18 +22,21 @@ class Smorodina.Views.ReviewView extends Backbone.View
     @
 
   show_comments: (e)->
-    e.preventDefault()
-    if @$el.hasClass 'opened'
-      @$el.removeClass 'opened'
-      @$el.find('.pic_comments__container').slideUp()
-    else
-      @$el.addClass 'opened'
-      @$el.find('.pic_comments__container').slideDown()
+    @tag_name = $(e.target).prop 'tagName'
+    @$el.find('.pic_comments__container').first().slideToggle()
+
+    if !@$el.hasClass 'opened'
       if !@comments_list
-        @comments_collection = new Smorodina.Collections.Comments [], url: "/api/reviews/#{@model.get('id')}/comments"
-        @comments_list = new Smorodina.Views.CommentsListView collection: @comments_collection, parent_id: null
-        @$el.find('.pic_comments__list').html @comments_list.el
+          @comments_collection = new Smorodina.Collections.Comments [], url: "/api/reviews/#{@model.get('id')}/comments"
+          @comments_list = new Smorodina.Views.CommentsListView collection: @comments_collection, parent_id: null
+          @$el.find('.pic_comments').append @comments_list.render().el
+
+    
+    @$el.toggleClass 'opened'
+    e.preventDefault()
 
 
-
+  respond: (e)->
+    @show_comments(e)
+    @$el.find('.pic_comments__container').first().find('input[type=text]').last().focus()
 
