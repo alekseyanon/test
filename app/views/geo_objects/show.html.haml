@@ -4,7 +4,7 @@
     .obj_descr__title
       %h1= @geo_object.title
     .obj_descr__gps
-      = render partial: 'shared/geo_list', locals: {tree: @geo_object.agc.try(:titles)}
+      = render partial: 'shared/geo_list', locals: {tree: @geo_object.agc.try(:titles) || {}}
     .obj_descr__tags
       = render partial: 'shared/tag_list', locals: {tag_tree: @categories_tree}
 
