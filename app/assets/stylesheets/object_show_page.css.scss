@@ -1,3 +1,12 @@
+.obj_show_page{
+  .map__outer{
+    margin: 32px 0 32px 0;
+  }
+  .map__expand{
+    padding: 25px 0 20px 0;
+  }
+}
+
 .obj_descr{
   padding: 0px 30px;
 }
@@ -28,8 +37,15 @@
 
 .obj_descr__info__links__rate{
   h3{
-    margin: 0px 0 24px 0; 
+    margin: 0px;
+    @include font-large;
   }
+  margin: 0px 0 24px 0; 
+}
+
+.obj_descr__info__links__rate{
+  @include font-xlarge;
+  font-weight: bold;
 }
 
 .obj_descr__info__links__planner{
@@ -46,7 +62,6 @@
   
 .obj_descr__text{
   @include clearfix;
-  margin-bottom: 57px;
 }
     
 .obj_descr__text__vote_stats{
@@ -79,6 +94,32 @@
     
 .obj_descr__text__descr{
   float: left;
+  width: 650px;
+  a.hide{
+    display: none;
+  }
+  &.slidable{
+    .transparency{
+      display: block;
+    }
+    .obj_descr__text__descr__body__full_link{
+      display: block;
+    }
+  }
+  &.opened{
+    .transparency{
+      display: none;
+    }
+    .obj_descr__text__descr__body{
+      max-height: none;
+    }
+    a.show{
+      display: none;
+    }
+    a.hide{
+      display: inline;
+    }
+  }
 }
 
 
@@ -102,12 +143,34 @@
   margin: 0 0 35px 0;
 }
 
+.obj_descr__text__descr__body{
+  max-height: 215px;
+  overflow: hidden;
+  position: relative;
+  .transparency{
+    display: none;
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    left: 0px;
+    top: 100%;
+    margin-top: -24px;
+    @include background-image(linear-gradient(bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%));
+    @include background-size(100% 100%);
+  }
+}
+
 .obj_descr__text__descr__body__full_link{
-  margin: 17px 0 20px 0;
+  margin: 17px 0 0 0;
+  display: none;
   a{
     @include font-small;
     color: $lightblue;
   }
+}
+
+.obj_descr__text__descr__adder{
+  margin: 17px 0 20px 0;
 }
 
 .obj_descr__text__descr__adder{
@@ -174,6 +237,11 @@
 .obj_descr__text__descr__how_to_reach__list__record{
   border-top: 1px solid $siteLightGray;
   @include font-small;
+  &.opened{
+    .obj_descr__text__descr__how_to_reach__list__record__header{
+      background-color: #fffbdb;
+    }
+  }
 }
 
 .obj_descr__text__descr__how_to_reach__list__record__author{
@@ -213,6 +281,10 @@
                   
 .obj_descr__text__descr__how_to_reach__list__record__description{
   display: none;
+}
+
+.obj_descr__text__descr__how_to_reach__list__record__description__text{
+  margin-top: 15px;
 }
 
 .obj_descr__text__descr__how_to_reach__list__author,
@@ -430,7 +502,7 @@
 }
         
 .obj_descr__responces__responce__text__actions__respond{
-  display: inline-block;
+  display: inline;
 }
         
 .obj_descr__responces__responce__text__actions__comments_count{

@@ -9,4 +9,4 @@
     .pic_comments__add__controls__submit
       %input{type: 'submit', class: 'button button_standard button_grey', value: 'Отправить'}
     .pic_comments__add__controls__reset
-      %input{type: 'reset' class: 'action-link', value: 'Отменить'}
+      %input{type: 'reset', class: 'action-link', value: 'Отменить'}

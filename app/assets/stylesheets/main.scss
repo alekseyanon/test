@@ -1858,8 +1858,10 @@ display: block;
 	}
   &.subnavigation{
 	  padding: 0px 0px 0px 336px;
+    .write_review{
+      margin-right: 30px;
+    }
   }
-  
 }
 .objs_search_link{
   margin-left: 30px;
@@ -2162,7 +2164,7 @@ display: block;
 	.pic_comments__comment__info__actions{
 	}
 	.pic_comments__comment__info__actions__respond{
-		display: inline-block;
+		display: inline;
 		a{
 			color: $siteGray;
 			&:hover{

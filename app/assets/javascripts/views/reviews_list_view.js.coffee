@@ -15,7 +15,6 @@ class Smorodina.Views.ReviewsListView extends Backbone.View
 
   render: ->
     @$el.html @template count: @collection.length
-    console.log @collection.lenght
     _.each @collection.models, @render_one
     @
 

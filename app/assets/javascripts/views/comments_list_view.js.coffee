@@ -6,7 +6,7 @@ class Smorodina.Views.CommentsListView extends Backbone.View
   parent_id: null
 
   events: 
-    'submit .pic_comments__add:last form' : 'create_new' 
+    'submit .pic_comments__add form' : 'create_new' 
 
   initialize: ->
     _.bindAll @
@@ -32,21 +32,25 @@ class Smorodina.Views.CommentsListView extends Backbone.View
 
 
   create_new: (e)->
+    console.log 'submiting'
     e.preventDefault()
-    values = $(e.currentTarget).serializeArray()
-    data =
-      parent_id: values[0].value
-      body: values[1].value
+    if @parent_id == null
+      e.preventDefault()
+      values = $(e.currentTarget).serializeArray()
+      data =
+        parent_id: values[0].value
+        body: values[1].value
 
-    @collection.create data,
-      el: @$el
-      wait: true,
-      success: (model, resp, opt)->
-        if model.get('parent_id') != null
-          opt.el.find('.pic_comments__add:last').slideUp().find('form')[0].reset()
-      error: ->
-        @handleCreationError
-     
+      @collection.create data,
+        el: $(e.currentTarget)
+        wait: true,
+        success: (model, resp, opt)->
+          opt.el[0].reset()
+          if model.get('parent_id') != null
+            opt.el.parents('.pic_comments__add').slideUp()
+
+        error: ->
+          @handleCreationError
 
   handleCreationError: ->
     console.log 'Some errors happened!'
