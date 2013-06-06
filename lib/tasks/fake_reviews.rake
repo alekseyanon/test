@@ -1,16 +1,25 @@
 
+class Routes 
+  include Rails.application.routes.url_helpers
+end
+
+Routes.default_url_options[:host] = "localhost:3000"
+r = Routes.new
+
 namespace :fake do
   desc 'Generates fake reviews for GeoObject and User'
-  task reviews: :environment do
+  task reviews: :users do
     load "#{Rails.root}/spec/support/blueprints.rb"
-    
-    [GeoObject, User].each do |parent|
-      3.times do
-        parent_obj = parent.make!
-        5.times do
-          r = Review.make! reviewable: parent_obj
-          puts "Building Review #{r.id} for #{parent} #{parent_obj.id}"
-        end
+
+    puts '----------------------------------------------------------------------'
+    puts '-------------------------- CREATING REVIEWS --------------------------'
+    puts '----------------------------------------------------------------------'
+    [GeoObject.last(5), User.last(5)].each do |reviewable_list|
+      reviewable_list.each do |reviewable|
+        review          = Review.make! reviewable: reviewable
+        link_review     = r.review_url(review)
+        link_reviewable = reviewable.is_a?(User) ? r.profile_url(reviewable.profile) : r.geo_object_url(reviewable)
+        puts "Building Review #{link_review} for #{reviewable.class} #{link_reviewable}"
       end
     end
   end
