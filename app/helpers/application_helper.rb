@@ -60,4 +60,12 @@ module ApplicationHelper
     end
     polymorphic_path args, options
   end
+
+  def ip_location ip
+    (@sx_geo ||= SxGeo.new).get(ip)
+  end
+
+  def destroy_vote_polymorphic_path votable
+    new_vote_polymorphic_path(votable).strip + "/#{Vote.first.id}"
+  end
 end

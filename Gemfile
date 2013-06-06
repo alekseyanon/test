@@ -19,6 +19,8 @@ gem 'ice_cube'
 
 gem 'pg_search'
 
+gem 'sxgeo'
+
 gem 'kaminari'
 
 gem 'rabl'

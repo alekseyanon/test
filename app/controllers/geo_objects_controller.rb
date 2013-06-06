@@ -4,10 +4,10 @@ class GeoObjectsController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
 
   respond_to :json
-  respond_to :html, except: [:coordinates, :nearest_node, :count]
+  respond_to :html, except: [:coordinates, :nearest_node, :count, :my_location]
 
   def sanitize_search_params(params)
-    params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets, :sort_by) #TODO consider using ActiveRecord for this
+    params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets, :sort_by, :agc_id) #TODO consider using ActiveRecord for this
   end
 
   def history
@@ -111,6 +111,17 @@ class GeoObjectsController < ApplicationController
     respond_with GeoObject.count
   end
 
+  def my_location
+    client_city = location_by_ip(request.remote_ip)
+    if client_city && agu_location = Agu.where(title: client_city).first
+      c = agu_location.geom.centroid
+      respond_with [c.x, c.y]
+    else
+      Rails.logger.warn "No match found in agus for city #{client_city}" if client_city
+      respond_with nil
+    end
+  end
+
   protected
 
   def get_categories
@@ -142,4 +153,15 @@ class GeoObjectsController < ApplicationController
     geo_objects
   end
 
+  def location_by_ip ip
+    begin
+      if c = SxGeo.new.get(ip)
+        c['city'].force_encoding('UTF-8')
+      end
+    rescue
+      Rails.logger.warn "No city found for ip #{ip}"
+      nil
+    end
+  end
+  
 end

@@ -36,6 +36,7 @@ module Searchable
           chain = chain.within_radius(geom, r)
         end
         chain = chain.in_place(query[:place_id]) if query[:place_id]
+        chain = chain.with_agc(query[:agc_id])   if query[:agc_id]
         text = query[:text]
         chain = chain.within_date_range query[:from], query[:to] if query[:from]
       end
