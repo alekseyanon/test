@@ -14,11 +14,12 @@ namespace :fake do
     puts '----------------------------------------------------------------------'
     puts '-------------------------- CREATING REVIEWS --------------------------'
     puts '----------------------------------------------------------------------'
-    [GeoObject.last(5), User.last(5)].each do |reviewable_list|
-      reviewable_list.each do |reviewable|
-        review          = Review.make! reviewable: reviewable
+    GeoObject.last(5).each do |reviewable|
+      user = User.last(5).sample
+      5.times do
+        review          = Review.make! reviewable: reviewable, user: user
         link_review     = r.review_url(review)
-        link_reviewable = reviewable.is_a?(User) ? r.profile_url(reviewable.profile) : r.geo_object_url(reviewable)
+        link_reviewable = r.geo_object_url(reviewable)
         puts "Building Review #{link_review} for #{reviewable.class} #{link_reviewable}"
       end
     end

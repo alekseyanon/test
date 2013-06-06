@@ -34,13 +34,13 @@ end
 
 namespace :fake do
   desc 'Generates fake comments for GeoObject and User'
-  task comments: :users do
+  task comments: [:users, :reviews] do
 
     puts '-------------------------------------------------------------------------'
     puts '-------------------------- CREATING COMMENTS ----------------------------'
     puts '-------------------------------------------------------------------------'
     each_commentator do |commentator|
-      [GeoObject.last(5), User.last(5)].each do |commentable_list|
+      [Review.last(5), User.last(5)].each do |commentable_list|
         commentable_list.each do |commentable|
           c    = create_comment commentator, commentable
           link = commentable.is_a?(User) ? r.profile_url(commentable.profile) : r.geo_object_url(commentable)
