@@ -21,9 +21,13 @@ class GeoObject < ActiveRecord::Base
   def latlon
     [geom.y, geom.x] #TODO figure out what's really latitude and what is longitude
   end
-
+  
+  def agc_titles
+    self.agc.titles
+  end
+  
   def as_json options = {}
-    op_hash = { only: [:id, :title, :body, :rating, :geom], methods: [:tag_list, :latlon, :best_object], include: :agc }
+    op_hash = { only: [:id, :title, :body, :rating, :geom, :slug], methods: [:tag_list, :latlon, :best_object, :agc_titles, :average_rating], include: [:agc, :images] }
     op_hash[:only] = [:id, :title, :rating] if options[:extra] && options[:extra][:teaser]
     super op_hash
   end
@@ -44,7 +48,7 @@ class GeoObject < ActiveRecord::Base
   belongs_to :agc
   attr_accessible :body, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at
   validates :title, :user, presence: true
-  validates_associated :user
+  validates_associated :user  
 
   #TODO consider refactoring: move from here and from event.rb to a separate module
   has_many   :video_links, as: :movie_star

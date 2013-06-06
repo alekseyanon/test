@@ -3,5 +3,5 @@
   %ul.smorodina-item__geo__list
     - tree.each do |key, value|
       %li
-        %a.tdn-link{ href: "##{key}" }
+        %a.tdn-link{ href: "/places/show/#{key}" }
           = value
