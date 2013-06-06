@@ -2,7 +2,7 @@ collection @objects
 attributes :id, :title, :created_at
 
 node(:url) {|obj| geo_object_path(obj)}
-node(:date) {|obj| obj.created_at.strftime('%d %b %y')}
+node(:date) {|obj| Russian::strftime(obj.created_at, '%A, %e %B %Yг.') }
 node(:agc_titles) {|obj| obj.agc.try(:titles) || ''}
 
 child :user do
