@@ -29,7 +29,7 @@
         .obj_descr__info__links__social
           %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
         .add_photo_or_video_link
-          = link_to "Добавить фото или видео", "#", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"} 
+          = link_to "Добавить фото или видео", "#newimage", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link", data: {toggle: 'modal'}}
     .obj_descr__text
       .obj_descr__text__vote_stats
         .obj_descr__text__vote_stats__value
@@ -106,7 +106,7 @@
   = render partial: 'geo_objects/sub_navigation', locals: {object: @geo_object}
   .obj_descr__responces__starter
     
-
+= render partial: 'images/new', locals: { object: @geo_object }
 
 %script
   $(window).load(function(){ geo_object_show();})
