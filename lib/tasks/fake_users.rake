@@ -20,7 +20,6 @@ namespace :fake do
   #   Facebook: [test98732both@yandex.ru, 123456ab]
   #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
-
   task users: :environment do
 
     load_routes
