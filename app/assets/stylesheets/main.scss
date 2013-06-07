@@ -1034,6 +1034,7 @@ a:hover,
 
 .smorodina-item__tags,
 .smorodina-item__geo {
+  min-height: 18px;
   padding-left: 18px;
   position: relative;
   @include trailer(0.25);
