@@ -40,7 +40,7 @@ describe "Determining user location based on its IP address", js: true, type: :r
   end
 
 	it "determines location based on the city the visitor might be located in" do
-		ENV['RAILS_TEST_IP_ADDRESS'] = '94.25.229.69'
+		ENV['RAILS_TEST_IP_ADDRESS'] = '91.201.205.23'
 		visit root_path
 		find('.leaflet-control-my-location').click
 
