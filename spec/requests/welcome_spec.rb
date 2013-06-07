@@ -19,4 +19,30 @@ describe "Welcome", js: true, type: :request do
     page.find('#objectsTotal').should have_content '1'
   end
 
+  it 'should show chronicle content' do
+    g = GeoObject.make!
+    visit root_path
+    find('.chronicle').should have_content g.title
+  end
+
+  it 'chronicle should have pagination' do
+    g = GeoObject.make!
+    11.times { GeoObject.make! }
+    visit root_path
+    find('.chronicle').should_not have_content g.title
+    find('.fetch-results__button a').click
+    find('.chronicle').should have_content g.title
+  end
+
+  it 'chronicle can response with objects json' do
+    11.times { GeoObject.make! }
+    visit api_chronicles_show_path format: :json
+    objects = JSON.parse page.find('pre').text
+    objects.count.should == 10
+    objects.first['id'].should == GeoObject.last.id
+    visit api_chronicles_show_path page: '1', format: :json
+    objects = JSON.parse page.find('pre').text
+    objects.count.should == 1
+    objects.first['id'].should == GeoObject.first.id
+  end
 end
