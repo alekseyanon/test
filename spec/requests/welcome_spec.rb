@@ -15,8 +15,9 @@ describe "Welcome", js: true, type: :request do
 
   it 'should show objects count number' do
     GeoObject.make!
+    count = GeoObject.all.count
     visit root_path
-    page.find('#objectsTotal').should have_content '1'
+    page.find('#objectsTotal').should have_content count.to_s
   end
 
   it 'should show chronicle content' do
