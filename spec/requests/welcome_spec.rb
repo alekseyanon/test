@@ -35,6 +35,7 @@ describe "Welcome", js: true, type: :request do
   end
 
   it 'chronicle can response with objects json' do
+    prev_obj = GeoObject.all.count
     11.times { GeoObject.make! }
     visit api_chronicles_show_path format: :json
     objects = JSON.parse page.find('pre').text
@@ -42,7 +43,6 @@ describe "Welcome", js: true, type: :request do
     objects.first['id'].should == GeoObject.last.id
     visit api_chronicles_show_path page: '1', format: :json
     objects = JSON.parse page.find('pre').text
-    objects.count.should == 1
-    objects.first['id'].should == GeoObject.first.id
+    objects.count.should == (prev_obj >= 9 ? 10 : 1 + prev_obj)
   end
 end

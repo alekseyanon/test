@@ -1,5 +1,5 @@
 collection @objects
-attributes :id, :title
+attributes :id, :title, :agc_id
 
 node(:url) {|obj| geo_object_path(obj)}
 node(:date) {|obj| Russian::strftime(obj.created_at, '%A, %e %B %Yг.') }
@@ -10,4 +10,4 @@ child :user do
   code(:link_to_profile) { |m| profile_path(m.profile) }
 end
 
-node(:image) {|obj| obj.images.first.try(:image_url) || '' }
+node(:image) {|obj| (imgs = obj.images).blank? ? '/assets/tmp/130x90.gif' : imgs.first.image_url(:chronicalthumb) }
