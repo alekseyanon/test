@@ -6,11 +6,7 @@ class Smorodina.Views.ChronicleIndex extends Backbone.View
     @collection.fetch reset: true
 
   render: ->
-    console.log 'start groupping'
     @days = _.groupBy(@collection.models, (model) ->
                                               return model.get('date')
                       )
-    console.log 'end grouping'
-    console.log @days
-    ### TODO: delete console log and change selector for chronicle
-    $('.test1').append @template(days: @days)
+    $('.backbone_chronicle_content').append @template(days: @days)
