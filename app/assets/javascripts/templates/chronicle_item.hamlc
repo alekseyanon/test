@@ -21,6 +21,6 @@
       %span.smorodina-item__user__text
         Добавил:
       %span.user-link
-        %a.tdn-link{ href: "#{user.userlink}" }
+        %a.tdn-link{ href: "#{user.link_to_profile}" }
           = user.username
           %span.icon.icon-user.user-link__icon
