@@ -9,12 +9,11 @@ def commentators
 end
 
 def generate_children comment
-  depth = Random.rand(0..2)
+  depth = Random.rand(0..1)
   depth.times do
     Random.rand(1..3).times do
       random_commentator = commentators.select{ |c| c.id != comment.user.id }.sample
       create_comment random_commentator, comment.commentable, comment
-      comment.save!
       puts "Commentator: #{random_commentator.id}, Comment: #{comment.children.last.id}, Parent comment: #{comment.id}"
     end
     comment = Comment.find(comment.children.sample)
