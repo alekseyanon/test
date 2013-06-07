@@ -1,5 +1,10 @@
 namespace :fake do
 
+  def load_routes
+    include Rails.application.routes.url_helpers
+    default_url_options[:host] = "localhost:3000"
+  end
+
   desc "Generates fake accounts for admins,
         users authenticated by twitter, facebook and by the smorodina"
 
@@ -15,7 +20,10 @@ namespace :fake do
   #   Facebook: [test98732both@yandex.ru, 123456ab]
   #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
+
   task users: :environment do
+
+    load_routes
 
     DEFAULT_PASSWORD = "12345678"
 

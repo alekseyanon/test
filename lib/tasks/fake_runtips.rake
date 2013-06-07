@@ -1,15 +1,9 @@
 
-class Routes 
-  include Rails.application.routes.url_helpers
-end
-
-Routes.default_url_options[:host] = "localhost:3000"
-r = Routes.new
-
 namespace :fake do
   desc 'Generates fake runtips'
   task runtips: :users do
     load "#{Rails.root}/spec/support/blueprints.rb"
+    load_routes
     
     puts '----------------------------------------------------------------------'
     puts '-------------------------- CREATING RUNTIPS --------------------------'
@@ -18,7 +12,7 @@ namespace :fake do
       5.times do
         user = User.last(5).sample
         Runtip.make! geo_object: geo_object, user: user
-        puts "Building Runtip for GeoObject #{r.geo_object_url(geo_object)} with User #{user.email}"
+        puts "Building Runtip for GeoObject [#{geo_object_url(geo_object)}] on behalf of User [#{user.email}]"
       end
     end
   end
