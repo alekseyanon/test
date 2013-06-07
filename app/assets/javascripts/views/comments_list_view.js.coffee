@@ -1,4 +1,4 @@
-class Smorodina.Views.CommentsListView extends Backbone.View
+class Smorodina.Views.CommentsListView extends Smorodina.Views.Base
   className: 'pic_comments__container'
 
   template: JST['comments_list']
@@ -32,8 +32,12 @@ class Smorodina.Views.CommentsListView extends Backbone.View
 
 
   create_new: (e)->
-    console.log 'submiting'
     e.preventDefault()
+
+    if !@is_authorized()
+      @show_login()
+      return
+
     if @parent_id == null
       e.preventDefault()
       values = $(e.currentTarget).serializeArray()

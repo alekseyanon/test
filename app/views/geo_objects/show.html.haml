@@ -39,8 +39,10 @@
               .obj_descr__text__vote_stats__value__item
                 .obj_descr__text__vote_stats__value__item__name
                   = tag_name
-                .obj_descr__text__vote_stats__value__item__value
-                  = render partial: "shared/vote_for_simple", locals: {votable: @geo_object, tag_name: tag_name}
+
+                - path = new_vote_polymorphic_path @geo_object, tag_name, format: :json
+                - user_vote = current_user ? current_user.get_vote(@geo_object, tag_name) : 0
+                %div{class: 'obj_descr__text__vote_stats__value__item__value', data: {votes_for: @geo_object.votes_for(tag_name), votes_against: @geo_object.votes_against(tag_name), current_user_vote: user_vote, vote_url: path}}
 
         .obj_descr__text__vote_stats__near_objects
           = link_to "Объекты поблизости", search_geo_objects_path, {class: "link-like-button bullet icon-sm-compass button button_standard button_grey ui-link"} 

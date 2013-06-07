@@ -1,4 +1,4 @@
-class Smorodina.Views.ObjectRuntipsView extends Backbone.View
+class Smorodina.Views.ObjectRuntipsView extends Smorodina.Views.Base
   el: '.obj_descr__text__descr__how_to_reach__list__container'
   
   template: JST['runtip_list']
@@ -20,6 +20,11 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
 
   create_new_runtip: (e)->
     e.preventDefault()
+
+    if !@is_authorized()
+      @show_login()
+      return
+
     data =
       body: @$el.find('.pic_comments__add__input input').val()
 
@@ -33,5 +38,3 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
 
   handleCreationError: ->
     console.log 'Some errors happened!'
-
-

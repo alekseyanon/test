@@ -1,4 +1,4 @@
-class Smorodina.Views.ReviewsListView extends Backbone.View
+class Smorodina.Views.ReviewsListView extends Smorodina.Views.Base
   className: 'obj_descr__responces'
   
   template: JST['review_list']
@@ -36,6 +36,11 @@ class Smorodina.Views.ReviewsListView extends Backbone.View
 
   create_new_runtip: (e)->
     e.preventDefault()
+    
+    if !@is_authorized()
+      @show_login()
+      return
+
     data =
       body: @$el.find('.pic_comments__add__input input').val()
 

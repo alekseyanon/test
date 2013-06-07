@@ -1,4 +1,4 @@
-class Smorodina.Views.VoteForSimple extends Backbone.View
+class Smorodina.Views.VoteForSimple extends Smorodina.Views.Base
   template: ''
 
   className: 'simple_voting'
@@ -37,6 +37,11 @@ class Smorodina.Views.VoteForSimple extends Backbone.View
 
   make_vote: (e) ->
     e.preventDefault()
+
+    if !@is_authorized()
+      @show_login()
+      return
+
     user_vote = @votable.get('rating').current_user_vote
     @direction = $(e.currentTarget).find('input[name="sign"]').attr 'value'
 

@@ -1,4 +1,4 @@
-class Smorodina.Views.ObjectShow extends Backbone.View
+class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
   el: '.obj_show_page'
 
   events:
@@ -20,6 +20,18 @@ class Smorodina.Views.ObjectShow extends Backbone.View
 
     if descr_height < descr_scroll_height
       @$('.obj_descr__text__descr').addClass 'slidable'
+
+    $('.obj_descr__text__vote_stats__value__item__value').each (index, record)->
+      data = 
+        votes_for: parseInt $(record).attr('data-votes_for')
+        votes_against: parseInt $(record).attr('data-votes_against')
+        current_user_vote: parseInt $(record).attr('data-current_user_vote')
+        vote_url: $(record).attr 'data-vote_url'
+
+      model = new Backbone.Model()
+      model.set rating: data
+      vote_view = new Smorodina.Views.VoteForSimple votable: model, template: 'vote_for_merged'
+      $(record).html vote_view.render().el
 
   init_runtips: (e)-> 
     e.preventDefault()

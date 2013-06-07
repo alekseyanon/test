@@ -1,4 +1,4 @@
-class Smorodina.Views.ReviewView extends Backbone.View
+class Smorodina.Views.ReviewView extends Smorodina.Views.Base
   className: 'obj_descr__review__record'
   
   template: JST['review']

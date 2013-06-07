@@ -1,4 +1,4 @@
-class Smorodina.Views.RuntipView extends Backbone.View
+class Smorodina.Views.RuntipView extends Smorodina.Views.Base
   className: 'obj_descr__text__descr__how_to_reach__list__record'
   
   template: JST['runtip']

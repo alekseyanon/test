@@ -1,4 +1,4 @@
-class Smorodina.Views.CommentView extends Backbone.View
+class Smorodina.Views.CommentView extends Smorodina.Views.Base
   className: 'pic_comments__comment'
   
   template: JST['comment']
