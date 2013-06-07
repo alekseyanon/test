@@ -1,21 +1,14 @@
-- show_more = true if show_more.nil?
-- slidable = false if slidable.nil?
-%div{class: 'pic_comments', id: "comments_#{commentable.id}"}
+.pic_comments
   .pic_comments__count
     .pic_comments__count__text
-      - link_label = "#{commentable.comments.count.to_s} #{Russian::p(commentable.comments.count, 'коментарий', 'коментария', 'коментариев')}"
-      - if slidable
-        = content_tag :span, link_label, data:{toggle: "collapse", target: "#comments_list_#{commentable.id}"}, class: 'action-link'
-      - else
-        = link_label
-  %div{class: "pic_comments__container collapse", id: "comments_list_#{commentable.id}"}
-    .pic_comments__list
-      - roots = commentable.comments.roots.order 'created_at asc'
-      - roots.each do |root|
-        = nested_comments root.subtree.arrange(order: :created_at)
-    %a#add_comment_form
-    = render partial: 'comments/add_comment', locals: {commentable: commentable, comment: commentable.comments.build, css_prefix: 'normal'}
-    - if show_more
-      .pic_comments__next
-        = link_to 'Показать ещё', '#', {class: 'button button_standard button_grey ui-link'}
+      = commentable.comments.count
+      = Russian::p(commentable.comments.count, 'коментарий', 'коментария', 'коментариев')
+  .pic_comments__list
+    - roots = commentable.comments.roots.order 'created_at asc'
+    - roots.each do |root|
+      = nested_comments root.subtree.arrange(order: :created_at)
+  %a#add_comment_form
+  = render partial: 'comments/add_comment', locals: {commentable: commentable, comment: commentable.comments.build, css_prefix: 'normal'}
+  .pic_comments__next
+    = link_to 'Показать ещё', '#', {class: 'button button_standard button_grey ui-link'}
 
