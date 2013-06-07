@@ -27,7 +27,7 @@ describe "Welcome", js: true, type: :request do
 
   it 'chronicle should have pagination' do
     g = GeoObject.make!
-    11.times { GeoObject.make! }
+    (CHRONICLE_PAGINATION_ITEMS + 1).times { GeoObject.make! }
     visit root_path
     find('.chronicle').should_not have_content g.title
     find('.fetch-results__button a').click
@@ -36,13 +36,14 @@ describe "Welcome", js: true, type: :request do
 
   it 'chronicle can response with objects json' do
     prev_obj = GeoObject.all.count
-    11.times { GeoObject.make! }
+    repeat = CHRONICLE_PAGINATION_ITEMS + 1
+    repeat.times { GeoObject.make! }
     visit api_chronicles_show_path format: :json
     objects = JSON.parse page.find('pre').text
-    objects.count.should == 10
+    objects.count.should == CHRONICLE_PAGINATION_ITEMS
     objects.first['id'].should == GeoObject.last.id
     visit api_chronicles_show_path page: '1', format: :json
     objects = JSON.parse page.find('pre').text
-    objects.count.should == (prev_obj >= 9 ? 10 : 1 + prev_obj)
+    objects.count.should == (prev_obj >= (CHRONICLE_PAGINATION_ITEMS-1) ? CHRONICLE_PAGINATION_ITEMS : 1 + prev_obj)
   end
 end

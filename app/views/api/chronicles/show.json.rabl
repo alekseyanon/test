@@ -9,5 +9,5 @@ child :user do
   code(:username) { |m| m.profile.try(:name) || m.try(:email) || "Пользователь #{u.id}"}
   code(:link_to_profile) { |m| profile_path(m.profile) }
 end
-
+# TODO: move stub for the pictures
 node(:image) {|obj| (imgs = obj.images).blank? ? '/assets/tmp/130x90.gif' : imgs.first.image_url(:chronicalthumb) }
