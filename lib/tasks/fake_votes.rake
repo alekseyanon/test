@@ -17,7 +17,7 @@ namespace :fake do
   paths[:runtips]        = ->(runtip)  { geo_object_url(runtip.geo_object)   }
 
   desc 'Generate simple votes for geo_object, comments, runtips, reviews'
-  task rating: [:comments, :reviews, :runtips, :users] do
+  task votes: [:comments, :reviews, :runtips, :users] do
     load_routes
     votables = [GeoObject, Comment, Review, Runtip]
     users    = User.last(5)

@@ -17,5 +17,5 @@ namespace :fake do
     end
   end
 
-  task all: [:users, :runtips, :reviews, :comments]
+  task all: [:users, :runtips, :reviews, :comments, :votes]
 end
