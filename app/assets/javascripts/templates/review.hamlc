@@ -2,7 +2,7 @@
   .obj_descr__responces__responce__author
     .obj_descr__responces__responce__author__inner
       .obj_descr__responces__responce__author__avatar
-        %img{src: @review.get('user').avatar, width: 64, height: 64}
+        %img{src: @review.get('user').avatar}
       .obj_descr__responces__responce__author__name
         %a{href: @review.get('user').link_to_profile, class: 'ui-link action-link'}
           = @review.get('user').username

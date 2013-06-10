@@ -2,7 +2,7 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
   el: '.obj_show_page'
 
   events:
-    'click .obj_descr__text__descr__how_to_reach a.runtip_switcher' : 'init_runtips'
+    'click .obj_descr__text__descr__runtips a.runtip_switcher' : 'init_runtips'
     'click .obj_descr__text__descr__body__full_link a' : 'show_full_description'
 
   object_id: 0

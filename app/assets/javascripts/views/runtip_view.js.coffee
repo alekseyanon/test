@@ -1,10 +1,10 @@
 class Smorodina.Views.RuntipView extends Smorodina.Views.Base
-  className: 'obj_descr__text__descr__how_to_reach__list__record'
+  className: 'obj_descr__text__descr__runtips__list__record'
   
   template: JST['runtip']
 
   events:
-    'click .obj_descr__text__descr__how_to_reach__list__record__header'  : 'show_runtip'
+    'click .obj_descr__text__descr__runtips__list__record__header'  : 'show_runtip'
 
   initialize: ->
     _.bindAll @
@@ -14,8 +14,8 @@ class Smorodina.Views.RuntipView extends Smorodina.Views.Base
     @$el.html @template runtip: @model
     @vote_for_simple = new Smorodina.Views.VoteForSimple votable: @model
     @vote_for_merged = new Smorodina.Views.VoteForSimple votable: @model, template: 'vote_for_merged'
-    @$el.find('.obj_descr__text__descr__how_to_reach__list__record__rate').html @vote_for_simple.render().el
-    @$el.find('.obj_descr__text__descr__how_to_reach__list__record__description__actions__vote').html @vote_for_merged.render().el
+    @$el.find('.obj_descr__text__descr__runtips__list__record__rate').html @vote_for_simple.render().el
+    @$el.find('.obj_descr__text__descr__runtips__list__record__description__actions__vote').html @vote_for_merged.render().el
     @
 
   show_runtip: (e)->
@@ -24,9 +24,9 @@ class Smorodina.Views.RuntipView extends Smorodina.Views.Base
       e.preventDefault()
       if @$el.hasClass 'opened'
         @$el.removeClass 'opened'
-        @$el.find('.obj_descr__text__descr__how_to_reach__list__record__description').slideUp()
+        @$el.find('.obj_descr__text__descr__runtips__list__record__description').slideUp()
       else
         @$el.addClass 'opened'
-        @$el.find('.obj_descr__text__descr__how_to_reach__list__record__description').slideDown()
+        @$el.find('.obj_descr__text__descr__runtips__list__record__description').slideDown()
 
 
