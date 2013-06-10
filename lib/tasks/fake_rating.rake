@@ -11,10 +11,10 @@ end
 
 namespace :fake do
   paths = {}
-  paths[:geo_objects]    = ->(obj)     { geo_object_path(obj)  }
-  paths[:comments]       = ->(comment) { review_path(comment.commentable) }
-  paths[:reviews]        = ->(review)  { review_path(review)   }
-  paths[:runtips]        = ->(runtip)  { geo_object_path(runtip.geo_object)   }
+  paths[:geo_objects]    = ->(obj)     { geo_object_url(obj)  }
+  paths[:comments]       = ->(comment) { review_url(comment.commentable) }
+  paths[:reviews]        = ->(review)  { review_url(review)   }
+  paths[:runtips]        = ->(runtip)  { geo_object_url(runtip.geo_object)   }
 
   desc 'Generate simple votes for geo_object, comments, runtips, reviews'
   task rating: [:comments, :reviews, :runtips, :users] do

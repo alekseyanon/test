@@ -27,17 +27,11 @@ namespace :fake do
     puts '-------------------------- CREATING COMMENTS ----------------------------'
     puts '-------------------------------------------------------------------------'
     commentators.each do |commentator|
-      [Image.last(5), Review.last(5)].each do |commentable_list|
-        commentable_list.each do |commentable|
-          comment = create_comment(commentator, commentable)
-          link    = if commentable.is_a? Image
-                      geo_object_image_url(commentable.imageable, commentable)
-                    else
-                      review_url(commentable)
-                    end
-          puts ">>> Building comments for #{commentable.class} [#{link}] on behalf of User [#{commentator.email}]<<<"
-          generate_children comment
-        end
+      Review.last(5).each do |review|
+        comment = create_comment(commentator, review)
+        link    = review_url(review)
+        puts ">>> Building comments for review [#{link}] on behalf of User [#{commentator.email}]<<<"
+        generate_children comment
       end
     end
   end
