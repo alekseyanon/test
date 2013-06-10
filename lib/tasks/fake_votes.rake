@@ -1,3 +1,5 @@
+# Поглощено tasks/fake_rating.rake
+#
 def generate_users(count)
   if (c = User.all.count) <= count
     puts 'make new users:'
