@@ -26,11 +26,10 @@ class Smorodina.Views.ReviewView extends Smorodina.Views.Base
     @tag_name = $(e.target).prop 'tagName'
     @$el.find('.pic_comments__container').first().slideToggle()
 
-    if !@$el.hasClass 'opened'
-      if !@comments_list
-          @comments_collection = new Smorodina.Collections.Comments [], url: "/api/reviews/#{@model.get('id')}/comments"
-          @comments_list = new Smorodina.Views.CommentsListView collection: @comments_collection, parent_id: null
-          @$el.find('.pic_comments').append @comments_list.render().el
+    if !@$el.hasClass 'opened' && !@comments_list
+      @comments_collection = new Smorodina.Collections.Comments [], url: "/api/reviews/#{@model.get('id')}/comments"
+      @comments_list = new Smorodina.Views.CommentsListView collection: @comments_collection, parent_id: null
+      @$el.find('.pic_comments').append @comments_list.render().el
 
     
     @$el.toggleClass 'opened'

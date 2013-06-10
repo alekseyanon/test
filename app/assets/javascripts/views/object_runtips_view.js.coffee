@@ -1,10 +1,10 @@
 class Smorodina.Views.ObjectRuntipsView extends Smorodina.Views.Base
-  el: '.obj_descr__text__descr__how_to_reach__list__container'
+  el: '.obj_descr__text__descr__runtips__list__container'
   
   template: JST['runtip_list']
 
   events:
-    'submit .obj_descr__text__descr__how_to_reach__list__add form': 'create_new_runtip'
+    'submit .obj_descr__text__descr__runtips__list__add form': 'create_new_runtip'
 
   list_container: null
 
@@ -12,7 +12,7 @@ class Smorodina.Views.ObjectRuntipsView extends Smorodina.Views.Base
     _.bindAll @
     @collection.on 'add', @render_runtip
     @collection.fetch()
-    @list_container = @$('.obj_descr__text__descr__how_to_reach__list')
+    @list_container = @$('.obj_descr__text__descr__runtips__list')
 
   render_runtip: (runtip)->
     view = new Smorodina.Views.RuntipView model: runtip
@@ -31,9 +31,9 @@ class Smorodina.Views.ObjectRuntipsView extends Smorodina.Views.Base
     @collection.create data,
       wait: true,
       success: ->
-        $('.obj_descr__text__descr__how_to_reach__list__add form')[0].reset()
+        $('.obj_descr__text__descr__runtips__list__add form')[0].reset()
       error: ->
-        @handleCreationError
+        @handleCreationError()
                                                                      
 
   handleCreationError: ->

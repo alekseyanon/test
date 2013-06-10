@@ -6,7 +6,8 @@
   .obj_descr__responces_count
     %a{href: '#', class: 'action-link show_all'}
       Все отзывы: 
-      =@count
+      %span.count
+        =@count
 
     %a{href: '#', class: 'action-link hide_all'}
       Свернуть

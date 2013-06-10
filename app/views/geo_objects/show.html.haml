@@ -81,11 +81,11 @@
             = render partial: 'shared/spam_to', locals: {spammable: @geo_object}
 
 
-        .obj_descr__text__descr__how_to_reach{data: {id: @geo_object.id}}
-          .obj_descr__text__descr__how_to_reach__spinner
+        .obj_descr__text__descr__runtips{data: {id: @geo_object.id}}
+          .obj_descr__text__descr__runtips__spinner
           = link_to 'Как добраться', "#runtips_list", {class: 'action-link ui-link runtip_switcher', data:{toggle: "collapse", target: "#runtips_list"}}
-          .obj_descr__text__descr__how_to_reach__list__container.collapse#runtips_list
-            .obj_descr__text__descr__how_to_reach__list__add
+          .obj_descr__text__descr__runtips__list__container.collapse#runtips_list
+            .obj_descr__text__descr__runtips__list__add
               = form_for([@geo_object, Runtip.new]) do |f|
                 .pic_comments__add__avatar
                   - unless current_user.nil?
@@ -93,7 +93,7 @@
                 .pic_comments__add__input
                   = f.text_field :body, placeholder: 'Предложить вариант'
 
-            .obj_descr__text__descr__how_to_reach__list
+            .obj_descr__text__descr__runtips__list
     
   %div#mapContainer.map__outer
     %div.map__inner

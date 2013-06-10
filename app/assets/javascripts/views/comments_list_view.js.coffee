@@ -54,7 +54,7 @@ class Smorodina.Views.CommentsListView extends Smorodina.Views.Base
             opt.el.parents('.pic_comments__add').slideUp()
 
         error: ->
-          @handleCreationError
+          @handleCreationError()
 
   handleCreationError: ->
     console.log 'Some errors happened!'

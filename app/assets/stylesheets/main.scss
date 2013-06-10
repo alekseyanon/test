@@ -127,11 +127,13 @@ a:hover,
 		margin-left: 3px;
 		font-size: $base-font-size;
 		font-family: $base-font;
+    display: inline-block;
 	}
 	&:before{
 		@include font-large;
 		vertical-align: middle;
     float: left;
+    line-height: 21px;
 	}
 	&.right{
 		&:before{
@@ -2124,6 +2126,7 @@ display: block;
 		padding: 0 9px 0 0;
 	}
 	.pic_comments__comment{
+    @include clearfix;
 		margin-left: 35px;
 		.pic_comments__comment{
       .pic_comments__comment__info__actions__vote{
@@ -2144,10 +2147,13 @@ display: block;
 		float: left;
 		margin-right: 21px;
 		img{
+      @include size(48px, 48px);
 			@include border-radius(24px);
 		}
 	}
 	.pic_comments__comment__info{
+    float: left;
+    width: 80%;
 		margin-bottom: 21px;
 	}
 	.pic_comments__comment__info__name{
@@ -2191,6 +2197,9 @@ display: block;
 			font-family: $advanced-font;
 		}
 	}
+  .pic_comments__chid_comments{
+    clear: both;
+  }
 }
 
 .pic_comments__add{
@@ -2204,10 +2213,12 @@ display: block;
 	width: 48px;
 	min-height: 48px;
 	img{
+    @include size(48px, 48px);
 		@include border-radius(24px);
 	}
 }
 .pic_comments__add__input{
+  width: 490px;
 	@include clearfix;
 	float: left;
 	position: relative;

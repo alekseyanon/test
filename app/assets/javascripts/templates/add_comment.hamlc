@@ -2,7 +2,7 @@
 %form
   %input{type: 'hidden', name: 'parent_id', value: @parent_id}
   .pic_comments__add__avatar
-    %img{src: '/my_profile/avatar', width: '48', height: '48'}
+    %img{src: '/my_profile/avatar'}
   .pic_comments__add__input
     %input{type: 'text', placeholder: 'Добавить комментарий', name: 'body'}
   .pic_comments__add__controls

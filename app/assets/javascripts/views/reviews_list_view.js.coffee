@@ -32,29 +32,6 @@ class Smorodina.Views.ReviewsListView extends Smorodina.Views.Base
     if ++@index > 3
       view.$el.addClass 'hidable_review'
 
-
-
-  create_new_runtip: (e)->
-    e.preventDefault()
-    
-    if !@is_authorized()
-      @show_login()
-      return
-
-    data =
-      body: @$el.find('.pic_comments__add__input input').val()
-
-    @collection.create data,
-      wait: true,
-      success: ->
-        $('.obj_descr__text__descr__how_to_reach__list__add form')[0].reset()
-      error: ->
-        @handleCreationError
-                                                                     
-
-  handleCreationError: ->
-    console.log 'Some errors happened!'
-
   show_all: (e)->
     e.preventDefault()
     @$el.toggleClass 'show_all'
