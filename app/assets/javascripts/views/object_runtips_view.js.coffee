@@ -21,20 +21,11 @@ class Smorodina.Views.ObjectRuntipsView extends Smorodina.Views.Base
   create_new_runtip: (e)->
     e.preventDefault()
 
-    if !@is_authorized()
-      @show_login()
-      return
+    if @is_authorized()
+      data =
+        body: @$el.find('.pic_comments__add__input input').val()
 
-    data =
-      body: @$el.find('.pic_comments__add__input input').val()
-
-    @collection.create data,
-      wait: true,
-      success: ->
-        $('.obj_descr__text__descr__runtips__list__add form')[0].reset()
-      error: ->
-        @handleCreationError()
-                                                                     
-
-  handleCreationError: ->
-    console.log 'Some errors happened!'
+      @collection.create data,
+        wait: true
+        success: ->
+          $('.obj_descr__text__descr__runtips__list__add form')[0].reset()

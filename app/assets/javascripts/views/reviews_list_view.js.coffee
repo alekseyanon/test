@@ -35,5 +35,3 @@ class Smorodina.Views.ReviewsListView extends Smorodina.Views.Base
   show_all: (e)->
     e.preventDefault()
     @$el.toggleClass 'show_all'
-
-

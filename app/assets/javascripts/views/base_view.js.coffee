@@ -10,7 +10,11 @@ class Smorodina.Views.Base extends Backbone.View
 
   is_authorized: ->
     email = $('.slogan-user-panel-container .user-panel').attr 'data-authorized'
-    !!email
+    if email != ''
+      return true
+    else
+      @show_login()
+      return false
 
   show_login: ->
     $('#regLoginModal').modal() 

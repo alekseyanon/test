@@ -38,30 +38,25 @@ class Smorodina.Views.VoteForSimple extends Smorodina.Views.Base
   make_vote: (e) ->
     e.preventDefault()
 
-    if !@is_authorized()
-      @show_login()
-      return
+    if @is_authorized()
+      user_vote = @votable.get('rating').current_user_vote
+      @direction = $(e.currentTarget).find('input[name="sign"]').attr 'value'
 
-    user_vote = @votable.get('rating').current_user_vote
-    @direction = $(e.currentTarget).find('input[name="sign"]').attr 'value'
+      switch user_vote
+        when 1
+          if @direction == 'up'
+            @destroy_vote()
+          else
+            @create_vote()
 
-    switch user_vote
-      when 1
-        if @direction == 'up'
-          @destroy_vote()
+        when -1
+          if @direction == 'up'
+            @create_vote()
+          else
+            @destroy_vote()
 
-        if @direction == 'down'
+        when 0
           @create_vote()
-
-      when -1
-        if @direction == 'up'
-          @create_vote()
-
-        if @direction == 'down'
-          @destroy_vote()
-
-      when 0
-        @create_vote()
 
   destroy_vote: ->
     @model.set sign: @direction, id: '500'

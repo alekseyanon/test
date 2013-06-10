@@ -2,7 +2,6 @@ class RuntipsController < InheritedResources::Base
 	#before_filter :authorize # TODO move to ApplicationController
 
 	def create
-    sleep 1
     @geo_object = GeoObject.find(params[:geo_object_id])
     @runtip = @geo_object.runtips.build(params[:runtip])
     @runtip.user = current_user

@@ -2320,18 +2320,13 @@ display: block;
         &:hover{
           color: $siteGreen;
         }
-        &:visited{
-        }
       }
-       
     }
     .pic_vote__down{
       button, a{
         padding: 0;
         &:hover{
           color: $siteRed;
-        }
-        &:visited{
         }
       }
     }

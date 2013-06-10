@@ -2,10 +2,14 @@
 - path = new_vote_polymorphic_path votable, tag_name, format: :json
 - user_vote = current_user ? current_user.get_vote(votable, tag_name) : 0
 
-- user_css = ''
-- user_css = 'voted_down' if user_vote == -1
-- user_css = 'voted_up' if user_vote == 1
-
+- user_css = case user_vote
+  - when -1
+    - 'voted_down'
+  - when 1
+    - 'voted_up'
+  - else
+    - ''
+    
 %div{class: "pic_vote simple #{user_css}", data: {vote_url: "#{path}", user_vote: user_vote}}
   .pic_vote__up
     = form_tag path do 

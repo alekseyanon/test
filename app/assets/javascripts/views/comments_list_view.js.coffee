@@ -26,7 +26,7 @@ class Smorodina.Views.CommentsListView extends Smorodina.Views.Base
     @
 
   render_one: (record)->
-    if (record.get('parent_id') == null && @rerent_id == null) || (record.get('parent_id') == @parent_id)
+    if (record.get('parent_id') == null && @parerent_id == null) || (record.get('parent_id') == @parent_id)
       view = new Smorodina.Views.CommentView model: record, collection: @collection
       @$el.find('.pic_comments__list').first().append view.render().el
 
@@ -34,12 +34,7 @@ class Smorodina.Views.CommentsListView extends Smorodina.Views.Base
   create_new: (e)->
     e.preventDefault()
 
-    if !@is_authorized()
-      @show_login()
-      return
-
-    if @parent_id == null
-      e.preventDefault()
+    if @is_authorized() && @parent_id == null
       values = $(e.currentTarget).serializeArray()
       data =
         parent_id: values[0].value
@@ -47,14 +42,8 @@ class Smorodina.Views.CommentsListView extends Smorodina.Views.Base
 
       @collection.create data,
         el: $(e.currentTarget)
-        wait: true,
+        wait: true
         success: (model, resp, opt)->
           opt.el[0].reset()
-          if model.get('parent_id') != null
+          if model.get('parent_id')
             opt.el.parents('.pic_comments__add').slideUp()
-
-        error: ->
-          @handleCreationError()
-
-  handleCreationError: ->
-    console.log 'Some errors happened!'
