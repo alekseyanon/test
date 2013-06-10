@@ -27,7 +27,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   def default_url
     #size = version_name == :big ? '-profile' : SIZES[version_name]
     #"anonymous#{size}.png"
-    "anonymous.png"
+    '/assets/anonymous.png'
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
