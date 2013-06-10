@@ -10,23 +10,35 @@ class Smorodina.Views.CommentsListView extends Smorodina.Views.Base
 
   initialize: ->
     _.bindAll @
+
     @parent_id = @options.parent_id
+    @hash = @options.hash
+    
     @collection.on 'add', @render_one
-    if !@collection.length
-      @collection.fetch()
+
+  hide: ->
+    @$el.css display: 'none'
+    @
+      
+  build: ->
+    @collection.fetch
+      el: @
+      success: (collection, response, options)->
+        options.el.trigger 'ready'
+
 
   render_collection: ->
-    @$el.html @template parent_id: @parent_id
+    @$el.html @template parent_id: @parent_id, hash: @hash
     _.each @collection.models, @render_one
+    @trigger 'ready'
     @
 
-
   render: ->
-    @$el.html @template parent_id: @parent_id
+    @$el.html @template parent_id: @parent_id, hash: @hash
     @
 
   render_one: (record)->
-    if (record.get('parent_id') == null && @parerent_id == null) || (record.get('parent_id') == @parent_id)
+    if (record.get('parent_id') == null && @parent_id == null) || (record.get('parent_id') == @parent_id)
       view = new Smorodina.Views.CommentView model: record, collection: @collection
       @$el.find('.pic_comments__list').first().append view.render().el
 

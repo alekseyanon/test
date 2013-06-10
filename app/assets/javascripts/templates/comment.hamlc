@@ -10,7 +10,8 @@
   .pic_comments__comment__info__actions
     - if @comment.get('parent_id') == null
       .pic_comments__comment__info__actions__respond
-        %a{href: '#', class: "icon-sm-reply action-link-bullet"}
+        - target = "#comment_#{@comment.get('id')}_add_comment_form"
+        %a{href: target, class: "icon-sm-reply action-link-bullet"}
           %span{class: 'inner'}
             Ответить
     .pic_comments__comment__info__actions__vote

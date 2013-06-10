@@ -13,7 +13,7 @@
     = link_to content_tag(:span, 'Видео', class: 'inner'), geo_object_videos_path(object), {class: 'icon-sm-video action-link-bullet ui-link'}
 
   %li.pull-right
-    = link_to '', '#' , {class: 'icon-flag ui-link'}
+    = link_to '', new_geo_object_complaint_path(object), {class: 'icon-flag ui-link', target: '_blank', titile: 'Пожаловаться на содержимое'}
 
   %li.pull-right
     = link_to '', history_geo_object_path(object), {class: 'icon-sm-history ui-link', title: 'История изменений'}

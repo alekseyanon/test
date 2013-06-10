@@ -4,6 +4,7 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
   events:
     'click .obj_descr__text__descr__runtips a.runtip_switcher' : 'init_runtips'
     'click .obj_descr__text__descr__body__full_link a' : 'show_full_description'
+    'click .add_photo_or_video_link a' : 'show_upload_window'
 
   object_id: 0
 
@@ -43,3 +44,8 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
   show_full_description: (e)->
     e.preventDefault()
     @$('.obj_descr__text__descr').toggleClass 'opened'
+
+  show_upload_window: (e)->
+    e.preventDefault()
+    if @is_authorized()
+      $('#newimage').modal() 

@@ -126,7 +126,9 @@
 .obj_descr__text__descr__location,
 .obj_descr__text__descr__time,
 .obj_descr__text__descr__organizations{
+  font-family: $base-font;
   &:before{
+    font-family: 'smorodina-icons';
     width: 38px;
     @include font-large;
     display: inline-block;
@@ -538,12 +540,6 @@
   .pic_comments__add{
     overflow: hidden;
   }
-  .pic_comments__add__controls{
-    input{
-      display: none;
-    }
-  } 
-
   .pic_comments__add__input{
     input{
       padding: 14px 14px;

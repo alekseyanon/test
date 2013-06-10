@@ -22,7 +22,7 @@
           Свернуть
       .obj_descr__responces__responce__text__actions
         .obj_descr__responces__responce__text__actions__respond
-          %a{href: "#", class: "icon-sm-reply action-link-bullet"}
+          %a{href: "#review_#{@review.get('id')}_add_comment_form", class: "icon-sm-reply action-link-bullet"}
             %span{class: 'inner'} 
               Ответить
         .obj_descr__responces__responce__text__actions__vote
