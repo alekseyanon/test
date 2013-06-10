@@ -9,7 +9,32 @@ initMap = ->
   map = L.map('map', { scrollWheelZoom: false })
   lg = L.layerGroup([]).addTo map
   L.tileLayer(Smorodina.Config.urlTemplate, {maxZoom: 18}).addTo map
+  initMyLocationControl(map)
   [map, lg]
+
+initMyLocationControl = (map)->
+  $ ->
+    L.MyLocationCommand = L.Control.extend(
+      options:
+        position: 'topleft'
+      onAdd: ->
+        controlDiv = $('.leaflet-control-zoom.leaflet-control')[0]
+        controlUI = L.DomUtil.create 'a', 'leaflet-control-my-location', controlDiv
+        controlUI.setAttribute 'href', '#'
+        controlUI.title = 'Show my location'
+        $(controlUI).click (e)->
+          e.preventDefault()
+          showMyLocation()
+        controlDiv
+    )
+    commandControl = new L.MyLocationCommand()
+    map.addControl(commandControl);
+
+    showMyLocation = (_,e)->
+      $.get 'objects/my_location', (data)->
+        if data
+          map.setView data, 13
+          $('.map').data coords: data
 
 showLatLng = (latlng) ->
   $("#geo_object_xld").val latlng.lng

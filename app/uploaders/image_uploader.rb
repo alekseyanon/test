@@ -20,6 +20,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     resize_to_fill(139, 97)
   end
 
+  version :chronicalthumb do
+    resize_to_fill(130, 90)
+  end
+
   version :showthumb do
     resize_to_fill(724, 485)
   end

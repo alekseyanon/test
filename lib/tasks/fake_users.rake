@@ -1,11 +1,17 @@
 namespace :fake do
 
+  def load_routes
+    include Rails.application.routes.url_helpers
+    default_url_options[:host] = "localhost:3000"
+  end
+
   desc "Generates fake accounts for admins,
         users authenticated by twitter, facebook and by the smorodina"
 
   # Creates fake users in database
   # This task should be run after all migrations passed
-  #
+  # Credentials for smorodina user:
+  #   [foo@bar.com, 12345678]
   # Creadentials for user with twitter account:
   #   [test333@mailinator.com, 123456a]
   # Creadentials for user with facebook account:
@@ -15,6 +21,8 @@ namespace :fake do
   #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
   task users: :environment do
+
+    load_routes
 
     DEFAULT_PASSWORD = "12345678"
 
@@ -34,10 +42,14 @@ namespace :fake do
       end
     end
 
-    def create_smorodina_user
-      user_creation do |u|
-        u.email = "foo@bar.com"
-        u.password = DEFAULT_PASSWORD
+    def create_smorodina_users
+      emails = ['foo@bar.com'] + Array.new(5){Faker::Internet.email}
+      emails.each do |email|
+        user_creation do |u|
+          u.email = email
+          u.password = DEFAULT_PASSWORD
+          puts "creating smorodina.com user with email #{u.email} and password #{DEFAULT_PASSWORD}"
+        end
       end
     end
 
@@ -69,13 +81,13 @@ namespace :fake do
         u.skip_confirmation!
       end
     end
-
-    print 'creating users... '
+    puts '----------------------------------------------------------------------'
+    puts '-------------------------- CREATING USERS ----------------------------'
+    puts '----------------------------------------------------------------------'
     create_admin
-    create_smorodina_user
+    create_smorodina_users
     create_twitter_user
     create_facebook_user
     create_user_with_twitter_and_facebook
-    puts 'DONE'
   end
 end
