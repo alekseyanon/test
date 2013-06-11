@@ -1,3 +1,21 @@
+.obj_descr__responces__add_review
+  .obj_descr__responces__add_review__row
+    %label{for: 'title'}
+      Заголовок (не обязательно)
+    %input{type: 'text', name: 'title', id: 'title', placeholder: 'наприм.: Замечательное место, хочу сюда вернуться'}
+    .obj_descr__responces__add_review__row__stat
+      Осталось 100 символов
+  .obj_descr__responces__add_review__row
+    %label{for: 'body'}
+    %textarea{name: 'body', id: 'body'}
+    .obj_descr__responces__add_review__row__stat
+      Минимум 100 символов, заполнено 0
+  .obj_descr__responces__add_review__row
+    %input{type: 'submit', value: 'Посмотреть и добавить отзыв'}
+    %input{type: 'reset', value: 'Отменить', class: 'action-link'}
+
+
+  
 %h2 Лучшие отзывы
 .obj_descr__responces__container
 
