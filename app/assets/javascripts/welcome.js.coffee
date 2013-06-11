@@ -9,6 +9,7 @@ Smorodina.Pages.Index = ->
     new Smorodina.Views.SearchFilter
     new Smorodina.Views.Categories(collection: categories)
     new Smorodina.Views.Map
+    new Smorodina.Views.Chronicle
 
     # TODO temporary solution
     geo_object_search()
