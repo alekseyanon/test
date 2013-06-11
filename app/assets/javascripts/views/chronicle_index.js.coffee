@@ -6,6 +6,7 @@ class Smorodina.Views.ChronicleIndex extends Backbone.View
     @collection.fetch reset: true
 
   render: ->
+    window.object_counter += @collection.length
     @days = _.groupBy(@collection.models, (model) ->
                                               return model.get('date')
                       )
