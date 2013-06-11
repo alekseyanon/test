@@ -1,3 +1,4 @@
+# fun coding: UTF-8
 require 'spec_helper'
 
 describe GeoObject do
@@ -50,5 +51,19 @@ describe GeoObject do
         let(:osm){ Osm::Node.make! geom: Geo::factory.point(10, 10) }
       end
     end
+
+    context 'for queries with agc_id' do
+      let(:agc1){ Agc.make! agus: [3,4] }
+      let(:agc2){ Agc.make! agus: [5] }
+
+      it 'searches GeoObject with agc_id' do
+        GeoObject.make!(geom: Geo::factory.point(10, 10), agc: agc1, title: 'Кафе').save!
+        GeoObject.make!(geom: Geo::factory.point(9, 9),   agc: agc1, title: 'Кафе').save!
+        GeoObject.make!(geom: Geo::factory.point(10, 10), agc: agc2, title: 'Кафе').save!
+        described_class.search(agc_id: agc2.id, title: 'Кафе').length.should == 1
+        described_class.search(agc_id: agc1.id, title: 'Кафе').length.should == 2
+      end
+    end
+
   end
 end

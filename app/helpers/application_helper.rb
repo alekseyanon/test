@@ -37,10 +37,20 @@ module ApplicationHelper
   end
 
   def new_vote_polymorphic_path votable
-    polymorphic_path( if votable.is_a? Comment
+     polymorphic_path( if votable.is_a? Comment
                         [votable.commentable, votable, votable.votes.build]
+                      elsif votable.is_a? Review
+                        [votable.reviewable, votable, votable.votes.build]
                       else
                         [votable, votable.votes.build]
                       end )
+  end
+
+  def ip_location ip
+    (@sx_geo ||= SxGeo.new).get(ip)
+  end
+
+  def destroy_vote_polymorphic_path votable
+    new_vote_polymorphic_path(votable).strip + "/#{Vote.first.id}"
   end
 end

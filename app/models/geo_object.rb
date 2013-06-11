@@ -5,6 +5,9 @@ class GeoObject < ActiveRecord::Base
   attr_accessor :xld, :yld, :best_object
   attr_accessible :xld, :yld, :rating, :images_attributes, :geom
 
+  scope :ordered_by_rating, order('rating DESC, created_at DESC')
+  scope :ordered_by_name,   order('title')
+
   acts_as_voteable
 
   def objects_nearby radius
@@ -54,6 +57,8 @@ class GeoObject < ActiveRecord::Base
                   associated_against: {tags: [:name]}
 
   before_validation :normalize_categories
+
+  scope :with_agc, ->(id) { where agc_id: id }
 
   def categories_tree(parent = Category.root, filter = Category.where(name: tag_list).to_set)
     tree = parent.children.reduce({}) do |memo,c|

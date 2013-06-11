@@ -1,0 +1,26 @@
+- user = @chronicle_item.get('user')
+%div.span6.smorodina-item
+  %div.smorodina-item__img
+    %div.smorodina-item__img__inner
+      %image{ src: "#{@chronicle_item.get('image')}", alt: "Фото", width: 130, height: 90 }
+  %div.smorodina-item__content
+    %div.smorodina-item__title
+      %a{href: "#{@chronicle_item.get('url')}"}
+        %b
+          = @chronicle_item.get('title')
+
+    %div.smorodina-item__geo
+      %span.icon.icon-marker.smorodina-item__geo__icon
+      %ul.smorodina-item__geo__list
+        - for agu_id, agu_title of @chronicle_item.get('agc_titles')
+          %li
+            %a.tdn-link{ href: "/objects/search?agc_id=#{@chronicle_item.get('agc_id')}" }
+              = agu_title
+
+    %div.smorodina-item__user
+      %span.smorodina-item__user__text
+        Добавил:
+      %span.user-link
+        %a.tdn-link{ href: "#{user.link_to_profile}" }
+          = user.username
+          %span.icon.icon-user.user-link__icon

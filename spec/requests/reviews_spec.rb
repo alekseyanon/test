@@ -11,7 +11,7 @@ describe "Reviews", js: true, type: :request do
 
   before :each do
     login
-    page.should have_content('Вход в систему выполнен')
+    page.find('#notice').should have_content('Вход в систему выполнен')
   end
 
   after :all do
@@ -59,13 +59,13 @@ describe "Reviews", js: true, type: :request do
 
   it 'make complaint for the review' do
     -> do
-      create_new title, body
-      visit review_path Review.last
+      r = Review.make!
+      visit review_path r
       page.find('#review_complaint').click
       page.should have_selector('.complaint > form')
       fill_in 'complaint_content', with: 'test'
       click_on 'Отправить жалобу'
-      current_path.should == review_path(Review.last)
+      current_path.should == review_path(r)
     end.should change(Complaint, :count).by(1)
   end
 end

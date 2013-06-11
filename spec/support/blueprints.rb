@@ -34,6 +34,7 @@ Category.blueprint do
 end
 
 GeoObject.blueprint do
+  agc { Agc.limit(10).sample } 
   user { User.make! }
   title { Faker::Lorem.sentence }
   body { Faker::Lorem.sentences 10 }

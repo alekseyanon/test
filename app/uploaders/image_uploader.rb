@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
 
@@ -16,12 +15,16 @@ class ImageUploader < CarrierWave::Uploader::Base
   version :thumb do
     resize_to_fill(100, 100)
   end
-	
-	version :indexthumb do
+
+  version :indexthumb do
     resize_to_fill(139, 97)
   end
-	
-	version :showthumb do
+
+  version :chronicalthumb do
+    resize_to_fill(130, 90)
+  end
+
+  version :showthumb do
     resize_to_fill(724, 485)
   end
 end

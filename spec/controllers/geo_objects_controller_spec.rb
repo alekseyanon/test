@@ -52,6 +52,14 @@ describe GeoObjectsController do
         get :index, {}, valid_session
         assigns(:geo_objects).should eq(all)
       end
+
+      let(:g1) { GeoObject.make!(agc: Agc.make!) }
+      let(:g2) { GeoObject.make!(agc: Agc.make!(agus: [4,5])) }
+
+      it "assigns all geo_objects according to specified agc_id" do
+        get :index, { query: { agc_id: g1.agc_id } }, valid_session
+        assigns(:geo_objects).should eq([g1])
+      end
     end
 
     describe "GET show" do

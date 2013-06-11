@@ -7,52 +7,93 @@ class Smorodina.Models.Category extends Backbone.Model
 
   initialize: ->
     _.bindAll(@)
-
+  
+  # При клике на категорию в дереве
   kickOff: ->
-    selected = !@get('selected')
-    @set('selected', selected)
-    @updateChildren(selected)
-    @updateParent(selected)
+    @toggleSelected()
+    wasSelected = @get('selected')
+    @updateParent()
+    
+    _.each @children(), (c)->
+      c.updateChildren 'semiSelected' : wasSelected, 'selected' : false, 'bordered' : false
+  
+  # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
+  updateByEmblem: (val)->
+    @set 'visibility' : val, 'semiSelected' : val
+    @cleanUnwantedStates 'semiSelected'
+    _.each @children(), (c)=>
+      c.updateByEmblem val
 
-  setSelected: ->
-    @set('selected' : true, 'semiSelected' : false )
+  toggleSelected: ->
+    @cleanUnwantedStates 'selected'
+    @set 'selected' : !@get('selected')
 
-  setSemiSelected: ->
-    @set('semiSelected' : true, 'selected' : false)
-
-  setUnselected: ->
-    @set('semiSelected': false, 'selected' : false)
 
   updateParent: ->
-    selected_siblings = _.filter @_siblings(), (s)-> s.get('selected')
-    semi_selected_siblings = _.filter @_siblings(), (s)->s.get('semiSelected')
-    parent = @_getParentModel()
+    parent = @parent()
+    
+    # Снимаем все полувыделения с родителей, их соседей и потомков 
+    for s in (_.filter @siblings(), (s)-> s.get('semiSelected'))
+      s.updateChildren 'semiSelected', false 
+
     if parent
-      if selected_siblings.length == @_siblings().length
-        parent.setSelected()
-      else if selected_siblings.length > 0 || semi_selected_siblings.length > 0
-        parent.setSemiSelected()
+      change_state = false
+      # Выделяем родителя, если все дети были выделены
+      if _.all(@siblings_and_self(), (s)-> s.get 'selected' )
+        change_state = 'selected'
+      # Обводим родителя в рамку, если хоть один ребенок выделен
+      else if _.any(@siblings_and_self(), (s)-> s.get('selected') or s.get('bordered'))
+        change_state = 'bordered'
       else 
-        parent.setUnselected()
+        parent.cleanUnwantedStates()
+      if change_state
+        parent.set change_state, true
+        parent.cleanUnwantedStates(change_state)
       parent.updateParent()
 
-  
-  #Если родителский элемент был выделен(не выделен), то дети будут тоже. 
-  updateChildren: (value)->
-    #Только что кликнутый родительский элемент не может быть полувыделенным, исправляем:
-    @set('semiSelected', false)
-    _.each @_getChildrenModels(), (c)=>
-      c.set('selected', value)
-      c.updateChildren(value)
+  updateChildren: (state, value="")->
+    if state instanceof Object
+      for k, v of state
+        @set k, v
+    else
+      @set state, value
+    _.each @_getVisibleChildrenModels(), (c)=>
+      c.updateChildren state, value
+        
+  # Снимаем все выделения у элемента, кроме...
+  cleanUnwantedStates: (exception = "")->
+    h = {}
+    for state in ['selected', 'semiSelected', 'bordered']
+      if state != exception
+        h[state] = false
+        @set h
 
-  _siblings: ->
-    if parent = @_getParentModel()
-      parent._getChildrenModels()
+  siblings: ->
+    collection = if parent = @parent() 
+                   parent.children() 
+                 else
+                   @collection.where('parent_id' : 1)
+    _.filter collection, (m)=> m.id != @id
 
-  _getChildrenModels: ->
-    _.map @get('children'), (childId) => 
-      @collection.findWhere(id: childId)
-  
-  _getParentModel: ->
+  siblings_and_self: ->
+    @siblings().concat @
+
+  parent: ->
     @collection.findWhere(id: @get('parent_id'))
 
+  children: (options = {})->
+    _.map @get('children'), (childId) => @collection.findWhere(id: childId)
+  
+  descendants: ->
+    children     = @children()
+    new_children = []
+    for c in children
+      new_children.concat c.descendants()
+    new_children.concat children
+
+  descendants_and_self: ->
+    @descendants().concat @
+  
+
+  _getVisibleChildrenModels: ->
+    _.filter @children(), (m) -> m.get('visibility')
