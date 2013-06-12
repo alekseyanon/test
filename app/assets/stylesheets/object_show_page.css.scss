@@ -324,7 +324,6 @@
 
 
 .obj_descr__responces{
-  margin-left: 30px;
   &.show_all{
     .hidable_review{
       display: block;
@@ -339,6 +338,60 @@
     }
   }
 }
+
+.obj_descr__responces__padding{
+  padding-left: 30px;
+}
+
+.obj_descr__responces__add_review{
+  border: 1px solid $siteGray;
+  margin-top: 10px;
+}
+  
+.obj_descr__responces__add_review__padding{
+  padding: 13px 31px 26px 31px;
+}
+    
+.obj_descr__responces__add_review__row{
+  @include clearfix;
+  margin-bottom: 22px;
+  label{
+    display: inline-block;
+    color: $siteGray;
+    width: 20%;
+    line-height: 35px;
+    margin-bottom: 0px;
+  }
+  input[type='text']{
+    width: 75%;
+    border: 1px solid $siteGray;
+    display: inline-block;
+    float: right;
+  }
+  input[type='reset']{
+    background-color: transparent;
+    padding: 0;
+    margin: 0 0 0 10px;
+    border: 0;
+    text-decoration: underline;
+    &:hover{
+      color: $lightblue;
+    }
+  }
+  button.button{
+    margin-right: 22px;
+  }
+  .obj_descr__responces__add_review__row__stat{
+    @include clearfix;
+    float: right;
+    color: $siteGray;
+  }
+  textarea{
+    @include box-sizing(border-box);
+    @include size(215px, 100%);
+  }
+}
+
 
 .obj_descr__responces__responce{
   @include clearfix;

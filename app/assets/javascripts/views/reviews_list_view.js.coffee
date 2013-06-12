@@ -15,6 +15,7 @@ class Smorodina.Views.ReviewsListView extends Smorodina.Views.Base
 
   render: ->
     @$el.html @template count: @collection.length
+    @$el.find('.redactor').first().redactor(Smorodina.Config.redactor)
     _.each @collection.models, @render_one
     @
 

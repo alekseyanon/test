@@ -1,5 +1,7 @@
 Smorodina::Application.routes.draw do
 
+  mount RedactorRails::Engine => '/redactor_rails'
+
   get 'ratings/list'
 
   namespace :api do
