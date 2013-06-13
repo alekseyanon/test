@@ -28,20 +28,22 @@ class Smorodina.Views.GeoObjectList extends Smorodina.Views.Base
     @spinner.stop()
 
   render: ->
-    @hideSpinner()
-    @$fragment = $(null);
+    switch @collection.length
+      when 0 then @hide()
+      when 1 then @redirect_to_exact_one(@collection.first())
+      else 
+        @hideSpinner()
+        @$fragment = $(null)
+        @collection.each @addOne
+        # TODO this is temorary solution only for demonstration
+        @$bestContent.html @$fragment.slice(0,4)
+        @$restContent.html @$fragment.slice(4)
+        @show()
 
-    if @collection.length
-      @collection.each @addOne
-
-      # TODO this is temorary solution only for demonstration
-      @$bestContent.html @$fragment.slice(0,4)
-      @$restContent.html @$fragment.slice(4)
-
-      @show()
-    else
-      @hide()
 
   addOne: (l) ->
     view = new Smorodina.Views.GeoObject(model: l)
     @$fragment = @$fragment.add view.render().el
+  
+  redirect_to_exact_one: (geo_object) ->
+    window.location.href = window.location.href.replace(/search/, geo_object.id) 

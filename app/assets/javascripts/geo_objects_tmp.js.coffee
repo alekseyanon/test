@@ -101,9 +101,13 @@ window.geo_object_search = ->
     lastBounds = null
     updateQuery()
 
+  resetSearchField = ->
+    $searchField.val ''
+
   map.on 'load', ->
     map.on 'zoomend', updateQuery
     map.on 'moveend', updateQuery
+    resetSearchField()
     updateQuery()
 
   map.setView [59.939,30.341], 13 #SPB
