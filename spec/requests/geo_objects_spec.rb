@@ -18,6 +18,7 @@ describe "GeoObjects", js: true, type: :request do
   end
 
   it 'has JS function get_object()' do
+    pending "reimplement after geo_objects page is delivered"
     ld = GeoObject.make!
     visit root_path
     page.execute_script("get_object(#{ld.id}, 1, function(data){test_object = data});")
@@ -31,6 +32,7 @@ describe "GeoObjects", js: true, type: :request do
   end
 
   context 'anonymous' do
+    pending "reimplement after geo_objects page is delivered"
     let!(:geo_object){GeoObject.make!(user: @user)}
 
     it 'renders index' do
@@ -46,6 +48,7 @@ describe "GeoObjects", js: true, type: :request do
   end
 
   context "GeoObjects with login" do
+    pending "reimplement after geo_objects page is delivered"
 
     before :each do
       login
@@ -121,6 +124,7 @@ describe "GeoObjects", js: true, type: :request do
   end
 
   context "geo_object search" do
+    pending "reimplement after geo_objects page is delivered"
 
     before :each do
       visit search_geo_objects_path
