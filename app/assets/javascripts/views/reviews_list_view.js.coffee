@@ -14,6 +14,7 @@ class Smorodina.Views.ReviewsListView extends Smorodina.Views.Base
     @collection.fetch()
 
   render: ->
+    @index = 0
     @$el.html @template count: @collection.length
     _.each @collection.models, @render_one
     @

@@ -7,6 +7,7 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
     'click .add_photo_or_video_link a' : 'show_upload_window'
     'click .write_review a' : 'init_add_review'
     'click .cancel_review_creation': 'cancel_add_review'
+    'click #save_review': 'create_new_review'
 
   object_id: 0
 
@@ -54,8 +55,22 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
 
   init_add_review: (e)->
     e.preventDefault()
-    @reviews_view.init_add_review()
+    if @is_authorized()
+      @reviews_view.init_add_review()
 
   cancel_add_review: (e)->
     e.preventDefault()
     @reviews_view.cancel_add_review()
+
+  create_new_review: (e)->
+    e.preventDefault()
+
+    if @is_authorized()
+      data =
+        title: @$('#new_review_title').val()
+        body: @$('#new_review_body').val()
+ 
+      @reviews_collection.create data,
+        wait: true
+        success: ->
+          @$('.cancel_review_creation').first().click()
