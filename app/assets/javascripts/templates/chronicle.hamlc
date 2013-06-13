@@ -1,0 +1,11 @@
+- for day, objects of @days
+  %div.chronicle__section
+    %div.chronicle__section__header
+      %b
+        = day
+    %div.chronicle__section__content
+      - for object, i in objects by 2
+        %div.row-fluid.chronicle__section__row
+          != JST['chronicle_item'](chronicle_item: objects[i])
+          - if objects[i+1] != undefined
+            != JST['chronicle_item'](chronicle_item: objects[i+1])

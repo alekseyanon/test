@@ -1,4 +1,3 @@
-= debug @geo_object
 .obj_show_page
   = render partial: 'geo_objects/main_navigation', locals: {object: @geo_object}
   .obj_descr
@@ -81,6 +80,75 @@
                     = image_tag current_user.profile.avatar_url(:image_commentor_thumb), width: 48, height: 48
                 .pic_comments__add__input
                   = f.text_field :body, placeholder: 'Предложить вариант'
+
+.technical
+  %h3 Рейтинг
+  %h4{style: 'color: red;'}
+    .rate= @geo_object.average_rating
+  = button_to "Добавить в планировщик", "#"
+  = render 'shared/sn_share_buttons'
+  .cl-left
+  .links
+    = link_to "Голосовать", "#"
+    |
+    = link_to "Кто голосовал", "#"
+    (кол-во)
+%br
+=link_to "Что посмотреть", "#"
+|
+=link_to "Чем заняться", "#"
+|
+=link_to "Где заночевать", "#"
+|
+=link_to "Где поесть", "#"
+.type-form
+  %a{name: "rate"}
+  - @tags.each do |tag|
+    .votes{id: dom_id(@geo_object, tag)}
+      = tag
+      =render partial: "shared/votes", locals: { object_to_vote: @geo_object, tag: tag }
+  %br
+  %br
+  %p здесь будут представлены контактные данные фотографии рейтинги и т.д.
+  %br
+  = link_to 'Add video', new_geo_object_video_path(@geo_object)
+  |
+  %a{href: '#newimage', data: {toggle: 'modal'}}
+    Добавить Фото
+  .photos
+    - @geo_object.images.each do |image|
+      %li.object_image= image_tag image.image_url(:thumb)
+      .votes{id: dom_id(image)}
+        =render partial: 'shared/votes', locals: { object_to_vote: image, nested_path: '' }
+  %br
+%br
+%div.map__outer
+  %div.map__inner
+    %div.map.leaflet-edit-object{id: "map", data: {x: @x, y: @y}}
+%br
+=link_to "Отзывы", "#"
+|
+=link_to "Что поблизости", "#"
+.type-form
+  %h2 Лучшие отзывы
+  = link_to "+ Добавить отзыв", new_geo_object_review_path(@geo_object)
+  %br
+  %br
+  %br
+  - @geo_object.reviews.each do |r|
+    .review
+      %h4= link_to r.title, r
+      = r.body
+  %br
+  %br
+  %br
+
+%h4 Как добраться
+
+- @geo_object.runtips.each do |rt|
+  .runtip{id: dom_id(rt)}
+    =render partial: "shared/votes", locals: { object_to_vote: rt, nested_path: "objects/#{@geo_object.id}/" }
+  %div= rt.body
 
             .obj_descr__text__descr__how_to_reach__list
     

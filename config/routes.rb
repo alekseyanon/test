@@ -7,6 +7,7 @@ Smorodina::Application.routes.draw do
  
   
   namespace :api do
+    get 'chronicles/show'
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
     get 'events/tags'
@@ -94,6 +95,7 @@ Smorodina::Application.routes.draw do
       get 'history'
     end
     collection do
+      get 'my_location'
       get 'search'
       post 'do_search'
       get 'coordinates'
