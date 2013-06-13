@@ -63,11 +63,10 @@ class GeoObject < ActiveRecord::Base
   scope :with_agc, ->(id) { where agc_id: id }
 
   def categories_tree(parent = Category.root, filter = Category.where(name: tag_list).to_set)
-    tree = parent.children.reduce({}) do |memo,c|
+    parent.children.reduce({}) do |memo,c|
       memo[c.name_ru] = categories_tree(c,filter) if filter.include? c
       memo
     end
-    tree.empty? ? {} : tree
   end
 
   def leaf_categories
