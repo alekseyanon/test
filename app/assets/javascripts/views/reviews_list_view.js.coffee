@@ -15,7 +15,6 @@ class Smorodina.Views.ReviewsListView extends Smorodina.Views.Base
 
   render: ->
     @$el.html @template count: @collection.length
-    @$el.find('.redactor').first().redactor(Smorodina.Config.redactor)
     _.each @collection.models, @render_one
     @
 
@@ -36,3 +35,10 @@ class Smorodina.Views.ReviewsListView extends Smorodina.Views.Base
   show_all: (e)->
     e.preventDefault()
     @$el.toggleClass 'show_all'
+
+  init_add_review: ->
+    @add_review_form ||= new Smorodina.Views.AddReviewView()
+    @$('.obj_descr__responces__add_review__container').html @add_review_form.render().el
+    @$('.obj_descr__responces__add_review__container').slideToggle()
+
+

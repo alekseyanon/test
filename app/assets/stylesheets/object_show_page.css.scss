@@ -391,6 +391,17 @@
     @include size(215px, 100%);
   }
 }
+          
+.obj_descr__responces__add_review__row__actions__preview,
+.obj_descr__responces__add_review__row__actions__or,
+.obj_descr__responces__add_review__row__actions__cancel,
+.obj_descr__responces__add_review__preview__actions__save,
+.obj_descr__responces__add_review__preview__actions__edit,
+.obj_descr__responces__add_review__preview__actions__or,
+.obj_descr__responces__add_review__preview__actions__cansel{
+  display: inline-block;
+}
+
 
 
 .obj_descr__responces__responce{

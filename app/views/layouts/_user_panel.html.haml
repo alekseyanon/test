@@ -1,4 +1,5 @@
-%div{class: 'user-panel', data: {authorized: current_user.nil? ? '' : current_user.identifier}}
+- now = Russian::strftime(Date.today, '%d %B %Yг.')
+%div{class: 'user-panel', data: {authorized: current_user.nil? ? '' : current_user.identifier, user_name: current_user.nil? ? '' : current_user.profile.name, date: now}}
   - if current_user.nil?
     %span.user-panel__login
       %a.ui-link#show_registration_modal{ href: '#regLoginModal', data: { toggle: 'modal' } }

@@ -13,24 +13,25 @@
       .obj_descr__responces__responce__text__date
         = @review.get('date')
       .obj_descr__responces__responce__text__data
-        = @review.get('body')
+        != @review.get('body')
         .transparency
       .obj_descr__responces__responce__text__show_full
         %a{href: '#', class: 'action-link show_all ui-link'}
           Читать весь отзыв
         %a{href: '#', class: 'action-link hide_all ui-link'}
           Свернуть
-      .obj_descr__responces__responce__text__actions
-        .obj_descr__responces__responce__text__actions__respond
-          %a{href: "#review_#{@review.get('id')}_add_comment_form", class: "icon-sm-reply action-link-bullet"}
-            %span{class: 'inner'} 
-              Ответить
-        .obj_descr__responces__responce__text__actions__vote
-        .obj_descr__responces__responce__text__actions__spam
-          != JST['spam_to'](complaint: @review.get('complaint'))
-      .obj_descr__responces__responce__text__actions__comments
-        .pic_comments
-          .pic_comments__count
-            .pic_comments__count__text
-              %span{class: 'action-link'}
-                = @review.get('comments_count')
+      - if @real
+        .obj_descr__responces__responce__text__actions
+          .obj_descr__responces__responce__text__actions__respond
+            %a{href: "#review_#{@review.get('id')}_add_comment_form", class: "icon-sm-reply action-link-bullet"}
+              %span{class: 'inner'} 
+                Ответить
+          .obj_descr__responces__responce__text__actions__vote
+          .obj_descr__responces__responce__text__actions__spam
+            != JST['spam_to'](complaint: @review.get('complaint'))
+        .obj_descr__responces__responce__text__actions__comments
+          .pic_comments
+            .pic_comments__count
+              .pic_comments__count__text
+                %span{class: 'action-link'}
+                  = @review.get('comments_count')
