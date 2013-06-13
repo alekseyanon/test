@@ -1,13 +1,12 @@
 - rating = parseInt(@rating.votes_for)- parseInt(@rating.votes_against)
 
-- css_prefix = ''
-- css_prefix = "pic_vote_positive" if rating > 0
-- css_prefix = "pic_vote_negative" if rating < 0
+- css_prefix = if rating > 0 then 'pic_vote_positive' else if rating < 0 then 'pic_vote_negative' else ''
 
-- user_css = ''
-- user_css = 'voted_down' if @rating.current_user_vote == -1
-- user_css = 'voted_up' if @rating.current_user_vote == 1
-
+- user_css = switch @rating.current_user_vote
+  - when -1 then 'voted_down'
+  - when 1 then 'voted_up'
+  - else ''
+ 
 %div{class: "pic_vote #{css_prefix} #{user_css}", data: {vote_url: @rating.vote_url, user_vote: @rating.current_user_vote}}
   .pic_vote__up
     %form{action: @rating.vote_url}

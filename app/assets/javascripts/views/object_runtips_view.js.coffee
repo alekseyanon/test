@@ -1,22 +1,18 @@
-class Smorodina.Views.ObjectRuntipsView extends Backbone.View
-  el: '.obj_descr__text__descr__how_to_reach__list__container'
+class Smorodina.Views.ObjectRuntipsView extends Smorodina.Views.Base
+  el: '.obj_descr__text__descr__runtips__list__container'
   
   template: JST['runtip_list']
 
   events:
-    'submit .obj_descr__text__descr__how_to_reach__list__add form': 'create_new_runtip'
+    'submit .obj_descr__text__descr__runtips__list__add form': 'create_new_runtip'
 
   list_container: null
 
   initialize: ->
     _.bindAll @
-    @collection.on 'sync', @render
+    @collection.on 'add', @render_runtip
     @collection.fetch()
-    @list_container = @$el.find('.obj_descr__text__descr__how_to_reach__list')
-
-  render: ->
-    _.each @collection.models, @render_runtip
-    @
+    @list_container = @$('.obj_descr__text__descr__runtips__list')
 
   render_runtip: (runtip)->
     view = new Smorodina.Views.RuntipView model: runtip
@@ -24,18 +20,12 @@ class Smorodina.Views.ObjectRuntipsView extends Backbone.View
 
   create_new_runtip: (e)->
     e.preventDefault()
-    data =
-      body: @$el.find('.pic_comments__add__input input').val()
 
-    @collection.create data,
-      wait: true,
-      success: ->
-        $('.obj_descr__text__descr__how_to_reach__list__add form')[0].reset()
-      error: ->
-        @handleCreationError
-                                                                     
+    if @is_authorized()
+      data =
+        body: @$el.find('.pic_comments__add__input input').val()
 
-  handleCreationError: ->
-    console.log 'Some errors happened!'
-
-
+      @collection.create data,
+        wait: true
+        success: ->
+          $('.obj_descr__text__descr__runtips__list__add form')[0].reset()

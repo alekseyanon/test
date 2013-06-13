@@ -1,3 +1,12 @@
+.obj_show_page{
+  .map__outer{
+    margin: 32px 0 32px 0;
+  }
+  .map__expand{
+    padding: 25px 0 20px 0;
+  }
+}
+
 .obj_descr{
   padding: 0px 30px;
 }
@@ -28,8 +37,15 @@
 
 .obj_descr__info__links__rate{
   h3{
-    margin: 0px 0 24px 0; 
+    margin: 0px;
+    @include font-large;
   }
+  margin: 0px 0 24px 0; 
+}
+
+.obj_descr__info__links__rate{
+  @include font-xlarge;
+  font-weight: bold;
 }
 
 .obj_descr__info__links__planner{
@@ -46,7 +62,6 @@
   
 .obj_descr__text{
   @include clearfix;
-  margin-bottom: 57px;
 }
     
 .obj_descr__text__vote_stats{
@@ -79,13 +94,41 @@
     
 .obj_descr__text__descr{
   float: left;
+  width: 650px;
+  a.hide{
+    display: none;
+  }
+  &.slidable{
+    .transparency{
+      display: block;
+    }
+    .obj_descr__text__descr__body__full_link{
+      display: block;
+    }
+  }
+  &.opened{
+    .transparency{
+      display: none;
+    }
+    .obj_descr__text__descr__body{
+      max-height: none;
+    }
+    a.show{
+      display: none;
+    }
+    a.hide{
+      display: inline;
+    }
+  }
 }
 
 
 .obj_descr__text__descr__location,
 .obj_descr__text__descr__time,
 .obj_descr__text__descr__organizations{
+  font-family: $base-font;
   &:before{
+    font-family: 'smorodina-icons';
     width: 38px;
     @include font-large;
     display: inline-block;
@@ -102,12 +145,34 @@
   margin: 0 0 35px 0;
 }
 
+.obj_descr__text__descr__body{
+  max-height: 215px;
+  overflow: hidden;
+  position: relative;
+  .transparency{
+    display: none;
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    left: 0px;
+    top: 100%;
+    margin-top: -22px;
+    @include background-image(linear-gradient(bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%));
+    @include background-size(100% 100%);
+  }
+}
+
 .obj_descr__text__descr__body__full_link{
-  margin: 17px 0 20px 0;
+  margin: 17px 0 0 0;
+  display: none;
   a{
     @include font-small;
     color: $lightblue;
   }
+}
+
+.obj_descr__text__descr__adder{
+  margin: 17px 0 20px 0;
 }
 
 .obj_descr__text__descr__adder{
@@ -139,17 +204,18 @@
     }
   }
 }
-.obj_descr__text__descr__how_to_reach{
+.obj_descr__text__descr__runtips{
   margin: 42px 0 0 0;
   min-width: 640px;
   position: relative;
   .runtip_switcher{
-    @include font-xlarge;
+    font-size: 29px;
+    line-height: 1;
   }
     
 }
 
-.obj_descr__text__descr__how_to_reach__spinner{
+.obj_descr__text__descr__runtips__spinner{
   position: absolute;
   left: 0px;
   top: 100px;
@@ -159,69 +225,78 @@
 }
 
           
-.obj_descr__text__descr__how_to_reach__list__container{
+.obj_descr__text__descr__runtips__list__container{
 }
 
-.obj_descr__text__descr__how_to_reach__list{
+.obj_descr__text__descr__runtips__list{
   margin-top: 27px;
 }
         
-.obj_descr__text__descr__how_to_reach__list__add{
+.obj_descr__text__descr__runtips__list__add{
   margin: 27px 0 0 21px;
   @include clearfix;
 }
 
-.obj_descr__text__descr__how_to_reach__list__record{
+.obj_descr__text__descr__runtips__list__record{
   border-top: 1px solid $siteLightGray;
   @include font-small;
+  &.opened{
+    .obj_descr__text__descr__runtips__list__record__header{
+      background-color: #fffbdb;
+    }
+  }
 }
 
-.obj_descr__text__descr__how_to_reach__list__record__author{
+.obj_descr__text__descr__runtips__list__record__author{
   a{
     font-weight: bold;
   }
 }
           
-.obj_descr__text__descr__how_to_reach__list__author,
-.obj_descr__text__descr__how_to_reach__list__record__author{
+.obj_descr__text__descr__runtips__list__author,
+.obj_descr__text__descr__runtips__list__record__author{
   margin-left: 20px;
   width: 185px;
 }
 
-.obj_descr__text__descr__how_to_reach__list__date,
-.obj_descr__text__descr__how_to_reach__list__record__date{
+.obj_descr__text__descr__runtips__list__date,
+.obj_descr__text__descr__runtips__list__record__date{
   width: 255px;
 }
 
-.obj_descr__text__descr__how_to_reach__list__rate,
-.obj_descr__text__descr__how_to_reach__list__record__rate{
+.obj_descr__text__descr__runtips__list__rate,
+.obj_descr__text__descr__runtips__list__record__rate{
   width: 170px;
 }
 
-.obj_descr__text__descr__how_to_reach__list__author,
-.obj_descr__text__descr__how_to_reach__list__date,
-.obj_descr__text__descr__how_to_reach__list__rate,
-.obj_descr__text__descr__how_to_reach__list__record__author,
-.obj_descr__text__descr__how_to_reach__list__record__date,
-.obj_descr__text__descr__how_to_reach__list__record__rate,
-.obj_descr__text__descr__how_to_reach__list__record__description__actions__is_correct,
-.obj_descr__text__descr__how_to_reach__list__record__description__actions__vote,
-.obj_descr__text__descr__how_to_reach__list__record__description__actions__spam{
+.obj_descr__text__descr__runtips__list__author,
+.obj_descr__text__descr__runtips__list__date,
+.obj_descr__text__descr__runtips__list__rate,
+.obj_descr__text__descr__runtips__list__record__author,
+.obj_descr__text__descr__runtips__list__record__date,
+.obj_descr__text__descr__runtips__list__record__rate,
+.obj_descr__text__descr__runtips__list__record__description__actions__is_correct,
+.obj_descr__text__descr__runtips__list__record__description__actions__vote,
+.obj_descr__text__descr__runtips__list__record__description__actions__spam{
   display: inline-block;
   padding: 19px 0 19px 0;
 }
                   
-.obj_descr__text__descr__how_to_reach__list__record__description{
+.obj_descr__text__descr__runtips__list__record__description{
   display: none;
 }
 
-.obj_descr__text__descr__how_to_reach__list__author,
-.obj_descr__text__descr__how_to_reach__list__date,
-.obj_descr__text__descr__how_to_reach__list__rate{
+.obj_descr__text__descr__runtips__list__record__description__text{
+  margin-top: 15px;
+}
+
+.obj_descr__text__descr__runtips__list__author,
+.obj_descr__text__descr__runtips__list__date,
+.obj_descr__text__descr__runtips__list__rate{
   padding: 11px 0 11px 0;
 }
 
-.obj_descr__text__descr__how_to_reach__list__record__description__actions__spam,
+.obj_descr__text__descr__runtips__list__record__description__actions__spam,
 .obj_descr__responces__responce__text__actions__spam,
 .pic_comments__comment__info__actions__spam{
   display: inline-block;
@@ -238,18 +313,31 @@
   }
 }
 
-.obj_descr__text__descr__how_to_reach__list__record__date,
-.obj_descr__text__descr__how_to_reach__list__record__description__actions__is_correct{
+.obj_descr__text__descr__runtips__list__record__date,
+.obj_descr__text__descr__runtips__list__record__description__actions__is_correct{
   color: $siteGray;
 }
 
-.obj_descr__text__descr__how_to_reach__list__record__description__actions__is_correct{
+.obj_descr__text__descr__runtips__list__record__description__actions__is_correct{
   margin-right: 15px;
 }
 
 
 .obj_descr__responces{
   margin-left: 30px;
+  &.show_all{
+    .hidable_review{
+      display: block;
+    }
+    .obj_descr__responces_count{
+      a.show_all{
+        display: none;
+      }
+      a.hide_all{
+        display: inline;
+      }
+    }
+  }
 }
 
 .obj_descr__responces__responce{
@@ -257,13 +345,31 @@
   margin-left: 24px;
   margin-bottom: 46px;
 }
+.obj_descr__review__record{
+  .pic_comments__count{
+      &:after{
+        border: 0;
+      }
+  }
+  &.opened{
+    .pic_comments__count{
+      &:after{
+        border-bottom: 1px solid $siteLightGray;
+      }
+    }
+  }
+}
     
 
 .obj_descr__responces__responce__author{
   float: left;
-  display: table;
   width: 223px;
   height: 64px;
+  overflow: hidden;
+}
+
+.obj_descr__responces__responce__author__inner{
+  display: table;
 }
 
 .obj_descr__responces__responce__author__avatar{
@@ -272,6 +378,7 @@
   margin-right: 13px;
   img{
     @include border-radius(32px);
+    @include size(64px, 64px);
   }
 }
 
@@ -293,13 +400,49 @@
     content: "";
     display: block;
     @include size(25px, 24px);
-    background-image: url('/assets/object-responce-bullet.png');
+    background-image: url('/assets/object-response-bullet.png');
     background-repeat: no-repeat;
     background-position: 0 0;
     position: absolute;
     left: -24px;
     top: 37px;
     z-index: 2;
+  }
+}
+.obj_descr__review__record{
+  &.slidable{
+    .obj_descr__responces__responce__text__show_full{
+      display: block;
+      a.hide_all{
+        display: none;
+      }
+      a.show_all{
+        display: inline;
+      }
+    }
+    .transparency{
+      display: block;
+    }
+  }
+  &.show_full{
+    .obj_descr__responces__responce__text__data{
+      max-height: none;
+    }
+    .obj_descr__responces__responce__text__show_full{
+      display: block;
+      a.show_all{
+        display: none;
+      }
+      a.hide_all{
+        display: inline;
+      }
+    }
+    .transparency{
+      display: none;
+    }
+  }
+  &.hidable_review{
+    display: none;
   }
 }
       
@@ -318,9 +461,32 @@
   @include font-small;
   color: $siteGray;
 }
+
+.obj_descr__responces__responce__text__actions{
+  margin: 30px 0;
+}
       
 .obj_descr__responces__responce__text__data{
-  margin: 20px 0 30px 0;
+  margin: 20px 0 0 0;
+  max-height: 120px;
+  overflow: hidden;
+  position: relative;
+  .transparency{
+    display: none;
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    left: 0px;
+    top: 100%;
+    margin-top: -24px;
+    @include background-image(linear-gradient(bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%));
+    @include background-size(100% 100%);
+  }
+}
+
+.obj_descr__responces__responce__text__show_full{
+  display: none;
+  margin-top: 15px;
 }
 
 .obj_descr__responces__responce__text__photos{
@@ -340,7 +506,7 @@
 }
         
 .obj_descr__responces__responce__text__actions__respond{
-  display: inline-block;
+  display: inline;
 }
         
 .obj_descr__responces__responce__text__actions__comments_count{
@@ -370,16 +536,10 @@
 .obj_descr__responces__responce__text__actions__comments{
   .pic_comments{
     margin-left: 0px;
-    .pic_comments__add{
-      margin-left: 0px;
-    }
   }
-  .pic_comments__add__controls{
-    input{
-      display: none;
-    }
-  } 
-
+  .pic_comments__add{
+    overflow: hidden;
+  }
   .pic_comments__add__input{
     input{
       padding: 14px 14px;
@@ -389,4 +549,18 @@
       
 .obj_descr__responces__responce__text__more{
   margin-top: 18px;
+}
+
+.obj_descr__responces_count{
+  a{
+    @include font-large;
+    font-size: 29px;
+    line-height: 1;
+    .count{
+      font-weight: bold;
+    }
+    &.hide_all{
+      display: none;
+    }
+  }
 }

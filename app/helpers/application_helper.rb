@@ -59,16 +59,6 @@ module ApplicationHelper
       options.merge!((p.is_a? String) ? {voteable_tag: p} : p)
     end
     polymorphic_path args, options
-  end  
-  
-  def new_vote_polymorphic_path votable
-     polymorphic_path( if votable.is_a? Comment
-                        [votable.commentable, votable, votable.votes.build]
-                      elsif votable.is_a? Review
-                        [votable.reviewable, votable, votable.votes.build]
-                      else
-                        [votable, votable.votes.build]
-                      end )
   end
 
   def ip_location ip

@@ -4,7 +4,7 @@
     .obj_descr__title
       %h1= @geo_object.title
     .obj_descr__gps
-      = render partial: 'shared/geo_list', locals: {tree: @geo_object.agc.try(:titles)}
+      = render partial: 'shared/geo_list', locals: {tree: @geo_object.agc.try(:titles) || {}}
     .obj_descr__tags
       = render partial: 'shared/tag_list', locals: {tag_tree: @categories_tree}
 
@@ -20,16 +20,16 @@
         .obj_descr__info__links__rate
           %h3 
             Рейтинг oбъекта
-            %span{style: 'color: red;'} 
-              = @geo_object.average_rating
+          .obj_descr__info__links__value
+            = @geo_object.average_rating
         .obj_descr__info__links__planner
-          = link_to content_tag(:span, "В планировщик", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-plus icon-sm-print ui-link'}
+          = link_to content_tag(:span, "В планировщик", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-bookmark ui-link'}
         .obj_descr__info__links__print
           = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
         .obj_descr__info__links__social
           %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
         .add_photo_or_video_link
-          = link_to "Добавить фото или видео", "#", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"} 
+          = link_to "Добавить фото или видео", "#newimage", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
     .obj_descr__text
       .obj_descr__text__vote_stats
         .obj_descr__text__vote_stats__value
@@ -39,23 +39,35 @@
               .obj_descr__text__vote_stats__value__item
                 .obj_descr__text__vote_stats__value__item__name
                   = tag_name
-                .obj_descr__text__vote_stats__value__item__value
-                  = render partial: "shared/vote_for_simple", locals: {votable: @geo_object, tag_name: tag_name}
+
+                - path = new_vote_polymorphic_path @geo_object, tag_name, format: :json
+                - user_vote = current_user ? current_user.get_vote(@geo_object, tag_name) : 0
+                %div{class: 'obj_descr__text__vote_stats__value__item__value', data: {votes_for: @geo_object.votes_for(tag_name), votes_against: @geo_object.votes_against(tag_name), current_user_vote: user_vote, vote_url: path}}
 
         .obj_descr__text__vote_stats__near_objects
-          = link_to "Объекты поблизости", "#", {class: "link-like-button bullet icon-sm-compass button button_standard button_grey ui-link"} 
+          = link_to "Объекты поблизости", search_geo_objects_path, {class: "link-like-button bullet icon-sm-compass button button_standard button_grey ui-link"} 
 
       .obj_descr__text__descr
-        .obj_descr__text__descr__location.icon-sm-location
-          = @geo_object.address
-        .obj_descr__text__descr__time.icon-sm-clock
-          working time goes here
-        .obj_descr__text__descr__organizations.icon-sm-directions
-          = @geo_object.contacts
-        .obj_descr__text__descr__body
-          = @geo_object.body
+        - if !@geo_object.address.nil?
+          .obj_descr__text__descr__location.icon-sm-location
+            = @geo_object.address
+
+        - if !@geo_object.schedule.nil?
+          .obj_descr__text__descr__time.icon-sm-clock
+            = @geo_object.schedule
+
+        - if !@geo_object.contacts.nil?
+          .obj_descr__text__descr__organizations.icon-sm-directions
+            = @geo_object.contacts
+
+        - if !@geo_object.body.nil?
+          .obj_descr__text__descr__body
+            = @geo_object.body
+            .transparency
           .obj_descr__text__descr__body__full_link
-            =link_to 'Подробнее', '#', class: 'action-link'
+            =link_to 'Подробнее', '#', class: 'action-link show'
+            =link_to 'Свернуть', '#', class: 'action-link hide'
+
         .obj_descr__text__descr__adder
           .smorodina-item__user
             %span.smorodina-item__user__text
@@ -69,11 +81,9 @@
             = render partial: 'shared/spam_to', locals: {spammable: @geo_object}
 
 
-        .obj_descr__text__descr__how_to_reach{data: {id: @geo_object.id}}
-          .obj_descr__text__descr__how_to_reach__spinner
           = link_to 'Как добраться', "#runtips_list", {class: 'action-link ui-link runtip_switcher', data:{toggle: "collapse", target: "#runtips_list"}}
-          .obj_descr__text__descr__how_to_reach__list__container.collapse#runtips_list
-            .obj_descr__text__descr__how_to_reach__list__add
+          .obj_descr__text__descr__runtips__list__container.collapse#runtips_list
+            .obj_descr__text__descr__runtips__list__add
               = form_for([@geo_object, Runtip.new]) do |f|
                 .pic_comments__add__avatar
                   - unless current_user.nil?
@@ -81,84 +91,23 @@
                 .pic_comments__add__input
                   = f.text_field :body, placeholder: 'Предложить вариант'
 
-.technical
-  %h3 Рейтинг
-  %h4{style: 'color: red;'}
-    .rate= @geo_object.average_rating
-  = button_to "Добавить в планировщик", "#"
-  = render 'shared/sn_share_buttons'
-  .cl-left
-  .links
-    = link_to "Голосовать", "#"
-    |
-    = link_to "Кто голосовал", "#"
-    (кол-во)
-%br
-=link_to "Что посмотреть", "#"
-|
-=link_to "Чем заняться", "#"
-|
-=link_to "Где заночевать", "#"
-|
-=link_to "Где поесть", "#"
-.type-form
-  %a{name: "rate"}
-  - @tags.each do |tag|
-    .votes{id: dom_id(@geo_object, tag)}
-      = tag
-      =render partial: "shared/votes", locals: { object_to_vote: @geo_object, tag: tag }
-  %br
-  %br
-  %p здесь будут представлены контактные данные фотографии рейтинги и т.д.
-  %br
-  = link_to 'Add video', new_geo_object_video_path(@geo_object)
-  |
-  %a{href: '#newimage', data: {toggle: 'modal'}}
-    Добавить Фото
-  .photos
-    - @geo_object.images.each do |image|
-      %li.object_image= image_tag image.image_url(:thumb)
-      .votes{id: dom_id(image)}
-        =render partial: 'shared/votes', locals: { object_to_vote: image, nested_path: '' }
-  %br
-%br
-%div.map__outer
-  %div.map__inner
-    %div.map.leaflet-edit-object{id: "map", data: {x: @x, y: @y}}
-%br
-=link_to "Отзывы", "#"
-|
-=link_to "Что поблизости", "#"
-.type-form
-  %h2 Лучшие отзывы
-  = link_to "+ Добавить отзыв", new_geo_object_review_path(@geo_object)
-  %br
-  %br
-  %br
-  - @geo_object.reviews.each do |r|
-    .review
-      %h4= link_to r.title, r
-      = r.body
-  %br
-  %br
-  %br
 
-%h4 Как добраться
-
-- @geo_object.runtips.each do |rt|
-  .runtip{id: dom_id(rt)}
-    =render partial: "shared/votes", locals: { object_to_vote: rt, nested_path: "objects/#{@geo_object.id}/" }
-  %div= rt.body
-
-            .obj_descr__text__descr__how_to_reach__list
+            .obj_descr__text__descr__runtips__list
     
+  %div#mapContainer.map__outer
+    %div.map__inner
+      %div.map__content
+        %div#mapContainer.map__container.map__container_collapsed
+          %div#map.map
+        %div#mapExpand.map__expand
+          %span.map__expand__button
+            %span#mapExpandButton.action-link.map__expand__button__text
+              Развернуть карту
 
   = render partial: 'geo_objects/sub_navigation', locals: {object: @geo_object}
   .obj_descr__responces__starter
     
+= render partial: 'images/new', locals: { object: @geo_object }
 
-%div.map__outer
-  %div.map__inner
-    %div.map.leaflet-edit-object{id: "map", data: {x: @x, y: @y}}
 %script
   $(window).load(function(){ geo_object_show();})

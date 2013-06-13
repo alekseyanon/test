@@ -1,4 +1,4 @@
-class Smorodina.Views.VoteForSimple extends Backbone.View
+class Smorodina.Views.VoteForSimple extends Smorodina.Views.Base
   template: ''
 
   className: 'simple_voting'
@@ -37,26 +37,26 @@ class Smorodina.Views.VoteForSimple extends Backbone.View
 
   make_vote: (e) ->
     e.preventDefault()
-    user_vote = @votable.get('rating').current_user_vote
-    @direction = $(e.currentTarget).find('input[name="sign"]').attr 'value'
 
-    switch user_vote
-      when 1
-        if @direction == 'up'
-          @destroy_vote()
+    if @is_authorized()
+      user_vote = @votable.get('rating').current_user_vote
+      @direction = $(e.currentTarget).find('input[name="sign"]').attr 'value'
 
-        if @direction == 'down'
+      switch user_vote
+        when 1
+          if @direction == 'up'
+            @destroy_vote()
+          else
+            @create_vote()
+
+        when -1
+          if @direction == 'up'
+            @create_vote()
+          else
+            @destroy_vote()
+
+        when 0
           @create_vote()
-
-      when -1
-        if @direction == 'up'
-          @create_vote()
-
-        if @direction == 'down'
-          @destroy_vote()
-
-      when 0
-        @create_vote()
 
   destroy_vote: ->
     @model.set sign: @direction, id: '500'

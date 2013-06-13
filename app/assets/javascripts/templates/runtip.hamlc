@@ -1,17 +1,17 @@
-.obj_descr__text__descr__how_to_reach__list__record__header
-  .obj_descr__text__descr__how_to_reach__list__record__author
+.obj_descr__text__descr__runtips__list__record__header
+  .obj_descr__text__descr__runtips__list__record__author
     != JST['username_link'](user: @runtip.get('user'))
-  .obj_descr__text__descr__how_to_reach__list__record__date
-    = @runtip.get('created_at')
-  .obj_descr__text__descr__how_to_reach__list__record__rate
-.obj_descr__text__descr__how_to_reach__list__record__description
-  .obj_descr__text__descr__how_to_reach__list__record__description__text
+  .obj_descr__text__descr__runtips__list__record__date
+    = @runtip.get('date')
+  .obj_descr__text__descr__runtips__list__record__rate
+.obj_descr__text__descr__runtips__list__record__description
+  .obj_descr__text__descr__runtips__list__record__description__text
     = @runtip.get('body')
-  .obj_descr__text__descr__how_to_reach__list__record__description__actions
-    .obj_descr__text__descr__how_to_reach__list__record__description__actions__is_correct
+  .obj_descr__text__descr__runtips__list__record__description__actions
+    .obj_descr__text__descr__runtips__list__record__description__actions__is_correct
       Вариант полезен?
-    .obj_descr__text__descr__how_to_reach__list__record__description__actions__vote
-    .obj_descr__text__descr__how_to_reach__list__record__description__actions__spam
+    .obj_descr__text__descr__runtips__list__record__description__actions__vote
+    .obj_descr__text__descr__runtips__list__record__description__actions__spam
       != JST['spam_to'](complaint: @runtip.get('complaint'))
 
 

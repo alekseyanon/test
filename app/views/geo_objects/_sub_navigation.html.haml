@@ -2,13 +2,7 @@
   %li{class: current_page?(geo_object_path(object)) ? 'active' : ''}
     = link_to 'Отзывы', geo_object_path(object), {class: 'action-link ui-link'}
 
-  %li{class: current_page?(geo_object_images_path(object)) ? 'active' : ''}
-    = link_to 'Где заночевать', '#', {class: 'action-link ui-link'}
-    
-  %li{class: current_page?(geo_object_videos_path(object)) ? 'active' : ''}
-    = link_to 'События рядом', '#', {class: 'action-link ui-link'}
-
-  %li.no-padding
+  %li.no-padding.pull-right.write_review
     - button_text = content_tag :span, '', class: 'button__text button_3d__text', data: {text: 'Написать отзыв'}
     - button_wrapper = content_tag :span, button_text, class: 'button__inner button_3d__inner'
     = link_to button_wrapper, '#' , {class: 'button button_3d button_orange'}
