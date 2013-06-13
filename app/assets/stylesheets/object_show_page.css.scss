@@ -346,7 +346,11 @@
 .obj_descr__responces__add_review{
   border: 1px solid $siteGray;
   margin-top: 10px;
+  .obj_descr__review__record{
+    margin: 53px 0 0 0;
+  }
 }
+
   
 .obj_descr__responces__add_review__padding{
   padding: 13px 31px 26px 31px;
@@ -355,6 +359,12 @@
 .obj_descr__responces__add_review__row{
   @include clearfix;
   margin-bottom: 22px;
+  .redactor_editor{
+    @include box-shadow(inset 1px 1px 2px rgba(0,0,0,.2) !important);
+    &:focus{
+      @include box-shadow(inset 1px 1px 2px rgba(0,0,0,.2) !important);
+    }
+  }
   label{
     display: inline-block;
     color: $siteGray;
@@ -368,7 +378,27 @@
     display: inline-block;
     float: right;
   }
-  input[type='reset']{
+  .obj_descr__responces__add_review__row__stat{
+    @include clearfix;
+    float: right;
+    color: $siteGray;
+    .colored{
+      &.positive{
+        color: $siteGreen;
+      }
+      &.negative{
+        color: $siteRed;
+      }
+    }
+  }
+  textarea{
+    @include box-sizing(border-box);
+    @include size(215px, 100%);
+  }
+}
+.obj_descr__responces__add_review__preview__actions__cancel,
+.obj_descr__responces__add_review__row__actions__cancel{
+  input{
     background-color: transparent;
     padding: 0;
     margin: 0 0 0 10px;
@@ -378,31 +408,31 @@
       color: $lightblue;
     }
   }
-  button.button{
-    margin-right: 22px;
-  }
-  .obj_descr__responces__add_review__row__stat{
-    @include clearfix;
-    float: right;
-    color: $siteGray;
-  }
-  textarea{
-    @include box-sizing(border-box);
-    @include size(215px, 100%);
-  }
 }
-          
+        
 .obj_descr__responces__add_review__row__actions__preview,
 .obj_descr__responces__add_review__row__actions__or,
 .obj_descr__responces__add_review__row__actions__cancel,
 .obj_descr__responces__add_review__preview__actions__save,
 .obj_descr__responces__add_review__preview__actions__edit,
 .obj_descr__responces__add_review__preview__actions__or,
-.obj_descr__responces__add_review__preview__actions__cansel{
+.obj_descr__responces__add_review__preview__actions__cancel{
   display: inline-block;
 }
 
+.obj_descr__responces__add_review__row__actions__or{
+  width: 57px;
+  text-align: center;
+}
 
+.obj_descr__responces__add_review__preview__actions__save{
+  margin-right: 38px;
+}
+
+.obj_descr__responces__add_review__preview__actions__or{
+  width: 58px;
+  text-align: center;
+}
 
 .obj_descr__responces__responce{
   @include clearfix;

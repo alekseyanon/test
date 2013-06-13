@@ -37,8 +37,13 @@ class Smorodina.Views.ReviewsListView extends Smorodina.Views.Base
     @$el.toggleClass 'show_all'
 
   init_add_review: ->
-    @add_review_form ||= new Smorodina.Views.AddReviewView()
-    @$('.obj_descr__responces__add_review__container').html @add_review_form.render().el
+    if !@add_review_form
+      @add_review_form ||= new Smorodina.Views.AddReviewView()
+      @$('.obj_descr__responces__add_review__container').html @add_review_form.render().el
     @$('.obj_descr__responces__add_review__container').slideToggle()
 
+  cancel_add_review: ->
+    @add_review_form = null
+    @$('.obj_descr__responces__add_review__container').slideToggle()
+    @$('.obj_descr__responces__add_review__container').html()
 

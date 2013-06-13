@@ -4,13 +4,17 @@
       .obj_descr__responces__add_review__row
         %label{for: 'title'}
           Заголовок (не обязательно)
-        %input{type: 'text', name: 'new_review_title', id: 'new_review_title', placeholder: 'наприм.: Замечательное место, хочу сюда вернуться'}
+        %input{type: 'text', name: 'new_review_title', id: 'new_review_title', placeholder: 'наприм.: Замечательное место, хочу сюда вернуться', class: 'editor'}
         .obj_descr__responces__add_review__row__stat
-          Осталось 100 символов
+          %span.colored.title
+            Осталось 100 символов
       .obj_descr__responces__add_review__row
-        %textarea{name: 'new_review_body', id: 'new_review_body', class: 'redactor'}
+        %textarea{name: 'new_review_body', id: 'new_review_body', class: 'editor redactor'}
         .obj_descr__responces__add_review__row__stat
-          Минимум 100 символов, заполнено 0
+          Минимум 100 символов, 
+          %span.colored.body
+            заполнено 0
+
       .obj_descr__responces__add_review__row
         .obj_descr__responces__add_review__row__actions
           .obj_descr__responces__add_review__row__actions__preview
@@ -18,7 +22,8 @@
           .obj_descr__responces__add_review__row__actions__or
             или
           .obj_descr__responces__add_review__row__actions__cancel
-            %input{type: 'reset', value: 'Отменить', class: 'ui-link'}
+            %a{href: '#', class: 'action-link ui-link cancel_review_creation'}
+              Отменить
 
     %div{class: 'obj_descr__responces__add_review__preview', style: 'display: none'}
       .obj_descr__responces__add_review__preview__content
@@ -26,12 +31,13 @@
         .obj_descr__responces__add_review__preview__actions__save
           != JST['shared/button_round'](text: 'Добавить отзыв', id: 'save_review')
         .obj_descr__responces__add_review__preview__actions__edit
-          %a{class: 'action-link-bullet ui-link icon-sm-pencil', id: 'edit_review'}
+          %a{class: 'action-link-bullet ui-link icon-sm-pencil', id: 'edit_review', href: '#'}
             %span{class: 'inner'}
               Редактировать
         .obj_descr__responces__add_review__preview__actions__or
           или
-        .obj_descr__responces__add_review__preview__actions__cansel
-          %input{type: 'reset', value: 'Отменить', class: 'ui-link'}
+        .obj_descr__responces__add_review__preview__actions__cancel
+          %a{href: '#', class: 'action-link ui-link cancel_review_creation'}
+            Отменить
       
 

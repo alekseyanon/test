@@ -6,6 +6,7 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
     'click .obj_descr__text__descr__body__full_link a' : 'show_full_description'
     'click .add_photo_or_video_link a' : 'show_upload_window'
     'click .write_review a' : 'init_add_review'
+    'click .cancel_review_creation': 'cancel_add_review'
 
   object_id: 0
 
@@ -54,3 +55,7 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
   init_add_review: (e)->
     e.preventDefault()
     @reviews_view.init_add_review()
+
+  cancel_add_review: (e)->
+    e.preventDefault()
+    @reviews_view.cancel_add_review()
