@@ -30,12 +30,14 @@ describe "Reviews", js: true, type: :request do
   let(:body)  { Faker::Lorem.sentence 2}
 
   it 'creates a new review' do
+    pending "reimplement after geo_object/create_review page is delivered"
     create_new title, body
     page.should have_content title
     page.should have_content body
   end
 
   it 'voting system exsist' do
+    pending "reimplement after geo_object/create_review page is delivered"
     create_new title, body
     visit review_path Review.last
     page.should have_selector('.votes')
@@ -44,6 +46,7 @@ describe "Reviews", js: true, type: :request do
   end
 
   it 'make vote for the review' do
+    pending "reimplement after geo_object/create_review page is delivered"
     create_new title, body
     visit review_path Review.last
     page.find('#vote-up').click
@@ -52,12 +55,14 @@ describe "Reviews", js: true, type: :request do
   end
 
   it 'complaint system exsist' do
+    pending "reimplement after geo_object/create_review page is delivered"
     create_new title, body
     visit review_path Review.last
     page.should have_selector('.complaint')
   end
 
   it 'make complaint for the review' do
+    pending "reimplement after geo_object/create_review page is delivered"
     -> do
       r = Review.make!
       visit review_path r

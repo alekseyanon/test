@@ -46,6 +46,8 @@ describe "Determining user location based on its IP address", js: true, type: :r
 
 		sleep 2
 
+    save_and_open_page
+
 		map_lat, map_lng  = page.evaluate_script "$('.map').data('coords')"
 
     map_lat.should be_within(DELTA).of 56.158553

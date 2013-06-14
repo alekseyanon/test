@@ -1,29 +1,11 @@
 %div.all-photos-page
-  %div.row-fluid
-    %div.span6.search
-      = link_to raw("<span class='inner'>Поиск объектов</span>"), search_geo_objects_path, {class: "action-link-bullet icon-sm-arrow-left-3 ui-link"}
-
-  %ul.obj-page-navigation
-    %li 
-      = link_to raw("Описание объекта"), geo_object_path(@parent), {class: 'action-link ui-link'}
-    %li.active 
-      = link_to raw("<span class='inner'>Фото</span>"), geo_object_images_path(@parent), {class: "icon-sm-pictures action-link-bullet ui-link"}
-    %li
-      = link_to raw("<span class='inner'>Видео</span>"), geo_object_videos_path(@parent), {class: "icon-sm-video action-link-bullet ui-link"}
-
-    %li.pull-right
-      = link_to "", "#", {class: "icon-flag ui-link"}
-    %li.pull-right
-      = link_to "", history_geo_object_path(@parent), {class: "icon-sm-history ui-link"}
-    %li.pull-right
-      = link_to raw("<span class='inner'>Редактировать</span>"), edit_geo_object_path(@parent), {class: "icon-sm-pencil action-link-bullet ui-link"}
-
+  = render partial: 'geo_objects/main_navigation', locals: {object: @parent}
   %div.row-fluid.add
     %div.span6
       %h4
         = @parent.title
-    %div.span6
-      = link_to "Добавить фото или видео", "#", {class: "button button_standard button_grey ui-link"}
+    %div.span6.add_photo_or_video_link
+      = link_to "Добавить фото или видео", "#", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
 
   %ul.obj-page-gallery
     - @parent.images.each do |image|
