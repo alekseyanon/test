@@ -60,27 +60,6 @@
   -khtml-user-select: none;
   user-select: none;
 }
-.triangle:after,
-.triangle:before {
-  content: "";
-  width: 0; height: 0;
-  position: absolute;
-  top: 100%; left: 50%;
-}
-
-.triangle:after {
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-top: 15px solid rgb(71, 71, 71);
-  margin: -5px 0 0 -20px;
-}
-
-.triangle:before {
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-top: 15px solid #28292b;
-  margin: 0px 0 0 -20px;
-}
 
 .unselected{
     font-weight: bold;
