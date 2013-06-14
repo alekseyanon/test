@@ -7,6 +7,7 @@ class Smorodina.Views.CommentsListView extends Smorodina.Views.Base
 
   events: 
     'submit .pic_comments__add form' : 'create_new' 
+    'click input[type="reset"]'      : 'make_reset'
 
   initialize: ->
     _.bindAll @
@@ -59,3 +60,8 @@ class Smorodina.Views.CommentsListView extends Smorodina.Views.Base
           opt.el[0].reset()
           if model.get('parent_id')
             opt.el.parents('.pic_comments__add').slideUp()
+
+  make_reset: (e)->
+    if @parent_id != null
+      $(e.currentTarget).parents('.pic_comments__add').first().slideUp()
+

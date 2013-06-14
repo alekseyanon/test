@@ -4,7 +4,6 @@ class  Api::VotesController < InheritedResources::Base
 
   def index
     @tag = params[:voteable_tag].blank? ? nil : params[:voteable_tag]
-    @parent
   end
 
   def create

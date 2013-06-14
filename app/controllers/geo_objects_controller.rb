@@ -112,14 +112,7 @@ class GeoObjectsController < ApplicationController
   end
 
   def my_location
-    client_city = location_by_ip(request.remote_ip)
-    if client_city && agu_location = Agu.where(title: client_city).first
-      c = agu_location.geom.centroid
-      respond_with [c.x, c.y]
-    else
-      Rails.logger.warn "No match found in agus for city #{client_city}" if client_city
-      respond_with nil
-    end
+    respond_with Agu.by_ip(request.remote_ip)
   end
 
   protected
@@ -151,17 +144,6 @@ class GeoObjectsController < ApplicationController
       end
     end
     geo_objects
-  end
-
-  def location_by_ip ip
-    begin
-      if c = SxGeo.new.get(ip)
-        c['city'].force_encoding('UTF-8')
-      end
-    rescue
-      Rails.logger.warn "No city found for ip #{ip}"
-      nil
-    end
   end
   
 end

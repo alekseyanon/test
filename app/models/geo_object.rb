@@ -63,15 +63,15 @@ class GeoObject < ActiveRecord::Base
                   associated_against: {tags: [:name]}
 
   before_validation :normalize_categories
+  before_create :add_agc
 
   scope :with_agc, ->(id) { where agc_id: id }
 
   def categories_tree(parent = Category.root, filter = Category.where(name: tag_list).to_set)
-    tree = parent.children.reduce({}) do |memo,c|
+    parent.children.reduce({}) do |memo,c|
       memo[c.name_ru] = categories_tree(c,filter) if filter.include? c
       memo
     end
-    tree.empty? ? {} : tree
   end
 
   def leaf_categories
@@ -86,6 +86,10 @@ class GeoObject < ActiveRecord::Base
 
   def make_slug
     "#{title ? title : 'place-travel'}"
+  end
+
+  def add_agc
+    self.agc ||= Agc.most_precise_enclosing(geom) unless geom.blank?
   end
 
   protected
