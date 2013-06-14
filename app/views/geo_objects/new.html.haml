@@ -1,36 +1,36 @@
 
-=link_to "список объектов", geo_objects_path
+=link_to 'список объектов', geo_objects_path
 
 %h1 Добавление нового объекта
 
 = simple_form_for @geo_object do |f|
   - if @geo_object.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@geo_object.errors.count, "error")} не позволяют сохранить объект"
+      %h2= "#{pluralize(@geo_object.errors.count, 'error')} не позволяют сохранить объект"
       %ul
         - @geo_object.errors.full_messages.each do |msg|
           %li= msg
   .inputs
-    %a{:name => "name"}
+    %a{name: 'name'}
     = f.input :title
     = f.input :body
     = f.input :address
     = f.input :contacts
     = f.input :schedule
 
-    %a{:name => "place"}
+    %a{name: 'place'}
     %h3 Укажите местоположения
     %div.map__inner
       %div.map__outer
-        %div.map.leaflet-create-object{id: "map", data: {x: 30.3, y: 60}}
+        %div.map.leaflet-create-object{id: 'map', data: {x: 30.3, y: 60}}
     = f.input :xld
     = f.input :yld
 
-    %a{:name => "category"}
+    %a{name: 'category'}
     %h3 Категория
-    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, :label => "Укажите вручную (например, монастырь, выставка, памятник)" , label_method: :name_ru, value_method: :name, :include_blank => false
-    %h3{:onclick => "$('.categories').toggle();"}
-      =link_to "Или выбери из списка", "#"
+    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, label: 'Укажите вручную (например, монастырь, выставка, памятник)', label_method: :name_ru, value_method: :name, include_blank: false
+    %h3{onclick: "$('.categories').toggle();"}
+      =link_to 'Или выбери из списка', '#'
     .categories
       %h4 Что посмотреть
       список чекбоксов для категории что посмотреть
@@ -40,15 +40,15 @@
       список чекбоксов для категории где заночевать
       %h4 Где поесть
       список чекбоксов для категории  где поесть
-    = button_to "видео", "#"
+    = button_to 'видео', '#'
 
-    = f.submit "Создать объект"
+    = f.submit 'Создать объект'
     Чтобы создать объект:
-    =link_to "дайте название", "#name"
+    =link_to 'дайте название', '#name'
     ,
-    =link_to "укажите местоположение", "#place"
+    =link_to 'укажите местоположение', '#place'
     ,
-    =link_to "укажите категорию", "#category"
+    =link_to 'укажите категорию', '#category'
 = link_to 'Back', geo_objects_path
 
 %br

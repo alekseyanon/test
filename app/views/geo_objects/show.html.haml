@@ -92,6 +92,12 @@
                     = image_tag current_user.profile.avatar_url(:image_commentor_thumb), width: 48, height: 48
                 .pic_comments__add__input
                   = f.text_field :body, placeholder: 'Предложить вариант'
+                .pic_comments__add__controls
+                  .pic_comments__add__controls__submit
+                    = f.submit 'Отправить', {class: 'button button_standard button_grey'}
+                  .pic_comments__add__controls__reset
+                    = f.submit 'Отменить', {class: 'action-link', type: 'reset'}
+
 
             .obj_descr__text__descr__runtips__list
     

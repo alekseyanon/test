@@ -49,8 +49,9 @@ class Smorodina.Views.ReviewView extends Smorodina.Views.Base
         @comments_ready()
 
   comments_ready: (event)->
-    window.location.hash = @current_hash
-    @$el.find('.pic_comments__container').first().find('input[type=text]').last().focus()
+    if @current_hash
+      window.location.hash = @current_hash
+      @$el.find('.pic_comments__container').first().find('input[type=text]').last().focus()
 
   show_full: (e)->
     e.preventDefault()

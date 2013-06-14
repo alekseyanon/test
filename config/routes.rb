@@ -5,6 +5,7 @@ Smorodina::Application.routes.draw do
   get 'ratings/list'
 
   namespace :api do
+    get 'chronicles/show'
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
     get 'events/tags'

@@ -21,6 +21,7 @@ EOF`
     username = config['username']
     puts "dropping table users"
     `psql #{database} --username=#{username} -c "drop table users;"`
+    sleep 5
   end
 
 
