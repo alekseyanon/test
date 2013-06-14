@@ -239,6 +239,7 @@
 
 .obj_descr__text__descr__runtips__list__record{
   border-top: 1px solid $siteLightGray;
+  display: table;
   @include font-small;
   &.opened{
     .obj_descr__text__descr__runtips__list__record__header{
@@ -248,13 +249,27 @@
 }
 
 .obj_descr__text__descr__runtips__list__record__author{
+  display: table-cell;
+  vertical-align: middle;
+  overflow: hidden;
   a{
     font-weight: bold;
   }
 }
           
-.obj_descr__text__descr__runtips__list__author,
 .obj_descr__text__descr__runtips__list__record__author{
+  width: 205px;
+  .user-link{
+    margin-left: 20px;
+  }
+}
+
+.obj_descr__text__descr__runtips__list__record__author__inner{
+  width: 205px;
+  overflow: hidden;
+}
+
+.obj_descr__text__descr__runtips__list__author{
   margin-left: 20px;
   width: 185px;
 }
@@ -272,15 +287,21 @@
 .obj_descr__text__descr__runtips__list__author,
 .obj_descr__text__descr__runtips__list__date,
 .obj_descr__text__descr__runtips__list__rate,
-.obj_descr__text__descr__runtips__list__record__author,
 .obj_descr__text__descr__runtips__list__record__date,
-.obj_descr__text__descr__runtips__list__record__rate,
+.obj_descr__text__descr__runtips__list__record__rate{
+  display: table-cell;
+  vertical-align: middle;
+  height: 56px;
+}
+
+
 .obj_descr__text__descr__runtips__list__record__description__actions__is_correct,
 .obj_descr__text__descr__runtips__list__record__description__actions__vote,
 .obj_descr__text__descr__runtips__list__record__description__actions__spam{
   display: inline-block;
-  padding: 19px 0 19px 0;
+  padding: 19px 0;
 }
+
                   
 .obj_descr__text__descr__runtips__list__record__description{
   display: none;
@@ -294,6 +315,8 @@
 .obj_descr__text__descr__runtips__list__date,
 .obj_descr__text__descr__runtips__list__rate{
   padding: 11px 0 11px 0;
+  display: inline-block;
+  height: auto;
 }
 
 .obj_descr__text__descr__runtips__list__record__description__actions__spam,
@@ -418,6 +441,10 @@
 .obj_descr__responces__add_review__preview__actions__or,
 .obj_descr__responces__add_review__preview__actions__cancel{
   display: inline-block;
+}
+
+.obj_descr__responces__add_review__preview__actions__edit{
+  vertical-align: middle;
 }
 
 .obj_descr__responces__add_review__row__actions__or{
