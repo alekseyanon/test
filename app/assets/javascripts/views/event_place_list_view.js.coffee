@@ -5,12 +5,11 @@ class Smorodina.Views.EventPlaceList extends Smorodina.Views.Base
   initialize: ->
     super()
     _.bindAll @
-    @collection.on 'sync', @render
     @$content = @$el.find '.events_section__event_list'
     @$counter = @$el.find '.counter'
     @$allev = @$el.find '.all_events__link'
     @$allev.on 'click', @renderAll
-    @collection.on 'reset', @render
+    @collection.on 'sync reset', @render
     @collection.fetch()
     
   render: ->
@@ -37,6 +36,6 @@ class Smorodina.Views.EventPlaceList extends Smorodina.Views.Base
     @$content.html @$fragment
 
   addOne: (l) ->
-    #console.log l
     view = new Smorodina.Views.EventPlace(model: l)
     @$fragment = @$fragment.add view.render().el
+    

@@ -1,13 +1,8 @@
-#= require ../collections/geo_objects
-#= require ./base_view
-
 class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
   el: '.place_objects'
   initialize: ->
     super()
     _.bindAll @
-    @collection.on 'sync', @render
-    @collection.on 'sort', @render
     @$content = @$el.find '#place_object_list'
     @$sortbyN = @$el.find '.by_name'
     @$sortbyR = @$el.find '.by_rating'
@@ -15,7 +10,7 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
     @currentSortR = -1
     @$sortbyN.on 'click', @sortByName
     @$sortbyR.on 'click', @sortByRating
-    @collection.on 'reset', @render
+    @collection.on 'sync sort reset', @render
     @collection.fetch()
     
   render: ->
@@ -63,3 +58,4 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
   addOne: (l) ->
     view = new Smorodina.Views.GeoObjectPlace(model: l)
     @$fragment = @$fragment.add view.render().el
+    
