@@ -239,6 +239,7 @@
 
 .obj_descr__text__descr__runtips__list__record{
   border-top: 1px solid $siteLightGray;
+  display: table;
   @include font-small;
   &.opened{
     .obj_descr__text__descr__runtips__list__record__header{
@@ -248,13 +249,27 @@
 }
 
 .obj_descr__text__descr__runtips__list__record__author{
+  display: table-cell;
+  vertical-align: middle;
+  overflow: hidden;
   a{
     font-weight: bold;
   }
 }
           
-.obj_descr__text__descr__runtips__list__author,
 .obj_descr__text__descr__runtips__list__record__author{
+  width: 205px;
+  .user-link{
+    margin-left: 20px;
+  }
+}
+
+.obj_descr__text__descr__runtips__list__record__author__inner{
+  width: 205px;
+  overflow: hidden;
+}
+
+.obj_descr__text__descr__runtips__list__author{
   margin-left: 20px;
   width: 185px;
 }
@@ -272,15 +287,21 @@
 .obj_descr__text__descr__runtips__list__author,
 .obj_descr__text__descr__runtips__list__date,
 .obj_descr__text__descr__runtips__list__rate,
-.obj_descr__text__descr__runtips__list__record__author,
 .obj_descr__text__descr__runtips__list__record__date,
-.obj_descr__text__descr__runtips__list__record__rate,
+.obj_descr__text__descr__runtips__list__record__rate{
+  display: table-cell;
+  vertical-align: middle;
+  height: 56px;
+}
+
+
 .obj_descr__text__descr__runtips__list__record__description__actions__is_correct,
 .obj_descr__text__descr__runtips__list__record__description__actions__vote,
 .obj_descr__text__descr__runtips__list__record__description__actions__spam{
   display: inline-block;
-  padding: 19px 0 19px 0;
+  padding: 19px 0;
 }
+
                   
 .obj_descr__text__descr__runtips__list__record__description{
   display: none;
@@ -294,6 +315,8 @@
 .obj_descr__text__descr__runtips__list__date,
 .obj_descr__text__descr__runtips__list__rate{
   padding: 11px 0 11px 0;
+  display: inline-block;
+  height: auto;
 }
 
 .obj_descr__text__descr__runtips__list__record__description__actions__spam,
@@ -324,7 +347,6 @@
 
 
 .obj_descr__responces{
-  margin-left: 30px;
   &.show_all{
     .hidable_review{
       display: block;
@@ -338,6 +360,105 @@
       }
     }
   }
+}
+
+.obj_descr__responces__padding{
+  padding-left: 30px;
+}
+
+.obj_descr__responces__add_review{
+  border: 1px solid $siteGray;
+  margin-top: 10px;
+  .obj_descr__review__record{
+    margin: 53px 0 0 0;
+  }
+}
+
+  
+.obj_descr__responces__add_review__padding{
+  padding: 13px 31px 26px 31px;
+}
+    
+.obj_descr__responces__add_review__row{
+  @include clearfix;
+  margin-bottom: 22px;
+  .redactor_editor{
+    @include box-shadow(inset 1px 1px 2px rgba(0,0,0,.2) !important);
+    &:focus{
+      @include box-shadow(inset 1px 1px 2px rgba(0,0,0,.2) !important);
+    }
+  }
+  label{
+    display: inline-block;
+    color: $siteGray;
+    width: 20%;
+    line-height: 35px;
+    margin-bottom: 0px;
+  }
+  input[type='text']{
+    width: 75%;
+    border: 1px solid $siteGray;
+    display: inline-block;
+    float: right;
+  }
+  .obj_descr__responces__add_review__row__stat{
+    @include clearfix;
+    float: right;
+    color: $siteGray;
+    .colored{
+      &.positive{
+        color: $siteGreen;
+      }
+      &.negative{
+        color: $siteRed;
+      }
+    }
+  }
+  textarea{
+    @include box-sizing(border-box);
+    @include size(215px, 100%);
+  }
+}
+.obj_descr__responces__add_review__preview__actions__cancel,
+.obj_descr__responces__add_review__row__actions__cancel{
+  input{
+    background-color: transparent;
+    padding: 0;
+    margin: 0 0 0 10px;
+    border: 0;
+    text-decoration: underline;
+    &:hover{
+      color: $lightblue;
+    }
+  }
+}
+        
+.obj_descr__responces__add_review__row__actions__preview,
+.obj_descr__responces__add_review__row__actions__or,
+.obj_descr__responces__add_review__row__actions__cancel,
+.obj_descr__responces__add_review__preview__actions__save,
+.obj_descr__responces__add_review__preview__actions__edit,
+.obj_descr__responces__add_review__preview__actions__or,
+.obj_descr__responces__add_review__preview__actions__cancel{
+  display: inline-block;
+}
+
+.obj_descr__responces__add_review__preview__actions__edit{
+  vertical-align: middle;
+}
+
+.obj_descr__responces__add_review__row__actions__or{
+  width: 57px;
+  text-align: center;
+}
+
+.obj_descr__responces__add_review__preview__actions__save{
+  margin-right: 38px;
+}
+
+.obj_descr__responces__add_review__preview__actions__or{
+  width: 58px;
+  text-align: center;
 }
 
 .obj_descr__responces__responce{
@@ -463,30 +584,36 @@
 }
 
 .obj_descr__responces__responce__text__actions{
-  margin: 30px 0;
+  margin: 16px 0 0 0;
 }
       
 .obj_descr__responces__responce__text__data{
-  margin: 20px 0 0 0;
+  margin: 6px 0 0 0;
   max-height: 120px;
   overflow: hidden;
   position: relative;
   .transparency{
     display: none;
     width: 100%;
-    height: 20px;
+    height: 30px;
     position: absolute;
     left: 0px;
     top: 100%;
-    margin-top: -24px;
+    margin-top: -30px;
     @include background-image(linear-gradient(bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%));
     @include background-size(100% 100%);
+  }
+  .first{
+    margin-top: 0px;
+  }
+  .last{
+    margin-bottom: 0px;
   }
 }
 
 .obj_descr__responces__responce__text__show_full{
   display: none;
-  margin-top: 15px;
+  @include clearfix;
 }
 
 .obj_descr__responces__responce__text__photos{
