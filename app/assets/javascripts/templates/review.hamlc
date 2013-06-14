@@ -8,8 +8,9 @@
           = @review.get('user').username
   .obj_descr__responces__responce__text
     .obj_descr__responces__responce__text__padding
-      .obj_descr__responces__responce__text__title
-        = @review.get('title')
+      - if @review.get('title')
+        .obj_descr__responces__responce__text__title
+          = @review.get('title')
       .obj_descr__responces__responce__text__date
         = @review.get('date')
       .obj_descr__responces__responce__text__data
