@@ -16,12 +16,12 @@
       .obj_descr__responces__responce__text__data
         != @review.get('body')
         .transparency
-      .obj_descr__responces__responce__text__show_full
-        %a{href: '#', class: 'action-link show_all ui-link'}
-          Читать весь отзыв
-        %a{href: '#', class: 'action-link hide_all ui-link'}
-          Свернуть
       - if @real
+        .obj_descr__responces__responce__text__show_full
+          %a{href: '#', class: 'action-link show_all ui-link'}
+            Читать весь отзыв
+          %a{href: '#', class: 'action-link hide_all ui-link'}
+            Свернуть
         .obj_descr__responces__responce__text__actions
           .obj_descr__responces__responce__text__actions__respond
             %a{href: "#review_#{@review.get('id')}_add_comment_form", class: "icon-sm-reply action-link-bullet"}

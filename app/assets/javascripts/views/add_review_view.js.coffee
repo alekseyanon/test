@@ -4,8 +4,6 @@ class Smorodina.Views.AddReviewView extends Smorodina.Views.Base
 
   template: JST['add_review']
 
-  review_template: JST['review']
-
   model: new Backbone.Model()
 
   title_max_length: 100
@@ -82,9 +80,9 @@ class Smorodina.Views.AddReviewView extends Smorodina.Views.Base
 
     if title_length
       if title_length < @title_max_length
-        colored.removeClass('positive negative').addClass 'positive'
+        @change_colored colored, 'positive'
       else 
-        colored.removeClass('positive negative').addClass 'negative'
+        @change_colored colored, 'negative'
         e.preventDefault()
 
     colored.html "Осталось #{symb_left} символов"
@@ -96,11 +94,14 @@ class Smorodina.Views.AddReviewView extends Smorodina.Views.Base
    
     if body_length > 0
       if body_length > @body_min_length
-        colored.removeClass('positive negative').addClass 'positive'
+        @change_colored colored, 'positive'
       else 
-        colored.removeClass('positive negative').addClass 'negative'
+        @change_colored colored, 'negative'
 
     colored.html "заполнено #{body_length}"
+
+  change_colored: (block, class_name)->
+    block.removeClass('positive negative').addClass class_name
 
 
 
