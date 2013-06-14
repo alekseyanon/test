@@ -1,4 +1,3 @@
-
 def create_comment commentator, commentable, parent = nil
   body = Faker::Lorem.sentences(Random.rand(1..7)).join
   commentator.comments.create! commentable: commentable, body: body, parent: parent

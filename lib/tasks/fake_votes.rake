@@ -1,38 +1,39 @@
-def generate_users(count)
-  if (c = User.all.count) <= count
-    puts 'make new users:'
-    load "#{Rails.root}/spec/support/blueprints.rb"
-    (count - c + 1).times do |i|
-      print i.to_s
-      User.make!
-    end
+def vote_for_geo_object obj, user, decision
+  if obj.leaf_categories.present?
+    obj.leaf_categories.each {|tag| user.send decision, obj, tag }
+    rating = ld.plusminus.to_f / ld.leaf_categories.count.to_f
+  else
+    user.send decision, obj
+    rating = obj.plusminus.to_f
   end
-  @users = User.first(count)
+  obj.update_attributes rating: rating
 end
 
 namespace :fake do
-  desc 'Generate votes for some landmark descriptions'
-  task votes: :environment do
+  paths = {}
+  paths[:geo_objects]    = ->(obj)     { geo_object_url(obj)  }
+  paths[:comments]       = ->(comment) { review_url(comment.commentable) }
+  paths[:reviews]        = ->(review)  { review_url(review)   }
+  paths[:runtips]        = ->(runtip)  { geo_object_url(runtip.geo_object)   }
 
-    puts 'rake task started'
-    user_count = 10
-    puts 'set users count'
-    @landmarkdescriptions = GeoObject.first(20)
-    puts 'select needed landmark descriptions'
-    generate_users(user_count)
-    puts 'generate users'
-    @landmarkdescriptions.each do |ld|
-      puts "=> #{ld.title} - #{ld.id}"
-      p = rand(user_count)
-      p.times do |i|
-        puts "====> up vote user - #{i}"
-        ld.leaf_categories.each {|tag| @users[i].vote_exclusively_for(ld, tag)}
+  desc 'Generate simple votes for geo_object, comments, runtips, reviews'
+  task votes: [:comments, :reviews, :runtips, :users] do
+    load_routes
+    votables = [GeoObject, Comment, Review, Runtip]
+    users    = User.last(5)
+    votables.each do |votable_class|
+      votable_class.last(5).each do |obj|
+        users.sample(rand(1..5)).each do |u|
+          decision = [:vote_exclusively_for, :vote_exclusively_against].sample 
+          path_key = obj.class.to_s.tableize.to_sym
+          if votable_class == GeoObject
+            vote_for_geo_object(obj, u, decision) 
+          else
+            u.send decision, obj
+          end
+          puts "User #{u.email} #{decision} #{votable_class} #{paths[path_key].call(obj)}"
+        end
       end
-      (p).upto(user_count - 1) do |i|
-        puts "====> down vote user - #{i}"
-        ld.leaf_categories.each {|tag| @users[i].vote_exclusively_against(ld, tag)}
-      end
-      ld.update_attributes(rating: (ld.plusminus.to_f / ld.leaf_categories.count.to_f))
     end
   end
 end
