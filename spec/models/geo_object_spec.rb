@@ -7,6 +7,12 @@ describe GeoObject do
   it { should validate_presence_of :title }
   it { should belong_to :user }
 
+  it 'have agc after create' do
+    make_sample_agus!
+    Agc.make!
+    obj = GeoObject.make! geom: 'POINT(0 0)', agc: nil
+    obj.agc.should_not be_nil
+  end
 
   describe "geometry requests" do #TODO move to shared example group with landmarks and nodes altogether
     let(:triangle)     { to_points [[10, 10], [20, 20], [30, 10]] }

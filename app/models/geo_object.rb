@@ -57,6 +57,7 @@ class GeoObject < ActiveRecord::Base
                   associated_against: {tags: [:name]}
 
   before_validation :normalize_categories
+  before_create :add_agc
 
   scope :with_agc, ->(id) { where agc_id: id }
 
@@ -80,6 +81,10 @@ class GeoObject < ActiveRecord::Base
 
   def make_slug
     "#{title ? title : 'place-travel'}"
+  end
+
+  def add_agc
+    self.agc ||= Agc.most_precise_enclosing(geom) unless geom.blank?
   end
 
   protected
