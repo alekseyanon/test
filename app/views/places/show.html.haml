@@ -1,0 +1,92 @@
+= render 'layouts/main_search', { how_to_search: false }
+%div#mapContainer.map__outer
+  %div.map__inner
+    %div.map__content
+      %div#mapContainer.map__container.map__container_collapsed
+        %div#map.map
+      %div#mapExpand.map__expand
+        %span.map__expand__button
+          %span#mapExpandButton.action-link.map__expand__button__text
+            Посмотреть на карте
+.place_show_page{data:{agc: @object.agcs.first.id, agu: @object.id}}
+  .place_descr
+    .place_descr__title
+      %h1=@object.title
+    .place_descr__gps
+      = render partial: 'shared/geo_list', locals: {tree: @object.agc_titles}
+    .place_descr__share
+      Расскажи об этом месте друзьям 
+    = render partial: 'shared/share_with', locals: {object: @object}
+%div.place_columns.row-fluid
+  %div.place_objects.span9
+    %div#searchCategories.search-panel.search-categories
+      %div.search-panel__inner
+        %b.search-categories__title
+        Объекты
+        %button.search-category.search-category_all{ data: { facet: '' } }
+          %span.action-link.search-category__text{ data: { text: 'Все' }}
+            %b.search-category__total
+              48
+        %button.search-category.search-category_sightseeing{ data: { facet: 'sightseeing' } }
+          %span.icon-binoculars.search-category__icon.search-category__icon_binoculars
+          %span.action-link.search-category__text{ data: { text: 'Что посмотреть' }}
+            %b.search-category__total
+              48
+        %button.search-category.search-category_activities{ data: { facet: 'activities' } }
+          %span.icon-star.search-category__icon.search-category__icon_star
+          %span.action-link.search-category__text{ data: { text: 'Чем заняться' }}
+            %b.search-category__total
+              48
+        %button.search-category.search-category_food{ data: { facet: 'food' } }
+          %span.icon-food-eat.search-category__icon.search-category__icon_food-eat
+          %span.action-link.search-category__text{ data: { text: 'Где поесть' }}
+            %b.search-category__total
+              48
+        %button.search-category.search-category_lodging{ data: { facet: 'lodging' } }
+          %span.icon-bed.search-category__icon.search-category__icon_bed
+          %span.action-link.search-category__text{ data: { text: 'Где заночевать' }}
+            %b.search-category__total
+              48
+        %button.search-category.search-category_places{ data: { facet: 'places' } }
+          %span.action-link.search-category__text{ data: { text: 'Места' }}
+            %b.search-category__total
+              48
+    
+    %div#searchResultsPanel.search-results-panel
+      %div.search-results-panel__inner
+        %span.sort-controls.search-results-panel__sort
+          %span.label_horizontal.search-results-panel__sort__title
+            Сортировать по
+          %span.sort-group.down.btn.by_rating
+            Рейтингу 
+            %span.direction
+              &darr;
+          
+          %span.sort-group.by_name.unselected
+            Имени
+            %span.direction
+        %span.search-results-panel__show
+          %label.label_horizontal.search-results-panel__show__title
+            В районе
+          %select.input-medium
+            %option
+              1 км
+            %option
+              2 км
+            %option
+              5 км
+            %option
+              10 км
+    %div#place_object_list
+      
+                    
+  %div.place_events.span3
+    %div.events_section
+      %div.events_section__title
+        Не пропустите
+      %div.events_section__event_list
+      %a.all_events__link{href: "#"}
+        Все события
+        %span.counter
+          5
+= render 'layouts/footer'         
