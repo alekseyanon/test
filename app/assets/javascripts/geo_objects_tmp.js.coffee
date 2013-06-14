@@ -73,7 +73,7 @@ window.geo_object_search = ->
       else
         L.marker(latlon).addTo lg
 
-  updateQuery = ->
+  collectDataForQuery = ->
     bounds = map.getBounds()
     return if bounds.equals lastBounds
     lastBounds = bounds
@@ -82,24 +82,26 @@ window.geo_object_search = ->
     radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 / 60.0 #SRID 4326
     text = $searchField.val()
 
-    query =
+    query =  
       x: center.lat
       y: center.lng
       r: radius
       text: text
+      facets: facets
 
-    query.facets = facets
+  updateQuery = (opts = {})->
+    if data = collectDataForQuery()
+      geo_objects.fetch
+        reset: true
+        query: data
+        data: $.param
+          query: data
+        success: putMarkers
+        direct_search: opts.direct_search
 
-    geo_objects.fetch
-      reset: true
-      query: query
-      data: $.param
-        query: query
-      success: putMarkers
-
-  resetBoundsAndSearch = ->
+  resetBoundsAndSearch = (opts = {})->
     lastBounds = null
-    updateQuery()
+    updateQuery opts
 
   resetSearchField = ->
     $searchField.val ''
@@ -112,20 +114,21 @@ window.geo_object_search = ->
 
   map.setView [59.939,30.341], 13 #SPB
 
-  $labels = $('.search-categories').find('.search-category')
-
-  $('.search-categories').on 'click', '.search-category', ->
+  categories_search = ->
+    $labels = $('.search-categories').find '.search-category'
     $label = $(this)
     facet = $label.data('facet')
     facets = if facet then [facet] else []
+    $labels.removeClass 'selected'
+    $label.addClass 'selected'
 
-    $labels.removeClass('selected')
-    $label.addClass('selected')
+  $('.search-categories').on 'click', '.search-category', ->
+    categories_search()
+    resetBoundsAndSearch direct_search : false
 
-    resetBoundsAndSearch()
-
-  $("#mainSearchButton").on 'click', resetBoundsAndSearch
+  $("#mainSearchButton").on 'click', ->
+    resetBoundsAndSearch direct_search : true
 
   $searchField.on 'keydown', (e) ->
     if e.which is 13
-      resetBoundsAndSearch()
+      resetBoundsAndSearch direct_search : true

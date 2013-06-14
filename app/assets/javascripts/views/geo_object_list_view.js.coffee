@@ -5,6 +5,7 @@ class Smorodina.Views.GeoObjectList extends Smorodina.Views.Base
   el: '#searchResults'
   initialize: ->
     super()
+    @$categoriesNav = $ '#searchCategories'
     @$content = @$ '#searchResultsContent'
     @$bestContent = @$ '#searchResultsBestContent'
     @$restContent = @$ '#searchResultsRestContent'
@@ -28,17 +29,26 @@ class Smorodina.Views.GeoObjectList extends Smorodina.Views.Base
     @spinner.stop()
 
   render: ->
-    switch @collection.length
-      when 0 then @hide()
-      when 1 then @redirect_to_exact_one(@collection.first())
-      else 
-        @hideSpinner()
-        @$fragment = $(null)
-        @collection.each @addOne
-        # TODO this is temorary solution only for demonstration
-        @$bestContent.html @$fragment.slice(0,4)
-        @$restContent.html @$fragment.slice(4)
-        @show()
+    if @collection.length == 0
+      @hide()
+      # Прячем бар с категориями, если поиск был осуществлен с помощью кнопки поиска
+      if @collection.directResults
+        @$categoriesNav.hide()
+      else
+        @$categoriesNav.show()
+    # Редирект на конкретный объект, если он один нашелся с помощью поисковой строки
+    else if @collection.hasExactlyOneDirectResult()
+      @$categoriesNav.hide()
+      @redirect_to_exact_one @collection.first()
+    # Иначе показываем список результатов
+    else 
+      @hideSpinner()
+      @$fragment = $(null)
+      @collection.each @addOne
+      # TODO this is temorary solution only for demonstration
+      @$bestContent.html @$fragment.slice(0,4)
+      @$restContent.html @$fragment.slice(4)
+      @show()
 
 
   addOne: (l) ->
