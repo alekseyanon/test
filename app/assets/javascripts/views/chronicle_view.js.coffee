@@ -18,7 +18,7 @@ class Smorodina.Views.Chronicle extends Backbone.View
   addAll: ->
     @days = _.groupBy @collection.models, (model) ->
                                             model.get('date')
-    dates = Object.keys(@days)
+    dates = _.keys(@days)
     first_date = dates[0]
     if @last_day == first_date
       elem = $('.chronicle__section').last()
