@@ -2,10 +2,11 @@ class Api::ChroniclesController < ApplicationController
   def show
     window = CHRONICLE_PAGINATION_ITEMS
     offset = params[:offset].to_i
-    @objects = GeoObject.newest.limit(window).offset(offset).to_a
-    unless @objects.group_by{|g| g.created_at.strftime('%d %b %y')}.values.last.count % 2 == 0
-      @objects.concat GeoObject.newest.limit(1).offset(offset+window)
+    @objects = (newest = GeoObject.newest).limit(window).offset(offset)
+    unless @objects.group_by{|g| g.day_creation}.values.last.count % 2 == 0
+      go = newest.offset(offset+window).first
+      @objects.push go if go.day_creation == @objects.last.day_creation
     end
-    @objects
+    @offset = offset + @objects.size
   end
 end
