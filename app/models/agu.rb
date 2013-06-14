@@ -44,5 +44,4 @@ class Agu < ActiveRecord::Base
     end
   end
 
-  
 end

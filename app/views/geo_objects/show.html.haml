@@ -52,7 +52,9 @@
           .obj_descr__text__descr__location.icon-sm-location
             = @geo_object.address
 
-        
+        - if !@geo_object.schedule.nil?
+          .obj_descr__text__descr__time.icon-sm-clock
+            = @geo_object.schedule 
 
         - if !@geo_object.contacts.nil?
           .obj_descr__text__descr__organizations.icon-sm-directions
@@ -78,7 +80,8 @@
           .obj_descr__text__descr__adder__spam
             = render partial: 'shared/spam_to', locals: {spammable: @geo_object}
 
-
+        .obj_descr__text__descr__runtips{data: {id: @geo_object.id}}
+          .obj_descr__text__descr__runtips__spinner 
           = link_to 'Как добраться', "#runtips_list", {class: 'action-link ui-link runtip_switcher', data:{toggle: "collapse", target: "#runtips_list"}}
           .obj_descr__text__descr__runtips__list__container.collapse#runtips_list
             .obj_descr__text__descr__runtips__list__add
@@ -93,7 +96,6 @@
                     = f.submit 'Отправить', {class: 'button button_standard button_grey'}
                   .pic_comments__add__controls__reset
                     = f.submit 'Отменить', {class: 'action-link', type: 'reset'}
-
 
 
             .obj_descr__text__descr__runtips__list
