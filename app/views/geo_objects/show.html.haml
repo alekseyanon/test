@@ -52,9 +52,7 @@
           .obj_descr__text__descr__location.icon-sm-location
             = @geo_object.address
 
-        - if !@geo_object.schedule.nil?
-          .obj_descr__text__descr__time.icon-sm-clock
-            = @geo_object.schedule
+        
 
         - if !@geo_object.contacts.nil?
           .obj_descr__text__descr__organizations.icon-sm-directions

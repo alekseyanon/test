@@ -22,6 +22,15 @@ class Agu < ActiveRecord::Base
     end
   end
 
+  def agc_titles
+    agc = self.agcs.first
+    if agc
+      agc.agus[0] == (id = self.id) ? {id => self.title} : agc.titles
+    else
+      ''
+    end
+  end
+  
   private
 
   def self.location_by_ip ip
@@ -35,12 +44,5 @@ class Agu < ActiveRecord::Base
     end
   end
 
-  def agc_titles
-    agc = self.agcs.first
-    if agc
-      agc.agus[0] == (id = self.id) ? {id => self.title} : agc.titles
-    else
-      ''
-    end
-  end
+  
 end

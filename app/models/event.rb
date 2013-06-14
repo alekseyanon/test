@@ -222,6 +222,9 @@ class Event < ActiveRecord::Base
 
   def as_json options = {}
     json = super options
+    json[:start_local] = Russian::strftime(start_date, '%d %B')
+    json[:end_local] = Russian::strftime(end_date, '%d %B')
+    json[:image] = images.first if images
     json[:agc] = agc.titles if agc
     json[:state_localized] = I18n.t 'events.states.'+state
     json[:rating_go] = rating_go

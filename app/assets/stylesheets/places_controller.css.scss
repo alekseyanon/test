@@ -5,14 +5,7 @@
     display:inline-block;
   }
 }
-.place_objects{
-  width: 71%;
-  float: left;
-}
-.place_events{
-  width: 22%;
-  float: right;
-}
+
 .events_section{
   background: #f2f1ed;
   padding: 30px;
@@ -59,9 +52,37 @@
 }
 .sort-group{
   margin-left:20px;
-  .active{
-    
-  }
+  width: 75px;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+.triangle:after,
+.triangle:before {
+  content: "";
+  width: 0; height: 0;
+  position: absolute;
+  top: 100%; left: 50%;
+}
+
+.triangle:after {
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 15px solid rgb(71, 71, 71);
+  margin: -5px 0 0 -20px;
+}
+
+.triangle:before {
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 15px solid #28292b;
+  margin: 0px 0 0 -20px;
+}
+
+.unselected{
+    font-weight: bold;
+    border-bottom:1px dotted;
+    cursor: pointer;
 }
 .place_objects__object{
   border-top: 1px dotted #ddd;
@@ -71,9 +92,7 @@
     width:100%;
   }
 }
-.smorodina-item__title,.smorodina-item__geo,.smorodina-item__tags{
-  width: 60%;
-}
+
 .smorodina-item__votes{
   float:right;
   padding-right:23px;
