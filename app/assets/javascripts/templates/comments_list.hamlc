@@ -1,0 +1,7 @@
+.pic_comments__list
+- style = false
+- style = 'display: none;' if @parent_id != null
+
+%div{class: 'pic_comments__add', style: style}
+  %a{name: @hash}
+  != JST['add_comment'](parent_id: @parent_id)

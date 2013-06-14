@@ -1,4 +1,4 @@
-%div.user-panel
+%div{class: 'user-panel', data: {authorized: current_user.nil? ? '' : current_user.identifier}}
   - if current_user.nil?
     %span.user-panel__login
       %a.ui-link#show_registration_modal{ href: '#regLoginModal', data: { toggle: 'modal' } }

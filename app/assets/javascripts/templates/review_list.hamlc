@@ -1,0 +1,13 @@
+%h2 Лучшие отзывы
+.obj_descr__responces__container
+
+
+- if @count > 3
+  .obj_descr__responces_count
+    %a{href: '#', class: 'action-link show_all'}
+      Все отзывы: 
+      %span.count
+        =@count
+
+    %a{href: '#', class: 'action-link hide_all'}
+      Свернуть
