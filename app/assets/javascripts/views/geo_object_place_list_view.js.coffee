@@ -58,4 +58,4 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
   addOne: (l) ->
     view = new Smorodina.Views.GeoObjectPlace(model: l)
     @$fragment = @$fragment.add view.render().el
-    
+  
