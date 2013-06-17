@@ -4,6 +4,8 @@ module Searchable
     base.scope :bounding_box, ->( xmin, ymin, xmax, ymax) do
       base.where('geom && ST_MakeEnvelope(?,?,?,?,?)', xmin, ymin, xmax, ymax, Geo::SRID)
     end
+
+    base.scope :newest, base.order('created_at DESC')
   end
 
   module ClassMethods

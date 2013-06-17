@@ -20,6 +20,10 @@ class GeoObject < ActiveRecord::Base
     (rate = self.rating) > 0 ? rate.round : 0
   end
 
+  def day_creation
+    self.created_at.strftime('%d %b %y')
+  end
+
   def latlon
     [geom.y, geom.x] #TODO figure out what's really latitude and what is longitude
   end

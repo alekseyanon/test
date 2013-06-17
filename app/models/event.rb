@@ -87,7 +87,6 @@ class Event < ActiveRecord::Base
     errors.add(:event_repeat_rule, 'unknown repeat rule') unless REPEAT_RULES.include?(repeat_rule)
   end
 
-  scope :newest, order('events.created_at DESC')
   scope :line, ->(key) { where key: key}
   scope :in_place, ->(place_id) { joins('JOIN agcs ON events.agc_id = agcs.id').where('? = ANY(agcs.agus)', place_id) }
   scope :future, where("start_date > '#{Time.now}'")
