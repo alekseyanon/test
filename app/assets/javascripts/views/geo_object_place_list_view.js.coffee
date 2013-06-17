@@ -3,9 +3,9 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
   initialize: ->
     super()
     _.bindAll @
-    @$content = @$el.find '#place_object_list'
-    @$sortbyN = @$el.find '.by_name'
-    @$sortbyR = @$el.find '.by_rating'
+    @$content = @$ '#place_object_list'
+    @$sortbyN = @$ '.by_name'
+    @$sortbyR = @$ '.by_rating'
     @currentSortN = -1
     @currentSortR = -1
     @$sortbyN.on 'click', @sortByName

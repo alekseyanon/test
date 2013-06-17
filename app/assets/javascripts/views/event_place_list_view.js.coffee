@@ -5,9 +5,9 @@ class Smorodina.Views.EventPlaceList extends Smorodina.Views.Base
   initialize: ->
     super()
     _.bindAll @
-    @$content = @$el.find '.events_section__event_list'
-    @$counter = @$el.find '.counter'
-    @$allev = @$el.find '.all_events__link'
+    @$content = @$ '.events_section__event_list'
+    @$counter = @$ '.counter'
+    @$allev = @$ '.all_events__link'
     @$allev.on 'click', @renderAll
     @collection.on 'sync reset', @render
     @collection.fetch()
