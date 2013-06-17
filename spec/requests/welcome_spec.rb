@@ -37,14 +37,13 @@ describe "Welcome", js: true, type: :request do
 
   it 'chronicle can response with objects json' do
     prev_obj = GeoObject.all.count
-    repeat = CHRONICLE_PAGINATION_ITEMS + 1
-    repeat.times { GeoObject.make! }
+    (CHRONICLE_PAGINATION_ITEMS + 1).times { GeoObject.make! }
     visit api_chronicles_show_path format: :json
     objects = JSON.parse page.find('pre').text
-    objects.count.should == CHRONICLE_PAGINATION_ITEMS
-    objects.first['id'].should == GeoObject.last.id
-    visit api_chronicles_show_path page: '1', format: :json
+    objects['items'].count.should == CHRONICLE_PAGINATION_ITEMS
+    objects['items'].first['id'].should == GeoObject.last.id
+    visit api_chronicles_show_path offset: objects['offset'], format: :json
     objects = JSON.parse page.find('pre').text
-    objects.count.should == (prev_obj >= (CHRONICLE_PAGINATION_ITEMS-1) ? CHRONICLE_PAGINATION_ITEMS : 1 + prev_obj)
+    objects['items'].count.should == (prev_obj >= (CHRONICLE_PAGINATION_ITEMS-1) ? CHRONICLE_PAGINATION_ITEMS : 1 + prev_obj)
   end
 end

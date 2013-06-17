@@ -1,5 +1,5 @@
 - for object, i in @objects by 2
   %div.row-fluid.chronicle__section__row
     != JST['chronicle_item'](chronicle_item: @objects[i])
-    - if @objects[i+1] != undefined
+    - if @objects[i+1]?
       != JST['chronicle_item'](chronicle_item: @objects[i+1])

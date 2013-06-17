@@ -5,5 +5,5 @@ class Smorodina.Collections.ChronicleItems extends Backbone.Collection
   url: '/api/chronicles/show.json'
 
   parse: (response)->
-    this.offset = response.offset
+    @offset = response.offset
     response.items
