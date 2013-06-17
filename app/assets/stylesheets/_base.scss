@@ -244,10 +244,10 @@ $inputHeight: $baseLineHeight + 12px; // base line-height + 10px vertical paddin
 /* mixin for disable|enable selecting text
  */
 @mixin user-select($select) {
--webkit-user-select: $select;
--moz-user-select: $select;
--ms-user-select: $select;
--o-user-select: $select;
-user-select: $select;
+  -webkit-user-select: $select;
+  -moz-user-select: $select;
+  -ms-user-select: $select;
+  -o-user-select: $select;
+  user-select: $select;
 }
 /* ---------------------------------------- MIXINS END ------------------------------------------ */
