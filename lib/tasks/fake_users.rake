@@ -20,11 +20,19 @@ namespace :fake do
   #   Facebook: [test98732both@yandex.ru, 123456ab]
   #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
+  PLACEHOLDERS_FOLDER = Rails.root.join('public', 'placeholders')
+
+  def pick_random_avatar
+    img = Dir.entries(PLACEHOLDERS_FOLDER).reject!{|file| ['.', '..'].include? file}.sample
+    PLACEHOLDERS_FOLDER.join(img).to_s
+  end
+
   task users: :environment do
 
     load_routes
 
     DEFAULT_PASSWORD = "12345678"
+
 
     #generic function for users creation
     def user_creation opts = {}
@@ -33,9 +41,9 @@ namespace :fake do
       u.confirm!
       u.save
       if opts[:generate_profile]
-        u.profile.name = Faker::Lorem.word
+        u.profile.name   = Faker::Lorem.word
+        u.profile.avatar = File.open(pick_random_avatar)
         u.profile.save!
-        # TODO: create avatar
       end
     end
 
@@ -48,7 +56,7 @@ namespace :fake do
     end
 
     def create_smorodina_users
-      emails = ['foo@bar.com'] + Array.new(5){Faker::Internet.email}
+      emails = ['foo@bar.com'] + Array.new(5){ Faker::Internet.email }
       emails.each do |email|
         user_creation(generate_profile: true) do |u|
           u.email = email
