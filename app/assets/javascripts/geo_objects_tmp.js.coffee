@@ -84,19 +84,27 @@ window.geo_object_search = ->
   facets = []
   $searchField = $('#mainSearchFieldInput')
 
-  coffeeIcon = L.icon(
-    iconUrl:    '/assets/coffee.png'
-    iconSize:   [40, 40]
-    iconAnchor: [20, 35])
+
+  generateIcon = (tag_list) ->
+    root_tag = tag_list[0]
+    categoryIconMap = {
+      'sightseeing'    : '/assets/icons/sightseeing-marker.png'
+      'lodging'        : '/assets/icons/lodging-marker.png'
+      'activities'     : '/assets/icons/activities-marker.png'
+      'food'           : '/assets/icons/food-marker.png'
+      'infrastructure' : '/assets/icons/default-marker.png'
+    }
+    coffeeIcon = L.icon(
+      iconUrl    : categoryIconMap[root_tag] || '/assets/default-marker.png'
+      iconSize   : [61, 41]
+    )
 
   putMarkers = ->
     lg.clearLayers()
     geo_objects.forEach (l) ->
-      latlon = l.get('latlon')
-      if 'food' in l.get('tag_list')
-        L.marker(latlon, {icon: coffeeIcon}).addTo lg
-      else
-        L.marker(latlon).addTo lg
+      latlon = l.get 'latlon'
+      icon   = generateIcon l.get('tag_list')
+      L.marker(latlon, icon : icon ).addTo lg
 
   updateQuery = ->
     bounds = map.getBounds()

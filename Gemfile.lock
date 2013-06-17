@@ -282,6 +282,10 @@ GEM
     rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
+    redactor-rails (0.3.5)
+      devise
+      mime-types
+      orm_adapter
     responders (0.9.3)
       railties (~> 3.1)
     rgeo (0.3.20)
@@ -406,6 +410,7 @@ DEPENDENCIES
   rabl
   rails (= 3.2.13)
   rails_jquery_ui_datepicker
+  redactor-rails
   rgeo-activerecord
   rinku
   rmagick
