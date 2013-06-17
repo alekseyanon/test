@@ -61,6 +61,8 @@ gem 'magic_numbers', git: 'git://github.com/gzigzigzeo/magic_numbers.git' # Sota
 gem 'carrierwave'
 gem 'mime-types', require: 'mime/types'
 gem 'rmagick'
+gem 'mini_magick'
+
 ##################################################
 
 gem 'rinku'               # auto_link
