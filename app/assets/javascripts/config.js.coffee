@@ -18,3 +18,9 @@ Smorodina.Config =
     zIndex: 2e9          # The z-index (defaults to 2000000000)
     top: 'auto'          # Top position relative to parent in px
     left: 'auto'         # Left position relative to parent in px
+  redactor:
+    path: "/assets/redactor-rails"
+    css: "style.css"
+    buttons: ['formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent']
+    minHeight: 215
+

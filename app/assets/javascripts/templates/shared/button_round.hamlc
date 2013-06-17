@@ -1,0 +1,5 @@
+- @text ||= 'Найти'
+- @id ||= false
+%button{id: @id, class: "button button_round button_grey"}
+  %span{class: "button__inner button_round__inner"}
+    %span{class: "button__text button_round__text", data: {text: @text}}
