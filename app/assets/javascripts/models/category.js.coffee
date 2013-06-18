@@ -16,6 +16,8 @@ class Smorodina.Models.Category extends Backbone.Model
     
     _.each @children(), (c)->
       c.updateChildren 'semiSelected' : wasSelected, 'selected' : false, 'bordered' : false
+
+    @collection.trigger 'finishPainting'
   
   # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
   updateByEmblem: (val)->

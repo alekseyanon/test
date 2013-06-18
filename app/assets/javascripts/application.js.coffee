@@ -16,7 +16,7 @@
 #= require jquery.ui.all
 #= require jquery-datetimepicker
 #= require jquery-fileupload
-#= require chosen-jquery
+#= require select2
 #= require moment
 #= require bootstrap
 #= require underscore
@@ -113,6 +113,7 @@ router = new Smorodina.Routers.Global
 router.route "events", "events", Smorodina.Pages.Events
 router.route "events/search", "events", Smorodina.Pages.Events
 router.route "objects/search", "geo_objects", Smorodina.Pages.GeoObjects
+router.route "objects/new", "geo_objects", Smorodina.Pages.GeoObjectNew
 router.route "", "index", Smorodina.Pages.Index
 router.route "objects/:object_name/images/:image_id", "image_show", Smorodina.Pages.ImageShow
 router.route "images/:image_id", "image_show", Smorodina.Pages.ImageShow

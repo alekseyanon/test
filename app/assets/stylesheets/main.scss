@@ -2602,3 +2602,28 @@ display: block;
 
 /* ---------------------------------------- PASSWORD FORMS END ----------------------------------- */
 
+
+/* ---------------------------------------- CATEGORY NEW PAGE START --------------------------------- */
+
+.tag_list {
+  width: 500px;
+}
+
+.categories-field {
+  position: relative;
+}
+
+#categories-popup {
+  width: 840px;
+  min-height: 460px;
+  position: absolute;
+  margin-left: -420px;
+  left: 50%;
+  border: 1px solid;
+  display: none;
+  & {
+    position: relative;
+  }
+}
+
+/* ---------------------------------------- CATEGORY NEW PAGE END ----------------------------------- */
