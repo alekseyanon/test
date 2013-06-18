@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
   has_many :geo_objects
   has_one :profile
 
+  delegate :name, to: :profile
+
   #TODO remove hack
   before_validation :set_role
   after_create :create_profile

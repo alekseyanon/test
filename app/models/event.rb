@@ -147,6 +147,10 @@ class Event < ActiveRecord::Base
     (end_date - start_date) / 1.day
   end
 
+  def day_creation
+    self.created_at.strftime('%d %b %y')
+  end
+
   # Add mehods weekly?, monthly?, etc. to instance
   REPEAT_RULES.each do |rr|
     define_method(rr.to_s+'?') { repeat_rule == rr }
