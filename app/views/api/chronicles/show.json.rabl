@@ -12,8 +12,11 @@ child @objects => :items do
   attributes :id, :title, :agc_id
 
   node(:type) {|obj| obj.class.to_s.underscore}
+  node(:tags) {|obj| obj.tags_titles if obj.is_a? Event}
   node(:url) {|obj| url_for(obj)}
-  node(:date) {|obj| Russian::strftime(obj.created_at, '%A, %e %B %Yг.') }
+  node(:creation_date) {|obj| Russian::strftime(obj.created_at, '%A, %e %B %Yг.') }
+  node(:start_end_dates) { |obj| obj.events_dates if obj.is_a? Event}
+  node(:state) { |obj| obj.state if obj.is_a? Event}
   node(:agc_titles) {|obj| obj.agc.try(:titles) || ''}
 
   child :user do

@@ -2,6 +2,7 @@ class Api::ChroniclesController < ApplicationController
 
   ## api url
   # api/chronicles/show.json
+  # api/chronicles/show.json?event_offset=4&go_offset=4
   # api/chronicles/show.json?type=geo_object&go_offset=4
   # api/chronicles/show.json?type=event&event_offset=4
   def show
@@ -28,10 +29,12 @@ class Api::ChroniclesController < ApplicationController
   end
 
   def get_all_objects(go_offset, event_offset, window = CHRONICLE_PAGINATION_ITEMS)
-    objects = GeoObject.newest_list(window, go_offset) + Event.newest_list(window, event_offset)
+    objects = GeoObject.newest_list(window + 1, go_offset) + Event.newest_list(window + 1, event_offset)
     objects.sort!{|x,y| x.created_at <=> y.created_at}.reverse!
-    if objects.present? &&
-            objects.first(CHRONICLE_PAGINATION_ITEMS).group_by { |o| o.day_creation }.values.last.count.odd?
+    if objects.present? && objects.size > window &&
+            objects.first(window).group_by { |o| o.day_creation }.values.last.count.odd? &&
+            objects[window].present? &&
+            objects.last.day_creation == objects[window].day_creation
       window += 1
     end
     objects.first(window)

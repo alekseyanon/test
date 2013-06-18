@@ -197,6 +197,16 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def tags_titles
+    Hash[self.event_tags.map{|i| [i.id , i.title]}]
+  end
+
+  def events_dates
+    start_date = Russian::strftime(self.start_date, '%e %B')
+    end_date = Russian::strftime(self.end_date, '%e %B')
+    (start_date == end_date) ? start_date : "#{start_date} - #{end_date}"
+  end
+
   def repeat_period
     0 unless multiple?
     @repeat_period ||= if weekly?; 1.weeks

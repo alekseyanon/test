@@ -17,7 +17,7 @@ class Smorodina.Views.Chronicle extends Backbone.View
 
   addAll: ->
     @days = _.groupBy @collection.models, (model) ->
-                                            model.get('date')
+                                            model.get('creation_date')
     dates = _.keys(@days)
     first_date = dates[0]
     if @last_day == first_date
@@ -29,4 +29,4 @@ class Smorodina.Views.Chronicle extends Backbone.View
 
   add_items: (e) ->
     e.preventDefault()
-    @collection.fetch({data: {offset: @collection.offset}})
+    @collection.fetch({data: {go_offset: @collection.go_offset, event_offset: @collection.event_offset}})

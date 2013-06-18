@@ -3,19 +3,34 @@
   %div.smorodina-item__img
     %div.smorodina-item__img__inner
       %image{ src: "#{@chronicle_item.get('image')}", alt: "Фото", width: 130, height: 90 }
+    -if !!(state = @chronicle_item.get('state'))
+      %div.smorodina-item__state(class="event_state-#{state}__background")
+        = state
   %div.smorodina-item__content
     %div.smorodina-item__title
       %a{href: "#{@chronicle_item.get('url')}"}
         %b
           = @chronicle_item.get('title')
+    -if !!@chronicle_item.get('start_end_dates')
+      = @chronicle_item.get('start_end_dates')
 
-    %div.smorodina-item__geo
-      %span.icon.icon-marker.smorodina-item__geo__icon
-      %ul.smorodina-item__geo__list
-        - for agu_id, agu_title of @chronicle_item.get('agc_titles')
-          %li
-            %a.tdn-link{ href: "/objects/search?agc_id=#{@chronicle_item.get('agc_id')}" }
-              = agu_title
+    -if !!@chronicle_item.get('agc_titles')
+      %div.smorodina-item__geo
+        %span.icon.icon-marker.smorodina-item__geo__icon
+        %ul.smorodina-item__geo__list
+          - for agu_id, agu_title of @chronicle_item.get('agc_titles')
+            %li
+              %a.tdn-link{ href: "/objects/search?agc_id=#{@chronicle_item.get('agc_id')}" }
+                = agu_title
+
+    - if !!@chronicle_item.get('tags')
+      %div.smorodina-item__tags
+        %span.icon.icon-tags.smorodina-item__tags__icon
+        %ul.smorodina-item__tags__list
+          - for tag_id, tag_title of @chronicle_item.get('tags')
+            %li
+              %a.tdn-link{ href: "#{tag_id}" }
+                = tag_title
 
     %div.smorodina-item__user
       %span.smorodina-item__user__text
