@@ -7,6 +7,12 @@ describe GeoObject do
   it { should validate_presence_of :title }
   it { should belong_to :user }
 
+  it 'have agc after create' do
+    make_sample_agus!
+    Agc.make!
+    obj = GeoObject.make! geom: 'POINT(0 0)', agc: nil
+    obj.agc.should_not be_nil
+  end
 
   describe "geometry requests" do #TODO move to shared example group with landmarks and nodes altogether
     let(:triangle)     { to_points [[10, 10], [20, 20], [30, 10]] }
@@ -65,5 +71,15 @@ describe GeoObject do
       end
     end
 
+    context 'for newest scope' do
+      it 'sorting of GeoObjects' do
+        GeoObject.destroy_all
+        g1 = GeoObject.make!
+        g2 = GeoObject.make!
+        g3 = GeoObject.make!
+        GeoObject.all.should == [g1, g2, g3]
+        GeoObject.newest.all.should == [g3 ,g2, g1]
+      end
+    end
   end
 end

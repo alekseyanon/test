@@ -1,0 +1,6 @@
+.smorodina-item__geo
+  %span.icon.icon-marker.smorodina-item__geo__icon
+  %ul.smorodina-item__geo__list
+    - tree.each do |key, value|
+      %li
+        = link_to value, search_geo_objects_path(geo_id: key), class: 'tdn-link'

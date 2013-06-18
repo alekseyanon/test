@@ -1,0 +1,693 @@
+.obj_show_page{
+  .map__outer{
+    margin: 32px 0 32px 0;
+  }
+  .map__expand{
+    padding: 25px 0 20px 0;
+  }
+}
+
+.obj_descr{
+  padding: 0px 30px;
+}
+
+
+.obj_descr__info{
+  @include clearfix;
+  margin: 27px 0 50px 0;
+}
+
+.obj_descr__info__photo{
+  float: left;
+  width: 745px;
+  img{
+    display: block;
+    float: left;
+    margin: 0 0px 4px 0;
+    &.main{
+      margin: 0 4px 0 0;
+    }
+  }
+}
+
+.obj_descr__info__links{
+  margin-left: 38px;
+  float: left;
+}
+
+.obj_descr__info__links__rate{
+  h3{
+    margin: 0px;
+    @include font-large;
+  }
+  margin: 0px 0 24px 0; 
+}
+
+.obj_descr__info__links__rate{
+  @include font-xlarge;
+  font-weight: bold;
+}
+
+.obj_descr__info__links__planner{
+  margin: 0 0 15px 2px;
+}
+
+.obj_descr__info__links__print{
+  margin: 0 0 34px 2px;
+}
+
+.obj_descr__info__links__social{
+  margin: 0 0 46px 7px;
+}
+  
+.obj_descr__text{
+  @include clearfix;
+}
+    
+.obj_descr__text__vote_stats{
+  width: 240px;
+  text-align: center;
+  float: left;
+  margin-right: 64px;
+}
+
+.obj_descr__text__vote_stats__value{
+  border: 1px solid $siteLightGray;
+  @include border-radius($baseBorderRadius);
+  margin-bottom: 28px;
+}
+
+.obj_descr__text__vote_stats__value__title{
+  h3{
+    margin: 30px 0px 26px 0;
+  }
+}
+
+.obj_descr__text__vote_stats__value__item{
+  margin: 0px 45px 28px 45px;
+  p{
+    font-weight: bold;
+    margin: 0px;
+    @include font-small;
+  }
+}
+    
+.obj_descr__text__descr{
+  float: left;
+  width: 650px;
+  a.hide{
+    display: none;
+  }
+  &.slidable{
+    .transparency{
+      display: block;
+    }
+    .obj_descr__text__descr__body__full_link{
+      display: block;
+    }
+  }
+  &.opened{
+    .transparency{
+      display: none;
+    }
+    .obj_descr__text__descr__body{
+      max-height: none;
+    }
+    a.show{
+      display: none;
+    }
+    a.hide{
+      display: inline;
+    }
+  }
+}
+
+
+.obj_descr__text__descr__location,
+.obj_descr__text__descr__time,
+.obj_descr__text__descr__organizations{
+  font-family: $base-font;
+  &:before{
+    font-family: 'smorodina-icons';
+    width: 38px;
+    @include font-large;
+    display: inline-block;
+  }
+}
+.obj_descr__text__descr__location{
+  margin: 0 0 16px 0;
+}
+.obj_descr__text__descr__time{
+  margin: 0 0 24px 0;
+}
+
+.obj_descr__text__descr__organizations{
+  margin: 0 0 35px 0;
+}
+
+.obj_descr__text__descr__body{
+  max-height: 215px;
+  overflow: hidden;
+  position: relative;
+  .transparency{
+    display: none;
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    left: 0px;
+    top: 100%;
+    margin-top: -22px;
+    @include background-image(linear-gradient(bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%));
+    @include background-size(100% 100%);
+  }
+}
+
+.obj_descr__text__descr__body__full_link{
+  margin: 17px 0 0 0;
+  display: none;
+  a{
+    @include font-small;
+    color: $lightblue;
+  }
+}
+
+.obj_descr__text__descr__adder{
+  margin: 17px 0 20px 0;
+}
+
+.obj_descr__text__descr__adder{
+  .smorodina-item__user,
+  .obj_descr__text__descr__adder__edit,
+  .obj_descr__text__descr__adder__history,
+  .obj_descr__text__descr__adder__spam{
+    display: inline-block;
+  }
+}
+
+.obj_descr__text__descr__adder{
+  .obj_descr__text__descr__adder__edit,
+  .obj_descr__text__descr__adder__history,
+  .obj_descr__text__descr__adder__spam{
+    @include before-gray-dot;
+    a{
+      text-decoration: none;
+      color: $siteGray;
+      &:hover{
+        color: $lightblue;
+      }
+      &:visited{
+        color: $siteGray;
+        &:hover{
+          color: $lightblue;
+        }
+      }
+    }
+  }
+}
+.obj_descr__text__descr__runtips{
+  margin: 42px 0 0 0;
+  min-width: 640px;
+  position: relative;
+  .runtip_switcher{
+    font-size: 29px;
+    line-height: 1;
+  }
+    
+}
+
+.obj_descr__text__descr__runtips__spinner{
+  position: absolute;
+  left: 0px;
+  top: 100px;
+  display: none;
+  width: 100%;
+  height: 100px;
+}
+
+          
+.obj_descr__text__descr__runtips__list__container{
+}
+
+.obj_descr__text__descr__runtips__list{
+  margin-top: 27px;
+}
+        
+.obj_descr__text__descr__runtips__list__add{
+  margin: 27px 0 0 21px;
+  @include clearfix;
+}
+
+.obj_descr__text__descr__runtips__list__record{
+  border-top: 1px solid $siteLightGray;
+  display: table;
+  @include font-small;
+  &.opened{
+    .obj_descr__text__descr__runtips__list__record__header{
+      background-color: #fffbdb;
+    }
+  }
+}
+
+.obj_descr__text__descr__runtips__list__record__author{
+  display: table-cell;
+  vertical-align: middle;
+  overflow: hidden;
+  a{
+    font-weight: bold;
+  }
+}
+          
+.obj_descr__text__descr__runtips__list__record__author{
+  width: 205px;
+  .user-link{
+    margin-left: 20px;
+  }
+}
+
+.obj_descr__text__descr__runtips__list__record__author__inner{
+  width: 205px;
+  overflow: hidden;
+}
+
+.obj_descr__text__descr__runtips__list__author{
+  margin-left: 20px;
+  width: 185px;
+}
+
+.obj_descr__text__descr__runtips__list__date,
+.obj_descr__text__descr__runtips__list__record__date{
+  width: 255px;
+}
+
+.obj_descr__text__descr__runtips__list__rate,
+.obj_descr__text__descr__runtips__list__record__rate{
+  width: 170px;
+}
+
+.obj_descr__text__descr__runtips__list__author,
+.obj_descr__text__descr__runtips__list__date,
+.obj_descr__text__descr__runtips__list__rate,
+.obj_descr__text__descr__runtips__list__record__date,
+.obj_descr__text__descr__runtips__list__record__rate{
+  display: table-cell;
+  vertical-align: middle;
+  height: 56px;
+}
+
+
+.obj_descr__text__descr__runtips__list__record__description__actions__is_correct,
+.obj_descr__text__descr__runtips__list__record__description__actions__vote,
+.obj_descr__text__descr__runtips__list__record__description__actions__spam{
+  display: inline-block;
+  padding: 19px 0;
+}
+
+                  
+.obj_descr__text__descr__runtips__list__record__description{
+  display: none;
+}
+
+.obj_descr__text__descr__runtips__list__record__description__text{
+  margin-top: 15px;
+}
+
+.obj_descr__text__descr__runtips__list__author,
+.obj_descr__text__descr__runtips__list__date,
+.obj_descr__text__descr__runtips__list__rate{
+  padding: 11px 0 11px 0;
+  display: inline-block;
+  height: auto;
+}
+
+.obj_descr__text__descr__runtips__list__record__description__actions__spam,
+.obj_descr__responces__responce__text__actions__spam,
+.pic_comments__comment__info__actions__spam{
+  display: inline-block;
+  @include before-gray-dot;
+  a{
+    color: $siteGray;
+    text-decoration: none;
+    &:visited{
+      color: $siteGray;
+    }
+    &:hover{
+      color: $lightblue;
+    }
+  }
+}
+
+.obj_descr__text__descr__runtips__list__record__date,
+.obj_descr__text__descr__runtips__list__record__description__actions__is_correct{
+  color: $siteGray;
+}
+
+.obj_descr__text__descr__runtips__list__record__description__actions__is_correct{
+  margin-right: 15px;
+}
+
+
+.obj_descr__responces{
+  &.show_all{
+    .hidable_review{
+      display: block;
+    }
+    .obj_descr__responces_count{
+      a.show_all{
+        display: none;
+      }
+      a.hide_all{
+        display: inline;
+      }
+    }
+  }
+}
+
+.obj_descr__responces__padding{
+  padding-left: 30px;
+}
+
+.obj_descr__responces__add_review{
+  border: 1px solid $siteGray;
+  margin-top: 10px;
+  .obj_descr__review__record{
+    margin: 53px 0 0 0;
+  }
+}
+
+  
+.obj_descr__responces__add_review__padding{
+  padding: 13px 31px 26px 31px;
+}
+    
+.obj_descr__responces__add_review__row{
+  @include clearfix;
+  margin-bottom: 22px;
+  .redactor_editor{
+    @include box-shadow(inset 1px 1px 2px rgba(0,0,0,.2) !important);
+    &:focus{
+      @include box-shadow(inset 1px 1px 2px rgba(0,0,0,.2) !important);
+    }
+  }
+  label{
+    display: inline-block;
+    color: $siteGray;
+    width: 20%;
+    line-height: 35px;
+    margin-bottom: 0px;
+  }
+  input[type='text']{
+    width: 75%;
+    border: 1px solid $siteGray;
+    display: inline-block;
+    float: right;
+  }
+  .obj_descr__responces__add_review__row__stat{
+    @include clearfix;
+    float: right;
+    color: $siteGray;
+    .colored{
+      &.positive{
+        color: $siteGreen;
+      }
+      &.negative{
+        color: $siteRed;
+      }
+    }
+  }
+  textarea{
+    @include box-sizing(border-box);
+    @include size(215px, 100%);
+  }
+}
+.obj_descr__responces__add_review__preview__actions__cancel,
+.obj_descr__responces__add_review__row__actions__cancel{
+  input{
+    background-color: transparent;
+    padding: 0;
+    margin: 0 0 0 10px;
+    border: 0;
+    text-decoration: underline;
+    &:hover{
+      color: $lightblue;
+    }
+  }
+}
+        
+.obj_descr__responces__add_review__row__actions__preview,
+.obj_descr__responces__add_review__row__actions__or,
+.obj_descr__responces__add_review__row__actions__cancel,
+.obj_descr__responces__add_review__preview__actions__save,
+.obj_descr__responces__add_review__preview__actions__edit,
+.obj_descr__responces__add_review__preview__actions__or,
+.obj_descr__responces__add_review__preview__actions__cancel{
+  display: inline-block;
+}
+
+.obj_descr__responces__add_review__preview__actions__edit{
+  vertical-align: middle;
+}
+
+.obj_descr__responces__add_review__row__actions__or{
+  width: 57px;
+  text-align: center;
+}
+
+.obj_descr__responces__add_review__preview__actions__save{
+  margin-right: 38px;
+}
+
+.obj_descr__responces__add_review__preview__actions__or{
+  width: 58px;
+  text-align: center;
+}
+
+.obj_descr__responces__responce{
+  @include clearfix;
+  margin-left: 24px;
+  margin-bottom: 46px;
+}
+.obj_descr__review__record{
+  .pic_comments__count{
+      &:after{
+        border: 0;
+      }
+  }
+  &.opened{
+    .pic_comments__count{
+      &:after{
+        border-bottom: 1px solid $siteLightGray;
+      }
+    }
+  }
+}
+    
+
+.obj_descr__responces__responce__author{
+  float: left;
+  width: 223px;
+  height: 64px;
+  overflow: hidden;
+}
+
+.obj_descr__responces__responce__author__inner{
+  display: table;
+}
+
+.obj_descr__responces__responce__author__avatar{
+  display: inline-block;
+  width: 64px;
+  margin-right: 13px;
+  img{
+    @include border-radius(32px);
+    @include size(64px, 64px);
+  }
+}
+
+.obj_descr__responces__responce__author__name{
+  display: table-cell;
+  width: 140px;
+  @include font-small;
+  vertical-align: middle;
+}
+
+.obj_descr__responces__responce__text{
+  float: left;
+  width: 710px;
+  border-left: 1px solid $siteLightGray;
+  position: relative;
+  z-index: 1;
+  margin-left: 35px;
+  &:before{
+    content: "";
+    display: block;
+    @include size(25px, 24px);
+    background-image: url('/assets/object-response-bullet.png');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    position: absolute;
+    left: -24px;
+    top: 37px;
+    z-index: 2;
+  }
+}
+.obj_descr__review__record{
+  &.slidable{
+    .obj_descr__responces__responce__text__show_full{
+      display: block;
+      a.hide_all{
+        display: none;
+      }
+      a.show_all{
+        display: inline;
+      }
+    }
+    .transparency{
+      display: block;
+    }
+  }
+  &.show_full{
+    .obj_descr__responces__responce__text__data{
+      max-height: none;
+    }
+    .obj_descr__responces__responce__text__show_full{
+      display: block;
+      a.show_all{
+        display: none;
+      }
+      a.hide_all{
+        display: inline;
+      }
+    }
+    .transparency{
+      display: none;
+    }
+  }
+  &.hidable_review{
+    display: none;
+  }
+}
+      
+.obj_descr__responces__responce__text__padding{
+  padding-left: 24px;
+}
+
+.obj_descr__responces__responce__text__title{
+  display: inline-block;
+  margin-right: 24px;
+  font-weight: bold;
+}
+
+.obj_descr__responces__responce__text__date{
+  display: inline-block;
+  @include font-small;
+  color: $siteGray;
+}
+
+.obj_descr__responces__responce__text__actions{
+  margin: 16px 0 0 0;
+}
+      
+.obj_descr__responces__responce__text__data{
+  margin: 6px 0 0 0;
+  max-height: 120px;
+  overflow: hidden;
+  position: relative;
+  .transparency{
+    display: none;
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    left: 0px;
+    top: 100%;
+    margin-top: -30px;
+    @include background-image(linear-gradient(bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%));
+    @include background-size(100% 100%);
+  }
+  .first{
+    margin-top: 0px;
+  }
+  .last{
+    margin-bottom: 0px;
+  }
+}
+
+.obj_descr__responces__responce__text__show_full{
+  display: none;
+  @include clearfix;
+}
+
+.obj_descr__responces__responce__text__photos{
+  line-height: 70px;
+  .more_link{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 24px;
+    a{
+      @include font-small;
+      color: $lightblue;
+      .count{
+        font-weight: bold;
+      }
+    }
+  }
+}
+        
+.obj_descr__responces__responce__text__actions__respond{
+  display: inline;
+}
+        
+.obj_descr__responces__responce__text__actions__comments_count{
+  @include before-gray-dot;
+  display: inline-block;
+  vertical-align: bottom;
+  a{
+    color: $lightblue;
+    @include font-small;
+    .count{
+      font-weight: bold;
+    }
+    &.visited{
+      color: $lightblue;
+    }
+  }
+}
+        
+.obj_descr__responces__responce__text__actions__vote{
+  @include before-gray-dot;
+  display: inline-block;
+  .simple_voting{
+    display: inline-block;
+  }
+}
+            
+.obj_descr__responces__responce__text__actions__comments{
+  .pic_comments{
+    margin-left: 0px;
+  }
+  .pic_comments__add{
+    overflow: hidden;
+  }
+  .pic_comments__add__input{
+    input{
+      padding: 14px 14px;
+    }
+  }
+}
+      
+.obj_descr__responces__responce__text__more{
+  margin-top: 18px;
+}
+
+.obj_descr__responces_count{
+  a{
+    @include font-large;
+    font-size: 29px;
+    line-height: 1;
+    .count{
+      font-weight: bold;
+    }
+    &.hide_all{
+      display: none;
+    }
+  }
+}

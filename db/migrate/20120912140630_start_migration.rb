@@ -62,7 +62,7 @@ class StartMigration < ActiveRecord::Migration
       t.integer  "parent_id"
       t.integer  "lft"
       t.integer  "rgt"
-      t.integer  "depth"
+      t.integer  "ancestry_depth"
       t.datetime "created_at",       null: false
       t.datetime "updated_at",       null: false
       t.string   "ancestry"

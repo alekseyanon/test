@@ -3,7 +3,9 @@ require 'set' # What is it?
 class GeoObject < ActiveRecord::Base
 
   attr_accessor :xld, :yld, :best_object
-  attr_accessible :xld, :yld, :rating, :images_attributes, :geom
+  #TODO remove hack: accessible published, published_at
+  attr_accessible :xld, :yld, :rating, :images_attributes, :geom, :address, :schedule, :contacts,
+                  :body, :published, :published_at, :title, :tag_list
 
   scope :ordered_by_rating, order('rating DESC, created_at DESC')
   scope :ordered_by_name,   order('title')
@@ -16,6 +18,10 @@ class GeoObject < ActiveRecord::Base
 
   def average_rating
     (rate = self.rating) > 0 ? rate.round : 0
+  end
+
+  def day_creation
+    self.created_at.strftime('%d %b %y')
   end
 
   def latlon
@@ -33,15 +39,15 @@ class GeoObject < ActiveRecord::Base
 
   include PgSearch
   include Searchable
-  has_many :reviews, as: :reviewable
-  has_many :images,  as: :imageable
+  has_many :reviews,    as: :reviewable
+  has_many :images,     as: :imageable
   has_many :runtips
+  has_many :complaints, as: :complaintable
 
   accepts_nested_attributes_for :images
 
   belongs_to :user
   belongs_to :agc
-  attr_accessible :body, :published, :published_at, :title, :tag_list #TODO remove hack: accessible published, published_at
   validates :title, :user, presence: true
   validates_associated :user
 
@@ -57,15 +63,15 @@ class GeoObject < ActiveRecord::Base
                   associated_against: {tags: [:name]}
 
   before_validation :normalize_categories
+  before_create :add_agc
 
   scope :with_agc, ->(id) { where agc_id: id }
 
   def categories_tree(parent = Category.root, filter = Category.where(name: tag_list).to_set)
-    tree = parent.children.reduce({}) do |memo,c|
+    parent.children.reduce({}) do |memo,c|
       memo[c.name_ru] = categories_tree(c,filter) if filter.include? c
       memo
     end
-    tree.empty? ? nil : tree
   end
 
   def leaf_categories
@@ -80,6 +86,10 @@ class GeoObject < ActiveRecord::Base
 
   def make_slug
     "#{title ? title : 'place-travel'}"
+  end
+
+  def add_agc
+    self.agc ||= Agc.most_precise_enclosing(geom) unless geom.blank?
   end
 
   protected

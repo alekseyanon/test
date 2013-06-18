@@ -1,0 +1,4 @@
+%span.user-link
+  %a(href="#{@user.link_to_profile}" class='tdn-link')
+    %span(class='icon icon-user user-link__icon')
+    = @user.username

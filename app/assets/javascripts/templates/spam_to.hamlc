@@ -1,0 +1,2 @@
+- css_prefix = @complaint.current_user == 1 ? 'voted' : ''
+%a{class: "icon-flag ui-link #{css_prefix}", title: "Пожаловаться на содержимое", target: '_blank', href: @complaint.url}

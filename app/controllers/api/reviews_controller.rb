@@ -1,6 +1,11 @@
 class Api::ReviewsController < ApplicationController
   
   def create
+    @geo_object = GeoObject.find params[:object_id]
+    @review = @geo_object.reviews.build params[:review]
+    @review.user = current_user
+    @review.save
+    @review
   end
 
   def update
