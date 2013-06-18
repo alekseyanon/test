@@ -4,6 +4,7 @@ describe Api::CategoriesController do
 
   describe "GET 'index'" do
     it "returns categories in json" do
+      Category.delete_all
       root = Category.make!
       c1 = Category.make!
       c2 = Category.make!

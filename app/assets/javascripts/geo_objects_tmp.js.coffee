@@ -102,15 +102,10 @@ window.geo_object_search = ->
     bounds = map.getBounds()
     return if bounds.equals lastBounds
     lastBounds = bounds
-    center = map.getCenter()
-    #  radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
-    radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 / 60.0 #SRID 4326
     text = $searchField.val()
 
-    query =  
-      x: center.lat
-      y: center.lng
-      r: radius
+    query =
+      bounding_box: map.getBounds().toBBoxString()
       text: text
       facets: facets
 
@@ -128,8 +123,7 @@ window.geo_object_search = ->
     lastBounds = null
     updateQuery opts
 
-  resetSearchField = ->
-    $searchField.val ''
+  resetSearchField = -> $searchField.val ''
 
   map.on 'load', ->
     map.on 'zoomend', updateQuery
