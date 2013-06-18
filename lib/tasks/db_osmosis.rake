@@ -1,4 +1,7 @@
 namespace :db do
+
+  CITIES_SOURCE = ['RU-LEN.osm.bz2', 'RU-MOW.osm.bz2']
+
   desc 'Add Osmosis schema to the database'
   task osm_schema: :environment do
     config = Rails.configuration.database_configuration[Rails.env]
@@ -35,18 +38,21 @@ EOF`
     end
     args.with_defaults file: 'planet-latest.osm.bz2'
     puts "Importing file #{args[:file]}"
-    unless File.exists? args[:file]
-      puts "#{args[:file]} not found, please specify filename as parameter"
-      next
+    files = [args[:file]].flatten
+    files.each do |file|
+      unless File.exists? file
+        puts "#{file} not found, please specify filename as parameter"
+        next
+      end
+      config = Rails.configuration.database_configuration
+      database = config[Rails.env]["database"]
+      username = config[Rails.env]["username"]
+      csv_dir = "#{Rails.root}/db/osmosis.csv.#{file}.#{Time.now().strftime '%Y.%m.%d:%H:%M'}"
+      `mkdir #{csv_dir}; cd #{csv_dir}`
+      puts "Temporary directory for csv files: #{csv_dir}"
+      `osmosis --read-xml #{file} --write-pgsql-dump enableLinestringBuilder=yes directory=.`
+      `psql #{database} --username=#{username} < #{Rails.root}/db/sql/pgsnapshot_load_0.6.sql`
     end
-    config = Rails.configuration.database_configuration
-    database = config[Rails.env]["database"]
-    username = config[Rails.env]["username"]
-    csv_dir = "#{Rails.root}/db/osmosis.csv.#{args[:file]}.#{Time.now().strftime '%Y.%m.%d:%H:%M'}"
-    `mkdir #{csv_dir}; cd #{csv_dir}`
-    puts "Temporary directory for csv files: #{csv_dir}"
-    `osmosis --read-xml #{args[:file]} --write-pgsql-dump enableLinestringBuilder=yes directory=.`
-    `psql #{database} --username=#{username} < #{Rails.root}/db/sql/pgsnapshot_load_0.6.sql`
   end
 
 
@@ -57,8 +63,13 @@ EOF`
     Rake::Task['db:osm_drop_users'].invoke
   end
 
-  task :fill_with_sample_data do
-    Rake::Task['db:osmosis'].invoke 'RU-LEN.osm.bz2'
+  task :fill_with_sample_data, [:file] do |t, args|     
+    data = args[:file] ? args[:file].split(' ') : 'RU-LEN.osm.bz2'
+    Rake::Task['db:osmosis'].invoke data
+  end
+
+  task :all_cities do
+    Rake::Task['db:fill_with_sample_data'].invoke CITIES_SOURCE.join(' ')
   end
 
   task :nuke do

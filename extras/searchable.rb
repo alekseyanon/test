@@ -4,12 +4,14 @@ module Searchable
     base.scope :bounding_box, ->( xmin, ymin, xmax, ymax) do
       base.where('geom && ST_MakeEnvelope(?,?,?,?,?)', xmin, ymin, xmax, ymax, Geo::SRID)
     end
+
+    base.scope :newest, base.order('created_at DESC')
   end
 
   module ClassMethods
 
     def within_radius geom, r
-      where "ST_DWithin(geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
+      where "ST_DWithin(geom, ST_GeogFromText('#{geom}'), #{r})"
     end
 
     # Searches descriptions against title, body, tags, using upper level categories used as facets.
@@ -39,8 +41,8 @@ module Searchable
 
       if self <= GeoObject
         memo[:chain] = memo[:chain].where("title != 'NoName'") #TODO remove hack
-        if query.is_a?(Hash) && query[:clustered]
-          add_clustering memo[:chain]
+        if query.is_a?(Hash) && query[:clusters]
+          add_clustering memo[:chain], query[:clusters]
         else
           memo[:chain].limit 20  #TODO remove hack
         end
@@ -85,9 +87,8 @@ module Searchable
       memo[:chain] = memo[:chain].text_search(text) unless text.blank?
     end
 
-
-    def add_clustering(chain)
-      Clustering.from_chain(chain, 10).map do |c| #TODO remove hack - altered object with cluster centroid as geom
+    def add_clustering(chain, clusters)
+      Clustering.from_chain(chain, clusters).map do |c| #TODO remove hack - altered object with cluster centroid as geom
         go = GeoObject.find c[:member_ids][0]
         go.geom = c[:geom]
         go

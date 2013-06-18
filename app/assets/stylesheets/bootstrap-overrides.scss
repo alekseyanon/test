@@ -330,6 +330,12 @@ input[type="color"] {
   border-radius: 0;
   border-color: #cfcfcf;
   margin-bottom: 0;
+  &.editor{
+    @include box-shadow(inset 1px 1px 2px rgba(0,0,0,.2));
+    &:focus{
+      @include box-shadow(inset 1px 1px 2px rgba(0,0,0,.2));
+    }
+  }
 }
 
 input.input_rounded {

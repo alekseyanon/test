@@ -50,6 +50,21 @@
   font-weight: bold;
 }
 
+/* round buttons */
+
+.button_round{
+  @include border-radius(15px);
+  border:  1px solid $lightgrey;
+}
+
+.button_round__inner {
+  padding: 5px 15px;
+}
+
+.button_round__text {
+  font-weight: bold;
+}
+
 .button_full {
   width: 100%;
 }
@@ -91,6 +106,10 @@
 
 .button_grey {
   @include background-image(linear-gradient(top, #feffff, #ebebeb));
+  &:hover{
+    background-image: none;
+    background-color: #f7f7f7;
+  }
 }
 
 /* ---------------------------------------- BUTTONS END ----------------------------------------- */
