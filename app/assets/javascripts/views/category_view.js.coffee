@@ -10,6 +10,7 @@ class Smorodina.Views.Category extends Backbone.View
     @model.on 'change:selected', @toggleSelected
     @model.on 'change:semiSelected', @toggleSemiSelected
     @model.on 'change:bordered', @toggleBordered
+    @model.on 'change:rootName', @setRootClass
 
   render: ->
     @$el.append @template @model.toJSON()
@@ -43,3 +44,7 @@ class Smorodina.Views.Category extends Backbone.View
 
   toggleSelected: ->
     @$el.toggleClass 'selected', @model.get('selected')
+
+  setRootClass: ->
+    @$el.addClass @model.get('rootName')
+

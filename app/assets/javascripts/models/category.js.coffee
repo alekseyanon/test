@@ -4,6 +4,7 @@ class Smorodina.Models.Category extends Backbone.Model
     selected: false
     semiSelected: false
     selectedChildren: 0
+    rootName: ''
 
   initialize: ->
     _.bindAll(@)
@@ -18,8 +19,8 @@ class Smorodina.Models.Category extends Backbone.Model
       c.updateChildren 'semiSelected' : wasSelected, 'selected' : false, 'bordered' : false
   
   # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
-  updateByEmblem: (val)->
-    @set 'visibility' : val, 'semiSelected' : val
+  updateByEmblem: (val, className)->
+    @set 'visibility' : val, 'semiSelected' : val, rootName: className
     @cleanUnwantedStates 'semiSelected'
     _.each @children(), (c)=>
       c.updateByEmblem val

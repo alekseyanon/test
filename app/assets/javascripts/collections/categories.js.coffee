@@ -6,4 +6,4 @@ class Smorodina.Collections.Categories extends Backbone.Collection
   
   updateEmblemCategory: (name, is_selected)->
   	_.each @where(name: name), (category) ->
-	    category.updateByEmblem(is_selected)
+	    category.updateByEmblem(is_selected, name)
