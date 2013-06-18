@@ -71,5 +71,15 @@ describe GeoObject do
       end
     end
 
+    context 'for newest scope' do
+      it 'sorting of GeoObjects' do
+        GeoObject.destroy_all
+        g1 = GeoObject.make!
+        g2 = GeoObject.make!
+        g3 = GeoObject.make!
+        GeoObject.all.should == [g1, g2, g3]
+        GeoObject.newest.all.should == [g3 ,g2, g1]
+      end
+    end
   end
 end

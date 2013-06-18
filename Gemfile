@@ -61,6 +61,8 @@ gem 'magic_numbers', git: 'git://github.com/gzigzigzeo/magic_numbers.git' # Sota
 gem 'carrierwave'
 gem 'mime-types', require: 'mime/types'
 gem 'rmagick'
+gem 'mini_magick'
+
 ##################################################
 
 gem 'rinku'               # auto_link
@@ -69,10 +71,11 @@ gem 'friendly_id'         # slug
 ### To update bundle update --source thumbs_up
 gem 'thumbs_up', git: 'git://github.com/lvl0nax/thumbs_up'           # voting system
 
+gem 'redactor-rails'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'redactor-rails'
   gem 'sass-rails',   '~> 3.2.3'
   gem 'bootstrap-sass', '~> 2.3.0.1'
   gem 'coffee-rails'

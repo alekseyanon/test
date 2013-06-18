@@ -27,7 +27,7 @@
 #= require_tree .
 #= require leaflet
 #= require jquery.Jcrop
-//= require redactor-rails
+#= require redactor-rails
 
 # ------------------------------------------------------------------------------------------------------------------ 
 
