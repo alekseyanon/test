@@ -1,7 +1,7 @@
 class Api::ObjectsController < ApplicationController
 
   def nearby
-    r = params[:r] || 50
+    r = params[:r] || 1000
     @objects = GeoObject.find(params[:id]).objects_nearby(r)
     render json: @objects
   end
