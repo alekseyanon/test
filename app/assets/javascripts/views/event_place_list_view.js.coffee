@@ -35,6 +35,6 @@ class Smorodina.Views.EventPlaceList extends Smorodina.Views.Base
       @hide()
     @$content.html @$fragment
 
-  addOne: (l) ->
-    view = new Smorodina.Views.EventPlace(model: l)
+  addOne: (item) ->
+    view = new Smorodina.Views.EventPlace(model: item)
     @$fragment = @$fragment.add view.render().el

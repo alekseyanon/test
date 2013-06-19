@@ -47,6 +47,6 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
     @$sortbyR.find('.direction').html if @currentSortR<0 then '&darr;' else '&uarr;'
     @collection.sort()
   
-  addOne: (l) ->
-    view = new Smorodina.Views.GeoObjectPlace(model: l)
+  addOne: (item) ->
+    view = new Smorodina.Views.GeoObjectPlace(model: item)
     @$fragment = @$fragment.add view.render().el
