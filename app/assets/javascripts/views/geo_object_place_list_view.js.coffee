@@ -44,7 +44,7 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
     @$sortbyN.find('.direction').html ''
     @$sortbyN.removeClass('btn').addClass('unselected')
     @$sortbyR.addClass('btn').removeClass('unselected')
-    @$sortbyN.find('.direction').html if @currentSortN<0 then '&darr;' else '&uarr;'
+    @$sortbyR.find('.direction').html if @currentSortR<0 then '&darr;' else '&uarr;'
     @collection.sort()
   
   addOne: (l) ->
