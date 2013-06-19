@@ -164,16 +164,7 @@ describe Event do
     event.geom.class.should == RGeo::Geos::CAPIPointImpl
   end
 
-  describe ".within_radius" do
-    let(:triangle){ to_events [[10,10], [20,20], [30,10]] }
-
-    it 'returns nodes within a specified radius of another node' do
-      described_class.within_radius(triangle[0].geom, 10).should =~ triangle[0..0]
-      described_class.within_radius(triangle[0].geom, 15).should =~ triangle[0..1]
-      described_class.within_radius(triangle[0].geom, 20).should =~ triangle
-      described_class.within_radius(triangle[2].geom, 15).should =~ triangle[1..2]
-    end
-  end
+  it_behaves_like 'search within radius'
 
   describe '.search' do
     let!(:d){ load_descriptions }
@@ -200,7 +191,7 @@ describe Event do
       Event.make!(
         title: 'Three',
         body: 'Two three',
-        geom: Geo::factory.point(9, 9),
+        geom: Geo::factory.point(12, 12),
         start_date: 14.days.ago,
         end_date: 12.days.ago,
         repeat_rule: 'weekly'
@@ -210,15 +201,15 @@ describe Event do
       Event.make!(
         title: 'One two three',
         body: 'One two three four',
-        geom: Geo::factory.point(10, 100),
+        geom: Geo::factory.point(13, 13),
         start_date: 7.days.from_now,
         end_date: 9.days.from_now
       )
     }
 
     it 'performs full text search in specified radius' do
-      described_class.search(text: 'one', geom: one.geom, r: 5).should == [one, two]
-      described_class.search(text: 'one', geom: one.geom, r: 101).should == [four, one, two]
+      described_class.search(text: 'one', geom: one.geom, r: 157000).should == [one, two]
+      described_class.search(text: 'one', geom: one.geom, r: 471000).should == [four, one, two]
     end
 
     it 'performs full text search in specified radius and date' do
