@@ -7,4 +7,3 @@
   %div.event_item__name
     %a{href: "/events/#{@id}"}
       = @title
-      

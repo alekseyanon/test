@@ -24,38 +24,29 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
     @$content.html @$fragment
   
   sortByName: ->
+    @currentSortN*=-1
     sort=@currentSortN
     @collection.comparator = (objA, objB) ->
       return -sort  if objA.get("title") > objB.get("title")
       return sort  if objB.get("title") > objA.get("title")
       0
-    @currentSortN*=-1
     @$sortbyR.find('.direction').html ''
     @$sortbyR.removeClass('btn').addClass('unselected')
     @$sortbyN.addClass('btn').removeClass('unselected')
-    if @currentSortN<0
-      @$sortbyN.find('.direction').html '&darr;'
-    else
-      @$sortbyN.find('.direction').html '&uarr;'
+    @$sortbyN.find('.direction').html if @currentSortN<0 then '&darr;' else '&uarr;'
     @collection.sort()
   
   sortByRating: ->
-    sort=@currentSortR
-    @collection.comparator = (objA, objB) ->
-      return -sort  if objA.get("average_rating") > objB.get("average_rating")
-      return sort  if objB.get("average_rating") > objA.get("average_rating")
-      0
     @currentSortR*=-1
+    sort=@currentSortR
+    @collection.comparator = (obj) ->
+      sort * obj.get("average_rating")
     @$sortbyN.find('.direction').html ''
     @$sortbyN.removeClass('btn').addClass('unselected')
     @$sortbyR.addClass('btn').removeClass('unselected')
-    if @currentSortR<0
-      @$sortbyR.find('.direction').html '&darr;'
-    else
-      @$sortbyR.find('.direction').html '&uarr;'
+    @$sortbyN.find('.direction').html if @currentSortN<0 then '&darr;' else '&uarr;'
     @collection.sort()
   
   addOne: (l) ->
     view = new Smorodina.Views.GeoObjectPlace(model: l)
     @$fragment = @$fragment.add view.render().el
-  

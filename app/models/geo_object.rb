@@ -33,7 +33,7 @@ class GeoObject < ActiveRecord::Base
   end
   
   def as_json options = {}
-    op_hash = { only: [:id, :title, :body, :rating, :geom, :slug], methods: [:tag_list, :latlon, :best_object, :agc_titles, :average_rating, :image], include: [:agc, :images] }
+    op_hash = { only: [:id, :title, :body, :rating, :geom, :slug], methods: [:tag_list, :latlon, :best_object, :agc_titles, :average_rating, :image], include: :agc }
     op_hash[:only] = [:id, :title, :rating] if options[:extra] && options[:extra][:teaser]
     super op_hash
   end
