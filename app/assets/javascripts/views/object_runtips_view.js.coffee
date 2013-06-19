@@ -12,7 +12,7 @@ class Smorodina.Views.ObjectRuntipsView extends Smorodina.Views.Base
     _.bindAll @
     @collection.on 'add', @render_runtip
     @collection.fetch()
-    @$el.html @template
+    @$el.append @template
     @list_container = @$('.obj_descr__text__descr__runtips__list__records')
 
   render_runtip: (runtip)->
