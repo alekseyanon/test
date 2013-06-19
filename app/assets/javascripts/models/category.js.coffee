@@ -19,6 +19,16 @@ class Smorodina.Models.Category extends Backbone.Model
 
     @collection.trigger 'finishPainting'
   
+  updateBySelectTagList: ->
+    @set( 'selected', @get('selected') || @get('semiSelected') )
+    @toggleSelected()
+    wasSelected = @get('selected')
+    
+    _.each @children(), (c)->
+      c.updateChildren 'semiSelected' : wasSelected, 'selected' : false, 'bordered' : false
+    @collection.trigger 'finishPainting'
+
+
   # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
   updateByEmblem: (val)->
     @set 'visibility' : val, 'semiSelected' : val
@@ -46,7 +56,9 @@ class Smorodina.Models.Category extends Backbone.Model
       # Обводим родителя в рамку, если хоть один ребенок выделен
       else if _.any(@siblings_and_self(), (s)-> s.get('selected') or s.get('bordered'))
         change_state = 'bordered'
-      else 
+      # else if есть хоть один полувыделенный и невыделенный элемент
+      #   parent.cleanUnwantedStates('bordered')
+      else
         parent.cleanUnwantedStates()
       if change_state
         parent.set change_state, true

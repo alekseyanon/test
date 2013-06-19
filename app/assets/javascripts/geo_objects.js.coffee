@@ -16,4 +16,6 @@ Smorodina.Pages.GeoObjects = ->
     geo_object_search()
 
 Smorodina.Pages.GeoObjectNew = ->
-  new Smorodina.Views.CategoriesGeoCreation(collection : new Smorodina.Collections.Categories)
+
+  $ ->  
+    new Smorodina.Views.CategoriesGeoCreation(collection : new Smorodina.Collections.Categories)

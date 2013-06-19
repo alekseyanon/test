@@ -7,29 +7,32 @@ class Smorodina.Views.CategoriesGeoCreation extends Smorodina.Views.Base
 
   initialize: ->
     super()
-
-    @$container     = @$('#categories-popup')
-    @$tag_list_input = @$selectList.select2()
-
+    @$container      = @$('#categories-popup')
+    @$tag_list_input = @$('#geo_object_tag_list').select2()
     @collection.set 'tag_list_input', @$tag_list_input
+
     @collection.on 'reset', @render
-    @collection.on 'finishPainting', @updateTagList
-    # TODO:
-    # @$tag_list_input.on 'elemAdded' --- update tree
+    @collection.on 'finishPainting', @updateTagSelectList
+    @$tag_list_input.on 'change', @updateTagPopupList
+
     @collection.fetch(reset: true)
 
   render: ->
     _.each @collection.where(depth: 1), @addOne
 
   addOne: (model) ->
-    category = new Smorodina.Views.Category( model : model, select )
+    category = new Smorodina.Views.Category( model : model )
     @$container.append category.render( visible : true ).el
   
   toggleList: (e)->
     @$container.toggle()
     false
 
-  updateTagList: ->
-    # TODO:
-    @collection.activeElements.each (e)=>
-      @$tag_list_input.select2( add: e.text )
+  updateTagSelectList: ->
+    tag_list = @collection.activeElements().map (c) => c.get('name')
+    @$tag_list_input.select2( 'val', tag_list )
+  
+  updateTagPopupList: (eventSelect) ->
+    console.log eventSelect
+    changed_tag = if eventSelect.added? then eventSelect.added.id else eventSelect.removed.id
+    @collection.findWhere( name: changed_tag ).updateBySelectTagList()
