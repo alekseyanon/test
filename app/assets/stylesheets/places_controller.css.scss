@@ -1,0 +1,138 @@
+.place_descr{
+  padding: 0px 30px;
+  padding-bottom:30px;
+  .share-icons{
+    display:inline-block;
+  }
+}
+
+.place_events{
+ width: 250px;
+}
+.events_section{
+  background: #f2f1ed;
+  padding: 30px;
+  width: 180px;
+  float: right;
+  .first{
+    border-bottom: 1px solid #ddd;
+  }
+  .all_events__link{
+    font-size: 14px;
+    color: #21b0e6;
+    text-decoration:underline;
+    span{
+      font-weight: bold;
+    }
+  }
+}
+.events_section__event_item{
+  padding-top: 25px;
+  padding-bottom:25px;
+}
+
+.events_section__title{
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom:10px;
+}
+.event_item__name{
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 14px;
+}
+.place_descr__share{
+  display:inline-block;
+}
+
+.sort-controls{
+  line-height:45px;
+}
+.search-results-panel__show{
+  select{
+    margin-top:10px;
+  }
+}
+.sort-group{
+  margin-left:20px;
+  width: 75px;
+  @include user-select(none);
+}
+
+.unselected{
+    font-weight: bold;
+    border-bottom:1px dotted;
+    cursor: pointer;
+}
+.place_objects__object{
+  border-top: 1px dotted #ddd;
+  padding-top: 20px;
+  margin-left:30px;
+  .smorodina-item{
+    width:100%;
+  }
+}
+
+.smorodina-item__votes{
+  float:right;
+  padding-right:23px;
+  font-size: 12px;
+  .rating{
+    
+    color: $darkgrey;
+    .rate{
+      color: black;
+    }
+    .green{
+      color:green;
+    }
+    .red{
+      color:red;
+    }
+  }
+  .leave_vote{
+    a{
+      color: $lightblue;
+      text-decoration:underline;
+    }
+  }
+  
+}
+.smorodina-item__images__list{
+  padding: 0 0 0 0px;
+  @include clearfix;
+  li{
+    float: left;
+    position: relative;
+    z-index: 0;
+    margin: 0 23px 24px 0;
+    @include box-shadow(rgba(0, 0, 0, 0.1) 0 3px 8px 0);
+    a{
+      display: block;
+      position: relative;
+      padding: 5px;
+      background-color: #fff;
+      z-index: 1;
+    }
+    img{
+      display: block;
+    }
+    &:before,
+    &:after {
+      display: block;
+      content: "";
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      width: 50%;
+      height: 20%;
+      @include box-shadow(rgba(0, 0, 0, 0.2) 0 8px 8px 0);
+      @include rotate(-7deg);
+    }
+    &:after {
+      right: 5px;
+      left: auto;
+      @include rotate(7deg);
+    }
+  }
+}
