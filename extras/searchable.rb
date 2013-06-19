@@ -4,12 +4,14 @@ module Searchable
     base.scope :bounding_box, ->( xmin, ymin, xmax, ymax) do
       base.where('geom && ST_MakeEnvelope(?,?,?,?,?)', xmin, ymin, xmax, ymax, Geo::SRID)
     end
+
+    base.scope :newest, base.order('created_at DESC')
   end
 
   module ClassMethods
 
     def within_radius geom, r
-      where "ST_DWithin(geom, ST_GeomFromText('#{geom}', #{Geo::SRID}), #{r})"
+      where "ST_DWithin(geom, ST_GeogFromText('#{geom}'), #{r})"
     end
 
     # Searches descriptions against title, body, tags, using upper level categories used as facets.
@@ -21,31 +23,75 @@ module Searchable
     #     or {text: 'query string', x: latitude, y: longitude, r: radius, sort_by: rating}
     # @return ActiveRecord::Relation all matching descriptions
     def search(query)
-      return all unless query && !query.empty?
-      chain = self
+      return all if query.blank?
+      memo = {chain: self}
+
       if query.is_a? String
-        text = query
+        memo[:query] = {text: query}
       else
-        query.delete_if { |_, v| v.blank? }
-        chain = chain.tagged_with query[:facets], any: true  if query[:facets]
-        geom = query[:geom] || ((y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)) #TODO mind x y
-        r = query[:r] || 0
-        if query[:bounding_box]
-          chain = chain.bounding_box(*query[:bounding_box])
-        elsif geom
-          chain = chain.within_radius(geom, r)
-        end
-        chain = chain.in_place(query[:place_id]) if query[:place_id]
-        chain = chain.with_agc(query[:agc_id])   if query[:agc_id]
-        text = query[:text]
-        chain = chain.within_date_range query[:from], query[:to] if query[:from]
+        memo[:query] = query
+        check_facets memo
+        check_geom memo
+        check_place memo
+        check_agc memo
+        check_date_range memo
       end
-      chain = chain.text_search(text) unless text.blank?
-      if self.kind_of? GeoObject
-        chain.where("title != 'NoName'") #TODO remove hack
-        chain.limit 20  #TODO remove hack
+
+      check_text memo
+
+      if self <= GeoObject
+        memo[:chain] = memo[:chain].where("title != 'NoName'") #TODO remove hack
+        if query.is_a?(Hash) && query[:clusters]
+          add_clustering memo[:chain], query[:clusters]
+        else
+          memo[:chain].limit 20  #TODO remove hack
+        end
       else
-        chain
+        memo[:chain].limit 3
+      end
+    end
+
+    def check_facets(memo)
+      facets = memo[:query][:facets]
+      memo[:chain] = memo[:chain].tagged_with facets, any: true if facets
+    end
+
+    def check_geom(memo)
+      query = memo[:query]
+      geom = query[:geom] || (y = query[:x]) && (x = query[:y]) && Geo::factory.point(x.to_f, y.to_f)
+      r = query[:r] || 0
+      if query[:bounding_box]
+        memo[:chain] = memo[:chain].bounding_box *query[:bounding_box]
+      elsif geom
+        memo[:chain] = memo[:chain].within_radius geom, r
+      end
+    end
+
+    def check_place(memo)
+      place_id = memo[:query][:place_id]
+      memo[:chain] = memo[:chain].in_place(place_id) if place_id
+    end
+
+    def check_agc(memo)
+      agc_id = memo[:query][:agc_id]
+      memo[:chain] = memo[:chain].with_agc(agc_id) if agc_id
+    end
+
+    def check_date_range(memo)
+      from, to = memo[:query][:from], memo[:query][:to]
+      memo[:chain] = memo[:chain].within_date_range from, to if from
+    end
+
+    def check_text(memo)
+      text = memo[:query][:text]
+      memo[:chain] = memo[:chain].text_search(text) unless text.blank?
+    end
+
+    def add_clustering(chain, clusters)
+      Clustering.from_chain(chain, clusters).map do |c| #TODO remove hack - altered object with cluster centroid as geom
+        go = GeoObject.find c[:member_ids][0]
+        go.geom = c[:geom]
+        go
       end
     end
 

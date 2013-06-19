@@ -1,13 +1,15 @@
-%h2 Лучшие отзывы
-.obj_descr__responces__container
+%div{class: 'obj_descr__responces__add_review__container', style: 'display: none;'}
+  
+.obj_descr__responces__padding 
+  %h2 Лучшие отзывы
+  .obj_descr__responces__container
 
+  - if @count > 3
+    .obj_descr__responces_count
+      %a{href: '#', class: 'action-link show_all'}
+        Все отзывы: 
+        %span.count
+          =@count
 
-- if @count > 3
-  .obj_descr__responces_count
-    %a{href: '#', class: 'action-link show_all'}
-      Все отзывы: 
-      %span.count
-        =@count
-
-    %a{href: '#', class: 'action-link hide_all'}
-      Свернуть
+      %a{href: '#', class: 'action-link hide_all'}
+        Свернуть

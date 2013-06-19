@@ -1,6 +1,7 @@
 .obj_descr__text__descr__runtips__list__record__header
   .obj_descr__text__descr__runtips__list__record__author
-    != JST['username_link'](user: @runtip.get('user'))
+    .obj_descr__text__descr__runtips__list__record__author__inner
+      != JST['username_link'](user: @runtip.get('user'))
   .obj_descr__text__descr__runtips__list__record__date
     = @runtip.get('date')
   .obj_descr__text__descr__runtips__list__record__rate
