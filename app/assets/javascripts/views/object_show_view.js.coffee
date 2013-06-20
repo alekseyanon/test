@@ -26,14 +26,11 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
       @$('.obj_descr__text__descr').addClass 'slidable'
 
     $('.obj_descr__text__vote_stats__value__item__value').each (index, record)->
-      console.log record
       data = 
         votes_for: parseInt $(record).attr('data-votes-for')
         votes_against: parseInt $(record).attr('data-votes-against')
         current_user_vote: parseInt $(record).attr('data-current-user-vote')
         vote_url: $(record).attr 'data-vote-url'
-
-      console.log data
 
       model = new Backbone.Model()
       model.set rating: data
