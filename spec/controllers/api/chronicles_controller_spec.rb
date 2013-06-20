@@ -11,10 +11,6 @@ describe Api::ChroniclesController do
       GeoObject.make!
     end
 
-    after :all do
-      DatabaseCleaner.clean
-    end
-
     def get_show_chronicle type = nil
       get :show, {format: :json}.merge( type ? {type: type} : {})
       JSON.parse(response.body)

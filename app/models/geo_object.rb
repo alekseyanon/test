@@ -29,7 +29,7 @@ class GeoObject < ActiveRecord::Base
   end
   
   def agc_titles
-    self.agc.titles
+    self.agc.try(:titles)
   end
   
   def image
