@@ -1,7 +1,7 @@
 Smorodina::Application.routes.draw do
 
 
-  get "places/show/:id", controller: :places, action: :show
+  resources :places, only: :show
 
   mount RedactorRails::Engine => '/redactor_rails'
 
