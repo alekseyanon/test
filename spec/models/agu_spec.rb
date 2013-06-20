@@ -3,10 +3,10 @@ require 'spec_helper'
 
 describe Agu do
   it 'можно искать места по радиусу, координате и названию' do
-  	agu1 = Agu.make! geom: 'POLYGON((0 0, 1 0, 0 1, 0 0))'
-  	agu2 = Agu.make! geom: 'POLYGON((0 0, 1 0, 0 1, 0 0))'
-  	agu3 = Agu.make! title: agu2.title, geom: 'POLYGON((100 100, 101 100, 100 101, 100 100))'
-		Agu.search({geom: 'POINT(0 0)', r: 5, text: agu2.title}).should == [agu2]
+    agu1 = Agu.make! geom: 'POLYGON((0 0, 1 0, 0 1, 0 0))'
+    agu2 = Agu.make! geom: 'POLYGON((0 0, 1 0, 0 1, 0 0))'
+    agu3 = Agu.make! title: agu2.title, geom: 'POLYGON((100 80, 101 80, 100 81, 100 80))'
+    Agu.search({geom: 'POINT(0 0)', r: 5, text: agu2.title}).should == [agu2]
   end
 
   it '.agcs' do
@@ -16,4 +16,6 @@ describe Agu do
   	agu = Agu.make! id: 1
   	agu.agcs.should =~ [agc1, agc2]
   end
+
+  it_behaves_like 'search within radius'
 end

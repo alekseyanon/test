@@ -1,5 +1,5 @@
 class Agc < ActiveRecord::Base
-  attr_accessible :agus
+  attr_accessible :agus, :id
   has_many :geo_objects
   has_many :events
 

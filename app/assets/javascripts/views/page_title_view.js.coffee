@@ -11,6 +11,7 @@ class Smorodina.Views.PageTitle extends Smorodina.Views.Base
     @collection.on 'reset', @render
 
   onRequest: (collection, xhr, options) ->
+    console.log options
     @title = options.query.text;
 
   render: ->
