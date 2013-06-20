@@ -1350,11 +1350,6 @@ display: block;
   }
 }
 
-.filter-category__text{
-  border: 2px solid rgb(255, 0, 0);
-  border: 2px solid rgba(255, 0, 0, 0);
-}
-
 .search-filter__second-level li.sightseeing{
   &.selected > .filter-category__text,
   .selected > .filter-category__text{
