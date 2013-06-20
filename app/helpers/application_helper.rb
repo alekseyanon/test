@@ -48,13 +48,13 @@ module ApplicationHelper
   ### new_vote_polymorphic_path @geo_object, 'tag', format: :json
   def new_vote_polymorphic_path votable, *params
     options = {}
-    args =  if votable.is_a? Comment
-                   [votable.commentable]
-                 elsif votable.is_a? Runtip
-                   [votable.geo_object]
-                 else
-                   []
-                 end  + [votable, votable.votes.build]
+    args =  [:api] + if votable.is_a? Comment
+                       [votable.commentable]
+                     elsif votable.is_a? Runtip
+                       [votable.geo_object]
+                     else
+                       []
+                     end  + [votable, votable.votes.build]
     params.compact.each do |p|
       options.merge!((p.is_a? String) ? {voteable_tag: p} : p)
     end
