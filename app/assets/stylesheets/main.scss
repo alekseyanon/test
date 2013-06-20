@@ -1110,11 +1110,12 @@ a:hover,
   left: 3px;
 }
 
-.smorodina-item__geo__list > li:after {
-  content: '\2192';
-}
 .smorodina-item__tags__list > li:after {
   content: '\2c';
+}
+
+.smorodina-item__geo__list > li:after {
+  content: '\2192';
 }
 
 .smorodina-item__tags__list_event > li:after {

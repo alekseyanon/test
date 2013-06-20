@@ -15,25 +15,25 @@ describe Api::ChroniclesController do
       DatabaseCleaner.clean
     end
 
-    def get_show type = nil
+    def get_show_chronicle type = nil
       get :show, {format: :json}.merge( type ? {type: type} : {})
       JSON.parse(response.body)
     end
 
     it 'events only' do
-      resp = get_show('event')
+      resp = get_show_chronicle('event')
       resp['items'].length.should == 1
       resp['items'][0]['type'].should == 'event'
     end
 
     it 'geo_objects only' do
-      resp = get_show('geo_object')
+      resp = get_show_chronicle('geo_object')
       resp['items'].length.should == 1
       resp['items'][0]['type'].should == 'geo_object'
     end
 
     it 'all items' do
-      resp = get_show()
+      resp = get_show_chronicle()
       resp['items'].length.should == 2
     end
   end

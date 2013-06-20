@@ -11,24 +11,24 @@
       %a{href: "#{@chronicle_item.get('url')}"}
         %b
           = @chronicle_item.get('title')
-    -if !!@chronicle_item.get('start_end_dates')
+    -if !!(start_end_dates = @chronicle_item.get('start_end_dates'))
       %div.smorodina-item__dates
-        = @chronicle_item.get('start_end_dates')
+        = start_end_dates
 
-    -if !!@chronicle_item.get('agc_titles')
+    -if !!(agc_titles = @chronicle_item.get('agc_titles'))
       %div.smorodina-item__geo
         %span.icon.icon-marker.smorodina-item__geo__icon
         %ul.smorodina-item__geo__list
-          - for agu_id, agu_title of @chronicle_item.get('agc_titles')
+          - for agu_id, agu_title of agc_titles
             %li
               %a.tdn-link{ href: "/objects/search?agc_id=#{@chronicle_item.get('agc_id')}" }
                 = agu_title
 
-    - if !!@chronicle_item.get('tags')
+    - if !!(tags = @chronicle_item.get('tags'))
       %div.smorodina-item__tags
         %span.icon.icon-tags.smorodina-item__tags__icon
         %ul.smorodina-item__tags__list
-          - for tag_id, tag_title of @chronicle_item.get('tags')
+          - for tag_id, tag_title of tags
             %li
               %a.tdn-link{ href: "#{tag_id}" }
                 = tag_title

@@ -201,7 +201,7 @@ class Event < ActiveRecord::Base
     Hash[self.event_tags.map{|i| [i.id , i.title]}]
   end
 
-  def events_dates
+  def event_dates
     start_date = Russian::strftime(self.start_date, '%e %B')
     end_date = Russian::strftime(self.end_date, '%e %B')
     (start_date == end_date) ? start_date : "#{start_date} - #{end_date}"
