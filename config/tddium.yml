@@ -1,7 +1,8 @@
 ---
 :tddium:
   :test_pattern:
-    - spec/**_spec.rb
+    - spec/models/**_spec.rb
+    - spec/controllers/**_spec.rb
   :postgresql:
     :version: '9.1'
     :adapter: 'postgis'

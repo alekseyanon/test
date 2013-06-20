@@ -19,7 +19,9 @@ class ApplicationController < ActionController::Base
      [:review_id, Review],
      [:image_id, Image],
      [:event_id, Event],
-     [:geo_object_id, GeoObject]].each do |(key, parent_class)|
+     [:object_id, GeoObject], #TODO привести к одному виду routes 4 GeoObject
+     [:geo_object_id, GeoObject]
+    ].each do |(key, parent_class)|
       return @parent = parent_class.find(params[key]) if params.has_key? key
     end
   end
