@@ -951,7 +951,7 @@ a:hover,
 .smorodina-item__img {
   position: relative;
   float: left;
-  margin: 5px 20px 0 10px;
+  margin: 5px 25px 0 10px;
 }
 
 .smorodina-item__img_shadow {
@@ -995,17 +995,13 @@ a:hover,
 .smorodina-item__state {
   color:#fff;
   position: absolute;
-  top: 3px;
-  right: 3px;
-  z-index: 10;
-  font-size: 13px;
-  line-height: 15px;
-  padding: 0 5px;
+  top: 2px;
+  right: 2px;
+  z-index: 1;
+  line-height: 19px;
+  padding: 0 6px;
+  font-size: 11px;
   @include border-radius(3px);
-}
-
-.event_state-new__background{
-  background: #43a32a;
 }
 
 .event_state-started__background{
@@ -1016,12 +1012,8 @@ a:hover,
   background:#BCB2BB;
 }
 
-.event_state-archived__background{
-  background:#fff;
-}
-
 .event_state-canceled__background{
-  background:#7E7475;
+  background: #767676;
 }
 
 .smorodina-item__content {
@@ -1070,6 +1062,11 @@ a:hover,
 
 .smorodina-item__title {
   @include trailer(0.25);
+}
+
+.smorodina-item__dates {
+  color: #414141;
+  font-size: 13px;
 }
 
 .smorodina-item__user {

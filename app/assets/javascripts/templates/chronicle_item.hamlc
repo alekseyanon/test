@@ -3,16 +3,17 @@
   %div.smorodina-item__img
     %div.smorodina-item__img__inner
       %image{ src: "#{@chronicle_item.get('image')}", alt: "Фото", width: 130, height: 90 }
-    -if !!(state = @chronicle_item.get('state'))
+    -if !!(state = @chronicle_item.get('state')) && state != 'new'
       %div.smorodina-item__state(class="event_state-#{state}__background")
-        = state
+        = @chronicle_item.get('rus_state')
   %div.smorodina-item__content
     %div.smorodina-item__title
       %a{href: "#{@chronicle_item.get('url')}"}
         %b
           = @chronicle_item.get('title')
     -if !!@chronicle_item.get('start_end_dates')
-      = @chronicle_item.get('start_end_dates')
+      %div.smorodina-item__dates
+        = @chronicle_item.get('start_end_dates')
 
     -if !!@chronicle_item.get('agc_titles')
       %div.smorodina-item__geo
