@@ -1,9 +1,13 @@
 Smorodina::Application.routes.draw do
 
+
+  get "places/show/:id", controller: :places, action: :show
+
   mount RedactorRails::Engine => '/redactor_rails'
 
   get 'ratings/list'
-
+ 
+  
   namespace :api do
     get 'chronicles/show'
     get 'categories/index'
