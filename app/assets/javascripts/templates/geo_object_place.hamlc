@@ -15,7 +15,7 @@
         %ul.smorodina-item__geo__list
           - $.each @agc_titles, (index, value) ->
             %li
-              %a.tdn-link{ href: "/places/show/#{index}" }
+              %a.tdn-link{ href: "/places/#{index}" }
                 = value
       %div.smorodina-item__tags
         %span.icon.icon-tags.smorodina-item__tags__icon
