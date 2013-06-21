@@ -3,7 +3,7 @@
     С #{@start_local} по #{@end_local}
   %div.event_item__picture
   - if @image
-    %image{ src: "#{@image.image.thumb.url}", alt: "Фото", width: 180, height: 125 }
+    %image{ src: "#{@image.image.chronicalthumb.url}", alt: "Фото", width: 180, height: 125 }
   %div.event_item__name
     %a{href: "/events/#{@id}"}
       = @title
