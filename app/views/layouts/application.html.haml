@@ -13,6 +13,7 @@
     %script{type: 'text/javascript'}
       var addthis_config = {'data_track_addressbar':false};
     %script{src: '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51a45ad6548225f4', type: 'text/javascript'}
+    %script{type: "text/javascript", src:"//yandex.st/share/share.js", charset:"utf-8"}
     = csrf_meta_tags
   %body{ class: page_class }
     = render 'layouts/promo', { greeting: controller_name == 'welcome' }
@@ -32,9 +33,4 @@
     = render 'modals/reg_login_modal'
   %script
     $(window).load(load_objects_count)
-  %div
-    Ваш IP:
-    = request.remote_ip
-    Ваш город:
-    - location = ip_location(request.remote_ip)
-    = location ? location['city'].force_encoding('UTF-8') : 'Не определен'
+

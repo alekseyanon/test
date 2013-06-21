@@ -231,4 +231,15 @@ $inputHeight: $baseLineHeight + 12px; // base line-height + 10px vertical paddin
   }
 }
 
+/* mixin for adding gray dot before block */
+@mixin before-gray-dot{
+  &:before{
+    content: "\b7";
+    margin: 0 10px 0 10px;
+    font-weight: bold;
+    color: $siteLightGray;
+  }
+}
+
+
 /* ---------------------------------------- MIXINS END ------------------------------------------ */

@@ -30,20 +30,35 @@ module ApplicationHelper
 
   def new_complaint_polymorphic_path votable
     new_polymorphic_path( if votable.is_a? Comment
-                            [votable.commentable, votable, votable.complaints.build]
+                            [votable.commentable]
+                          elsif votable.is_a? Runtip
+                            [votable.geo_object ]
                           else
-                            [votable, votable.complaints.build]
-                          end )
+                            []
+                          end + [votable, votable.complaints.build])
   end
 
-  def new_vote_polymorphic_path votable
-     polymorphic_path( if votable.is_a? Comment
-                        [votable.commentable, votable, votable.votes.build]
-                      elsif votable.is_a? Review
-                        [votable.reviewable, votable, votable.votes.build]
-                      else
-                        [votable, votable.votes.build]
-                      end )
+  ### TODO: предполагаем что параметров может быть до 3-х
+  ### votable - модель за которую голосуем
+  ### *params может содержать тег модели за которую голосуем
+  ### и формат данных(json)
+  ### new_vote_polymorphic_path @geo_object
+  ### new_vote_polymorphic_path @geo_object, format: :json
+  ### new_vote_polymorphic_path @geo_object, 'tag'
+  ### new_vote_polymorphic_path @geo_object, 'tag', format: :json
+  def new_vote_polymorphic_path votable, *params
+    options = {}
+    args =  [:api] + if votable.is_a? Comment
+                       [votable.commentable]
+                     elsif votable.is_a? Runtip
+                       [votable.geo_object]
+                     else
+                       []
+                     end  + [votable, votable.votes.build]
+    params.compact.each do |p|
+      options.merge!((p.is_a? String) ? {voteable_tag: p} : p)
+    end
+    polymorphic_path args, options
   end
 
   def ip_location ip

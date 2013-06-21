@@ -1,6 +1,11 @@
 class Api::RuntipsController < ApplicationController
   
   def create
+    @geo_object = GeoObject.find(params[:geo_object_id])
+    @runtip = @geo_object.runtips.build(params[:runtip])
+    @runtip.user = current_user
+    @runtip.save
+    @runtip
   end
 
   def update
@@ -13,7 +18,7 @@ class Api::RuntipsController < ApplicationController
   end
 
   def index
-    @runtips = GeoObject.find(params[:object_id]).runtips
+    @runtips = GeoObject.find(params[:geo_object_id]).runtips
   end
 
 end

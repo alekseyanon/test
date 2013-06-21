@@ -4,7 +4,7 @@ class GeoObjectsController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
 
   respond_to :json
-  respond_to :html, except: [:coordinates, :nearest_node, :count]
+  respond_to :html, except: [:coordinates, :nearest_node, :count, :my_location]
 
   def sanitize_search_params(params)
     params && params.symbolize_keys.slice(:text, :x, :y, :r, :facets, :sort_by, :agc_id) #TODO consider using ActiveRecord for this
@@ -111,6 +111,10 @@ class GeoObjectsController < ApplicationController
     respond_with GeoObject.count
   end
 
+  def my_location
+    respond_with Agu.by_ip(request.remote_ip)
+  end
+
   protected
 
   def get_categories
@@ -141,5 +145,5 @@ class GeoObjectsController < ApplicationController
     end
     geo_objects
   end
-
+  
 end

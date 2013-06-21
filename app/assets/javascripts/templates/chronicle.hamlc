@@ -1,0 +1,7 @@
+- for day, objects of @days
+  %div.chronicle__section
+    %div.chronicle__section__header
+      %b
+        = day
+    %div.chronicle__section__content
+      != JST['chronicle_day_items'](objects: objects)

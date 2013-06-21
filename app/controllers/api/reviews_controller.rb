@@ -1,6 +1,11 @@
 class Api::ReviewsController < ApplicationController
   
   def create
+    @geo_object = GeoObject.find params[:geo_object_id]
+    @review = @geo_object.reviews.build params[:review]
+    @review.user = current_user
+    @review.save
+    @review
   end
 
   def update
@@ -13,7 +18,7 @@ class Api::ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = GeoObject.find(params[:object_id]).reviews
+    @reviews = GeoObject.find(params[:geo_object_id]).reviews
   end
 
 end

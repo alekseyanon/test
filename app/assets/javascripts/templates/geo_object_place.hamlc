@@ -1,0 +1,36 @@
+%div.smorodina-item__img
+  %div.smorodina-item__img__inner
+  -if @image
+    %image{ src: @image.image.thumb.url, alt: "Фото", width: 130, height: 90 }
+  -else
+    %image{ src: '/assets/tmp/130x90.gif', alt: 'Фото', width: 130, height: 90 }
+%div.smorodina-item__content
+  %div.row-fluid
+    %div.span8
+      %div.smorodina-item__title
+        %a{href: "/objects/#{@slug}"}
+          %b= @title
+      %div.smorodina-item__geo
+        %span.icon.icon-marker.smorodina-item__geo__icon
+        %ul.smorodina-item__geo__list
+          - $.each @agc_titles, (index, value) ->
+            %li
+              %a.tdn-link{ href: "/places/#{index}" }
+                = value
+      %div.smorodina-item__tags
+        %span.icon.icon-tags.smorodina-item__tags__icon
+        %ul.smorodina-item__tags__list
+          - for tag in @tag_list
+            %li
+              %a.tdn-link{ href: '#' }= tag
+    %div.span4
+      %div.smorodina-item__rating
+        %span.smorodina-item__rating__text
+          Рейтинг объекта
+        %span.smorodina-item__rating__number
+          = @average_rating
+
+      %div.smorodina-item__comments
+        %a{ href: "/objects/#{@slug}/reviews/new" }
+          оставить отзыв
+        %span.icon.icon-comments.smorodina-item__comments__icon

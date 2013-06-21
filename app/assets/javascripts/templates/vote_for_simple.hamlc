@@ -1,0 +1,19 @@
+- user_css = switch @rating.current_user_vote
+  - when -1 then 'voted_down'
+  - when 1 then 'voted_up'
+  - else ''
+ 
+%div{class: "pic_vote simple #{user_css}", data: {vote_url: @rating.vote_url, user_vote: @rating.current_user_vote}}
+  .pic_vote__up
+    %form{method: "post", action: @rating.vote_url}
+      %input(type="hidden" value="up" name="sign" id="sign")
+      %button(type="submit" name="button" class="icon-thumbs-up ui-link")
+  .pic_vote__count.up
+    = @rating.votes_for
+  .pic_vote__down
+    %form{method: "post", action: @rating.vote_url}
+      %input(type="hidden" value="down" name="sign" id="sign")
+      %button(type="submit" name="button" class="icon-thumbs-down ui-link")
+  .pic_vote__count.down
+    = @rating.votes_against
+

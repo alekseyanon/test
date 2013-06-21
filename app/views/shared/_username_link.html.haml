@@ -1,0 +1,5 @@
+%span.user-link
+  - unless user.nil?
+    - uname = (user.profile.name.nil?) ? 'Anonymous' : user.profile.name
+    = link_to raw(content_tag(:span, '', class: 'icon icon-user user-link__icon') + uname), profile_path(user), class: 'tdn-link'
+

@@ -7,6 +7,12 @@ describe GeoObject do
   it { should validate_presence_of :title }
   it { should belong_to :user }
 
+  it 'have agc after create' do
+    make_sample_agus!
+    Agc.make!
+    obj = GeoObject.make! geom: 'POINT(0 0)', agc: nil
+    obj.agc.should_not be_nil
+  end
 
   describe "geometry requests" do #TODO move to shared example group with landmarks and nodes altogether
     let(:triangle)     { to_points [[10, 10], [20, 20], [30, 10]] }
@@ -16,17 +22,7 @@ describe GeoObject do
       described_class.bounding_box(15,15,40,40).should =~ [descriptions[1]]
     end
 
-    it '.within_radius' do
-      described_class.within_radius(triangle[0], 10).should =~ descriptions[0..0]
-      described_class.within_radius(triangle[0], 15).should =~ descriptions[0..1]
-      described_class.within_radius(triangle[0], 20).should =~ descriptions
-      described_class.within_radius(triangle[2], 15).should =~ descriptions[1..2]
-    end
-
-    it '.objects_nearby' do
-      descriptions[0].objects_nearby(15).should =~ [descriptions[1]]
-    end
-
+    it_behaves_like 'search within radius'
   end
 
   describe '.search' do
@@ -42,13 +38,13 @@ describe GeoObject do
 
     context 'for combined geospatial and text queries' do
       it_behaves_like "combined search" do
-        let(:osm){ Osm::Node.make! geom: Geo::factory.point(10, 10) }
+        let(:osm){ Osm::Node.make! geom: Geo::factory.point(29.991, 60.00527) }
       end
     end
 
     context 'for faceted combined geospatial and text queries' do
       it_behaves_like "combined faceted search" do
-        let(:osm){ Osm::Node.make! geom: Geo::factory.point(10, 10) }
+        let(:osm){ Osm::Node.make! geom: Geo::factory.point(29.991, 60.00527) }
       end
     end
 
@@ -65,5 +61,15 @@ describe GeoObject do
       end
     end
 
+    context 'for newest scope' do
+      it 'sorting of GeoObjects' do
+        GeoObject.destroy_all
+        g1 = GeoObject.make!
+        g2 = GeoObject.make!
+        g3 = GeoObject.make!
+        GeoObject.all.should == [g1, g2, g3]
+        GeoObject.newest.all.should == [g3 ,g2, g1]
+      end
+    end
   end
 end
