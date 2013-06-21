@@ -32,7 +32,6 @@ namespace :fake do
 
     DEFAULT_PASSWORD = "12345678"
 
-
     #generic function for users creation
     def user_creation opts = {}
       u = User.new

@@ -7,7 +7,7 @@ namespace :fake do
     puts '----------------------------------------------------------------------'
     puts '-------------------------- CREATING EVENTS --------------------------'
     puts '----------------------------------------------------------------------'
-    Agc.limit(3).all.each do |agc|
+    Agc.limit(3).each do |agc|
       3.times do 
         images = Array.new(3)
         images.map! { Image.make! image: File.open(pick_random_image('objects')) }
