@@ -1,7 +1,7 @@
 %div.smorodina-item__img
   %div.smorodina-item__img__inner
   -if @image
-    %image{ src: @image.image.thumb.url, alt: "Фото", width: 130, height: 90 }
+    %image{ src: @image.image.chronicalthumb.url, alt: "Фото", width: 130, height: 90 }
   -else
     %image{ src: '/assets/tmp/130x90.gif', alt: 'Фото', width: 130, height: 90 }
 %div.smorodina-item__content
