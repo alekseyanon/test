@@ -6,6 +6,10 @@ module Searchable
     end
 
     base.scope :newest, base.order('created_at DESC')
+
+    base.scope :newest_list, ->( window, offset) do
+      base.order('created_at DESC').limit(window).offset(offset)
+    end
   end
 
   module ClassMethods

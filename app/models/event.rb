@@ -147,6 +147,10 @@ class Event < ActiveRecord::Base
     (end_date - start_date) / 1.day
   end
 
+  def day_creation
+    self.created_at.strftime('%d %b %y')
+  end
+
   # Add mehods weekly?, monthly?, etc. to instance
   REPEAT_RULES.each do |rr|
     define_method(rr.to_s+'?') { repeat_rule == rr }
@@ -191,6 +195,16 @@ class Event < ActiveRecord::Base
     self.event_tags = names.split(",").map do |n|
       EventTag.where(title: n.strip).first_or_create!
     end
+  end
+
+  def tags_titles
+    Hash[self.event_tags.map{|i| [i.id , i.title]}]
+  end
+
+  def event_dates
+    start_date = Russian::strftime(self.start_date, '%e %B')
+    end_date = Russian::strftime(self.end_date, '%e %B')
+    (start_date == end_date) ? start_date : "#{start_date} - #{end_date}"
   end
 
   def repeat_period

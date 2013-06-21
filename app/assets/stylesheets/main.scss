@@ -952,7 +952,7 @@ a:hover,
 .smorodina-item__img {
   position: relative;
   float: left;
-  margin: 0 20px 0 10px;
+  margin: 5px 25px 0 10px;
 }
 
 .smorodina-item__img_shadow {
@@ -991,6 +991,30 @@ a:hover,
 
 .smorodina-item__img__inner > img {
   display: block;
+}
+
+.smorodina-item__state {
+  color:#fff;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 1;
+  line-height: 19px;
+  padding: 0 6px;
+  font-size: 11px;
+  @include border-radius(3px);
+}
+
+.event_state-started__background{
+  background:#A9C437;
+}
+
+.event_state-ended__background{
+  background:#BCB2BB;
+}
+
+.event_state-canceled__background{
+  background: #767676;
 }
 
 .smorodina-item__content {
@@ -1041,6 +1065,11 @@ a:hover,
   @include trailer(0.25);
 }
 
+.smorodina-item__dates {
+  color: #414141;
+  font-size: 13px;
+}
+
 .smorodina-item__user {
   @include leader(0.25);
 }
@@ -1082,7 +1111,10 @@ a:hover,
   left: 3px;
 }
 
-.smorodina-item__tags__list > li:after,
+.smorodina-item__tags__list > li:after {
+  content: '\2c';
+}
+
 .smorodina-item__geo__list > li:after {
   content: '\2192';
 }
