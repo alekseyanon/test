@@ -2,11 +2,15 @@ class Smorodina.Views.Chronicle extends Backbone.View
   el: '.chronicle'
   template: JST['chronicle']
   events:
-    'click .fetch-results__button a':  'add_items'
+    'click .fetch-results__button a':     'add_items'
+    'click .chronicle__search__all':      'add_items'
+    'click .chronicle__search__objects':  'add_object_items'
+    'click .chronicle__search__events':   'add_event_items'
 
   initialize: ->
     _.bindAll @
     @last_day = 0
+    @content_type = 'all'
     @$chronicle_elem = $('.backbone_chronicle_content')
     @collection.on('sync', @render, @)
     @collection.fetch()
@@ -28,5 +32,20 @@ class Smorodina.Views.Chronicle extends Backbone.View
     @last_day = _.last(dates)
 
   add_items: (e) ->
+    e.preventDefault()
+    @collection.fetch(data:
+                        go_offset: @collection.go_offset
+                        event_offset: @collection.event_offset)
+
+  add_object_items: (e) ->
+    e.preventDefault()
+    @content_type = 'geo_object'
+    @collection.fetch(data:
+                        go_offset: @collection.go_offset
+                        event_offset: @collection.event_offset
+                        type: @content_type)
+    add_items()
+
+  add_event_items: (e) ->
     e.preventDefault()
     @collection.fetch({data: {go_offset: @collection.go_offset, event_offset: @collection.event_offset}})

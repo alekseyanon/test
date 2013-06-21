@@ -47,8 +47,12 @@
         Показывать
       %span
         %select#chronicleSearchType.input-medium
-          %option
+          %option.chronicle__search__all
             Все записи
+          %option.chronicle__search__objects
+            Объекты
+          %option.chronicle__search__events
+            События
     %div.chronicle__search__field
       %label.chronicle__search__field__label{ for: "chronicleSearchPlace" }
         Где?
