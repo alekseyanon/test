@@ -31,7 +31,7 @@ namespace :fake do
     IMAGES_DIR.join(img).to_s
   end
 
-  seed_images
+  seed_images 
 
   task users: :environment do
 
