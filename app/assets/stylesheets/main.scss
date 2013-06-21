@@ -994,27 +994,10 @@ a:hover,
 }
 
 .smorodina-item__state {
-  color:#fff;
   position: absolute;
   top: 2px;
   right: 2px;
   z-index: 1;
-  line-height: 19px;
-  padding: 0 6px;
-  font-size: 11px;
-  @include border-radius(3px);
-}
-
-.event_state-started__background{
-  background:#A9C437;
-}
-
-.event_state-ended__background{
-  background:#BCB2BB;
-}
-
-.event_state-canceled__background{
-  background: #767676;
 }
 
 .smorodina-item__content {
