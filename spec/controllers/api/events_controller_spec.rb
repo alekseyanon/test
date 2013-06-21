@@ -6,6 +6,7 @@ describe Api::EventsController do
   describe 'GET week' do
 
     it 'returns events for specified date + 7 days' do
+      Event.destroy_all
       events = dates_to_events [7.days.ago, 4.days.ago, 3.days.ago, 1.days.from_now, 15.days.from_now]
       get :week, date: 5.days.ago.strftime('%F')
       assigns(:events).should =~ [events[1],events[2],events[3]]
@@ -32,6 +33,9 @@ describe Api::EventsController do
   end
 
   describe 'GET search' do          # 0             1           2           3           4                 5
+    before :all do
+      Event.destroy_all
+    end
     let!(:events){ dates_to_events([7.days.ago, 4.days.ago, 3.days.ago, Time.now, 1.days.from_now, 15.days.from_now]) }
     let!(:event) { Event.make!(title: 'New beautiful event', start_date: 50.days.from_now, tag_list: 'zzz, xxx, yyy') }
 

@@ -14,7 +14,7 @@ class Api::ChroniclesController < ApplicationController
                else
                  get_all_objects(go_offset, event_offset)
                end
-    @go_offset = go_offset + (go_count = @objects.select{|item| item.class == GeoObject}.size)
+    @go_offset = go_offset + (go_count = @objects.select{|item| item.is_a? GeoObject}.size)
     @event_offset = event_offset + @objects.size - go_count
   end
 
@@ -30,13 +30,13 @@ class Api::ChroniclesController < ApplicationController
 
   def get_all_objects(go_offset, event_offset, window = CHRONICLE_PAGINATION_ITEMS)
     objects = GeoObject.newest_list(window + 1, go_offset) + Event.newest_list(window + 1, event_offset)
-    objects.sort!{|x,y| x.created_at <=> y.created_at}.reverse!
+    objects.sort_by!{|obj| obj.created_at}.reverse!
     if objects.present? && objects.size > window &&
             objects.first(window).group_by { |o| o.day_creation }.values.last.count.odd? &&
             objects[window].present? &&
             objects.last.day_creation == objects[window].day_creation
       window += 1
     end
-    objects.first(window)
+    objects.first window
   end
 end
