@@ -20,11 +20,18 @@ namespace :fake do
   #   Facebook: [test98732both@yandex.ru, 123456ab]
   #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
-  def pick_random_image(subdir)
-    dir = Rails.root.join('spec', 'fixtures', 'images', subdir)
-    img = Dir.entries(dir).reject!{|file| ['.', '..'].include? file}.sample
-    dir.join(img).to_s
+  IMAGES_DIR = Rails.root.join('spec', 'fixtures', 'tmp_imgs')
+
+  def seed_images
+    15.times{|i| `curl http://lorempixel.com/300/300/ -o #{IMAGES_DIR}/#{i}.jpg`}
   end
+
+  def pick_random_image
+    img = Dir.entries(IMAGES_DIR).reject!{|file| ['.', '..'].include? file}.sample
+    IMAGES_DIR.join(img).to_s
+  end
+
+  # seed_images
 
   task users: :environment do
 
@@ -40,7 +47,7 @@ namespace :fake do
       u.save
       if opts[:generate_profile]
         u.profile.name   = Faker::Lorem.word
-        u.profile.avatar = File.open pick_random_image('avatars')
+        u.profile.avatar = File.open pick_random_image
         u.profile.save!
       end
     end

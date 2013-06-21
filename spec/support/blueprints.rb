@@ -71,8 +71,8 @@ Review.blueprint do
 end
 
 Image.blueprint do
-  image { File.open("#{Rails.root}/spec/fixtures/images/objects/#{Random.rand(1..20)}.jpg") }
-  user { User.make! }
+  image { File.open("#{Rails.root}/spec/fixtures/fishing/toon376.gif") }
+  user  { User.make! }
   imageable { GeoObject.make! }
 end
 

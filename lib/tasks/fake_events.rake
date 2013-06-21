@@ -10,7 +10,7 @@ namespace :fake do
     Agc.limit(3).each do |agc|
       3.times do 
         images = Array.new(3)
-        images.map! { Image.make! image: File.open(pick_random_image('objects')) }
+        images.map! { Image.make! image: File.open(pick_random_image) }
         e = Event.make! events.sample
         e.images = images 
         e.agc = agc
