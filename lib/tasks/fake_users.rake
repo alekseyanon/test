@@ -20,11 +20,10 @@ namespace :fake do
   #   Facebook: [test98732both@yandex.ru, 123456ab]
   #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
-  PLACEHOLDERS_FOLDER = Rails.root.join('public', 'placeholders')
-
-  def pick_random_avatar
-    img = Dir.entries(PLACEHOLDERS_FOLDER).reject!{|file| ['.', '..'].include? file}.sample
-    PLACEHOLDERS_FOLDER.join(img).to_s
+  def pick_random_image(subdir)
+    dir = Rails.root.join('spec', 'fixtures', 'images', subdir)
+    img = Dir.entries(dir).reject!{|file| ['.', '..'].include? file}.sample
+    dir.join(img).to_s
   end
 
   task users: :environment do
@@ -42,7 +41,7 @@ namespace :fake do
       u.save
       if opts[:generate_profile]
         u.profile.name   = Faker::Lorem.word
-        u.profile.avatar = File.open(pick_random_avatar)
+        u.profile.avatar = File.open pick_random_image('avatars')
         u.profile.save!
       end
     end

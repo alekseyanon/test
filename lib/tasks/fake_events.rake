@@ -4,7 +4,9 @@ namespace :fake do
   task events: :environment do
     load "#{Rails.root}/spec/support/blueprints.rb"
     events = YAML::load_file('spec/fixtures/events.yml')
-    puts '======================= CREATING EVENTS ============================='
+    puts '----------------------------------------------------------------------'
+    puts '-------------------------- CREATING EVENTS --------------------------'
+    puts '----------------------------------------------------------------------'
     Agc.limit(3).all.each do |agc|
       3.times do 
         images = Array.new(3)
@@ -13,6 +15,7 @@ namespace :fake do
         e.images = images 
         e.agc = agc
         e.save!
+        puts "Event - #{e.id}"
       end
     end
   end
