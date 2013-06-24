@@ -11,6 +11,7 @@ class Smorodina.Views.Chronicle extends Backbone.View
     @last_day = 0
     @$content_type = ''
     @$search_text = ''
+    @$fetch_button = $('#searchResultsFetch')
     @$chronicle_elem = $('.backbone_chronicle_content')
     @collection.on('sync', @render, @)
     @collection.fetch()
@@ -20,6 +21,7 @@ class Smorodina.Views.Chronicle extends Backbone.View
     @
 
   addAll: ->
+    @$fetch_button.hide()
     if @collection.length > 0
       @days = _.groupBy @collection.models, (model) ->
         model.get('creation_date')
@@ -31,9 +33,9 @@ class Smorodina.Views.Chronicle extends Backbone.View
         delete @days[first_date]
       @$chronicle_elem.append @template(days: @days)
       @last_day = _.last(dates)
-      $('#searchResultsFetch').show()
+      unless @collection.end_collection?
+        @$fetch_button.show()
     else
-      $('#searchResultsFetch').hide()
       unless @collection.go_offset && @collection.event_offset
         @$content_type = $('#chronicleSearchType').val()
         @$search_text = $('#chronicleSearchPlace').val()
