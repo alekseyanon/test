@@ -17,7 +17,7 @@ Smorodina::Application.routes.draw do
     get 'agus/search'
     match 'objects/:id/nearby' => 'objects#nearby'
     match 'objects/:id' => 'objects#show'
-    resources :objects do
+    resources :geo_objects, path: 'objects' do
       resources :votes, only: [:create, :index]
       delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
       resources :runtips do

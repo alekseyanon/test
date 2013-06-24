@@ -39,6 +39,9 @@ class User < ActiveRecord::Base
   has_many :geo_objects
   has_one :profile
 
+  delegate :name, to: :profile
+  delegate :avatar_url, to: :profile
+
   #TODO remove hack
   before_validation :set_role
   after_create :create_profile
@@ -57,6 +60,10 @@ class User < ActiveRecord::Base
     else
       self.errors.add(:email, ' is already in use') if User.pluck(:email).uniq.include? self.email
     end
+  end
+
+  def username
+    self.name || self.email || "Пользователь #{self.id}"
   end
 
   def create_profile
