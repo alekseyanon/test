@@ -3,14 +3,13 @@ class Smorodina.Views.Chronicle extends Backbone.View
   template: JST['chronicle']
   events:
     'click .fetch-results__button a':     'add_items'
-    'click .chronicle__search__all':      'add_items'
-    'click .chronicle__search__objects':  'add_object_items'
-    'click .chronicle__search__events':   'add_event_items'
+    'change #chronicleSearchType':   'select_type_items'
 
   initialize: ->
     _.bindAll @
     @last_day = 0
-    @content_type = 'all'
+    @content_type = ''
+    @search_text = ''
     @$chronicle_elem = $('.backbone_chronicle_content')
     @collection.on('sync', @render, @)
     @collection.fetch()
@@ -35,17 +34,17 @@ class Smorodina.Views.Chronicle extends Backbone.View
     e.preventDefault()
     @collection.fetch(data:
                         go_offset: @collection.go_offset
-                        event_offset: @collection.event_offset)
-
-  add_object_items: (e) ->
-    e.preventDefault()
-    @content_type = 'geo_object'
-    @collection.fetch(data:
-                        go_offset: @collection.go_offset
                         event_offset: @collection.event_offset
-                        type: @content_type)
-    add_items()
+                        type: @content_type
+                        text: @search_text)
 
-  add_event_items: (e) ->
+  select_type_items: (e) ->
     e.preventDefault()
-    @collection.fetch({data: {go_offset: @collection.go_offset, event_offset: @collection.event_offset}})
+    @content_type = $('#chronicleSearchType :selected').data('type')
+    @$chronicle_elem.html('')
+    @collection.fetch(data:
+                        go_offset: 0
+                        event_offset: 0
+                        type: @content_type
+                        text: @search_text)
+
