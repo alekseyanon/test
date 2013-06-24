@@ -1345,6 +1345,11 @@ display: block;
   background-color: red;
 }
 
+.search-filter__second-level li.deselected > .filter-category__text {
+  background-color: white;
+  border: 0;
+}
+
 .search-filter__second-level li.semi-selected > .filter-category__text {
   background-color: pink;
 }
