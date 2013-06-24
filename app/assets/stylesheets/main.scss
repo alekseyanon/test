@@ -936,6 +936,12 @@ a:hover,
   @include vignette(60px, 1px, middle, center, $lightgrey);
 }
 
+.chronicle__empty {
+  border-top: 1px dotted $lightgrey;
+  text-align: center;
+  padding-top: 25px;
+}
+
 .smorodina-item {
   border-top: 1px dotted $lightgrey;
   margin-bottom: -1px;
