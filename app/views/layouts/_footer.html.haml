@@ -5,19 +5,20 @@
         %div.footer__copyright
           &copy; 2013 Смородина
         %div.footer__copyright-description
-          Текст об условиях использования контента сайта и материалов пользователей,
-          политика конфиденциальности, об отсутствии ответственности за качество,
-          цены и прочих партнерских сервисов
+          %a.tdn-link{href: '/terms'}
+            Текст об условиях использования контента сайта и материалов пользователей,
+            политика конфиденциальности, об отсутствии ответственности за качество,
+            цены и прочих партнерских сервисов
       %div.span4
         %ul.footer__menu
           %li
-            %a{href: "#"}
+            %a.action-link{href: "/about"}
               Контактная информация
           %li
-            %a{href: '#feedback', data: {toggle: 'modal'}}
+            %a.action-link{href: '#feedback', data: {toggle: 'modal'}}
               Обратная связь
           %li
-            %a{href: "#"}
+            %a.action-link{href: "/sitemap"}
               Карта сайта
       %div.span2.footer__social-block
         %img{ src: '/assets/tmp/vk.png' }
