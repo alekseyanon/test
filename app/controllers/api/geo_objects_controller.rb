@@ -1,4 +1,4 @@
-class Api::ObjectsController < ApplicationController
+class Api::GeoObjectsController < ApplicationController
   def sanitize_search_params(params) #TODO remove duplication in geo_objects_controller.rb
     params && params.symbolize_keys.
         slice(:text, :x, :y, :r, :bounding_box, :facets, :sort_by, :agc_id).
