@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::ObjectsController do
+describe Api::GeoObjectsController do
 
   describe "GET 'nearby'" do
     it 'render returns objects nearby another' do
