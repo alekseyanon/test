@@ -31,7 +31,7 @@ initMyLocationControl = (map)->
     map.addControl(commandControl);
 
     showMyLocation = (_,e)->
-      $.get 'objects/my_location', (data)->
+      $.get '/objects/my_location', (data)->
         if data
           map.setView data.reverse(), 13
           $('.map').data coords: data
