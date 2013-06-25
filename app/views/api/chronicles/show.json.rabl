@@ -7,7 +7,7 @@ node(:event_offset) { @event_offset.to_s }
 node(:end_collection) { @end_collection if @end_collection }
 
 child @objects => :items do
-  attributes :id, :title, :agc_id
+  attributes :id, :title, :agc_id, :created_at
 
   node(:type) {|obj| obj.class.to_s.underscore}
   node(:tags) {|obj| obj.tags_titles if obj.is_a? Event}

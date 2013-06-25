@@ -23,15 +23,17 @@ class Smorodina.Views.Chronicle extends Backbone.View
   addAll: ->
     @$fetch_button.hide()
     if @collection.length > 0
-      @days = _.groupBy @collection.models, (model) ->
-        model.get('creation_date')
-      dates = _.keys(@days)
+      ##TODO: remove this sorting and get sorted collection from server
+      collection = _.sortBy(@collection.models, (model) -> model.get('created_at')).reverse()
+
+      @days_array = _.groupBy(collection, (model) -> model.get('creation_date'))
+      dates = _.keys(@days_array)
       first_date = dates[0]
       if @last_day == first_date
         elem = $('.chronicle__section').last()
-        elem.append JST['chronicle_day_items'](objects: @days[first_date])
-        delete @days[first_date]
-      @$chronicle_elem.append @template(days: @days)
+        elem.append JST['chronicle_day_items'](objects: @days_array[first_date])
+        delete @days_array[first_date]
+      @$chronicle_elem.append @template(days: @days_array)
       @last_day = _.last(dates)
       unless @collection.end_collection?
         @$fetch_button.show()
@@ -51,6 +53,7 @@ class Smorodina.Views.Chronicle extends Backbone.View
 
   select_type_items: (e) ->
     e.preventDefault()
+    @last_day = 0
     @$content_type = $('#chronicleSearchType :selected').data('type')
     @$search_text = $('#chronicleSearchPlace').val()
     @$chronicle_elem.html('')
