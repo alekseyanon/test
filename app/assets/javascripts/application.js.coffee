@@ -113,11 +113,11 @@ router = new Smorodina.Routers.Global
 router.route "events", "events", Smorodina.Pages.Events
 router.route "events/search", "events", Smorodina.Pages.Events
 router.route "objects/search", "geo_objects", Smorodina.Pages.GeoObjects
-router.route "", "index", Smorodina.Pages.Index
+router.route /objects\/(?!search).*/, "images_index", Smorodina.Pages.ObjectShow
 router.route "objects/:object_name/images/:image_id", "image_show", Smorodina.Pages.ImageShow
-router.route "images/:image_id", "image_show", Smorodina.Pages.ImageShow
 router.route "objects/:param/images", "images_index", Smorodina.Pages.ImagesIndex
-router.route "objects/:object_name", "images_index", Smorodina.Pages.ObjectShow
+router.route "", "index", Smorodina.Pages.Index
+router.route "images/:image_id", "image_show", Smorodina.Pages.ImageShow
 router.route "places/:place_name", "places_controller", Smorodina.Pages.PlaceShow
 Backbone.history.start hashChange: false
 

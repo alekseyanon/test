@@ -4,8 +4,8 @@
     %div.smorodina-item__img__inner
       %image{ src: "#{@chronicle_item.get('image')}", alt: "Фото", width: 130, height: 90 }
     -if !!(state = @chronicle_item.get('state')) && state != 'new'
-      %div.smorodina-item__state(class="event_state-#{state}__background")
-        = @chronicle_item.get('rus_state')
+      %div.smorodina-item__state
+        %image{src: "/assets/icons/#{state}.png"}
   %div.smorodina-item__content
     %div.smorodina-item__title
       %a{href: "#{@chronicle_item.get('url')}"}
