@@ -63,12 +63,13 @@ window.geo_object_edit = ->
   [map, _] = initMap()
   latlng = getLatLng()
   map.setView latlng, 13
-  L.marker(latlng).addTo map
+  marker = L.marker( latlng, draggable: true )
+  marker.addTo map
   popup = L.popup()
-  map.on 'click', (e) ->
-    showLatLng e.latlng
+  marker.on 'drag', (e) ->
+    showLatLng e.target.getLatLng()
     popup
-      .setLatLng(e.latlng)
+      .setLatLng(e.target.getLatLng())
       .setContent("New place of object")
       .openOn(map)
 
