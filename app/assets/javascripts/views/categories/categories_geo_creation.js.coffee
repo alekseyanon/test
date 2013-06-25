@@ -12,8 +12,7 @@ class Smorodina.Views.CategoriesGeoCreation extends Smorodina.Views.Base
     @collection.set 'tag_list_input', @$tag_list_input
 
     @collection.on 'reset', @render
-    @collection.on 'finishPainting', @updateTagSelectList
-    @$tag_list_input.on 'change', @updateTagPopupList
+    @collection.on 'updateSelectionList', @updateSelectionList
 
     @collection.fetch(reset: true)
 
@@ -24,15 +23,12 @@ class Smorodina.Views.CategoriesGeoCreation extends Smorodina.Views.Base
     category = new Smorodina.Views.Category( model : model )
     @$container.append category.render( visible : true ).el
   
-  toggleList: (e)->
+  toggleList: ->
     @$container.toggle()
+    @collection.fromListToTree( @$tag_list_input.select2('val') ) if @$container.is(':visible')
     false
 
-  updateTagSelectList: ->
+  updateSelectionList: ->
     tag_list = @collection.activeElements().map (c) => c.get('name')
     @$tag_list_input.select2( 'val', tag_list )
-  
-  updateTagPopupList: (eventSelect) ->
-    console.log eventSelect
-    changed_tag = if eventSelect.added? then eventSelect.added.id else eventSelect.removed.id
-    @collection.findWhere( name: changed_tag ).updateBySelectTagList()
+    

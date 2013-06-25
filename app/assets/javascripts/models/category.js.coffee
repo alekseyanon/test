@@ -16,6 +16,7 @@ class Smorodina.Models.Category extends Backbone.Model
     @updateParent( parentNode ) if parentNode = @parent()
     @updateChildren( new_state ) if @children()
     @updateSiblings() if @siblings() and new_state = 'selected'
+    @collection.trigger 'updateSelectionList'
     
   # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
   updateByEmblem: (is_visible)->
