@@ -118,6 +118,7 @@ Smorodina::Application.routes.draw do
     get '/about', action: 'about'
     #TODO: Terms Of Service page
     get '/terms', action: 'terms'
+    get '/sitemap', action: 'sitemap'
   end
 
   controller :feedbacks do

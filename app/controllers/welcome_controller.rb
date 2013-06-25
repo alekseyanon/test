@@ -27,6 +27,9 @@ class WelcomeController < ApplicationController
   end
   def about
   end
+  
+  def sitemap
+  end
 
   def terms
   end
