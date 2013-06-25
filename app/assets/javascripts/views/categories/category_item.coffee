@@ -7,9 +7,7 @@ class Smorodina.Views.Category extends Backbone.View
   initialize: ->
     _.bindAll(@)
     @model.on 'change:visibility', @toggleVisibility
-    @model.on 'change:selected', @toggleSelected
-    @model.on 'change:semiSelected', @toggleSemiSelected
-    @model.on 'change:bordered', @toggleBordered
+    @model.on 'change:state', @toggleState
 
   render: ( visible = false )->
     @are_categories_visible_by_default = visible
@@ -32,15 +30,10 @@ class Smorodina.Views.Category extends Backbone.View
     @model.kickOff()
     e.stopPropagation()
 
+  toggleState: (model)->
+    new_state = model.get('state')
+    for state in ['bordered', 'semi-selected', 'selected', 'deselected']
+      @$el.toggleClass state, new_state == state
+
   toggleVisibility: (model, val)->
     @$el.toggle val 
-    
-  toggleBordered: ->
-    @$el.toggleClass 'bordered', @model.get('bordered')
-
-  toggleSemiSelected: ->
-    @$el.toggleClass 'semi-selected', @model.get('semiSelected')
-
-
-  toggleSelected: ->
-    @$el.toggleClass 'selected', @model.get('selected')
