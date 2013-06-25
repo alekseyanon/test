@@ -25,14 +25,17 @@ class Api::EventsController < ApplicationController
     end
     @events = Event.scoped
     @events = @events.search(query) unless query.blank?
-    @events = @events.includes(:event_tags).where('event_tags.id' => params[:tag_id]) if params[:tag_id]
-    if params[:sort_by] == 'rating'
-      @events = @events.order('rating DESC')
+
+    if params[:autocomplete]
+      params[:limit] ||= Event::AUTOCOMPLETE_LIMIT
+      @events = @events.autocomplete_search(params[:autocomplete]).limit(params[:limit])
+      render template: "api/events/autocomplete", formats: :json
     else
-      @events = @events.order('start_date')
+      @events = @events.includes(:event_tags).where('event_tags.id' => params[:tag_id]) if params[:tag_id]
+      @events = (params[:sort_by] == 'rating') ? @events.order('rating DESC') : @events.order('start_date')
+      @events = @events.page params[:page]
+      render json: @events
     end
-    @events = @events.page params[:page]
-    render json: @events
   end
 
 end

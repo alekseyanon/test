@@ -94,6 +94,13 @@ class Event < ActiveRecord::Base
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'}
 
+  AUTOCOMPLETE_LIMIT = 5
+
+  pg_search_scope :autocomplete_search,
+                  against: {title: 'A', body: 'B'},
+                  associated_against: { event_tags: {title: 'C' } },
+                  using: {tsearch: {prefix: true} }
+
   scope :within_date_range, ->(from, to) do
     if to
       where 'start_date >= ? AND start_date <= ?', from, to

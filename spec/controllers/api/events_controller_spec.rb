@@ -37,7 +37,7 @@ describe Api::EventsController do
       Event.destroy_all
     end
     let!(:events){ dates_to_events([7.days.ago, 4.days.ago, 3.days.ago, Time.now, 1.days.from_now, 15.days.from_now]) }
-    let!(:event) { Event.make!(title: 'New beautiful event', start_date: 50.days.from_now, tag_list: 'zzz, xxx, yyy') }
+    let!(:event) { Event.make!(title: 'New beautiful event', body: "This is a special test text", start_date: 50.days.from_now, tag_list: 'zzz, xxx, yyy') }
 
     it 'can sort results by date or rate' do
       get :search, from: 8.days.ago.strftime('%F'), to: Time.now.strftime('%F'), sort_by: 'date'
@@ -76,6 +76,21 @@ describe Api::EventsController do
       tag = EventTag.find_by_title 'zzz'
       get :search, tag_id: tag.id
       assigns(:events).should == [event]
+    end
+
+    it 'can autocomplete by title' do
+      get :search, autocomplete: 'beau'
+      assigns(:events).should eq([event])
+    end
+
+    it 'can autocomplete by body' do
+      get :search, autocomplete: 'speci'
+      assigns(:events).should eq([event])
+    end
+
+    it 'can autocomplete by tags' do
+      get :search, autocomplete: 'xxx'
+      assigns(:events).should eq([event])
     end
 
     context 'place' do
