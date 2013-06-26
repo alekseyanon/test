@@ -28,5 +28,5 @@ class Smorodina.Views.CategoriesGeoCreation extends Smorodina.Views.Base
     false
 
   updateSelectionList: ->
-    tag_list = @collection.activeElements().map (c) => c.get('name')
+    tag_list = @collection.activeElements().map (c) -> c.get('name')
     @$tag_list_input.select2( 'val', tag_list )
