@@ -1,7 +1,7 @@
 namespace :fake do
 
   desc "generate fake events"
-  task events: :environment do
+  task events: :prepare_images_seed do
     load "#{Rails.root}/spec/support/blueprints.rb"
     events = YAML::load_file('spec/fixtures/events.yml')
     puts '----------------------------------------------------------------------'
