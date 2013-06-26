@@ -20,6 +20,19 @@ namespace :fake do
   #   Facebook: [test98732both@yandex.ru, 123456ab]
   #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
+  IMAGES_DIR = Rails.root.join('spec', 'fixtures', 'images', 'tmp_imgs')
+
+  def seed_images
+    15.times{|i| `curl http://lorempixel.com/300/300/ -o #{IMAGES_DIR}/#{i}.jpg`}
+  end
+
+  def pick_random_image
+    img = Dir.entries(IMAGES_DIR).reject!{|file| ['.', '..'].include? file}.sample
+    IMAGES_DIR.join(img).to_s
+  end
+
+  seed_images 
+
   task users: :environment do
 
     load_routes
@@ -27,11 +40,16 @@ namespace :fake do
     DEFAULT_PASSWORD = "12345678"
 
     #generic function for users creation
-    def user_creation
+    def user_creation opts = {}
       u = User.new
       yield u
       u.confirm!
       u.save
+      if opts[:generate_profile]
+        u.profile.name   = Faker::Lorem.word
+        u.profile.avatar = File.open pick_random_image
+        u.profile.save!
+      end
     end
 
     def create_admin
@@ -43,9 +61,9 @@ namespace :fake do
     end
 
     def create_smorodina_users
-      emails = ['foo@bar.com'] + Array.new(5){Faker::Internet.email}
+      emails = ['foo@bar.com'] + Array.new(5){ Faker::Internet.email }
       emails.each do |email|
-        user_creation do |u|
+        user_creation(generate_profile: true) do |u|
           u.email = email
           u.password = DEFAULT_PASSWORD
           puts "creating smorodina.com user with email #{u.email} and password #{DEFAULT_PASSWORD}"
