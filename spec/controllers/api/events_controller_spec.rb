@@ -79,17 +79,17 @@ describe Api::EventsController do
     end
 
     it 'can autocomplete by title' do
-      get :search, autocomplete: 'beau'
+      get :autocomplete, term: 'beau'
       assigns(:events).should eq([event])
     end
 
     it 'can autocomplete by body' do
-      get :search, autocomplete: 'speci'
+      get :autocomplete, term: 'speci'
       assigns(:events).should eq([event])
     end
 
     it 'can autocomplete by tags' do
-      get :search, autocomplete: 'xxx'
+      get :autocomplete, term: 'xxx'
       assigns(:events).should eq([event])
     end
 

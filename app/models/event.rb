@@ -113,6 +113,13 @@ class Event < ActiveRecord::Base
     within_date_range interval_start, interval_start + 7.days
   end
 
+  scope :order_by, ->(o) do
+    order o == 'rating' ? 'rating DESC' : 'start_date'
+  end
+
+  scope :include_tags, -> tag_id do
+    includes(:event_tags).where('event_tags.id' => tag_id) if tag_id
+  end
 
   state_machine initial: :new do
 

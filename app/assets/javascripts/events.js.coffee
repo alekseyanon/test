@@ -17,8 +17,7 @@ Smorodina.Pages.Events = ->
 
   $ ->
     $('#eventSearchFormInput').autocomplete
-      source: ( request, response ) ->
-        $.getJSON('/api/events/search', autocomplete: request.term, response)
+      source: '/api/events/autocomplete'
       minChars: 2
       select: (event, ui) ->
         event.preventDefault()

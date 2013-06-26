@@ -12,30 +12,36 @@ class Api::EventsController < ApplicationController
   end
 
   def search
-    place_id = params[:place_id]
-    query = {}
-    query[:text] = params[:text]
-    query[:place_id] = place_id
-    if params[:from] && params[:to]
-      query[:from], query[:to] = ["#{params[:from]} 00:00:00", "#{params[:to]} 23:59:59"]
-    elsif params[:from]
-      query[:from] = "#{params[:from]} 00:00:00"
-    elsif place_id && Event.in_place(place_id).future.count > 0
-      query[:from] = Time.now
-    end
+    query = prepare_search_query
     @events = Event.scoped
     @events = @events.search(query) unless query.blank?
-
-    if params[:autocomplete]
-      params[:limit] ||= Event::AUTOCOMPLETE_LIMIT
-      @events = @events.autocomplete_search(params[:autocomplete]).limit(params[:limit])
-      render template: "api/events/autocomplete", formats: :json
-    else
-      @events = @events.includes(:event_tags).where('event_tags.id' => params[:tag_id]) if params[:tag_id]
-      @events = (params[:sort_by] == 'rating') ? @events.order('rating DESC') : @events.order('start_date')
-      @events = @events.page params[:page]
-      render json: @events
-    end
+    @events = @events.include_tags(params[:tag_id]).order_by(params[:sort_by]).page params[:page]
+    render json: @events
   end
+
+  def autocomplete
+    params[:limit] ||= Event::AUTOCOMPLETE_LIMIT
+    query = prepare_search_query
+    @events = Event.scoped
+    @events = @events.search(query) unless query.blank?
+    @events = @events.autocomplete_search(params[:term]).limit(params[:limit])
+    render formats: :json
+  end
+
+  private
+
+    def prepare_search_query
+      query = Hash.new
+      query[:text] = params[:text]
+      query[:place_id] = params[:place_id]
+      if params[:from] && params[:to]
+        query[:from], query[:to] = ["#{params[:from]} 00:00:00", "#{params[:to]} 23:59:59"]
+      elsif params[:from]
+        query[:from] = "#{params[:from]} 00:00:00"
+      elsif params[:place_id] && Event.in_place(params[:place_id]).future.count > 0
+        query[:from] = Time.now
+      end
+      query
+    end
 
 end
