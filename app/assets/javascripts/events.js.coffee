@@ -14,3 +14,12 @@ Smorodina.Pages.Events = ->
     new Smorodina.Views.SearchEmpty(collection:events)
 
     Backbone.history.start(pushState: true, root: '/events')
+
+  $ ->
+    $('#eventSearchFormInput').autocomplete
+      source: ( request, response ) ->
+        $.getJSON('/api/events/search', autocomplete: request.term, response)
+      minChars: 2
+      select: (event, ui) ->
+        event.preventDefault()
+        $('#eventSearchFormInput').val(ui.item.label)

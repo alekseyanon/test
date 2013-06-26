@@ -1,3 +1,4 @@
 collection @events
 
-attributes :id, :title
+attribute id: :value
+attribute title: :label
