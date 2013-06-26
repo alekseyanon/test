@@ -15,13 +15,18 @@ class Api::ChroniclesController < ApplicationController
     if params[:text].present? && !agu
       @objects = []
     else
-      @objects, @end_collection = find_objects go_offset, event_offset, agu, params[:type]
+      @objects, @end_collection = find_objects go_offset, event_offset, agu, filter_type_params(params[:type])
       @go_offset = go_offset + (go_count = @objects.select{|item| item.is_a? GeoObject}.size)
       @event_offset = event_offset + @objects.size - go_count
     end
   end
 
   private
+
+  def filter_type_params(type)
+    %w(event geo_object).include? type ? type : nil
+  end
+
   def find_objects go_offset, event_offset, agu, klass = nil
     window = CHRONICLE_PAGINATION_ITEMS
     if klass.present?
@@ -44,7 +49,7 @@ class Api::ChroniclesController < ApplicationController
     event_list = Event.newest_list(window + 2, event_offset)
     event_list, go_list = [event_list, go_list].map{ |i| i.in_place(agu)} if agu.present?
     objects = go_list + event_list
-    objects.sort_by!{|obj| obj.created_at}.reverse!
+    objects.sort_by!{|obj| -obj.created_at.to_i}
     list_objects objects, window
   end
 

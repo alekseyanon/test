@@ -9,8 +9,8 @@ class Smorodina.Views.Chronicle extends Backbone.View
   initialize: ->
     _.bindAll @
     @last_day = 0
-    @$content_type = ''
-    @$search_text = ''
+    @$content_type = $('#chronicleSearchType')
+    @$search_text = $('#chronicleSearchPlace')
     @$fetch_button = $('#searchResultsFetch')
     @$chronicle_elem = $('.backbone_chronicle_content')
     @collection.on('sync', @render, @)
@@ -24,7 +24,7 @@ class Smorodina.Views.Chronicle extends Backbone.View
     @$fetch_button.hide()
     if @collection.length > 0
       ##TODO: remove this sorting and get sorted collection from server
-      collection = _.sortBy(@collection.models, (model) -> model.get('created_at')).reverse()
+      collection = _.sortBy(@collection.models, (model) -> model.get('created_at'))
 
       @days_array = _.groupBy(collection, (model) -> model.get('creation_date'))
       dates = _.keys(@days_array)
@@ -39,29 +39,25 @@ class Smorodina.Views.Chronicle extends Backbone.View
         @$fetch_button.show()
     else
       unless @collection.go_offset && @collection.event_offset
-        @$content_type = $('#chronicleSearchType').val()
-        @$search_text = $('#chronicleSearchPlace').val()
-        @$chronicle_elem.append JST['chronicle_empty'](place: @$search_text, klass: @$content_type)
+        @$chronicle_elem.append JST['chronicle_empty'](place: @$search_text.val(), klass: @$content_type.val())
 
   add_items: (e) ->
     e.preventDefault()
     @collection.fetch(data:
                         go_offset: @collection.go_offset
                         event_offset: @collection.event_offset
-                        type: @$content_type
-                        text: @$search_text)
+                        type: @$content_type.find(':selected').data('type')
+                        text: @$search_text.val())
 
   select_type_items: (e) ->
     e.preventDefault()
     @last_day = 0
-    @$content_type = $('#chronicleSearchType :selected').data('type')
-    @$search_text = $('#chronicleSearchPlace').val()
     @$chronicle_elem.html('')
     @collection.fetch(data:
                         go_offset: 0
                         event_offset: 0
-                        type: @$content_type
-                        text: @$search_text)
+                        type: @$content_type.find(':selected').data('type')
+                        text: @$search_text.val())
 
 
 
