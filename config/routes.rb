@@ -6,9 +6,9 @@ Smorodina::Application.routes.draw do
   mount RedactorRails::Engine => '/redactor_rails'
 
   get 'ratings/list'
- 
-  
+
   namespace :api do
+    get 'ratings/list'
     get 'chronicles/show'
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
