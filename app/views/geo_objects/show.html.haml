@@ -27,7 +27,7 @@
         .obj_descr__info__links__print
           = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
         .obj_descr__info__links__social
-          %div(class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir")
+          = render partial: 'shared/sn_share_buttons', locals: {size: 16}
         .add_photo_or_video_link
           = link_to "Добавить фото или видео", "#newimage", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
     .obj_descr__text
