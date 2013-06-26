@@ -17,3 +17,6 @@ Smorodina.Pages.Index = ->
 
     $('#mainSearchFieldInput').on 'focus', ->
       $('.how-to-search').addClass 'how-to-search_hidden'
+
+
+

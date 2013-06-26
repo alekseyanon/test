@@ -32,8 +32,30 @@ class Smorodina.Views.Categories extends Smorodina.Views.Base
     @collection.fetch(reset: true)
 
   render: ->
-    _.each @collection.where(depth: 1), @addOne
+    @orderFullList()
+    list = @collection.filter (record)->
+      names = ['sightseeing', 'activities', 'food', 'lodging']
+      return _.indexOf(names, record.get('name')) != -1
+    
+    _.each list, (record)->
+      @$('.search-filter__second-level').append "<li class='level_1 #{record.get('name')}'><ul class='level_1_container'></ul></li>"
+
+    _.each @collection.where(depth: 2), @addOne
 
   addOne: (model) ->
     category = new Smorodina.Views.Category(model:model)
-    @$categories.appendChild category.render().el
+    root_cat = @collection.where(id: model.get('parent_id'))
+    @$(".#{root_cat[0].get('name')} ul").first().append category.render().el
+
+  orderFullList: ->
+    #Custom reordering
+    @collection.findWhere(name: 'sightseeing').set('order': 2)
+    @collection.findWhere(name: 'activities').set('order': 3)
+    @collection.findWhere(name: 'food').set('order': 4)
+    @collection.findWhere(name: 'lodging').set('order': 1)
+    @collection.findWhere(name: 'active_recreation').set('order': 5)
+    @collection.findWhere(name: 'entertainment').set('order': 6)
+    @collection.sort()
+
+  orderLightList: ->
+

@@ -6,7 +6,7 @@ class Smorodina.Views.Category extends Backbone.View
 
   initialize: ->
     _.bindAll(@)
-    @model.on 'change:visibility', @toggleVisibility
+    #@model.on 'change:visibility', @toggleVisibility
     @model.on 'change:selected', @toggleSelected
     @model.on 'change:semiSelected', @toggleSemiSelected
     @model.on 'change:bordered', @toggleBordered
@@ -14,13 +14,17 @@ class Smorodina.Views.Category extends Backbone.View
 
   render: ->
     @$el.append @template @model.toJSON()
-    @model.set('visibility', false)
+    #@model.set('visibility', false)
+    @$el.addClass "level_#{@model.get('depth')} #{@model.get('name')}"
+
     subLevel = @model.collection.where(depth: @model.get('depth') + 1, parent_id: @model.get('id'))
-    @renderSubLevel(subLevel) if subLevel.length
+    if subLevel.length
+      @$el.addClass "hasChilds"
+      @renderSubLevel(subLevel)
     @
 
   renderSubLevel: (subCategories) ->
-    @$subList = $ '<ul>'
+    @$subList = $ "<ul class='level_#{@model.get('depth')}_container'>"
     _.each subCategories, @addOne
     @$el.append @$subList
 

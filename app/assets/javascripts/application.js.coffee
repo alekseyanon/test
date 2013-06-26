@@ -28,6 +28,7 @@
 #= require leaflet
 #= require jquery.Jcrop
 #= require redactor-rails
+#= require masonry/jquery.masonry
 
 # ------------------------------------------------------------------------------------------------------------------ 
 
