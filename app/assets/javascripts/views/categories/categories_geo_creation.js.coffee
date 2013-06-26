@@ -9,7 +9,6 @@ class Smorodina.Views.CategoriesGeoCreation extends Smorodina.Views.Base
     super()
     @$container      = @$('#categories-popup')
     @$tag_list_input = @$('#geo_object_tag_list').select2()
-    @collection.set 'tag_list_input', @$tag_list_input
 
     @collection.on 'reset', @render
     @collection.on 'updateSelectionList', @updateSelectionList
@@ -31,4 +30,3 @@ class Smorodina.Views.CategoriesGeoCreation extends Smorodina.Views.Base
   updateSelectionList: ->
     tag_list = @collection.activeElements().map (c) => c.get('name')
     @$tag_list_input.select2( 'val', tag_list )
-    

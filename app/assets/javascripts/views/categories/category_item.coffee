@@ -13,7 +13,7 @@ class Smorodina.Views.Category extends Backbone.View
     @are_categories_visible_by_default = visible
     @$el.append @template @model.toJSON()
     @model.set('visibility', @are_categories_visible_by_default)
-    subLevel = @model.collection.where(depth: @model.get('depth') + 1, parent_id: @model.get('id'))
+    subLevel = @model.children()
     @renderSubLevel(subLevel) if subLevel.length
     @
 
