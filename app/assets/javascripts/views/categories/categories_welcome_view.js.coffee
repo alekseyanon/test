@@ -1,7 +1,7 @@
 #= require collections/categories
 #= require views/base_view
 
-class Smorodina.Views.Categories extends Smorodina.Views.Base
+class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
 
   el: '#searchFilter'
 

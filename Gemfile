@@ -29,7 +29,7 @@ gem 'rabl'
 gem 'simple_form'
 gem 'haml-rails'
 gem 'haml'
-gem 'chosen-rails'
+gem 'select2-rails'
 
 ##################################################
 ########### gems for users models ################
