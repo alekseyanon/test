@@ -25,12 +25,13 @@
         %div.map.leaflet-create-object{id: 'map', data: {x: 30.3, y: 60}}
     = f.input :xld
     = f.input :yld
-
-    %a{name: 'category'}
-    %h3 Категория
-    = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, label: 'Укажите вручную (например, монастырь, выставка, памятник)', label_method: :name_ru, value_method: :name, include_blank: false
-    %h3{onclick: "$('.categories').toggle();"}
-      =link_to 'Или выбери из списка', '#'
+    #categories-field
+      %a{name: 'category'}
+      %h3 Категория
+      = f.input :tag_list, input_html: { multiple: true, class: 'tag_list' }, collection: @categories, label: 'Укажите вручную (например, монастырь, выставка, памятник)', label_method: :name_ru, value_method: :name, include_blank: false
+      %h3
+        %a#list-switcher{href: "#"} Показать список
+        %ul#categories-popup.search-filter__second-level
     .categories
       %h4 Что посмотреть
       список чекбоксов для категории что посмотреть

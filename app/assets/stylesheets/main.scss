@@ -171,6 +171,7 @@ a:hover,
 }
 
 .ui-link:visited,
+.tdn-link:visited,
 .action-link:visited {
   color: inherit;
 }
@@ -232,7 +233,7 @@ a:hover,
 }
 
 .slogan-user-panel-container {
-  padding: 0 16px 0 60px;
+  padding: 0 16px 0 14px;
 }
 
 .slogan {
@@ -323,9 +324,11 @@ a:hover,
 
 .control-panel__logo {
   display: inline-block;
-  position: relative; top: -3px;
+  position: relative; top: -10px; left: -10px;
   vertical-align: top;
-  margin-right: 15px;
+  width: 240px;
+  height: 81px;
+  margin-right: 25px;
   @include background-image-svg("logo");
 
   @include respond-to(large-screen){
@@ -951,7 +954,7 @@ a:hover,
 .smorodina-item__img {
   position: relative;
   float: left;
-  margin: 0 20px 0 10px;
+  margin: 5px 25px 0 10px;
 }
 
 .smorodina-item__img_shadow {
@@ -990,6 +993,13 @@ a:hover,
 
 .smorodina-item__img__inner > img {
   display: block;
+}
+
+.smorodina-item__state {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 1;
 }
 
 .smorodina-item__content {
@@ -1040,6 +1050,11 @@ a:hover,
   @include trailer(0.25);
 }
 
+.smorodina-item__dates {
+  color: #414141;
+  font-size: 13px;
+}
+
 .smorodina-item__user {
   @include leader(0.25);
 }
@@ -1081,7 +1096,10 @@ a:hover,
   left: 3px;
 }
 
-.smorodina-item__tags__list > li:after,
+.smorodina-item__tags__list > li:after {
+  content: '\2c';
+}
+
 .smorodina-item__geo__list > li:after {
   content: '\2192';
 }
@@ -1368,6 +1386,19 @@ display: block;
       }
     }
   }
+}
+
+.search-filter__second-level li.selected > .filter-category__text {
+  background-color: red;
+}
+
+.search-filter__second-level li.deselected > .filter-category__text {
+  background-color: white;
+  border: 0;
+}
+
+.search-filter__second-level li.semi-selected > .filter-category__text {
+  background-color: pink;
 }
 
 .search-filter__second-level{
@@ -2758,3 +2789,28 @@ display: block;
 
 /* ---------------------------------------- PASSWORD FORMS END ----------------------------------- */
 
+
+/* ---------------------------------------- CATEGORY NEW PAGE START --------------------------------- */
+
+.tag_list {
+  width: 500px;
+}
+
+.categories-field {
+  position: relative;
+}
+
+#categories-popup {
+  width: 840px;
+  min-height: 460px;
+  position: absolute;
+  margin-left: -420px;
+  left: 50%;
+  border: 1px solid;
+  display: none;
+  & {
+    position: relative;
+  }
+}
+
+/* ---------------------------------------- CATEGORY NEW PAGE END ----------------------------------- */

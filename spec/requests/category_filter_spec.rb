@@ -4,7 +4,7 @@ Capybara.save_and_open_page_path = "/tmp/smorodina"
 
 describe "Category filter", js: true, type: :request do
   
-  before(:all) { load_seeds }
+  before(:all) { Category.delete_all ;load_seeds }
   
   before(:each) do
     visit root_path

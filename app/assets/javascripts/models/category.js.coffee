@@ -5,96 +5,73 @@ class Smorodina.Models.Category extends Backbone.Model
     semiSelected: false
     selectedChildren: 0
     rootName: ''
+    state: 'deselected'
 
   initialize: ->
     _.bindAll(@)
   
   # При клике на категорию в дереве
   kickOff: ->
-    @toggleSelected()
-    wasSelected = @get('selected')
-    @updateParent()
+    new_state = if @get( 'state' ) == 'selected' then 'deselected' else 'selected'
+    @set 'state', new_state
+    @updateParent( parentNode ) if parentNode = @parent()
+    @updateChildren( new_state ) if @children()
+    @updateSiblings() if @siblings() and new_state = 'selected'
+    @collection.trigger 'updateSelectionList'
     
-    _.each @children(), (c)->
-      c.updateChildren 'semiSelected' : wasSelected, 'selected' : false, 'bordered' : false
-  
-  # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
-  updateByEmblem: (val, className)->
-    @set 'visibility' : val, 'semiSelected' : val, rootName: className
-    @cleanUnwantedStates 'semiSelected'
-    _.each @children(), (c)=>
-      c.updateByEmblem val
-
   toggleSelected: ->
     @cleanUnwantedStates 'selected'
     @set 'selected' : !@get('selected')
 
+  # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
+  updateByEmblem: (is_visible)->
+    @set 'visibility',  is_visible
+    @set 'state', ( if is_visible then 'semi-selected' else 'selected' )
+    for child in @children()
+      child.updateByEmblem is_visible
 
-  updateParent: ->
-    parent = @parent()
-    
-    # Снимаем все полувыделения с родителей, их соседей и потомков 
-    for s in (_.filter @siblings(), (s)-> s.get('semiSelected'))
-      s.updateChildren 'semiSelected', false 
+  updateParent: (parentNode)->
+    if @all_have_state( parentNode.children(), 'selected' )
+      parentNode.set 'state', 'selected'
+    else if _.any( parentNode.children(), (category)-> _.include( ['selected', 'bordered'], category.get('state') ) )
+      parentNode.set 'state', 'bordered'
+    else if @all_have_state( parentNode.children(), 'deselected' )
+      parentNode.set 'state', 'deselected'
+    for unnecessary_selection in _.filter( @siblings().concat( parentNode.siblings() ), (sibling)-> sibling.get( 'state' ) == 'semi-selected' )
+      unnecessary_selection.set 'state', 'deselected'
+      unnecessary_selection.updateChildrenLoop 'deselected'
+    @updateParent( newParent ) if newParent = parentNode.parent() 
+      
+  updateChildren: (changedParentState)->
+    @updateChildrenLoop( if changedParentState == 'selected' then 'semi-selected' else 'deselected' )
 
-    if parent
-      change_state = false
-      # Выделяем родителя, если все дети были выделены
-      if _.all(@siblings_and_self(), (s)-> s.get 'selected' )
-        change_state = 'selected'
-      # Обводим родителя в рамку, если хоть один ребенок выделен
-      else if _.any(@siblings_and_self(), (s)-> s.get('selected') or s.get('bordered'))
-        change_state = 'bordered'
-      else 
-        parent.cleanUnwantedStates()
-      if change_state
-        parent.set change_state, true
-        parent.cleanUnwantedStates(change_state)
-      parent.updateParent()
+  updateChildrenLoop: (newState)->
+    for child in @children()
+      child.set 'state', newState
+      child.updateChildrenLoop newState
 
-  updateChildren: (state, value="")->
-    if state instanceof Object
-      for k, v of state
-        @set k, v
+  updateSiblings: ->
+    siblings_and_self = @siblings_and_self()
+    if @all_have_state( siblings_and_self, 'selected' )
+      new_state = 'semi-selected'
+      elements_to_update = siblings_and_self
     else
-      @set state, value
-    _.each @_getVisibleChildrenModels(), (c)=>
-      c.updateChildren state, value
-        
-  # Снимаем все выделения у элемента, кроме...
-  cleanUnwantedStates: (exception = "")->
-    h = {}
-    for state in ['selected', 'semiSelected', 'bordered']
-      if state != exception
-        h[state] = false
-        @set h
+      new_state = 'selected'
+      elements_to_update =  _.filter( @siblings(), (category) -> category.get( 'state' ) == 'semi-selected' ) 
+    for category in elements_to_update
+      category.set 'state', new_state
 
   siblings: ->
-    collection = if parent = @parent() 
-                   parent.children() 
-                 else
-                   @collection.where('parent_id' : 1)
-    _.filter collection, (m)=> m.id != @id
+    @get('siblings')
 
   siblings_and_self: ->
     @siblings().concat @
 
   parent: ->
-    @collection.findWhere(id: @get('parent_id'))
+    @get('parent')
 
-  children: (options = {})->
-    _.map @get('children'), (childId) => @collection.findWhere(id: childId)
-  
-  descendants: ->
-    children     = @children()
-    new_children = []
-    for c in children
-      new_children.concat c.descendants()
-    new_children.concat children
+  children: ->
+    @get('children')
 
-  descendants_and_self: ->
-    @descendants().concat @
-  
-
-  _getVisibleChildrenModels: ->
-    _.filter @children(), (m) -> m.get('visibility')
+  all_have_state: (collection, state) ->
+    _.all( collection, (category) -> category.get( 'state' ) == state )

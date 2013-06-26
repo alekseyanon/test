@@ -31,7 +31,7 @@ initMyLocationControl = (map)->
     map.addControl(commandControl);
 
     showMyLocation = (_,e)->
-      $.get 'objects/my_location', (data)->
+      $.get '/objects/my_location', (data)->
         if data
           map.setView data.reverse(), 13
           $('.map').data coords: data
@@ -63,12 +63,13 @@ window.geo_object_edit = ->
   [map, _] = initMap()
   latlng = getLatLng()
   map.setView latlng, 13
-  L.marker(latlng).addTo map
+  marker = L.marker( latlng, draggable: true )
+  marker.addTo map
   popup = L.popup()
-  map.on 'click', (e) ->
-    showLatLng e.latlng
+  marker.on 'drag', (e) ->
+    showLatLng e.target.getLatLng()
     popup
-      .setLatLng(e.latlng)
+      .setLatLng(e.target.getLatLng())
       .setContent("New place of object")
       .openOn(map)
 
@@ -83,34 +84,28 @@ window.geo_object_search = ->
   lastBounds = null
   facets = []
   $searchField = $('#mainSearchFieldInput')
-
-  coffeeIcon = L.icon(
-    iconUrl:    '/assets/coffee.png'
-    iconSize:   [40, 40]
-    iconAnchor: [20, 35])
+  
+  categoryIconMap = {}
+  for key in ['sightseeing', 'lodging', 'food', 'activities', 'infrastructure']
+    categoryIconMap[key] = L.icon(
+      iconUrl    : "/assets/icons/#{key}-marker.png" 
+      iconSize   : [61, 41])
 
   putMarkers = ->
     lg.clearLayers()
     geo_objects.forEach (l) ->
-      latlon = l.get('latlon')
-      if 'food' in l.get('tag_list')
-        L.marker(latlon, {icon: coffeeIcon}).addTo lg
-      else
-        L.marker(latlon).addTo lg
+      latlon = l.get 'latlon'
+      icon   = categoryIconMap[l.get('tag_list')[0]]
+      L.marker(latlon, icon : icon ).addTo lg
 
   collectDataForQuery = ->
     bounds = map.getBounds()
     return if bounds.equals lastBounds
     lastBounds = bounds
-    center = map.getCenter()
-    #  radius = center.distanceTo new L.LatLng bounds.getNorthEast().lat, center.lng
-    radius = Math.abs(center.lat - bounds.getNorthEast().lat) / 0.01745329251994328 / 60.0 #SRID 4326
     text = $searchField.val()
 
-    query =  
-      x: center.lat
-      y: center.lng
-      r: radius
+    query =
+      bounding_box: map.getBounds().toBBoxString()
       text: text
       facets: facets
 
@@ -128,8 +123,7 @@ window.geo_object_search = ->
     lastBounds = null
     updateQuery opts
 
-  resetSearchField = ->
-    $searchField.val ''
+  resetSearchField = -> $searchField.val ''
 
   map.on 'load', ->
     map.on 'zoomend', updateQuery

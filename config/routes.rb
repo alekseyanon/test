@@ -1,9 +1,13 @@
 Smorodina::Application.routes.draw do
 
+
+  resources :places, only: :show
+
   mount RedactorRails::Engine => '/redactor_rails'
 
   get 'ratings/list'
-
+ 
+  
   namespace :api do
     get 'chronicles/show'
     get 'categories/index'
@@ -11,9 +15,9 @@ Smorodina::Application.routes.draw do
     get 'events/tags'
     get 'events/search'
     get 'agus/search'
-    match 'objects/:id/nearby' => 'objects#nearby'
-    match 'objects/:id' => 'objects#show'
-    resources :objects do
+    match 'objects/:id/nearby' => 'geo_objects#nearby', defaults: { format: 'json' }
+    match 'objects/:id' => 'geo_objects#show'
+    resources :geo_objects, path: 'objects' do
       resources :votes, only: [:create, :index]
       delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
       resources :runtips do
@@ -114,6 +118,7 @@ Smorodina::Application.routes.draw do
     get '/about', action: 'about'
     #TODO: Terms Of Service page
     get '/terms', action: 'terms'
+    get '/sitemap', action: 'sitemap'
   end
 
   controller :feedbacks do

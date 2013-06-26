@@ -32,9 +32,9 @@
 
 # ------------------------------------------------------------------------------------------------------------------ 
 
-#TODO сделать корректно.
-#Пока работает следующим образом: родительского класса для голосавлки
-#должно совпадать с названием контроллера объекта за который голосуем
+#TODO рефакторить - это переехало в backbone views
+#Пока работает следующим образом: имя класса объекта, за который голосуем
+#должно совпадать с названием контроллера
 window.to_vote = (voteable_controller, voteable_id, sign, tag) ->
   id = voteable_controller.split("/").pop() + "_" + voteable_id
   params = sign: sign
@@ -53,8 +53,8 @@ window.to_vote = (voteable_controller, voteable_id, sign, tag) ->
       $(up).html data.positive
       $(down).html data.negative
 
-    error: (data) ->
-      alert "something wrong"
+    error: ->
+      alert "something wrong" #TODO Fix error message
 
     datatype: "json"
 
@@ -74,8 +74,8 @@ window.to_unvote = (voteable_controller, voteable_id, tag) ->
       $("#" + id + " .up-vote").html data.positive
       $("#" + id + " .down-vote").html data.negative
 
-    error: (data) ->
-      alert "something wrong"
+    error: ->
+      alert "something wrong" #TODO fix error message
 
     datatype: "json"
 
@@ -114,11 +114,12 @@ router = new Smorodina.Routers.Global
 router.route "events", "events", Smorodina.Pages.Events
 router.route "events/search", "events", Smorodina.Pages.Events
 router.route "objects/search", "geo_objects", Smorodina.Pages.GeoObjects
-router.route "", "index", Smorodina.Pages.Index
+router.route /objects\/(?!search).*/, "images_index", Smorodina.Pages.ObjectShow
 router.route "objects/:object_name/images/:image_id", "image_show", Smorodina.Pages.ImageShow
-router.route "images/:image_id", "image_show", Smorodina.Pages.ImageShow
 router.route "objects/:param/images", "images_index", Smorodina.Pages.ImagesIndex
-router.route "objects/:object_name", "images_index", Smorodina.Pages.ObjectShow
+router.route "", "index", Smorodina.Pages.Index
+router.route "images/:image_id", "image_show", Smorodina.Pages.ImageShow
+router.route "places/:place_name", "places_controller", Smorodina.Pages.PlaceShow
 Backbone.history.start hashChange: false
 
 $ ->

@@ -3,12 +3,12 @@
 
 Smorodina.Pages.Index = ->
 
-  categories = new Smorodina.Collections.Categories
   chronicle_items = new Smorodina.Collections.ChronicleItems
+  categories = new Smorodina.Collections.Categories
 
   $ ->
     new Smorodina.Views.SearchFilter
-    new Smorodina.Views.Categories(collection: categories)
+    new Smorodina.Views.CategoriesWelcome(collection: categories)
     new Smorodina.Views.Map
     new Smorodina.Views.Chronicle(collection: chronicle_items)
 

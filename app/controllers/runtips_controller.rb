@@ -11,8 +11,7 @@ class RuntipsController < InheritedResources::Base
   end
 
   def index
-    sleep 1
-    render json: GeoObject.find(params[:geo_object_id]).runtips.to_json 
+    render json: GeoObject.find(params[:geo_object_id]).runtips.to_json
   end
 
 end

@@ -147,6 +147,10 @@ class Event < ActiveRecord::Base
     (end_date - start_date) / 1.day
   end
 
+  def day_creation
+    self.created_at.strftime('%d %b %y')
+  end
+
   # Add mehods weekly?, monthly?, etc. to instance
   REPEAT_RULES.each do |rr|
     define_method(rr.to_s+'?') { repeat_rule == rr }
@@ -193,6 +197,16 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def tags_titles
+    Hash[self.event_tags.map{|i| [i.id , i.title]}]
+  end
+
+  def event_dates
+    start_date = Russian::strftime(self.start_date, '%e %B')
+    end_date = Russian::strftime(self.end_date, '%e %B')
+    (start_date == end_date) ? start_date : "#{start_date} - #{end_date}"
+  end
+
   def repeat_period
     0 unless multiple?
     @repeat_period ||= if weekly?; 1.weeks
@@ -221,6 +235,9 @@ class Event < ActiveRecord::Base
 
   def as_json options = {}
     json = super options
+    json[:start_local] = Russian::strftime(start_date, '%d %B')
+    json[:end_local] = Russian::strftime(end_date, '%d %B')
+    json[:image] = images.first if images
     json[:agc] = agc.titles if agc
     json[:state_localized] = I18n.t 'events.states.'+state
     json[:rating_go] = rating_go
