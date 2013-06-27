@@ -25,6 +25,8 @@ gem 'kaminari'
 
 gem 'rabl'
 
+gem 'whenever', :require => false
+
 ################## views #########################
 gem 'simple_form'
 gem 'haml-rails'
