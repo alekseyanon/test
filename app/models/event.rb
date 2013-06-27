@@ -35,6 +35,7 @@ class Event < ActiveRecord::Base
   REPEAT_RULES = [:single, :weekly, :monthly, :monthly_weekly,
                   :quarterly, :halfyear, :yearly,
                   :two_years, :three_years, :four_years]
+  SORT_FIELDS = %w(date rating)
 
   FEEDBACK_DURATION = { single: 3.days,
                         weekly: 3.days,
@@ -42,6 +43,8 @@ class Event < ActiveRecord::Base
                         monthly_weekly: 7.days}
 
   FEEDBACK_DURATION.default = 30.days
+
+  ALLOWED_SEARCH_PARAMS = [:text, :place_id, :from, :to, :tag_id, :sort_by, :limit, :term]
 
   attr_accessible :body, :title, :start_date, :end_date,
                   :repeat_rule, :geom,
@@ -258,6 +261,24 @@ class Event < ActiveRecord::Base
     json[:rating_like] = rating_like
     json[:event_tags] = event_tags
     json
+  end
+
+  def self.filtered_search(query)
+    if query[:from]
+      query[:from] = "#{query[:from]} 00:00:00"
+      query[:to] &&= "#{query[:to]} 23:59:59"
+    elsif query[:place_id] && Event.in_place(query[:place_id]).future.present?
+      query[:from] = Time.now
+    end
+
+    chain = self.scoped
+    chain = chain.search(query) unless query.blank?
+    chain = chain.order_by query[:sort_by] if SORT_FIELDS.include? query[:sort_by]
+    chain.include_tags query[:tag_id]
+  end
+
+  def self.autocomplete(query)
+    search(query).autocomplete_search(query[:term]).limit query[:limit] || AUTOCOMPLETE_LIMIT
   end
 
   private
