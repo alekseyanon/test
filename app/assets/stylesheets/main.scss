@@ -1349,10 +1349,6 @@ a:hover,
   text-align: left;
 }
 
-.search-filter__second-level.selected {
-display: block;
-}
-
 .search-filter__second-level{
   width: 100%;
   li{
@@ -1361,16 +1357,18 @@ display: block;
       @include border-radius(10px);
       margin: 2px 0;
     }
-    &.level_2.hasChilds{
-      > .filter-category__text{
-        font-weight: bold;
+    &.level_2{
+      .hasChilds{
+        > .filter-category__text{
+          font-weight: bold;
+        }
       }
     }
     &.level_3{ 
       > .filter-category__text{
         @include font-small;
       }
-      &.hasChilds > .filter-category__text{
+      .hasChilds > .filter-category__text{
         font-weight: bold;
       }
     }
@@ -1386,19 +1384,6 @@ display: block;
       }
     }
   }
-}
-
-.search-filter__second-level li.selected > .filter-category__text {
-  background-color: red;
-}
-
-.search-filter__second-level li.deselected > .filter-category__text {
-  background-color: white;
-  border: 0;
-}
-
-.search-filter__second-level li.semi-selected > .filter-category__text {
-  background-color: pink;
 }
 
 .search-filter__second-level{
@@ -1446,11 +1431,6 @@ display: block;
     }
     .level_2{
       display: list-item;
-    }
-  }
-  .level_3_container{
-    span{
-      display: none;
     }
   }
   .filter-category__text{
@@ -1559,7 +1539,7 @@ display: block;
   @include box-shadow(inset 1px 2px 3px rgba(0,0,0,.2));
 }
 
-.search-category_all {}
+/*.search-category_all {}
 .search-category_sightseeing {}
 .search-category_activities {}
 .search-category_lodging {}
@@ -1581,6 +1561,7 @@ display: block;
   content: attr(data-text);
   position: relative;
 }
+  */
 
 /* overriding .action-link styles */
 .search-category.selected > .search-category__text,
