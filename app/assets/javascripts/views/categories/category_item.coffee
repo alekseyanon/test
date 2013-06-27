@@ -6,12 +6,10 @@ class Smorodina.Views.Category extends Backbone.View
 
   initialize: ->
     _.bindAll(@)
-    @model.on 'change:selected', @toggleSelected
-    @model.on 'change:semiSelected', @toggleSemiSelected
-    @model.on 'change:bordered', @toggleBordered
     @model.on 'change:rootName', @setRootClass
     @model.on 'change:visibility', @toggleVisibility
     @model.on 'change:state', @toggleState
+    @model.on 'actsAsLeaf', @applyLeafStyle
 
   render: ( visible = false )->
     @are_categories_visible_by_default = visible
@@ -43,14 +41,8 @@ class Smorodina.Views.Category extends Backbone.View
   toggleVisibility: (model, val)->
     @$el.toggle val 
     
-  toggleBordered: ->
-    @$el.toggleClass 'bordered', @model.get('bordered')
-
-  toggleSemiSelected: ->
-    @$el.toggleClass 'semi-selected', @model.get('semiSelected')
-
-  toggleSelected: ->
-    @$el.toggleClass 'selected', @model.get('selected')
-
   setRootClass: ->
     @$el.addClass @model.get('rootName')
+
+  applyLeafStyle: ->
+    @$el.addClass 'leaf'

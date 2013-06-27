@@ -52,3 +52,8 @@ class Smorodina.Collections.Categories extends Backbone.Collection
     collection = ( if parent = category.get('parent') then parent.children() else @where( 'parent_id' : 1 ) )
     siblings   = _.filter collection, (m) -> m.id != category.id
     category.set 'siblings', siblings
+
+  markLeafs: ->
+    leafs = @filter (category) -> category.get( 'children' ).length == 0
+    for leaf in leafs
+      leaf.trigger 'actsAsLeaf'

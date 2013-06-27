@@ -41,6 +41,7 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
       @$('.search-filter__second-level').append "<li class='level_1 #{record.get('name')}'><ul class='level_1_container'></ul></li>"
 
     _.each @collection.where(depth: 2), @addOne
+    @collection.markLeafs()
 
   addOne: (model) ->
     category = new Smorodina.Views.Category(model:model)

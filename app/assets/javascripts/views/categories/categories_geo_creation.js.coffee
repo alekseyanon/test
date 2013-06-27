@@ -17,6 +17,7 @@ class Smorodina.Views.CategoriesGeoCreation extends Smorodina.Views.Base
 
   render: ->
     _.each @collection.where(depth: 1), @addOne
+    @collection.markLeafs()
 
   addOne: (model) ->
     category = new Smorodina.Views.Category( model : model )
