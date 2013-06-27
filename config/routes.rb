@@ -14,6 +14,7 @@ Smorodina::Application.routes.draw do
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
     get 'events/tags'
     get 'events/search'
+    get 'events/autocomplete'
     get 'agus/search'
     match 'objects/:id/nearby' => 'geo_objects#nearby', defaults: { format: 'json' }
     match 'objects/:id' => 'geo_objects#show'
