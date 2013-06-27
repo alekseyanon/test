@@ -2,40 +2,56 @@
   %h1 Карта сайта
   %ul.sitemap__links
     %li
-      %a Куда отправиться
+      %a{ href: geo_objects_path } Куда отправиться
       %ul
         %li
-          %a Поиск объектов
+          %a{ href: search_geo_objects_path } Поиск объектов
         %li
-          %a Добавить объект
+          %a{ href: new_geo_object_path } Добавить объект
     %li
-      %a События
+      %a{ href: events_path } События
       %ul
         %li
-          %a Поиск событий
+          %a{ href: events_search_path } Поиск событий
         %li
-          %a Добавить событие
+          %a{ href: new_event_path } Добавить событие
     %li
-      %a
-        Рейтинги пользователей
+      %a{ href: "#blogs" } Рейтинги пользователей
     %li
-      %a О проекте
+      %a{ href: about_path } О проекте
       %ul
         %li
-          %a Контактная информация
+          -# TODO: О проекте и Контактная информация — одна страница, поставил одинаковые ссылки (EM)
+          %a{ href: about_path } Контактная информация
+    - if not current_user.nil?
+      -# TODO: как тут вести себя для разлогиненного юзера? По-хорошему после всплывающего окна надо бы карту перерисовать
+      %li
+        %a{ href: profile_path(current_user.profile) } Личный кабинет пользователя
+        -# TODO: похоже, что этих путей еще толком нету
+        %ul
+          %li
+            %a{ href: '#' } Обзор профиля
+            %ul
+              %li
+                %a{ href: '#' } Настройки профиля
+          %li
+            %a{ href: '#' } Настройки аккаунта
+    - else
+      %li
+        %a{ href: '#regLoginModal', data: { toggle: 'modal' } } Личный кабинет пользователя
+        %ul
+          %li
+            %a{ href: '#regLoginModal', data: { toggle: 'modal' } } Обзор профиля
+            %ul
+              %li
+                %a{ href: '#regLoginModal', data: { toggle: 'modal' } } Настройки профиля
+          %li
+            %a{ href: '#regLoginModal', data: { toggle: 'modal' } } Настройки аккаунта
+
     %li
-      %a Личный кабинет пользователя
-      %ul
-        %li
-          %a Обзор профиля
-          %ul
-            %li
-              %a Настройки профиля
-        %li
-          %a Настройки аккаунта
+      %a{ href: '#feedback', data: { toggle: 'modal' } } Обратная связь
     %li
-      %a Обратная связь
-    %li
-      %a Пользовательское соглашение
+      -# TODO: вроде бы нет такой страницы
+      %a{ href: '#' } Пользовательское соглашение
 
 = render 'layouts/footer'

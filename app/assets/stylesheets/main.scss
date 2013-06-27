@@ -1842,6 +1842,9 @@ display: block;
   font-size: 18px;
   font-weight: 600;
   line-height: 36px;
+  a {
+    color: $lightblue;
+  }
   ul {
     margin-left: 36px;
     font-size: 16px;
