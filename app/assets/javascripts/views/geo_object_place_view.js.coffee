@@ -4,7 +4,7 @@ class Smorodina.Views.GeoObjectPlace extends Smorodina.Views.Base
   events: 
     'click .smorodina-item__comments a'   : 'comment'
   comment: (e) ->
-    if !@is_authorized()
+    unless @is_authorized()
       e.preventDefault()
     
   render: ->
