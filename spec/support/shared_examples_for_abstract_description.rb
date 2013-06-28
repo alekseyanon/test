@@ -41,6 +41,11 @@ shared_examples_for 'combined faceted search' do
 end
 
 shared_examples_for "search within radius" do
+
+  before :all do
+    Event.destroy_all
+  end
+
   it 'returns objects within a specified radius of another object' do
     moscow_obj    = to_point [37.617778, 55.751667]
     spb_obj       = to_point [30.316667, 59.95]

@@ -1,0 +1,11 @@
+%div.chronicle__empty.chronicle__section
+  В месте
+  %b
+    &laquo;
+    = @place
+    &raquo;
+  не найдено записей типа
+  %b
+    &laquo;
+    = @klass
+    &raquo;

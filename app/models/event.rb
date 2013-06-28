@@ -91,7 +91,6 @@ class Event < ActiveRecord::Base
   end
 
   scope :line, ->(key) { where key: key}
-  scope :in_place, ->(place_id) { joins('JOIN agcs ON events.agc_id = agcs.id').where('? = ANY(agcs.agus)', place_id) }
   scope :future, where("start_date > '#{Time.now}'")
 
   pg_search_scope :text_search,
