@@ -18,7 +18,7 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
     @shouldSelectAll = !@shouldSelectAll
     self = @
     $('.search-filter__categories button').each ->
-      $(@).toggleClass 'selected', self.shouldSelectAll
+      #$(@).toggleClass 'selected', self.shouldSelectAll
       self.collection.updateEmblemCategory $(@).attr('data-facet'), self.shouldSelectAll
   
 

@@ -21,7 +21,7 @@ class Smorodina.Models.Category extends Backbone.Model
 
   # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
   updateByEmblem: (is_visible)->
-    @set 'visibility',  is_visible
+    #@set 'visibility',  is_visible
     @set 'state', ( if is_visible then 'semi-selected' else 'selected' )
     for child in @children()
       child.updateByEmblem is_visible

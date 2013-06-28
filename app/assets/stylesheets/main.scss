@@ -1349,6 +1349,15 @@ a:hover,
   text-align: left;
 }
 
+.second-level__container{
+  margin: 14px 0px 16px;
+  padding: 12px 24px 19px;
+  @include border-radius(15px);
+  background-image: url('/assets/categories_bg.gif');
+  background-repeat: repeat;
+  background-position: top left;
+}
+
 .search-filter__second-level{
   width: 100%;
   li{
@@ -1357,11 +1366,9 @@ a:hover,
       @include border-radius(10px);
       margin: 2px 0;
     }
-    &.level_2{
-      .hasChilds{
-        > .filter-category__text{
-          font-weight: bold;
-        }
+    &.level_2.hasChilds{
+      > .filter-category__text{
+        font-weight: bold;
       }
     }
     &.level_3{ 
@@ -1446,9 +1453,9 @@ a:hover,
       line-height: 2;
     }
   }
-  .level_2_container{
+  /*.level_2_container{
     display: inline;
-  }
+  }*/
   li.sightseeing{
     width: 50%;
     float: left;
