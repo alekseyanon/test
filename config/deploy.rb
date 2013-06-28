@@ -1,3 +1,4 @@
+require "bundler/capistrano"
 require "whenever/capistrano"
 
 set :application, "smorodina"
