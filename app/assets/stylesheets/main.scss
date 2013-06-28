@@ -1182,6 +1182,10 @@ a:hover,
   line-height: 1.2;
   padding: 3px 7px;
   margin-left: 10px;
+
+  img {
+    vertical-align: -3px;
+  }
 }
 
 .smorodina-item__event-label_progress,
