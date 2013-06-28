@@ -1447,6 +1447,15 @@ a:hover,
     .level_2{
       display: list-item;
     }
+    .level_4{
+      display: block;
+    }
+    .level_3.leaf{
+      display: block;
+    }
+    .level_2_container{
+      display: list-item;
+    }
   }
   .block-icon{
     font-family: 'smorodina-icons';
@@ -1456,23 +1465,30 @@ a:hover,
   .filter-category__text{
     margin-right: 5px;
   }
+  .level_4{
+    display: none;
+    &.selected{
+      display: inline-block;
+    }
+  }
   .level_3{
     display: inline-block;
-    
+    &.leaf{
+      display: none;
+    }
   }
   .level_2{
     display: inline-block;
     &.hasChilds{
-      display: block;
       line-height: 2;
     }
   }
   .level_1_container{
     margin-left: 35px;
   }
-  /*.level_2_container{
-    display: inline;
-  }*/
+  .level_2_container{
+    display: inline-block;
+  }
   li.sightseeing{
     width: 50%;
     float: left;
