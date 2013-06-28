@@ -125,6 +125,10 @@ class User < ActiveRecord::Base
         user.save!
         user.confirm!
       end
+      if user.name.blank?
+        user.profile.name = args[:name]
+        user.profile.save!
+      end
       user
     end
   end
@@ -133,10 +137,12 @@ class User < ActiveRecord::Base
     args = {provider: provider = oauth['provider'], uid: oauth['uid']}
     email = (info = oauth['info']) && info['email']
     token = (cred = oauth['credentials']) && cred['token']
+    name = info['name'] if info
     token_secret = cred && cred['secret']
     args.merge! case provider
-                  when 'facebook'; {email: email,                     oauth_token: token}
-                  when 'twitter';  {oauth_token_secret: token_secret, oauth_token: token}
+                  when 'facebook';  {email: email,                     oauth_token: token}
+                  when 'twitter';   {oauth_token_secret: token_secret, oauth_token: token}
+                  when 'vkontakte'; {name: name,                       oauth_token: token}
                   else
                     raise NotImplementedError, "#{provider} oauth provider not supported"
                 end

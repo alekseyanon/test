@@ -23,7 +23,7 @@ class AuthenticationsController < ApplicationController
     end
 
     if oauth['provider'] && oauth['uid']
-      auth = Authentication.find_by_provider_and_uid(oauth['provider'], oauth['uid'])
+      auth = Authentication.find_by_provider_and_uid(oauth['provider'], oauth['uid'].to_s)
 
       if current_user
         current_user.create_authentication(oauth) unless auth
