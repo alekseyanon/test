@@ -6,6 +6,11 @@ load File.join(Rails.root, 'Rakefile')
 
 describe Event do
   subject { described_class.make! }
+
+  before :all do
+    Event.destroy_all
+  end
+
   it { should be_valid }
   it { should validate_presence_of :title }
   it { should validate_presence_of :geom }

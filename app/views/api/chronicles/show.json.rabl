@@ -1,16 +1,15 @@
 object false
 
-node(:go_offset) do
-  @go_offset.to_s
-end
+node(:go_offset) { @go_offset.to_s }
 
-node(:event_offset) do
-  @event_offset.to_s
-end
+node(:event_offset) { @event_offset.to_s }
+
+node(:end_collection) { @end_collection if @end_collection }
 
 child @objects => :items do
   attributes :id, :title, :agc_id
 
+  node(:created_at) {|obj| -obj.created_at.to_i}
   node(:type) {|obj| obj.class.to_s.underscore}
   node(:tags) {|obj| obj.tags_titles if obj.is_a? Event}
   node(:url) {|obj| url_for(obj)}

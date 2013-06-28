@@ -111,6 +111,7 @@ window.geo_object_search = ->
 
   updateQuery = (opts = {})->
     if data = collectDataForQuery()
+      delete data.bounding_box if opts.direct_search
       geo_objects.fetch
         reset: true
         query: data
