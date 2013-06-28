@@ -12,7 +12,7 @@ class Smorodina.Collections.Categories extends Backbone.Collection
 
   activeElements: ->
     @filter (category) ->
-  	  category.get('state') == 'selected'
+      category.get('state') == 'selected'
 
   fromListToTree: (categories_name_list) ->
     selected = @filter (category) -> _.include( categories_name_list, category.get('name') )
@@ -27,11 +27,18 @@ class Smorodina.Collections.Categories extends Backbone.Collection
       category.set 'state' ,'deselected'
   
   updateEmblemCategory: (name, is_selected)->
-  	_.each @where(name: name), (category) ->
-	    category.updateByEmblem(is_selected, name)
+    _.each @where(name: name), (category) ->
+      category.updateByEmblem(is_selected)
 
   comparator: (record)->
     record.get('order')
+
+  checkWholeSelection: ->
+    roots = @filter (category) -> category.get('parent_id') == 1 and category.get('name') != 'infrastructure'
+    all_selected =  _.all( roots, (category) -> category.isActive() )
+    @trigger 'allSelected', all_selected
+    for category in roots
+      @trigger( 'switchLegend', category.get('name'), category.isActive() )
 
   establishRelatives: ->
     for category in @models
