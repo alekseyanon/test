@@ -1361,7 +1361,7 @@ a:hover,
 .search-filter__second-level{
   width: 100%;
   li{
-    span{
+    span.filter-category__text{
       padding: 2px 7px;
       @include border-radius(10px);
       margin: 2px 0;
@@ -1415,7 +1415,7 @@ a:hover,
         width: 75%;
         .level_3{
           float: left;
-          width: 33%;
+          width: 30%;
         }
       }
     }
@@ -1423,6 +1423,7 @@ a:hover,
       width: 25%;
       float: right;
       margin-top: -150px;
+      margin-right: 30px;
     }
     li.lodging{
       width: 25%;
@@ -1435,16 +1436,29 @@ a:hover,
     }
     .level_3{
       display: list-item;
+      &.hasChilds > .filter-category__text{
+        font-weight: bold;
+      }
+      &.on_water{
+        margin-left: 35px;
+        margin-right: 30px;
+      }
     }
     .level_2{
       display: list-item;
     }
+  }
+  .block-icon{
+    font-family: 'smorodina-icons';
+    font-size: 22px;
+    float: left;
   }
   .filter-category__text{
     margin-right: 5px;
   }
   .level_3{
     display: inline-block;
+    
   }
   .level_2{
     display: inline-block;
@@ -1452,6 +1466,9 @@ a:hover,
       display: block;
       line-height: 2;
     }
+  }
+  .level_1_container{
+    margin-left: 35px;
   }
   /*.level_2_container{
     display: inline;
@@ -1472,6 +1489,11 @@ a:hover,
       border: 2px solid rgb(254, 123, 108);
       border: 2px solid rgba(254, 123, 108, .5);
     }
+    .block-icon{
+      &:before{
+        content: "$";
+      }
+    }
   }
   li.activities{
     width: 50%;
@@ -1488,6 +1510,11 @@ a:hover,
     .bordered > .filter-category__text{
       border: 2px solid rgb(233, 134, 3);
       border: 2px solid rgba(233, 134, 3, .5);
+    }
+    .block-icon{
+      &:before{
+        content: "#";
+      }
     }
   }
   li.food{
@@ -1506,6 +1533,11 @@ a:hover,
       border: 2px solid rgb(248, 193, 1);
       border: 2px solid rgba(248, 193, 1, .5);
     }
+    .block-icon{
+      &:before{
+        content: "\"";
+      }
+    }
   }
   li.lodging{
     width: 50%;
@@ -1522,6 +1554,11 @@ a:hover,
     .bordered > .filter-category__text{
       border: 2px solid rgb(169, 205, 25);
       border: 2px solid rgba(169, 205, 25, .5);
+    }
+    .block-icon{
+      &:before{
+        content: "!";
+      }
     }
   }
 }

@@ -19,7 +19,7 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
     self = @
     $('.search-filter__categories button').each ->
       #$(@).toggleClass 'selected', self.shouldSelectAll
-      self.collection.updateEmblemCategory $(@).attr('data-facet'), self.shouldSelectAll
+      #self.collection.updateEmblemCategory $(@).attr('data-facet'), self.shouldSelectAll
   
 
   initialize: ->
@@ -35,10 +35,10 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
     @orderFullList()
     list = @collection.filter (record)->
       names = ['sightseeing', 'activities', 'food', 'lodging']
-      return _.indexOf(names, record.get('name')) != -1
+      return _.indexOf(names, record.get('name')) != -1 && record.get('depth') == 1
     
     _.each list, (record)->
-      @$('.search-filter__second-level').append "<li class='level_1 #{record.get('name')}'><ul class='level_1_container'></ul></li>"
+      @$('.search-filter__second-level').append "<li class='level_1 #{record.get('name')}'><span class='block-icon'></span><ul class='level_1_container'></ul></li>"
 
     _.each @collection.where(depth: 2), @addOne
     @collection.markLeafs()
