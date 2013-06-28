@@ -20,11 +20,16 @@ sightseeing:
         geyser: 
           ru: Гейзер
           osm: natural.geyser
-        mountains: Горы
+        mountains: 
+          ru: Горы
+          osm: 
+            - natural.peak
+            - natural.arete
         mud_well: Грязевой источник
         reserve:
           ru: Заповедник
           osm: leisure.nature_reserve
+          from_poly: true
         zoo:
           ru: Зоопарк
           osm: tourism.zoo
@@ -38,9 +43,11 @@ sightseeing:
         sea:
           ru: Море
           osm: place.sea
+          from_poly: true
         lake:
           ru: Озеро
-          osm: natural.water
+          osm: water.lake
+          from_poly: true
         park: Парк
         cave_entrance:
           ru: Пещера
@@ -50,9 +57,10 @@ sightseeing:
         river:
           ru: Река
           osm: waterway.river
+          from_poly: true
         spring:
           ru: Ручей
-          osm: natural.spring
+          osm: waterway.stream
           from_poly: true
         national_park:
           ru: Национальный природный парк

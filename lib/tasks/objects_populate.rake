@@ -6,16 +6,24 @@ end
 def create_objects(category_name, content)
   return 0 if content['osm'].blank?
   print "#{content['osm']} -> #{category_name} : "
-  i = 0
   category = Category.where(name: category_name).first
-  tag_name, tag_value = content['osm'].split '.'
+  if (osm_tags = content['osm']).is_a? Array
+    osm_tags.each { |tag| create_osm content['from_poly'], category, tag }
+  else
+    create_osm content['from_poly'], category, osm_tags 
+  end
+end
+
+def create_osm from_poly, category, tag
+  i = 0
+  tag_name, tag_value = tag.split '.'
   tag_condition = "tags->'#{tag_name}' = '#{tag_value}'"
   Osm::Node.where(tag_condition).each do |node|
     create_object node, node.tags['name'], category
     i += 1
   end
   puts i
-  if content['from_poly']
+  if from_poly
     puts "===> Import from poly <==="
     Osm::Poly.where(tag_condition).each do |poly|
       create_object Osm::Node.find(poly.nodes.first), poly.tags['title'], category
