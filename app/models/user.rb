@@ -63,16 +63,11 @@ class User < ActiveRecord::Base
   end
 
   def username
-    self.name || self.email || "Пользователь #{self.id}"
+    self.name || (self.email.blank? ? nil : self.email) || "Пользователь #{self.id}"
   end
 
   def create_profile
     self.create_profile!
-  end
-
-  ### TODO: remove temporary method
-  def identifier
-    self.email.blank? ? "Профиль пользователя #{self.id}" : self.email
   end
 
   def password_required?
