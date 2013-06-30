@@ -12,7 +12,6 @@ class Smorodina.Views.Category extends Backbone.View
     @model.on 'actsAsLeaf', @applyLeafStyle
 
   render: ( visible = false )->
-    @are_categories_visible_by_default = visible
     @$el.append @template @model.toJSON()
     @$el.addClass "level_#{@model.get('depth')} #{@model.get('name')}"
     subLevel = @model.children()

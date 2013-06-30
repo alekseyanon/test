@@ -7,29 +7,17 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
 
   events:
     'click .search-filter__categories button' : 'toggleEmblemCategory'
-    'click .search-filter__switcher' : 'toggleAllCategories'
 
   toggleEmblemCategory: (emblem)->
     name = $(emblem.currentTarget).attr('data-facet')
     is_selected = $(emblem.currentTarget).hasClass('selected')
-    $(".level_1.#{name}").toggle is_selected
     @collection.updateEmblemCategory name, is_selected
     @collection.checkWholeSelection()
       
-  toggleAllCategories:(e) ->
-    @shouldSelectAll = !@shouldSelectAll
-    $(".level_1").toggle @shouldSelectAll
-    self = @
-    $('.search-filter__categories button').each ->
-      $(@).toggleClass 'selected', self.shouldSelectAll
-      self.collection.updateEmblemCategory $(@).attr('data-facet'), self.shouldSelectAll
-    @collection.checkWholeSelection()
-
   initialize: ->
     super()
     window.tt = @collection
     @shown_root_categories = $('.search-filter__categories button').map -> $(@).attr('data-facet')
-
     @$categories = $('.search-filter__second-level')[0]
     @collection.on 'reset', @render
     @collection.on 'allSelected', @switchTumbler
