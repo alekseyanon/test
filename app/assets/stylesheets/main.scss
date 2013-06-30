@@ -1394,6 +1394,7 @@ a:hover,
 }
 
 .search-filter__second-level{
+  color: #404041;
   &.full-list{
     li.sightseeing{
       width: 75%;
@@ -1461,6 +1462,7 @@ a:hover,
     font-family: 'smorodina-icons';
     font-size: 22px;
     float: left;
+    color: $siteGray;
   }
   .filter-category__text{
     margin-right: 5px;
@@ -1480,7 +1482,6 @@ a:hover,
   .level_2{
     display: inline-block;
     &.hasChilds{
-      line-height: 2;
     }
   }
   .level_1_container{
