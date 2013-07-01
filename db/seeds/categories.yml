@@ -65,6 +65,7 @@ sightseeing:
         national_park:
           ru: Национальный природный парк
           osm: boundary.national_park
+          from_poly: true
     culture:
       ru: Культура
       sub:

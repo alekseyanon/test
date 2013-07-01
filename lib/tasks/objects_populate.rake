@@ -1,20 +1,16 @@
-def browse_category(name, content)
+def browse_category name, content
   create_objects name, content
   content['sub'].each{ |next_name, sub| browse_category next_name, sub } if content['sub']
 end
 
-def create_objects(category_name, content)
+def create_objects category_name, content
   return 0 if content['osm'].blank?
   print "#{content['osm']} -> #{category_name} : "
   category = Category.where(name: category_name).first
-  if (osm_tags = content['osm']).is_a? Array
-    osm_tags.each { |tag| create_osm content['from_poly'], category, tag }
-  else
-    create_osm content['from_poly'], category, osm_tags 
-  end
+  [content['osm']].flatten.each { |tag| create_from_osm content['from_poly'], category, tag }
 end
 
-def create_osm from_poly, category, tag
+def create_from_osm from_poly, category, tag
   i = 0
   tag_name, tag_value = tag.split '.'
   tag_condition = "tags->'#{tag_name}' = '#{tag_value}'"
@@ -27,7 +23,7 @@ def create_osm from_poly, category, tag
     puts "===> Import from poly <==="
     Osm::Poly.where(tag_condition).each do |poly|
       create_object Osm::Node.find(poly.nodes.first), poly.tags['title'], category
-      i+=1
+      i += 1
     end
   end
   puts "*** All in Category #{i} ***"
