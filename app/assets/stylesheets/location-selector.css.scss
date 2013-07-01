@@ -1,0 +1,10 @@
+@import "base";
+
+.location-selector__map__outer {}
+.location-selector__map__inner {
+  @include box-shadow(inset 0 0 0 5px rgba(white, 0.6));
+}
+.location-selector__map__content {
+  width: 765px;
+  height: 330px;
+}
