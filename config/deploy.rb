@@ -1,3 +1,6 @@
+require "bundler/capistrano"
+require "whenever/capistrano"
+
 set :application, "smorodina"
 set :repository,  "git@github.com:smorodina/smorodina.git"
 default_environment['PATH'] = "/usr/local/bin:/usr/bin:/bin:/opt/bin:$PATH"

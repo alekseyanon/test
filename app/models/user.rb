@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
 
+  USER_WINDOW_PAGINATION = 20
   paginates_per 10
   # TODO avatar crop!
   # :token_authenticatable, :lockable, :timeoutable
@@ -9,7 +10,7 @@ class User < ActiveRecord::Base
          :validatable, :omniauthable, :confirmable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :provider, :uid, :authentication_ids, :experts, :discoverer,
+                  :provider, :uid, :authentication_ids, :expert, :discoverer,
                   :photographer, :blogger, :commentator
 
   has_many :ratings
@@ -24,6 +25,9 @@ class User < ActiveRecord::Base
   has_many :video_links
   has_many :you_tubes, through: :video_links, uniq: true, source: :video, source_type: 'YouTube'
   has_many :vimeos,    through: :video_links, uniq: true, source: :video, source_type: 'Vimeo'
+
+  scope :sorted_list_with_page, ->(cond, page = 0) { order(cond, 'created_at DESC').
+                                                     offset(page*USER_WINDOW_PAGINATION) }
 
   acts_as_voter
   ### TODO: may be useful for calculation user rating

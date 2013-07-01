@@ -14,7 +14,6 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.ui.all
-#= require jquery-datetimepicker
 #= require jquery-fileupload
 #= require select2
 #= require moment
@@ -28,7 +27,9 @@
 #= require leaflet
 #= require jquery.Jcrop
 #= require redactor-rails
-
+#= require pickadate/picker  
+#= require pickadate/picker.date  
+#= require pickadate/picker.time  
 # ------------------------------------------------------------------------------------------------------------------ 
 
 #TODO рефакторить - это переехало в backbone views

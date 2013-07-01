@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
+gem 'strong_parameters'
+
 gem 'pg'
 gem 'rgeo-activerecord'
 gem 'activerecord-postgis-adapter'
@@ -24,6 +26,8 @@ gem 'sxgeo'
 gem 'kaminari'
 
 gem 'rabl'
+
+gem 'whenever', :require => false
 
 ################## views #########################
 gem 'simple_form'
@@ -90,7 +94,7 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'rails_jquery_ui_datepicker'
+gem 'pickadate-rails'
 gem 'spinjs-rails'
 gem 'momentjs-rails'
 gem 'jquery-fileupload-rails'

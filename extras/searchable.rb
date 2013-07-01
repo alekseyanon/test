@@ -18,6 +18,10 @@ module Searchable
       where "ST_DWithin(geom, ST_GeogFromText('#{geom}'), #{r})"
     end
 
+    def in_place place_id
+      joins('JOIN agcs ON agc_id = agcs.id').where('? = ANY(agcs.agus)', place_id)
+    end
+
     # Searches descriptions against title, body, tags, using upper level categories used as facets.
     # For queries with geospatial part, search is done within a radius of some point.
     #
