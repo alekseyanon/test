@@ -38,7 +38,7 @@ class Smorodina.Views.Chronicle extends Backbone.View
       unless @collection.end_collection?
         @$fetch_button.show()
     else
-      unless @collection.go_offset && @collection.event_offset
+      unless +@collection.go_offset || +@collection.event_offset
         @$chronicle_elem.append JST['chronicle_empty'](place: @$search_text.val(), klass: @$content_type.val())
 
   add_items: (e) ->
