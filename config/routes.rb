@@ -120,6 +120,8 @@ Smorodina::Application.routes.draw do
     #TODO: Terms Of Service page
     get '/terms', action: 'terms'
     get '/sitemap', action: 'sitemap'
+    #TODO: TEST, remove later
+    get '/_test_loc_select', action: '_test_loc_select'
   end
 
   controller :feedbacks do
