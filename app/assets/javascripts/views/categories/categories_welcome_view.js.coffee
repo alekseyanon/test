@@ -20,7 +20,7 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
     @shown_root_categories = $('.search-filter__categories button').map -> $(@).attr('data-facet')
     @$categories = $('.search-filter__second-level')[0]
     @collection.on 'reset', @render
-    @collection.on 'allSelected', @switchTumbler
+    #@collection.on 'allSelected', @switchTumbler
     @collection.on 'switchLegend', @switchLegend
     @collection.fetch(reset: true)
 
@@ -41,8 +41,8 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
     root_cat = @collection.where(id: model.get('parent_id'))
     @$(".#{root_cat[0].get('name')} ul").first().append category.render().el
 
-  switchTumbler: (state) ->
-    $('.search-filter__switcher').toggleClass 'selected', state
+  #switchTumbler: (state) ->
+  #  $('.search-filter__switcher').toggleClass 'selected', state
 
   switchLegend: (facet, selected) -> 
     # если selected, то мы можем раскрасить иконку

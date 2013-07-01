@@ -1364,11 +1364,12 @@ a:hover,
     span.filter-category__text{
       padding: 2px 7px;
       @include border-radius(10px);
-      margin: 2px 0;
+      margin: 2px 2px 0 0;
     }
     &.level_2.hasChilds{
       > .filter-category__text{
         font-weight: bold;
+        white-space: nowrap;
       }
     }
     &.level_3{ 
@@ -1377,17 +1378,19 @@ a:hover,
       }
       .hasChilds > .filter-category__text{
         font-weight: bold;
+        white-space: nowrap;
       }
     }
     &.level_4{
       > .filter-category__text{
         @include font-small;
+        white-space: nowrap;
       }
     }
     &.level_5{
       > .filter-category__text{
         @include font-small;
-        margin-left: 20px;
+        white-space: nowrap;
       }
     }
   }
@@ -1448,13 +1451,26 @@ a:hover,
     .level_2{
       display: list-item;
     }
-    .level_4{
-      display: block;
+    .level_4,
+    .level_5{
+      display: list-item;
+      > .filter-category__text{
+        display: inline;
+      }
+    }
+    .level_5{
+      > .filter-category__text{
+        margin-left: 20px;
+      }
     }
     .level_3.leaf{
-      display: block;
+      > .filter-category__text{
+        display: inline;
+      }
     }
-    .level_2_container{
+    .level_2_container,
+    .level_3_container,
+    .level_4_container{
       display: list-item;
     }
   }
@@ -1468,31 +1484,59 @@ a:hover,
     margin-right: 5px;
   }
   .level_4{
-    display: none;
+    display: inline;
+    > .filter-category__text{
+      display: none;
+    }
     &.selected{
-      display: inline-block;
+      > .filter-category__text{
+        display: inline;
+      }
+    }
+  }
+  .level_5{
+    display: inline;
+    > .filter-category__text{
+      display: none;
+    }
+    &.selected{
+      > .filter-category__text{
+        display: inline;
+      }
     }
   }
   .level_3{
-    display: inline-block;
+    display: inline;
     &.leaf{
-      display: none;
+      > .filter-category__text{
+        display: none;
+      }
+    }
+    &.selected{
+      > .filter-category__text{
+        display: inline;
+      }
     }
   }
   .level_2{
     display: inline-block;
-    &.hasChilds{
-    }
   }
   .level_1_container{
     margin-left: 35px;
   }
-  .level_2_container{
-    display: inline-block;
+  .level_2_container,
+  .level_3_container,
+  .level_4_container{
+    display: inline;
   }
-  li.sightseeing{
+
+  .level_1{
     width: 50%;
     float: left;
+    margin-top: 2px;
+  }
+
+  li.sightseeing{
     &.selected > .filter-category__text,
     .selected > .filter-category__text{
       @include background-image(linear-gradient(top, rgba(254, 157, 146, 1) 0%, rgba(238, 83, 67, 1) 100%));
@@ -1513,8 +1557,6 @@ a:hover,
     }
   }
   li.activities{
-    width: 50%;
-    float: left;
     &.selected > .filter-category__text,
     .selected > .filter-category__text{
       @include background-image(linear-gradient(top, rgba(251, 175, 8, 1) 0%, rgba(226, 120, 3, 1) 100%));
@@ -1535,8 +1577,6 @@ a:hover,
     }
   }
   li.food{
-    width: 50%;
-    float: left;
     &.selected > .filter-category__text,
     .selected > .filter-category__text{
       @include background-image(linear-gradient(top, rgba(247, 225, 41, 1) 0%, rgba(206, 160, 0, 1) 100%));
@@ -1557,8 +1597,6 @@ a:hover,
     }
   }
   li.lodging{
-    width: 50%;
-    float: left;
     &.selected > .filter-category__text,
     .selected > .filter-category__text{
       @include background-image(linear-gradient(top, rgba(192, 218, 89, 1) 0%, rgba(135, 163, 22, 1) 100%));
