@@ -1,7 +1,7 @@
 def vote_for_geo_object obj, user, decision
   if obj.leaf_categories.present?
     obj.leaf_categories.each {|tag| user.send decision, obj, tag }
-    rating = ld.plusminus.to_f / ld.leaf_categories.count.to_f
+    rating = obj.plusminus.to_f / obj.leaf_categories.count.to_f
   else
     user.send decision, obj
     rating = obj.plusminus.to_f

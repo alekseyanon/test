@@ -6,14 +6,15 @@ Smorodina::Application.routes.draw do
   mount RedactorRails::Engine => '/redactor_rails'
 
   get 'ratings/list'
- 
-  
+
   namespace :api do
+    get 'ratings/list'
     get 'chronicles/show'
     get 'categories/index'
     match 'events/week/:date' => 'events#week', defaults: { format: 'json' }
     get 'events/tags'
     get 'events/search'
+    get 'events/autocomplete'
     get 'agus/search'
     match 'objects/:id/nearby' => 'geo_objects#nearby', defaults: { format: 'json' }
     match 'objects/:id' => 'geo_objects#show'

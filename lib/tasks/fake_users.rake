@@ -20,18 +20,23 @@ namespace :fake do
   #   Facebook: [test98732both@yandex.ru, 123456ab]
   #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
-  task users: :environment do
+  task users: :prepare_images_seed do
 
     load_routes
 
     DEFAULT_PASSWORD = "12345678"
 
     #generic function for users creation
-    def user_creation
+    def user_creation opts = {}
       u = User.new
       yield u
       u.confirm!
       u.save
+      if opts[:generate_profile]
+        u.profile.name   = Faker::Lorem.word
+        u.profile.avatar = File.open pick_random_image
+        u.profile.save!
+      end
     end
 
     def create_admin
@@ -43,9 +48,9 @@ namespace :fake do
     end
 
     def create_smorodina_users
-      emails = ['foo@bar.com'] + Array.new(5){Faker::Internet.email}
+      emails = ['foo@bar.com'] + Array.new(5){ Faker::Internet.email }
       emails.each do |email|
-        user_creation do |u|
+        user_creation(generate_profile: true) do |u|
           u.email = email
           u.password = DEFAULT_PASSWORD
           puts "creating smorodina.com user with email #{u.email} and password #{DEFAULT_PASSWORD}"

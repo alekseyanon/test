@@ -60,6 +60,7 @@ Event.blueprint do
   geom { Geo::factory.point(10, 10) }
   tag_list { 'aaa, bbb, ccc' }
   user { User.make! }
+  agc { Agc.limit(10).sample } 
 end
 
 Review.blueprint do
@@ -71,7 +72,7 @@ end
 
 Image.blueprint do
   image { File.open("#{Rails.root}/spec/fixtures/images/fishing/toon376.gif") }
-  user { User.make! }
+  user  { User.make! }
   imageable { GeoObject.make! }
 end
 

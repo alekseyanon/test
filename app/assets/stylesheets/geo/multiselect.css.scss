@@ -4,3 +4,15 @@
 .tag_list {
   width: 500px;
 }
+
+#categories-popup {
+	width: 840px;
+	position: absolute;
+	margin-right: -420px;
+	left: 50%;
+	border: 1px solid;
+  display: none;
+	& {
+    position: relative;
+  }
+}

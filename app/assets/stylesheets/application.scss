@@ -4,15 +4,17 @@
 @import "icons";
 @import "ui";
 
-@import "chosen";
+@import "select2";
 @import "leaflet";
 @import "jquery.ui.all";
-@import "jquery-datetimepicker";
 @import "jquery.Jcrop";
+@import "pickadate/default";
+@import "pickadate/default.date";
+@import "pickadate/default.time";
 
 @import "bootstrap-overrides";
 @import "main";
 @import "legacy";
 @import "redactor-rails";
-@import "object_show_page";
 @import "places_controller";
+@import "tmp_object_edit"

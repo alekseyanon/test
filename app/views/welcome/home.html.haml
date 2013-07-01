@@ -47,8 +47,12 @@
         Показывать
       %span
         %select#chronicleSearchType.input-medium
-          %option
+          %option.chronicle__search__all{data: {type: ''}}
             Все записи
+          %option.chronicle__search__objects{data: {type: 'geo_object'}}
+            Объекты
+          %option.chronicle__search__events{data: {type: 'event'}}
+            События
     %div.chronicle__search__field
       %label.chronicle__search__field__label{ for: "chronicleSearchPlace" }
         Где?

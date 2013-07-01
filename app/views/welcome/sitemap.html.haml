@@ -1,0 +1,56 @@
+.sitemap__content
+  %h1 Карта сайта
+  %ul.sitemap__links
+    %li
+      %a{ href: geo_objects_path } Куда отправиться
+      %ul
+        %li
+          %a{ href: search_geo_objects_path } Поиск объектов
+        %li
+          %a{ href: new_geo_object_path } Добавить объект
+    %li
+      %a{ href: events_path } События
+      %ul
+        %li
+          %a{ href: events_search_path } Поиск событий
+        %li
+          %a{ href: new_event_path } Добавить событие
+    %li
+      %a{ href: "#blogs" } Рейтинги пользователей
+    %li
+      %a{ href: about_path } О проекте
+      %ul
+        %li
+          -# TODO: О проекте и Контактная информация — одна страница, поставил одинаковые ссылки (EM)
+          %a{ href: about_path } Контактная информация
+    - if not current_user.nil?
+      -# TODO: как тут вести себя для разлогиненного юзера? По-хорошему после всплывающего окна надо бы карту перерисовать
+      %li
+        %a{ href: profile_path(current_user.profile) } Личный кабинет пользователя
+        -# TODO: похоже, что этих путей еще толком нету
+        %ul
+          %li
+            %a{ href: '#' } Обзор профиля
+            %ul
+              %li
+                %a{ href: '#' } Настройки профиля
+          %li
+            %a{ href: '#' } Настройки аккаунта
+    - else
+      %li
+        %a{ href: '#regLoginModal', data: { toggle: 'modal' } } Личный кабинет пользователя
+        %ul
+          %li
+            %a{ href: '#regLoginModal', data: { toggle: 'modal' } } Обзор профиля
+            %ul
+              %li
+                %a{ href: '#regLoginModal', data: { toggle: 'modal' } } Настройки профиля
+          %li
+            %a{ href: '#regLoginModal', data: { toggle: 'modal' } } Настройки аккаунта
+
+    %li
+      %a{ href: '#feedback', data: { toggle: 'modal' } } Обратная связь
+    %li
+      %a{ href: terms_path } Пользовательское соглашение
+
+= render 'layouts/footer'

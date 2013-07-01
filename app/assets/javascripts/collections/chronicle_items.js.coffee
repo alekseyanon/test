@@ -7,4 +7,5 @@ class Smorodina.Collections.ChronicleItems extends Backbone.Collection
   parse: (response)->
     @go_offset = response.go_offset
     @event_offset = response.event_offset
+    @end_collection = response.end_collection
     response.items

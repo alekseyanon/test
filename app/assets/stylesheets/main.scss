@@ -233,7 +233,7 @@ a:hover,
 }
 
 .slogan-user-panel-container {
-  padding: 0 16px 0 60px;
+  padding: 0 16px 0 14px;
 }
 
 .slogan {
@@ -324,15 +324,12 @@ a:hover,
 
 .control-panel__logo {
   display: inline-block;
-  position: relative; top: -3px;
+  position: relative; top: -10px; left: -10px;
   vertical-align: top;
-  margin-right: 15px;
+  width: 240px;
+  height: 81px;
+  margin-right: 25px;
   @include background-image-svg("logo");
-
-  @include respond-to(large-screen){
-    width: 212px;
-    top: 2px;
-  }
 }
 
 .control-panel__menu {
@@ -877,6 +874,10 @@ a:hover,
   display: inline-block;
 }
 
+#chronicleSearchType {
+  margin-top: 10px;
+}
+
 .chronicle__section,
 .search__results__date-section {
   @include trailer;
@@ -934,6 +935,12 @@ a:hover,
 .fetch-results__refresh-icon {
   height: $base-line-height * 2;
   @include vignette(60px, 1px, middle, center, $lightgrey);
+}
+
+.chronicle__empty {
+  border-top: 1px dotted $lightgrey;
+  text-align: center;
+  padding-top: 25px;
 }
 
 .smorodina-item {
@@ -1175,6 +1182,10 @@ a:hover,
   line-height: 1.2;
   padding: 3px 7px;
   margin-left: 10px;
+
+  img {
+    vertical-align: -3px;
+  }
 }
 
 .smorodina-item__event-label_progress,
@@ -1358,6 +1369,11 @@ display: block;
 
 .search-filter__second-level li.selected > .filter-category__text {
   background-color: red;
+}
+
+.search-filter__second-level li.deselected > .filter-category__text {
+  background-color: white;
+  border: 0;
 }
 
 .search-filter__second-level li.semi-selected > .filter-category__text {
@@ -1822,6 +1838,30 @@ display: block;
 }
 
 /* ---------------------------------------- ABOUT PAGE END --------------------------------------- */
+
+/* ---------------------------------------- SITEMAP PAGE START ----------------------------------- */
+
+.sitemap__content {
+  padding-left: 25px;
+}
+
+.sitemap__links {
+  margin-top: 28px;
+  padding-left: 3px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 36px;
+  a {
+    color: $lightblue;
+  }
+  ul {
+    margin-left: 36px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+/* ---------------------------------------- SITEMAP PAGE END ------------------------------------- */
 
 /* ---------------------------------------- ALL PHOTOS PAGE START -------------------------------- */
 
@@ -2618,3 +2658,28 @@ display: block;
 
 /* ---------------------------------------- PASSWORD FORMS END ----------------------------------- */
 
+
+/* ---------------------------------------- CATEGORY NEW PAGE START --------------------------------- */
+
+.tag_list {
+  width: 500px;
+}
+
+.categories-field {
+  position: relative;
+}
+
+#categories-popup {
+  width: 840px;
+  min-height: 460px;
+  position: absolute;
+  margin-left: -420px;
+  left: 50%;
+  border: 1px solid;
+  display: none;
+  & {
+    position: relative;
+  }
+}
+
+/* ---------------------------------------- CATEGORY NEW PAGE END ----------------------------------- */

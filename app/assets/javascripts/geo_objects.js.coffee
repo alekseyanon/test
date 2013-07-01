@@ -14,3 +14,8 @@ Smorodina.Pages.GeoObjects = ->
 
     # TODO temporary solution
     geo_object_search()
+
+Smorodina.Pages.GeoObjectNew = ->
+
+  $ ->  
+    new Smorodina.Views.CategoriesGeoCreation(collection : new Smorodina.Collections.Categories)

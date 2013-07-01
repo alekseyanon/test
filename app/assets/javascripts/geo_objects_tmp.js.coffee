@@ -31,7 +31,7 @@ initMyLocationControl = (map)->
     map.addControl(commandControl);
 
     showMyLocation = (_,e)->
-      $.get 'objects/my_location', (data)->
+      $.get '/objects/my_location', (data)->
         if data
           map.setView data.reverse(), 13
           $('.map').data coords: data
@@ -63,12 +63,13 @@ window.geo_object_edit = ->
   [map, _] = initMap()
   latlng = getLatLng()
   map.setView latlng, 13
-  L.marker(latlng).addTo map
+  marker = L.marker( latlng, draggable: true )
+  marker.addTo map
   popup = L.popup()
-  map.on 'click', (e) ->
-    showLatLng e.latlng
+  marker.on 'drag', (e) ->
+    showLatLng e.target.getLatLng()
     popup
-      .setLatLng(e.latlng)
+      .setLatLng(e.target.getLatLng())
       .setContent("New place of object")
       .openOn(map)
 
@@ -110,6 +111,7 @@ window.geo_object_search = ->
 
   updateQuery = (opts = {})->
     if data = collectDataForQuery()
+      delete data.bounding_box if opts.direct_search
       geo_objects.fetch
         reset: true
         query: data
