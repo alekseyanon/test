@@ -94,7 +94,7 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'rails_jquery_ui_datepicker'
+gem 'pickadate-rails'
 gem 'spinjs-rails'
 gem 'momentjs-rails'
 gem 'jquery-fileupload-rails'
