@@ -63,4 +63,13 @@ describe User do
     it {should_not change(User, :count)}
     it {should_not change(Authentication, :count)}
   end
+
+  let!(:blogger){User.make! blogger: 3}
+  let!(:expert){User.make! expert: 3}
+
+  it 'get users list sorted by rating' do
+    User.sorted_list_with_page('blogger DESC').first.should == blogger
+    User.sorted_list_with_page('expert DESC').first.should == expert
+  end
+
 end

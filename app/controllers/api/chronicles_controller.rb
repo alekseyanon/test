@@ -24,7 +24,7 @@ class Api::ChroniclesController < ApplicationController
   private
 
   def filter_type_params(type)
-    %w(event geo_object).include? type ? type : nil
+    (%w(event geo_object).include? type) ? type : nil
   end
 
   def find_objects go_offset, event_offset, agu, klass = nil
