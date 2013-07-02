@@ -20,10 +20,12 @@
         %span.search-panel__change-date__content
           %span.search-panel__change-date__text
             Начиная с
-            = Time.now.strftime('%Y-%m-%d')
-          %span.action-link.search-panel__change-date__link
+            %span#event-date
+              = Time.now.strftime('%Y-%m-%d')
+          %span.action-link.search-panel__change-date__link#triggerDatePicker
             Изменить дату
-          %input.search-panel__change-date__input{ type: 'hidden', name: 'from',
+          #datepicker
+          %input.search-panel__change-date__input#date-input{ type: 'hidden', name: 'from',
           value: Time.now.strftime('%Y-%m-%d') }
       %span.search-panel__change-place
         %span.icon.icon-bigpin.search-panel__change-place__icon

@@ -1182,6 +1182,10 @@ a:hover,
   line-height: 1.2;
   padding: 3px 7px;
   margin-left: 10px;
+
+  img {
+    vertical-align: -3px;
+  }
 }
 
 .smorodina-item__event-label_progress,
@@ -1834,6 +1838,30 @@ display: block;
 }
 
 /* ---------------------------------------- ABOUT PAGE END --------------------------------------- */
+
+/* ---------------------------------------- SITEMAP PAGE START ----------------------------------- */
+
+.sitemap__content {
+  padding-left: 25px;
+}
+
+.sitemap__links {
+  margin-top: 28px;
+  padding-left: 3px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 36px;
+  a {
+    color: $lightblue;
+  }
+  ul {
+    margin-left: 36px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+/* ---------------------------------------- SITEMAP PAGE END ------------------------------------- */
 
 /* ---------------------------------------- ALL PHOTOS PAGE START -------------------------------- */
 
