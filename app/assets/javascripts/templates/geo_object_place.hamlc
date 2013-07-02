@@ -20,7 +20,7 @@
       %div.smorodina-item__tags
         %span.icon.icon-tags.smorodina-item__tags__icon
         %ul.smorodina-item__tags__list
-          - for tag in @categories_tree
+          - for tag in @tag_list
             %li
               %a.tdn-link{ href: '#' }= tag
     %div.span4
