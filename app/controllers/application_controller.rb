@@ -50,5 +50,4 @@ class ApplicationController < ActionController::Base
     cookies[:first_time] = {value: cookies.has_key?(:first_time), expires: 10.years.from_now}
   end
 
-
 end
