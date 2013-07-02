@@ -47,6 +47,7 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
   switchLegend: (facet, selected) -> 
     # если selected, то мы можем раскрасить иконку
     $(".search-filter__category_#{facet}").toggleClass 'selected', selected
+    $(".level_1.#{facet} .block-icon").toggleClass 'active', selected
 
   orderFullList: ->
     #Custom reordering
