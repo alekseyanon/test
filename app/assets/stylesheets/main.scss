@@ -1365,8 +1365,11 @@ a:hover,
       @include border-radius(10px);
       margin: 2px 2px 0 0;
       display: inline-block;
-      line-height: 22px !important;
+      line-height: 22px;
       .filter-category__text__inner{
+        @include border-radius(10px);
+        line-height: 20px;
+        display: inline-block;
         white-space: nowrap;
         padding: 0px 7px;
         &:after{
@@ -1572,8 +1575,10 @@ a:hover,
     }
     &.bordered > .filter-category__text,
     .bordered > .filter-category__text{
-      border: 2px solid rgb(254, 123, 108);
-      border: 2px solid rgba(254, 123, 108, .5);
+      .filter-category__text__inner{
+        border: 2px solid rgb(254, 123, 108);
+        border: 2px solid rgba(254, 123, 108, .5);
+      }
     }
     .block-icon{
       &:before{
@@ -1592,8 +1597,10 @@ a:hover,
     }
     &.bordered > .filter-category__text,
     .bordered > .filter-category__text{
-      border: 2px solid rgb(233, 134, 3);
-      border: 2px solid rgba(233, 134, 3, .5);
+      .filter-category__text__inner{
+        border: 2px solid rgb(233, 134, 3);
+        border: 2px solid rgba(233, 134, 3, .5);
+      }
     }
     .block-icon{
       &:before{
@@ -1612,8 +1619,10 @@ a:hover,
     }
     &.bordered > .filter-category__text,
     .bordered > .filter-category__text{
-      border: 2px solid rgb(248, 193, 1);
-      border: 2px solid rgba(248, 193, 1, .5);
+      .filter-category__text__inner{
+        border: 2px solid rgb(248, 193, 1);
+        border: 2px solid rgba(248, 193, 1, .5);
+      }
     }
     .block-icon{
       &:before{
@@ -1632,8 +1641,10 @@ a:hover,
     }
     &.bordered > .filter-category__text,
     .bordered > .filter-category__text{
-      border: 2px solid rgb(169, 205, 25);
-      border: 2px solid rgba(169, 205, 25, .5);
+      .filter-category__text__inner{
+        border: 2px solid rgb(169, 205, 25);
+        border: 2px solid rgba(169, 205, 25, .5);
+      }
     }
     .block-icon{
       &:before{
