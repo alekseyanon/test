@@ -1492,10 +1492,12 @@ a:hover,
     }
   }
   .block-icon{
-    font-family: 'smorodina-icons';
-    font-size: 22px;
     float: left;
-    color: $siteGray;
+    width: 25px;
+    height: 26px;
+    display: block;
+    background-image: url('/assets/icons/categories-sprite.gif');
+    background-repeat: no-repeat;
   }
   .filter-category__text{
     margin-right: 5px;
@@ -1581,8 +1583,9 @@ a:hover,
       }
     }
     .block-icon{
-      &:before{
-        content: "$";
+      background-position: 0px 0px;
+      &.active{
+        background-position: 0px -27px;
       }
     }
   }
@@ -1603,8 +1606,9 @@ a:hover,
       }
     }
     .block-icon{
-      &:before{
-        content: "#";
+      background-position: -25px 0px;
+      &.active{
+        background-position: -25px -26px;
       }
     }
   }
@@ -1625,8 +1629,9 @@ a:hover,
       }
     }
     .block-icon{
-      &:before{
-        content: "\"";
+      background-position: -50px 0px;
+      &.active{
+        background-position: -50px -27px;
       }
     }
   }
@@ -1647,8 +1652,9 @@ a:hover,
       }
     }
     .block-icon{
-      &:before{
-        content: "!";
+      background-position: -75px 0px;
+      &.active{
+        background-position: -75px -27px;
       }
     }
   }
