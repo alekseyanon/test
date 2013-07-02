@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def load_search_history
+    @search_history = SearchQuery.history_for_user(current_user)
+  end
+
   private
 
   def current_permission
@@ -45,5 +49,6 @@ class ApplicationController < ActionController::Base
   def set_first_time_cookie
     cookies[:first_time] = {value: cookies.has_key?(:first_time), expires: 10.years.from_now}
   end
+
 
 end

@@ -19,6 +19,8 @@ class Api::GeoObjectsController < ApplicationController
   def index
     query = sanitize_search_params(params.symbolize_keys[:query])
     query[:bounding_box] &&= query[:bounding_box].split(',').map(&:to_f)
-    render json: GeoObject.search(query)
+    result = GeoObject.search(query)
+    SearchQuery.add(query[:text], current_user) if result.size != 0
+    render json: result
   end
 end

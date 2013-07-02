@@ -27,20 +27,15 @@
               %li
                 %a{href: '#104'}
                   Петербург музеи
-          %span.main-search__field__panel__history
-            %span.action-link.main-search__field__panel__history__text.dropdown-toggle{ data: { toggle: 'dropdown' } }
-              История поиска
-            %ol.dropdown-menu.pull-left.main-search__field__panel__dropdown.main-search__field__panel__dropdown_history{ role: 'menu'}
-              %li
-                %a{href: '#105'}
-                  Калуга
-              %li
-                %a{href: '#106'}
-                  Ресторан «Веселая рыбалка»
-              %li
-                %a{href: '#107'}
-                  Саратовский государственный академический театр драмы им. И. А. Слонова
-            %span.icon.icon-clock.main-search__field__panel__history_icon
+          - if @search_history.present?
+            %span.main-search__field__panel__history
+              %span.action-link.main-search__field__panel__history__text.dropdown-toggle{ data: { toggle: 'dropdown' } }
+                История поиска
+              %ol.dropdown-menu.pull-left.main-search__field__panel__dropdown.main-search__field__panel__dropdown_history{ role: 'menu'}
+                - @search_history.each do |query_text|
+                  %li
+                    = link_to query_text, '#', class: 'search_history_item'
+              %span.icon.icon-clock.main-search__field__panel__history_icon
 
       %div.main-search__column
         %button#mainSearchButton.button.button_3d.button_violet.main-search__button

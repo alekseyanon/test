@@ -148,3 +148,7 @@ $ ->
  
   if location.href.match /modal=true/
     $('#regLoginModal').modal('show')
+
+  $('.search_history_item').click (e) ->
+    e.preventDefault()
+    $('#mainSearchFieldInput').val $(e.target).text()
