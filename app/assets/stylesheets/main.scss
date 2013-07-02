@@ -1362,35 +1362,45 @@ a:hover,
   width: 100%;
   li{
     span.filter-category__text{
-      padding: 2px 7px;
       @include border-radius(10px);
       margin: 2px 2px 0 0;
+      display: inline-block;
+      line-height: 22px !important;
+      .filter-category__text__inner{
+        white-space: nowrap;
+        padding: 0px 7px;
+        &:after{
+          content: "=";
+          font-family: 'smorodina-icons';
+          display: none;
+          font-size: 6px;
+          vertical-align: middle;
+          cursor: pointer;
+        }
+      }
+
     }
     &.level_2.hasChilds{
       > .filter-category__text{
         font-weight: bold;
-        white-space: nowrap;
       }
     }
     &.level_3{ 
       > .filter-category__text{
-        @include font-small;
+        font-size: 13px;
       }
       .hasChilds > .filter-category__text{
         font-weight: bold;
-        white-space: nowrap;
       }
     }
     &.level_4{
       > .filter-category__text{
-        @include font-small;
-        white-space: nowrap;
+        font-size: 13px;
       }
     }
     &.level_5{
       > .filter-category__text{
-        @include font-small;
-        white-space: nowrap;
+        font-size: 13px;
       }
     }
   }
@@ -1455,7 +1465,7 @@ a:hover,
     .level_5{
       display: list-item;
       > .filter-category__text{
-        display: inline;
+        display: inline-block;
       }
     }
     .level_5{
@@ -1465,13 +1475,17 @@ a:hover,
     }
     .level_3.leaf{
       > .filter-category__text{
-        display: inline;
+        display: inline-block;
       }
     }
     .level_2_container,
     .level_3_container,
     .level_4_container{
       display: list-item;
+    }
+    
+    .filter-category__text__inner:after{
+      display: none !important;
     }
   }
   .block-icon{
@@ -1490,7 +1504,10 @@ a:hover,
     }
     &.selected{
       > .filter-category__text{
-        display: inline;
+        display: inline-block;
+        .filter-category__text__inner:after{
+          display: inline;
+        }
       }
     }
   }
@@ -1501,7 +1518,10 @@ a:hover,
     }
     &.selected{
       > .filter-category__text{
-        display: inline;
+        display: inline-block;
+        .filter-category__text__inner:after{
+          display: inline;
+        }
       }
     }
   }
@@ -1511,10 +1531,15 @@ a:hover,
       > .filter-category__text{
         display: none;
       }
+      &.selected{
+        .filter-category__text__inner:after{
+          display: inline;
+        }
+      }
     }
     &.selected{
       > .filter-category__text{
-        display: inline;
+        display: inline-block;
       }
     }
   }
