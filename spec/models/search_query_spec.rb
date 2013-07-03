@@ -20,4 +20,12 @@ describe SearchQuery do
     SearchQuery.popular_for('вед').should == ['привед, медведик', 'привед, медвед']
   end
 
+  it "tracks history of queries" do
+    user = User.make!
+    SearchQuery.add 'Привед, Медвед', user
+    SearchQuery.add 'привед, медведик', user
+    SearchQuery.add 'хали гали паратрупер', user
+    SearchQuery.history_for_user(user, 2).should == ['хали гали паратрупер', 'привед, медведик']
+  end
+
 end
