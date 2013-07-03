@@ -58,7 +58,7 @@ class Smorodina.Models.Category extends Backbone.Model
       category.set 'state', new_state
 
   isActive: ->
-    @get('state') == 'selected' or @get('state') == 'semi-selected'
+    _.include ['selected', 'semi-selected', 'bordered'], @get('state')
 
   siblings: ->
     @get('siblings')
