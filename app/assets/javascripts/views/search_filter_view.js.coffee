@@ -13,15 +13,6 @@ class Smorodina.Views.SearchFilter extends Smorodina.Views.Base
     @$switcher = @$ '.search-filter__switcher'
     @$secondLevel = @$ '.search-filter__second-level'
     @$secondLevelContainer = @$secondLevel.parent()
-    # Показываем категории, когда кликнули впервые
-    @$secondLevelContainer.hide()
-    @bindFirstTimeSelection()
-
-  bindFirstTimeSelection: ->
-    for elem in [ @$categories, @$switcher ]
-      elem.on 'click.firstTime', =>
-        @$secondLevelContainer.show()
-        elem.off 'click.firstTime'
     
   toggleFilter: ->
     @$switcher.add(@$secondLevel).toggleClass('selected')
