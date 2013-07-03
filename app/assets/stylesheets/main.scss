@@ -1370,7 +1370,6 @@ a:hover,
         @include border-radius(10px);
         line-height: 20px;
         display: inline-block;
-        white-space: nowrap;
         padding: 0px 7px;
         &:after{
           content: "=";
@@ -1440,7 +1439,10 @@ a:hover,
       width: 25%;
       float: right;
       margin-top: -150px;
-      margin-right: 26px;
+      margin-right: 2%;
+      @include respond-to(large-screen){
+        margin-right: 0;
+      }
     }
     li.lodging{
       width: 25%;
@@ -1457,8 +1459,12 @@ a:hover,
         font-weight: bold;
       }
       &.on_water{
-        margin-left: 35px;
-        margin-right: 30px;
+        margin-left: 4%;
+        margin-right: 3%;
+        @include respond-to(large-screen){
+          margin-left: 0;
+          margin-right: 0;
+        }
       }
     }
     .level_2{
@@ -1498,12 +1504,15 @@ a:hover,
     }
   }
   .block-icon{
-    float: left;
     width: 25px;
     height: 26px;
     display: block;
     background-image: url('/assets/icons/categories-sprite.gif');
     background-repeat: no-repeat;
+    float: left;
+    @include respond-to(large-screen){
+      float: none;
+    }
   }
   .filter-category__text{
     margin-right: 5px;
@@ -1562,6 +1571,9 @@ a:hover,
   }
   .level_1_container{
     margin: 0 35px 0 35px;
+    @include respond-to(large-screen){
+      margin: 0;
+    }
   }
   .level_2_container,
   .level_3_container,
