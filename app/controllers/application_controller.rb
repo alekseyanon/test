@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def load_search_history
+    @search_history = SearchQuery.history_for_user(current_user)
+  end
+
   private
 
   def current_permission
