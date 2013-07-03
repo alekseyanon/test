@@ -1,7 +1,12 @@
-%h1 Editing profile
+%h1 Редактирование профиля
+= simple_form_for @profile, html: { class: 'profile-form form-horizontal' } do |f|
 
-= render 'form'
+  %div.form-field
+    = f.input :name, required: true, input_html: {class: 'input-xlarge'}, label: 'Имя'
+    = f.input :surname, required: true, input_html: {class: 'input-xlarge'}, label: 'Фамилия'
+  %div.profile-form__button
+    = f.button :submit, 'Сохранить профиль', class: 'btn_rounded'
 
-= link_to 'Show', @profile
-\|
-= link_to 'Back', profiles_path
+%div.profile_avatar
+  = image_tag @profile.avatar_url(:thumb)
+  = link_to 'Редактировать юзерпик', '#'
