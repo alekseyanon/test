@@ -1440,7 +1440,7 @@ a:hover,
       width: 25%;
       float: right;
       margin-top: -150px;
-      margin-right: 30px;
+      margin-right: 26px;
     }
     li.lodging{
       width: 25%;
@@ -1492,6 +1492,9 @@ a:hover,
     
     .filter-category__text__inner:after{
       display: none !important;
+    }
+    .level_1_container{
+      margin-right: 0px;
     }
   }
   .block-icon{
@@ -1558,7 +1561,7 @@ a:hover,
     }
   }
   .level_1_container{
-    margin-left: 35px;
+    margin: 0 35px 0 35px;
   }
   .level_2_container,
   .level_3_container,
@@ -1568,8 +1571,8 @@ a:hover,
 
   .level_1{
     width: 50%;
-    float: left;
-    margin-top: 2px;
+    float: right;
+    margin: 2px 0 13px 0;
   }
 
   li.sightseeing{
