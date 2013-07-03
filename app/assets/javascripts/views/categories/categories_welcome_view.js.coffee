@@ -26,8 +26,7 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
   render: ->
     @orderFullList()
     list = @collection.filter (record)->
-      names = ['sightseeing', 'activities', 'food', 'lodging']
-      return _.indexOf(names, record.get('name')) != -1 && record.get('depth') == 1
+      return _.include(['sightseeing', 'activities', 'food', 'lodging'], record.get('name')) && record.get('depth') == 1
     
     _.each list, (record)->
       @$('.search-filter__second-level').append "<li class='level_1 #{record.get('name')}'><span class='block-icon'></span><ul class='level_1_container'></ul></li>"
@@ -46,12 +45,13 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
 
   orderFullList: ->
     #Custom reordering
-    @collection.findWhere(name: 'sightseeing').set('order': 2)
-    @collection.findWhere(name: 'activities').set('order': 3)
-    @collection.findWhere(name: 'food').set('order': 4)
-    @collection.findWhere(name: 'lodging').set('order': 1)
-    @collection.findWhere(name: 'active_recreation').set('order': 5)
-    @collection.findWhere(name: 'entertainment').set('order': 6)
+    for name, i in ['lodging' 
+                     'sightseeing' 
+                     'activities' 
+                     'food' 
+                     'active_recreation' 
+                     'entertainment']
+      @collection.findWhere(name: name).set('order': i)
     @collection.sort()
 
   orderLightList: ->

@@ -16,7 +16,7 @@ class Smorodina.Views.Category extends Backbone.View
     @$el.addClass "level_#{@model.get('depth')} #{@model.get('name')}"
     subLevel = @model.children()
     if subLevel.length
-      @$el.addClass 'hasChilds'
+      @$el.addClass 'hasChildren'
       @renderSubLevel(subLevel)
     @
 

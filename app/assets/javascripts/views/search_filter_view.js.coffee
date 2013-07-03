@@ -43,7 +43,7 @@ class Smorodina.Views.SearchFilter extends Smorodina.Views.Base
     $(e.currentTarget).toggleClass('selected')
 
   openFilter: ->
-    if !@$('.second-level__container').hasClass('oppened')
+    unless @$('.second-level__container').hasClass('oppened')
       @$('.second-level__container').slideDown();
       @$('.second-level__container').addClass 'oppened'
      

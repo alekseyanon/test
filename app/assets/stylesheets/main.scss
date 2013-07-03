@@ -1360,9 +1360,11 @@ a:hover,
 
 .search-filter__second-level{
   width: 100%;
+  @include user-select(none);
   li{
     span.filter-category__text{
       @include border-radius(10px);
+      cursor: pointer;
       margin: 2px 2px 0 0;
       display: inline-block;
       line-height: 22px;
@@ -1382,7 +1384,7 @@ a:hover,
       }
 
     }
-    &.level_2.hasChilds{
+    &.level_2.hasChildren{
       > .filter-category__text{
         font-weight: bold;
       }
@@ -1391,7 +1393,7 @@ a:hover,
       > .filter-category__text{
         font-size: 13px;
       }
-      .hasChilds > .filter-category__text{
+      .hasChildren > .filter-category__text{
         font-weight: bold;
       }
     }
@@ -1455,7 +1457,7 @@ a:hover,
     }
     .level_3{
       display: list-item;
-      &.hasChilds > .filter-category__text{
+      &.hasChildren > .filter-category__text{
         font-weight: bold;
       }
       &.on_water{
