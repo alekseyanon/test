@@ -11,17 +11,24 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     @marker = null
     @render()
 
-  initSelectionMarkerControl: ->
+  putSelectionMarker: ->
     if not @options.putMarker
       return
     map = @map
-    putMarker = =>
-      latlon = @centerCoords()
-      if not @marker
-        markerLg = L.layerGroup([]).addTo map
-        @marker = L.marker(latlon, icon: @categoryIconMap.selection, draggable: true).addTo markerLg
-      else
-        @marker.setLatLng latlon
+    latlon = @centerCoords()
+    if not @marker
+      markerLg = L.layerGroup([]).addTo map
+      @marker = L.marker(latlon, icon: @categoryIconMap.selection, draggable: true).addTo markerLg
+      @marker.on 'drag', =>
+        @trigger 'marker:drag'
+    else
+      @marker.setLatLng latlon
+    @trigger 'marker:drag'
+
+
+  initSelectionMarkerControl: ->
+    if not @options.putMarker
+      return
 
     L.SelectionMarkerCommand = L.Control.extend
       options:
@@ -30,9 +37,9 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
         controlUI = L.DomUtil.create 'a', 'leaflet-control-put-marker'
         controlUI.setAttribute 'href', '#'
         controlUI.title = 'Put marker'
-        $(controlUI).click (e) ->
+        $(controlUI).click (e) =>
           e.preventDefault()
-          putMarker()
+          @putSelectionMarker()
         controlUI
 
     commandControl = new L.SelectionMarkerCommand()
@@ -133,6 +140,15 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
   markerCoords: ->
     @marker?.getLatLng()
 
+  setMarkerCoords: (latlon) ->
+    if not @options.putMarker
+      return
+    if not @marker
+      @putSelectionMarker()
+    @marker.setLatLng latlon
+    if not @map.getBounds().contains(latlon)
+      @map.setView latlon, @map.getZoom()
+
   render: ->
     @initMap()
     @setupMap()
@@ -140,8 +156,10 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
 class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
   initialize: ->
     super()
-    @mapView = new Smorodina.Views.ObjectsMap el: @$('.location-selector__map__content'), putMarker: true
     @render()
+    @mapView = new Smorodina.Views.ObjectsMap el: @$('.location-selector__map__content'), putMarker: true
+    @mapView.on 'marker:put', => # update text fields
+
 
   render: ->
     @
