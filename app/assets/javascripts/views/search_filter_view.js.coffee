@@ -26,12 +26,11 @@ class Smorodina.Views.SearchFilter extends Smorodina.Views.Base
       @resetHeight()
       
   recalculateFoodMargin: ->
-    if !@params
-      @params = {}
-      @params['entertainment_height'] = $('.level_2.entertainment').height()
-      @params['activities_height']    = $('.level_2.active_recreation').height()
-      @params['foodMargin']           = @params['activities_height'] - @params['entertainment_height']
-      @params['$food']                = $('.level_1.food')
+    @params ?= 
+      entertainment_height: eh = $('.level_2.entertainment').height()
+      activities_height:    ah = $('.level_2.active_recreation').height()
+      foodMargin:           ah - eh
+      $food:                $('.level_1.food')
     parent_category_offset = 13
     @params['$food'].css 'margin-top', "-#{@params['foodMargin'] - parent_category_offset }px"
 

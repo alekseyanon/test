@@ -26,10 +26,6 @@ class Smorodina.Collections.Categories extends Backbone.Collection
     for category in @models
       category.set 'state' ,'deselected'
   
-  updateEmblemCategory: (name, is_selected)->
-    _.each @where(name: name), (category) ->
-      category.updateByEmblem(is_selected)
-
   comparator: (record)->
     record.get('order')
 
@@ -49,8 +45,9 @@ class Smorodina.Collections.Categories extends Backbone.Collection
 
   establishChildren: (category) ->
     children = []
-    for child in category.get('children')
-      children.push child if child = @findWhere( id : child )
+    for child_id in category.get('children')
+      if child = @findWhere( id : child_id )
+        children.push child 
     category.set 'children', children
 
   establishSiblings: (category) ->
@@ -58,7 +55,7 @@ class Smorodina.Collections.Categories extends Backbone.Collection
     siblings   = _.filter collection, (m) -> m.id != category.id
     category.set 'siblings', siblings
 
-  markLeafs: ->
-    leafs = @filter (category) -> category.get( 'children' ).length == 0
+  markLeaves: ->
+    leafs = @filter (category) -> category.get( 'children' ).length
     for leaf in leafs
       leaf.trigger 'actsAsLeaf'

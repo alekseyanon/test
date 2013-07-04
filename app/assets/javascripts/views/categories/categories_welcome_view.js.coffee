@@ -32,7 +32,7 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
     
     _.each list, @addContainer, @
     @collection.where(depth: 2).forEach @addOne, @
-    @collection.markLeafs()
+    @collection.markLeaves()
 
   addContainer: (model) ->
     @$('.search-filter__second-level').append @containerTemplate(model: model)
