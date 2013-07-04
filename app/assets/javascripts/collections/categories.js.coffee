@@ -36,7 +36,7 @@ class Smorodina.Collections.Categories extends Backbone.Collection
   checkWholeSelection: ->
     roots = @filter (category) -> category.get('parent_id') == 1 and category.get('name') != 'infrastructure'
     for category in roots
-      @trigger( 'switchLegend', category.get('name'), category.isActive() )
+      @trigger 'switchLegend', category.get('name'), category.isActive()
 
   establishRelatives: ->
     for category in @models

@@ -5,6 +5,8 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
 
   el: '#searchFilter'
 
+  containerTemplate: JST['categories_list_container']
+
   events:
     'click .search-filter__categories button' : 'toggleEmblemCategory'
 
@@ -26,13 +28,14 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
   render: ->
     @orderFullList()
     list = @collection.filter (record)->
-      return _.include(['sightseeing', 'activities', 'food', 'lodging'], record.get('name')) && record.get('depth') == 1
+      return record.get('name') in ['sightseeing', 'activities', 'food', 'lodging'] && record.get('depth') == 1
     
-    _.each list, (record)->
-      @$('.search-filter__second-level').append "<li class='level_1 #{record.get('name')}'><span class='block-icon'></span><ul class='level_1_container'></ul></li>"
-
-    _.each @collection.where(depth: 2), @addOne
+    _.each list, @addContainer, @
+    @collection.where(depth: 2).forEach @addOne, @
     @collection.markLeafs()
+
+  addContainer: (model) ->
+    @$('.search-filter__second-level').append @containerTemplate(model: model)
 
   addOne: (model) ->
     category = new Smorodina.Views.Category(model:model)
@@ -53,6 +56,3 @@ class Smorodina.Views.CategoriesWelcome extends Smorodina.Views.Base
                      'entertainment']
       @collection.findWhere(name: name).set('order': i)
     @collection.sort()
-
-  orderLightList: ->
-
