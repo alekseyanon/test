@@ -12,7 +12,7 @@ class Smorodina.Collections.Categories extends Backbone.Collection
 
   activeElements: ->
     @filter (category) ->
-  	  category.get('state') == 'selected'
+      category.get('state') == 'selected'
 
   fromListToTree: (categories_name_list) ->
     selected = @filter (category) -> _.include( categories_name_list, category.get('name') )
@@ -26,22 +26,36 @@ class Smorodina.Collections.Categories extends Backbone.Collection
     for category in @models
       category.set 'state' ,'deselected'
   
+  comparator: (record)->
+    record.get('order')
+
+  checkWholeSelection: ->
+    roots = @filter (category) -> category.get('parent_id') == 1 and category.get('name') != 'infrastructure'
+    for category in roots
+      @trigger 'switchLegend', category.get('name'), category.isActive()
+
   establishRelatives: ->
     for category in @models
-      @establishParent   category 
-      @establishChildren category 
-      @establishSiblings category 
+      @establishParent   category
+      @establishChildren category
+      @establishSiblings category
 
   establishParent: (category) ->
     category.set 'parent', @findWhere( id : category.get('parent_id') )
 
   establishChildren: (category) ->
     children = []
-    for child in category.get('children')
-      children.push child if child = @findWhere( id : child )  
+    for child_id in category.get('children')
+      if child = @findWhere( id : child_id )
+        children.push child 
     category.set 'children', children
 
   establishSiblings: (category) ->
     collection = ( if parent = category.get('parent') then parent.children() else @where( 'parent_id' : 1 ) )
     siblings   = _.filter collection, (m) -> m.id != category.id
     category.set 'siblings', siblings
+
+  markLeaves: ->
+    leafs = @filter (category) -> category.get( 'children' ).length
+    for leaf in leafs
+      leaf.trigger 'actsAsLeaf'

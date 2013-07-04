@@ -1,0 +1,3 @@
+%li{class: "level_1 #{@model.get('name')}"}
+  %span.block-icon
+  %ul.level_1_container
