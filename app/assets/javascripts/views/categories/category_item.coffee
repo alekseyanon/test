@@ -6,19 +6,22 @@ class Smorodina.Views.Category extends Backbone.View
 
   initialize: ->
     _.bindAll(@)
+    @model.on 'change:rootName', @setRootClass
     @model.on 'change:visibility', @toggleVisibility
     @model.on 'change:state', @toggleState
+    @model.on 'actsAsLeaf', @applyLeafStyle
 
   render: ( visible = false )->
-    @are_categories_visible_by_default = visible
     @$el.append @template @model.toJSON()
-    @model.set('visibility', @are_categories_visible_by_default)
+    @$el.addClass "level_#{@model.get('depth')} #{@model.get('name')}"
     subLevel = @model.children()
-    @renderSubLevel(subLevel) if subLevel.length
+    if subLevel.length
+      @$el.addClass 'hasChildren'
+      @renderSubLevel(subLevel)
     @
 
   renderSubLevel: (subCategories) ->
-    @$subList = $ '<ul>'
+    @$subList = $ "<ul class='level_#{@model.get('depth')}_container'>"
     _.each subCategories, @addOne
     @$el.append @$subList
 
@@ -37,3 +40,9 @@ class Smorodina.Views.Category extends Backbone.View
 
   toggleVisibility: (model, val)->
     @$el.toggle val 
+    
+  setRootClass: ->
+    @$el.addClass @model.get('rootName')
+
+  applyLeafStyle: ->
+    @$el.addClass 'leaf'

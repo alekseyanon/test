@@ -2,6 +2,7 @@ class GeoObjectsController < ApplicationController
   before_filter :get_categories, only: [:new, :edit, :create, :update, :search]
   before_filter :get_landmark, only: [:edit, :show]
   before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
+  before_filter :load_search_history, only: :search
 
   respond_to :json
   respond_to :html, except: [:coordinates, :nearest_node, :count, :my_location]

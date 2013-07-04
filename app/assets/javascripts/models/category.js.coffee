@@ -1,6 +1,10 @@
 class Smorodina.Models.Category extends Backbone.Model
 
   defaults:
+    selected: false
+    semiSelected: false
+    selectedChildren: 0
+    rootName: ''
     state: 'deselected'
 
   initialize: ->
@@ -14,15 +18,15 @@ class Smorodina.Models.Category extends Backbone.Model
     @updateChildren( new_state ) if @children()
     @updateSiblings() if @siblings() and new_state = 'selected'
     @collection.trigger 'updateSelectionList'
-    
+    @collection.checkWholeSelection()
+
   # При клике по категории в виде кнопки, скрывам или показываем категории полувыделенными
-  updateByEmblem: (is_visible)->
-    @set 'visibility',  is_visible
-    @set 'state', ( if is_visible then 'semi-selected' else 'selected' )
+  updateByEmblem: (is_visible) ->
+    @set 'state', ( if is_visible then 'semi-selected' else 'deselected' )
     for child in @children()
       child.updateByEmblem is_visible
 
-  updateParent: (parentNode)->
+  updateParent: (parentNode) ->
     if @all_have_state( parentNode.children(), 'selected' )
       parentNode.set 'state', 'selected'
     else if _.any( parentNode.children(), (category)-> _.include( ['selected', 'bordered'], category.get('state') ) )
@@ -34,10 +38,10 @@ class Smorodina.Models.Category extends Backbone.Model
       unnecessary_selection.updateChildrenLoop 'deselected'
     @updateParent( newParent ) if newParent = parentNode.parent() 
       
-  updateChildren: (changedParentState)->
+  updateChildren: (changedParentState) ->
     @updateChildrenLoop( if changedParentState == 'selected' then 'semi-selected' else 'deselected' )
 
-  updateChildrenLoop: (newState)->
+  updateChildrenLoop: (newState) ->
     for child in @children()
       child.set 'state', newState
       child.updateChildrenLoop newState
@@ -52,6 +56,9 @@ class Smorodina.Models.Category extends Backbone.Model
       elements_to_update =  _.filter( @siblings(), (category) -> category.get( 'state' ) == 'semi-selected' ) 
     for category in elements_to_update
       category.set 'state', new_state
+
+  isActive: ->
+   @get('state') != 'deselected'
 
   siblings: ->
     @get('siblings')

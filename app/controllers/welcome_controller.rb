@@ -2,6 +2,8 @@
 # В последствии необходимо будет удалить.
 #TODO mind the test controller
 class WelcomeController < ApplicationController
+  before_filter :load_search_history, only: :home
+
   def home
   end
 
