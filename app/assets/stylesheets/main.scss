@@ -1387,9 +1387,14 @@ display: block;
 /* ---------------------------------------- SEARCH FILTER END ----------------------------------- */
 
 /* ---------------------------------------- SEARCH CATEGORIES START ----------------------------- */
-
+.search-panel_description{
+  float:left;
+  height:100px;
+  padding-top:6px;
+}
 .search-categories__title {
   margin-right: 10px;
+  
 }
 
 .search-category {
