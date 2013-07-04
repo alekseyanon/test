@@ -1,8 +1,8 @@
 class Api::ReviewsController < ApplicationController
+  before_filter :find_parent_model, only: [:create, :index]
   
   def create
-    @geo_object = GeoObject.find params[:geo_object_id]
-    @review = @geo_object.reviews.build params[:review]
+    @review = @parent.reviews.build params[:review]
     @review.user = current_user
     @review.save
     @review
@@ -18,7 +18,7 @@ class Api::ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = GeoObject.find(params[:geo_object_id]).reviews
+    @reviews = @parent.reviews
   end
 
 end
