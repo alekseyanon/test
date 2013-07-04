@@ -20,14 +20,14 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
       options:
         position: 'topleft'
       onAdd: =>
-        controlDiv = @$('.leaflet-control-zoom.leaflet-control')[0]
-        controlUI = L.DomUtil.create 'a', 'leaflet-control-my-location', controlDiv
+        #controlDiv = @$('.leaflet-control-custom.leaflet-control')[0]
+        controlUI = L.DomUtil.create 'a', 'leaflet-control-my-location', @customControlsContainer
         controlUI.setAttribute 'href', '#'
         controlUI.title = 'Show my location'
         $(controlUI).click (e) ->
           e.preventDefault()
           showMyLocation()
-        controlDiv
+        @customControlsContainer
 
     commandControl = new L.MyLocationCommand()
     @map.addControl(commandControl)
@@ -38,6 +38,7 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     @map = map = L.map id, { scrollWheelZoom: false }
     @lg = lg = L.layerGroup([]).addTo map
     L.tileLayer(Smorodina.Config.urlTemplate, {maxZoom: @maxZoom}).addTo map
+    @customControlsContainer = $('<div>').addClass('leaflet-control-custom').prependTo(@$('.leaflet-control-container'))[0]
     @initMyLocationControl(map)
 
   setupMap: ->
