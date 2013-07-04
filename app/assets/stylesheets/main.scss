@@ -2683,3 +2683,43 @@ display: block;
 }
 
 /* ---------------------------------------- CATEGORY NEW PAGE END ----------------------------------- */
+
+/* ---------------------------------------- PROFILE START ------------------------------------------- */
+.profile-form .control-label{
+  width: 120px;
+  text-align: left;
+  color: #787a83;
+  font-size: 17px;
+}
+
+.profile-form .controls{
+  margin-left: 130px;
+  input{
+    @include box-shadow(inset 4px 4px 7px -5px #a0a0a0);
+  }
+}
+
+.profile-form{
+  margin-top: 15px;
+  .form-field{
+    float: left;
+    padding-bottom: 40px;
+  }
+}
+
+.profile_avatar{
+  text-align: center;
+  float: right;
+  margin-right: 70px;
+  .controls{
+    mergin-left:0;
+  }
+}
+
+.profile-form__button{
+  clear: left;
+}
+
+
+
+/* ---------------------------------------- PROFILE END ------------------------------------------- */

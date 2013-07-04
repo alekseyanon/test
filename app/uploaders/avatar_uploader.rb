@@ -50,17 +50,21 @@ class AvatarUploader < CarrierWave::Uploader::Base
     resize_to_limit(600, 600)
   end
 
+  version :middle do
+    resize_to_limit(200,200)
+  end
+
   version :thumb do
     process :crop
     resize_to_fill(100, 100)
   end
 
-	version :image_author_thumb do
+  version :image_author_thumb do
     process :crop
     resize_to_fill(64, 64)
   end
-	
-	version :image_commentor_thumb do
+
+  version :image_commentor_thumb do
     process :crop
     resize_to_fill(48, 48)
   end
