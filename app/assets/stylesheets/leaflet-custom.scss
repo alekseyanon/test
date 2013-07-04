@@ -1,23 +1,10 @@
 @import "base";
 
-.leaflet-popup {
-  margin-bottom: 45px;
-}
-
-.leaflet-control-container a {
-  background-color: rgba(255, 255, 255, 0.75);
-  @include border-radius(4px);
-  width: 22px;
-  height: 23px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  display: block;
-}
-
 .leaflet-control-zoom {
   padding: 0;
   background: transparent;
 }
+
 .leaflet-top.leaflet-left {
   @include border-radius(7px);
   padding: 5px;
@@ -29,15 +16,39 @@
   }
 }
 
-.leaflet-control-my-location {
-  background-image: image-url('my-location.png');
+.leaflet-control-container {
+  a {
+    background-color: rgba(255, 255, 255, 0.75);
+    @include border-radius(4px);
+    width: 22px;
+    height: 23px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: block;
+  }
+
+  .leaflet-control-put-marker {
+    width: 33px;
+    height: 40px;
+    background: transparent;
+    background-image: image-url('put-marker.png');
+  }
+
+  .leaflet-control-my-location {
+    background-image: image-url('my-location.png');
+    margin-bottom: 5px;
+  }
+
+  .leaflet-control-zoom-in {
+    background-image: image-url('zoom-in.png');
+    margin-bottom: 5px;
+  }
+  .leaflet-control-zoom-out {
+    background-image: image-url('zoom-out.png');
+    margin-bottom: 5px;
+  }
 }
 
-.leaflet-control-zoom-in {
-  background-image: image-url('zoom-in.png');
-  margin-bottom: 5px;
-}
-.leaflet-control-zoom-out {
-  background-image: image-url('zoom-out.png');
-  margin-bottom: 5px;
+.leaflet-popup {
+  margin-bottom: 45px;
 }
