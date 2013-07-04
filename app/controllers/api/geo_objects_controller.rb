@@ -20,7 +20,9 @@ class Api::GeoObjectsController < ApplicationController
     query = sanitize_search_params(params.symbolize_keys[:query])
     query[:bounding_box] &&= query[:bounding_box].split(',').map(&:to_f)
     result = GeoObject.search(query)
-    SearchQuery.add(query[:text], current_user) if result.size != 0
+    if result.size != 0 and query[:text].present?
+      SearchQuery.add(query[:text], current_user)
+    end
     render json: result
   end
 end
