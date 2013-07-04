@@ -5,7 +5,7 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
   defaultZoom: 13
   defaultCoords: [59.939, 30.341] #SPB
 
-  initialize: ->
+  initialize: () ->
     super()
     @collection = new Smorodina.Collections.GeoObjects
     @render()
@@ -15,7 +15,6 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
       $.get '/objects/my_location', (data) =>
         if data
           @map.setView data.reverse(), @defaultZoom
-          @coords = data
 
     L.MyLocationCommand = L.Control.extend
       options:
@@ -45,30 +44,30 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     map = @map
     lg = @lg
     lastBounds = null
-    facets = []
 
     categoryIconMap = {}
     for key in ['sightseeing', 'lodging', 'food', 'activities', 'infrastructure']
       categoryIconMap[key] = L.icon(
         iconUrl    : "/assets/icons/#{key}-marker.png"
-        iconSize   : [61, 41])
+        iconSize   : [61, 41]
+      )
 
     putMarkers = =>
       lg = @lg
       lg.clearLayers()
+      markerOpacity = if @options.putMarker then 0.7 else 1.0
       @collection.forEach (l) ->
         latlon = l.get 'latlon'
         icon   = categoryIconMap[l.get('tag_list')[0]]
-        L.marker(latlon, icon: icon).addTo lg
+        L.marker(latlon, icon: icon, opacity: markerOpacity).addTo lg
 
     collectDataForQuery = =>
       bounds = map.getBounds()
-      return if bounds.equals lastBounds
+      if bounds.equals lastBounds
+        return
       lastBounds = bounds
 
-      bounding_box: map.getBounds().toBBoxString()
-      #text: text
-      facets: facets
+      bounding_box: bounds.toBBoxString()
 
     updateQuery = (opts={}) =>
       if data = collectDataForQuery()
@@ -81,19 +80,19 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
           success: putMarkers
           direct_search: opts.direct_search
 
-    resetBoundsAndSearch = (opts={}) =>
+    resetBounds = (opts={}) =>
       lastBounds = null
       updateQuery opts
-
-    #resetSearchField = -> $searchField.val ''
 
     map.on 'load', ->
       map.on 'zoomend', updateQuery
       map.on 'moveend', updateQuery
-      #resetSearchField()
       updateQuery()
 
     map.setView @defaultCoords, @defaultZoom
+
+  centerCords: ->
+    @map.getCenter()
 
   render: ->
     @initMap()
@@ -102,9 +101,8 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
 class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
   initialize: ->
     super()
-    new Smorodina.Views.ObjectsMap el: @$ '.location-selector__map__content'
+    @mapView = new Smorodina.Views.ObjectsMap el: @$('.location-selector__map__content'), putMarker: true
     @render()
 
   render: ->
-    #@$el.text 'OK'
     @
