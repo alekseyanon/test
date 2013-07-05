@@ -22,7 +22,7 @@ class Smorodina.Routers.Global extends Backbone.Router
     $ ->
       new Smorodina.Views.ImagesIndex
 
-  object_show: ->
+  object_show: (id)->
     $ ->
       new Smorodina.Views.ObjectShow object_id: id
 
@@ -43,7 +43,7 @@ class Smorodina.Routers.Global extends Backbone.Router
   objects_index: ->
     console.log "objects_index"
 
-  place_show: ->
+  place_show: (id) ->
     $ ->
       @agc_id = $('.place_show_page').attr 'data-agc'
       @agu_id = $('.place_show_page').attr 'data-agu'
