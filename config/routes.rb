@@ -32,6 +32,15 @@ Smorodina::Application.routes.draw do
       end
     end
 
+    resources :events do
+      resources :votes, only: [:create, :index]
+      resources :reviews do
+        resources :votes, only: [:create, :index]
+        delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
+        resources :comments
+      end
+    end
+
     resources :reviews do
       resources :votes, only: [:create, :index]
       delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
@@ -42,12 +51,16 @@ Smorodina::Application.routes.draw do
         delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
       end
     end
-  end
+  end # End API block
 
   match '/users/auth/:provider/callback', to: 'authentications#create'
   match 'events/search' => 'events#index'
 
   resources :events do
+    resources :complaints, only: [:new, :create, :index, :destroy]
+    resources :reviews, only: [:new, :create, :edit, :update]
+    resources :votes, only: [:create]
+    delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
     resources :images
     resources :videos
     resources :you_tubes, path: 'videos'
