@@ -265,9 +265,10 @@ class Event < ActiveRecord::Base
   end
 
   def self.filtered_search(query)
+    #TODO use user timezone
     if query[:from]
-      query[:from] = "#{query[:from]} 00:00:00"
-      query[:to] &&= "#{query[:to]} 23:59:59"
+      query[:from] = Time.parse(query[:from]).beginning_of_day
+      query[:to] &&= Time.parse(query[:to]).end_of_day
     elsif query[:place_id] && Event.in_place(query[:place_id]).future.present?
       query[:from] = Time.now
     end

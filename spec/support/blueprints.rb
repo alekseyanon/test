@@ -48,7 +48,7 @@ User.blueprint do
   password { pwd }
   password_confirmation { pwd }
   email { "test#{sn}" + Faker::Internet.email }
-  #roles { ["traveler"] }
+  roles { [:admin] }
 end
 
 Event.blueprint do
