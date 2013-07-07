@@ -3,6 +3,13 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_first_time_cookie
 
+  CRUD_ACTIONS = [ :new, :create, :show, :edit, :update, :destroy ]
+
+  rescue_from CanCan::AccessDenied do |exception|
+    #TODO redirect to authorization error page, or make some visible warning
+    redirect_to :back, alert: exception.message
+  end
+
   def request_logger params, error_message = ''
     logger.debug "url : #{request.original_url} | params : #{params} | " + error_message
   end

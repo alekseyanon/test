@@ -1,4 +1,5 @@
 class EventsController < InheritedResources::Base
+  load_and_authorize_resource only: CRUD_ACTIONS
 
   respond_to :html, except: :search
   respond_to :json, only: :search
