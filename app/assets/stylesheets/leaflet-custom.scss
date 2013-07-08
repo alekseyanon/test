@@ -33,6 +33,12 @@
     background: transparent;
     background-image: image-url('put-marker.png');
   }
+  &.has-marker .leaflet-control-put-marker {
+    background-image: image-url('put-marker-inactive.png');
+    &:hover {
+      background-image: image-url('put-marker.png');
+    }
+  }
 
   .leaflet-control-my-location {
     background-image: image-url('my-location.png');

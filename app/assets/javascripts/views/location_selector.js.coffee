@@ -15,15 +15,16 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     if not @options.putMarker
       return
     map = @map
-    latlon = @centerCoords()
+    latlng = @centerCoords()
     if not @marker
       markerLg = L.layerGroup([]).addTo map
-      @marker = L.marker(latlon, icon: @categoryIconMap.selection, draggable: true).addTo markerLg
+      @marker = L.marker(latlng, icon: @categoryIconMap.selection, draggable: true).addTo markerLg
       @marker.on 'drag', =>
-        @trigger 'marker:drag'
+        @trigger 'marker:put'
     else
-      @marker.setLatLng latlon
-    @trigger 'marker:drag'
+      @marker.setLatLng latlng
+    @$('.leaflet-control-container').addClass 'has-marker'
+    @trigger 'marker:put'
 
 
   initSelectionMarkerControl: ->
@@ -140,14 +141,16 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
   markerCoords: ->
     @marker?.getLatLng()
 
-  setMarkerCoords: (latlon) ->
+  setMarkerCoords: (latlng) ->
     if not @options.putMarker
       return
     if not @marker
       @putSelectionMarker()
-    @marker.setLatLng latlon
-    if not @map.getBounds().contains(latlon)
-      @map.setView latlon, @map.getZoom()
+    if @marker.getLatLng() == latlng
+      return
+    @marker.setLatLng latlng
+    if not @map.getBounds().contains(latlng)
+      @map.setView latlng, @map.getZoom()
 
   render: ->
     @initMap()
@@ -157,8 +160,22 @@ class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
   initialize: ->
     super()
     @render()
+
+    $lat = @$ '.inputs .lat'
+    $lng = @$ '.inputs .lng'
+
     @mapView = new Smorodina.Views.ObjectsMap el: @$('.location-selector__map__content'), putMarker: true
-    @mapView.on 'marker:put', => # update text fields
+    @mapView.on 'marker:put', =>
+      coords = @mapView.markerCoords()
+      $lat.val coords.lat
+      $lng.val coords.lng
+
+    $lat.add($lng).numeric().on 'keyup', =>
+      coords = [
+        parseFloat $lat.val()
+        parseFloat $lng.val()
+      ]
+      @mapView.setMarkerCoords coords
 
 
   render: ->
