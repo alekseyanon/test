@@ -102,7 +102,8 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
       @collection.forEach (l) ->
         latlon = l.get 'latlon'
         icon   = categoryIconMap[l.get('tag_list')[0]]
-        L.marker(latlon, icon: icon, opacity: markerOpacity).addTo lg
+        m = L.marker(latlon, icon: icon, opacity: markerOpacity).addTo lg
+        m.bindPopup l.get('title')
 
     collectDataForQuery = =>
       bounds = map.getBounds()
