@@ -1,5 +1,10 @@
 @import "base";
 
+.leaflet-tile {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
 .leaflet-control-zoom {
   padding: 0;
   background: transparent;
@@ -43,6 +48,11 @@
   .leaflet-control-my-location {
     background-image: image-url('my-location.png');
     margin-bottom: 5px;
+  }
+
+  .leaflet-control-zoom-in, .leaflet-control-zoom-out {
+    text-indent: -100px;
+    overflow: hidden;
   }
 
   .leaflet-control-zoom-in {
