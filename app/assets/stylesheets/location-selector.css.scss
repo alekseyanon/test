@@ -21,3 +21,51 @@ $map-height: 330px;
   }
 }
 
+.location-selector__map__inner .leaflet-popup {
+  .leaflet-popup-content-wrapper {
+    padding: 0;
+    @include border-radius(0);
+    border: 1px solid #e4e5f1;
+  }
+  .leaflet-popup-content {
+    margin: 24px 11px 20px;
+  }
+  .leaflet-popup-tip-container {
+    position: absolute;
+    right: 100%;
+    margin: 0;
+    bottom: 100px;
+    margin-right: -1px;
+    height: 8px;
+    width: 20px;
+    .leaflet-popup-tip {
+      width: 5px;
+      height: 5px;
+      padding: 1px;
+      margin: 0px 16px 0;
+      border: 1px solid #e4e5f1;
+    }
+  }
+
+  .smorodina-item {
+    width: 155px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-family: $base-font;
+    @include font-small;
+    .smorodina-item__geo, .smorodina-item_coords {
+      color: #282828;
+      padding-left: 0;
+    }
+    .smorodina-item__img {
+      position: static;
+      float: none;
+      margin: 0 0 13px;
+    }
+    .smorodina-item__title {
+      @include font-regular;
+      color: $black;
+    }
+  }
+}
+

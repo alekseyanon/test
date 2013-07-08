@@ -1,5 +1,25 @@
 #= require ./base_view
 
+#RightPopup = L.Popup.extend
+#
+#  _updatePosition: ->
+#    if not this._map
+#      return
+#
+#    pos = this._map.latLngToLayerPoint(this._latlng)
+#    animated = ~~this._animated
+#    offset = L.point(this.options.offset)
+#
+#    if animated
+#      L.DomUtil.setPosition(this._container, pos)
+#
+#    this._containerBottom = -offset.y - animated * pos.y
+#    this._containerLeft = -Math.round(this._containerWidth / 2) + offset.x + animated * pos.x
+#
+#    # bottom position the popup in case the height of the popup changes (images loading etc)
+#    this._container.style.bottom = this._containerBottom + 'px'
+#    this._container.style.left = this._containerLeft + 'px'
+
 class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
   maxZoom: 18
   defaultZoom: 13
@@ -83,6 +103,7 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     map = @map
     lg = @lg
     lastBounds = null
+    prevMarkers = {}
 
     @categoryIconMap = categoryIconMap = {}
     for key in ['sightseeing', 'lodging', 'food', 'activities', 'infrastructure']
@@ -96,14 +117,25 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     )
 
     putMarkers = =>
-      lg = @lg
-      lg.clearLayers()
+      #lg.clearLayers()
+      # store markers that we have on map right now
+      newMarkers = {}
       markerOpacity = if @options.putMarker then 0.7 else 1.0
       @collection.forEach (l) ->
         latlon = l.get 'latlon'
+        if latlon of prevMarkers
+          newMarkers[latlon] = prevMarkers[latlon]
+          return
         icon   = categoryIconMap[l.get('tag_list')[0]]
-        m = L.marker(latlon, icon: icon, opacity: markerOpacity).addTo lg
-        m.bindPopup l.get('title')
+        newMarkers[latlon] = m = L.marker(latlon, icon: icon, opacity: markerOpacity, riseOnHover: true).addTo lg
+        m.bindPopup JST['map_object_popup'](l),
+          autoPan: true
+          offset: new L.Point(100, 100, true)
+      # delete invisible markers
+      for latlon, m of prevMarkers
+        if not latlon of newMarkers
+          map.removeLayer(m)
+      prevMarkers = newMarkers
 
     collectDataForQuery = =>
       bounds = map.getBounds()

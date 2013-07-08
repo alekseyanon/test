@@ -17,7 +17,14 @@
 }
 
 .leaflet-control-container {
-  a {
+  .leaflet-bar {
+    @include box-shadow(none);
+    a, a:hover {
+      width: 22px;
+      height: 23px;
+    }
+  }
+  a, a:hover {
     background-color: rgba(255, 255, 255, 0.75);
     @include border-radius(4px);
     width: 22px;
@@ -58,9 +65,4 @@
     background-image: image-url('zoom-out.png');
     margin-bottom: 5px;
   }
-}
-
-.leaflet-popup {
-  margin-bottom: 25px;
-  margin-left: -13px;
 }

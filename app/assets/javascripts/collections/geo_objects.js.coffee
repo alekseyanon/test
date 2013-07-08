@@ -7,4 +7,4 @@ class Smorodina.Collections.GeoObjects extends Backbone.Collection
     @directResults = options['direct_search']
     super(options)
   hasExactlyOneDirectResult: ->
-  	@directResults and @length == 1
+    @directResults and @length == 1
