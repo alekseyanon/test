@@ -1,3 +1,5 @@
+Rake::Task['db:test:prepare'].clear
+
 namespace :db do
 
   CITIES_SOURCE = ['RU-LEN.osm.bz2', 'RU-MOW.osm.bz2']
@@ -86,6 +88,12 @@ EOF`
     %w(db:drop db:create db:osm_drop_users db:migrate db:seed objects:populate agc:all).each do |t|
       puts "executing #{t}", '--------------------------------------------------------------------------------'
       Rake::Task[t].invoke
+    end
+  end
+
+  namespace :test do
+    task :prepare do |t|
+      #TODO write db:test:prepare task
     end
   end
 end

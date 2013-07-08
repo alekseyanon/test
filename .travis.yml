@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - '1.9.3'
+before_script:
+  - cp config/database.travisci.yml config/database.yml
+  - cp config/social_services.yml.example config/social_services.yml
+  - psql -c 'create database smorodina_test;' -U postgres
+  - psql smorodina_test -c 'CREATE EXTENSION hstore; CREATE EXTENSION postgis;' -U postgres
+  - psql smorodina_test -f db/sql/pgsnapshot_schema_0.6.sql -U postgres
+  - psql smorodina_test -c 'drop table users;' -U postgres
+  - psql smorodina_test -f db/sql/agc_generation_functions.sql -U postgres
+  - bundle exec rake db:migrate
