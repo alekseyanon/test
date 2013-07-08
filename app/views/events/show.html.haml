@@ -1,3 +1,56 @@
+.event_show_page
+  = render partial: 'events/main_navigation', locals: {object: @event}
+  .event_description
+    .event_description__left
+      .event_description__left__images
+        - images = @event.images.limit(5)
+        - images.each_with_index do |image, index|
+          - if index == 0
+            = image_tag(image.image_url(:eventmainthumb), width: 223, height: 334, class: 'main')
+          - else 
+            = image_tag(image.image_url(:eventsecthumb), width: 109, height: 75)
+      .event_description__left__actions
+        = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
+        = link_to "Добавить фото или видео", "#newimage", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
+        = render partial: 'shared/sn_share_buttons', locals: {size: 16}
+    .event_description__right
+      .event_description__right__title
+        %h1= @event.title
+      .event_description__right__geo
+        = render partial: 'shared/geo_list', locals: {tree: @event.agc.try(:titles) || {}}
+      .event_description__right__tags
+        ||= render partial: 'shared/tag_list', locals: {tag_tree: @event.categories_tree}
+      .event_description__right__timetable
+      .event_description__right__start-time
+      .event_description__right__address
+      .event_description__right__contacts
+      .event_description__right__actions
+      - if !@event.body.nil?
+        .event_description__right__body
+          = @event.body
+          .transparency
+      .event_description__right__body__full-link
+        =link_to 'Подробнее', '#', class: 'action-link show'
+        =link_to 'Свернуть', '#', class: 'action-link hide'
+      .event_description__right__body__adder
+        = render partial: 'shared/block_adder', locals: {object: @event}
+
+  %div#mapContainer.map__outer
+    %div.map__inner
+      %div.map__content
+        %div#mapContainer.map__container.map__container_collapsed
+          %div#map.map
+        %div#mapExpand.map__expand
+          %span.map__expand__button
+            %span#mapExpandButton.action-link.map__expand__button__text
+              Развернуть карту
+
+  = render partial: 'events/sub_navigation', locals: {object: @event}
+  .obj_descr__responces__starter
+
+
+= render partial: 'images/new', locals: { object: @event }
+
 %h1= @event.title
 
 %p= @event.body

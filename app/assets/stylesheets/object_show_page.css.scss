@@ -175,19 +175,14 @@
   margin: 17px 0 20px 0;
 }
 
-.obj_descr__text__descr__adder{
-  .smorodina-item__user,
-  .obj_descr__text__descr__adder__edit,
-  .obj_descr__text__descr__adder__history,
-  .obj_descr__text__descr__adder__spam{
+.block__adder{
+  .smorodina-item__user{
     display: inline-block;
   }
-}
-
-.obj_descr__text__descr__adder{
-  .obj_descr__text__descr__adder__edit,
-  .obj_descr__text__descr__adder__history,
-  .obj_descr__text__descr__adder__spam{
+  .block__adder__edit,
+  .block__adder__history,
+  .block__adder__spam{
+    display: inline-block;
     @include before-gray-dot;
     a{
       text-decoration: none;
@@ -204,6 +199,7 @@
     }
   }
 }
+
 .obj_descr__text__descr__runtips{
   margin: 42px 0 0 0;
   min-width: 640px;
