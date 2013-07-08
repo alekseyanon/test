@@ -7,12 +7,11 @@ Smorodina.Pages.Events = ->
   $ ->
     Smorodina.Utils.History.stop()
     new Smorodina.Routers.EventRouter
-    new Smorodina.Views.EventSearchForm(collection:events)
-    new Smorodina.Views.EventList(collection:events)
-    new Smorodina.Views.SearchFetch(collection:events)
-    new Smorodina.Views.SearchResultsPanel(collection:events)
-    new Smorodina.Views.SearchEmpty(collection:events)
-
+    new view(collection:events) for view in [Smorodina.Views.EventSearchForm
+                                             Smorodina.Views.EventList
+                                             Smorodina.Views.SearchFetch
+                                             Smorodina.Views.SearchResultsPanel
+                                             Smorodina.Views.SearchEmpty]
     Backbone.history.start(pushState: true, root: '/events')
 
     initEventAutoComplete = ->
