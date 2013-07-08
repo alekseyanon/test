@@ -1,5 +1,6 @@
 class ComplaintsController < InheritedResources::Base
   before_filter :authenticate_user!, only: [:new, :create, :index]
+  load_and_authorize_resource only: CRUD_ACTIONS
 
   def new
     @complaintable = find_complaintable

@@ -50,11 +50,6 @@ class User < ActiveRecord::Base
   before_validation :set_role
   after_create :create_profile
 
-  #TODO add roles and role check
-  def admin?
-    false
-  end
-
   validate :uniqueness_user, on: :create
   def uniqueness_user
     if self.email.blank?
@@ -91,7 +86,7 @@ class User < ActiveRecord::Base
 
   #TODO remove hack
   def set_role
-    self.roles = [:traveler]
+    self.roles = [:traveler] if self.roles.empty?
   end
 
   def should_generate_new_friendly_id?

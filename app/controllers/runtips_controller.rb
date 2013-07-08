@@ -1,5 +1,4 @@
 class RuntipsController < InheritedResources::Base
-  before_filter :authorize # TODO move to ApplicationController
 
   def create
     @geo_object = GeoObject.find(params[:geo_object_id])

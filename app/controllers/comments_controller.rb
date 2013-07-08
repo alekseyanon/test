@@ -2,6 +2,7 @@ class CommentsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :find_comment, only: [:update, :edit]
   before_filter :load_commentable
+  load_and_authorize_resource only: CRUD_ACTIONS
 
   def new
     @comment = @commentable.comments.build
