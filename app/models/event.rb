@@ -58,10 +58,12 @@ class Event < ActiveRecord::Base
   belongs_to :agc
   has_many   :event_taggings
   has_many   :event_tags, through: :event_taggings
-  has_many   :images,   as: :imageable
-  has_many   :video_links, as: :movie_star
-  has_many   :you_tubes, through: :video_links, uniq: true, source: :video, source_type: 'YouTube'
-  has_many   :vimeos,    through: :video_links, uniq: true, source: :video, source_type: 'Vimeo'
+  has_many   :you_tubes,  through: :video_links,    uniq: true, source: :video, source_type: 'YouTube'
+  has_many   :vimeos,     through: :video_links,    uniq: true, source: :video, source_type: 'Vimeo'
+  has_many   :reviews,      as: :reviewable
+  has_many   :complaints,   as: :complaintable
+  has_many   :images,       as: :imageable
+  has_many   :video_links,  as: :movie_star
 
   accepts_nested_attributes_for :images
 
@@ -204,11 +206,11 @@ class Event < ActiveRecord::Base
   end
 
   def tag_list
-    event_tags.map(&:title).join(", ")
+    event_tags.map(&:title).join(', ')
   end
 
   def tag_list=(names)
-    self.event_tags = names.split(",").map do |n|
+    self.event_tags = names.split(',').map do |n|
       EventTag.where(title: n.strip).first_or_create!
     end
   end
@@ -263,9 +265,10 @@ class Event < ActiveRecord::Base
   end
 
   def self.filtered_search(query)
+    #TODO use user timezone
     if query[:from]
-      query[:from] = "#{query[:from]} 00:00:00"
-      query[:to] &&= "#{query[:to]} 23:59:59"
+      query[:from] = Time.parse(query[:from]).beginning_of_day
+      query[:to] &&= Time.parse(query[:to]).end_of_day
     elsif query[:place_id] && Event.in_place(query[:place_id]).future.present?
       query[:from] = Time.now
     end
