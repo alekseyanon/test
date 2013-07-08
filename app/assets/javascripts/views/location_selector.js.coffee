@@ -11,11 +11,11 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     @marker = null
     @render()
 
-  putSelectionMarker: ->
+  putSelectionMarker: (latlng) ->
     if not @options.putMarker
       return
     map = @map
-    latlng = @centerCoords()
+    latlng ?= @centerCoords()
     if not @marker
       markerLg = L.layerGroup([]).addTo map
       @marker = L.marker(latlng, icon: @categoryIconMap.selection, draggable: true).addTo markerLg
@@ -72,7 +72,7 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     @$el.attr 'id', id
     @map = map = L.map id, { scrollWheelZoom: false }
     @lg = lg = L.layerGroup([]).addTo map
-    L.tileLayer(Smorodina.Config.urlTemplate, {maxZoom: @maxZoom}).addTo map
+    L.tileLayer(Smorodina.Config.urlTemplate, maxZoom: @maxZoom).addTo map
 
     map.removeControl map.zoomControl
     @initSelectionMarkerControl()
@@ -93,7 +93,6 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     categoryIconMap['selection'] = L.icon(
       iconUrl    : "/assets/icons/selection-marker.png"
       iconSize   : [43, 52]
-
     )
 
     putMarkers = =>
@@ -138,6 +137,9 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
   centerCoords: ->
     @map.getCenter()
 
+  setCenterCoords: (coords, zoom) ->
+    @map.setView coords, zoom or @map.getZoom()
+
   markerCoords: ->
     @marker?.getLatLng()
 
@@ -145,16 +147,62 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     if not @options.putMarker
       return
     if not @marker
-      @putSelectionMarker()
-    if @marker.getLatLng() == latlng
-      return
-    @marker.setLatLng latlng
+      @putSelectionMarker(latlng)
+    else if not @marker.getLatLng().equals latlng
+      @marker.setLatLng latlng
     if not @map.getBounds().contains(latlng)
       @map.setView latlng, @map.getZoom()
+    @trigger 'marker:put'
 
   render: ->
     @initMap()
     @setupMap()
+    @
+
+class Smorodina.Views.AguSearch extends Smorodina.Views.Base
+  url: '/api/agus/search.json'
+
+  initialize: ->
+    super()
+    @render()
+
+    @$input = @$ 'input.agu'
+    @$input
+      .autocomplete
+        source: @findAgus
+        autoFocus: true
+        select: @_aguSelected
+        change: @_aguSelected
+    @data = {}
+
+  _handleSearchResult: (d) ->
+    p = d.geom.match(/POLYGON \(\((.*)\)\)/)?[1]?.split(', ')
+    zoom: null
+    coords: (parseFloat(c) for c in p?[0]?.split(' ')).reverse()
+
+  findAgus: (request, cb) ->
+    $.ajax
+      dataType: "json"
+      url: @url
+      data: { query: request.term }
+      error: =>
+        @data = {}
+        cb []
+      success: (data) =>
+        @data = {}
+        for d in data
+          @data[d.title] = @_handleSearchResult d
+        cb (d.title for d in data)
+
+  _aguSelected: ->
+    val = @val()
+    @trigger 'selected', [val, @data[val]]
+
+  val: ->
+    @$input.val()
+
+  render: ->
+    @
 
 class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
   initialize: ->
@@ -172,11 +220,14 @@ class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
 
     $lat.add($lng).numeric().on 'keyup', =>
       coords = [
-        parseFloat $lat.val()
-        parseFloat $lng.val()
+        parseFloat $lat.val() or 0
+        parseFloat $lng.val() or 0
       ]
       @mapView.setMarkerCoords coords
 
+    @aguSearch = new Smorodina.Views.AguSearch el: @$ '.location-selector__agu-search'
+    @aguSearch.on 'selected', (data) =>
+      @mapView.setCenterCoords data[1].coords, data[1].zoom
 
-  render: ->
+render: ->
     @

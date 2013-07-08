@@ -1,7 +1,15 @@
 .location-selector
+  .location-selector__agu-search.ui-front
+    %span.location-selector__agu-search__input-wrap
+      %input.agu(type="text" placeholder="Область, район, место")
+    %button.button.button_standard.button_grey
+      %span.button__inner.button_standard__inner
+        %span.button__text.button_standard__text{data: { text: 'Найти' }}
+
   .location-selector__map__outer
     .location-selector__map__inner
       .location-selector__map__content
+
   .inputs
     %label
       Широта

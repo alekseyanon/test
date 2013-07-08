@@ -2,12 +2,22 @@
 
 $map-width: 765px;
 $map-height: 330px;
+
 .location-selector__map__outer, .location-selector__map__content {
   width: $map-width;
   height: $map-height;
 }
+
 .location-selector__map__inner {
   @include box-shadow(inset 0 0 0 5px rgba(white, 0.6));
 }
+
 .location-selector__map__content {
 }
+
+.location-selector__agu-search {
+  .ui-autocomplete {
+    z-index: 10000;
+  }
+}
+
