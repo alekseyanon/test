@@ -173,6 +173,13 @@ class Smorodina.Views.AguSearch extends Smorodina.Views.Base
         autoFocus: true
         select: @_aguSelected
         change: @_aguSelected
+    @$input.on 'keydown', (e) =>
+      if e.which == 13
+        $item = @$('.ui-autocomplete .ui-menu-item a.ui-state-focus')
+        if not $item.length
+          $item = @$('.ui-autocomplete .ui-menu-item:first a')
+        @$input.val $item.text()
+        @_aguSelected()
     @data = {}
 
   _handleSearchResult: (d) ->
@@ -226,7 +233,13 @@ class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
       @mapView.setMarkerCoords coords
 
     @aguSearch = new Smorodina.Views.AguSearch el: @$ '.location-selector__agu-search'
+    @prevAgu = null
     @aguSearch.on 'selected', (data) =>
+      if data[0] == @prevAgu
+        return
+      @prevAgu = data[0]
+      if not data[1]
+        return
       @mapView.setCenterCoords data[1].coords, data[1].zoom
 
 render: ->
