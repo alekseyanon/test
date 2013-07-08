@@ -1,7 +1,7 @@
 %h1 Редактирование профиля
 = simple_form_for @profile, html: { class: 'form-horizontal profile-form row-fluid' } do |f|
 
-  %div.form-field
+  %div.form-field#newavatar
     .span6
       = f.input :name, input_html: {class: 'input-xlarge'}, label: 'Имя'
       = f.input :surname, input_html: {class: 'input-xlarge'}, label: 'Фамилия'
@@ -9,6 +9,15 @@
       = image_tag @profile.avatar_url(:middle)
       = f.input :avatar, label: false, class: 'input-hide'
       = link_to 'Редактировать юзерпик', '#', class: 'file-upload_link'
+
+      %div.fileinput
+        %button.btn.fileinput-button
+          Выбрать файл
+        %span.fileinput-description
+          Файл не выбран
+      %img#preview
+      %input.file-hide{ type: 'file',id:'fileupload',name:'image[image]'}
+
   %div.profile-form__button
     = f.button :submit, 'Сохранить профиль', class: 'btn_rounded'
 
