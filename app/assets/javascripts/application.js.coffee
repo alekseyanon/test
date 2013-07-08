@@ -15,7 +15,7 @@
 #= require jquery_ujs
 #= require jquery.ui.all
 #= require jquery-fileupload
-#= require vendor/jquery.numeric
+#= require jquery.numeric
 #= require select2
 #= require moment
 #= require bootstrap
