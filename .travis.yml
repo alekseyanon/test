@@ -10,3 +10,10 @@ before_script:
   - psql smorodina_test -c 'drop table users;' -U postgres
   - psql smorodina_test -f db/sql/agc_generation_functions.sql -U postgres
   - bundle exec rake db:migrate
+  - git clone https://github.com/umitanuki/kmeans-postgresql.git
+  - cd kmeans-postgresql
+  - make
+  - cp ./kmeans.so $(pg_config --pkglibdir)
+  - cp ./kmeans.control ./kmeans--1.1.0.sql $(pg_config --sharedir)/extension/
+  - cd ..
+  - psql smorodina_test -f db/sql/kmeans.sql -U postgres
