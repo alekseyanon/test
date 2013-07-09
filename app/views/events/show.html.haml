@@ -10,20 +10,30 @@
           - else 
             = image_tag(image.image_url(:eventsecthumb), width: 109, height: 75)
       .event_description__left__actions
-        = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
-        = link_to "Добавить фото или видео", "#newimage", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
-        = render partial: 'shared/sn_share_buttons', locals: {size: 16}
+        .event_description__left__actions__photo-video
+          = link_to "Добавить фото или видео", "#newimage", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
+        .event_description__left__actions__print
+          = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
+        .event_description__left__actions__social
+          = render partial: 'shared/sn_share_buttons', locals: {size: 16}
     .event_description__right
       .event_description__right__title
         %h1= @event.title
       .event_description__right__geo
         = render partial: 'shared/geo_list', locals: {tree: @event.agc.try(:titles) || {}}
       .event_description__right__tags
-        ||= render partial: 'shared/tag_list', locals: {tag_tree: @event.categories_tree}
-      .event_description__right__timetable
-      .event_description__right__start-time
-      .event_description__right__address
-      .event_description__right__contacts
+        - tags = [@event.tag_list]
+        = render partial: 'shared/tag_list', locals: {tag_tree: tags}
+      .event_description__right__timetable.icon-sm-calendar
+        time table goes here
+      .event_description__right__start-time.icon-sm-clock
+        start time goes here
+      .event_description__right__address.icon-sm-location
+        address goes here
+      .event_description__right__contacts.icon-sm-directions
+        %ul
+          %li contacts goes here
+          %li contacts goes here
       .event_description__right__actions
       - if !@event.body.nil?
         .event_description__right__body

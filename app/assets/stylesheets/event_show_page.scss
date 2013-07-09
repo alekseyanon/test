@@ -1,0 +1,78 @@
+.event_description{
+  padding: 50px 22px 32px 33px;
+  @include clearfix;
+}
+
+.event_description__left{
+  float: left;
+  margin: 0 60px 0 0;
+  width: 243px;
+}
+
+.event_description__right{
+  float: left;
+}
+        
+.event_description__left__actions__photo-video{
+  margin: 32px 0 18px 0;
+}
+.event_description__left__actions__print{
+  margin: 0 0 34px 0;
+}
+.event_description__left__actions__social{
+  margin: 0 0 24px 0;
+}
+.event_description__right__title{
+  margin: 0 0 16px 0;
+  h1{
+    margin: 0
+  }
+}
+.event_description__right__geo{
+  margin: 0 0 12px 0;
+}
+.event_description__right__tags{
+  margin: 0 0 30px 0;
+}
+      
+.event_description__right__timetable{
+  margin: 0 0 14px 0;
+}
+      
+.event_description__right__start-time{
+  margin: 0 0 15px 0;
+}
+      
+.event_description__right__address{
+  margin: 0 0 25px 0;
+}
+      
+.event_description__right__contacts{
+  margin: 0 0 35px 0;
+  &:before{
+    float: left;
+    margin-right: 3px;
+  }
+  ul{
+    display: inline-block;
+  }
+  li{
+    margin: 0 0 5px 0;
+  }
+}
+
+.event_description__right__actions{
+  margin: 0 0 43px 0;
+}
+        
+.event_description__right__body{
+  margin: 0 0 20px 0;
+}
+
+.event_description__right__body__full-link{
+  margin: 0 0 20px 0;
+}
+      
+.event_description__right__body__adder{
+  margin: 0 0 0 0;
+}

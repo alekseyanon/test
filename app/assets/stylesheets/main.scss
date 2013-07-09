@@ -148,17 +148,17 @@ a:hover,
 }
 
 .link-like-button{
-  padding: 9px 18px 9px 18px;
+  padding: 9px 12px 9px 8px;
   font-family: inherit;
   border: 1px solid $siteLightGray;
-  @include font-regular;
+  @include font-small;
   &.bullet{
     &:before{
       @include font-large;
       font-family: 'smorodina-icons';
       line-height: 1;
       float: left;
-      margin: 4px 5px 0 0;
+      margin: 2px 5px 0 0;
     }
   }
 }
