@@ -166,7 +166,7 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
       return
     if not @marker
       @putSelectionMarker(latlng)
-    else if not @marker.getLatLng().equals latlng
+    else
       @marker.setLatLng latlng
     if not @map.getBounds().contains(latlng)
       @map.setView latlng, @map.getZoom()
@@ -271,5 +271,8 @@ class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
         return
       @mapView.setCenterCoords data[1].coords, data[1].zoom
 
-render: ->
-    @
+  val: ->
+    @mapView.markerCoords()
+
+  render: ->
+      @
