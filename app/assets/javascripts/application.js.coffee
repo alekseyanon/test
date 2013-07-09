@@ -14,6 +14,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.ui.all
+#= require jquery.ui.autocomplete.html.js
 #= require jquery-fileupload
 #= require jquery.numeric
 #= require select2

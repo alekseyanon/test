@@ -204,6 +204,7 @@ class Smorodina.Views.AguSearch extends Smorodina.Views.Base
     @$input = @$ 'input.agu'
     @$input
       .autocomplete
+        html: true
         source: @findAgus
         autoFocus: true
         select: @_aguSelected
@@ -227,6 +228,9 @@ class Smorodina.Views.AguSearch extends Smorodina.Views.Base
     zoom: null
     coords: (parseFloat(c) for c in p?[0]?.split(' ')).reverse()
 
+  _handleTitle: (title, query) ->
+    title.replace new RegExp($.ui.autocomplete.escapeRegex(query), 'g'), "<strong>#{query}</strong>"
+
   findAgus: (request, cb) ->
     $.ajax
       dataType: "json"
@@ -239,7 +243,7 @@ class Smorodina.Views.AguSearch extends Smorodina.Views.Base
         @data = {}
         for d in data
           @data[d.title] = @_handleSearchResult d
-        cb (d.title for d in data)
+        cb (@_handleTitle(d.title, request.term) for d in data)
 
   _aguSelected: ->
     val = @val()
