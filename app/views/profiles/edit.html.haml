@@ -6,7 +6,8 @@
       = f.input :name, input_html: {class: 'input-xlarge'}, label: 'Имя'
       = f.input :surname, input_html: {class: 'input-xlarge'}, label: 'Фамилия'
     .profile_avatar.span5
-      = image_tag @profile.avatar_url(:thumb), id: 'avatar_preview'
+      .img
+        = image_tag @profile.avatar_url(:thumb), id: 'avatar_preview'
       = f.input :avatar, label: false, input_html: {class: 'input-hide'}
       = link_to 'Редактировать юзерпик', '#', class: 'file-upload_link'
 

@@ -29,6 +29,18 @@ class Smorodina.Views.AvatarNewView extends Smorodina.Views.Base
       console.log img.width
       console.log img.height
       $("#avatar_preview").attr "src", img.src
+      console.log 'second loggin'
+      im = $("#avatar_preview")[0]
+      console.log im.width
+      console.log im.height
+      h = im.height
+      w = im.width
+      scale = if w > h then 100/h else 100/w
+      console.log scale
+      console.log w*scale
+      console.log h*scale
+      $("#avatar_preview").attr "width", w*scale
+      $("#avatar_preview").attr "height", h*scale
 
   uploadFileOpen: (e) ->
     e.preventDefault()

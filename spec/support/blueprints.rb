@@ -60,7 +60,7 @@ Event.blueprint do
   geom { Geo::factory.point(10, 10) }
   tag_list { 'aaa, bbb, ccc' }
   user { User.make! }
-  agc { Agc.limit(10).sample } 
+  agc { Agc.limit(10).sample }
 end
 
 Review.blueprint do
