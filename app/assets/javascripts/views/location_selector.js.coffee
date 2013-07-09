@@ -1,25 +1,5 @@
 #= require ./base_view
 
-#RightPopup = L.Popup.extend
-#
-#  _updatePosition: ->
-#    if not this._map
-#      return
-#
-#    pos = this._map.latLngToLayerPoint(this._latlng)
-#    animated = ~~this._animated
-#    offset = L.point(this.options.offset)
-#
-#    if animated
-#      L.DomUtil.setPosition(this._container, pos)
-#
-#    this._containerBottom = -offset.y - animated * pos.y
-#    this._containerLeft = -Math.round(this._containerWidth / 2) + offset.x + animated * pos.x
-#
-#    # bottom position the popup in case the height of the popup changes (images loading etc)
-#    this._container.style.bottom = this._containerBottom + 'px'
-#    this._container.style.left = this._containerLeft + 'px'
-
 class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
   maxZoom: 18
   defaultZoom: 13
