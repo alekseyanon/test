@@ -199,21 +199,28 @@ class Smorodina.Views.AguSearch extends Smorodina.Views.Base
     super()
     @render()
 
+    @data = {}
+
     @$input = @$ 'input.agu'
     @$input
       .autocomplete
         source: @findAgus
         autoFocus: true
         select: @_aguSelected
-        change: @_aguSelected
     @$input.on 'keydown', (e) =>
       if e.which == 13
-        $item = @$('.ui-autocomplete .ui-menu-item a.ui-state-focus')
-        if not $item.length
-          $item = @$('.ui-autocomplete .ui-menu-item:first a')
-        @$input.val $item.text()
-        @_aguSelected()
-    @data = {}
+        @_commitSelect()
+    @$('.button').click =>
+      @_commitSelect()
+
+  _commitSelect: ->
+    $item = @$('.ui-autocomplete .ui-menu-item a.ui-state-focus')
+    if not $item.length
+      $item = @$('.ui-autocomplete .ui-menu-item:first a')
+    if not $item.length
+      return
+    @$input.val $item.text()
+    @_aguSelected()
 
   _handleSearchResult: (d) ->
     p = d.geom.match(/POLYGON \(\((.*)\)\)/)?[1]?.split(', ')
