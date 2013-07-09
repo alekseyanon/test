@@ -47,10 +47,11 @@ class Event < ActiveRecord::Base
   ALLOWED_SEARCH_PARAMS = [:text, :place_id, :from, :to, :tag_id, :sort_by, :limit, :term]
 
   attr_accessible :body, :title, :start_date, :end_date,
-                  :repeat_rule, :geom,
+                  :repeat_rule, :geom, :start_time, :address, :contacts,
                   :images_attributes, :event_tags, :tag_list
 
   before_create :generate_key, :calc_archive_date, :add_agc
+  serialize :contacts, ActiveRecord::Coders::Hstore
 
   set_rgeo_factory_for_column :geom, Geo::factory
 
