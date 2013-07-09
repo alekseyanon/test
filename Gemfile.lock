@@ -154,7 +154,12 @@ GEM
     hashie (2.0.5)
     highline (1.6.19)
     hike (1.2.3)
+    hipchat (0.10.0)
+      httparty
     http_parser.rb (0.5.3)
+    httparty (0.10.0)
+      multi_json (~> 1.0)
+      multi_xml
     httpauth (0.2.0)
     i18n (0.6.1)
     ice_cube (0.11.0)
@@ -196,6 +201,7 @@ GEM
     momentjs-rails (2.0.0.2)
       railties (>= 3.1)
     multi_json (1.7.7)
+    multi_xml (0.5.2)
     multipart-post (1.2.0)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
@@ -388,6 +394,7 @@ DEPENDENCIES
   haml
   haml-rails
   haml_coffee_assets
+  hipchat
   ice_cube
   inherited_resources
   jquery-fileupload-rails

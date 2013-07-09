@@ -74,8 +74,8 @@ EOF`
 
   task :nuke do
     sequence = Rails.env == "test" ?
-        %w(db:drop db:create db:osm_schema                          db:osm_drop_users db:migrate agc:functions agc:geoms) :
-        %w(db:drop db:create db:osm_schema db:fill_with_sample_data db:osm_drop_users db:migrate db:seed objects:populate agc:all)
+        %w(db:drop db:create db:osm_schema                          db:osm_drop_users db:migrate agc:functions agc:geoms kmeans) :
+        %w(db:drop db:create db:osm_schema db:fill_with_sample_data db:osm_drop_users db:migrate db:seed objects:populate agc:all kmeans)
     sequence.each do |t|
       puts "executing #{t}", '--------------------------------------------------------------------------------'
       Rake::Task[t].invoke
