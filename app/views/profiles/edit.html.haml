@@ -6,17 +6,11 @@
       = f.input :name, input_html: {class: 'input-xlarge'}, label: 'Имя'
       = f.input :surname, input_html: {class: 'input-xlarge'}, label: 'Фамилия'
     .profile_avatar.span5
-      = image_tag @profile.avatar_url(:middle)
-      = f.input :avatar, label: false, class: 'input-hide'
+      = image_tag @profile.avatar_url(:thumb), id: 'avatar_preview'
+      = f.input :avatar, label: false, input_html: {class: 'input-hide'}
       = link_to 'Редактировать юзерпик', '#', class: 'file-upload_link'
 
-      %div.fileinput
-        %button.btn.fileinput-button
-          Выбрать файл
-        %span.fileinput-description
-          Файл не выбран
-      %img#preview
-      %input.file-hide{ type: 'file',id:'fileupload',name:'image[image]'}
+    %img#previewav
 
   %div.profile-form__button
     = f.button :submit, 'Сохранить профиль', class: 'btn_rounded'

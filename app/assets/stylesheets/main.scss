@@ -3036,6 +3036,11 @@ a:hover,
   //float: right;
   margin-right: 70px;
   min-width: 200px;
+  img {
+    border-radius: 50px;
+    //width: 100px;
+    //height: 100px;
+  }
 }
 
 .profile-form .form-field .controls:last-child{

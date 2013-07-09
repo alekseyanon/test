@@ -1,6 +1,5 @@
 class Profile < ActiveRecord::Base
-  attr_accessible :avatar, :name, :surname, :settings, :crop_x, :crop_y, :crop_w, :crop_h
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessible :avatar, :name, :surname, :settings
 
   belongs_to :user
 
@@ -13,17 +12,11 @@ class Profile < ActiveRecord::Base
   validates :surname, format:
       {with: /\A[\u{0430}-\u{044F}\u{0410}-\u{042F}\\sA-Za-z]+\z/}, on: :update
 
-  after_update :crop_avatar
-
   def settings
     read_attribute(:settings).nil? ? {} : read_attribute(:settings)
   end
 
   private
-
-  def crop_avatar
-    avatar.recreate_versions! if crop_x.present?
-  end
 
   def make_slug
     tmp_name = self.name ? self.name : self.user.email.split('@').first
