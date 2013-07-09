@@ -9,38 +9,23 @@ class Smorodina.Views.AvatarNewView extends Smorodina.Views.Base
     @$file_upload = @$el.find('.input-hide')
     @reader = new FileReader()
     @reader.onload = (e) ->
-      console.log 'image loaded'
-      src = e.target.result
-      console.log src
-      img = new Image
-      img.src = src
-      h = img.height
-      w = img.width
-      console.log 'size'
-      console.log(h)
-      console.log(w)
-      console.log 'scale'
-      scale = (w > h ? 100/h : 100/w)
-      console.log scale
-      img.width = w*scale
-      img.height = h*scale
-      $('#previewav').html img
-      alert 2
-      console.log img.width
-      console.log img.height
-      $("#avatar_preview").attr "src", img.src
-      console.log 'second loggin'
-      im = $("#avatar_preview")[0]
-      console.log im.width
-      console.log im.height
+      $("#avatar_preview").removeAttr("width").removeAttr("height").css('margin', '0')
+      $("#avatar_preview").attr "src", e.target.result
+      $avatar = $("#avatar_preview")
+      im = $avatar[0]
       h = im.height
       w = im.width
-      scale = if w > h then 100/h else 100/w
-      console.log scale
-      console.log w*scale
-      console.log h*scale
-      $("#avatar_preview").attr "width", w*scale
-      $("#avatar_preview").attr "height", h*scale
+      if w > h
+        margin_direct = 'margin-left'
+        margin_size = (1 - w/h)*50
+        scale = 100/h
+      else
+        margin_direct = 'margin-top'
+        margin_size = (1 - h/w)*50
+        scale = 100/w
+      $avatar.attr "width", w*scale
+      $avatar.attr "height", h*scale
+      $avatar.css(margin_direct, margin_size)
 
   uploadFileOpen: (e) ->
     e.preventDefault()

@@ -3025,7 +3025,6 @@ a:hover,
 .profile-form{
   margin-top: 15px;
   .form-field{
-    //float: left;
     padding-bottom: 40px;
     min-width: 425px;
   }
@@ -3033,15 +3032,12 @@ a:hover,
 
 .profile_avatar{
   text-align: center;
-  //float: right;
-  margin-right: 70px;
   min-width: 200px;
   .img {
     border-radius: 50px;
     width: 100px;
     height: 100px;
     overflow: hidden;
-    display: table;
     margin: 0 auto;
   }
 }
