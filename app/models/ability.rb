@@ -1,37 +1,23 @@
 class Ability
   include CanCan::Ability
 
+  EDIT_LIMIT = 15.minutes
+
   def initialize(user)
+    user ||= User.new
 
-    if user.admin?
+    case
+      when user.admin?
         can :manage, :all
-    elsif user.role?(:traveler)
-        can :manage, :all
-    else
+      when user.traveler?
+        can [:create, :read], :all
+        can [:update, :destroy], [Comment, Complaint, Event, Review] do |object|
+          (object.user_id == user.id) && (object.updated_at >= Time.now - EDIT_LIMIT)
+        end
+        can :update, GeoObject
+      else
+        can :read, :all
     end
-            
-
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :Category
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user permission to do.
-    # If you pass :manage it will apply to every action. Other common actions here are
-    # :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on. If you pass
-    # :all it will apply to every resource. Otherwise pass a Ruby class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
   end
+
 end

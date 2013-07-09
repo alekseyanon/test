@@ -1,5 +1,7 @@
 class ReviewsController < InheritedResources::Base
   before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
+  load_and_authorize_resource only: CRUD_ACTIONS
+
   def new
     @geo_object = GeoObject.find params[:geo_object_id]
     @review = @geo_object.reviews.build

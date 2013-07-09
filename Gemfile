@@ -101,6 +101,7 @@ gem 'jquery-fileupload-rails'
 
 gem 'capistrano'
 gem 'rvm-capistrano'
+gem 'hipchat'
 
 gem 'ptools'
 
