@@ -1,6 +1,10 @@
 language: ruby
 rvm:
   - '1.9.3'
+before_install:
+  - echo "yes" | sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
+  - sudo apt-get update
+  - sudo apt-get install -qq postgis
 before_script:
   - cp config/database.travisci.yml config/database.yml
   - cp config/social_services.yml.example config/social_services.yml
