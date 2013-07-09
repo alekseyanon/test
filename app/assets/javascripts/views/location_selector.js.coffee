@@ -1,5 +1,10 @@
 #= require ./base_view
 
+$.fn.valIfChanged = (val) ->
+  val = '' + val
+  if @val() != val
+    @val val
+
 class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
   maxZoom: 18
   defaultZoom: 13
@@ -246,8 +251,8 @@ class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
     @mapView = new Smorodina.Views.ObjectsMap el: @$('.location-selector__map__content'), putMarker: true
     @mapView.on 'marker:put', =>
       coords = @mapView.markerCoords()
-      $lat.val coords.lat
-      $lng.val coords.lng
+      $lat.valIfChanged coords.lat
+      $lng.valIfChanged coords.lng
 
     $lat.add($lng).numeric().on 'keyup', =>
       coords = [
