@@ -47,10 +47,11 @@ class Event < ActiveRecord::Base
   ALLOWED_SEARCH_PARAMS = [:text, :place_id, :from, :to, :tag_id, :sort_by, :limit, :term]
 
   attr_accessible :body, :title, :start_date, :end_date,
-                  :repeat_rule, :geom,
+                  :repeat_rule, :geom, :start_time, :address, :contacts,
                   :images_attributes, :event_tags, :tag_list
 
   before_create :generate_key, :calc_archive_date, :add_agc
+  serialize :contacts, ActiveRecord::Coders::Hstore
 
   set_rgeo_factory_for_column :geom, Geo::factory
 
@@ -265,9 +266,10 @@ class Event < ActiveRecord::Base
   end
 
   def self.filtered_search(query)
+    #TODO use user timezone
     if query[:from]
-      query[:from] = "#{query[:from]} 00:00:00"
-      query[:to] &&= "#{query[:to]} 23:59:59"
+      query[:from] = Time.parse(query[:from]).beginning_of_day
+      query[:to] &&= Time.parse(query[:to]).end_of_day
     elsif query[:place_id] && Event.in_place(query[:place_id]).future.present?
       query[:from] = Time.now
     end

@@ -2,7 +2,6 @@
 
 class Smorodina.Routers.EventRouter extends Backbone.Router
   routes:
-    'search': 'search'
     '': 'index'
 
   initialize: ->

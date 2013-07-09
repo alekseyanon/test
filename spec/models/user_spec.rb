@@ -20,8 +20,8 @@ describe User do
     user.should_not be_valid
   end
 
-  it {user.traveler?.should be_true}
-
+  it {user.traveler?.should be_false}
+  it {user.admin?.should be_true}
 
   context 'find_or_create without users' do
     subject do
