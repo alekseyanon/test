@@ -7,7 +7,7 @@ task default: :spec
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |task|
-  task.pattern = FileList['spec/models/**/*_spec.rb'] + FileList['spec/controllerss/**/*_spec.rb']
+  task.pattern = FileList['spec/models/**/*_spec.rb'] + FileList['spec/controllers/**/*_spec.rb']
 end
 
 require File.expand_path('../config/application', __FILE__)
