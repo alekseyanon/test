@@ -26,3 +26,5 @@ before_script:
   - psql smorodina_test -f db/sql/kmeans.sql -U postgres
 script:
   - rake
+notifications:
+  hipchat: [56de6c6e69b953ec863afab78a4e65]@[Smorodina dev]
