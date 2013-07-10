@@ -1,3 +1,12 @@
+.event_show_page{
+  .map__outer{
+    margin: 32px 0 32px 0;
+  }
+  .map__expand{
+    padding: 25px 0 20px 0;
+  }
+}
+
 .event_description{
   padding: 50px 22px 32px 33px;
   @include clearfix;
@@ -87,6 +96,9 @@
       
 .event_description__right__start-time{
   margin: 0 0 15px 0;
+  .count{
+    font-weight: bold;
+  }
 }
       
 .event_description__right__address{
@@ -110,6 +122,16 @@
 .event_description__right__actions{
   margin: 0 0 43px 0;
   padding: 20px 0 0 0;
+  a.active{
+    background-color: #1d9ccc;
+    color: #fff;
+    &:hover{
+      background-color: #1d9ccc;
+    }
+  }
+  a.count{
+    font-weight: bold;
+  }
 }
         
 .event_description__right__actions__like{

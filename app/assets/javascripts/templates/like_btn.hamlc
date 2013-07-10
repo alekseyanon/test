@@ -1,8 +1,5 @@
-- css_prefix = ''
-- if @votable.get('state') == 'new'
-  - css_prefix = 'disabled'
-- else if @votable.get('state') == 'active'
-  - css_prefix = 'active'
-  
-%a{href: '#', class: "link-like-button bullet icon-thumbs-up button button_standard button_grey ui-link #{css_prefix}"} 
+- css_disabled = if @votable.get('state') == 'new' then 'disabled' else ''
+- css_prefix = if @votable.get('current_user_vote') == 1 then 'active' else '' 
+
+%a{href: '#', class: "link-like-button bullet icon-thumbs-up button button_standard button_grey #{css_prefix} #{css_disabled}"} 
   Мне нравится

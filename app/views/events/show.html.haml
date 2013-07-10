@@ -32,11 +32,14 @@
 
       - unless @event.start_time.nil?
         .event_description__right__start-time.icon-sm-clock
-          = @event.start_time.nil
+          Начало:
+          %span.count
+            - t = Time.at(@event.start_time)
+            = t.strftime('%k:%M')
 
       - unless @event.address.nil?
         .event_description__right__address.icon-sm-location
-          = @event.address.nil
+          = @event.address
          
       - unless @event.contacts.empty?
         .event_description__right__contacts.icon-sm-directions

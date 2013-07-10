@@ -16,8 +16,7 @@ class Smorodina.Views.LikeBtn extends Smorodina.Views.Base
     @votable.on 'sync', @parse_responce 
 
   render: ->
-    rendered = @template votable: @votable
-    @$el.html rendered
+    @$el.html @template(votable: @votable)
     @
     
   parse_responce: ->
@@ -30,7 +29,7 @@ class Smorodina.Views.LikeBtn extends Smorodina.Views.Base
 
   make_vote: (e) ->
     e.preventDefault()
-    if @$('a.button').hasClass 'disbled'
+    if @$('a.button').hasClass 'disabled'
       return
 
     if @is_authorized()
