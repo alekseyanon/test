@@ -16,19 +16,19 @@ class Smorodina.Collections.GeoObjects extends Backbone.Collection
 
   applyFilter: (tag) ->
     if tag == 'all'
-      category.trigger( 'filterApplied', true ) for category in @models
+      geo_object.trigger( 'filterApplied', true ) for geo_object in @models
     else
-      to_be_shown  = @havingTag(tag)
-      to_be_hidden = _.difference @models, to_be_shown
-      category.trigger( 'filterApplied', true )  for category in to_be_shown
-      category.trigger( 'filterApplied', false ) for category in to_be_hidden
+      active_objects     = @tagged(tag)
+      inactive_objects   = _.difference @models, active_objects
+      geo_object.trigger( 'filterApplied', true )  for geo_object in active_objects
+      geo_object.trigger( 'filterApplied', false ) for geo_object in inactive_objects
 
   countTags: ->
     tags = _.map ['sightseeing', 'lodging', 'food', 'activities', 'infrastructure'], (tag) =>
              name  : tag
-             count : @havingTag(tag).length
+             count : @tagged(tag).length
     tags.push( name : 'all', count : @models.length )
     tags
   
-  havingTag: (tag) ->
-    @filter (category) -> _.include( category.get('tag_list'), tag )
+  tagged: (tag) ->
+    @filter (geo_object) -> _.include( geo_object.get('tag_list'), tag )

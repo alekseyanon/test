@@ -27,11 +27,11 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
     else
       @hide()
     @$content.html @$fragment
-    @countCategories()
+    @countObjectsInCategories()
   
-  countCategories: ->
-    for category in @collection.countTags()
-      @$("#filter_#{category.name}").text category.count
+  countObjectsInCategories: ->
+    for tag in @collection.countTags()
+      @$("#filter_#{tag.name}").text tag.count
 
   sortByName: ->
     @currentSortN*=-1
