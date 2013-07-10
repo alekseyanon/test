@@ -1,6 +1,6 @@
 %div.row-fluid
   %div.objs_search_link
-    = link_to content_tag(:span, 'Поиск событий', class: 'inner'), search_geo_objects_path, {class: 'action-link-bullet icon-sm-arrow-left-3 ui-link'}
+    = link_to content_tag(:span, 'Поиск событий', class: 'inner'), events_search_path, {class: 'action-link-bullet icon-sm-arrow-left-3 ui-link'}
 
 %ul.obj-page-navigation
   %li{class: current_page?(event_path(object)) ? 'active' : ''}

@@ -24,24 +24,52 @@
       .event_description__right__tags
         - tags = [@event.tag_list]
         = render partial: 'shared/tag_list', locals: {tag_tree: tags}
+
       .event_description__right__timetable.icon-sm-calendar
-        time table goes here
-      .event_description__right__start-time.icon-sm-clock
-        start time goes here
-      .event_description__right__address.icon-sm-location
-        address goes here
-      .event_description__right__contacts.icon-sm-directions
-        %ul
-          %li contacts goes here
-          %li contacts goes here
+        = Russian::strftime(@event.start_date, '%a. %d %B') 
+        &mdash;
+        = Russian::strftime(@event.end_date, '%a. %d %B') 
+
+      - unless @event.start_time.nil?
+        .event_description__right__start-time.icon-sm-clock
+          = @event.start_time.nil
+
+      - unless @event.address.nil?
+        .event_description__right__address.icon-sm-location
+          = @event.address.nil
+         
+      - unless @event.contacts.empty?
+        .event_description__right__contacts.icon-sm-directions
+          %ul
+            - @event.contacts.each do |contact|
+              %li=contact
+
       .event_description__right__actions
+        - path = new_vote_polymorphic_path @event, 'like', format: :json
+        - user_vote = current_user ? current_user.get_vote(@event, 'like') : 0
+        - css_prefix = @event.state == 'new' ? 'disabled' : ''
+        %div{class: "event_description__right__actions__like", data: {votes_for: @event.votes_for('like'), votes_against: @event.votes_against('like'), current_user_vote: user_vote, vote_url: path}}
+          = link_to 'Мне нравится', '#', {class: "link-like-button bullet icon-thumbs-up button button_standard button_grey ui-link #{css_prefix}"}
+
+        - path = new_vote_polymorphic_path @event, 'go', format: :json
+        - user_vote = current_user ? current_user.get_vote(@event, 'go') : 0
+        %div{class: 'event_description__right__actions__go', data: {votes_for: @event.votes_for('go'), votes_against: @event.votes_against('go'), current_user_vote: user_vote, vote_url: path}}
+          = link_to 'Я пойду', '#', {class: 'link-like-button bullet icon-sm-thumbs-up button button_standard button_grey ui-link'}
+          идут
+          = link_to @event.votes_for('go'), '#', {class: 'action-link'}
+          чел. 
+          - if user_vote > 0
+            и я
+
+
       - if !@event.body.nil?
         .event_description__right__body
           = @event.body
           .transparency
-      .event_description__right__body__full-link
-        =link_to 'Подробнее', '#', class: 'action-link show'
-        =link_to 'Свернуть', '#', class: 'action-link hide'
+
+        .event_description__right__body__full-link
+          =link_to 'Подробнее', '#', class: 'action-link show'
+          =link_to 'Свернуть', '#', class: 'action-link hide'
       .event_description__right__body__adder
         = render partial: 'shared/block_adder', locals: {object: @event}
 
@@ -60,22 +88,3 @@
 
 
 = render partial: 'images/new', locals: { object: @event }
-
-%h1= @event.title
-
-%p= @event.body
-
-%p= @event.tag_list
-
-= link_to 'Add photo', new_event_image_path(@event)
-
-%ul
-  - @event.images.each do |image|
-    %li.event_image= image_tag image.image_url(:thumb)
-    .votes{id: dom_id(image)}
-      =render partial: "shared/votes", locals: { object_to_vote: image, nested_path: "" }
-
-= link_to 'Add video', new_event_video_path(@event)
-%ul
-  - @event.you_tubes.each do |video|
-    %li.event_video= raw video.html
