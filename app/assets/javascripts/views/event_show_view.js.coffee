@@ -25,17 +25,29 @@ class Smorodina.Views.EventShow extends Smorodina.Views.Base
     if descr_height < descr_scroll_height
       @$('.event_description__right').addClass 'slidable'
 
-    $('.obj_descr__text__vote_stats__value__item__value').each (index, record)->
-      data = 
-        votes_for: parseInt $(record).attr('data-votes-for')
-        votes_against: parseInt $(record).attr('data-votes-against')
-        current_user_vote: parseInt $(record).attr('data-current-user-vote')
-        vote_url: $(record).attr 'data-vote-url'
+    @init_like_btn()
+    @init_go_btn()
 
-      model = new Backbone.Model()
-      model.set rating: data
-      vote_view = new Smorodina.Views.VoteForSimple votable: model, template: 'vote_for_merged'
-      $(record).html vote_view.render().el
+  init_go_btn: ->
+    data = 
+      rating: parseInt @$('.event_description__right__actions__go').attr('data-rating')
+      current_user_vote: parseInt @$('.event_description__right__actions__go').attr('data-current-user-vote')
+      url: @$('.event_description__right__actions__go').attr 'data-vote-url'
+
+    model = new Backbone.Model [], data
+    go_btn = new Smorodina.Views.GoBtn votable: model
+    @$('.event_description__right__actions__go').html go_btn.render().el
+
+  init_like_btn: ->
+    data =
+      current_user_vote: parseInt @$('.event_description__right__actions__like').attr('data-current-user-vote')
+      url: @$('.event_description__right__actions__like').attr 'data-vote-url'
+      state: @$('.event_description__right__actions__like').attr 'data-state'
+
+    model = new Backbone.Model [], data 
+    like_btn = new Smorodina.Views.LikeBtn votable: model
+    @$('.event_description__right__actions__like').html like_btn.render().el
+    
 
   show_full_description: (e)->
     e.preventDefault()

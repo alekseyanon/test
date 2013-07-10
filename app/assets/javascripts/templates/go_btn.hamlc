@@ -1,0 +1,13 @@
+- user_vote = @votable.get('current_user_vote')
+- link_label = if @votable.get('current_user_vote') == 1 then 'Я иду' else 'Я пойду'
+- css_prefix = if @votable.get('current_user_vote') == 1 then 'active' else ''
+
+%a{href: '#', class: "link-like-button bullet icon-sm-thumbs-up button button_standard button_grey ui-link #{css_prefix}"}
+  = link_label
+идут
+%a{href: '#', class: 'action-link'}
+  = @votable.get 'rating'
+чел.
+- if @votable.get('current_user_vote') == 1
+  и я
+

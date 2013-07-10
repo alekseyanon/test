@@ -47,20 +47,11 @@
       .event_description__right__actions
         - path = new_vote_polymorphic_path @event, 'like', format: :json
         - user_vote = current_user ? current_user.get_vote(@event, 'like') : 0
-        - css_prefix = @event.state == 'new' ? 'disabled' : ''
-        %div{class: "event_description__right__actions__like", data: {votes_for: @event.votes_for('like'), votes_against: @event.votes_against('like'), current_user_vote: user_vote, vote_url: path}}
-          = link_to 'Мне нравится', '#', {class: "link-like-button bullet icon-thumbs-up button button_standard button_grey ui-link #{css_prefix}"}
-
+        %div{class: "event_description__right__actions__like", data: {current_user_vote: user_vote, vote_url: path, state: @event.state}}
+          
         - path = new_vote_polymorphic_path @event, 'go', format: :json
         - user_vote = current_user ? current_user.get_vote(@event, 'go') : 0
-        %div{class: 'event_description__right__actions__go', data: {votes_for: @event.votes_for('go'), votes_against: @event.votes_against('go'), current_user_vote: user_vote, vote_url: path}}
-          = link_to 'Я пойду', '#', {class: 'link-like-button bullet icon-sm-thumbs-up button button_standard button_grey ui-link'}
-          идут
-          = link_to @event.votes_for('go'), '#', {class: 'action-link'}
-          чел. 
-          - if user_vote > 0
-            и я
-
+        %div{class: 'event_description__right__actions__go', data: {rating: @event.votes_for('go'), current_user_vote: user_vote, vote_url: path}}
 
       - if !@event.body.nil?
         .event_description__right__body
