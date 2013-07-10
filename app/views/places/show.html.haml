@@ -24,34 +24,28 @@
         %div.search-panel_description
           %span.search-categories__title
             Объекты
-        %button.search-category.search-category_all{ data: { facet: '' } }
+        %button.search-category.search-category_all{ data: { facet: 'all' } }
           %span.action-link.search-category__text{ data: { text: 'Все' }}
-            %span.search-category__total
-              48
+            %span.search-category__total#filter_all
         %button.search-category.search-category_sightseeing{ data: { facet: 'sightseeing' } }
           %span.icon-binoculars.search-category__icon.search-category__icon_binoculars
           %span.action-link.search-category__text{ data: { text: 'Что посмотреть' }}
-            %span.search-category__total
-              48
+            %span.search-category__total#filter_sightseeing
         %button.search-category.search-category_activities{ data: { facet: 'activities' } }
           %span.icon-star.search-category__icon.search-category__icon_star
           %span.action-link.search-category__text{ data: { text: 'Чем заняться' }}
-            %span.search-category__total
-              48
+            %span.search-category__total#filter_activities
         %button.search-category.search-category_food{ data: { facet: 'food' } }
           %span.icon-food-eat.search-category__icon.search-category__icon_food-eat
           %span.action-link.search-category__text{ data: { text: 'Где поесть' }}
-            %span.search-category__total
-              48
+            %span.search-category__total#filter_food
         %button.search-category.search-category_lodging{ data: { facet: 'lodging' } }
           %span.icon-bed.search-category__icon.search-category__icon_bed
           %span.action-link.search-category__text{ data: { text: 'Где заночевать' }}
-            %span.search-category__total
-              48
+            %span.search-category__total#filter_lodging
         %button.search-category.search-category_places{ data: { facet: 'places' } }
           %span.action-link.search-category__text{ data: { text: 'Места' }}
-            %span.search-category__total
-              48
+            %span.search-category__total#filter_places
     
     %div#searchResultsPanel.search-results-panel
       %div.search-results-panel__inner
