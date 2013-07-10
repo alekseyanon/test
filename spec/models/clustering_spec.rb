@@ -18,6 +18,10 @@ describe Clustering do
       chain = GeoObject.search bounding_box: bb
       result = Clustering.from_chain chain, 2
       result.should == resulting_clusters
+      [0,1].each do |cn|
+        result[cn][:geom].should == resulting_clusters[cn][:geom]
+        result[cn][:member_ids].should =~ resulting_clusters[cn][:member_ids]
+      end
     end
   end
 
