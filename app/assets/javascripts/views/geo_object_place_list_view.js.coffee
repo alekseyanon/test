@@ -1,5 +1,10 @@
 class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
+
   el: '.place_objects'
+
+  events: 
+    'click button.search-category' : 'applyFilter'
+
   initialize: ->
     super()
     _.bindAll @
@@ -22,7 +27,12 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
     else
       @hide()
     @$content.html @$fragment
+    @countObjectsInCategories()
   
+  countObjectsInCategories: ->
+    for tag in @collection.countTags()
+      @$("#filter_#{tag.name}").text tag.count
+
   sortByName: ->
     @currentSortN*=-1
     sort=@currentSortN
@@ -50,3 +60,7 @@ class Smorodina.Views.GeoObjectPlaceList extends Smorodina.Views.Base
   addOne: (item) ->
     view = new Smorodina.Views.GeoObjectPlace(model: item)
     @$fragment = @$fragment.add view.render().el
+
+  applyFilter: (e)->
+    target = $(e.target).closest('.search-category')
+    @collection.applyFilter( target.attr('data-facet') )

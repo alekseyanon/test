@@ -3,15 +3,16 @@ class Api::VotesController < InheritedResources::Base
   before_filter :find_parent_model
 
   before_filter :get_tag
+  before_filter :get_sign, only: :create
 
   def index
   end
 
   def create
-    old_rating, new_rating = old_and_new_rating(params) do
+    old_rating, new_rating = old_and_new_rating do
       current_user.vote(@parent,
                         exclusive: true,
-                        direction: params[:sign].to_sym,
+                        direction: @sign,
                         tag: @tag)
     end
     unless old_rating == new_rating
@@ -21,7 +22,7 @@ class Api::VotesController < InheritedResources::Base
   end
 
   def destroy
-    old_rating, new_rating = old_and_new_rating(params) do
+    old_rating, new_rating = old_and_new_rating do
       current_user.unvote_for @parent, @tag
     end
     if current_user.voted_on? @parent, @tag
@@ -42,7 +43,11 @@ class Api::VotesController < InheritedResources::Base
     @tag = params[:voteable_tag]
   end
 
-  def old_and_new_rating(params)
+  def get_sign
+    @sign = params[:sign] == 'up' ? :up : :down
+  end
+
+  def old_and_new_rating
     old_rating = @parent.plusminus
     yield
     [old_rating, @parent.plusminus]
