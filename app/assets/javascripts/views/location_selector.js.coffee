@@ -75,14 +75,18 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
   initMap: ->
     id = 'map' + "#{Math.random()}"[2..]
     @$el.attr 'id', id
-    @map = map = L.map id, { scrollWheelZoom: false }
+
+    mapLayer = L.tileLayer(Smorodina.Config.urlTemplate, maxZoom: @maxZoom)
+    satLayer = L.tileLayer(Smorodina.Config.urlTemplateSat, subdomains: '1234', maxZoom: @maxZoom)
+
+    @map = map = L.map id, { scrollWheelZoom: false, layers: [satLayer, mapLayer] }
     @lg = lg = L.layerGroup([]).addTo map
-    L.tileLayer(Smorodina.Config.urlTemplate, maxZoom: @maxZoom).addTo map
 
     map.removeControl map.zoomControl
     @initSelectionMarkerControl()
     @initMyLocationControl()
     map.addControl L.control.zoom()
+    L.control.layers({'Спутник': satLayer, 'Карта': mapLayer}, {}, {collapsed: false}).addTo(map);
 
   setupMap: ->
     map = @map

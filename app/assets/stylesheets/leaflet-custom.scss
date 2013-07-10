@@ -67,6 +67,18 @@
     background-image: image-url('zoom-out.png');
     margin-bottom: 5px;
   }
+
+  .leaflet-control-layers-toggle {
+    background-image: image-url('layers.png');
+  }
+  .leaflet-control-layers {
+    input[type="radio"] {
+      display: none;
+    }
+    input[type="radio"]:checked + span {
+      font-weight: bold;
+    }
+  }
 }
 
 .leaflet-popup {
