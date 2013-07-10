@@ -24,7 +24,7 @@ class Smorodina.Collections.GeoObjects extends Backbone.Collection
       category.trigger( 'filterApplied', false ) for category in to_be_hidden
 
   countTags: ->
-    tags = _.map ['sightseeing', 'lodging', 'food', 'activities'], (tag) =>
+    tags = _.map ['sightseeing', 'lodging', 'food', 'activities', 'infrastructure'], (tag) =>
              name  : tag
              count : @havingTag(tag).length
     tags.push( name : 'all', count : @models.length )
