@@ -1,0 +1,4 @@
+test:
+  adapter: postgis
+  database: smorodina_test
+  username: postgres
