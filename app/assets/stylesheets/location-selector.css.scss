@@ -29,7 +29,7 @@ $map-height: 330px;
     padding-bottom: 0;
     font-family: $base-font;
     @include font-small;
-    .smorodina-item__geo, .smorodina-item_coords {
+    .smorodina-item__geo, .smorodina-item__coords {
       color: #282828;
       padding-left: 0;
     }
