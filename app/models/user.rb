@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   end
 
   def username
-    self.name || (self.email.blank? ? nil : self.email) || "Пользователь #{self.id}"
+    self.name || ( self.email if self.email.present?) || "Пользователь #{self.id}"
   end
 
   def create_profile
