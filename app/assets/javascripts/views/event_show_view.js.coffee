@@ -44,10 +44,8 @@ class Smorodina.Views.EventShow extends Smorodina.Views.Base
       state: @$('.event_description__right__actions__like').attr 'data-state'
       rating: @$('.event_description__right__actions__like').attr 'data-rating'
 
-
     model = new Backbone.Model data, url: @$('.event_description__right__actions__like').attr 'data-vote-url'
  
-    console.log model.attributes
     like_btn = new Smorodina.Views.LikeBtn votable: model
     @$('.event_description__right__actions__like').html like_btn.render().el
     

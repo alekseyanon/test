@@ -24,6 +24,7 @@ class Smorodina.Views.VoteForSimple extends Smorodina.Views.Base
   render: ->
     rendered = @template rating: @votable.get('rating')
     @$el.html rendered
+    @$('.tooltip_init').tooltip()
     @
     
   parse_responce: ->

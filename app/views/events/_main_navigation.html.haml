@@ -13,10 +13,10 @@
     = link_to content_tag(:span, 'Видео', class: 'inner'), event_videos_path(object), {class: 'icon-sm-video action-link-bullet ui-link'}
 
   %li.pull-right
-    = link_to '', new_event_complaint_path(object), {class: 'icon-flag ui-link', target: '_blank', titile: 'Пожаловаться на содержимое'}
+    = link_to '', new_event_complaint_path(object), {class: 'icon-flag ui-link tooltip_init', target: '_blank', title: 'Пожаловаться на содержимое'}
 
   %li.pull-right
-    = link_to '', '#', {class: 'icon-sm-history ui-link', title: 'История изменений'}
+    = link_to '', '#', {class: 'icon-sm-history ui-link tooltip_init', title: 'История изменений'}
 
   %li{class: current_page?(edit_event_path(object)) ? ['active', 'pull-right'] : 'pull-right'}
     = link_to content_tag(:span, 'Редактировать', class: 'inner'), edit_event_path(object), {class: 'icon-sm-pencil action-link-bullet ui-link'}

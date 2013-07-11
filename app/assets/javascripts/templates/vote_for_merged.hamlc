@@ -11,11 +11,11 @@
   .pic_vote__up
     %form{action: @rating.vote_url}
       %input{type: 'hidden', name: 'sign', value: "up"}
-      %button{class: "icon-thumbs-up ui-link", type: "submit", title: "Мне нравится", value: ''}
+      %button{class: "icon-thumbs-up ui-link tooltip_init", type: "submit", title: "Мне нравится", value: ''}
   .pic_vote__count
     = rating
   .pic_vote__down
     %form{action: @rating.vote_url}
       %input{type: 'hidden', name: 'sign', value: "down"}
-      %button{class: "icon-thumbs-down ui-link", type: "submit", title: "Мне не нравится", value: ''}
+      %button{class: "icon-thumbs-down ui-link tooltip_init", type: "submit", title: "Мне не нравится", value: ''}
 

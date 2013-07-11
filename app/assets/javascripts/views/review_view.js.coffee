@@ -29,7 +29,9 @@ class Smorodina.Views.ReviewView extends Smorodina.Views.Base
     @$el.find('.pic_comments__container').css display: 'none'
     if @real
       @vote_for_merged = new Smorodina.Views.VoteForSimple votable: @model, template: 'vote_for_merged'
+      @spam_to = new Smorodina.Views.SpamToView complaint: @model.get('complaint')
       @$el.find('.obj_descr__responces__responce__text__actions__vote').html @vote_for_merged.render().el
+      @$el.find('.obj_descr__responces__responce__text__actions__spam').html @spam_to.render().el
       @$el.find('.pic_comments').append @comments_list.hide().render().el
     else
       @$el.addClass 'slidable show_full'

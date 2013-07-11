@@ -22,7 +22,7 @@
       .event_description__right__geo
         = render partial: 'shared/geo_list', locals: {tree: @event.agc.try(:titles) || {}}
       .event_description__right__tags
-        - tags = [@event.tag_list]
+        - tags = @event.hash_tags
         = render partial: 'shared/tag_list', locals: {tag_tree: tags}
 
       .event_description__right__timetable.icon-sm-calendar
