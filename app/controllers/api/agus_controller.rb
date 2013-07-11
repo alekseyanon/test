@@ -6,4 +6,8 @@ class Api::AgusController < ApplicationController
     respond_with @agus
   end
 
+  def search_autocomplete
+    @agus = Agu.where(place: true).limit(7).search(params[:query])
+  end
+
 end
