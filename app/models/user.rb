@@ -107,22 +107,7 @@ class User < ActiveRecord::Base
          # найти или создать пользователя, создать authentication и залогинить его
          #поиск пользователя по email
       user = args[:email] && self.find_by_email(args[:email])
-      if user
-        #Создаем authentication и залогиниваем пользователя
-        user.authentications.create!(args)
-      else
-        # Создаем пользователя и authentication и залогиниваем его.
-        user = self.new(password: Devise.friendly_token[0,20])
-        user.authentications.build(args)
-        user.skip_confirmation!
-        user.save!
-        user.confirm!
-      end
-      if user.name.blank?
-        user.profile.name = args[:name]
-        user.profile.save!
-      end
-      user
+      prepare_user user, args
     end
   end
 
@@ -155,6 +140,29 @@ class User < ActiveRecord::Base
     if attr
       self[attr] += delta*k
       self.save!
+    end
+  end
+
+  def self.prepare_user(user, args)
+    if user
+      #Создаем authentication и залогиниваем пользователя
+      user.authentications.create!(args)
+    else
+      # Создаем пользователя и authentication и залогиниваем его.
+      user = self.new(password: Devise.friendly_token[0,20])
+      user.authentications.build(args)
+      user.skip_confirmation!
+      user.save!
+      user.confirm!
+    end
+    set_name user, args
+    user
+  end
+
+  def self.set_name(user, args)
+    if user.name.blank?
+      user.profile.name = args[:name]
+      user.profile.save!
     end
   end
 end

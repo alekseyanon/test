@@ -9,7 +9,7 @@ class Profile < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   serialize :settings, ActiveRecord::Coders::Hstore
 
-  validates :surname, format:
+  validates :surname, :allow_blank => true, format:
       {with: /\A[\u{0430}-\u{044F}\u{0410}-\u{042F}' 'A-Za-z-]+\z/}, on: :update
 
   def settings
