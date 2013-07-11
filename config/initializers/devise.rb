@@ -4,7 +4,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
+  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
   social_cfg = YAML.load_file("#{Rails.root}/config/social_services.yml")
   social_cfg = social_cfg[Rails.env]
@@ -13,7 +13,7 @@ Devise.setup do |config|
                   {scope: 'publish_stream, read_stream, publish_actions, email'}
   config.omniauth :twitter, social_cfg['twitter']['key'], social_cfg['twitter']['secret']
   config.omniauth :vkontakte, social_cfg['vkontakte']['id'], social_cfg['vkontakte']['secret'],
-                  {:scope => 'notify,friends,photos,notes,docs,pages,wall,offline'}
+                  {scope: 'notify,friends,photos,notes,docs,pages,wall,offline'}
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
