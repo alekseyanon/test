@@ -17,7 +17,7 @@
         .event_description__left__actions__social
           = render partial: 'shared/sn_share_buttons', locals: {size: 16}
     .event_description__right
-      .event_description__right__title
+      %div{class: "event_description__right__title #{@event.state}"}
         %h1= @event.title
       .event_description__right__geo
         = render partial: 'shared/geo_list', locals: {tree: @event.agc.try(:titles) || {}}
