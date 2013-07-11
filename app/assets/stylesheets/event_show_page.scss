@@ -1,3 +1,12 @@
+.event_show_page{
+  .map__outer{
+    margin: 32px 0 32px 0;
+  }
+  .map__expand{
+    padding: 25px 0 20px 0;
+  }
+}
+
 .event_description{
   padding: 50px 22px 32px 33px;
   @include clearfix;
@@ -5,13 +14,17 @@
 
 .event_description__left{
   float: left;
-  margin: 0 60px 0 0;
-  width: 243px;
+  width: 25%;
+  min-width: 250px;
+}
+
+.event_description__left__images{
+  width: 223px;
 }
 
 .event_description__right{
   float: left;
-  width: 975px;
+  width: 70%;
   a.hide{
     display: none;
   }
@@ -55,7 +68,35 @@
 .event_description__right__title{
   margin: 0 0 16px 0;
   h1{
-    margin: 0
+    margin: 0;
+    &:after{
+      content: " ";
+      display: none;
+      @include size(18px, 80px);
+      background-image: url('/assets/event-statuses.gif');
+      background-repeat: no-repeat;
+      background-position: left top;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+  }
+  &.started{
+    h1:after{
+      display: inline-block;
+      background-position: -160px 0px;
+    }
+  }
+  &.ended{
+    h1:after{
+      display: inline-block;
+      background-position: 0px 0px;
+    }
+  }
+  &.canceled{
+    h1:after{
+      display: inline-block;
+      background-position: -80px 0px;
+    }
   }
 }
 .event_description__right__geo{
@@ -87,6 +128,9 @@
       
 .event_description__right__start-time{
   margin: 0 0 15px 0;
+  .count{
+    font-weight: bold;
+  }
 }
       
 .event_description__right__address{
@@ -110,6 +154,16 @@
 .event_description__right__actions{
   margin: 0 0 43px 0;
   padding: 20px 0 0 0;
+  a.active{
+    background-color: #1d9ccc;
+    color: #fff;
+    &:hover{
+      background-color: #1d9ccc;
+    }
+  }
+  a.count{
+    font-weight: bold;
+  }
 }
         
 .event_description__right__actions__like{

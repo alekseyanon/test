@@ -32,19 +32,20 @@ class Smorodina.Views.EventShow extends Smorodina.Views.Base
     data = 
       rating: parseInt @$('.event_description__right__actions__go').attr('data-rating')
       current_user_vote: parseInt @$('.event_description__right__actions__go').attr('data-current-user-vote')
-      url: @$('.event_description__right__actions__go').attr 'data-vote-url'
 
-    model = new Backbone.Model [], data
+    model = new Backbone.Model data, url: @$('.event_description__right__actions__go').attr 'data-vote-url'
     go_btn = new Smorodina.Views.GoBtn votable: model
     @$('.event_description__right__actions__go').html go_btn.render().el
 
   init_like_btn: ->
     data =
       current_user_vote: parseInt @$('.event_description__right__actions__like').attr('data-current-user-vote')
-      url: @$('.event_description__right__actions__like').attr 'data-vote-url'
       state: @$('.event_description__right__actions__like').attr 'data-state'
 
-    model = new Backbone.Model [], data 
+
+    model = new Backbone.Model data, url: @$('.event_description__right__actions__like').attr 'data-vote-url'
+ 
+    console.log model.attributes
     like_btn = new Smorodina.Views.LikeBtn votable: model
     @$('.event_description__right__actions__like').html like_btn.render().el
     

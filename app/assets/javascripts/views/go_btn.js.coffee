@@ -30,9 +30,6 @@ class Smorodina.Views.GoBtn extends Smorodina.Views.Base
 
   make_vote: (e) ->
     e.preventDefault()
-    if @$('a.button').hasClass 'disbled'
-      return
-
     if @is_authorized()
       if @votable.get('current_user_vote') == 1
         @destroy_vote()
@@ -40,10 +37,9 @@ class Smorodina.Views.GoBtn extends Smorodina.Views.Base
         @create_vote()
 
   destroy_vote: ->
-    @model.set sign: 'up', id: '500'
-    @result = @model.destroy()
+    @votable.set sign: 'up', id: '500'
+    @result = @votable.destroy()
 
   create_vote: ->
-    @model.set sign: 'down', id: null
-    @result = @model.save()
-
+    @votable.set sign: 'up', id: null
+    @result = @votable.save()
