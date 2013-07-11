@@ -61,16 +61,11 @@ class User < ActiveRecord::Base
   end
 
   def username
-    self.name || self.email || "Пользователь #{self.id}"
+    self.name || ( self.email if self.email.present?) || "Пользователь #{self.id}"
   end
 
   def create_profile
     self.create_profile!
-  end
-
-  ### TODO: remove temporary method
-  def identifier
-    self.email.blank? ? "Профиль пользователя #{self.id}" : self.email
   end
 
   def password_required?
@@ -123,6 +118,10 @@ class User < ActiveRecord::Base
         user.save!
         user.confirm!
       end
+      if user.name.blank?
+        user.profile.name = args[:name]
+        user.profile.save!
+      end
       user
     end
   end
@@ -131,10 +130,12 @@ class User < ActiveRecord::Base
     args = {provider: provider = oauth['provider'], uid: oauth['uid']}
     email = (info = oauth['info']) && info['email']
     token = (cred = oauth['credentials']) && cred['token']
+    name = info['name'] if info
     token_secret = cred && cred['secret']
     args.merge! case provider
-                  when 'facebook'; {email: email,                     oauth_token: token}
-                  when 'twitter';  {oauth_token_secret: token_secret, oauth_token: token}
+                  when 'facebook';  {email: email,                     oauth_token: token}
+                  when 'twitter';   {oauth_token_secret: token_secret, oauth_token: token}
+                  when 'vkontakte'; {name: name,                       oauth_token: token}
                   else
                     raise NotImplementedError, "#{provider} oauth provider not supported"
                 end

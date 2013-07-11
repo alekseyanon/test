@@ -1,14 +1,9 @@
 - now = Russian::strftime(Date.today, '%d %B %Yг.')
-%div{class: 'user-panel', data: {authorized: current_user.nil? ? '' : current_user.identifier, user_name: current_user.nil? ? '' : current_user.profile.name, date: now}}
-  - if current_user.nil?
-    %span.user-panel__login
-      %a.ui-link#show_registration_modal{ href: '#regLoginModal', data: { toggle: 'modal' } }
-        Вход и регистрация
-        %span.icon.icon-door.user-panel__login__icon
-  - else
+%div{class: 'user-panel', data: {authorized: current_user ?  current_user.username : '', user_name: current_user ? current_user.name : '', date: now}}
+  - if current_user
     %span.user-link.user-panel__account
       %span.icon.icon-user.user-link__icon
-      %span.action-link.dropdown-toggle{ data: { toggle: 'dropdown' } }= current_user.identifier
+      %span.action-link.dropdown-toggle{ data: { toggle: 'dropdown' } }= current_user.username
       %ol.dropdown-menu.pull-left.user-panel__account__dropdown{ role: 'menu' }
         %li
           %a.tdn-link{href: profile_path(current_user.profile)}
@@ -29,3 +24,8 @@
         %li
           %a.tdn-link{href: '#111'}
             Выход
+  - else
+    %span.user-panel__login
+      %a.ui-link#show_registration_modal{ href: '#regLoginModal', data: { toggle: 'modal' } }
+        Вход и регистрация
+        %span.icon.icon-door.user-panel__login__icon
