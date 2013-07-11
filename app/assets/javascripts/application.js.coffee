@@ -25,7 +25,6 @@
 #= require spin
 #= require_tree .
 #= require leaflet
-#= require jquery.Jcrop
 #= require redactor-rails
 #= require pickadate/picker  
 #= require pickadate/picker.date  
@@ -79,19 +78,6 @@ window.to_unvote = (voteable_controller, voteable_id, tag) ->
 
     datatype: "json"
 
-update = (coords) ->
-  $("#user_crop_x").val coords.x
-  $("#user_crop_y").val coords.y
-  $("#user_crop_w").val coords.w
-  $("#user_crop_h").val coords.h
-  updatePreview coords
-updatePreview = (coords) ->
-  $("#preview").css
-    width: Math.round(100 / coords.w * $("#cropbox").width()) + "px"
-    height: Math.round(100 / coords.h * $("#cropbox").height()) + "px"
-    marginLeft: "-" + Math.round(100 / coords.w * coords.x) + "px"
-    marginTop: "-" + Math.round(100 / coords.h * coords.y) + "px"
-
 window.toggleType = (link, field) ->
   obj = document.getElementById(field)
   obj2 = document.getElementById(link)
@@ -113,11 +99,6 @@ new Smorodina.Routers.Global
 Backbone.history.start hashChange: false
 
 $ ->
-  $("#cropbox").Jcrop
-    aspectRatio: 1
-    setSelect: [0, 0, 600, 600]
-    onSelect: update
-    onChange: update
 
   $("form").on "click", ".remove_fields", (event) ->
     $(this).closest("fieldset").hide()

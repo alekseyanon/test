@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
 
   USER_WINDOW_PAGINATION = 20
   paginates_per 10
-  # TODO avatar crop!
   # :token_authenticatable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,

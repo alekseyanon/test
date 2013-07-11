@@ -1,6 +1,5 @@
 class Profile < ActiveRecord::Base
-  attr_accessible :avatar, :name, :settings, :crop_x, :crop_y, :crop_w, :crop_h
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessible :avatar, :name, :surname, :settings
 
   belongs_to :user
 
@@ -10,7 +9,8 @@ class Profile < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   serialize :settings, ActiveRecord::Coders::Hstore
 
-  after_update :crop_avatar
+  validates :surname, format:
+      {with: /\A[\u{0430}-\u{044F}\u{0410}-\u{042F}' 'A-Za-z-]+\z/}, on: :update
 
   def settings
     read_attribute(:settings).nil? ? {} : read_attribute(:settings)
@@ -18,12 +18,8 @@ class Profile < ActiveRecord::Base
 
   private
 
-  def crop_avatar
-    avatar.recreate_versions! if crop_x.present?
-  end
-
   def make_slug
-    tmp_name = self.name ? self.name : self.user.email.split("@").first
+    tmp_name = self.name ? self.name : self.user.email.split('@').first
     "#{tmp_name ? tmp_name : 'user'}"
   end
 
