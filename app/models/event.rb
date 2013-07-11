@@ -126,6 +126,8 @@ class Event < ActiveRecord::Base
     includes(:event_tags).where('event_tags.id' => tag_id) if tag_id
   end
 
+  scope :visible, where("state != 'archived'")
+
   state_machine initial: :new do
 
     after_transition on: :archive, do: :create_next_event
@@ -192,8 +194,8 @@ class Event < ActiveRecord::Base
   def update_state!
     if date_for_next_state.nil?
       raise 'No next state'
-    elsif date_for_next_state > Time.now
-      raise 'Too early for next state'
+    #elsif date_for_next_state > Time.now
+    #  raise 'Too early for next state'
     else
       process_to_next_state
     end
