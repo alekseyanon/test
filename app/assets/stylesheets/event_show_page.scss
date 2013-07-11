@@ -161,19 +161,29 @@
       background-color: #1d9ccc;
     }
   }
-  a.count{
-    font-weight: bold;
+  .info{
+    a.count{
+      font-weight: bold;
+      margin: 0 0 0 11px;
+    }
   }
 }
         
 .event_description__right__actions__like{
   display: inline-block;
+  .info{
+    margin: 0 42px 0 13px;
+  }
 }
 
 .event_description__right__actions__go{
   display: inline-block;
   a.button{
     margin-right: 5px;
+    
+  }
+  .count{
+    font-weight: bold;
   }
 }
         

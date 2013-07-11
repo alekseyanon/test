@@ -1,5 +1,15 @@
-- css_disabled = if @votable.get('state') == 'new' then 'disabled' else ''
+- state = @votable.get('state')
+- css_disabled = if state == 'started' || state == 'ended' then '' else 'disabled'
 - css_prefix = if @votable.get('current_user_vote') == 1 then 'active' else '' 
+- link_label = if @votable.get('current_user_vote') == 1 then 'Больше не нравится' else 'Мне нравится'
 
-%a{href: '#', class: "link-like-button bullet icon-thumbs-up button button_standard button_grey #{css_prefix} #{css_disabled}"} 
-  Мне нравится
+- if state != 'canceled' && state != 'archived'
+  %a{href: '#', class: "link-like-button bullet icon-thumbs-up button button_standard button_grey #{css_prefix} #{css_disabled}"} 
+    = link_label
+    
+- if css_disabled == ''
+  %span.info
+    нравится 
+    %a{href: '#', class: 'action-link count'}
+      = @votable.get('rating')
+      чел.
