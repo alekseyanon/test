@@ -3011,7 +3011,7 @@ a:hover,
 .profile-form .control-label{
   width: 120px;
   text-align: left;
-  color: #787a83;
+  color: $darkgrey;
   font-size: 17px;
 }
 
@@ -3034,9 +3034,8 @@ a:hover,
   text-align: center;
   min-width: 200px;
   .img {
-    border-radius: 50px;
-    width: 100px;
-    height: 100px;
+    @include border-radius(50px);
+    @include square(100px);
     overflow: hidden;
     margin: 0 auto;
   }

@@ -9,9 +9,9 @@ class Smorodina.Views.AvatarNewView extends Smorodina.Views.Base
     @$file_upload = @$el.find('.input-hide')
     @reader = new FileReader()
     @reader.onload = (e) ->
-      $("#avatar_preview").removeAttr("width").removeAttr("height").css('margin', '0')
-      $("#avatar_preview").attr "src", e.target.result
-      $avatar = $("#avatar_preview")
+      $('#avatar_preview').removeAttr('width').removeAttr('height').css('margin', '0')
+      $('#avatar_preview').attr 'src', e.target.result
+      $avatar = $('#avatar_preview')
       im = $avatar[0]
       h = im.height
       w = im.width
@@ -23,8 +23,8 @@ class Smorodina.Views.AvatarNewView extends Smorodina.Views.Base
         margin_direct = 'margin-top'
         margin_size = (1 - h/w)*50
         scale = 100/w
-      $avatar.attr "width", w*scale
-      $avatar.attr "height", h*scale
+      $avatar.attr 'width', w*scale
+      $avatar.attr 'height', h*scale
       $avatar.css(margin_direct, margin_size)
 
   uploadFileOpen: (e) ->

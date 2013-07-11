@@ -10,7 +10,7 @@ class Profile < ActiveRecord::Base
   serialize :settings, ActiveRecord::Coders::Hstore
 
   validates :surname, format:
-      {with: /\A[\u{0430}-\u{044F}\u{0410}-\u{042F}\\sA-Za-z]+\z/}, on: :update
+      {with: /\A[\u{0430}-\u{044F}\u{0410}-\u{042F}' 'A-Za-z-]+\z/}, on: :update
 
   def settings
     read_attribute(:settings).nil? ? {} : read_attribute(:settings)
