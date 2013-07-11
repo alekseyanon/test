@@ -22,8 +22,12 @@
       .event_description__right__geo
         = render partial: 'shared/geo_list', locals: {tree: @event.agc.try(:titles) || {}}
       .event_description__right__tags
-        - tags = @event.hash_tags
-        = render partial: 'shared/tag_list', locals: {tag_tree: tags}
+        .smorodina-item__tags
+          %span.icon.icon-tags.smorodina-item__tags__icon
+          %ul.smorodina-item__tags__list
+            - @event.hash_tags.each do |key, children|
+              %li
+                = link_to(" #{key} ", search_geo_objects_path(tag_name: key), class: 'tdn-link')
 
       .event_description__right__timetable.icon-sm-calendar
         = Russian::strftime(@event.start_date, '%a. %d %B') 

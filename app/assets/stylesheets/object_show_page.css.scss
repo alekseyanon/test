@@ -11,6 +11,12 @@
   padding: 0px 30px;
 }
 
+.obj_descr__tags{
+  li:after{
+    content: '\2192';
+  }
+}
+
 
 .obj_descr__info{
   @include clearfix;
