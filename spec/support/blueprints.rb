@@ -84,6 +84,7 @@ end
 
 Profile.blueprint do
   name { Faker::Lorem.word }
+  surname { Faker::Lorem.word }
   user { User.make! }
 end
 
