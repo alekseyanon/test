@@ -1,5 +1,5 @@
 - history_path = object.is_a?(Event) ? "#" : history_geo_object_path(object)
-- edit_path = object.is_a?(Event) ? edit_event_path(object) : edit_geo_object_path(object)
+- edit_path = url_for [:edit, object]
 .block__adder
   .smorodina-item__user
     %span.smorodina-item__user__text
