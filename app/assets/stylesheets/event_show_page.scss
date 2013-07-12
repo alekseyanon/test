@@ -16,15 +16,57 @@
   float: left;
   width: 25%;
   min-width: 250px;
+  @include respond-to(large-screen){
+    width: 100%;
+    float: none;
+    @include clearfix;
+  }
 }
 
 .event_description__left__images{
-  width: 223px;
+  @include respond-to(large-screen){
+    float: left;
+    width: 460px;
+  }
+  @include respond-to(medium-screen){
+    float: none;
+    width: 100%;
+    @include clearfix;
+  }
+  img{
+    display: block;
+  }
 }
 
+.event_description__left__images__container{
+  float: left;
+  margin: 0 6px 6px 0;
+  overflow: hidden;
+  &.main{
+    @include respond-to(large-screen){
+      height: 156px;
+    }
+  }
+}
+
+.event_description__left__actions{
+  @include respond-to(large-screen){
+    float: left;
+  }
+  @include respond-to(medium-screen){
+    width: 100%;
+    float: none;
+    margin: 10px 0 10px 0;
+    @include clearfix;
+  }
+}
 .event_description__right{
   float: left;
   width: 70%;
+  @include respond-to(large-screen){
+    width: 100%;
+    float: none;
+  }
   a.hide{
     display: none;
   }
@@ -58,12 +100,27 @@
         
 .event_description__left__actions__photo-video{
   margin: 32px 0 18px 0;
+  @include respond-to(large-screen){
+    margin-top: 0;
+  }
+  @include respond-to(medium-screen){
+    margin: 0 5% 0 0;
+    float: left;
+  }
 }
 .event_description__left__actions__print{
   margin: 0 0 34px 0;
+  @include respond-to(medium-screen){
+    margin: 10px 5% 0 0;
+    float: left;
+  }
 }
 .event_description__left__actions__social{
   margin: 0 0 24px 0;
+  @include respond-to(medium-screen){
+    margin: 10px 0 0 0;
+    float: left;
+  }
 }
 .event_description__right__title{
   margin: 0 0 16px 0;

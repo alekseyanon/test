@@ -6,9 +6,13 @@
         - images = @event.images.limit(5)
         - images.each_with_index do |image, index|
           - if index == 0
-            = image_tag(image.image_url(:eventmainthumb), width: 223, height: 334, class: 'main')
+            .event_description__left__images__container.main
+              .event_description__left__images__container__inner
+                = image_tag(image.image_url(:eventmainthumb), width: 223, height: 334, class: 'main')
           - else 
-            = image_tag(image.image_url(:eventsecthumb), width: 109, height: 75)
+            .event_description__left__images__container
+              .event_description__left__images__container__inner
+                = image_tag(image.image_url(:eventsecthumb), width: 109, height: 75)
       .event_description__left__actions
         .event_description__left__actions__photo-video
           = link_to "Добавить фото или видео", "#newimage", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
