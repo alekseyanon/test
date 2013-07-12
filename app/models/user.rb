@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
 
   USER_WINDOW_PAGINATION = 20
   paginates_per 10
-  # TODO avatar crop!
   # :token_authenticatable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
@@ -62,16 +61,11 @@ class User < ActiveRecord::Base
   end
 
   def username
-    self.name || self.email || "Пользователь #{self.id}"
+    self.name || ( self.email if self.email.present?) || "Пользователь #{self.id}"
   end
 
   def create_profile
     self.create_profile!
-  end
-
-  ### TODO: remove temporary method
-  def identifier
-    self.email.blank? ? "Профиль пользователя #{self.id}" : self.email
   end
 
   def password_required?
@@ -113,18 +107,7 @@ class User < ActiveRecord::Base
          # найти или создать пользователя, создать authentication и залогинить его
          #поиск пользователя по email
       user = args[:email] && self.find_by_email(args[:email])
-      if user
-        #Создаем authentication и залогиниваем пользователя
-        user.authentications.create!(args)
-      else
-        # Создаем пользователя и authentication и залогиниваем его.
-        user = self.new(password: Devise.friendly_token[0,20])
-        user.authentications.build(args)
-        user.skip_confirmation!
-        user.save!
-        user.confirm!
-      end
-      user
+      prepare_user user, args
     end
   end
 
@@ -132,10 +115,12 @@ class User < ActiveRecord::Base
     args = {provider: provider = oauth['provider'], uid: oauth['uid']}
     email = (info = oauth['info']) && info['email']
     token = (cred = oauth['credentials']) && cred['token']
+    name = info['name'] if info
     token_secret = cred && cred['secret']
     args.merge! case provider
-                  when 'facebook'; {email: email,                     oauth_token: token}
-                  when 'twitter';  {oauth_token_secret: token_secret, oauth_token: token}
+                  when 'facebook';  {email: email,                     oauth_token: token}
+                  when 'twitter';   {oauth_token_secret: token_secret, oauth_token: token}
+                  when 'vkontakte'; {name: name,                       oauth_token: token}
                   else
                     raise NotImplementedError, "#{provider} oauth provider not supported"
                 end
@@ -155,6 +140,29 @@ class User < ActiveRecord::Base
     if attr
       self[attr] += delta*k
       self.save!
+    end
+  end
+
+  def self.prepare_user(user, args)
+    if user
+      #Создаем authentication и залогиниваем пользователя
+      user.authentications.create!(args)
+    else
+      # Создаем пользователя и authentication и залогиниваем его.
+      user = self.new(password: Devise.friendly_token[0,20])
+      user.authentications.build(args)
+      user.skip_confirmation!
+      user.save!
+      user.confirm!
+    end
+    set_name user, args
+    user
+  end
+
+  def self.set_name(user, args)
+    if user.name.blank?
+      user.profile.name = args[:name]
+      user.profile.save!
     end
   end
 end

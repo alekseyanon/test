@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class AuthenticationsController < ApplicationController
 
-	### TODO: add view for this action
-	def index
+  ### TODO: add view for this action
+  def index
     @authentications = current_user ? current_user.authentications.all : []
   end
 
-	def destroy
+  def destroy
     # remove an authentication linked to the current user
     current_user.authentications.destroy params[:id]
     redirect_to authentications_path
@@ -23,7 +23,7 @@ class AuthenticationsController < ApplicationController
     end
 
     if oauth['provider'] && oauth['uid']
-      auth = Authentication.find_by_provider_and_uid(oauth['provider'], oauth['uid'])
+      auth = Authentication.find_by_provider_and_uid(oauth['provider'], oauth['uid'].to_s)
 
       if current_user
         current_user.create_authentication(oauth) unless auth

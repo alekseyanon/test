@@ -1,7 +1,7 @@
 #= require ./smorodina
 
 Smorodina.Config =
-  urlTemplate: "http://{s}.tile.cloudmade.com/cda4cc8498bd4da19e72af2b606f5c6e/997/256/{z}/{x}/{y}.png"
+  urlTemplate: 'http://smorodina.com:1337/osm/{z}/{x}/{y}.png'
   urlTemplateSat: 'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png'
   spinner:
     lines: 13            # The number of lines to draw

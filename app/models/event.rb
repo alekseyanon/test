@@ -46,6 +46,13 @@ class Event < ActiveRecord::Base
 
   ALLOWED_SEARCH_PARAMS = [:text, :place_id, :from, :to, :tag_id, :sort_by, :limit, :term]
 
+  ELIGIBLE_TO_UPDATE_SQL = "start_date <= now()
+                              AND start_date >= now() - interval '1 day'
+                              OR end_date <= now()
+                              AND end_date >= now() - interval '1 day'
+                              OR archive_date <= now()
+                              AND archive_date >= now() - interval '1 day'"
+
   attr_accessible :body, :title, :start_date, :end_date,
                   :repeat_rule, :geom, :start_time, :address, :contacts,
                   :images_attributes, :event_tags, :tag_list
@@ -94,7 +101,7 @@ class Event < ActiveRecord::Base
   end
 
   scope :line, ->(key) { where key: key}
-  scope :future, where("start_date > '#{Time.now}'")
+  scope :future, where('start_date > ?', Time.now)
 
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'}
@@ -125,6 +132,8 @@ class Event < ActiveRecord::Base
   scope :include_tags, -> tag_id do
     includes(:event_tags).where('event_tags.id' => tag_id) if tag_id
   end
+
+  scope :visible, where("state != 'archived'")
 
   state_machine initial: :new do
 
@@ -192,8 +201,8 @@ class Event < ActiveRecord::Base
   def update_state!
     if date_for_next_state.nil?
       raise 'No next state'
-    elsif date_for_next_state > Time.now
-      raise 'Too early for next state'
+    #elsif date_for_next_state > Time.now
+    #  raise 'Too early for next state'
     else
       process_to_next_state
     end
@@ -239,18 +248,19 @@ class Event < ActiveRecord::Base
     end
   end
 
+  ### TODO: may be these methods are not useful
   def rating_go
-    Vote.for_voteable(self).where("created_at < '#{start_date}'").count
+    self.votes_for('go')
   end
 
   def rating_like
-    Vote.for_voteable(self).where("created_at > '#{start_date}'").count
+    self.votes_for('like')
   end
 
   def update_rating!
-    self.rating = Vote.for_voteable(self).count
+    self.rating = self.votes_for
     save!
-  end
+  end ###
 
   def as_json options = {}
     json = super options
@@ -282,6 +292,25 @@ class Event < ActiveRecord::Base
 
   def self.autocomplete(query)
     search(query).autocomplete_search(query[:term]).limit query[:limit] || AUTOCOMPLETE_LIMIT
+  end
+
+  def self.process_states
+    where(ELIGIBLE_TO_UPDATE_SQL).each do |e|
+      begin
+        e.update_state!
+      rescue => ex
+        Rails.logger.warn "#{ex.class}: #{ex.message}"
+      end
+    end
+  end
+
+  # 30 дней - максимальный срок сбора статистики
+  # возможно надо будет выбирать более точнее
+  # будем смотреть по реальным данным
+  def self.update_rating
+    Event.where('end_date > ?', 30.days.ago).each do |e|
+      e.update_rating!
+    end
   end
 
   private
