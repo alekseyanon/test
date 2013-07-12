@@ -1,9 +1,9 @@
 .event_show_page{
   .map__outer{
-    margin: 32px 0 32px 0;
+    margin: 32px 0;
   }
   .map__expand{
-    padding: 25px 0 20px 0;
+    padding: 25px 0 20px;
   }
 }
 
@@ -170,7 +170,7 @@
   font-family: $base-font;
   text-transform: lowercase;
   &:before{
-    font-family: 'smorodina-icons';
+    font-family: $icons-font;
   }
 }
 

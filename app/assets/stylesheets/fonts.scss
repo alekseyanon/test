@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'smorodina-icons';
+  font-family: $icons-font;
   src: font-url('smorodina-icons.eot');
   src: font-url('smorodina-icons.eot?#iefix') format('embedded-opentype'),
        font-url('smorodina-icons.woff') format('woff'),
@@ -15,7 +15,7 @@
 .icon-sm-arrow-up, .icon-sm-reply, .icon-sm-arrow-left-2, .icon-sm-untitled, .icon-sm-full-screen,
 .icon-sm-arrow-down-2, .icon-sm-close, .icon-sm-print, .icon-sm-plus, .icon-sm-compass, .icon-sm-location,
 .icon-sm-clock, .icon-sm-directions, .icon-sm-bookmark, .icon-sm-calendar, .icon-sm-I-would-go{ 
-  font-family: 'smorodina-icons';
+  font-family: $icons-font;
   speak: none;
   font-style: normal;
   font-weight: normal;

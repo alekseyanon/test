@@ -3,7 +3,7 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
 
   events:
     'click .obj_descr__text__descr__runtips a.runtip_switcher' : 'init_runtips'
-    'click .obj_descr__text__descr__body__full_link a' : 'show_full_description'
+    'click .obj_descr__text__descr__body__full_link a' : 'toggle_full_description'
     'click .add_photo_or_video_link a' : 'show_upload_window'
     'click .write_review a' : 'init_add_review'
     'click .cancel_review_creation': 'cancel_add_review'
@@ -25,17 +25,14 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
     if descr_height < descr_scroll_height
       @$('.obj_descr__text__descr').addClass 'slidable'
 
-    $('.obj_descr__text__vote_stats__value__item__value').each (index, record)->
+    @$('.obj_descr__text__vote_stats__value__item__value').each (index, record)->
       data = 
         votes_for: parseInt $(record).attr('data-votes-for')
         votes_against: parseInt $(record).attr('data-votes-against')
         current_user_vote: parseInt $(record).attr('data-current-user-vote')
-        vote_url: $(record).attr 'data-vote-url'
 
-      model = new Backbone.Model()
-      model.set rating: data
-      vote_view = new Smorodina.Views.VoteForSimple votable: model, template: 'vote_for_merged'
-      $(record).html vote_view.render().el
+      model = new Backbone.Model data, url: $(record).attr 'data-vote-url'
+      new Smorodina.Views.VoteForSimple template: 'vote_for_merged', el: $(record), model: model 
 
   init_runtips: (e)-> 
     e.preventDefault()
@@ -44,7 +41,7 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
       @runtips_collection = new Smorodina.Collections.Runtips @model, url: "/api/objects/#{@object_id}/runtips.json"
       @runtips_view = new Smorodina.Views.ObjectRuntipsView collection: @runtips_collection
 
-  show_full_description: (e)->
+  toggle_full_description: (e)->
     e.preventDefault()
     @$('.obj_descr__text__descr').toggleClass 'opened'
 

@@ -2,44 +2,39 @@ class Smorodina.Views.GoBtn extends Smorodina.Views.Base
   template: JST['go_btn']
 
   className: 'btn_container_go'
-  tagName: 'span'
-  
-  votable: null
 
   events:
     'click a.button' : 'make_vote' 
 
   initialize: ->
     _.bindAll @
-    @votable = @options.votable
-    @votable.on 'change', @render
-    @votable.on 'sync', @parse_responce 
+    @model.on 'change', @render
+    @model.on 'sync', @parse_response 
+    @render()
 
   render: ->
-    rendered = @template votable: @votable
-    @$el.html rendered
+    @$el.html @template(votable: @model)
     @
     
-  parse_responce: ->
-    values = $.parseJSON @result.responseText
+  parse_response: (model, response)->
     data =
-      current_user_vote: values.user_vote
-      rating: values.positive - values.negative
+      current_user_vote: response.user_vote
+      rating: response.positive
 
-    @votable.set data
+    @model.set data
 
   make_vote: (e) ->
     e.preventDefault()
     if @is_authorized()
-      if @votable.get('current_user_vote') == 1
+      if @model.get('current_user_vote') == 1
         @destroy_vote()
       else
         @create_vote()
 
   destroy_vote: ->
-    @votable.set sign: 'up', id: '500'
-    @result = @votable.destroy()
+    @model.set sign: 'up', id: '500'
+    @model.destroy()
 
   create_vote: ->
-    @votable.set sign: 'up', id: null
-    @result = @votable.save()
+    @model.set sign: 'up', id: null
+    @model.save()

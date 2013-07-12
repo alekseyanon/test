@@ -2,7 +2,7 @@ class Smorodina.Views.EventShow extends Smorodina.Views.Base
   el: '.event_show_page'
 
   events:
-    'click .event_description__right__body__full-link a' : 'show_full_description'
+    'click .event_description__right__body__full-link a' : 'toggle_full_description'
     'click .event_description__left__actions__photo-video a' : 'show_upload_window'
     'click .write_review a' : 'init_add_review'
     'click .cancel_review_creation': 'cancel_add_review'
@@ -35,8 +35,7 @@ class Smorodina.Views.EventShow extends Smorodina.Views.Base
       state: @$('.event_description__right__actions__go').attr 'data-state'
 
     model = new Backbone.Model data, url: @$('.event_description__right__actions__go').attr 'data-vote-url'
-    go_btn = new Smorodina.Views.GoBtn votable: model
-    @$('.event_description__right__actions__go').html go_btn.render().el
+    new Smorodina.Views.GoBtn model: model, el: @$('.event_description__right__actions__go')
 
   init_like_btn: ->
     data =
@@ -45,12 +44,9 @@ class Smorodina.Views.EventShow extends Smorodina.Views.Base
       rating: @$('.event_description__right__actions__like').attr 'data-rating'
 
     model = new Backbone.Model data, url: @$('.event_description__right__actions__like').attr 'data-vote-url'
- 
-    like_btn = new Smorodina.Views.LikeBtn votable: model
-    @$('.event_description__right__actions__like').html like_btn.render().el
-    
+    new Smorodina.Views.LikeBtn model: model, el: @$('.event_description__right__actions__like')
 
-  show_full_description: (e)->
+  toggle_full_description: (e)->
     e.preventDefault()
     @$('.event_description__right').toggleClass 'opened'
 

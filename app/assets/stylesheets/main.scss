@@ -155,7 +155,7 @@ a:hover,
   &.bullet{
     &:before{
       @include font-large;
-      font-family: 'smorodina-icons';
+      font-family: $icons-font;
       line-height: 1;
       float: left;
       margin: 1px 5px 0 0;
@@ -1438,7 +1438,7 @@ a:hover,
         padding: 0px 7px;
         &:after{
           content: "=";
-          font-family: 'smorodina-icons';
+          font-family: $icons-font;
           display: none;
           font-size: 6px;
           vertical-align: middle;

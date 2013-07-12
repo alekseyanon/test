@@ -9,7 +9,7 @@
   %a{href: '#', class: "link-like-button bullet icon-thumbs-up button button_standard button_grey #{css_prefix} #{css_disabled}"} 
     = link_label
     
-- if css_disabled == ''
+- if state in ['started', 'ended']
   %span.info
     нравится 
     %a{href: '#', class: 'action-link count'}

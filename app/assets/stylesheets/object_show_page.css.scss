@@ -134,7 +134,7 @@
 .obj_descr__text__descr__organizations{
   font-family: $base-font;
   &:before{
-    font-family: 'smorodina-icons';
+    font-family: $icons-font;
     width: 38px;
     @include font-large;
     display: inline-block;
