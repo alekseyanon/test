@@ -7,10 +7,8 @@ namespace :fake do
 
     IMAGES_DIR = Rails.root.join('spec', 'fixtures', 'images', 'tmp_imgs')
 
-    def seed_images
-      if Dir["#{IMAGES_DIR}/*"].empty?
-        15.times{|i| `curl http://lorempixel.com/300/300/ -o #{IMAGES_DIR}/#{i}.jpg`}
-      end
+    if Dir["#{IMAGES_DIR}/*"].empty?
+      15.times{|i| `curl http://lorempixel.com/300/300/ -o #{IMAGES_DIR}/#{i}.jpg`}
     end
 
     def pick_random_image
