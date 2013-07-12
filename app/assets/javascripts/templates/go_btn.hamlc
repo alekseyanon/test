@@ -7,7 +7,7 @@
     = link_label
   идёт
   %a{href: '#', class: 'action-link count'}
-    = if user_vote == 1 then @votable.get('rating') - 1 else @votable.get('rating')
+    = if user_vote == 1 then @votable.get('votes_for') - 1 else @votable.get('votes_for')
   чел.
   - if user_vote == 1
     и я
@@ -15,7 +15,7 @@
   %span.info
     Собирались посетить 
     %a{class: 'action-link count', href: '#'}
-      = @votable.get('rating')
+      = @votable.get('votes_for')
       чел.
 
 

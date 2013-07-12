@@ -7,7 +7,6 @@ class Smorodina.Views.VoteForSimple extends Smorodina.Views.Base
     @options.template ||= 'vote_for_simple'
     @template = JST[@options.template]
 
-    @model.on 'sync', @parse_response 
     @model.on 'change', @render
     @render()
 
@@ -16,14 +15,6 @@ class Smorodina.Views.VoteForSimple extends Smorodina.Views.Base
     @$('.tooltip_init').tooltip()
     @
     
-  parse_response: (model, response)->
-    rating =
-      current_user_vote: response.user_vote
-      votes_for: response.positive
-      votes_against: response.negative
-
-    @model.set rating
-
   make_vote: (e) ->
     e.preventDefault()
 
@@ -34,24 +25,15 @@ class Smorodina.Views.VoteForSimple extends Smorodina.Views.Base
       switch user_vote
         when 1
           if @direction == 'up'
-            @destroy_vote()
+            @model.destroy_vote(@direction)
           else
-            @create_vote()
+            @model.create_vote(@direction)
 
         when -1
           if @direction == 'up'
-            @create_vote()
+            @model.create_vote(@direction)
           else
-            @destroy_vote()
+            @model.destroy_vote(@direction)
 
         when 0
-          @create_vote()
-
-  destroy_vote: ->
-    @model.set sign: @direction, id: '500'
-    @model.destroy()
-
-  create_vote: ->
-    @model.set sign: @direction, id: null
-    @model.save()
-
+          @model.create_vote(@direction)

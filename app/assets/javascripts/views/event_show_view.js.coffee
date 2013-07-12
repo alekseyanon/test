@@ -14,8 +14,8 @@ class Smorodina.Views.EventShow extends Smorodina.Views.Base
     _.bindAll @
     geo_object_show()
     @event_id = @options.event_id
-    @review_model = new Backbone.Model()
-    @reviews_collection = new Backbone.Collection @model, url: "/api/events/#{@event_id}/reviews.json"
+    @review_model = new Smorodina.Models.Review()
+    @reviews_collection = new Smorodina.Collections.Reviews @model, url: "/api/events/#{@event_id}/reviews.json"
     @reviews_view = new Smorodina.Views.ReviewsListView collection: @reviews_collection
     @$('.obj_descr__responces__starter').html @reviews_view.el
 
@@ -30,20 +30,20 @@ class Smorodina.Views.EventShow extends Smorodina.Views.Base
 
   init_go_btn: ->
     data = 
-      rating: parseInt @$('.event_description__right__actions__go').attr('data-rating')
+      votes_for: parseInt @$('.event_description__right__actions__go').attr('data-rating')
       current_user_vote: parseInt @$('.event_description__right__actions__go').attr('data-current-user-vote')
       state: @$('.event_description__right__actions__go').attr 'data-state'
 
-    model = new Backbone.Model data, url: @$('.event_description__right__actions__go').attr 'data-vote-url'
+    model = new Smorodina.Models.Votable data, url: @$('.event_description__right__actions__go').attr 'data-vote-url'
     new Smorodina.Views.GoBtn model: model, el: @$('.event_description__right__actions__go')
 
   init_like_btn: ->
     data =
       current_user_vote: parseInt @$('.event_description__right__actions__like').attr('data-current-user-vote')
       state: @$('.event_description__right__actions__like').attr 'data-state'
-      rating: @$('.event_description__right__actions__like').attr 'data-rating'
+      votes_for: @$('.event_description__right__actions__like').attr 'data-rating'
 
-    model = new Backbone.Model data, url: @$('.event_description__right__actions__like').attr 'data-vote-url'
+    model = new Smorodina.Models.Votable data, url: @$('.event_description__right__actions__like').attr 'data-vote-url'
     new Smorodina.Views.LikeBtn model: model, el: @$('.event_description__right__actions__like')
 
   toggle_full_description: (e)->

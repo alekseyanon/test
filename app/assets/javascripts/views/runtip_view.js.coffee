@@ -12,7 +12,7 @@ class Smorodina.Views.RuntipView extends Smorodina.Views.Base
 
   render: ->
     @$el.html @template runtip: @model
-    vote_model = new Backbone.Model @model.get('rating'), url: @model.get('rating').vote_url
+    vote_model = new Smorodina.Models.Votable @model.get('rating'), url: @model.get('rating').vote_url
     @vote_for_simple = new Smorodina.Views.VoteForSimple model: vote_model, el: @$('.obj_descr__text__descr__runtips__list__record__rate')
     @vote_for_merged = new Smorodina.Views.VoteForSimple model: vote_model, template: 'vote_for_merged', el: @$('.obj_descr__text__descr__runtips__list__record__description__actions__vote')
     @

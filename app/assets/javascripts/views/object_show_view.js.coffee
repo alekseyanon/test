@@ -14,8 +14,8 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
   initialize: ->
     _.bindAll @
     @object_id = @options.object_id
-    @review_model = new Backbone.Model()
-    @reviews_collection = new Backbone.Collection @model, url: "/api/objects/#{@object_id}/reviews.json"
+    @review_model = new Smorodina.Models.Review()
+    @reviews_collection = new Smorodina.Collections.Reviews @model, url: "/api/objects/#{@object_id}/reviews.json"
     @reviews_view = new Smorodina.Views.ReviewsListView collection: @reviews_collection
     @$('.obj_descr__responces__starter').html @reviews_view.el
 
@@ -31,7 +31,7 @@ class Smorodina.Views.ObjectShow extends Smorodina.Views.Base
         votes_against: parseInt $(record).attr('data-votes-against')
         current_user_vote: parseInt $(record).attr('data-current-user-vote')
 
-      model = new Backbone.Model data, url: $(record).attr 'data-vote-url'
+      model = new Smorodina.Models.Votable data, url: $(record).attr 'data-vote-url'
       new Smorodina.Views.VoteForSimple template: 'vote_for_merged', el: $(record), model: model 
 
   init_runtips: (e)-> 

@@ -13,5 +13,5 @@
   %span.info
     нравится 
     %a{href: '#', class: 'action-link count'}
-      = @votable.get('rating')
+      = @votable.get('votes_for')
       чел.
