@@ -1,6 +1,6 @@
 .pic_show
   .pic_show__title
-    = link_to @image.imageable.title, geo_object_path(@image.imageable), {class: "action-link"}
+    = link_to @image.imageable.title, geo_object_path(@image.imageable), {class: 'action-link'}
   .pic_show__counter
     Фото
     = @image_number
@@ -14,30 +14,30 @@
       .pic_show__image__navi__left
         - unless prev_image(@image).nil?
           - path = polymorphic_path([@image.imageable, prev_image(@image)])
-          = link_to "", polymorphic_path([@image.imageable, prev_image(@image)], anchor: path), {class: "icon-sm-arrow-left-2", remote: true}
+          = link_to '', polymorphic_path([@image.imageable, prev_image(@image)], anchor: path), {class: 'icon-sm-arrow-left-2', remote: true}
         - else
           - path = polymorphic_path([@image.imageable, last_image(@image)])
-          = link_to "", polymorphic_path([@image.imageable, last_image(@image)], anchor: path), {class: "icon-sm-arrow-left-2", remote: true}
+          = link_to '', polymorphic_path([@image.imageable, last_image(@image)], anchor: path), {class: 'icon-sm-arrow-left-2', remote: true}
       .pic_show__image__navi__right
         - unless next_image(@image).nil?
           - path = polymorphic_path([@image.imageable, next_image(@image)])
-          = link_to "", polymorphic_path([@image.imageable, next_image(@image)], anchor: path), {class: "icon-sm-untitled", remote: true}
+          = link_to '', polymorphic_path([@image.imageable, next_image(@image)], anchor: path), {class: 'icon-sm-untitled', remote: true}
         - else
           - path = polymorphic_path([@image.imageable, first_image(@image)])
-          = link_to "", polymorphic_path([@image.imageable, first_image(@image)], anchor: path), {class: "icon-sm-untitled", remote: true}
+          = link_to '', polymorphic_path([@image.imageable, first_image(@image)], anchor: path), {class: 'icon-sm-untitled', remote: true}
       .pic_show__image__navi__sub
         .pic_show__image__navi__sub__inner
           .pic_show__image__navi__sub__inner__download
-            = link_to raw("<span class='inner'>Скачать</span>"), @image.image_url, {class: "action-link-bullet icon-sm-arrow-down-2 ui-link", target: :blank}
+            = link_to raw("<span class='inner'>Скачать</span>"), @image.image_url, {class: 'action-link-bullet icon-sm-arrow-down-2 ui-link', target: :blank}
           .pic_show__image__navi__sub__inner__fullscreen
-            = link_to raw("<span class='inner'>На весь экран</span>"), "", {class: "action-link-bullet icon-sm-full-screen right ui-link"}
+            = link_to raw("<span class='inner'>На весь экран</span>"), '', {class: 'action-link-bullet icon-sm-full-screen right ui-link'}
   .pic_show__social
     .pic_show__social__title
       Раскажи друзьям
     .pic_show__social__icons
-      %div#ya_share__block
+      = render partial:  'shared/sn_share_buttons', locals: {size: 16}
   .pic_show__vote
-    = render partial: "shared/vote_for", locals: {votable: @image}
+    = render partial: 'shared/vote_for', locals: {votable: @image}
 .pic__author
   .pic__author__avatar
     - unless @image.user.nil?
@@ -49,11 +49,11 @@
       - else
         Anonymous
     .pic__author__info__date
-      = @image.created_at.strftime("%d.%m.%Y")
+      = @image.created_at.strftime('%d.%m.%Y')
     .pic__author__info__comment
       Super mega comment
     .pic__author__actions
       .pic__author__actions_respond
-        = link_to raw("<span class='inner'>Ответить</span>"), '#add_comment_form', {class: "icon-sm-reply action-link-bullet"}
-= render partial: "comments/list", locals: {commentable: @image}
+        = link_to raw("<span class='inner'>Ответить</span>"), '#add_comment_form', {class: 'icon-sm-reply action-link-bullet'}
+= render partial: 'comments/list', locals: {commentable: @image}
 
