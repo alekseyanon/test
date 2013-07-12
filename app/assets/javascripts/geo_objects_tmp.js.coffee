@@ -41,7 +41,7 @@ showLatLng = (latlng) ->
   $("#geo_object_yld").val latlng.lat
 
 getLatLng = ->
-  d = $ '.leaflet-edit-object'
+  d = $ '.map_coords'
   new L.LatLng(d.data('y') || 59.947, d.data('x') || 30.233)
 
 window.geo_object_new = ->
@@ -80,6 +80,7 @@ window.geo_object_show = ->
   L.marker(latlng).addTo map
 
 window.geo_object_search = ->
+  new Smorodina.Views.Map
   [map, lg] = initMap()
   lastBounds = null
   facets = []
@@ -152,3 +153,8 @@ window.geo_object_search = ->
   $searchField.on 'keydown', (e) ->
     if e.which is 13
       resetBoundsAndSearch direct_search : true
+
+window.place_show = ->
+  new Smorodina.Views.Map
+  [map, _] = initMap()
+  map.setView getLatLng(), 13

@@ -13,6 +13,7 @@ class Smorodina.Routers.Global extends Backbone.Router
     'objects(/*path)': 'objects_index' #TODO remove temporary route, objects index should go
     'places/:id': 'place_show'
     '': 'index'
+    'profiles/:user_slug/edit': 'avatar_upload'
 
   object_image_show: ->
     $ ->
@@ -70,3 +71,7 @@ class Smorodina.Routers.Global extends Backbone.Router
       geo_object_search()
       $('#mainSearchFieldInput').on 'focus', ->
         $('.how-to-search').addClass 'how-to-search_hidden'
+
+  avatar_upload: ->
+    $ ->
+      new Smorodina.Views.AvatarNewView

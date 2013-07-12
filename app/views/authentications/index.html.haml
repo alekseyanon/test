@@ -2,7 +2,9 @@
 - @authentications.each do |a|
   = a.provider
 %br
-= link_to "Sign in with FACEBOOK", omniauth_authorize_path(:user, :facebook)
+= link_to 'Sign in with FACEBOOK', omniauth_authorize_path(:user, :facebook)
 %br
-= link_to "Sign in with TWITTER", omniauth_authorize_path(:user, :twitter)
+= link_to 'Sign in with VKONTAKTE', omniauth_authorize_path(:user, :vkontakte)
+%br
+= link_to 'Sign in with TWITTER', omniauth_authorize_path(:user, :twitter)
 

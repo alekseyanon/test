@@ -1248,9 +1248,6 @@ a:hover,
 .smorodina-item__event-label_ended {
   background-color: #d23b38;
 }
-.smorodina-item__event-label_archived {
-  background-color: #d23b38;
-}
 .smorodina-item__event-label_canceled {
   background-color: #d23b38;
 }
@@ -3063,3 +3060,51 @@ a:hover,
 }
 
 /* ---------------------------------------- CATEGORY NEW PAGE END ----------------------------------- */
+
+/* ---------------------------------------- PROFILE START ------------------------------------------- */
+.profile-form .control-label{
+  width: 120px;
+  text-align: left;
+  color: $darkgrey;
+  font-size: 17px;
+}
+
+.profile-form .form-field .controls{
+  margin-left: 130px;
+  input{
+    @include box-shadow(inset 4px 4px 7px -5px #a0a0a0);
+  }
+}
+
+.profile-form{
+  margin-top: 15px;
+  .form-field{
+    padding-bottom: 40px;
+    min-width: 425px;
+  }
+}
+
+.profile_avatar{
+  text-align: center;
+  min-width: 200px;
+  .img {
+    @include border-radius(50px);
+    @include square(100px);
+    overflow: hidden;
+    margin: 0 auto;
+  }
+}
+
+.profile-form .form-field .controls:last-child{
+  mergin-left: 0;
+}
+
+.profile-form__button{
+  clear: left;
+}
+
+.input-hide{
+  position:absolute;
+  left: -99999px;
+}
+/* ---------------------------------------- PROFILE END ------------------------------------------- */
