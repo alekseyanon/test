@@ -7,12 +7,14 @@ describe Api::ChroniclesController do
     before :all do
       Event.destroy_all
       GeoObject.destroy_all
-      Event.make!
-      GeoObject.make!
     end
 
+    let!(:new_event) { Event.make! }
+    let!(:archived_event) { Event.make! state: :archived }
+    let!(:geo_object) { GeoObject.make! }
+
     def get_show_chronicle type = nil
-      get :show, {format: :json}.merge( type ? {type: type} : {})
+      get :show, {format: :json}.merge(type ? {type: type} : {})
       JSON.parse(response.body)
     end
 

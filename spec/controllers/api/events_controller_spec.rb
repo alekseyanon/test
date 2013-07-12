@@ -59,7 +59,7 @@ describe Api::EventsController do
 
     it 'can search inside :from :to period' do
       get :search, from: 2.days.ago.strftime('%F'), to: 3.days.from_now.strftime('%F')
-      assigns(:events).should == [events[3], events[4]]
+      assigns(:events).should =~ [events[3], events[4]]
     end
 
     it 'can search inside :from date' do

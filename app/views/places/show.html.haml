@@ -1,5 +1,5 @@
 = render 'layouts/main_search', { how_to_search: false }
-%div#mapContainer.map__outer
+%div#mapContainer.map__outer.map_coords{ data: {x: @x, y: @y} }
   %div.map__inner
     %div.map__content
       %div#mapContainer.map__container.map__container_collapsed
@@ -85,3 +85,5 @@
         %span.counter
           5
 = render 'layouts/footer'         
+:javascript
+  window.place_show()

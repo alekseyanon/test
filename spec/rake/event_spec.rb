@@ -5,12 +5,13 @@ load File.join(Rails.root, 'Rakefile')
 
 describe 'Event rake tasks' do
 
-  let(:event) { Event.make!(start_date: 1.day.ago) }
+  let!(:event) { Event.make!(start_date: 1.day.ago) }
 
   it 'update event states' do
-    event
-    Rake::Task['process_event_states'].invoke
-    Event.first.state.should == 'started'
+    event.state.should == 'new'
+    Event.process_states
+    event.reload
+    event.state.should == 'started'
   end
 
 end

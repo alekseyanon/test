@@ -51,13 +51,13 @@ describe Event do
 
     it 'has I will go count' do
       e = Event.make! start_date: 1.day.from_now
-      user.vote e, direction: :up
+      user.vote e, direction: :up, tag: 'go'
       e.rating_go.should == 1
     end
 
     it 'has I like count' do
       e = Event.make! start_date: 1.day.ago
-      user.vote e, direction: :up
+      user.vote e, direction: :up, tag: 'like'
       e.rating_like.should == 1
     end
 
