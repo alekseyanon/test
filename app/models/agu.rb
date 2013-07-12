@@ -32,7 +32,7 @@ class Agu < ActiveRecord::Base
   end
 
   def to_map_bounds scale = 1.01
-    res = ActiveRecord::Base.connection.execute "SELECT ST_AsGeoJSON(ST_Scale(ST_GeomFromEWKT(geom), #{scale}, #{scale})) 
+    res = ActiveRecord::Base.connection.execute "SELECT ST_AsGeoJSON(ST_Scale(ST_Envelope(geom), #{scale}, #{scale})) 
                                                  FROM agus WHERE id = #{id}"
     coords = JSON.parse( res.first['st_asgeojson'] )['coordinates'].flatten(1)
     [ coords[0], coords[2] ] # SouthWest and NorthEast

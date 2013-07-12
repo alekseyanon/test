@@ -17,14 +17,16 @@ describe Agu do
   	agu.agcs.should =~ [agc1, agc2]
   end
 
-  it "scales rectangle representation of AGU" do
+  it "makes rectangle representation of AGU and scales it" do
     x1, y1, x2, y2 = 100, 80, 101, 81
-    agu = Agu.make! geom: "POLYGON((#{x1} #{y1}, #{x2} #{y1}, #{x2} #{y2}, #{x1} #{y1}))"
-    calculated_coords = agu.to_map_bounds(1.2)
-    calculated_coords[0][0].should == 120
-    calculated_coords[0][1].should == 96
-    calculated_coords[1][0].should == 121.2
-    calculated_coords[1][1].should == 97.2
+    agu = Agu.make! geom: "POLYGON ((103.7393871 51.7505388, 103.7418097 51.7567121, 103.7454718 51.7623615, 103.7580921 51.7601297, 103.7720082 51.7553868, 103.7708251 51.7505737, 103.7678954 51.7449926, 103.7576977 51.7400737, 103.7393871 51.7505388))"
+    calculated_coords = agu.to_map_bounds
+    # Check that it makes rectangle from polygon
+    calculated_coords.flatten.size.should == 4
+    calculated_coords[0][0].should == 104.776780971
+    calculated_coords[0][1].should == 52.257474437
+    calculated_coords[1][0].should == 104.809728282
+    calculated_coords[1][1].should == 52.279985115
   end
 
   it_behaves_like 'search within radius'
