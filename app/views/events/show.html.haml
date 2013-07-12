@@ -57,11 +57,11 @@
 
       .event_description__right__actions
         - path = new_vote_polymorphic_path @event, 'like', format: :json
-        - user_vote = current_user ? current_user.get_vote(@event, 'like') : 0
+        - user_vote = current_user.try(:get_vote, @event, 'like').to_i
         %div{class: "event_description__right__actions__like", data: {current_user_vote: user_vote, vote_url: path, state: @event.state, rating: @event.votes_for('like')}}
           
         - path = new_vote_polymorphic_path @event, 'go', format: :json
-        - user_vote = current_user ? current_user.get_vote(@event, 'go') : 0
+        - user_vote = current_user.try(:get_vote, @event, 'go').to_i
         %div{class: 'event_description__right__actions__go', data: {rating: @event.votes_for('go'), current_user_vote: user_vote, vote_url: path, state: @event.state}}
 
       - if @event.body.present?
