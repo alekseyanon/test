@@ -1,9 +1,9 @@
 .smorodina-item
   .smorodina-item__img
     .smorodina-item__img__inner
-    - image = @get 'image'
-    - imageSrc = image?.image.chronicalthumb.url or '/assets/tmp/155x110.gif'
-    %image{ src: imageSrc, alt: 'Фото', width: 155, height: 110 }
+      - image = @get 'image'
+      - imageSrc = image?.image.chronicalthumb.url or '/assets/tmp/155x110.gif'
+      %image{ src: imageSrc, alt: 'Фото', width: 155, height: 110 }
   .smorodina-item__content
     .smorodina-item__title
       %a{ href: "/objects/#{ @get 'slug' }"}

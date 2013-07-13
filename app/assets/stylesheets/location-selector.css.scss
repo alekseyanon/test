@@ -80,14 +80,18 @@ $border-size: 5px;
     color: #282828;
     padding-left: 0;
   }
+  .smorodina-item__coords {
+    margin-top: 2px;
+  }
   .smorodina-item__img {
     position: static;
     float: none;
-    margin: 0 0 13px;
+    margin: 0 0 10px;
   }
   .smorodina-item__title {
     @include font-regular;
     color: $black;
+    line-height: 20px;
   }
 }
 
@@ -136,5 +140,34 @@ input.agu-search__input {
   margin-bottom: 6px;
   .ui-autocomplete {
     z-index: 10000;
+  }
+}
+
+.location-selector__inputs {
+  margin-top: 16px;
+  label {
+    @include inline-block;
+    padding-left: 5px;
+    margin-right: 45px;
+    color: #787a83;
+    input {
+      margin-left: 20px;
+      top: -1px;
+      position: relative;
+      width: 98px;
+      height: 26px;
+      line-height: 26px;
+    }
+  }
+}
+
+
+.location-selector__agu {
+  visibility: hidden;
+  color: #282828;
+  i {
+    font-size: 21px;
+    position: relative;
+    bottom: -3px;
   }
 }

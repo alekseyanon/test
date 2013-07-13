@@ -28,6 +28,7 @@ class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
         return
       @prevAgu = data
       @$('.location-selector__agu__title').text data.title
+      @$('.location-selector__agu').css 'visibility', 'visible'
       if not data.map_bounds
         return
       @mapView.fitBounds data.map_bounds
