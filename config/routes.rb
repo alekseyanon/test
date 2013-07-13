@@ -19,6 +19,7 @@ Smorodina::Application.routes.draw do
     match 'objects/:id/nearby' => 'geo_objects#nearby', defaults: { format: 'json' }
     match 'objects/:id' => 'geo_objects#show'
     resources :geo_objects, path: 'objects' do
+      resources :images
       resources :votes, only: [:create, :index]
       delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
       resources :runtips do
@@ -35,6 +36,7 @@ Smorodina::Application.routes.draw do
     resources :events do
       resources :votes, only: [:create, :index]
       delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
+      resources :images
       resources :reviews do
         resources :votes, only: [:create, :index]
         delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
@@ -49,6 +51,17 @@ Smorodina::Application.routes.draw do
       resources :comments do
         resources :complaints, only: [:new, :create, :index, :destroy]
         resources :votes, only: [:create, :index]
+        delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
+      end
+    end
+
+    resources :images do
+      resources :complaints, only: [:new, :create, :index, :destroy]
+      resources :votes, only: [:create]
+      delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
+      resources :comments do
+        resources :complaints, only: [:new, :create, :index, :destroy]
+        resources :votes, only: [:create]
         delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
       end
     end
