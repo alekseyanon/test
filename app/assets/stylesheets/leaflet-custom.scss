@@ -1,5 +1,17 @@
 @import "base";
 
+@mixin gradient-light($rev: false) {
+  @include background(linear-gradient(white, #ebebeb));
+  @if $rev {
+    &:hover {
+      @include background(linear-gradient(#ebebeb, white));
+    }
+  }
+}
+@mixin shadow {
+  @include box-shadow(0 1px white, inset 0 1px 1px white);
+}
+
 .leaflet-control-zoom {
   padding: 0;
   background: transparent;
@@ -24,12 +36,9 @@
   a {
     display: block;
     position: relative;
-    @include background(linear-gradient(white, #ebebeb));
+    @include gradient-light(true);
     width: 28px;
     height: 28px;
-    &:hover {
-      @include background(linear-gradient(#ebebeb, white));
-    }
     &:after {
       content: "";
       display: block;
@@ -47,7 +56,7 @@
     display: block;
     margin: 0;
     border: 1px solid #dcdde9;
-    @include box-shadow(0 1px white, inset 0 1px 1px white);
+    @include shadow;
     @include border-radius(4px);
   }
 
@@ -98,24 +107,61 @@
   }
 }
 
-.leaflet-bottom.leaflet-right {
 
+
+
+.leaflet-control-layers-toggle {
+  background-image: image-url('layers.png');
 }
 
-
-
-  .leaflet-control-layers-toggle {
-    background-image: image-url('layers.png');
-  }
-  .leaflet-control-layers {
-    input[type="radio"] {
-      display: none;
+.leaflet-control.leaflet-control-layers  {
+  margin-right: 18px;
+  margin-top: 8px;
+  background: transparent;
+  padding: 0;
+  @include box-shadow(none);
+  @include border-radius(0);
+  .leaflet-control-layers-base {
+    @include clearfix;
+    label {
+      display: block;
+      float: right;
+      input[type="radio"] {
+        display: none;
+      }
+      span {
+        display: block;
+        width: 94px;
+        height: 28px;
+        @include font-small;
+        line-height: 28px;
+        text-align: center;
+        border: 1px solid #dcdde9;
+        border-left-width: 0;
+        @include gradient-light(true);
+        @include shadow;
+        color: $black;
+        cursor: pointer;
+      }
+      &:first-child span {
+        @include border-radius(0 2px 2px 0);
+      }
+      &:last-child span {
+        border-left-width: 1px;
+        @include border-radius(2px 0 0 2px);
+      }
+      input[type="radio"]:checked + span {
+        color: white;
+        @include background(linear-gradient(#5b5757, #a7a6a6));
+      }
     }
-    input[type="radio"]:checked + span {
-      font-weight: bold;
-    }
   }
+}
 
+.leaflet-control.leaflet-control-attribution {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
 
 .leaflet-popup {
   .leaflet-popup-content-wrapper {

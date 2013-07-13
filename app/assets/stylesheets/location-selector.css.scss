@@ -27,6 +27,7 @@ $map-height: 330px;
   left: 40px;
   margin-top: -5px;
   @include user-select(none);
+  @include pointer-events(none);
 }
 
 .objects-map__inner {
@@ -38,6 +39,7 @@ $border-size: 5px;
   z-index: 5;
   background: rgba(white, 0.8);
   @include user-select(none);
+  @include pointer-events(none);
 }
 .objects-map__border--top {
   left: 0;

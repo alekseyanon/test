@@ -19,6 +19,7 @@ $legacy-support-for-ie8: true;
 @import "compass/css3/box-sizing";
 @import "compass/css3/user-interface";
 @import "compass/css3/inline-block";
+@import "pointer-events";
 
 $base-font-size: 14px;
 $base-line-height: 24px;

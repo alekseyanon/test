@@ -111,7 +111,7 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
         latlon = l.get 'latlon'
         if latlon of prevMarkers
           newMarkers[latlon] = prevMarkers[latlon]
-        return
+          return
         icon   = categoryIconMap[l.get('tag_list')[0]]
         newMarkers[latlon] = m = L.marker(latlon, icon: icon, opacity: markerOpacity, riseOnHover: true).addTo lg
         m.bindPopup JST['map_object_popup'](l),
