@@ -99,10 +99,6 @@ $border-size: 5px;
 
 // AguSearch
 
-.agu-search {
-
-}
-
 .agu-search__input-wrap {
   @include inline-block;
   height: 30px;
@@ -132,6 +128,36 @@ input.agu-search__input {
   width: 100px;
 }
 
+.agu-search .ui-autocomplete {
+  max-width: 470px;
+  padding-top: 6px;
+  padding-bottom: 20px;
+  //margin-left: -3px;
+  //margin-top: 4px;
+  background: white;
+  @include border-radius(0);
+  border: 0;
+  @include box-shadow(0 3px 3px #d5d5d5);
+  font-family: $base-font;
+  @include font-small;
+  color: #010101;
+  .ui-menu-item {
+    padding: 3px 0;
+    a {
+      border: 0;
+      margin: 0;
+      height: 20px;
+      line-height: 20px;
+      @include ellipsis(true);
+      @include transition(all 0);
+      @include border-radius(0);
+      &.ui-state-focus {
+        color: white;
+        background: #21b0e6;
+      }
+    }
+  }
+}
 
 
 // LocationSelector
