@@ -26,6 +26,7 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
       @marker = L.marker(latlng, icon: @categoryIconMap.selection, draggable: true).addTo markerLg
       @marker.on 'drag', =>
         @trigger 'marker:put'
+      @$('.objects-map__hint').css 'visibility', 'hidden'
     else
       @marker.setLatLng latlng
     @$('.leaflet-control-container').addClass 'has-marker'
@@ -73,8 +74,9 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     @map.addControl(commandControl)
 
   initMap: ->
+    @$container = $c = @$ '.objects-map__content'
     id = 'map' + "#{Math.random()}"[2..]
-    @$el.attr 'id', id
+    $c.attr 'id', id
 
     mapLayer = L.tileLayer(Smorodina.Config.urlTemplate, maxZoom: @maxZoom)
     satLayer = L.tileLayer(Smorodina.Config.urlTemplateSat, subdomains: '1234', maxZoom: @maxZoom)
@@ -177,6 +179,8 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     @trigger 'marker:put'
 
   render: ->
+    if not @options.putMarker
+      @$('.objects-map__hint').remove()
     @initMap()
     @setupMap()
     @
@@ -252,7 +256,7 @@ class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
     $lat = @$ '.inputs .lat'
     $lng = @$ '.inputs .lng'
 
-    @mapView = new Smorodina.Views.ObjectsMap el: @$('.location-selector__map__content'), putMarker: true
+    @mapView = new Smorodina.Views.ObjectsMap el: @$('.location-selector__map'), putMarker: true
     @mapView.on 'marker:put', =>
       coords = @mapView.markerCoords()
       $lat.valIfChanged coords.lat
