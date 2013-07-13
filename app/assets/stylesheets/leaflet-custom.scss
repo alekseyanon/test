@@ -5,36 +5,56 @@
   background: transparent;
 }
 
-.leaflet-top.leaflet-left {
-  @include border-radius(7px);
-  padding: 5px;
-  background: rgba(black, 0.25);
-  margin-top: 10px;
-  margin-left: 10px;
-  .leaflet-control {
-    margin: 0;
-  }
+.leaflet-bar {
+  background: none;
+  @include box-shadow(none);
+  padding: 0;
 }
 
-.leaflet-control-container {
-  .leaflet-bar {
-    @include box-shadow(none);
-    a, a:hover {
-      width: 22px;
-      height: 23px;
+.leaflet-top.leaflet-left {
+  @include box-shadow(0px 2px 2px rgba(black, 0.13));
+  background: rgba(white, 0.6);
+  width: 30px;
+  padding: 5px 3px;
+  @include border-radius(3px);
+
+  margin-top: 10px;
+  margin-left: 10px;
+
+  a {
+    display: block;
+    position: relative;
+    @include background(linear-gradient(white, #ebebeb));
+    width: 28px;
+    height: 28px;
+    &:hover {
+      @include background(linear-gradient(#ebebeb, white));
+    }
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background-position: center center;
+      background-repeat: no-repeat;
     }
   }
-  a, a:hover {
-    background-color: rgba(255, 255, 255, 0.75);
-    @include border-radius(4px);
-    width: 22px;
-    height: 23px;
-    background-position: center center;
-    background-repeat: no-repeat;
+
+  .leaflet-control {
     display: block;
+    margin: 0;
+    border: 1px solid #dcdde9;
+    @include box-shadow(0 1px white, inset 0 1px 1px white);
+    @include border-radius(4px);
   }
 
   .leaflet-control-put-marker {
+    margin: 10px 0 8px -1px;
+    @include box-shadow(none);
+    border: 0;
     &, &:hover {
       width: 33px;
       height: 40px;
@@ -50,8 +70,12 @@
   }
 
   .leaflet-control-my-location {
-    background-image: image-url('my-location.png');
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    position: relative;
+    &:after {
+      background-image: image-url('my-location.png');
+      background-position-y: 4px;
+    }
   }
 
   .leaflet-control-zoom-in, .leaflet-control-zoom-out {
@@ -60,13 +84,25 @@
   }
 
   .leaflet-control-zoom-in {
-    background-image: image-url('zoom-in.png');
-    margin-bottom: 5px;
+    height: 23px;
+    border-bottom: 1px solid #dcdde9;
+    &:after {
+      background-image: image-url('zoom-in.png');
+    }
   }
   .leaflet-control-zoom-out {
-    background-image: image-url('zoom-out.png');
-    margin-bottom: 5px;
+    height: 23px;
+    &:after {
+      background-image: image-url('zoom-out.png');
+    }
   }
+}
+
+.leaflet-bottom.leaflet-right {
+
+}
+
+
 
   .leaflet-control-layers-toggle {
     background-image: image-url('layers.png');
@@ -79,7 +115,7 @@
       font-weight: bold;
     }
   }
-}
+
 
 .leaflet-popup {
   .leaflet-popup-content-wrapper {

@@ -126,3 +126,12 @@ $.fn.sortGroup = (options) ->
 
 $.fn.sortGroup.options =
   defaultClass: 'sort-control'
+
+#######################################################################################
+
+# set input's val if it differs from current
+# used to prevent infinite loop with change event
+$.fn.valIfChanged = (val) ->
+  val = '' + val
+  if @val() != val
+    @val val
