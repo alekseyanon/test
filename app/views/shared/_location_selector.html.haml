@@ -1,21 +1,27 @@
 .location-selector
-  .location-selector__agu-search.ui-front
-    %span.location-selector__agu-search__input-wrap
-      %input.agu(type="text" placeholder="Область, район, место")
-    %button.button.button_standard.button_grey
-      %span.button__inner.button_standard__inner
-        %span.button__text.button_standard__text{data: { text: 'Найти' }}
 
-  .location-selector__map.objects-map__outer
-    .objects-map__hint
-      .objects-map__hint-arrow
-    .objects-map__inner
-      .objects-map__content
+  .location-selector__agu-search
+    .agu-search.ui-front
+      %span.agu-search__input-wrap
+        %input.agu-search__input(type="text" placeholder="Область, район, место")
+      %button.agu-search__button.button.button_standard.button_grey
+        %span.button__inner.button_standard__inner
+          %span.button__text.button_standard__text{data: { text: 'Найти' }}
 
-  .inputs
+  .location-selector__map
+    .objects-map__outer
+      .objects-map__hint
+        .objects-map__hint-arrow
+      .objects-map__inner
+        .objects-map__content
+
+  .location-selector__inputs
     %label
       Широта
-      %input.lat(type="text")
+      %input.location-selector__inputs__lat(type="text")
     %label
       Долгота
-      %input.lng(type="text")
+      %input.location-selector__inputs__lng(type="text")
+
+  .location-selector__agu
+    %span.location-selector__agu__title

@@ -164,6 +164,11 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
   setCenterCoords: (coords, zoom) ->
     @map.setView coords, zoom or @map.getZoom()
 
+  fitBounds: (bounds) ->
+    if not bounds
+      return
+    @map.fitBounds bounds
+
   markerCoords: ->
     @marker?.getLatLng()
 
@@ -186,7 +191,7 @@ class Smorodina.Views.ObjectsMap extends Smorodina.Views.Base
     @
 
 class Smorodina.Views.AguSearch extends Smorodina.Views.Base
-  url: '/api/agus/search.json'
+  url: '/api/agus/search_autocomplete.json'
 
   initialize: ->
     super()
@@ -194,17 +199,17 @@ class Smorodina.Views.AguSearch extends Smorodina.Views.Base
 
     @data = {}
 
-    @$input = @$ 'input.agu'
+    @$input = @$ 'input.agu-search__input'
     @$input
       .autocomplete
         html: true
         source: @findAgus
         autoFocus: true
-        select: @_aguSelected
+        select: @_commitSelect
     @$input.on 'keydown', (e) =>
       if e.which == 13
         @_commitSelect()
-    @$('.button').click =>
+    @$('.agu-search__button').click =>
       @_commitSelect()
 
   _commitSelect: ->
@@ -215,11 +220,6 @@ class Smorodina.Views.AguSearch extends Smorodina.Views.Base
       return
     @$input.val $item.text()
     @_aguSelected()
-
-  _handleSearchResult: (d) ->
-    p = d.geom.match(/POLYGON \(\((.*)\)\)/)?[1]?.split(', ')
-    zoom: null
-    coords: (parseFloat(c) for c in p?[0]?.split(' ')).reverse()
 
   _handleTitle: (title, query) ->
     title.replace new RegExp($.ui.autocomplete.escapeRegex(query), 'g'), "<strong>#{query}</strong>"
@@ -235,12 +235,16 @@ class Smorodina.Views.AguSearch extends Smorodina.Views.Base
       success: (data) =>
         @data = {}
         for d in data
-          @data[d.title] = @_handleSearchResult d
+          d.map_bounds = (x.reverse() for x in d.map_bounds)
+          @data[d.title] = d
         cb (@_handleTitle(d.title, request.term) for d in data)
 
   _aguSelected: ->
     val = @val()
-    @trigger 'selected', [val, @data[val]]
+    data = @data[val]
+    @trigger 'selected',
+      title: val
+      map_bounds: data?.map_bounds
 
   val: ->
     @$input.val()
@@ -253,8 +257,8 @@ class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
     super()
     @render()
 
-    $lat = @$ '.inputs .lat'
-    $lng = @$ '.inputs .lng'
+    $lat = @$ '.location-selector__inputs .location-selector__inputs__lat'
+    $lng = @$ '.location-selector__inputs .location-selector__inputs__lng'
 
     @mapView = new Smorodina.Views.ObjectsMap el: @$('.location-selector__map'), putMarker: true
     @mapView.on 'marker:put', =>
@@ -272,12 +276,13 @@ class Smorodina.Views.LocationSelector extends Smorodina.Views.Base
     @aguSearch = new Smorodina.Views.AguSearch el: @$ '.location-selector__agu-search'
     @prevAgu = null
     @aguSearch.on 'selected', (data) =>
-      if data[0] == @prevAgu
+      if data == @prevAgu
         return
-      @prevAgu = data[0]
-      if not data[1]
+      @prevAgu = data
+      @$('.location-selector__agu__title').text data.title
+      if not data.map_bounds
         return
-      @mapView.setCenterCoords data[1].coords, data[1].zoom
+      @mapView.fitBounds data.map_bounds
 
   val: ->
     @mapView.markerCoords()
