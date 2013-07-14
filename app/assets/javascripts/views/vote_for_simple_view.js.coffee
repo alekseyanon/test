@@ -1,18 +1,20 @@
 class Smorodina.Views.VoteForSimple extends Smorodina.Views.Base
   events:
-    'submit form' : 'make_vote' 
+    'submit form' : 'make_vote'
 
   initialize: ->
-    _.bindAll @
+    super()
     @options.template ||= 'vote_for_simple'
     @template = JST[@options.template]
 
     @model.on 'change', @render
     @render()
 
+  afterRender: ->
+    @$('.tooltip_init').tooltip()
+
   render: ->
     @$el.html @template(rating: @model)
-    @$('.tooltip_init').tooltip()
     @
     
   make_vote: (e) ->
