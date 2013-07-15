@@ -1,0 +1,19 @@
+.location-selector
+
+  .location-selector__agu-search
+    = render :partial => 'shared/agu_search'
+
+  .location-selector__map
+    = render :partial => 'shared/objects_map'
+
+  .location-selector__inputs
+    %label
+      Широта
+      %input.location-selector__inputs__lat(type="text")
+    %label
+      Долгота
+      %input.location-selector__inputs__lng(type="text")
+
+  .location-selector__agu
+    %i.icon-sm-location
+    %span.location-selector__agu__title

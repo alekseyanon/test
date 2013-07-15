@@ -9,10 +9,12 @@ class Smorodina.Routers.Global extends Backbone.Router
     'objects/:id/images': 'object_images_index'
     'objects/new': 'object_new'
     'objects/:id': 'object_show'
+    'events/:id': 'event_show'
     'objects(/*path)': 'objects_index' #TODO remove temporary route, objects index should go
     'places/:id': 'place_show'
     '': 'index'
     'profiles/:user_slug/edit': 'avatar_upload'
+
   object_image_show: ->
     $ ->
       new view for view in [Smorodina.Views.ImageShow
@@ -26,6 +28,10 @@ class Smorodina.Routers.Global extends Backbone.Router
   object_show: (id)->
     $ ->
       new Smorodina.Views.ObjectShow object_id: id
+
+  event_show: (id)->
+    $ ->
+      new Smorodina.Views.EventShow event_id: id
 
   object_new: ->
     $ ->

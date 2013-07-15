@@ -29,7 +29,6 @@
                 Ответить
           .obj_descr__responces__responce__text__actions__vote
           .obj_descr__responces__responce__text__actions__spam
-            != JST['spam_to'](complaint: @review.get('complaint'))
         .obj_descr__responces__responce__text__actions__comments
           .pic_comments
             .pic_comments__count

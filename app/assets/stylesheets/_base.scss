@@ -14,10 +14,13 @@ $legacy-support-for-ie8: true;
 @import "compass/css3/opacity";
 @import "compass/utilities/general/hacks";
 @import "compass/typography/links/link-colors";
+@import "compass/utilities/text/ellipsis";
 @import "compass/css3/background-clip";
 @import "compass/css3/transition";
 @import "compass/css3/box-sizing";
 @import "compass/css3/user-interface";
+@import "compass/css3/inline-block";
+@import "pointer-events";
 
 $base-font-size: 14px;
 $base-line-height: 24px;
@@ -30,6 +33,7 @@ $relative-font-sizing: false;
 // fonts
 $base-font: "Open Sans", sans-serif;
 $advanced-font: "Helvetica Neue", Arial, Helvetica, sans-serif;
+$icons-font: 'smorodina-icons';
 
 // screen resolutions
 

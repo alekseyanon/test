@@ -54,7 +54,7 @@ class Api::VotesController < InheritedResources::Base
   end
 
   def update_rating(old, new)
-    if @parent.respond_to?(:rating)
+    if @parent.respond_to?(:rating) && @parent.is_a?(GeoObject)
       # TODO leaf_categories метод имеется только у GeoObject
       @parent.update_attributes rating: (@parent.plusminus.to_f / @parent.leaf_categories.count)
     end

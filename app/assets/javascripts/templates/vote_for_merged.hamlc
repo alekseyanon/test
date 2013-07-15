@@ -1,21 +1,21 @@
-- rating = parseInt(@rating.votes_for)- parseInt(@rating.votes_against)
+- rating = parseInt(@rating.get('votes_for'))- parseInt(@rating.get('votes_against'))
 
 - css_prefix = if rating > 0 then 'pic_vote_positive' else if rating < 0 then 'pic_vote_negative' else ''
 
-- user_css = switch @rating.current_user_vote
+- user_css = switch @rating.get('current_user_vote')
   - when -1 then 'voted_down'
   - when 1 then 'voted_up'
   - else ''
  
-%div{class: "pic_vote #{css_prefix} #{user_css}", data: {vote_url: @rating.vote_url, user_vote: @rating.current_user_vote}}
+%div{class: "pic_vote #{css_prefix} #{user_css}", data: {user_vote: @rating.get('current_user_vote')}}
   .pic_vote__up
-    %form{action: @rating.vote_url}
+    %form{action: @rating.url}
       %input{type: 'hidden', name: 'sign', value: "up"}
-      %button{class: "icon-thumbs-up ui-link", type: "submit", title: "Мне нравится", value: ''}
+      %button{class: "icon-thumbs-up ui-link tooltip_init", type: "submit", title: "Мне нравится", value: ''}
   .pic_vote__count
     = rating
   .pic_vote__down
-    %form{action: @rating.vote_url}
+    %form{action: @rating.url}
       %input{type: 'hidden', name: 'sign', value: "down"}
-      %button{class: "icon-thumbs-down ui-link", type: "submit", title: "Мне не нравится", value: ''}
+      %button{class: "icon-thumbs-down ui-link tooltip_init", type: "submit", title: "Мне не нравится", value: ''}
 
