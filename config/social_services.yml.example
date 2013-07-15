@@ -36,3 +36,6 @@ test:
   vkontakte:
     id: 3198428
     secret: C3AC3UBI4YsCbEMYGTtg
+  google:
+    id: 244094744001.apps.googleusercontent.com
+    secret: ZriCVlC8jQcI3TfdT7lHvpI_
