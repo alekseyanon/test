@@ -98,6 +98,32 @@ class User < ActiveRecord::Base
     v.nil? ? 0 : (v.vote ? 1 : -1)
   end
 
+  def voteable_content(model = nil)
+    content_ids = Hash.new
+    models = model.nil? ? self.class.voteable_models : [model]
+    models.each do |x|
+      ids = self.send(x).pluck(:id)
+      content_ids[x] = ids unless ids.empty?
+    end
+    content_ids
+  end
+
+  def recommenders(model = nil, time = nil)
+    users = Array.new
+    voteable_content(model).each do |type, ids|
+      chain = Vote.scoped
+      chain = chain.for_voteable(ids, type.to_s.classify)
+      chain = chain.from_time(time) if time
+      chain = chain.pluck(:voter_id)
+      users += chain
+    end
+    User.find(users.uniq)
+  end
+
+  def recommenders_last_sign_in(model = nil)
+    recommenders model, self.last_sign_in_at
+  end
+
   def self.find_or_create(auth, oauth)
     args = prepare_args_for_auth(oauth)
     if auth # Пользователь не вошел в систему, но authentication найдена
@@ -170,4 +196,18 @@ class User < ActiveRecord::Base
       user.profile.save!
     end
   end
+
+  def self.voteable_models
+    @@voteable_models ||= get_voteable_models
+  end
+
+  private
+  def self.get_voteable_models
+    models = Array.new
+    self.reflect_on_all_associations.map(&:class_name).compact.each do |x|
+      models += [x.safe_constantize] rescue [nil]
+    end
+    models.compact.select { |model| model.reflect_on_association(:votes) }.map { |model| model.name.tableize.to_sym }
+  end
+
 end
