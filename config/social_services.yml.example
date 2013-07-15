@@ -8,7 +8,10 @@ development:
   vkontakte:
     id: 3198428
     secret: C3AC3UBI4YsCbEMYGTtg
-  
+  google:
+    id: 244094744001.apps.googleusercontent.com
+    secret: ZriCVlC8jQcI3TfdT7lHvpI_
+
 production:
   twitter:
     key: ubuzKuFS6eJDz8sc1HL1A
@@ -17,8 +20,11 @@ production:
     id: 398859606860610
     secret: dc29365c3fed22ec9d6986053279ffba
   vkontakte:
-    id: 3317583 
+    id: 3317583
     secret: mOM87q2QWQc5TvkjBPJL
+  google:
+    id: 721566470726.apps.googleusercontent.com
+    secret: NMUxo5Ss1cpzFkU6QS5qaQNq
 
 test:
   twitter:
@@ -30,4 +36,3 @@ test:
   vkontakte:
     id: 3198428
     secret: C3AC3UBI4YsCbEMYGTtg
-

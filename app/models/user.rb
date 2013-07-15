@@ -118,9 +118,10 @@ class User < ActiveRecord::Base
     name = info['name'] if info
     token_secret = cred && cred['secret']
     args.merge! case provider
-                  when 'facebook';  {email: email,                     oauth_token: token}
-                  when 'twitter';   {oauth_token_secret: token_secret, oauth_token: token}
-                  when 'vkontakte'; {name: name,                       oauth_token: token}
+                  when 'facebook';      {email: email,                     oauth_token: token}
+                  when 'twitter';       {oauth_token_secret: token_secret, oauth_token: token}
+                  when 'vkontakte';     {name: name,                       oauth_token: token}
+                  when 'google_oauth2'; {name: name, email: email,         oauth_token: token}
                   else
                     raise NotImplementedError, "#{provider} oauth provider not supported"
                 end
