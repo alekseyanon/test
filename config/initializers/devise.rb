@@ -14,6 +14,8 @@ Devise.setup do |config|
   config.omniauth :twitter, social_cfg['twitter']['key'], social_cfg['twitter']['secret']
   config.omniauth :vkontakte, social_cfg['vkontakte']['id'], social_cfg['vkontakte']['secret'],
                   {scope: 'notify,friends,photos,notes,docs,pages,wall,offline'}
+  config.omniauth :google_oauth2, social_cfg['google']['id'], social_cfg['google']['secret'],
+                  {access_type: 'offline', approval_prompt: ''}
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"

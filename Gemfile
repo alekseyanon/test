@@ -47,7 +47,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
 # gem 'omniauth-mailru'
-# gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2'
 
 ####  Gem for posting to social networks
 #### twitter
