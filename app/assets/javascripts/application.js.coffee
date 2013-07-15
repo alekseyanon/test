@@ -122,3 +122,5 @@ $ ->
   $('.search_history_item').click (e) ->
     e.preventDefault()
     $('#mainSearchFieldInput').val $(e.target).text()
+
+  $('.tooltip_init').tooltip()

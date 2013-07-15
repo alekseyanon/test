@@ -1,6 +1,21 @@
 class Smorodina.Views.Base extends Backbone.View
+
   initialize: ->
-    _.bindAll(@)
+    _.bindAll @
+    _this = @
+    @on 'beforeRender', @beforeRender
+    @on 'afterRender', @afterRender
+
+    @render = _.wrap(@render, (render)->
+      _this.trigger 'beforeRender'
+      render()
+      _this.trigger 'afterRender'
+      return _this
+    )
+
+  afterRender: ->
+
+  beforeRender: ->
 
   show: ->
     @$el.show()

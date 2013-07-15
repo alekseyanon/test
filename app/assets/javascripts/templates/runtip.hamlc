@@ -13,6 +13,3 @@
       Вариант полезен?
     .obj_descr__text__descr__runtips__list__record__description__actions__vote
     .obj_descr__text__descr__runtips__list__record__description__actions__spam
-      != JST['spam_to'](complaint: @runtip.get('complaint'))
-
-

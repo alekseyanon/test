@@ -1,0 +1,21 @@
+- user_vote = @votable.get('current_user_vote')
+- link_label = if user_vote == 1 then 'Я иду' else 'Я пойду'
+- css_prefix = if user_vote == 1 then 'active' else ''
+
+- if @votable.get('state') == 'new'
+  %a{href: '#', class: "link-like-button bullet icon-sm-I-would-go button button_standard button_grey ui-link #{css_prefix}"}
+    = link_label
+  идёт
+  %a{href: '#', class: 'action-link count'}
+    = if user_vote == 1 then @votable.get('votes_for') - 1 else @votable.get('votes_for')
+  чел.
+  - if user_vote == 1
+    и я
+- else
+  %span.info
+    Собирались посетить 
+    %a{class: 'action-link count', href: '#'}
+      = @votable.get('votes_for')
+      чел.
+
+
