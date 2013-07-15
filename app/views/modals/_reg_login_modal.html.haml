@@ -14,13 +14,13 @@
           %span.icon.icon-vkontakte
         %a.reg-modal__social__link{ href: omniauth_authorize_path(:user, :twitter) }
           %span.icon.icon-tw
-        %a.reg-modal__social__link{ href: '#' }
+        %a.reg-modal__social__link{ href: omniauth_authorize_path(:user, :google_oauth2) }
           %span.icon.icon-gplus
       %div.reg-modal__forms__title
         или
-      = content_tag(:div, flash[:error], class: "alert alert-error") if flash[:error] 
+      = content_tag(:div, flash[:error], class: "alert alert-error") if flash[:error]
       = content_tag(:div, flash[:notice], class: "alert alert-info") if flash[:notice]
-      = content_tag(:div, flash[:alert], class: "alert alert-block") if flash[:alert] 
+      = content_tag(:div, flash[:alert], class: "alert alert-block") if flash[:alert]
       %div.row-fluid.reg-modal__forms__content
         %div.span6
           %div.reg-modal__form
@@ -30,7 +30,7 @@
                 %b
                   «Смородине»
                 ?
-              = simple_form_for(User.new, as: :user, url: session_path(:user)) do |f| 
+              = simple_form_for(User.new, as: :user, url: session_path(:user)) do |f|
                 %div.form-field
                   = f.input :email, size: '50', type: 'email', placeholder: 'Эл. почта', class: "span12", :input_html => { id: 'user_login_email', type: 'email' }
                 %div.form-field
