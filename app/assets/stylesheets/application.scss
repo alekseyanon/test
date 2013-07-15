@@ -6,6 +6,7 @@
 
 @import "select2";
 @import "leaflet";
+@import "leaflet-custom";
 @import "jquery.ui.all";
 @import "pickadate/default";
 @import "pickadate/default.date";
@@ -15,7 +16,9 @@
 @import "main";
 @import "legacy";
 @import "redactor-rails";
+@import "places_controller";
 @import "object_show_page";
+@import "location-selector";
 @import "event_show_page";
 @import "places_controller";
-@import "tmp_object_edit"
+@import "tmp_object_edit";

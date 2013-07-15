@@ -1,0 +1,198 @@
+// ObjectsMap
+
+$map-width: 765px;
+$map-height: 330px;
+
+.objects-map__inner,
+.objects-map__content {
+  width: $map-width;
+  height: $map-height;
+}
+
+.objects-map__hint {
+  position: relative;
+  margin-left: 10px;
+  margin-bottom: 4px;
+  width: 260px;
+  height: 15px;
+  background: image-url('hint-put-marker.png') left top no-repeat;
+  z-index: 10;
+}
+.objects-map__hint-arrow {
+  position: absolute;
+  width: 51px;
+  height: 51px;
+  background: image-url('icons/figure-arrow-left2.png');
+  top: 100%;
+  left: 40px;
+  margin-top: -5px;
+  @include user-select(none);
+  @include pointer-events(none);
+}
+
+.objects-map__inner {
+  position: relative;
+}
+$border-size: 5px;
+.objects-map__border {
+  position: absolute;
+  z-index: 5;
+  background: rgba(white, 0.8);
+  @include user-select(none);
+  @include pointer-events(none);
+}
+.objects-map__border--top {
+  left: 0;
+  top: 0;
+  right: 0;
+  height: $border-size;
+}
+.objects-map__border--bottom {
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: $border-size;
+}
+.objects-map__border--left {
+  left: 0;
+  top: $border-size;
+  bottom: $border-size;
+  width: $border-size;
+}
+.objects-map__border--right {
+  right: 0;
+  top: $border-size;
+  bottom: $border-size;
+  width: $border-size;
+}
+
+.objects-map__content {
+  z-index: 1;
+}
+
+.objects-map__inner .smorodina-item {
+  width: 155px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  font-family: $base-font;
+  @include font-small;
+  .smorodina-item__geo, .smorodina-item__coords {
+    color: #282828;
+    padding-left: 0;
+  }
+  .smorodina-item__coords {
+    margin-top: 2px;
+  }
+  .smorodina-item__img {
+    position: static;
+    float: none;
+    margin: 0 0 10px;
+  }
+  .smorodina-item__title {
+    @include font-regular;
+    color: $black;
+    line-height: 20px;
+  }
+}
+
+
+
+// AguSearch
+
+.agu-search__input-wrap {
+  @include inline-block;
+  height: 30px;
+  width: 280px;
+  border: 1px solid rgba(black, 0.19);
+  @include border-radius(15px);
+  @include box-shadow(2px 2px 3px #d5d5d5 inset);
+  background: image-url('icons/loupe.png') 12px center no-repeat;
+}
+
+input.agu-search__input {
+  height: 22px;
+  line-height: 22px;
+  margin-left: 30px;
+  width: 225px;
+  box-shadow: inset 0 0 0 1px red;
+  background: transparent;
+  &, &:focus {
+    outline: none;
+    border: 0;
+    @include box-shadow(none);
+  }
+}
+
+.agu-search__button {
+  margin-left: 4px;
+  width: 100px;
+}
+
+.agu-search .ui-autocomplete {
+  max-width: 470px;
+  padding-top: 6px;
+  padding-bottom: 20px;
+  //margin-left: -3px;
+  //margin-top: 4px;
+  background: white;
+  @include border-radius(0);
+  border: 0;
+  @include box-shadow(0 3px 3px #d5d5d5);
+  font-family: $base-font;
+  @include font-small;
+  color: #010101;
+  .ui-menu-item {
+    padding: 3px 0;
+    a {
+      border: 0;
+      margin: 0;
+      height: 20px;
+      line-height: 20px;
+      @include ellipsis(true);
+      @include transition(all 0);
+      @include border-radius(0);
+      &.ui-state-focus {
+        color: white;
+        background: #21b0e6;
+      }
+    }
+  }
+}
+
+
+// LocationSelector
+
+.location-selector__agu-search {
+  margin-bottom: 6px;
+  .ui-autocomplete {
+    z-index: 10000;
+  }
+}
+
+.location-selector__inputs {
+  margin-top: 16px;
+  label {
+    @include inline-block;
+    padding-left: 5px;
+    margin-right: 45px;
+    color: #787a83;
+    input {
+      margin-left: 20px;
+      top: -1px;
+      position: relative;
+      width: 98px;
+      height: 26px;
+      line-height: 26px;
+    }
+  }
+}
+
+.location-selector__agu {
+  visibility: hidden;
+  color: #282828;
+  i {
+    font-size: 21px;
+    position: relative;
+    bottom: -3px;
+  }
+}

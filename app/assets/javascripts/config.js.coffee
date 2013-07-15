@@ -2,6 +2,7 @@
 
 Smorodina.Config =
   urlTemplate: 'http://smorodina.com:1337/osm/{z}/{x}/{y}.png'
+  urlTemplateSat: 'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png'
   spinner:
     lines: 13            # The number of lines to draw
     length: 7            # The length of each line

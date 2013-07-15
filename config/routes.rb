@@ -16,6 +16,7 @@ Smorodina::Application.routes.draw do
     get 'events/search'
     get 'events/autocomplete'
     get 'agus/search'
+    get 'agus/search_autocomplete'
     match 'objects/:id/nearby' => 'geo_objects#nearby', defaults: { format: 'json' }
     match 'objects/:id' => 'geo_objects#show'
     resources :geo_objects, path: 'objects' do
@@ -147,6 +148,8 @@ Smorodina::Application.routes.draw do
     #TODO: Terms Of Service page
     get '/terms', action: 'terms'
     get '/sitemap', action: 'sitemap'
+    #TODO: TEST, remove later
+    get '/_test_loc_select', action: '_test_loc_select'
   end
 
   controller :feedbacks do
