@@ -72,4 +72,39 @@ describe User do
     User.sorted_list_with_page('expert DESC').first.should == expert
   end
 
+  context 'ratings' do
+    it 'should calculate correct overall rating' do
+      user.commentator  = 1.2
+      user.photographer = 1.5
+      user.expert       = 2.1
+      user.discoverer   = 7.8
+      user.blogger      = 0.2
+
+      user.rating.should == 12.8
+    end
+
+    it 'should update user rating' do
+      GeoObject.make! user: user
+      lambda { user.update_rating }.should change(user, :rating).from(0.0).to(1.4)
+    end
+
+    it 'should get recommenders count' do
+      another_user = User.make!
+      another_user.vote_for(Event.make! user: user)
+      another_user.vote_for(Event.make! user: user)
+      user.recommenders(:events).should eql(2)
+    end
+
+    it 'should get recommenders count within 1 hours' do
+      another_user = User.make!
+      another_user.vote_for(Event.make! user: user)
+      vote = another_user.vote_for(Event.make! user: user)
+      vote.created_at = Time.now - 2.hours
+      vote.save!
+
+      user.recommenders_last_hour(:events).should eql(1)
+    end
+
+  end
+
 end
