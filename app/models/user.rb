@@ -117,24 +117,28 @@ class User < ActiveRecord::Base
     token = (cred = oauth['credentials']) && cred['token']
     name = info['name'] if info
     token_secret = cred && cred['secret']
-    args.merge! case provider
-                  when 'facebook';      {email: email,                     oauth_token: token}
-                  when 'twitter';       {oauth_token_secret: token_secret, oauth_token: token}
-                  when 'vkontakte';     {name: name,                       oauth_token: token}
-                  when 'google_oauth2'; {name: name, email: email,         oauth_token: token}
+    args.merge!(oauth_token: token).merge! case provider
+                  when 'facebook';      {email: email}
+                  when 'twitter';       {oauth_token_secret: token_secret}
+                  when 'vkontakte';     {name: name}
+                  when 'google_oauth2'; {name: name, email: email}
                   else
                     raise NotImplementedError, "#{provider} oauth provider not supported"
                 end
   end
 
-  CLASS_TO_ATTR_AND_K = {
-                      Comment   => [:commentator, 1.08],
-                      #Post      => [:blogger, 1.42],
-                      Review    => review_val = [:expert, 1.3],
-                      Runtip    => review_val,
-                      Image     => [:photographer, 1.2],
-                      GeoObject => [:discoverer, 140]
-                    }.each_value(&:freeze).freeze
+  def self.class_to_attr_and_k
+    {
+        Comment   => [:commentator, 1.08],
+        #Post      => [:blogger, 1.42],
+        Review    => review_val = [:expert, 1.3],
+        Runtip    => review_val,
+        Image     => [:photographer, 1.2],
+        GeoObject => [:discoverer, 140]
+    }.each_value(&:freeze)
+  end
+
+  CLASS_TO_ATTR_AND_K = class_to_attr_and_k.freeze
 
   def update_rating(voteable, delta)
     attr, k = CLASS_TO_ATTR_AND_K[voteable.class]
