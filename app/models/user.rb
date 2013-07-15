@@ -12,8 +12,6 @@ class User < ActiveRecord::Base
                   :provider, :uid, :authentication_ids, :expert, :discoverer,
                   :photographer, :blogger, :commentator
 
-  has_many :ratings
-
   has_many :comments
   has_many :runtips
   has_many :events
@@ -37,6 +35,7 @@ class User < ActiveRecord::Base
   # has_karma(:questions, :as => :submitter, :weight => 0.5)
 
   include UserFeatures::Roles
+  include UserFeatures::Ratings
 
   has_many :authentications, dependent: :destroy
   has_many :geo_objects
@@ -91,39 +90,6 @@ class User < ActiveRecord::Base
     self.authentications.create!(User.prepare_args_for_auth(oauth))
   end
 
-  def get_vote voteable, tag = nil
-    args = {voteable_id: voteable.id, voteable_type: voteable.class}
-    args.merge!(voteable_tag: tag) if tag
-    v = self.votes.where(args).first
-    v.nil? ? 0 : (v.vote ? 1 : -1)
-  end
-
-  def voteable_content(model = nil)
-    content_ids = Hash.new
-    models = model.nil? ? self.class.voteable_models : [model]
-    models.each do |x|
-      ids = self.send(x).pluck(:id)
-      content_ids[x] = ids unless ids.empty?
-    end
-    content_ids
-  end
-
-  def recommenders(model = nil, time = nil)
-    users = Array.new
-    voteable_content(model).each do |type, ids|
-      chain = Vote.scoped
-      chain = chain.for_voteable(ids, type.to_s.classify)
-      chain = chain.from_time(time) if time
-      chain = chain.pluck(:voter_id)
-      users += chain
-    end
-    User.find(users.uniq)
-  end
-
-  def recommenders_last_sign_in(model = nil)
-    recommenders model, self.last_sign_in_at
-  end
-
   def self.find_or_create(auth, oauth)
     args = prepare_args_for_auth(oauth)
     if auth # Пользователь не вошел в систему, но authentication найдена
@@ -153,27 +119,6 @@ class User < ActiveRecord::Base
                 end
   end
 
-  def self.class_to_attr_and_k
-    {
-        Comment   => [:commentator, 1.08],
-        #Post      => [:blogger, 1.42],
-        Review    => review_val = [:expert, 1.3],
-        Runtip    => review_val,
-        Image     => [:photographer, 1.2],
-        GeoObject => [:discoverer, 140]
-    }.each_value(&:freeze)
-  end
-
-  CLASS_TO_ATTR_AND_K = class_to_attr_and_k.freeze
-
-  def update_rating(voteable, delta)
-    attr, k = CLASS_TO_ATTR_AND_K[voteable.class]
-    if attr
-      self[attr] += delta*k
-      self.save!
-    end
-  end
-
   def self.prepare_user(user, args)
     if user
       #Создаем authentication и залогиниваем пользователя
@@ -196,18 +141,4 @@ class User < ActiveRecord::Base
       user.profile.save!
     end
   end
-
-  def self.voteable_models
-    @@voteable_models ||= get_voteable_models
-  end
-
-  private
-  def self.get_voteable_models
-    models = Array.new
-    self.reflect_on_all_associations.map(&:class_name).compact.each do |x|
-      models += [x.safe_constantize] rescue [nil]
-    end
-    models.compact.select { |model| model.reflect_on_association(:votes) }.map { |model| model.name.tableize.to_sym }
-  end
-
 end
