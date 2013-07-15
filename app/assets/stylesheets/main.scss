@@ -148,18 +148,40 @@ a:hover,
 }
 
 .link-like-button{
-  padding: 9px 18px 9px 18px;
+  padding: 9px 12px 9px 8px;
   font-family: inherit;
   border: 1px solid $siteLightGray;
-  @include font-regular;
+  @include font-small;
   &.bullet{
     &:before{
       @include font-large;
-      font-family: 'smorodina-icons';
+      font-family: $icons-font;
       line-height: 1;
       float: left;
-      margin: 4px 5px 0 0;
+      margin: 1px 5px 0 0;
     }
+  }
+  &.active{
+    @include box-shadow(1px 2px 3px rgba(0, 0, 0, 0.2) inset);
+  }
+  &.disabled{
+    color: $siteGray;
+    &:hover{
+      color: $siteGray;
+    }
+    &:active{
+      @include box-shadow(none);
+    }
+  }
+  &:hover{
+    color: #000;
+  }
+  &:active{
+    @include box-shadow(1px 2px 3px rgba(0, 0, 0, 0.2) inset);
+    color: #000;
+  }
+  &:visited{
+    color: #000;
   }
 }
 
@@ -1419,7 +1441,7 @@ a:hover,
         padding: 0px 7px;
         &:after{
           content: "=";
-          font-family: 'smorodina-icons';
+          font-family: $icons-font;
           display: none;
           font-size: 6px;
           vertical-align: middle;

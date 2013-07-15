@@ -1,0 +1,23 @@
+.row-fluid
+  .objs_search_link
+    = link_to content_tag(:span, 'Поиск событий', class: 'inner'), events_search_path, {class: 'action-link-bullet icon-sm-arrow-left-3 ui-link'}
+
+%ul.obj-page-navigation
+  %li{class: current_page?(event_path(object)) ? 'active' : ''}
+    = link_to 'Описание события', event_path(object), {class: 'action-link ui-link'}
+
+  %li{class: current_page?(event_images_path(object)) ? 'active' : ''}
+    = link_to content_tag(:span, 'Фото', class: 'inner'), event_images_path(object), {class: 'icon-sm-pictures action-link-bullet ui-link'}
+    
+  %li{class: current_page?(event_videos_path(object)) ? 'active' : ''}
+    = link_to content_tag(:span, 'Видео', class: 'inner'), event_videos_path(object), {class: 'icon-sm-video action-link-bullet ui-link'}
+
+  %li.pull-right
+    = link_to '', new_event_complaint_path(object), {class: 'icon-flag ui-link tooltip_init', target: '_blank', title: 'Пожаловаться на содержимое'}
+
+  %li.pull-right
+    = link_to '', '#', {class: 'icon-sm-history ui-link tooltip_init', title: 'История изменений'}
+
+  %li{class: current_page?(edit_event_path(object)) ? ['active', 'pull-right'] : 'pull-right'}
+    = link_to content_tag(:span, 'Редактировать', class: 'inner'), edit_event_path(object), {class: 'icon-sm-pencil action-link-bullet ui-link'}
+

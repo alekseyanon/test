@@ -229,6 +229,10 @@ class Event < ActiveRecord::Base
     Hash[self.event_tags.map{|i| [i.id , i.title]}]
   end
 
+  def hash_tags
+    Hash[self.event_tags.map{|i| [i.title, {}]}]
+  end
+
   def event_dates
     start_date = Russian::strftime(self.start_date, '%e %B')
     end_date = Russian::strftime(self.end_date, '%e %B')

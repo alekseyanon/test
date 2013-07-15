@@ -11,6 +11,12 @@
   padding: 0px 30px;
 }
 
+.obj_descr__tags{
+  li:after{
+    content: '\2192';
+  }
+}
+
 
 .obj_descr__info{
   @include clearfix;
@@ -128,7 +134,7 @@
 .obj_descr__text__descr__organizations{
   font-family: $base-font;
   &:before{
-    font-family: 'smorodina-icons';
+    font-family: $icons-font;
     width: 38px;
     @include font-large;
     display: inline-block;
@@ -175,19 +181,14 @@
   margin: 17px 0 20px 0;
 }
 
-.obj_descr__text__descr__adder{
-  .smorodina-item__user,
-  .obj_descr__text__descr__adder__edit,
-  .obj_descr__text__descr__adder__history,
-  .obj_descr__text__descr__adder__spam{
+.block__adder{
+  .smorodina-item__user{
     display: inline-block;
   }
-}
-
-.obj_descr__text__descr__adder{
-  .obj_descr__text__descr__adder__edit,
-  .obj_descr__text__descr__adder__history,
-  .obj_descr__text__descr__adder__spam{
+  .block__adder__edit,
+  .block__adder__history,
+  .block__adder__spam{
+    display: inline-block;
     @include before-gray-dot;
     a{
       text-decoration: none;
@@ -204,6 +205,7 @@
     }
   }
 }
+
 .obj_descr__text__descr__runtips{
   margin: 42px 0 0 0;
   min-width: 640px;
@@ -487,6 +489,10 @@
   width: 223px;
   height: 64px;
   overflow: hidden;
+  @include respond-to(large-screen){
+    width: 100%;
+    float: none;
+  }
 }
 
 .obj_descr__responces__responce__author__inner{
@@ -521,13 +527,26 @@
     content: "";
     display: block;
     @include size(25px, 24px);
-    background-image: url('/assets/object-response-bullet.png');
+    background-image: url('/assets/object-response-bullet.gif');
     background-repeat: no-repeat;
     background-position: 0 0;
     position: absolute;
     left: -24px;
     top: 37px;
     z-index: 2;
+    @include respond-to(large-screen){
+      background-position: -25px 0;
+      left: 40px;
+      top: -23px;
+    }
+  }
+  @include respond-to(large-screen){
+    width: 100%;
+    float: none;
+    margin-left: 0;
+    margin-top: 35px;
+    border-left: 0 none;
+    border-top: 1px solid $siteLightGray;
   }
 }
 .obj_descr__review__record{
@@ -569,6 +588,9 @@
       
 .obj_descr__responces__responce__text__padding{
   padding-left: 24px;
+  @include respond-to(large-screen){
+    padding: 24px 0 0 0;
+  }
 }
 
 .obj_descr__responces__responce__text__title{

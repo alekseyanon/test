@@ -16,5 +16,4 @@
             Ответить
     .pic_comments__comment__info__actions__vote
     .pic_comments__comment__info__actions__spam
-      != JST['spam_to'](complaint: @comment.get('complaint'))
 .pic_comments__chid_comments

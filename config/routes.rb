@@ -36,6 +36,7 @@ Smorodina::Application.routes.draw do
 
     resources :events do
       resources :votes, only: [:create, :index]
+      delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
       resources :images
       resources :reviews do
         resources :votes, only: [:create, :index]
