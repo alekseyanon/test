@@ -1,18 +1,92 @@
-%h1= @event.title
+.event_show_page
+  = render partial: 'events/main_navigation', locals: {object: @event}
+  .event_description
+    .event_description__left
+      .event_description__left__images
+        - images = @event.images.limit(5)
+        - images.each_with_index do |image, index|
+          - if index == 0
+            .event_description__left__images__container.main
+              .event_description__left__images__container__inner
+                = image_tag(image.image_url(:eventmainthumb), width: 223, height: 334, class: 'main')
+          - else 
+            .event_description__left__images__container
+              .event_description__left__images__container__inner
+                = image_tag(image.image_url(:eventsecthumb), width: 109, height: 75)
+      .event_description__left__actions
+        .event_description__left__actions__photo-video
+          = link_to "Добавить фото или видео", "#newimage", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
+        .event_description__left__actions__print
+          = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
+        .event_description__left__actions__social
+          = render partial: 'shared/sn_share_buttons', locals: {size: 16}
+    .event_description__right
+      %div{class: "event_description__right__title #{@event.state}"}
+        %h1= @event.title
+      .event_description__right__geo
+        = render partial: 'shared/geo_list', locals: {tree: @event.agc.try(:titles) || {}}
+      .event_description__right__tags
+        .smorodina-item__tags
+          %span.icon.icon-tags.smorodina-item__tags__icon
+          %ul.smorodina-item__tags__list
+            - @event.hash_tags.each do |key, children|
+              %li
+                = link_to(" #{key} ", search_geo_objects_path(tag_name: key), class: 'tdn-link')
 
-%p= @event.body
+      .event_description__right__timetable.icon-sm-calendar
+        = Russian::strftime(@event.start_date, '%a. %d %B') 
+        &mdash;
+        = Russian::strftime(@event.end_date, '%a. %d %B') 
 
-%p= @event.tag_list
+      - unless @event.start_time.nil?
+        .event_description__right__start-time.icon-sm-clock
+          Начало:
+          %span.count
+            - t = Time.at(@event.start_time)
+            = t.strftime('%k:%M')
 
-= link_to 'Add photo', new_event_image_path(@event)
+      - unless @event.address.nil?
+        .event_description__right__address.icon-sm-location
+          = @event.address
+         
+      - unless @event.contacts.empty?
+        .event_description__right__contacts.icon-sm-directions
+          %ul
+            - @event.contacts.each do |label, contact|
+              %li= "#{label}: #{contact}"
 
-%ul
-  - @event.images.each do |image|
-    %li.event_image= image_tag image.image_url(:thumb)
-    .votes{id: dom_id(image)}
-      =render partial: "shared/votes", locals: { object_to_vote: image, nested_path: "" }
+      .event_description__right__actions
+        - path = new_vote_polymorphic_path @event, 'like', format: :json
+        - user_vote = current_user.try(:get_vote, @event, 'like').to_i
+        %div{class: "event_description__right__actions__like", data: {current_user_vote: user_vote, vote_url: path, state: @event.state, rating: @event.votes_for('like')}}
+          
+        - path = new_vote_polymorphic_path @event, 'go', format: :json
+        - user_vote = current_user.try(:get_vote, @event, 'go').to_i
+        %div{class: 'event_description__right__actions__go', data: {rating: @event.votes_for('go'), current_user_vote: user_vote, vote_url: path, state: @event.state}}
 
-= link_to 'Add video', new_event_video_path(@event)
-%ul
-  - @event.you_tubes.each do |video|
-    %li.event_video= raw video.html
+      - if @event.body.present?
+        .event_description__right__body
+          = @event.body
+          .transparency
+
+        .event_description__right__body__full-link
+          =link_to 'Подробнее', '#', class: 'action-link show'
+          =link_to 'Свернуть', '#', class: 'action-link hide'
+      .event_description__right__body__adder
+        = render partial: 'shared/block_adder', locals: {object: @event}
+
+  %div#mapContainer.map__outer
+    %div.map__inner
+      %div.map__content
+        %div#mapContainer.map__container.map__container_collapsed
+          %div#map.map
+        %div#mapExpand.map__expand
+          %span.map__expand__button
+            %span#mapExpandButton.action-link.map__expand__button__text
+              Развернуть карту
+
+  = render partial: 'events/sub_navigation', locals: {object: @event}
+  .obj_descr__responces__starter
+
+
+= render partial: 'images/new', locals: { object: @event }

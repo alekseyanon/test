@@ -1,19 +1,19 @@
-- user_css = switch @rating.current_user_vote
+- user_css = switch @rating.get('current_user_vote')
   - when -1 then 'voted_down'
   - when 1 then 'voted_up'
   - else ''
  
-%div{class: "pic_vote simple #{user_css}", data: {vote_url: @rating.vote_url, user_vote: @rating.current_user_vote}}
+%div{class: "pic_vote simple #{user_css}", data: {vote_url: @rating.get('vote_url'), user_vote: @rating.get('current_user_vote')}}
   .pic_vote__up
-    %form{method: "post", action: @rating.vote_url}
+    %form{method: "post", action: @rating.url}
       %input(type="hidden" value="up" name="sign" id="sign")
-      %button(type="submit" name="button" class="icon-thumbs-up ui-link")
+      %button(type="submit" name="button" class="icon-thumbs-up ui-link tooltip_init" title="Мне нравится")
   .pic_vote__count.up
-    = @rating.votes_for
+    = @rating.get('votes_for')
   .pic_vote__down
-    %form{method: "post", action: @rating.vote_url}
+    %form{method: "post", action: @rating.url}
       %input(type="hidden" value="down" name="sign" id="sign")
-      %button(type="submit" name="button" class="icon-thumbs-down ui-link")
+      %button(type="submit" name="button" class="icon-thumbs-down ui-link tooltip_init" title="Мне не нравится")
   .pic_vote__count.down
-    = @rating.votes_against
+    = @rating.get('votes_against')
 

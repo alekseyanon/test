@@ -101,7 +101,7 @@ class Event < ActiveRecord::Base
   end
 
   scope :line, ->(key) { where key: key}
-  scope :future, where("start_date > '#{Time.now}'")
+  scope :future, where('start_date > ?', Time.now)
 
   pg_search_scope :text_search,
                   against: {title: 'A', body: 'B'}
@@ -229,6 +229,10 @@ class Event < ActiveRecord::Base
     Hash[self.event_tags.map{|i| [i.id , i.title]}]
   end
 
+  def hash_tags
+    Hash[self.event_tags.map{|i| [i.title, {}]}]
+  end
+
   def event_dates
     start_date = Russian::strftime(self.start_date, '%e %B')
     end_date = Russian::strftime(self.end_date, '%e %B')
@@ -248,18 +252,19 @@ class Event < ActiveRecord::Base
     end
   end
 
+  ### TODO: may be these methods are not useful
   def rating_go
-    Vote.for_voteable(self).where("created_at < '#{start_date}'").count
+    self.votes_for('go')
   end
 
   def rating_like
-    Vote.for_voteable(self).where("created_at > '#{start_date}'").count
+    self.votes_for('like')
   end
 
   def update_rating!
-    self.rating = Vote.for_voteable(self).count
+    self.rating = self.votes_for
     save!
-  end
+  end ###
 
   def as_json options = {}
     json = super options
@@ -307,7 +312,7 @@ class Event < ActiveRecord::Base
   # возможно надо будет выбирать более точнее
   # будем смотреть по реальным данным
   def self.update_rating
-    Event.where("end_date > '#{30.days.ago}'").each do |e|
+    Event.where('end_date > ?', 30.days.ago).each do |e|
       e.update_rating!
     end
   end

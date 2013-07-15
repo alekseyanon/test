@@ -69,16 +69,7 @@
             =link_to 'Свернуть', '#', class: 'action-link hide'
 
         .obj_descr__text__descr__adder
-          .smorodina-item__user
-            %span.smorodina-item__user__text
-              Добавил:
-            = render partial: 'shared/username_link', locals: {user: @geo_object.user}
-          .obj_descr__text__descr__adder__edit
-            = link_to '', edit_geo_object_path(@geo_object), {class: 'icon-sm-pencil ui-link', title: 'Редактировать'}
-          .obj_descr__text__descr__adder__history
-            = link_to '', history_geo_object_path(@geo_object), {class: 'icon-sm-history ui-link', title: 'История изменений'}
-          .obj_descr__text__descr__adder__spam
-            = render partial: 'shared/spam_to', locals: {spammable: @geo_object}
+          = render partial: 'shared/block_adder', locals: {object: @geo_object}
 
         .obj_descr__text__descr__runtips{data: {id: @geo_object.id}}
           .obj_descr__text__descr__runtips__spinner 

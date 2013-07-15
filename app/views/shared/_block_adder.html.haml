@@ -1,0 +1,13 @@
+- history_path = object.is_a?(Event) ? "#" : history_geo_object_path(object)
+- edit_path = url_for [:edit, object]
+.block__adder
+  .smorodina-item__user
+    %span.smorodina-item__user__text
+      Добавил:
+    = render partial: 'shared/username_link', locals: {user: object.user}
+  .block__adder__edit
+    = link_to '', edit_path, {class: 'icon-sm-pencil ui-link tooltip_init', title: 'Редактировать'}
+  .block__adder__history
+    = link_to '', history_path, {class: 'icon-sm-history ui-link tooltip_init', title: 'История изменений'}
+  .block__adder__spam
+    = render partial: 'shared/spam_to', locals: {spammable: object}
