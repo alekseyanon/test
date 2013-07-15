@@ -123,3 +123,11 @@ Runtip.blueprint do
   user { User.make! }
   geo_object { GeoObject.make! }
 end
+
+Vote.blueprint do
+  vote { true }
+  voteable_id { GeoObject.make!.id }
+  voteable_type { 'GeoObject' }
+  voter_id { User.make! }
+  voter_type { 'User' }
+end
