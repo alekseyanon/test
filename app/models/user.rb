@@ -12,8 +12,6 @@ class User < ActiveRecord::Base
                   :provider, :uid, :authentication_ids, :expert, :discoverer,
                   :photographer, :blogger, :commentator
 
-  has_many :ratings
-
   has_many :comments
   has_many :runtips
   has_many :events
@@ -37,6 +35,7 @@ class User < ActiveRecord::Base
   # has_karma(:questions, :as => :submitter, :weight => 0.5)
 
   include UserFeatures::Roles
+  include UserFeatures::Ratings
 
   has_many :authentications, dependent: :destroy
   has_many :geo_objects
@@ -91,13 +90,6 @@ class User < ActiveRecord::Base
     self.authentications.create!(User.prepare_args_for_auth(oauth))
   end
 
-  def get_vote voteable, tag = nil
-    args = {voteable_id: voteable.id, voteable_type: voteable.class}
-    args.merge!(voteable_tag: tag) if tag
-    v = self.votes.where(args).first
-    v.nil? ? 0 : (v.vote ? 1 : -1)
-  end
-
   def self.find_or_create(auth, oauth)
     args = prepare_args_for_auth(oauth)
     if auth # Пользователь не вошел в систему, но authentication найдена
@@ -125,27 +117,6 @@ class User < ActiveRecord::Base
                   else
                     raise NotImplementedError, "#{provider} oauth provider not supported"
                 end
-  end
-
-  def self.class_to_attr_and_k
-    {
-        Comment   => [:commentator, 1.08],
-        #Post      => [:blogger, 1.42],
-        Review    => review_val = [:expert, 1.3],
-        Runtip    => review_val,
-        Image     => [:photographer, 1.2],
-        GeoObject => [:discoverer, 140]
-    }.each_value(&:freeze)
-  end
-
-  CLASS_TO_ATTR_AND_K = class_to_attr_and_k.freeze
-
-  def update_rating(voteable, delta)
-    attr, k = CLASS_TO_ATTR_AND_K[voteable.class]
-    if attr
-      self[attr] += delta*k
-      self.save!
-    end
   end
 
   def self.prepare_user(user, args)
