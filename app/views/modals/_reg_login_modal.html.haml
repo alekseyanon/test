@@ -58,7 +58,7 @@
                 %div.form-field
                   .control-group
                     .controls
-                      %input{ name: 'name', size: '50', placeholder: 'Имя', id: 'user_name', type: 'text' }
+                      %input{ name: "name", size: '50', placeholder: 'Имя', id: 'user_name', type: "text" }
                 %div.form-field
                   = f.input :password, size: '50', placeholder: 'Пароль', :input_html => { id: 'user_registration_password' }, class: 'span12'
                   %div.reg-modal__form__password-links.clearfix
@@ -66,12 +66,12 @@
                       Показать пароль
                 %div.reg-modal__form__checkboxes
                   %label.checkbox{ for: 'tos' }
-                    %input{ name: 'accepted_tos', id: 'tos', type: 'checkbox', value: '1' }
+                    %input{ name: "accepted_tos", id: 'tos', type: 'checkbox', value: '1' }
                     %span
                       Согласен с
-                      = link_to 'правилами проекта', '/terms'
+                      = link_to 'правилами проекта', "/terms"
                   %label.checkbox{ for: 'user_spam' }
-                    %input#user_spam{ name: 'settings[news_mailer]', type: 'checkbox', value: '1', as: :boolean, label: false }
+                    %input#user_spam{ name: "settings[news_mailer]", type: 'checkbox', value: '1', as: :boolean, label: false }
                     Хочу получать рассылку
                 %button.button.button_3d.button_orange.button_full#register{ type: 'submit' }
                   %span.button__inner.button_3d__inner.button_full__inner
