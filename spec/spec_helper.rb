@@ -86,3 +86,9 @@ def get_credentials
       'token' => '471261730-OSGlKOnc6cAWZLABJyV1WM1aWGe9WIeV2PakyoMb'
   }}
 end
+
+def check_create model, json
+  expect {
+    post :create, {format: :json}.merge!(json)
+  }.to change(model, :count).by(1)
+end
