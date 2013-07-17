@@ -48,7 +48,7 @@ before_install:
 before_script:
   # - bundle exec rake db:migrate
   - bundle install
-  - rails start
+  - rails s
   - casperjs test ./tests/*_test.coffee --url=http://localhost/
 #notifications:
 #  hipchat: 56de6c6e69b953ec863afab78a4e65@Smorodina dev
