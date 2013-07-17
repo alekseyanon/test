@@ -1,7 +1,0 @@
-= form_for [@commentable, @comment] do |f|
-  = hidden_field_tag 'parent_id', params[:parent_id]
-  .field
-    = f.label :body
-    = f.text_area :body
-  .actions
-    = f.submit 'Save'
