@@ -4,12 +4,9 @@ class CommentsController < InheritedResources::Base
   before_filter :load_commentable
   load_and_authorize_resource only: CRUD_ACTIONS
 
+  ### TODO: should be deleted. It need for images comments
   def new
     @comment = @commentable.comments.build
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   def create
@@ -17,28 +14,9 @@ class CommentsController < InheritedResources::Base
     @comment.user = current_user
     @comment.parent_id = params[:parent_id]
     if @comment.save
-      respond_with do |format|
-        format.html { redirect_to @commentable }
-        format.js { render '_record', locals: { comment: @comment, sub_comments: nil }}
-      end
+      respond_with_js '_record', { comment: @comment, sub_comments: nil }
     else
-      respond_with do |format|
-        format.html { render action: :new }
-        format.json { render json: @commentable.errors, status: :unprocessable_entity }
-        format.js { render '_add_comment', locals: {commentable: @commentable, comment: @comment }}
-      end
-    end
-  end
-
-  def update
-    respond_with do |format|
-      if @comment.update_attributes(params[:comment])
-        format.html { redirect_to @commentable, notice: 'comment was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: :edit }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+      respond_with_js '_add_comment', {commentable: @commentable, comment: @comment }
     end
   end
 
@@ -51,6 +29,12 @@ class CommentsController < InheritedResources::Base
 
   def find_comment
     @comment = Comment.find params[:id]
+  end
+
+  def respond_with_js partial, locals
+    respond_with do |format|
+      format.js { render partial, locals: locals}
+    end
   end
 
 end

@@ -14,22 +14,22 @@
         - images.each_with_index do |image, index|
           - if index == 0
             = image_tag(image.image_url(:objmainthumb), width: 504, height: 337, class: 'main')
-          - else 
+          - else
             = image_tag(image.image_url(:objsecthumb), width: 237, height: 167)
       .obj_descr__info__links
         .obj_descr__info__links__rate
-          %h3 
+          %h3
             Рейтинг oбъекта
           .obj_descr__info__links__value
             = @geo_object.average_rating
         .obj_descr__info__links__planner
-          = link_to content_tag(:span, "В планировщик", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-bookmark ui-link'}
+          = link_to content_tag(:span, 'В планировщик', class: 'inner'), '#', {class: 'action-link-bullet icon-sm-bookmark ui-link'}
         .obj_descr__info__links__print
-          = link_to content_tag(:span, "Напечатать", class: 'inner'), "#", {class: 'action-link-bullet icon-sm-print ui-link'}
+          = link_to content_tag(:span, 'Напечатать', class: 'inner'), '#', {class: 'action-link-bullet icon-sm-print ui-link'}
         .obj_descr__info__links__social
           = render partial: 'shared/sn_share_buttons', locals: {size: 16}
         .add_photo_or_video_link
-          = link_to "Добавить фото или видео", "#newimage", {class: "link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link"}
+          = link_to 'Добавить фото или видео', '#newimage', {class: 'link-like-button bullet icon-sm-arrow-up button button_standard button_grey ui-link'}
     .obj_descr__text
       .obj_descr__text__vote_stats
         .obj_descr__text__vote_stats__value
@@ -45,7 +45,7 @@
                 %div{class: 'obj_descr__text__vote_stats__value__item__value', data: {votes_for: @geo_object.votes_for(tag_name), votes_against: @geo_object.votes_against(tag_name), current_user_vote: user_vote, vote_url: path}}
 
         .obj_descr__text__vote_stats__near_objects
-          = link_to "Объекты поблизости", search_geo_objects_path, {class: "link-like-button bullet icon-sm-compass button button_standard button_grey ui-link"} 
+          = link_to 'Объекты поблизости', search_geo_objects_path, {class: 'link-like-button bullet icon-sm-compass button button_standard button_grey ui-link'}
 
       .obj_descr__text__descr
         - if !@geo_object.address.nil?
@@ -54,7 +54,7 @@
 
         - if !@geo_object.schedule.nil?
           .obj_descr__text__descr__time.icon-sm-clock
-            = @geo_object.schedule 
+            = @geo_object.schedule
 
         - if !@geo_object.contacts.nil?
           .obj_descr__text__descr__organizations.icon-sm-directions
@@ -72,11 +72,11 @@
           = render partial: 'shared/block_adder', locals: {object: @geo_object}
 
         .obj_descr__text__descr__runtips{data: {id: @geo_object.id}}
-          .obj_descr__text__descr__runtips__spinner 
-          = link_to 'Как добраться', "#runtips_list", {class: 'action-link ui-link runtip_switcher', data:{toggle: "collapse", target: "#runtips_list"}}
+          .obj_descr__text__descr__runtips__spinner
+          = link_to 'Как добраться', '#runtips_list', {class: 'action-link ui-link runtip_switcher', data:{toggle: 'collapse', target: '#runtips_list'}}
           .obj_descr__text__descr__runtips__list__container.collapse#runtips_list
             .obj_descr__text__descr__runtips__list__add
-              = form_for([@geo_object, Runtip.new]) do |f|
+              = form_for([:api, @geo_object, Runtip.new]) do |f|
                 .pic_comments__add__avatar
                   - unless current_user.nil?
                     = image_tag current_user.profile.avatar_url(:image_commentor_thumb), width: 48, height: 48
@@ -90,7 +90,7 @@
 
 
             .obj_descr__text__descr__runtips__list
-    
+
   %div#mapContainer.map__outer
     %div.map__inner
       %div.map__content
@@ -103,7 +103,7 @@
 
   = render partial: 'geo_objects/sub_navigation', locals: {object: @geo_object}
   .obj_descr__responces__starter
-    
+
 = render partial: 'images/new', locals: { object: @geo_object }
 
 %script

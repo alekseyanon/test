@@ -29,13 +29,13 @@ module ApplicationHelper
   end
 
   def new_complaint_polymorphic_path votable
-    new_polymorphic_path( if votable.is_a? Comment
-                            [votable.commentable]
-                          elsif votable.is_a? Runtip
-                            [votable.geo_object ]
-                          else
-                            []
-                          end + [votable, votable.complaints.build])
+    new_polymorphic_path( [:api] + if votable.is_a? Comment
+                                    [votable.commentable]
+                                  elsif votable.is_a? Runtip
+                                    [votable.geo_object ]
+                                  else
+                                    []
+                                  end + [votable, votable.complaints.build])
   end
 
   ### TODO: предполагаем что параметров может быть до 3-х
