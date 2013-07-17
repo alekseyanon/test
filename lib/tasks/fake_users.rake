@@ -20,7 +20,20 @@ namespace :fake do
   #   Facebook: [test98732both@yandex.ru, 123456ab]
   #   Twitter:  [test98732both@yandex.ru, 123456a ]
 
-  task users: :prepare_images_seed do
+  IMAGES_DIR = Rails.root.join('spec', 'fixtures', 'images', 'tmp_imgs')
+
+  def seed_images(width, height)
+    15.times{|i| `curl http://lorempixel.com/#{width}/#{height}/ -o #{IMAGES_DIR}/#{i}_#{width}_#{height}.jpg`}
+  end
+
+  def pick_random_image(width = 300, height = 300)
+    img_files = Dir.entries(IMAGES_DIR).join ' '
+    seed_images(width, height) unless img_files["#{width}_#{height}"]
+    img = Dir.entries(IMAGES_DIR).reject!{|file| file[/^\./] }.sample
+    IMAGES_DIR.join(img).to_s
+  end
+
+  task users: :environment do
 
     load_routes
 

@@ -1,8 +1,8 @@
 class Vote < ActiveRecord::Base
 
-  scope :for_voter, lambda { |*args| where(["voter_id = ? AND voter_type = ?", args.first.id, args.first.class.base_class.name]) }
-  scope :for_voteable, lambda { |*args| where(["voteable_id = ? AND voteable_type = ?", args.first.id, args.first.class.base_class.name]) }
-  scope :recent, lambda { |*args| where(["created_at > ?", (args.first || 2.weeks.ago)]) }
+  scope :for_voter, ->(id, type) { where ["voter_id = ? AND voter_type = ?", id, type] }
+  scope :for_voteable, ->(id, type) { where ['voteable_id IN (?) AND voteable_type = ?', id, type] }
+  scope :from_time, ->(time) { where ["created_at > ?", (time || Time.now - 1.hour)] }
   scope :descending, order("created_at DESC")
 
   belongs_to :voteable, polymorphic: true
