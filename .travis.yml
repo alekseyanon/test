@@ -25,7 +25,6 @@ before_install:
   - sudo apt-get update
   - aptitude search postgresql
   - sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-dev
-before_script:
   - cp config/database.travisci.yml config/database.yml
   - cp config/social_services.yml.example config/social_services.yml
   - psql -c 'create database smorodina_test;' -U postgres
@@ -33,7 +32,6 @@ before_script:
   - psql smorodina_test -f db/sql/pgsnapshot_schema_0.6.sql -U postgres
   - psql smorodina_test -c 'drop table users;' -U postgres
   - psql smorodina_test -f db/sql/agc_generation_functions.sql -U postgres
-  - bundle exec rake db:migrate
   - git clone https://github.com/umitanuki/kmeans-postgresql.git
   - cd kmeans-postgresql
   - make
@@ -41,15 +39,15 @@ before_script:
   - sudo cp ./kmeans.control ./kmeans--1.1.0.sql $(pg_config --sharedir)/extension/
   - cd ..
   - psql smorodina_test -f db/sql/kmeans.sql -U postgres
-  - bundle install
-  - #rake db:nuke
-  - #rake fake:all
   - sudo aptitude install postgresql-plpython-9.1
   - dropdb smorodina_test
   - psql -c 'create database smorodina_test;' -U postgres
   - wget https://www.dropbox.com/s/h462fcazedyhk8m/testdump-16-07-2013.bz2
   - bunzip2 ./testdump-16-07-2013.bz2
   - psql smorodina_test < testdump-16-07-2013 -U postgres
+before_script:
+  - bundle exec rake db:migrate
+  - bundle install
   - rails start
   - casperjs test ./tests/*_test.coffee --url=http://localhost/
 #notifications:
