@@ -27,6 +27,7 @@ before_install:
   - sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-dev
   - cp config/database.travisci.yml config/database.yml
   - cp config/social_services.yml.example config/social_services.yml
+  - dropdb smorodina_test
   - psql -c 'create database smorodina_test;' -U postgres
   - psql smorodina_test -c 'CREATE EXTENSION hstore; CREATE EXTENSION postgis;' -U postgres
   - psql smorodina_test -f db/sql/pgsnapshot_schema_0.6.sql -U postgres
@@ -40,8 +41,6 @@ before_install:
   - cd ..
   - psql smorodina_test -f db/sql/kmeans.sql -U postgres
   - sudo aptitude install postgresql-plpython-9.1
-  - dropdb smorodina_test
-  - psql -c 'create database smorodina_test;' -U postgres
   - wget https://www.dropbox.com/s/h462fcazedyhk8m/testdump-16-07-2013.bz2
   - bunzip2 ./testdump-16-07-2013.bz2
   - psql smorodina_test < testdump-16-07-2013 -U postgres
