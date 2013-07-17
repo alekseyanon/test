@@ -46,7 +46,7 @@ before_install:
   - bunzip2 ./testdump-16-07-2013.bz2
   - psql smorodina_test < testdump-16-07-2013 -U postgres
 before_script:
-  - bundle exec rake db:migrate
+  # - bundle exec rake db:migrate
   - bundle install
   - rails start
   - casperjs test ./tests/*_test.coffee --url=http://localhost/
