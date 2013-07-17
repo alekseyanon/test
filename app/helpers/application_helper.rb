@@ -29,13 +29,7 @@ module ApplicationHelper
   end
 
   def new_complaint_polymorphic_path votable
-    new_polymorphic_path( [:api] + if votable.is_a? Comment
-                                    [votable.commentable]
-                                  elsif votable.is_a? Runtip
-                                    [votable.geo_object ]
-                                  else
-                                    []
-                                  end + [votable, votable.complaints.build])
+    new_polymorphic_path( make_args votable, :complaints)
   end
 
   ### TODO: предполагаем что параметров может быть до 3-х
@@ -48,13 +42,7 @@ module ApplicationHelper
   ### new_vote_polymorphic_path @geo_object, 'tag', format: :json
   def new_vote_polymorphic_path votable, *params
     options = {}
-    args =  [:api] + if votable.is_a? Comment
-                       [votable.commentable]
-                     elsif votable.is_a? Runtip
-                       [votable.geo_object]
-                     else
-                       []
-                     end  + [votable, votable.votes.build]
+    args = make_args votable, :votes
     params.compact.each do |p|
       options.merge!((p.is_a? String) ? {voteable_tag: p} : p)
     end
@@ -67,5 +55,15 @@ module ApplicationHelper
 
   def destroy_vote_polymorphic_path votable
     new_vote_polymorphic_path(votable).strip + "/#{Vote.first.id}"
+  end
+
+  def make_args votable, model
+    [:api] + if votable.is_a? Comment
+               [votable.commentable]
+             elsif votable.is_a? Runtip
+               [votable.geo_object]
+             else
+               []
+             end  + [votable, votable.send(model).build]
   end
 end
