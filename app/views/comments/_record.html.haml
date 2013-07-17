@@ -5,16 +5,16 @@
     .pic_comments__comment__info__name
       = comment.user.profile.name
     .pic_comments__comment__info__date
-      = comment.created_at.strftime("%d.%m.%Y")
+      = comment.created_at.strftime('%d.%m.%Y')
     .pic_comments__comment__info__comment
       = comment.body
     .pic_comments__comment__info__actions
       .pic_comments__comment__info__actions__respond
         - if comment.parent_id.nil?
           - path = new_polymorphic_path([comment.commentable, comment], parent_id: comment.id)
-          = link_to content_tag(:span, "Ответить", class: 'inner'), path, {class: "icon-sm-reply action-link-bullet", remote: !current_user.nil? } 
+          = link_to content_tag(:span, 'Ответить', class: 'inner'), path, {class: 'icon-sm-reply action-link-bullet', remote: !current_user.nil? }
       .pic_comments__comment__info__actions__vote
-        = render partial: "shared/vote_for", locals: {votable: comment}
+        = render partial: 'shared/vote_for', locals: {votable: comment}
   .pic_comments__chid_comments
     - unless sub_comments.nil?
       = nested_comments(sub_comments)

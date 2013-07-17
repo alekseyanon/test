@@ -1,7 +1,7 @@
 class Api::CommentsController < ApplicationController
   before_filter :load_commentable, only: [:create]
   before_filter :find_parent_model, only: [:index]
-  
+
   def create
     @comment = @commentable.comments.build params[:comment]
     @comment.user = current_user

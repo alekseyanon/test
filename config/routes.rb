@@ -1,6 +1,5 @@
 Smorodina::Application.routes.draw do
 
-
   resources :places, only: :show
 
   mount RedactorRails::Engine => '/redactor_rails'
@@ -21,9 +20,11 @@ Smorodina::Application.routes.draw do
     match 'objects/:id' => 'geo_objects#show'
     resources :geo_objects, path: 'objects' do
       resources :images
+      resources :complaints, only: [:new, :create, :index, :destroy]
       resources :votes, only: [:create, :index]
       delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
       resources :runtips do
+        resources :complaints, only: [:new, :create, :index, :destroy]
         resources :votes, only: [:create, :index]
         delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
       end
@@ -35,10 +36,12 @@ Smorodina::Application.routes.draw do
     end
 
     resources :events do
+      resources :complaints, only: [:new, :create, :index, :destroy]
       resources :votes, only: [:create, :index]
       delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
       resources :images
       resources :reviews do
+        resources :complaints, only: [:new, :create, :index, :destroy]
         resources :votes, only: [:create, :index]
         delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
         resources :comments
@@ -72,10 +75,6 @@ Smorodina::Application.routes.draw do
   match 'events/search' => 'events#index'
 
   resources :events do
-    resources :complaints, only: [:new, :create, :index, :destroy]
-    resources :reviews, only: [:new, :create, :edit, :update]
-    resources :votes, only: [:create]
-    delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
     resources :images
     resources :videos
     resources :you_tubes, path: 'videos'
@@ -89,37 +88,12 @@ Smorodina::Application.routes.draw do
   resources :authentications
 
   resources :images do
-    resources :complaints, only: [:new, :create, :index, :destroy]
-    resources :votes, only: [:create]
-    delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
-    resources :comments do
-      resources :complaints, only: [:new, :create, :index, :destroy]
-      resources :votes, only: [:create]
-      delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
-    end
+    resources :comments
   end
 
-  resources :reviews do
-    resources :votes, only: [:create]
-    delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
-    resources :complaints, only: [:new, :create, :index, :destroy]
-    resources :comments do
-      resources :complaints, only: [:new, :create, :index, :destroy]
-      resources :votes, only: [:create]
-      delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
-    end
-  end
+  resources :reviews
 
   resources :geo_objects, path: 'objects' do
-    resources :runtips do
-      resources :votes, only: [:create]
-      delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
-      resources :complaints, only: [:new, :create, :index, :destroy]
-    end
-    resources :complaints, only: [:new, :create, :index, :destroy]
-    resources :reviews, only: [:new, :create, :edit, :update]
-    resources :votes, only: [:create]
-    delete 'votes' => 'votes#destroy', defaults: { format: 'json' }
     resources :images
     resources :videos
     resources :you_tubes, path: 'videos'

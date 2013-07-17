@@ -1,24 +1,19 @@
-class ComplaintsController < InheritedResources::Base
+class Api::ComplaintsController < InheritedResources::Base
   before_filter :authenticate_user!, only: [:new, :create, :index]
+  before_filter :find_complaintable, only: [:new, :create]
   load_and_authorize_resource only: CRUD_ACTIONS
 
+  ### TODO: should be removed after implement API
   def new
-    @complaintable = find_complaintable
     @complaintable.insert(-1, Complaint.new)
-    respond_to do |format|
-      format.html{ render layout: false}
-    end
   end
 
+  ### TODO: should be changed after implement API
   def create
-    @complaintable = find_complaintable
     @complaint = @complaintable.last.complaints.build(params[:complaint])
     @complaint.user = current_user
-    if @complaint.save
-      redirect_to @complaintable.first
-    else
-      render action: 'new'
-    end
+    @complaint.save
+    render json: {success: :true}
   end
 
   private
@@ -30,6 +25,6 @@ class ComplaintsController < InheritedResources::Base
           complaintable << $1.classify.constantize.find(value)
         end
       end
-      complaintable.blank? ? nil : complaintable
+      @complaintable = complaintable.blank? ? nil : complaintable
     end
 end
