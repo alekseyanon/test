@@ -5,7 +5,8 @@ class Api::ComplaintsController < InheritedResources::Base
 
   ### TODO: should be removed after implement API
   def new
-    @complaintable.insert(-1, Complaint.new)
+    @complaintable.insert(-1, Complaint.new).insert(0, :api)
+    render template: 'complaints/new'
   end
 
   ### TODO: should be changed after implement API

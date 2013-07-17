@@ -1,1 +1,6 @@
-= render 'form'
+= simple_form_for(@complaintable) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :content, label: 'Пожалуйста, укажите причину жалобы.'
+  .form-actions
+    = f.button :submit, 'Отправить жалобу'
