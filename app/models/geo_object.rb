@@ -10,6 +10,8 @@ class GeoObject < ActiveRecord::Base
   scope :ordered_by_rating, order('rating DESC, created_at DESC')
   scope :ordered_by_name,   order('title')
 
+  scope :created_after, ->(time) { where('created_at > ?', time) if time }
+
   acts_as_voteable
 
   def objects_nearby radius
