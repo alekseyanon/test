@@ -20,7 +20,9 @@ module UserFeatures
     end
 
     def update_rating(voteable, delta)
-      voteable = voteable.to_s.tableize.to_sym
+      unless voteable.is_a? Symbol
+        voteable = voteable.class.table_name.to_sym
+      end
       model = RATINGS_TABLE[voteable]
       k = RATINGS[model]
       if model
