@@ -85,7 +85,7 @@ describe User do
 
     it 'should update user rating' do
       GeoObject.make! user: user
-      lambda { user.update_rating }.should change(user, :rating).from(0.0).to(1.4)
+      lambda { user.update_rating_all }.should change(user, :rating).from(0.0).to(1.4)
     end
 
     it 'should get recommenders count' do
