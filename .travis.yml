@@ -16,7 +16,7 @@ before_install:
   - cd ..
   - casperjs --version
   - python --version
-  #install other
+  #install other 
   - sudo apt-get install aptitude
   - echo "yes" | sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
   - sudo aptitude update
